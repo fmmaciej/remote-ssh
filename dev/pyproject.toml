@@ -1,0 +1,52 @@
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+# Repo nie-pythonowe
+extend-exclude = [
+  "shell/",
+  "lib/",
+  "tools/",
+  "dots/",
+]
+
+[tool.ruff.lint]
+select = [
+  "E",    # podstawowe błędy (pep8)
+  "F",    # błędy runtime (undefined name, etc.)
+  "I",    # import order
+  "B",    # bugbear – realne bugi
+  "UP",   # modernizacja składni (py3)
+]
+
+ignore = [
+  "E501",   # długość linii, format ogarnie
+  "B008",   # function call in default args
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.11"
+
+# Repo skryptowe, nie biblioteka
+files = ["scripts"]
+
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+
+# Nie wymagamy pełnych typów
+disallow_untyped_defs = false
+check_untyped_defs = false
+
+# Mniej szumu
+no_implicit_optional = false
+strict_optional = true
+
+# Czytelne błędy
+pretty = true
+show_error_codes = true

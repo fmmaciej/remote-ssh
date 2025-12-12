@@ -1,0 +1,49 @@
+format = "$time $username$hostname $directory$git_branch$git_status\n$character"
+
+[directory]
+format = "[$path]($style)"
+style = "bold fg:blue"
+truncation_length = 0
+truncate_to_repo = false
+
+[git_branch]
+format = " [git::${branch}]($style)"
+style = "bold fg:yellow"
+truncation_length = 40
+truncation_symbol = "..."
+
+[git_status]
+format = " [\\[$all_status\\]]($style)"
+style = "bold fg:red"
+conflicted = "!"
+staged = "+"
+modified = "~"
+renamed = ">"
+deleted = "-"
+untracked = "?"
+stashed = "$"
+
+ahead    = " +${count}"
+behind   = " -${count}"
+diverged = " <>${ahead_count}/${behind_count}"
+
+[username]
+format = "[$user@]($style)"
+style_user = "bold fg:green"
+style_root = "bold fg:red"
+show_always = true
+
+[hostname]
+format = "[$hostname]($style)"
+style = "bold fg:green"
+ssh_only = false
+
+[time]
+format = "[$time]($style)"
+style = "bold fg:white"
+disabled = false
+time_format = "%H:%M:%S"
+
+[character]
+success_symbol = "[>](bold fg:green) "
+error_symbol  = "[!](bold fg:red) "

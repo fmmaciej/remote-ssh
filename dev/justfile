@@ -1,0 +1,22 @@
+# shellcheck shell=bash
+
+# Folder ze skryptami pythonowymi
+py_scripts := "../scripts"
+
+py-lint:
+    # shellcheck disable=SC1083
+    ruff check --fix {{py_scripts}}
+
+py-fmt:
+    # shellcheck disable=SC1083
+    ruff format {{py_scripts}}
+
+py-type:
+    # shellcheck disable=SC1083
+    mypy --config-file pyproject.toml {{py_scripts}}
+
+sh-lint:
+    find . -name "*.sh" -exec shellcheck {} +
+
+sh-fmt:
+    find . -name '*.sh' -exec shfmt -w {} +

@@ -1,0 +1,12 @@
+Use:
+  bash --rcfile "@INSTALL_DIR@/shell/rc.sh"
+
+Or add in your local ~/.ssh/config:
+  Host serv
+    HostName <server-address>
+    User <user>
+    RequestTTY yes
+    RemoteCommand bash --rcfile '@INSTALL_DIR@/shell/rc.sh' -i
+
+Then:
+  ssh serv

@@ -2,8 +2,10 @@
 
 set -euo pipefail
 
-if [[ "${BASH_SOURCE[0]}" != "/dev/stdin" ]]; then
+# stdin comes from terminal, not from pipe or file
+if [ -t 0 ]; then
   echo "NOTE: This script is intended to be run remotely (curl | bash)."
+  exit 1
 fi
 
 REPO_URL="https://github.com/fmmaciej/remote-ssh.git"

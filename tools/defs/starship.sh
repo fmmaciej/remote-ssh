@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# shellcheck shell=bash
 
 TOOL_NAME="starship"
 GH_REPO="starship/starship"

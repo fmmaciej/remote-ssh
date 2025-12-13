@@ -1,7 +1,8 @@
+# shellcheck shell=bash
+
 TOOL_NAME="yazi"
 GH_REPO="sxyazi/yazi"
 DEFAULT_VERSION="0.2.5"
-
 TAG_PREFIX="v"
 
 BINARY_NAME="yazi"

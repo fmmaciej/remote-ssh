@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# shellcheck shell=bash
 
 TOOL_NAME="rg"
 GH_REPO="BurntSushi/ripgrep"

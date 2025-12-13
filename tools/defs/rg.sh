@@ -2,7 +2,7 @@
 
 TOOL_NAME="rg"
 GH_REPO="BurntSushi/ripgrep"
-DEFAULT_VERSION="14.1.0"
+DEFAULT_VERSION="15.1.0"
 TAG_PREFIX=""
 
 BINARY_NAME="rg"

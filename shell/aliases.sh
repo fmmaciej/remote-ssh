@@ -17,25 +17,17 @@ else
   alias la="ls -A"
 fi
 
-if have ripgrep; then
-  alias rg="ripgrep"
-fi
-
-if have bat; then
-  alias cat="bat"
-fi
-
 if have zoxide; then
   # bash, potem zsh; jak oba zawiodą, nie krzycz.
   eval "$(zoxide init bash 2>/dev/null || zoxide init zsh 2>/dev/null || true)"
 fi
 
-if have yazi; then
-  alias y="yazi"
+if have ripgrep; then
+  alias rg="ripgrep"
 fi
 
-if have btop; then
-  alias top="btop"
+if have yazi; then
+  alias y="yazi"
 fi
 
 alias f2='find . -mindepth 1 -maxdepth 2 -not -path "./.git*" -print'

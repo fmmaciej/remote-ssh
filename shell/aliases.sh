@@ -4,6 +4,8 @@ ensure_this_file_sourced
 
 alias rcrc='source "$REMOTE_SHELL_DIR/rc.sh"'
 
+alias rssh="cd ~/.local/share/remote-ssh"
+
 alias l="ls"
 
 if have eza; then

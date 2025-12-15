@@ -62,6 +62,7 @@ build_variants_from_assets() {
     # pomijamy sumy, sygnatury, itp.
     case "$a" in
       *.sha256|*.sha256sum|*.sig|*.asc) continue ;;
+      *.deb|*.rpm|*.apk|*.pkg)          continue ;;
     esac
 
     os="$(detect_os "$a")";     [[ -n "$os" ]]   || continue

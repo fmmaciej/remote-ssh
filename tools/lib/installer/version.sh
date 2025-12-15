@@ -17,7 +17,7 @@ resolve_version() {
   fi
 
   local tag
-  tag="$(rs_get_latest_github_tag "$repo")" || return 1
+  tag="$(get_latest_github_tag "$repo")" || return 1
   [[ -n "$tag" ]] || return 1
 
   if [[ -n "$tag_prefix" && "$tag" == "${tag_prefix}"* ]]; then

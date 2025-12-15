@@ -14,6 +14,7 @@ load_defs() {
   : "${TOOL_NAME:?}"
   : "${GH_REPO:?}"
   : "${DEFAULT_VERSION:?}"
+  : "${ASSET_PREFIX:?}"
   : "${VARIANTS:?}"
 
   BINARY_NAME="${BINARY_NAME:-$TOOL_NAME}"

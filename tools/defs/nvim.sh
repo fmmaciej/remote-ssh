@@ -17,5 +17,5 @@ VARIANTS=(
   "linux:aarch64:gnu|prefix-os-arch|amd64_arm64|linux_darwin"
   "linux:x86_64:gnu|prefix-os-arch|x86_64_aarch64|linux_darwin"
   "darwin:aarch64:any|prefix-os-arch|amd64_arm64|linux_macos"
-  "darwin:x86_64:any|prefix-version-os_arch|x86_64_aarch64|linux_macos"
+  "darwin:x86_64:any|prefix-os-arch|x86_64_aarch64|linux_macos"
 )

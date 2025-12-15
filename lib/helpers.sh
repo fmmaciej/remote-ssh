@@ -21,3 +21,8 @@ path_prepend() {
       ;;
   esac
 }
+
+fetch_json() {
+  local api="${1:?api url required}"
+  curl -fsS "$api"
+}

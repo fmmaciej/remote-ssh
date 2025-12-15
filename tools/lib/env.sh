@@ -11,7 +11,6 @@ LIB_DIR="$REPO_DIR/lib"
 # shellcheck source=/dev/null
 . "$LIB_DIR/guards.sh"
 
-# Jeśli zwróci błąd (zmienna już ustawiona), przerwij dalsze ładowanie pliku.
 ensure_this_file_sourced
 
 # shellcheck disable=SC2034
@@ -22,19 +21,23 @@ DOTS_DIR="$REPO_DIR/dots"
 SHELL_DIR="$REPO_DIR/shell"
 # shellcheck disable=SC2034
 TOOLS_DIR="$REPO_DIR/tools"
-TOOLS_LIB_DIR="$REPO_DIR/tools/lib"
 
-# Domyślne ścieżki instalacji - ale pozwalamy je nadpisać *przed* source env.sh
+TOOLS_LIB_DIR="$REPO_DIR/tools/lib"
 # shellcheck disable=SC2034
-INSTALL_PREFIX="${HOME}/.local/opt"
+TOOLS_COMMON_DIR="$TOOLS_LIB_DIR/common"
 # shellcheck disable=SC2034
-INSTALL_BIN_DIR="${HOME}/.local/bin"
+TOOLS_INSTALLER_DIR="$TOOLS_LIB_DIR/installer"
+# shellcheck disable=SC2034
+TOOLS_GENERATOR_DIR="$TOOLS_LIB_DIR/generator"
+# shellcheck disable=SC2034
+TOOLS_BOOTSTRAP_DIR="$TOOLS_LIB_DIR/bootstrap"
+
+# domyślne ścieżki instalacji (można nadpisać przed source)
+: "${INSTALL_PREFIX:=${HOME}/.local/opt}"
+: "${INSTALL_BIN_DIR:=${HOME}/.local/bin}"
 
 # shellcheck source=/dev/null
 . "$LIB_DIR/log.sh"
 
 # shellcheck source=/dev/null
 . "$LIB_DIR/helpers.sh"
-
-# shellcheck source=/dev/null
-. "$TOOLS_LIB_DIR/common.sh"

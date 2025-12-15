@@ -25,6 +25,8 @@ __fzf_history() {
 }
 
 # bind tylko jeśli readline (bash interaktywny)
-if [[ -n "${BASH_VERSION:-}" ]]; then
-  bind -x '"\C-r":__fzf_history'
+if [[ -n "${BASH_VERSION:-}" && $- == *i* ]]; then
+  # jeśli readline działa
+  bind -q '"\C-r"' >/dev/null 2>&1 && :
+  bind -x '"\C-r":__fzf_history' 2>/dev/null || true
 fi

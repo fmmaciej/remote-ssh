@@ -1,4 +1,5 @@
 # shellcheck shell=bash
+# shellcheck disable=SC2034
 
 ensure_this_file_sourced
 
@@ -12,34 +13,38 @@ tag_prefix_and_version() {
   DEFAULT_VERSION="$tag"
 
   if [[ "$tag" == v* ]]; then
-    # shellcheck disable=SC2034
     TAG_PREFIX="v"
-    # shellcheck disable=SC2034
     DEFAULT_VERSION="${tag#v}"
   fi
 }
 
 # detect_asset_prefix <tool> <version> <assets...>
-# Input: tool+version+assets
-# Output: sets global ASSET_PREFIX (np. "fd-v" vs "fd") based on asset names
+# Input: tool+version+assets; Output: sets global ASSET_PREFIX (np. "fd-v" vs "fd")
 detect_asset_prefix() {
   local tool="${1:?tool required}"
   local version="${2:?version required}"
   shift 2
 
-  local assets=("$@")
-
-  # shellcheck disable=SC2034
   ASSET_PREFIX="$tool"
 
   local a
-  for a in "${assets[@]}"; do
-    case "$a" in
-      "${tool}-v${version}"* )  ASSET_PREFIX="${tool}-v" return 0 ;;
-      "${tool}-${version}"* )   ASSET_PREFIX="${tool}" return 0 ;;
-      "${tool}_${version}"* )   ASSET_PREFIX="${tool}" return 0 ;;
-    esac
+
+  # 1) fd-v10.3.0-...
+  for a in "$@"; do
+    [[ "$a" == "${tool}-v${version}"* ]] && { ASSET_PREFIX="${tool}-v"; return 0; }
   done
+
+  # 2) rg-14.1.0-... / fzf-0.67.0-...
+  for a in "$@"; do
+    [[ "$a" == "${tool}-${version}"* ]] && { ASSET_PREFIX="${tool}"; return 0; }
+  done
+
+  # 3) fzf_0.67.0
+  for a in "$@"; do
+    [[ "$a" == "${tool}_${version}"* ]] && { ASSET_PREFIX="${tool}"; return 0; }
+  done
+
+  return 0
 }
 
 # build_variants_from_assets <assets...>

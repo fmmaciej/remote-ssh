@@ -41,17 +41,19 @@ guess_arch_kind() {
 guess_template() {
   local n="${1,,}"
 
-  # nvim: nvim-macos-arm64.tar.gz / nvim-linux-x86_64.tar.gz (bez wersji w nazwie)
-  [[ "$n" =~ (^|/)nvim-(macos|linux)- ]]  && { echo "prefix-os-arch"; return; }
+  # nvim: bez wersji w nazwie
+  [[ "$n" =~ (^|/)nvim-(macos|linux)- ]] && { echo "prefix-os-arch"; return; }
 
-  # ogólniej: "-macos-" / "-linux-" bez wersji też zwykle oznacza prefix-os-arch
-  [[ "$n" =~ (^|-)macos-|(^|-)linux- ]]   && { echo "prefix-os-arch"; return; }
+  # fzf: ...-linux_amd64.tar.gz
+  [[ "$n" =~ _[a-z0-9]+\.tar\.gz$ ]] && { echo "prefix-version-os_arch"; return; }
 
-  # fzf: fzf-0.67.0-linux_amd64.tar.gz
-  [[ "$n" =~ _[a-z0-9]+\.tar\.gz$ ]]      && { echo "prefix-version-os_arch"; return; }
+  # zip tools
+  [[ "$n" =~ \.zip$ ]] && { echo "prefix-arch-os"; return; }
 
-  [[ "$n" =~ \.zip$ ]]                    && { echo "prefix-arch-os"; return; }
+  # starship-like: brak wersji, zaczyna się od arch (np. starship-x86_64-unknown-linux-gnu.tar.gz)
+  [[ "$n" =~ ^[a-z0-9._-]+-(x86_64|aarch64|arm64|amd64)-.+\.tar\.gz$ ]] \
+    && [[ ! "$n" =~ -v?[0-9]+\.[0-9]+ ]] && { echo "prefix-arch-os-tgz"; return; }
 
+  # default: rustowe "prefix-version-arch-os"
   echo "prefix-version-arch-os"
 }
-

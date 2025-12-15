@@ -30,6 +30,10 @@ if have zoxide; then
   eval "$(zoxide init bash 2>/dev/null || zoxide init zsh 2>/dev/null || true)"
 fi
 
+if have yazi; then
+  alias y="yazi"
+fi
+
 if have btop; then
   alias top="btop"
 fi

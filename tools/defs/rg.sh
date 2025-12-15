@@ -1,4 +1,5 @@
 # shellcheck shell=bash
+# shellcheck disable=SC2034
 
 TOOL_NAME="ripgrep"
 GH_REPO="BurntSushi/ripgrep"

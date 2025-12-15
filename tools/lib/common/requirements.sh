@@ -11,7 +11,12 @@ check_req_tools() {
     have "$cmd" || missing+=("$cmd")
   done
 
-  if have unzip; then ZIP_SUPPORTED=1; else ZIP_SUPPORTED=0; fi
+  if have unzip; then
+    ZIP_SUPPORTED=1;
+  else
+    # shellcheck disable=SC2034
+    ZIP_SUPPORTED=0;
+  fi
 
   if ((${#missing[@]} > 0)); then
     printf 'Missing required tools:\n' >&2

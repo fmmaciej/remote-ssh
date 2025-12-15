@@ -9,6 +9,7 @@ render_defs() {
 
   cat <<EOF
 # shellcheck shell=bash
+# shellcheck disable=SC2034
 
 TOOL_NAME="${tool}"
 GH_REPO="${repo}"

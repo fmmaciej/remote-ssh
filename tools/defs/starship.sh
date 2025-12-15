@@ -1,4 +1,5 @@
 # shellcheck shell=bash
+# shellcheck disable=SC2034
 
 TOOL_NAME="starship"
 GH_REPO="starship/starship"

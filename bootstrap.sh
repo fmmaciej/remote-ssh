@@ -12,7 +12,7 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 # Docelowo
 # DEFAULT_TOOLS=(fd rg fzf yazi bat exa zoxide jq starship)
-DEFAULT_TOOLS=(fd rg fzf yazi nvim starship)
+DEFAULT_TOOLS=(fd rg fzf bat yazi nvim starship exa)
 
 usage() {
   cat >&2 <<EOF

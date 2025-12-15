@@ -15,6 +15,10 @@ else
   alias la="ls -A"
 fi
 
+if have ripgrep; then
+  alias rg="ripgrep"
+fi
+
 if have bat; then
   alias cat="bat"
 fi

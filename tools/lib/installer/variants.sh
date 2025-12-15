@@ -9,7 +9,19 @@ select_variant() {
 
   local wanted rec key
 
-  # 1) exact match
+  # Prefer musl on Linux (portable binaries)
+  if [[ "$raw_os" == "linux" ]]; then
+    wanted="linux:${raw_arch}:musl"
+    for rec in "$@"; do
+      key="${rec%%|*}"
+      [[ "$key" == "$wanted" ]] || continue
+      echo "${rec#*|}"
+
+      return 0
+    done
+  fi
+
+  # Exact match
   wanted="${raw_os}:${raw_arch}:${libc}"
   for rec in "$@"; do
     key="${rec%%|*}"
@@ -19,7 +31,7 @@ select_variant() {
     return 0
   done
 
-  # 2) libc=any fallback
+  # Fallback: libc=any
   wanted="${raw_os}:${raw_arch}:any"
   for rec in "$@"; do
     key="${rec%%|*}"
@@ -28,18 +40,6 @@ select_variant() {
 
     return 0
   done
-
-  # 3) Linux: gnu -> musl fallback (musl build is often static and works on glibc)
-  if [[ "$raw_os" == "linux" && "$libc" == "gnu" ]]; then
-    wanted="${raw_os}:${raw_arch}:musl"
-    for rec in "$@"; do
-      key="${rec%%|*}"
-      [[ "$key" == "$wanted" ]] || continue
-      echo "${rec#*|}"
-
-      return 0
-    done
-  fi
 
   return 1
 }

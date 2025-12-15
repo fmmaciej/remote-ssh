@@ -16,8 +16,6 @@ ASSET_PREFIX="ripgrep"
 VARIANTS=(
   "darwin:aarch64:any|prefix-version-arch-os|x86_64_aarch64|rust_triple"
   "darwin:x86_64:any|prefix-version-arch-os|x86_64_aarch64|rust_triple"
-
-  # Linux: preferuj musl (działa też na systemach z glibc, bo to statyczny build)
   "linux:x86_64:any|prefix-version-arch-os|x86_64_aarch64|rust_musl"
   "linux:aarch64:any|prefix-version-arch-os|x86_64_aarch64|rust_musl"
 )

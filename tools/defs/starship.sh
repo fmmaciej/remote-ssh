@@ -15,8 +15,8 @@ ASSET_PREFIX="starship"
 # Uwaga: szkic na podstawie assets z tagu: v1.24.1
 VARIANTS=(
   "darwin:aarch64:any|prefix-arch-os-tgz|x86_64_aarch64|rust_triple"
-  "linux:aarch64:musl|prefix-arch-os-tgz|x86_64_aarch64|rust_musl"
   "darwin:x86_64:any|prefix-arch-os-tgz|x86_64_aarch64|rust_triple"
-  "linux:x86_64:gnu|prefix-arch-os-tgz|x86_64_aarch64|rust_triple"
+  "linux:aarch64:musl|prefix-arch-os-tgz|x86_64_aarch64|rust_musl"
   "linux:x86_64:musl|prefix-arch-os-tgz|x86_64_aarch64|rust_musl"
+  "linux:x86_64:gnu|prefix-arch-os-tgz|x86_64_aarch64|rust_triple"
 )

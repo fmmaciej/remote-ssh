@@ -19,7 +19,8 @@ tag_prefix_and_version() {
 }
 
 # detect_asset_prefix <tool> <version> <assets...>
-# Input: tool+version+assets; Output: sets global ASSET_PREFIX (np. "fd-v" vs "fd")
+# Input: tool+version+assets
+# Output: sets global ASSET_PREFIX (np. "fd-v" vs "fd")
 detect_asset_prefix() {
   local tool="${1:?tool required}"
   local version="${2:?version required}"

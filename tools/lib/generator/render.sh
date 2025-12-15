@@ -22,7 +22,8 @@ ASSET_PREFIX="${ASSET_PREFIX}"
 
 # "<os>:<arch>:<libc>|<asset_template>|<arch_kind>|<os_kind>"
 #
-# Uwaga: szkic na podstawie assets z tagu: ${tag}
+# Uwaga:  szkic na podstawie assets z tagu: ${tag}
+#         preferuj wersje musl
 VARIANTS=(
 EOF
 

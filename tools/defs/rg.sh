@@ -15,8 +15,9 @@ ASSET_PREFIX="ripgrep"
 # Uwaga: szkic na podstawie assets z tagu: 15.1.0
 VARIANTS=(
   "darwin:aarch64:any|prefix-version-arch-os|x86_64_aarch64|rust_triple"
-  "linux:aarch64:gnu|prefix-version-arch-os|x86_64_aarch64|rust_triple"
   "darwin:x86_64:any|prefix-version-arch-os|x86_64_aarch64|rust_triple"
-  "linux:x86_64:gnu|prefix-version-arch-os|x86_64_aarch64|rust_triple"
-  "linux:x86_64:musl|prefix-version-arch-os|x86_64_aarch64|rust_musl"
+
+  # Linux: preferuj musl (działa też na systemach z glibc, bo to statyczny build)
+  "linux:x86_64:any|prefix-version-arch-os|x86_64_aarch64|rust_musl"
+  "linux:aarch64:any|prefix-version-arch-os|x86_64_aarch64|rust_musl"
 )

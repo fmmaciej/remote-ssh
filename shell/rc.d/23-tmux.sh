@@ -1,15 +1,13 @@
-# shellcheck shell=bash
+# shellcheck shell=sh
 
 ensure_this_file_sourced
 
 if have tmux; then
-  tmux() {
-    local conf_arg=()
-
-    if [[ -f "$REMOTE_DOTS_DIR/tmux.conf" ]]; then
-      conf_arg=(-f "$REMOTE_DOTS_DIR/tmux.conf")
+  tmuxrc() {
+    if [ -f "$REMOTE_DOTS_DIR/tmux.conf" ]; then
+      command tmux -f "$REMOTE_DOTS_DIR/tmux.conf" "$@"
+    else
+      command tmux "$@"
     fi
-
-    command tmux "${conf_arg[@]}" "$@"
   }
 fi

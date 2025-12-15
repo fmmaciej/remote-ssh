@@ -22,19 +22,15 @@ if have zoxide; then
   eval "$(zoxide init bash 2>/dev/null || zoxide init zsh 2>/dev/null || true)"
 fi
 
-if have ripgrep; then
-  alias rg="ripgrep"
-fi
-
-if have yazi; then
-  alias y="yazi"
-fi
-
 if have nvim; then
   alias nvim='nvim -u ${REMOTE_DOTS_DIR}/vimrc'
   alias vim='nvim'
 elif have vim; then
   alias vim='vim -u ${REMOTE_DOTS_DIR}/vimrc'
 fi
+
+have ripgrep  && alias rg="ripgrep"
+have yazi     && alias y="yazi"
+have tmux     && alias tmux="tmuxrc"
 
 alias f2='find . -mindepth 1 -maxdepth 2 -not -path "./.git*" -print'

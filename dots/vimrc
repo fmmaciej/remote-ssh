@@ -1,0 +1,59 @@
+" VIMRC
+
+set nocompatible
+
+set number
+set numberwidth=4
+set scrolloff=8
+set linebreak
+set showbreak=>\
+set textwidth=100
+set showmatch
+set mouse=a
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Indentation
+set autoindent
+set smartindent
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+" Undo / backspace
+set undolevels=1000
+set backspace=indent,eol,start
+
+" Filetype helpers
+filetype plugin indent on
+syntax on
+
+" Timeouty pod ESC
+set ttimeout
+set ttimeoutlen=10
+
+" Paste-mode toggle
+set pastetoggle=<F2>
+
+" Leader + szybkie source
+let mapleader=","
+nnoremap <leader>s :source $MYVIMRC<CR>
+
+" Timestamp
+nnoremap <F5> "=strftime("%c")<CR>P
+inoremap <F5> <C-R>=strftime("%c")<CR>
+
+" Clipboard: ustaw tylko jeśli opcja istnieje
+if has('clipboard')
+  set clipboard=unnamed,unnamedplus
+endif
+
+" Paste from system clipboard (dziala tylko gdy jest +clipboard)
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+
+" Invisible chars (ASCII-only)
+set listchars=tab:>\ ,trail:.,extends:>,precedes:<,space:.

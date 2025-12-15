@@ -30,4 +30,11 @@ if have yazi; then
   alias y="yazi"
 fi
 
+if have nvim; then
+  alias nvim='nvim -u ${REMOTE_DOTS_DIR}/vimrc'
+  alias vim='nvim'
+elif have vim; then
+  alias vim='vim -u ${REMOTE_DOTS_DIR}/vimrc'
+fi
+
 alias f2='find . -mindepth 1 -maxdepth 2 -not -path "./.git*" -print'

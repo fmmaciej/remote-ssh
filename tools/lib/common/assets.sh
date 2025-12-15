@@ -39,21 +39,24 @@ build_asset_name() {
   fi
 
   case "$template" in
-    prefix-version-arch-os) echo "${base}-${arch}-${os}.tar.gz" ;;
+    prefix-version-arch-os)     echo "${base}-${arch}-${os}.tar.gz" ;;
 
     # tmux
-    prefix-version-os_arch) echo "${base}-${os}_${arch}.tar.gz" ;;
+    prefix-version-os_arch)     echo "${base}-${os}_${arch}.tar.gz" ;;
 
     # yazi
-    prefix-arch-os)         echo "${prefix}-${arch}-${os}.zip" ;;
+    prefix-arch-os)             echo "${prefix}-${arch}-${os}.zip" ;;
 
     # starship
-    prefix-arch-os-tgz)     echo "${prefix}-${arch}-${os}.tar.gz" ;;
+    prefix-arch-os-tgz)         echo "${prefix}-${arch}-${os}.tar.gz" ;;
 
     # nvim
     # Uwaga: ignorujemy 'version', używane tylko w tagu URL,
     # a nie w samej nazwie pliku tar.gz.
-    prefix-os-arch)         echo "${prefix}-${os}-${arch}.tar.gz" ;;
+    prefix-os-arch)             echo "${prefix}-${os}-${arch}.tar.gz" ;;
+
+    # eza
+    prefix_underscore_arch_os)  echo "${prefix}_${arch}-${os}.tar.gz" ;;
 
     *)
       echo "Nieznany ASSET_TEMPLATE: ${template}" >&2

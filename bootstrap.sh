@@ -11,8 +11,8 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 . "$TOOLS_LIB_DIR/bootstrap.lib.sh"
 
 # Docelowo
-# DEFAULT_TOOLS=(fd rg fzf yazi bat exa zoxide jq starship)
-DEFAULT_TOOLS=(fd rg fzf bat yazi nvim starship exa)
+# DEFAULT_TOOLS=(fd rg fzf yazi bat eza zoxide jq starship)
+DEFAULT_TOOLS=(fd rg fzf bat yazi nvim starship eza)
 
 usage() {
   cat >&2 <<EOF

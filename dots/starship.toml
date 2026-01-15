@@ -1,4 +1,4 @@
-format = "$time $username$hostname $directory$git_branch$git_status\n$character"
+format = "$time $username$hostname $directory$git_branch$git_status\n$python$character"
 
 [directory]
 format = "[$path]($style)"
@@ -43,6 +43,11 @@ format = "[$time]($style)"
 style = "bold fg:white"
 disabled = false
 time_format = "%H:%M:%S"
+
+[python]
+format = "[\\[$virtualenv\\]]($style)\n"
+style = "bold fg:magenta"
+disabled = false
 
 [character]
 success_symbol = "[>](bold fg:green) "

@@ -17,5 +17,5 @@ VARIANTS=(
   "darwin:aarch64:any|prefix-version-arch-os|x86_64_aarch64|rust_triple"
   "darwin:x86_64:any|prefix-version-arch-os|x86_64_aarch64|rust_triple"
   "linux:x86_64:any|prefix-version-arch-os|x86_64_aarch64|rust_musl"
-  "linux:aarch64:any|prefix-version-arch-os|x86_64_aarch64|rust_musl"
+  "linux:aarch64:gnu|prefix-version-arch-os|x86_64_aarch64|rust_triple"
 )

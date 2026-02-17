@@ -8,7 +8,7 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 . "$SCRIPT_DIR/lib/env.sh"
 
 # shellcheck source=/dev/null
-. "$TOOLS_LIB_DIR/installer.lib.sh"
+. "$TOOLS_LIB_DIR/install-tool.lib.sh"
 
 usage() {
   echo "Usage: $0 <tool> [version|latest]" >&2

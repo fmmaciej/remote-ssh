@@ -10,7 +10,7 @@ fi
 
 REPO_URL="https://github.com/fmmaciej/remote-ssh.git"
 INSTALL_DIR="${HOME}/.local/share/remote-ssh"
-BOOTSTRAP_SCRIPT="bootstrap.sh"
+INSTALL_SCRIPT="install.sh"
 
 echo "[*] Cloning repo to: $INSTALL_DIR"
 
@@ -28,5 +28,5 @@ fi
 echo "[*] Running bootstrap..."
 (
   cd "$INSTALL_DIR"
-  ./"$BOOTSTRAP_SCRIPT"
+  ./"$INSTALL_SCRIPT"
 )

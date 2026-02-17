@@ -8,7 +8,7 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 . "$SCRIPT_DIR/lib/env.sh"
 
 # shellcheck source=/dev/null
-. "$TOOLS_LIB_DIR/generator.lib.sh"
+. "$TOOLS_LIB_DIR/generate-def.lib.sh"
 
 usage() {
   echo "Usage: $0 <owner>/<name> <name>" >&2

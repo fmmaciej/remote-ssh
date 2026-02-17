@@ -20,9 +20,9 @@ TOOLS_DIR="$REPO_DIR/tools"
 TOOLS_LIB_DIR="$REPO_DIR/tools/lib"
 
 TOOLS_COMMON_DIR="$TOOLS_LIB_DIR/common"
-TOOLS_INSTALLER_DIR="$TOOLS_LIB_DIR/installer"
-TOOLS_GENERATOR_DIR="$TOOLS_LIB_DIR/generator"
-TOOLS_BOOTSTRAP_DIR="$TOOLS_LIB_DIR/bootstrap"
+TOOLS_INSTALL_DIR="$TOOLS_LIB_DIR/install"
+TOOLS_INSTALL_TOOL_DIR="$TOOLS_LIB_DIR/install-tool"
+TOOLS_GENERATE_DEF_DIR="$TOOLS_LIB_DIR/generate-def"
 
 # domyślne ścieżki instalacji (można nadpisać przed source)
 : "${INSTALL_PREFIX:=${HOME}/.local/opt}"

@@ -18,6 +18,15 @@ You can download and execute the script directly:
 curl -fsSL https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh | bash
 ```
 
+## Repository structure
+
+| Path              | Role                       |
+| ----------------- | -------------------------- |
+| `~/.local/share/` | Installation destination   |
+| `dev/`            | Development                |
+| `runme.sh`        | Remote installer           |
+| `install.sh`      | Local installer            |
+
 ## Notes
 
 - `runme.sh` is not meant to be run locally from a cloned repository.
@@ -27,11 +36,7 @@ curl -fsSL https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh |
 - As for now there is no general `remote-ssh` entrypoint.
 - For `remote-ssh` update use `git pull` && `./install.sh` method.
 
-## Repository structure
+## License
 
-| Path              | Role                       |
-| ----------------- | -------------------------- |
-| `~/.local/share/` | Installation destination   |
-| `dev/`            | Development                |
-| `runme.sh`        | Remote installer / updater |
-| `install.sh`      | Environment configuration  |
+Code is licensed under MIT.
+Documentation is licensed under CC BY 4.0.

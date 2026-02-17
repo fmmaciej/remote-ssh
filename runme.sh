@@ -25,7 +25,7 @@ else
   git clone --depth 1 "$REPO_URL" "$INSTALL_DIR"
 fi
 
-echo "[*] Running bootstrap..."
+echo "[*] Running install..."
 (
   cd "$INSTALL_DIR"
   ./"$INSTALL_SCRIPT"

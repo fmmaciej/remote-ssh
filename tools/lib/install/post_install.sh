@@ -3,7 +3,7 @@
 ensure_this_file_sourced
 
 install_print_post_install() {
-  local template_file="$REPO_DIR/POST_INSTALL"
+  local template_file="$REPO_DIR/docs/POST_INSTALL"
 
   if [[ -f "$template_file" ]]; then
     echo

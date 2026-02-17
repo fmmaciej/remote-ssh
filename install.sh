@@ -27,7 +27,7 @@ main() {
   local -a tools=("$@")
   (( $# == 0 )) && tools=("${DEFAULT_TOOLS[@]}")
 
-  log_info "install started."
+  log_info "Begin."
   install_check_requirements
   install_tools "${tools[@]}"
 
@@ -36,8 +36,8 @@ main() {
   install_bin_dir
   install_dots_dir
 
-  log_info "install finished."
-  install_print_post_install
+  log_info "Done."
+  install_print_post_install "$HOME/.local/share/remote-ssh"
 }
 
 main "$@"

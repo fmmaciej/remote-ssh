@@ -1,0 +1,30 @@
+======================================================================
+Interactive usage
+======================================================================
+
+To start an interactive shell using the remote-ssh environment:
+
+  bash --rcfile "@INSTALL_DIR@/shell/rc.sh"
+
+
+======================================================================
+SSH configuration
+======================================================================
+
+Add the following entry to your local SSH configuration
+($HOME/.ssh/config):
+
+  Host @HOSTNAME@
+    HostName @IP_ADDRESS@
+    User @WHO_AM_I@
+    IdentityFile ~/.ssh/<ssh-key>
+    RequestTTY yes
+    RemoteCommand bash --rcfile '@INSTALL_DIR@/shell/rc.sh' -i
+
+
+Then connect normally:
+
+  ssh @HOSTNAME@
+
+This will start an interactive session with the remote-ssh shell
+initialised automatically.

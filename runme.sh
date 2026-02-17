@@ -15,11 +15,11 @@ INSTALL_SCRIPT="install.sh"
 echo "[*] Cloning repo to: $INSTALL_DIR"
 
 if [[ -d "$INSTALL_DIR/.git" ]]; then
-  echo "[*]  Updating existing installation..."
+  echo "[*] Updating existing installation..."
 
   git -C "$INSTALL_DIR" pull --ff-only
 else
-  echo "[*]  Installing into $INSTALL_DIR..."
+  echo "[*] Installing into $INSTALL_DIR..."
 
   mkdir -p "$(dirname "$INSTALL_DIR")"
   git clone --depth 1 "$REPO_URL" "$INSTALL_DIR"

@@ -9,6 +9,7 @@ from pathlib import Path
 
 SEEN_FILES: set[Path] = set()
 
+
 def parse_config(path: Path) -> Iterable[str]:
     """
     Rekurencyjnie parsuje pliki OpenSSH config, zwraca nazwy hostów.

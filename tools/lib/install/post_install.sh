@@ -13,7 +13,7 @@ install_print_post_install() {
   ssh_conn="${SSH_CONNECTION:-}"
   ip=""
   if [[ -n "$ssh_conn" ]]; then
-    set -- "$ssh_conn"
+    set -- $ssh_conn
     ip="${3:-}"
   fi
 

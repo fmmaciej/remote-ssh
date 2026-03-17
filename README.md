@@ -36,6 +36,11 @@ curl -fsSL https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh |
 - As for now there is no general `remote-ssh` entrypoint.
 - For `remote-ssh` update use `git pull` && `./install.sh` method.
 
+## TODO
+
+- user vim as a first choice? There was a problem on Debian 9, where GLIBC was too old
+    nvim 0.11 didn't want to work, but vim worked ok with given vimrc
+
 ## License
 
 Code is licensed under MIT.

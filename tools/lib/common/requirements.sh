@@ -12,10 +12,10 @@ check_req_tools() {
   done
 
   if have unzip; then
-    ZIP_SUPPORTED=1;
+    ZIP_SUPPORTED=1
   else
     # shellcheck disable=SC2034
-    ZIP_SUPPORTED=0;
+    ZIP_SUPPORTED=0
   fi
 
   if ((${#missing[@]} > 0)); then

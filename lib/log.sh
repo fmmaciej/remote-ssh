@@ -16,7 +16,7 @@ log_info() {
 # log_debug "message"
 # Debug działa tylko jeśli DEBUG=1
 log_debug() {
-  if [[ "${DEBUG:-0}" == "1" ]]; then
+  if [[ ${DEBUG:-0} == "1" ]]; then
     printf '[DEBUG] %s\n' "$*" >&2
   fi
 }

@@ -10,11 +10,11 @@ select_variant() {
   local wanted rec key
 
   # Prefer musl on Linux (portable binaries)
-  if [[ "$raw_os" == "linux" ]]; then
+  if [[ $raw_os == "linux" ]]; then
     wanted="linux:${raw_arch}:musl"
     for rec in "$@"; do
       key="${rec%%|*}"
-      [[ "$key" == "$wanted" ]] || continue
+      [[ $key == "$wanted" ]] || continue
       echo "${rec#*|}"
 
       return 0
@@ -25,7 +25,7 @@ select_variant() {
   wanted="${raw_os}:${raw_arch}:${libc}"
   for rec in "$@"; do
     key="${rec%%|*}"
-    [[ "$key" == "$wanted" ]] || continue
+    [[ $key == "$wanted" ]] || continue
     echo "${rec#*|}"
 
     return 0
@@ -35,7 +35,7 @@ select_variant() {
   wanted="${raw_os}:${raw_arch}:any"
   for rec in "$@"; do
     key="${rec%%|*}"
-    [[ "$key" == "$wanted" ]] || continue
+    [[ $key == "$wanted" ]] || continue
     echo "${rec#*|}"
 
     return 0

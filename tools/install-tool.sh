@@ -19,7 +19,7 @@ main() {
   local tool="${1:-}"
   local ver="${2:-}"
 
-  [[ -n "$tool" ]] || usage
+  [[ -n $tool ]] || usage
 
   install_tool_main "$SCRIPT_DIR" "$tool" "$ver"
 }

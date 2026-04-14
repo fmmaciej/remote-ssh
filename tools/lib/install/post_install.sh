@@ -7,14 +7,13 @@ install_print_post_install() {
   local install_dir="${1:?install_dir required}"
   local ssh_conn ip hostname who
 
-  [[ -f "$template_file" ]] || return 0
+  [[ -f $template_file ]] || return 0
 
   # SSH_CONNECTION: "<client_ip> <client_port> <server_ip> <server_port>"
   ssh_conn="${SSH_CONNECTION:-}"
   ip=""
-  if [[ -n "$ssh_conn" ]]; then
-    set -- $ssh_conn
-    ip="${3:-}"
+  if [[ -n $ssh_conn ]]; then
+    read -r _client_ip _client_port ip _server_port <<<"$ssh_conn"
   fi
 
   hostname="$(hostname -f 2>/dev/null || hostname 2>/dev/null || true)"
@@ -32,4 +31,3 @@ install_print_post_install() {
     -e "s|@WHO_AM_I@|$(_sed_escape "${who:-<user>}")|g" \
     "$template_file"
 }
-

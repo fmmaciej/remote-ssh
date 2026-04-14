@@ -7,6 +7,13 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 . "$SCRIPT_DIR/lib/env.sh"
 
+if [[ -f "$REPO_DIR/dev/.env" ]]; then
+  set -a
+  # shellcheck source=/dev/null
+  . "$REPO_DIR/dev/.env"
+  set +a
+fi
+
 # shellcheck source=/dev/null
 . "$TOOLS_LIB_DIR/generate-def.lib.sh"
 

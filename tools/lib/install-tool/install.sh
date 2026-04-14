@@ -18,8 +18,14 @@ install_binary() {
   local rel target_dir
   rel="$(find_binary_path_by_name "$extract_dir" "$binary_name")"
 
-  [[ -n "$rel" ]] || { log_error "Binary '$binary_name' not found"; return 1; }
-  [[ -x "$extract_dir/$rel" ]] || { log_error "Not executable: $extract_dir/$rel"; return 1; }
+  [[ -n $rel ]] || {
+    log_error "Binary '$binary_name' not found"
+    return 1
+  }
+  [[ -x "$extract_dir/$rel" ]] || {
+    log_error "Not executable: $extract_dir/$rel"
+    return 1
+  }
 
   target_dir="${INSTALL_PREFIX}/${tool_name}-${version}"
 

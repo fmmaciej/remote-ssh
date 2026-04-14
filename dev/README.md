@@ -68,6 +68,9 @@ Top level directory:
 just lint
 just fmt
 just type
+just test
+just smoke
+just test-assets-live
 ```
 
 Developer divectory `dev/`:
@@ -78,12 +81,25 @@ just py-fmt
 just py-type
 just sh-lint
 just sh-fmt
+just test
+just smoke
+just test-assets-live
 ```
+
+`just test-assets-live` is optional and uses the GitHub Releases API to
+check that generated asset names exist for the pinned tool versions. It does
+not download the release archives.
+
+If you hit GitHub API rate limits, copy `dev/.env.example` to `dev/.env` and
+set `GITHUB_TOKEN` or `GH_TOKEN`. `dev/.env` is local-only and ignored by git.
+
+Smoke tests live in `dev/tests/`. Files are prefixed with numbers to keep the
+execution order readable.
 
 Optional: enable git hooks locally:
 
 ```bash
-pre-commit install --config dev/pre-commit-config.yaml
+pre-commit install -c dev/.pre-commit-config.yaml
 ```
 
 ---

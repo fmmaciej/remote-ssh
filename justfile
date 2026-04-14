@@ -14,4 +14,12 @@ fmt:
 type:
     just -f dev/justfile py-type
 
+smoke:
+    just -f dev/justfile smoke
+
+test: smoke
+
+test-assets-live:
+    just -f dev/justfile test-assets-live
+
 all: lint fmt type

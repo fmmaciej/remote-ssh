@@ -29,8 +29,8 @@ elif have vim; then
   alias vim='vim -u ${REMOTE_DOTS_DIR}/vimrc'
 fi
 
-have ripgrep  && alias rg="ripgrep"
-have yazi     && alias y="yazi"
-have tmux     && alias tmux='tmux -f "$REMOTE_DOTS_DIR/tmux.conf"'
+have ripgrep && alias rg="ripgrep"
+have yazi && alias y="yazi"
+have tmux && alias tmux='tmux -f "$REMOTE_DOTS_DIR/tmux.conf"'
 
 alias f2='find . -mindepth 1 -maxdepth 2 -not -path "./.git*" -print'

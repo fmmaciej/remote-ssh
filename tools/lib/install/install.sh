@@ -3,7 +3,7 @@
 ensure_this_file_sourced
 
 # Sprawdza, czy narzędzie jest już dostępne:
-#   1) symlink:  ~/.local/bin/<tool>
+#   1) executable in $INSTALL_BIN_DIR/<tool>
 #   2) jakakolwiek binarka w PATH: `command -v <tool>`
 #
 # Zwraca:
@@ -11,15 +11,15 @@ ensure_this_file_sourced
 #   1 - jeśli trzeba instalować.
 is_tool_installed() {
   local tool="$1"
-  local local_bin="${BIN_DIR}/${tool}"
+  local local_bin="${INSTALL_BIN_DIR}/${tool}"
 
-  if [[ "${FORCE:-0}" == "1" ]]; then
+  if [[ ${FORCE:-0} == "1" ]]; then
     log_info "FORCE=1"
     return 1
   fi
 
-  # 1. ~/.local/bin
-  if [[ -x "$local_bin" ]]; then
+  # 1. configured install bin dir
+  if [[ -x $local_bin ]]; then
     log_info "'$tool' is installed in ${local_bin} - SKIPPING."
     return 0
   fi
@@ -42,13 +42,16 @@ install_tool() {
 
   is_tool_installed "$tool" && return 0
 
-  "$install_tool_sh" "$tool" || { log_error "'$tool': installation failed."; return 1; }
+  "$install_tool_sh" "$tool" || {
+    log_error "'$tool': installation failed."
+    return 1
+  }
 }
 
 install_tools() {
   local -a tools=("$@")
 
-  mkdir -p "$INSTALL_PREFIX" "$BIN_DIR"
+  mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR"
 
   local t
   for t in "${tools[@]}"; do install_tool "$t"; done

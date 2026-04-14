@@ -16,6 +16,6 @@ ASSET_PREFIX="fzf"
 VARIANTS=(
   "darwin:x86_64:any|prefix-version-os_arch|amd64_arm64|linux_darwin"
   "darwin:aarch64:any|prefix-version-os_arch|amd64_arm64|linux_darwin"
-  "linux:x86_64:gnu|prefix-version-os_arch|amd64_arm64|linux_darwin"
-  "linux:aarch64:gnu|prefix-version-os_arch|amd64_arm64|linux_darwin"
+  "linux:x86_64:any|prefix-version-os_arch|amd64_arm64|linux_darwin"
+  "linux:aarch64:any|prefix-version-os_arch|amd64_arm64|linux_darwin"
 )

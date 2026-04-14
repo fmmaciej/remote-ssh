@@ -11,8 +11,8 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 . "$TOOLS_LIB_DIR/install.lib.sh"
 
 # Docelowo
-# DEFAULT_TOOLS=(fd rg fzf yazi bat eza zoxide jq starship)
-DEFAULT_TOOLS=(fd rg fzf bat yazi nvim starship eza)
+# DEFAULT_TOOLS=(fd rg fzf yazi bat eza zoxide jq starship atuin)
+DEFAULT_TOOLS=(fd rg fzf bat yazi nvim starship eza atuin)
 
 usage() {
   cat >&2 <<EOF
@@ -25,7 +25,7 @@ EOF
 
 main() {
   local -a tools=("$@")
-  (( $# == 0 )) && tools=("${DEFAULT_TOOLS[@]}")
+  (($# == 0)) && tools=("${DEFAULT_TOOLS[@]}")
 
   log_info "Begin."
   install_check_requirements

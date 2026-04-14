@@ -11,13 +11,13 @@ __fzf_history() {
   local cmd
 
   cmd=$(
-    history \
-      | sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' \
-      | awk '!seen[$0]++' \
-      | fzf \
-          --prompt='history> ' \
-          --preview 'echo {}' \
-          --preview-window=down:3:wrap
+    history |
+      sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' |
+      awk '!seen[$0]++' |
+      fzf \
+        --prompt='history> ' \
+        --preview 'echo {}' \
+        --preview-window=down:3:wrap
   ) || return
 
   READLINE_LINE="$cmd"
@@ -25,7 +25,7 @@ __fzf_history() {
 }
 
 # bind tylko jeśli readline (bash interaktywny)
-if [[ -n "${BASH_VERSION:-}" && $- == *i* ]]; then
+if [[ -n ${BASH_VERSION:-} && $- == *i* ]]; then
   # jeśli readline działa
   bind -q '"\C-r"' >/dev/null 2>&1 && :
   bind -x '"\C-r":__fzf_history' 2>/dev/null || true

@@ -16,7 +16,15 @@ py-type:
     mypy --config-file pyproject.toml {{py_scripts}}
 
 sh-lint:
-    find . -name "*.sh" -exec shellcheck {} +
+    find .. -path ../.git -prune -o -name "*.sh" -exec shellcheck {} +
 
 sh-fmt:
-    find . -name '*.sh' -exec shfmt -w {} +
+    find .. -path ../.git -prune -o -name '*.sh' -exec shfmt -w {} +
+
+smoke:
+    ./smoke.sh
+
+test: smoke
+
+test-assets-live:
+    ./check-assets-live.sh

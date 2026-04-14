@@ -4,10 +4,10 @@ repos:
     hooks:
       - id: ruff
         args: [--fix, --config=dev/pyproject.toml]
-        files: ^bin/.*\.py$
+        files: ^scripts/.*\.py$
       - id: ruff-format
         args: [--config=dev/pyproject.toml]
-        files: ^bin/.*\.py$
+        files: ^scripts/.*\.py$
 
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: v3.8.0-1
@@ -15,8 +15,22 @@ repos:
       - id: shfmt
         files: \.sh$
 
-  - repo: https://github.com/koalaman/shellcheck-precommit
-    rev: v0.10.0
+  - repo: local
     hooks:
       - id: shellcheck
+        name: shellcheck
+        entry: shellcheck
+        language: system
         files: \.sh$
+      - id: mypy
+        name: mypy
+        entry: mypy --config-file dev/pyproject.toml scripts
+        language: system
+        pass_filenames: false
+        files: ^scripts/.*\.py$
+      - id: smoke
+        name: smoke tests
+        entry: just smoke
+        language: system
+        pass_filenames: false
+        files: ^(dev/|lib/|scripts/|shell/|tools/|install\.sh|runme\.sh|justfile)$

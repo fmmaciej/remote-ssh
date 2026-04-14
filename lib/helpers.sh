@@ -11,18 +11,26 @@ have() {
 # Bezpiecznie dodaje katalog na początek ścieżki PATH (bez duplikatów).
 path_prepend() {
   local dir="$1"
-  [[ -d "$dir" ]] || return 0
+  [[ -d $dir ]] || return 0
 
   case ":$PATH:" in
-    *":$dir:"*)
-      ;;
-    *)
-      PATH="$dir:$PATH"
-      ;;
+  *":$dir:"*) ;;
+  *)
+    PATH="$dir:$PATH"
+    ;;
   esac
 }
 
 fetch_json() {
   local api="${1:?api url required}"
-  curl -fsS "$api"
+  local token="${GITHUB_TOKEN:-${GH_TOKEN:-}}"
+
+  if [[ -n $token && $api == https://api.github.com/* ]]; then
+    curl -fsS \
+      -H "Authorization: Bearer $token" \
+      -H "Accept: application/vnd.github+json" \
+      "$api"
+  else
+    curl -fsS "$api"
+  fi
 }

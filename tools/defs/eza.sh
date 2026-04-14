@@ -15,7 +15,7 @@ ASSET_PREFIX="eza"
 # Uwaga:  szkic na podstawie assets z tagu: v0.23.4
 #         preferuj wersje musl
 VARIANTS=(
-  "linux:aarch64:any|prefix_underscore_arch_os|x86_64_aarch64|rust_triple"
+  "linux:aarch64:gnu|prefix_underscore_arch_os|x86_64_aarch64|rust_triple"
   "linux:x86_64:musl|prefix_underscore_arch_os|x86_64_aarch64|rust_musl"
   "linux:x86_64:gnu|prefix_underscore_arch_os|x86_64_aarch64|rust_triple"
 )

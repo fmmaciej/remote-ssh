@@ -6,7 +6,10 @@ load_defs() {
   local def_dir="$1" tool="$2"
   local def_file="$def_dir/${tool}.sh"
 
-  [[ -f "$def_file" ]] || { log_error "Tool '$tool' not found in $def_dir"; exit 1; }
+  [[ -f $def_file ]] || {
+    log_error "Tool '$tool' not found in $def_dir"
+    exit 1
+  }
 
   # shellcheck source=/dev/null
   . "$def_file"

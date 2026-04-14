@@ -9,8 +9,8 @@ get_latest_github_tag() {
   local repo="$1"
   local addr="https://api.github.com/repos/${repo}/releases/latest"
 
-  curl -fsS "$addr" \
-      | sed -n 's@.*"tag_name":[[:space:]]*"\([^"]*\)".*@\1@p'
+  curl -fsS "$addr" |
+    sed -n 's@.*"tag_name":[[:space:]]*"\([^"]*\)".*@\1@p'
 }
 
 # github_fetch_latest_json <owner/repo>
@@ -29,9 +29,9 @@ github_fetch_latest_json() {
 github_parse_tag_name() {
   local json="${1:?json required}"
 
-  printf '%s\n' "$json" \
-    | sed -n 's@.*"tag_name":[[:space:]]*"\([^"]*\)".*@\1@p' \
-    | head -n1
+  printf '%s\n' "$json" |
+    sed -n 's@.*"tag_name":[[:space:]]*"\([^"]*\)".*@\1@p' |
+    head -n1
 }
 
 # github_parse_asset_names <json>
@@ -41,10 +41,10 @@ github_parse_tag_name() {
 github_parse_asset_names() {
   local json="${1:?json required}"
 
-  printf '%s\n' "$json" \
-    | tr ',' '\n' \
-    | sed -n 's@.*"name":[[:space:]]*"\([^"]*\)".*@\1@p' \
-    | sed '/^$/d'
+  printf '%s\n' "$json" |
+    tr ',' '\n' |
+    sed -n 's@.*"name":[[:space:]]*"\([^"]*\)".*@\1@p' |
+    sed '/^$/d'
 }
 
 # github_latest_release <owner/repo>
@@ -58,15 +58,21 @@ github_latest_release() {
   json="$(github_fetch_latest_json "$repo")" || return 1
 
   tag="$(github_parse_tag_name "$json")"
-  [[ -n "$tag" ]] || { echo "ERROR: cannot read tag_name from GitHub API" >&2; return 1; }
+  [[ -n $tag ]] || {
+    echo "ERROR: cannot read tag_name from GitHub API" >&2
+    return 1
+  }
 
   # shellcheck disable=SC2034
   GITHUB_TAG="$tag"
   GITHUB_ASSETS=()
 
   while IFS= read -r line; do
-    [[ -n "$line" ]] && GITHUB_ASSETS+=("$line")
+    [[ -n $line ]] && GITHUB_ASSETS+=("$line")
   done < <(github_parse_asset_names "$json")
 
-  ((${#GITHUB_ASSETS[@]} > 0)) || { echo "ERROR: no assets in latest release" >&2; return 1; }
+  ((${#GITHUB_ASSETS[@]} > 0)) || {
+    echo "ERROR: no assets in latest release" >&2
+    return 1
+  }
 }

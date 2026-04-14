@@ -7,14 +7,14 @@
 ensure_sourced() {
   local label="$1"
 
-  if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  if [[ ${BASH_SOURCE[0]} == "${0}" ]]; then
     printf 'ERROR: %s must be sourced, not executed.\n' "$label" >&2
     exit 1
   fi
 }
 
 ensure_this_file_sourced() {
-    ensure_sourced "$(basename "${BASH_SOURCE[0]}")"
+  ensure_sourced "$(basename "${BASH_SOURCE[0]}")"
 }
 
 # load_once <VAR_NAME>

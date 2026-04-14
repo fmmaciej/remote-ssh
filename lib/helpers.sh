@@ -56,6 +56,16 @@ remote_hostname_short() {
   hostname -s 2>/dev/null || hostname 2>/dev/null || true
 }
 
+remote_git_config_add() {
+  local key="${1:?git config key required}"
+  local value="${2:?git config value required}"
+  local n="${GIT_CONFIG_COUNT:-0}"
+
+  export "GIT_CONFIG_KEY_${n}=$key"
+  export "GIT_CONFIG_VALUE_${n}=$value"
+  export GIT_CONFIG_COUNT="$((n + 1))"
+}
+
 fetch_json() {
   local api="${1:?api url required}"
   local token="${GITHUB_TOKEN:-${GH_TOKEN:-}}"

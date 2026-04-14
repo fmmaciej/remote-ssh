@@ -56,3 +56,51 @@ shell/rc.d/host.d/<hostname -s>.sh
 
 Example files are provided as `.example` files and are not loaded until copied
 to `.sh`.
+
+## Session Git Config
+
+Use `remote_git_config_add` when Git settings should apply only to the current
+remote-ssh session and child processes. It uses Git's environment config
+interface and does not write to `~/.gitconfig`.
+
+Example `host.d/<hostname>.sh`:
+
+```bash
+# shellcheck shell=bash
+
+ensure_this_file_sourced
+
+have git || return 0
+
+remote_git_config_add user.name "Maciej"
+remote_git_config_add user.email "maciej@fmmaciej.com"
+remote_git_config_add init.defaultBranch "main"
+remote_git_config_add pull.ff "only"
+```
+
+Check active values:
+
+```bash
+git config user.name
+git config user.email
+```
+
+The default Git plugin, `12-git.sh`, sets session-scoped workflow defaults:
+
+```bash
+pull.rebase true
+rebase.autoStash true
+fetch.prune true
+push.autoSetupRemote true
+init.defaultBranch main
+core.editor "${EDITOR:-vim}"
+```
+
+Host files are loaded after `rc.d/*.sh`, so they can append a more specific
+value for the same key:
+
+```bash
+remote_git_config_add core.editor "vim"
+remote_git_config_add user.name "Maciej"
+remote_git_config_add user.email "maciej@fmmaciej.com"
+```

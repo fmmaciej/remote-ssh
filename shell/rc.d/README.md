@@ -114,3 +114,22 @@ such as `sshf`.
 `atuin` exists in `PATH`, it owns shell history integration. The `Ctrl-r`
 history picker from `20-fzf.sh` is then skipped and works only as a fallback on
 hosts without `atuin`.
+
+Atuin stores history in its own database and does not automatically import the
+old shell history. On first use, flush the current shell history and import it:
+
+```bash
+# bash
+history -w
+atuin import bash
+
+# zsh
+fc -W
+atuin import zsh
+```
+
+For a generic import, use:
+
+```bash
+atuin import auto
+```

@@ -24,8 +24,8 @@ __fzf_history() {
   READLINE_POINT=${#READLINE_LINE}
 }
 
-# bind tylko jeśli readline (bash interaktywny)
-if [[ -n ${BASH_VERSION:-} && $- == *i* ]]; then
+# bind tylko jeśli readline (bash interaktywny) i Atuin nie przejmuje historii
+if [[ -n ${BASH_VERSION:-} && $- == *i* ]] && ! have atuin; then
   # jeśli readline działa
   bind -q '"\C-r"' >/dev/null 2>&1 && :
   bind -x '"\C-r":__fzf_history' 2>/dev/null || true

@@ -104,3 +104,13 @@ remote_git_config_add core.editor "vim"
 remote_git_config_add user.name "Maciej"
 remote_git_config_add user.email "maciej@fmmaciej.com"
 ```
+
+## fzf and Atuin
+
+`fzf` stays enabled as a general-purpose picker and as a dependency for tools
+such as `sshf`.
+
+`atuin` is loaded separately by `23-atuin.sh` in interactive shells. When
+`atuin` exists in `PATH`, it owns shell history integration. The `Ctrl-r`
+history picker from `20-fzf.sh` is then skipped and works only as a fallback on
+hosts without `atuin`.

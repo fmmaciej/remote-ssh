@@ -12,16 +12,12 @@ REMOTE_SHELL_DIR="$SCRIPT_DIR"
 
 RC_D_DIR="$REMOTE_SHELL_DIR/rc.d"
 
-if [ -d "$RC_D_DIR" ]; then
-  # set nullglob, żeby nie dostać literalnego '*.sh' gdy katalog pusty
-  shopt -s nullglob 2>/dev/null || true
+remote_source_dir "$RC_D_DIR"
+remote_source_file "$RC_D_DIR/os.d/$(remote_os_id).sh"
 
-  for f in "$RC_D_DIR"/*.sh; do
-    [ -r "$f" ] || continue
-    # shellcheck disable=SC1090
-    . "$f"
-  done
-
-  # unset nullglob
-  shopt -u nullglob 2>/dev/null || true
+REMOTE_HOSTNAME="$(remote_hostname_short)"
+if [[ -n $REMOTE_HOSTNAME ]]; then
+  remote_source_file "$RC_D_DIR/host.d/${REMOTE_HOSTNAME}.sh"
 fi
+
+unset REMOTE_HOSTNAME

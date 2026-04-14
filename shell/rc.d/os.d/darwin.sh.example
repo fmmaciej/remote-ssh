@@ -1,0 +1,8 @@
+# shellcheck shell=bash
+
+ensure_this_file_sourced
+
+# Example macOS-only runtime customizations.
+# Copy this file to darwin.sh and edit it locally if needed.
+
+# alias pbcopy-safe="pbcopy"

@@ -1,0 +1,8 @@
+# shellcheck shell=bash
+
+ensure_this_file_sourced
+
+# Example Linux-only runtime customizations.
+# Copy this file to linux.sh and edit it locally if needed.
+
+# export LESS="-R"

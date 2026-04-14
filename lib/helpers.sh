@@ -21,6 +21,41 @@ path_prepend() {
   esac
 }
 
+remote_source_file() {
+  local file="$1"
+
+  [[ -r $file ]] || return 0
+  # shellcheck disable=SC1090
+  . "$file"
+}
+
+remote_source_dir() {
+  local dir="$1"
+  local f
+
+  [[ -d $dir ]] || return 0
+
+  shopt -s nullglob 2>/dev/null || true
+  for f in "$dir"/*.sh; do
+    remote_source_file "$f"
+  done
+  shopt -u nullglob 2>/dev/null || true
+}
+
+remote_os_id() {
+  case "$(uname -s 2>/dev/null)" in
+  Linux) echo "linux" ;;
+  Darwin) echo "darwin" ;;
+  *)
+    uname -s 2>/dev/null | tr '[:upper:]' '[:lower:]'
+    ;;
+  esac
+}
+
+remote_hostname_short() {
+  hostname -s 2>/dev/null || hostname 2>/dev/null || true
+}
+
 fetch_json() {
   local api="${1:?api url required}"
   local token="${GITHUB_TOKEN:-${GH_TOKEN:-}}"

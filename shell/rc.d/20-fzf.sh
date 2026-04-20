@@ -9,14 +9,25 @@ export FZF_DEFAULT_OPTS
 
 __fzf_history() {
   local cmd
+  builtin history -n 2>/dev/null || true
 
   cmd=$(
-    history |
+    builtin history |
       sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' |
-      awk '!seen[$0]++' |
+      awk '
+        { lines[NR] = $0 }
+        END {
+          for (i = NR; i >= 1; i--) {
+            if (!seen[lines[i]]++) {
+              print lines[i]
+            }
+          }
+        }
+      ' |
       fzf \
         --prompt='history> ' \
-        --preview 'echo {}' \
+        --layout=reverse \
+        --preview 'printf "%s\n" {}' \
         --preview-window=down:3:wrap
   ) || return
 

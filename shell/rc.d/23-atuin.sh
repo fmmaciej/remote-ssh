@@ -2,11 +2,11 @@
 
 ensure_this_file_sourced
 
-have atuin || return 0
-[[ $- == *i* ]] || return 0
+if have atuin; then
+  [[ $- == *i* ]] || return 0
 
-if [[ -n "${BASH_VERSION:-}" ]]; then
-  eval "$(atuin init bash)"
-elif [[ -n "${ZSH_VERSION:-}" ]]; then
-  eval "$(atuin init zsh)"
+  [ -f "$REMOTE_DOTS_DIR/atuin.toml" ] && export ATUIN_CONFIG_DIR="$REMOTE_DOTS_DIR/atuin.toml"
+
+  [ -n "${BASH_VERSION:-}" ] && eval "$(atuin init bash)"
+  [ -n "${ZSH_VERSION:-}" ] && eval "$(atuin init zsh)"
 fi

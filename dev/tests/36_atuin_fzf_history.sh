@@ -23,6 +23,8 @@ EOF
   got="$(
     PATH="$test_path" REPO_DIR="$REPO_DIR" \
       bash --noprofile --norc -ic '
+        export REMOTE_DOTS_DIR="$REPO_DIR/dots"
+        export bash_preexec_imported=1
         . "$REPO_DIR/lib/guards.sh"
         . "$REPO_DIR/lib/helpers.sh"
         . "$REPO_DIR/shell/rc.d/23-atuin.sh"

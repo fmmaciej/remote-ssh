@@ -32,11 +32,15 @@ EOF
         . "$REPO_DIR/lib/guards.sh"
         . "$REPO_DIR/lib/helpers.sh"
         . "$REPO_DIR/shell/rc.d/21-zoxide.sh"
-        printf "%s\n" "${REMOTE_SSH_TEST_ZOXIDE_SHELL:-missing}"
+        printf "shell=%s\n" "${REMOTE_SSH_TEST_ZOXIDE_SHELL:-missing}"
+        printf "z=%s\n" "$(type -t z || true)"
+        printf "zi=%s\n" "$(type -t zi || true)"
       ' 2>/dev/null
   )"
 
-  assert_eq "zoxide bash init" "bash" "$got"
+  grep -q '^shell=bash$' <<<"$got"
+  grep -q '^z=function$' <<<"$got"
+  grep -q '^zi=function$' <<<"$got"
 
   trap - RETURN
   rm -rf "$tmp"
@@ -79,11 +83,23 @@ EOF
         source "$REPO_DIR/lib/guards.sh"
         source "$REPO_DIR/lib/helpers.sh"
         source "$REPO_DIR/shell/rc.d/21-zoxide.sh"
-        print -r -- "${REMOTE_SSH_TEST_ZOXIDE_SHELL:-missing}"
+        print -r -- "shell=${REMOTE_SSH_TEST_ZOXIDE_SHELL:-missing}"
+        if whence -w z >/dev/null 2>&1; then
+          print -r -- "z=function"
+        else
+          print -r -- "z=missing"
+        fi
+        if whence -w zi >/dev/null 2>&1; then
+          print -r -- "zi=function"
+        else
+          print -r -- "zi=missing"
+        fi
       ' 2>/dev/null
   )"
 
-  assert_eq "zoxide zsh init" "zsh" "$got"
+  grep -q '^shell=zsh$' <<<"$got"
+  grep -q '^z=function$' <<<"$got"
+  grep -q '^zi=function$' <<<"$got"
 
   trap - RETURN
   rm -rf "$tmp"

@@ -11,7 +11,7 @@ case $- in
     *) return 0 ;;
 esac
 
-REMOTE_SSH_BASH_PREEXEC_SH="${REMOTE_SSH_REPO_DIR}/tools/vendor/bash-preexec.sh"
+REMOTE_SSH_BASH_PREEXEC_SH="${REMOTE_ENV_DIR}/tools/vendors/bash-preexec.sh"
 
 if [[ ! -r "$REMOTE_SSH_BASH_PREEXEC_SH" ]]; then
     return 0

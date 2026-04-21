@@ -91,3 +91,17 @@ fetch_json() {
     curl -fsS "$api"
   fi
 }
+
+remote_atuin_debug() {
+    echo "shell=${SHELL:-}"
+    echo "interactive_flags=$-"
+    echo "BASH_VERSION=${BASH_VERSION:-}"
+    echo "ZSH_VERSION=${ZSH_VERSION:-}"
+    echo "ATUIN_CONFIG_DIR=${ATUIN_CONFIG_DIR:-}"
+    echo "bash_preexec_imported=${bash_preexec_imported:-}"
+    if command -v atuin >/dev/null 2>&1; then
+        echo "atuin=found"
+    else
+        echo "atuin=missing"
+    fi
+}

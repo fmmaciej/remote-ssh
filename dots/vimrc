@@ -29,14 +29,18 @@ set backspace=indent,eol,start
 
 " Filetype helpers
 filetype plugin indent on
-syntax on
+if has('syntax') && filereadable(expand('$VIMRUNTIME/syntax/syntax.vim'))
+  syntax on
+endif
 
 " Timeouty pod ESC
 set ttimeout
 set ttimeoutlen=10
 
 " Paste-mode toggle
-set pastetoggle=<F2>
+if exists('&pastetoggle')
+  set pastetoggle=<F2>
+endif
 
 " Leader + szybkie source
 let mapleader=","

@@ -2,9 +2,20 @@
 
 ensure_this_file_sourced
 
-if have starship; then
-  [ -f "$REMOTE_DOTS_DIR/starship.toml" ] && export STARSHIP_CONFIG="$REMOTE_DOTS_DIR/starship.toml"
+case $- in
+  *i*) ;;
+  *) return 0 ;;
+esac
 
-  [ -n "${BASH_VERSION:-}" ] && eval "$(starship init bash)"
-  [ -n "${ZSH_VERSION:-}" ] && eval "$(starship init zsh)"
-fi
+have starship || return 0
+
+[ -f "$REMOTE_DOTS_DIR/starship.toml" ] && export STARSHIP_CONFIG="$REMOTE_DOTS_DIR/starship.toml"
+
+case "${BASH_VERSION:+bash}${ZSH_VERSION:+zsh}" in
+  bash)
+    eval "$(starship init bash)"
+    ;;
+  zsh)
+    eval "$(starship init zsh)"
+    ;;
+esac

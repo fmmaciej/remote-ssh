@@ -66,6 +66,10 @@ yazi|linux:aarch64:musl|yazi-aarch64-unknown-linux-musl.zip
 yazi|linux:x86_64:musl|yazi-x86_64-unknown-linux-musl.zip
 yazi|linux:aarch64:gnu|yazi-aarch64-unknown-linux-gnu.zip
 yazi|linux:x86_64:gnu|yazi-x86_64-unknown-linux-gnu.zip
+zoxide|darwin:aarch64:any|zoxide-0.9.9-aarch64-apple-darwin.tar.gz
+zoxide|darwin:x86_64:any|zoxide-0.9.9-x86_64-apple-darwin.tar.gz
+zoxide|linux:aarch64:musl|zoxide-0.9.9-aarch64-unknown-linux-musl.tar.gz
+zoxide|linux:x86_64:musl|zoxide-0.9.9-x86_64-unknown-linux-musl.tar.gz
 EOF
 )"
   got="$(generated_asset_contract)"
@@ -114,6 +118,8 @@ starship|linux:x86_64:gnu|starship-x86_64-unknown-linux-musl.tar.gz
 starship|linux:aarch64:gnu|starship-aarch64-unknown-linux-musl.tar.gz
 yazi|linux:x86_64:gnu|yazi-x86_64-unknown-linux-musl.zip
 yazi|linux:aarch64:gnu|yazi-aarch64-unknown-linux-musl.zip
+zoxide|linux:x86_64:gnu|zoxide-0.9.9-x86_64-unknown-linux-musl.tar.gz
+zoxide|linux:aarch64:gnu|zoxide-0.9.9-aarch64-unknown-linux-musl.tar.gz
 EOF
 )"
   got="$(linux_gnu_selection_contract)"

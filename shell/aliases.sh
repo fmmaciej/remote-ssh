@@ -17,11 +17,6 @@ else
   alias la="ls -A"
 fi
 
-if have zoxide; then
-  # bash, potem zsh; jak oba zawiodą, nie krzycz.
-  eval "$(zoxide init bash 2>/dev/null || zoxide init zsh 2>/dev/null || true)"
-fi
-
 if have nvim; then
   alias nvim='nvim -u ${REMOTE_DOTS_DIR}/vimrc'
   alias vim='nvim'

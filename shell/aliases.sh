@@ -32,6 +32,5 @@ fi
 have ripgrep && alias rg="ripgrep"
 have yazi && alias y="yazi"
 have tmux && alias tmux='tmux -f "$REMOTE_DOTS_DIR/tmux.conf"'
-have atuin && alias atuin='ATUIN_CONFIG_DIR=$REMOTE_DOTS_DIR/atuin; autin'
 
 alias f2='find . -mindepth 1 -maxdepth 2 -not -path "./.git*" -print'

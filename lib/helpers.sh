@@ -24,7 +24,7 @@ path_prepend() {
 remote_source_file() {
   local file="$1"
 
-  [[ -r $file ]] || return 0
+  [[ -r "$file" ]] || return 0
   # shellcheck disable=SC1090
   . "$file"
 }
@@ -33,13 +33,25 @@ remote_source_dir() {
   local dir="$1"
   local f
 
-  [[ -d $dir ]] || return 0
+  [[ -d "$dir" ]] || return 0
 
-  shopt -s nullglob 2>/dev/null || true
-  for f in "$dir"/*.sh; do
-    remote_source_file "$f"
-  done
-  shopt -u nullglob 2>/dev/null || true
+  case "${BASH_VERSION:+bash}${ZSH_VERSION:+zsh}" in
+    bash)
+      local restore_nullglob
+      restore_nullglob="$(shopt -p nullglob || true)"
+      shopt -s nullglob
+      for f in "$dir"/*.sh; do
+        remote_source_file "$f"
+      done
+      eval "$restore_nullglob"
+      ;;
+    zsh)
+      setopt local_options null_glob
+      for f in "$dir"/*.sh; do
+        remote_source_file "$f"
+      done
+      ;;
+  esac
 }
 
 remote_os_id() {

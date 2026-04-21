@@ -3,6 +3,9 @@
 # Folder ze skryptami pythonowymi
 py_scripts := "../scripts"
 
+default:
+    @just --list
+
 py-lint:
     # shellcheck disable=SC1083
     ruff check --fix {{py_scripts}}

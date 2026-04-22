@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd -- "$SCRIPT_DIR/.." && pwd)"
+
+config_base="${REPO_DIR}/dots/git/config.base"
+user_local="${REPO_DIR}/dots/git/user.local"
+user_local_example="${REPO_DIR}/dots/git/user.local.example"
+
+usage() {
+  cat <<EOF
+Usage: remote-ssh-git-setup
+
+Adds remote-ssh Git defaults to the global Git config via:
+  include.path = ${config_base}
+
+If ${user_local} does not exist, it is created from:
+  ${user_local_example}
+EOF
+}
+
+[[ "${1:-}" == "--help" ]] && {
+  usage
+  exit 0
+}
+
+command -v git >/dev/null 2>&1 || {
+  printf '[ERROR] git is required for remote-ssh-git-setup.\n' >&2
+  exit 1
+}
+
+[[ -r "$config_base" ]] || {
+  printf '[ERROR] Missing config base: %s\n' "$config_base" >&2
+  exit 1
+}
+
+if [[ ! -e "$user_local" && -r "$user_local_example" ]]; then
+  cp "$user_local_example" "$user_local"
+  printf '[INFO] Created %s from example.\n' "$user_local" >&2
+fi
+
+if git config --global --get-all include.path 2>/dev/null | grep -Fxq "$config_base"; then
+  printf '[INFO] Git include already present: %s\n' "$config_base" >&2
+else
+  git config --global --add include.path "$config_base"
+  printf '[INFO] Added Git include: %s\n' "$config_base" >&2
+fi
+
+printf 'remote-ssh git config is active.\n'
+printf 'Base config: %s\n' "$config_base"
+printf 'User overrides: %s\n' "$user_local"

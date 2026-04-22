@@ -15,6 +15,7 @@ remote-ssh help
 
 Commands
   remote-ssh-help        Show this help
+  remote-ssh-git-setup   Add remote-ssh Git config via include.path
   sshf                   Pick an SSH host with fzf and connect
 
 Aliases
@@ -24,7 +25,6 @@ Aliases
 
 Functions
   remote_atuin_debug     Print current Atuin integration state
-  remote_git_config_add  Add session-scoped git config via env vars
 
 Paths
   repo                   $repo_dir
@@ -35,6 +35,9 @@ Paths
 Notes
   vim/nvim and tmux are not installed by remote-ssh.
   Install them manually on hosts where you want to use them.
+  Git config is opt-in. Run:
+    remote-ssh-git-setup
+  to add dots/git/config.base via git include.path.
   To re-run Atuin auto import, remove:
     $atuin_marker
   and reload the shell, or run:
@@ -46,6 +49,7 @@ print_commands() {
   cat <<'EOF'
 Commands
   remote-ssh-help        Show this help
+  remote-ssh-git-setup   Add remote-ssh Git config via include.path
   sshf                   Pick an SSH host with fzf and connect
 EOF
 }
@@ -63,7 +67,6 @@ print_functions() {
   cat <<'EOF'
 Functions
   remote_atuin_debug     Print current Atuin integration state
-  remote_git_config_add  Add session-scoped git config via env vars
 EOF
 }
 

@@ -35,6 +35,10 @@ Paths
 Notes
   vim/nvim and tmux are not installed by remote-ssh.
   Install them manually on hosts where you want to use them.
+  To re-run Atuin auto import, remove:
+    $atuin_marker
+  and reload the shell, or run:
+    atuin import auto
 EOF
 }
 

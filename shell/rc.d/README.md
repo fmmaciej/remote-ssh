@@ -61,53 +61,29 @@ shell/rc.d/host.d/<hostname -s>.sh
 Example files are provided as `.example` files and are not loaded until copied
 to `.sh`.
 
-## Session Git Config
+## Git Config
 
-Use `remote_git_config_add` when Git settings should apply only to the current
-remote-ssh session and child processes. It uses Git's environment config
-interface and does not write to `~/.gitconfig`.
+Git config is no longer injected from `rc.sh`.
 
-Example `host.d/<hostname>.sh`:
+Use the explicit setup command instead:
 
 ```bash
-# shellcheck shell=bash
-
-ensure_this_file_sourced
-
-have git || return 0
-
-remote_git_config_add user.name "Maciej"
-remote_git_config_add user.email "maciej@fmmaciej.com"
-remote_git_config_add init.defaultBranch "main"
-remote_git_config_add pull.ff "only"
+remote-ssh-git-setup
 ```
 
-Check active values:
+This adds `dots/git/config.base` to your global Git config via
+`include.path` and creates `dots/git/user.local` from the example if it is
+missing.
 
-```bash
-git config user.name
-git config user.email
+Files:
+
+```text
+dots/git/config.base
+dots/git/user.local.example
+dots/git/user.local
 ```
 
-The default Git plugin, `12-git.sh`, sets session-scoped workflow defaults:
-
-```bash
-pull.rebase true
-rebase.autoStash true
-fetch.prune true
-push.autoSetupRemote true
-init.defaultBranch main
-core.editor "${EDITOR:-vim}"
-```
-
-Host files are loaded after `rc.d/*.sh`, so they can append a more specific
-value for the same key:
-
-```bash
-remote_git_config_add core.editor "vim"
-remote_git_config_add user.name "Maciej"
-remote_git_config_add user.email "maciej@fmmaciej.com"
-```
+`user.local` is intentionally local and not tracked by Git.
 
 ## fzf and Atuin
 

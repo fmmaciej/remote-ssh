@@ -1,0 +1,37 @@
+[pager]
+    log = false
+    diff = false
+    show = false
+    branch = false
+    tag = false
+    stash = false
+
+[init]
+    defaultBranch = main
+
+[fetch]
+    prune = true
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+
+[rerere]
+    enabled = true
+
+[merge]
+    conflictStyle = zdiff3
+
+[diff]
+    algorithm = histogram
+
+[help]
+    autoCorrect = prompt
+
+[user]
+    useConfigOnly = true
+
+[include]
+    path = user.local

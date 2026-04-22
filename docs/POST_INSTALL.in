@@ -28,3 +28,15 @@ Then connect normally:
 
 This will start an interactive session with the remote-ssh shell
 initialised automatically.
+
+
+======================================================================
+Optional Git setup
+======================================================================
+
+To enable the bundled Git defaults from `dots/git/config.base`, run:
+
+  remote-ssh-git-setup
+
+This creates `dots/git/user.local` from the example if needed and adds the
+base config via `git config --global include.path ...`.

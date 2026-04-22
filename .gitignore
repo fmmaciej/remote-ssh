@@ -5,3 +5,4 @@
 dev/.mypy_cache/
 dev/.ruff_cache/
 dev/.env
+dots/git/user.local

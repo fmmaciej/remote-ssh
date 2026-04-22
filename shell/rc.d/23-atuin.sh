@@ -3,6 +3,24 @@
 # Bash uses bash-preexec if available.
 # Zsh uses native Atuin integration.
 
+remote_atuin_auto_import_once() {
+    local state_home marker_dir marker_file
+
+    if [[ "${REMOTE_SSH_ENABLE_ATUIN_AUTO_IMPORT:-1}" != "1" ]]; then
+        return 0
+    fi
+
+    state_home="${XDG_STATE_HOME:-$HOME/.local/state}"
+    marker_dir="${state_home}/remote-ssh"
+    marker_file="${marker_dir}/atuin-import-auto.done"
+
+    [[ -f "$marker_file" ]] && return 0
+
+    mkdir -p "$marker_dir" || return 0
+    command atuin import auto >/dev/null 2>&1 || return 0
+    : > "$marker_file"
+}
+
 case $- in
     *i*) ;;
     *) return 0 ;;
@@ -18,6 +36,8 @@ export ATUIN_CONFIG_DIR="${REMOTE_DOTS_DIR}/atuin"
 if [[ "${REMOTE_SSH_ENABLE_ATUIN:-1}" != "1" ]]; then
     return 0
 fi
+
+remote_atuin_auto_import_once
 
 if [[ -n "${BASH_VERSION:-}" ]]; then
     # For bash, prefer loading only when bash-preexec is present.

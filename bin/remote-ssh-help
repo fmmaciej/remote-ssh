@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+section="${1:-all}"
+
+repo_dir="${REMOTE_ENV_DIR:-$HOME/.local/share/remote-ssh}"
+dots_dir="${REMOTE_DOTS_DIR:-$repo_dir/dots}"
+shell_dir="${REMOTE_SHELL_DIR:-$repo_dir/shell}"
+atuin_marker="${XDG_STATE_HOME:-$HOME/.local/state}/remote-ssh/atuin-import-auto.done"
+
+print_all() {
+  cat <<EOF
+remote-ssh help
+
+Commands
+  remote-ssh-help        Show this help
+  sshf                   Pick an SSH host with fzf and connect
+
+Aliases
+  rcrc                   Reload remote-ssh shell config
+  rhelp                  Show remote-ssh help
+  rssh                   Cd into the installed remote-ssh repo
+
+Functions
+  remote_atuin_debug     Print current Atuin integration state
+  remote_git_config_add  Add session-scoped git config via env vars
+
+Paths
+  repo                   $repo_dir
+  dots                   $dots_dir
+  shell                  $shell_dir
+  atuin marker           $atuin_marker
+
+Notes
+  vim/nvim and tmux are not installed by remote-ssh.
+  Install them manually on hosts where you want to use them.
+EOF
+}
+
+print_commands() {
+  cat <<'EOF'
+Commands
+  remote-ssh-help        Show this help
+  sshf                   Pick an SSH host with fzf and connect
+EOF
+}
+
+print_aliases() {
+  cat <<'EOF'
+Aliases
+  rcrc                   Reload remote-ssh shell config
+  rhelp                  Show remote-ssh help
+  rssh                   Cd into the installed remote-ssh repo
+EOF
+}
+
+print_functions() {
+  cat <<'EOF'
+Functions
+  remote_atuin_debug     Print current Atuin integration state
+  remote_git_config_add  Add session-scoped git config via env vars
+EOF
+}
+
+print_paths() {
+  cat <<EOF
+Paths
+  repo                   $repo_dir
+  dots                   $dots_dir
+  shell                  $shell_dir
+  atuin marker           $atuin_marker
+EOF
+}
+
+usage() {
+  cat <<'EOF' >&2
+Usage: remote-ssh-help [all|commands|aliases|functions|paths]
+EOF
+  exit 1
+}
+
+case "$section" in
+  all) print_all ;;
+  commands) print_commands ;;
+  aliases) print_aliases ;;
+  functions) print_functions ;;
+  paths) print_paths ;;
+  *) usage ;;
+esac

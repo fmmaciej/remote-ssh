@@ -13,7 +13,7 @@ install_shell_dir() {
 install_bin_dir() {
   log_info "  bin/..."
 
-  [[ -d $BIN_DIR ]] && find "$BIN_DIR" -maxdepth 1 -type f -name '*.sh' -exec chmod +x {} +
+  [[ -d $BIN_DIR ]] && find "$BIN_DIR" -maxdepth 1 -type f -exec chmod +x {} +
 }
 
 install_dots_dir() {

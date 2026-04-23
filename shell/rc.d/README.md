@@ -95,6 +95,10 @@ such as `sshf`.
 history picker from `20-fzf.sh` is then skipped and works only as a fallback on
 hosts without `atuin`.
 
+In interactive Bash sessions, `06-bash-history.sh` keeps session history in
+memory but disables writes to the standard Bash history file. Persistent shell
+history is intentionally left to Atuin in remote-ssh sessions.
+
 Atuin stores history in its own database and does not automatically import the
 old shell history. On first use, flush the current shell history and import it:
 

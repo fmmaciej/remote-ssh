@@ -2,6 +2,8 @@
 
 # Bash uses bash-preexec if available.
 # Zsh uses native Atuin integration.
+# In remote-ssh Bash sessions, persistent shell history is intentionally owned
+# by Atuin; standard Bash history file writes are disabled separately.
 
 remote_atuin_auto_import_once() {
     local state_home marker_dir marker_file

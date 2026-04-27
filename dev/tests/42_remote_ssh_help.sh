@@ -15,6 +15,7 @@ test_remote_ssh_help_lists_core_entries() {
   grep -q '^  rcrc                   Reload remote-ssh shell config$' <<<"$got"
   grep -q '^  remote_atuin_debug     Print current Atuin integration state$' <<<"$got"
   grep -q '^Git SSH flow$' <<<"$got"
+  grep -q '^    /tmp/remote-ssh-help-test/.local/share/remote-ssh/dots/git/user.local$' <<<"$got"
   grep -q '^    git remote set-url origin git@github.com-myuser:OWNER/REPO.git$' <<<"$got"
 }
 
@@ -43,6 +44,7 @@ test_remote_ssh_help_supports_git_section() {
 
   grep -q '^Git SSH flow$' <<<"$got"
   grep -q '^    remote-ssh-git-setup$' <<<"$got"
+  grep -q '^    /tmp/remote-ssh-help-test/.local/share/remote-ssh/dots/git/user.local$' <<<"$got"
   grep -q '^    remote-ssh-git-identity github.com-myuser$' <<<"$got"
   grep -q '^    /tmp/remote-ssh-help-test/.local/share/remote-ssh/dots/ssh/config.local$' <<<"$got"
   grep -q '^    ssh -T git@github.com-myuser$' <<<"$got"

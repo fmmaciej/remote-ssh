@@ -41,8 +41,12 @@ To enable the bundled Git defaults from `dots/git/config.base`, run:
 This creates `dots/git/user.local` from the example if needed and adds the
 base config via `git config --global include.path ...`.
 
+In remote-ssh shells, `dots/git/user.local` is also applied as a session Git
+identity override. This affects Git commands in that SSH session without
+writing to repository `.git/config` files.
+
 It also creates `dots/ssh/config.local` from the example if needed and adds it
-to `$HOME/.ssh/config` via `Include`. Edit that file to add a Git account alias,
-then point repository remotes at the alias:
+to `$HOME/.ssh/config` via `Include`. Edit `dots/git/user.local` and
+`dots/ssh/config.local`, then point repository remotes at the alias:
 
   git remote set-url origin git@github.com-myuser:OWNER/REPO.git

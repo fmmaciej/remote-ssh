@@ -106,5 +106,66 @@ EOF
   rm -rf "$tmp"
 }
 
+test_remote_ssh_git_identity_reports_session_override() {
+  log "remote-ssh-git-identity reports session override"
+
+  require_cmd git
+
+  local tmp
+  tmp="$(mktemp -d)"
+  trap 'rm -rf "$tmp"' RETURN
+
+  mkdir -p "$tmp/bin" "$tmp/repo"
+
+  cat >"$tmp/bin/ssh-add" <<'EOF'
+#!/usr/bin/env bash
+printf '256 SHA256:testkey forwarded-key (ED25519)\n'
+EOF
+  chmod +x "$tmp/bin/ssh-add"
+
+  cat >"$tmp/bin/ssh" <<'EOF'
+#!/usr/bin/env bash
+printf 'Hi test-user! You'\''ve successfully authenticated, but GitHub does not provide shell access.\n' >&2
+exit 1
+EOF
+  chmod +x "$tmp/bin/ssh"
+
+  local got
+  got="$(
+    export HOME="$tmp/home"
+    export PATH="$tmp/bin:$PATH"
+    export SSH_AUTH_SOCK="$tmp/agent.sock"
+    export REMOTE_SSH_GIT_SESSION_IDENTITY=1
+    export GIT_CONFIG_COUNT=3
+    export GIT_CONFIG_KEY_0=user.name
+    export GIT_CONFIG_VALUE_0="Session User"
+    export GIT_CONFIG_KEY_1=user.email
+    export GIT_CONFIG_VALUE_1=session@example.com
+    export GIT_CONFIG_KEY_2=user.useConfigOnly
+    export GIT_CONFIG_VALUE_2=true
+    mkdir -p "$HOME"
+
+    cd "$tmp/repo" || exit
+    git init -q
+    git config --local user.name "Repo User"
+    git config --local user.email "repo@example.com"
+
+    "$REPO_DIR/bin/remote-ssh-git-identity" github.com-myuser
+  )"
+
+  grep -q '^  user.name:         Session User ' <<<"$got"
+  grep -q '^  user.email:        session@example.com ' <<<"$got"
+  grep -q '^Git session override$' <<<"$got"
+  grep -q '^  enabled:           1$' <<<"$got"
+  grep -q '^  GIT_CONFIG_COUNT:  3$' <<<"$got"
+  grep -q '^  session name:      Session User$' <<<"$got"
+  grep -q '^  session email:     session@example.com$' <<<"$got"
+  grep -q '^  session useConfigOnly: true$' <<<"$got"
+
+  trap - RETURN
+  rm -rf "$tmp"
+}
+
 register_test test_remote_ssh_git_identity_reports_git_and_ssh_state
 register_test test_remote_ssh_git_identity_accepts_explicit_host_without_remote
+register_test test_remote_ssh_git_identity_reports_session_override

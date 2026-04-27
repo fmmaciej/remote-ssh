@@ -26,6 +26,9 @@ If ${user_local} does not exist, it is created from:
 
 Also prepares SSH config includes for account-specific Git aliases:
   Include ${ssh_config_local}
+
+In remote-ssh shells, ${user_local} is also used as a session Git identity
+override. It does not write to per-repository .git/config files.
 EOF
 }
 
@@ -88,6 +91,7 @@ fi
 printf 'remote-ssh git config is active.\n'
 printf 'Base config: %s\n' "$config_base"
 printf 'User overrides: %s\n' "$user_local"
+printf 'Session identity: enabled in remote-ssh shells when user overrides are set.\n'
 printf 'SSH aliases: %s\n' "$ssh_config_local"
 printf 'After editing SSH aliases, use remotes like:\n'
 printf '  git remote set-url origin git@github.com-myuser:OWNER/REPO.git\n'

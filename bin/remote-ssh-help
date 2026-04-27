@@ -44,13 +44,18 @@ Git SSH flow
   to add dots/git/config.base via git include.path and include
   dots/ssh/config.local from ~/.ssh/config for Git SSH aliases.
   Then edit:
+    $dots_dir/git/user.local
     $dots_dir/ssh/config.local
-  and point a repository remote at the alias:
+  In remote-ssh shells, git/user.local is applied as a session identity
+  override without writing to repository .git/config files.
+  Then point a repository remote at the alias:
     git remote set-url origin git@github.com-myuser:OWNER/REPO.git
   Test which account SSH will use:
     ssh -T git@github.com-myuser
   Or run the full identity check:
     remote-ssh-git-identity github.com-myuser
+  Disable the session identity override before rc.sh loads:
+    export REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=0
 
 Atuin
   To re-run Atuin auto import, remove:
@@ -102,14 +107,20 @@ print_git() {
 Git SSH flow
   Run setup:
     remote-ssh-git-setup
+  Edit your remote-ssh Git identity:
+    $dots_dir/git/user.local
   Edit your account-specific SSH alias:
     $dots_dir/ssh/config.local
+  The Git identity file is applied as a session override in remote-ssh shells,
+  so it can override repository .git/config without writing to it.
   Use that alias in repository remotes:
     git remote set-url origin git@github.com-myuser:OWNER/REPO.git
   Verify the Git account used by SSH:
     ssh -T git@github.com-myuser
   Check Git config, SSH agent, and SSH auth together:
     remote-ssh-git-identity github.com-myuser
+  Disable the session identity override before rc.sh loads:
+    export REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=0
 EOF
 }
 

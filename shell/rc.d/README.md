@@ -75,6 +75,15 @@ This adds `dots/git/config.base` to your global Git config via
 `include.path` and creates `dots/git/user.local` from the example if it is
 missing.
 
+In remote-ssh shells, `dots/git/user.local` is also applied as a session Git
+identity override through `GIT_CONFIG_COUNT`. This lets the remote-ssh identity
+win over per-repository `.git/config` values without writing to those
+repositories. Disable it before loading `rc.sh` if needed:
+
+```bash
+export REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=0
+```
+
 It also creates `dots/ssh/config.local` from the example if needed and adds an
 `Include` line to `~/.ssh/config`. Use that file for account-specific Git SSH
 aliases:
@@ -83,8 +92,7 @@ aliases:
 Host github.com-myuser
   HostName github.com
   User git
-  IdentityFile ~/.ssh/id_ed25519_myuser
-  IdentitiesOnly yes
+  IdentitiesOnly no
 ```
 
 Then point repositories at the alias:

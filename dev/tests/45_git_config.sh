@@ -137,6 +137,7 @@ EOF
     printf '%s\n' "$(git config init.defaultBranch)"
     printf '%s\n' "$(git config fetch.prune)"
     printf '%s\n' "$(git config pull.rebase)"
+    printf '%s\n' "$(git config rebase.autoStash)"
     printf '%s\n' "$(git config push.autoSetupRemote)"
     printf '%s\n' "$(git config rerere.enabled)"
     printf '%s\n' "$(git config merge.conflictStyle)"
@@ -147,7 +148,7 @@ EOF
     printf '%s\n' "$(git config core.editor)"
   )"
 
-  assert_eq "git included defaults" $'main\ntrue\ntrue\ntrue\ntrue\nzdiff3\nhistogram\nprompt\ntrue\nTest User\nvim' "$got"
+  assert_eq "git included defaults" $'main\ntrue\ntrue\ntrue\ntrue\ntrue\nzdiff3\nhistogram\nprompt\ntrue\nTest User\nvim' "$got"
 
   trap - RETURN
   rm -rf "$tmp"

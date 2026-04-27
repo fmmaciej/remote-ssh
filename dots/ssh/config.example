@@ -10,6 +10,7 @@ Host github.com-myuser
   HostName github.com
   User git
   IdentitiesOnly no
+  ProxyCommand nc -X connect -x proxy.example.com:PORT %h %p
 
 # Local-key variant:
 #

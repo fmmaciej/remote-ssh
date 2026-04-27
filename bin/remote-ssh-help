@@ -16,6 +16,8 @@ remote-ssh help
 Commands
   remote-ssh-help        Show this help
   remote-ssh-git-setup   Add remote-ssh Git config via include.path
+  remote-ssh-git-identity
+                         Check Git identity, SSH agent, and Git SSH auth
   sshf                   Pick an SSH host with fzf and connect
 
 Aliases
@@ -47,6 +49,8 @@ Git SSH flow
     git remote set-url origin git@github.com-myuser:OWNER/REPO.git
   Test which account SSH will use:
     ssh -T git@github.com-myuser
+  Or run the full identity check:
+    remote-ssh-git-identity github.com-myuser
 
 Atuin
   To re-run Atuin auto import, remove:
@@ -61,6 +65,8 @@ print_commands() {
 Commands
   remote-ssh-help        Show this help
   remote-ssh-git-setup   Add remote-ssh Git config via include.path
+  remote-ssh-git-identity
+                         Check Git identity, SSH agent, and Git SSH auth
   sshf                   Pick an SSH host with fzf and connect
 EOF
 }
@@ -102,6 +108,8 @@ Git SSH flow
     git remote set-url origin git@github.com-myuser:OWNER/REPO.git
   Verify the Git account used by SSH:
     ssh -T git@github.com-myuser
+  Check Git config, SSH agent, and SSH auth together:
+    remote-ssh-git-identity github.com-myuser
 EOF
 }
 

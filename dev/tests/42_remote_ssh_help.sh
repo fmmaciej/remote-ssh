@@ -11,6 +11,7 @@ test_remote_ssh_help_lists_core_entries() {
 
   grep -q '^remote-ssh help$' <<<"$got"
   grep -q '^  sshf                   Pick an SSH host with fzf and connect$' <<<"$got"
+  grep -q '^  remote-ssh-git-identity$' <<<"$got"
   grep -q '^  rcrc                   Reload remote-ssh shell config$' <<<"$got"
   grep -q '^  remote_atuin_debug     Print current Atuin integration state$' <<<"$got"
   grep -q '^Git SSH flow$' <<<"$got"
@@ -42,6 +43,7 @@ test_remote_ssh_help_supports_git_section() {
 
   grep -q '^Git SSH flow$' <<<"$got"
   grep -q '^    remote-ssh-git-setup$' <<<"$got"
+  grep -q '^    remote-ssh-git-identity github.com-myuser$' <<<"$got"
   grep -q '^    /tmp/remote-ssh-help-test/.local/share/remote-ssh/dots/ssh/config.local$' <<<"$got"
   grep -q '^    ssh -T git@github.com-myuser$' <<<"$got"
   ! grep -q '^Commands$' <<<"$got"

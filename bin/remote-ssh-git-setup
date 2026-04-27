@@ -10,7 +10,7 @@ user_local="${REPO_DIR}/dots/git/user.local"
 user_local_example="${REPO_DIR}/dots/git/user.local.example"
 ssh_config_dir="${REPO_DIR}/dots/ssh"
 ssh_config_local="${ssh_config_dir}/config.local"
-ssh_config_local_example="${ssh_config_dir}/config.local.example"
+ssh_config_example="${ssh_config_dir}/config.example"
 home_ssh_dir="${HOME}/.ssh"
 home_ssh_config="${home_ssh_dir}/config"
 
@@ -49,9 +49,9 @@ if [[ ! -e "$user_local" && -r "$user_local_example" ]]; then
   printf '[INFO] Created %s from example.\n' "$user_local" >&2
 fi
 
-if [[ ! -e "$ssh_config_local" && -r "$ssh_config_local_example" ]]; then
+if [[ ! -e "$ssh_config_local" && -r "$ssh_config_example" ]]; then
   mkdir -p "$ssh_config_dir"
-  cp "$ssh_config_local_example" "$ssh_config_local"
+  cp "$ssh_config_example" "$ssh_config_local"
   printf '[INFO] Created %s from example.\n' "$ssh_config_local" >&2
 fi
 

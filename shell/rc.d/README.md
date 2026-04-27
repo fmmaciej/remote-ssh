@@ -99,7 +99,7 @@ Files:
 dots/git/config.base
 dots/git/user.local.example
 dots/git/user.local
-dots/ssh/config.local.example
+dots/ssh/config.example
 dots/ssh/config.local
 ```
 

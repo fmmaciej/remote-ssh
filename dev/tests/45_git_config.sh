@@ -60,7 +60,7 @@ test_remote_ssh_git_setup_creates_user_local_example() {
   grep -q '^    name = Your Name$' <<<"$got"
   grep -q '^    email = your.email@example.com$' <<<"$got"
   grep -q '^Host github.com-myuser$' <<<"$got"
-  grep -q '^  IdentityFile ~/.ssh/id_ed25519_myuser$' <<<"$got"
+  grep -q '^  IdentitiesOnly no$' <<<"$got"
 
   trap - RETURN
   rm -rf "$tmp"

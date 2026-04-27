@@ -10,25 +10,29 @@ test_remote_ssh_git_setup_adds_include_once() {
   tmp="$(mktemp -d)"
   trap 'rm -rf "$tmp"' RETURN
 
+  local repo_copy="$tmp/repo"
+  mkdir -p "$repo_copy"
+  cp -R "$REPO_DIR/." "$repo_copy"
+
   local got
   got="$(
     export HOME="$tmp/home"
     mkdir -p "$HOME"
 
-    bash "$REPO_DIR/bin/remote-ssh-git-setup" >/dev/null
-    bash "$REPO_DIR/bin/remote-ssh-git-setup" >/dev/null
+    bash "$repo_copy/bin/remote-ssh-git-setup" >/dev/null
+    bash "$repo_copy/bin/remote-ssh-git-setup" >/dev/null
 
     git config --global --get-all include.path
   )"
 
-  assert_eq "git include path" "$REPO_DIR/dots/git/config.base" "$got"
+  assert_eq "git include path" "$repo_copy/dots/git/config.base" "$got"
 
   trap - RETURN
   rm -rf "$tmp"
 }
 
 test_remote_ssh_git_setup_creates_user_local_example() {
-  log "remote-ssh-git-setup creates user.local from example"
+  log "remote-ssh-git-setup creates local examples"
 
   require_cmd git
 
@@ -48,11 +52,54 @@ test_remote_ssh_git_setup_creates_user_local_example() {
 
     bash "$repo_copy/bin/remote-ssh-git-setup" >/dev/null
     cat "$repo_copy/dots/git/user.local"
+    printf '%s\n' '--- ssh ---'
+    cat "$repo_copy/dots/ssh/config.local"
   )"
 
   grep -q '^\[user\]$' <<<"$got"
   grep -q '^    name = Your Name$' <<<"$got"
   grep -q '^    email = your.email@example.com$' <<<"$got"
+  grep -q '^Host github.com-myuser$' <<<"$got"
+  grep -q '^  IdentityFile ~/.ssh/id_ed25519_myuser$' <<<"$got"
+
+  trap - RETURN
+  rm -rf "$tmp"
+}
+
+test_remote_ssh_git_setup_adds_ssh_include_once() {
+  log "remote-ssh-git-setup adds SSH include once"
+
+  require_cmd git
+
+  local tmp
+  tmp="$(mktemp -d)"
+  trap 'rm -rf "$tmp"' RETURN
+
+  local repo_copy="$tmp/repo"
+  mkdir -p "$repo_copy"
+  cp -R "$REPO_DIR/." "$repo_copy"
+
+  local got
+  got="$(
+    export HOME="$tmp/home"
+    mkdir -p "$HOME/.ssh"
+    cat >"$HOME/.ssh/config" <<'EOF'
+Host existing
+  HostName example.com
+EOF
+
+    bash "$repo_copy/bin/remote-ssh-git-setup" >/dev/null
+    bash "$repo_copy/bin/remote-ssh-git-setup" >/dev/null
+
+    cat "$HOME/.ssh/config"
+    printf 'mode:%s\n' "$(stat -f '%Lp' "$HOME/.ssh/config" 2>/dev/null || stat -c '%a' "$HOME/.ssh/config")"
+  )"
+
+  assert_eq "ssh config include" "Include $repo_copy/dots/ssh/config.local
+
+Host existing
+  HostName example.com
+mode:600" "$got"
 
   trap - RETURN
   rm -rf "$tmp"
@@ -109,3 +156,4 @@ EOF
 register_test test_remote_ssh_git_setup_adds_include_once
 register_test test_remote_ssh_git_setup_creates_user_local_example
 register_test test_remote_ssh_git_setup_exposes_base_defaults_via_include
+register_test test_remote_ssh_git_setup_adds_ssh_include_once

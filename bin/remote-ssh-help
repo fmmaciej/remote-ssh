@@ -35,9 +35,20 @@ Paths
 Notes
   vim/nvim and tmux are not installed by remote-ssh.
   Install them manually on hosts where you want to use them.
+
+Git SSH flow
   Git config is opt-in. Run:
     remote-ssh-git-setup
-  to add dots/git/config.base via git include.path.
+  to add dots/git/config.base via git include.path and include
+  dots/ssh/config.local from ~/.ssh/config for Git SSH aliases.
+  Then edit:
+    $dots_dir/ssh/config.local
+  and point a repository remote at the alias:
+    git remote set-url origin git@github.com-myuser:OWNER/REPO.git
+  Test which account SSH will use:
+    ssh -T git@github.com-myuser
+
+Atuin
   To re-run Atuin auto import, remove:
     $atuin_marker
   and reload the shell, or run:
@@ -80,9 +91,23 @@ Paths
 EOF
 }
 
+print_git() {
+  cat <<EOF
+Git SSH flow
+  Run setup:
+    remote-ssh-git-setup
+  Edit your account-specific SSH alias:
+    $dots_dir/ssh/config.local
+  Use that alias in repository remotes:
+    git remote set-url origin git@github.com-myuser:OWNER/REPO.git
+  Verify the Git account used by SSH:
+    ssh -T git@github.com-myuser
+EOF
+}
+
 usage() {
   cat <<'EOF' >&2
-Usage: remote-ssh-help [all|commands|aliases|functions|paths]
+Usage: remote-ssh-help [all|commands|aliases|functions|paths|git]
 EOF
   exit 1
 }
@@ -93,5 +118,6 @@ case "$section" in
   aliases) print_aliases ;;
   functions) print_functions ;;
   paths) print_paths ;;
+  git) print_git ;;
   *) usage ;;
 esac

@@ -75,15 +75,35 @@ This adds `dots/git/config.base` to your global Git config via
 `include.path` and creates `dots/git/user.local` from the example if it is
 missing.
 
+It also creates `dots/ssh/config.local` from the example if needed and adds an
+`Include` line to `~/.ssh/config`. Use that file for account-specific Git SSH
+aliases:
+
+```sshconfig
+Host github.com-myuser
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_myuser
+  IdentitiesOnly yes
+```
+
+Then point repositories at the alias:
+
+```bash
+git remote set-url origin git@github.com-myuser:OWNER/REPO.git
+```
+
 Files:
 
 ```text
 dots/git/config.base
 dots/git/user.local.example
 dots/git/user.local
+dots/ssh/config.local.example
+dots/ssh/config.local
 ```
 
-`user.local` is intentionally local and not tracked by Git.
+`user.local` and `config.local` are intentionally local and not tracked by Git.
 
 ## fzf and Atuin
 

@@ -13,6 +13,8 @@ test_remote_ssh_help_lists_core_entries() {
   grep -q '^  sshf                   Pick an SSH host with fzf and connect$' <<<"$got"
   grep -q '^  rcrc                   Reload remote-ssh shell config$' <<<"$got"
   grep -q '^  remote_atuin_debug     Print current Atuin integration state$' <<<"$got"
+  grep -q '^Git SSH flow$' <<<"$got"
+  grep -q '^    git remote set-url origin git@github.com-myuser:OWNER/REPO.git$' <<<"$got"
 }
 
 test_remote_ssh_help_supports_sections() {
@@ -29,5 +31,22 @@ test_remote_ssh_help_supports_sections() {
   ! grep -q '^Commands$' <<<"$got"
 }
 
+test_remote_ssh_help_supports_git_section() {
+  log "remote-ssh-help supports git section"
+
+  local got
+  got="$(
+    HOME=/tmp/remote-ssh-help-test \
+      bash "$REPO_DIR/bin/remote-ssh-help" git
+  )"
+
+  grep -q '^Git SSH flow$' <<<"$got"
+  grep -q '^    remote-ssh-git-setup$' <<<"$got"
+  grep -q '^    /tmp/remote-ssh-help-test/.local/share/remote-ssh/dots/ssh/config.local$' <<<"$got"
+  grep -q '^    ssh -T git@github.com-myuser$' <<<"$got"
+  ! grep -q '^Commands$' <<<"$got"
+}
+
 register_test test_remote_ssh_help_lists_core_entries
 register_test test_remote_ssh_help_supports_sections
+register_test test_remote_ssh_help_supports_git_section

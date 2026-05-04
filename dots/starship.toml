@@ -21,7 +21,7 @@ modified = "~"
 renamed = ">"
 deleted = "-"
 untracked = "?"
-stashed = "$"
+stashed = "\\$"
 
 ahead    = " +${count}"
 behind   = " -${count}"

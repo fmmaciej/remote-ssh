@@ -47,6 +47,12 @@ fzf|darwin:x86_64:any|fzf-0.67.0-darwin_amd64.tar.gz
 fzf|darwin:aarch64:any|fzf-0.67.0-darwin_arm64.tar.gz
 fzf|linux:x86_64:any|fzf-0.67.0-linux_amd64.tar.gz
 fzf|linux:aarch64:any|fzf-0.67.0-linux_arm64.tar.gz
+nu|darwin:aarch64:any|nu-0.112.2-aarch64-apple-darwin.tar.gz
+nu|darwin:x86_64:any|nu-0.112.2-x86_64-apple-darwin.tar.gz
+nu|linux:aarch64:musl|nu-0.112.2-aarch64-unknown-linux-musl.tar.gz
+nu|linux:x86_64:musl|nu-0.112.2-x86_64-unknown-linux-musl.tar.gz
+nu|linux:aarch64:gnu|nu-0.112.2-aarch64-unknown-linux-gnu.tar.gz
+nu|linux:x86_64:gnu|nu-0.112.2-x86_64-unknown-linux-gnu.tar.gz
 nvim|linux:aarch64:gnu|nvim-linux-arm64.tar.gz
 nvim|linux:x86_64:gnu|nvim-linux-x86_64.tar.gz
 nvim|darwin:aarch64:any|nvim-macos-arm64.tar.gz
@@ -110,6 +116,8 @@ fd|linux:x86_64:gnu|fd-v10.3.0-x86_64-unknown-linux-musl.tar.gz
 fd|linux:aarch64:gnu|fd-v10.3.0-aarch64-unknown-linux-musl.tar.gz
 fzf|linux:x86_64:gnu|fzf-0.67.0-linux_amd64.tar.gz
 fzf|linux:aarch64:gnu|fzf-0.67.0-linux_arm64.tar.gz
+nu|linux:x86_64:gnu|nu-0.112.2-x86_64-unknown-linux-musl.tar.gz
+nu|linux:aarch64:gnu|nu-0.112.2-aarch64-unknown-linux-musl.tar.gz
 nvim|linux:x86_64:gnu|nvim-linux-x86_64.tar.gz
 nvim|linux:aarch64:gnu|nvim-linux-arm64.tar.gz
 rg|linux:x86_64:gnu|ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz

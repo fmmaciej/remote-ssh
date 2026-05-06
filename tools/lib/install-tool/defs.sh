@@ -11,6 +11,8 @@ load_defs() {
     exit 1
   }
 
+  unset BINARY_ALIASES
+
   # shellcheck source=/dev/null
   . "$def_file"
 
@@ -22,4 +24,8 @@ load_defs() {
 
   BINARY_NAME="${BINARY_NAME:-$TOOL_NAME}"
   TAG_PREFIX="${TAG_PREFIX:-}"
+
+  if ! declare -p BINARY_ALIASES >/dev/null 2>&1; then
+    BINARY_ALIASES=()
+  fi
 }

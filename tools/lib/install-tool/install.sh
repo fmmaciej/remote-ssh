@@ -14,8 +14,9 @@ find_binary_path_by_name() {
 
 install_binary() {
   local tool_name="$1" binary_name="$2" version="$3" extract_dir="$4"
+  local -a binary_aliases=("${@:5}")
 
-  local rel target_dir
+  local rel target_dir alias_name
   rel="$(find_binary_path_by_name "$extract_dir" "$binary_name")"
 
   [[ -n $rel ]] || {
@@ -37,4 +38,9 @@ install_binary() {
 
   log_info "Installed: $target_dir"
   log_info "Symlink:   $INSTALL_BIN_DIR/$tool_name"
+
+  for alias_name in "${binary_aliases[@]}"; do
+    ln -sf "$target_dir/$binary_name" "$INSTALL_BIN_DIR/$alias_name"
+    log_info "Alias:     $INSTALL_BIN_DIR/$alias_name"
+  done
 }

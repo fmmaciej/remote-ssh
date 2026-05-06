@@ -19,7 +19,7 @@ with_each_tool_def() {
   local def
 
   for def in "$REPO_DIR"/tools/defs/*.sh; do
-    unset TOOL_NAME GH_REPO DEFAULT_VERSION TAG_PREFIX BINARY_NAME ASSET_PREFIX VARIANTS
+    unset TOOL_NAME GH_REPO DEFAULT_VERSION TAG_PREFIX BINARY_NAME BINARY_ALIASES ASSET_PREFIX VARIANTS
     # shellcheck source=/dev/null
     . "$def"
     "$callback" "$def"

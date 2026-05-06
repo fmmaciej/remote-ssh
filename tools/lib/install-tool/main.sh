@@ -35,5 +35,5 @@ install_tool_main() {
     "$ASSET_PREFIX" "$ASSET_TEMPLATE" "$ARCH_KIND" "$OS_KIND" \
     "$raw_arch" "$raw_os" || exit 1
 
-  install_binary "$TOOL_NAME" "$BINARY_NAME" "$version" "$EXTRACT_DIR" || exit 1
+  install_binary "$TOOL_NAME" "$BINARY_NAME" "$version" "$EXTRACT_DIR" "${BINARY_ALIASES[@]}" || exit 1
 }

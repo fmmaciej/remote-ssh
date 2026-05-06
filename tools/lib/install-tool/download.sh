@@ -2,20 +2,28 @@
 
 ensure_this_file_sourced
 
+stage_downloaded_asset() {
+  local asset_name="$1" binary_name="$2"
+
+  case "$asset_name" in
+  *.tar.gz | *.tgz | *.zip)
+    extract_archive_in_pwd "$asset_name"
+    ;;
+  *)
+    chmod +x "$asset_name"
+    if [[ $asset_name != "$binary_name" ]]; then
+      cp "$asset_name" "$binary_name"
+      chmod +x "$binary_name"
+    fi
+    ;;
+  esac
+}
+
 download_and_extract() {
-  local repo="$1" tag_prefix="$2" version="$3"
-  local asset_prefix="$4" asset_template="$5"
-  local arch_kind="$6" os_kind="$7"
-  local raw_arch="$8" raw_os="$9"
+  local repo="$1" release_tag="$2" asset_name="$3" binary_name="$4"
 
-  local arch os archive_name tag_for_url url
-
-  arch="$(map_arch "$arch_kind" "$raw_arch")" || return 1
-  os="$(map_os "$os_kind" "$raw_os")" || return 1
-
-  archive_name="$(build_asset_name "$asset_template" "$asset_prefix" "$version" "$arch" "$os")" || return 1
-  tag_for_url="${tag_prefix}${version}"
-  url="https://github.com/${repo}/releases/download/${tag_for_url}/${archive_name}"
+  local url
+  url="https://github.com/${repo}/releases/download/${release_tag}/${asset_name}"
 
   mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR"
 
@@ -29,18 +37,15 @@ download_and_extract() {
   # sprytne cd -
   (
     cd "$TMPDIR" || exit 1
-    curl -fsSLO "$url"
-    extract_archive_in_pwd "$archive_name"
+    curl -fsSLo "$asset_name" "$url"
+    stage_downloaded_asset "$asset_name" "$binary_name"
   ) || return 1
 
   # shellcheck disable=SC2034
   EXTRACT_DIR="$TMPDIR"
 
   log_debug "download_and_extract()"
-  log_debug "  version=$version"
-  log_debug "  arch=$arch"
-  log_debug "  os=$os"
-  log_debug "  asset_template=$asset_template"
-  log_debug "  archive_name=$archive_name"
+  log_debug "  release_tag=$release_tag"
+  log_debug "  asset_name=$asset_name"
   log_debug "  url=$url"
 }

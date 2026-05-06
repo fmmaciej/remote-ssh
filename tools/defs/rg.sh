@@ -3,19 +3,14 @@
 
 TOOL_NAME="rg"
 GH_REPO="BurntSushi/ripgrep"
-DEFAULT_VERSION="15.1.0"
-TAG_PREFIX=""
+RELEASE_TAG="15.1.0"
+VERSION="15.1.0"
 
 BINARY_NAME="rg"
 
-ASSET_PREFIX="ripgrep"
-
-# "<os>:<arch>:<libc>|<asset_template>|<arch_kind>|<os_kind>"
-#
-# Uwaga: szkic na podstawie assets z tagu: 15.1.0
-VARIANTS=(
-  "darwin:aarch64:any|prefix-version-arch-os|x86_64_aarch64|rust_triple"
-  "darwin:x86_64:any|prefix-version-arch-os|x86_64_aarch64|rust_triple"
-  "linux:x86_64:musl|prefix-version-arch-os|x86_64_aarch64|rust_musl"
-  "linux:aarch64:gnu|prefix-version-arch-os|x86_64_aarch64|rust_triple"
+ASSETS=(
+  "darwin:aarch64:any|ripgrep-15.1.0-aarch64-apple-darwin.tar.gz"
+  "darwin:x86_64:any|ripgrep-15.1.0-x86_64-apple-darwin.tar.gz"
+  "linux:x86_64:musl|ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz"
+  "linux:aarch64:gnu|ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz"
 )

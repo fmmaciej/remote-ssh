@@ -40,7 +40,7 @@ check_asset_exists() {
 check_def_assets() {
   :
 
-  local tag="${TAG_PREFIX}${DEFAULT_VERSION}"
+  local tag="${RELEASE_TAG}"
   log "${TOOL_NAME}: ${GH_REPO}@${tag}"
 
   local json
@@ -50,8 +50,8 @@ check_def_assets() {
   fi
 
   local rec asset
-  for rec in "${VARIANTS[@]}"; do
-    asset="$(variant_asset_name "$rec")"
+  for rec in "${ASSETS[@]}"; do
+    asset="$(manifest_asset_name "$rec")"
     check_asset_exists "$GH_REPO" "$tag" "$asset" "$json"
   done
 }

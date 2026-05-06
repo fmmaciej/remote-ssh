@@ -29,3 +29,13 @@ assert_eq() {
     return 1
   }
 }
+
+assert_contains() {
+  local label="$1" needle="$2" haystack="$3"
+
+  grep -F -- "$needle" <<<"$haystack" >/dev/null || {
+    printf 'Expected %s to contain:\n%s\n' "$label" "$needle" >&2
+    printf '%s\n%s\n' '--- got ---' "$haystack" >&2
+    return 1
+  }
+}

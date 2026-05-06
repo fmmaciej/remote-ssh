@@ -3,21 +3,16 @@
 
 TOOL_NAME="fd"
 GH_REPO="sharkdp/fd"
-DEFAULT_VERSION="10.3.0"
-TAG_PREFIX="v"
+RELEASE_TAG="v10.3.0"
+VERSION="10.3.0"
 
 BINARY_NAME="fd"
 
-ASSET_PREFIX="fd-v"
-
-# "<os>:<arch>:<libc>|<asset_template>|<arch_kind>|<os_kind>"
-#
-# Uwaga: szkic na podstawie assets z tagu: v10.3.0
-VARIANTS=(
-  "darwin:aarch64:any|prefix-version-arch-os|x86_64_aarch64|rust_triple"
-  "darwin:x86_64:any|prefix-version-arch-os|x86_64_aarch64|rust_triple"
-  "linux:aarch64:musl|prefix-version-arch-os|x86_64_aarch64|rust_musl"
-  "linux:x86_64:musl|prefix-version-arch-os|x86_64_aarch64|rust_musl"
-  "linux:aarch64:gnu|prefix-version-arch-os|x86_64_aarch64|rust_triple"
-  "linux:x86_64:gnu|prefix-version-arch-os|x86_64_aarch64|rust_triple"
+ASSETS=(
+  "darwin:aarch64:any|fd-v10.3.0-aarch64-apple-darwin.tar.gz"
+  "darwin:x86_64:any|fd-v10.3.0-x86_64-apple-darwin.tar.gz"
+  "linux:aarch64:musl|fd-v10.3.0-aarch64-unknown-linux-musl.tar.gz"
+  "linux:x86_64:musl|fd-v10.3.0-x86_64-unknown-linux-musl.tar.gz"
+  "linux:aarch64:gnu|fd-v10.3.0-aarch64-unknown-linux-gnu.tar.gz"
+  "linux:x86_64:gnu|fd-v10.3.0-x86_64-unknown-linux-gnu.tar.gz"
 )

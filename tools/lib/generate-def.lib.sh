@@ -10,6 +10,5 @@ ensure_this_file_sourced
 . "$TOOLS_COMMON_DIR/github.sh"
 
 . "$TOOLS_GENERATE_DEF_DIR/detect.sh"
-. "$TOOLS_GENERATE_DEF_DIR/guess.sh"
 . "$TOOLS_GENERATE_DEF_DIR/analyze.sh"
 . "$TOOLS_GENERATE_DEF_DIR/render.sh"

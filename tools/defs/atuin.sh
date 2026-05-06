@@ -3,21 +3,15 @@
 
 TOOL_NAME="atuin"
 GH_REPO="atuinsh/atuin"
-DEFAULT_VERSION="18.14.1"
-TAG_PREFIX="v"
+RELEASE_TAG="v18.14.1"
+VERSION="18.14.1"
 
 BINARY_NAME="atuin"
 
-ASSET_PREFIX="atuin"
-
-# "<os>:<arch>:<libc>|<asset_template>|<arch_kind>|<os_kind>"
-#
-# Uwaga:  szkic na podstawie assets z tagu: v18.14.1
-#         preferuj wersje musl
-VARIANTS=(
-  "darwin:aarch64:any|prefix-arch-os-tgz|x86_64_aarch64|rust_triple"
-  "linux:aarch64:gnu|prefix-arch-os-tgz|x86_64_aarch64|rust_triple"
-  "linux:aarch64:musl|prefix-arch-os-tgz|x86_64_aarch64|rust_musl"
-  "linux:x86_64:gnu|prefix-arch-os-tgz|x86_64_aarch64|rust_triple"
-  "linux:x86_64:musl|prefix-arch-os-tgz|x86_64_aarch64|rust_musl"
+ASSETS=(
+  "darwin:aarch64:any|atuin-aarch64-apple-darwin.tar.gz"
+  "linux:aarch64:gnu|atuin-aarch64-unknown-linux-gnu.tar.gz"
+  "linux:aarch64:musl|atuin-aarch64-unknown-linux-musl.tar.gz"
+  "linux:x86_64:gnu|atuin-x86_64-unknown-linux-gnu.tar.gz"
+  "linux:x86_64:musl|atuin-x86_64-unknown-linux-musl.tar.gz"
 )

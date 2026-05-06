@@ -3,19 +3,14 @@
 
 TOOL_NAME="zoxide"
 GH_REPO="ajeetdsouza/zoxide"
-DEFAULT_VERSION="0.9.9"
-TAG_PREFIX="v"
+RELEASE_TAG="v0.9.9"
+VERSION="0.9.9"
 
 BINARY_NAME="zoxide"
 
-ASSET_PREFIX="zoxide"
-
-# "<os>:<arch>:<libc>|<asset_template>|<arch_kind>|<os_kind>"
-#
-# Based on release assets from v0.9.9.
-VARIANTS=(
-  "darwin:aarch64:any|prefix-version-arch-os|x86_64_aarch64|rust_triple"
-  "darwin:x86_64:any|prefix-version-arch-os|x86_64_aarch64|rust_triple"
-  "linux:aarch64:musl|prefix-version-arch-os|x86_64_aarch64|rust_musl"
-  "linux:x86_64:musl|prefix-version-arch-os|x86_64_aarch64|rust_musl"
+ASSETS=(
+  "darwin:aarch64:any|zoxide-0.9.9-aarch64-apple-darwin.tar.gz"
+  "darwin:x86_64:any|zoxide-0.9.9-x86_64-apple-darwin.tar.gz"
+  "linux:aarch64:musl|zoxide-0.9.9-aarch64-unknown-linux-musl.tar.gz"
+  "linux:x86_64:musl|zoxide-0.9.9-x86_64-unknown-linux-musl.tar.gz"
 )

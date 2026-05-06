@@ -8,9 +8,9 @@ generated_asset_contract() {
     local _def="$1"
     local rec key asset
 
-    for rec in "${VARIANTS[@]}"; do
-      key="${rec%%|*}"
-      asset="$(variant_asset_name "$rec")"
+    for rec in "${ASSETS[@]}"; do
+      key="$(manifest_asset_key "$rec")"
+      asset="$(manifest_asset_name "$rec")"
       printf '%s|%s|%s\n' "$TOOL_NAME" "$key" "$asset"
     done
   }
@@ -19,7 +19,7 @@ generated_asset_contract() {
 }
 
 test_asset_name_mappings() {
-  log "tool asset name mappings"
+  log "tool exact asset manifest"
 
   local expected got
 expected="$(cat <<'EOF'
@@ -80,7 +80,7 @@ EOF
 )"
   got="$(generated_asset_contract)"
 
-  assert_eq "asset mapping contract" "$expected" "$got"
+  assert_eq "asset manifest contract" "$expected" "$got"
 }
 
 linux_gnu_selection_contract() {
@@ -101,7 +101,7 @@ linux_gnu_selection_contract() {
   with_each_tool_def emit_linux_gnu_selection_contract
 }
 
-test_linux_gnu_variant_selection() {
+test_linux_gnu_asset_selection() {
   log "linux glibc hosts prefer portable variants"
 
   local expected got
@@ -135,5 +135,52 @@ EOF
   assert_eq "linux glibc selection contract" "$expected" "$got"
 }
 
+test_linux_glibc_asset_fallback() {
+  log "linux glibc hosts fall back to glibc asset"
+
+  source_tool_selector_libs
+
+  local -a ASSETS=(
+    "linux:x86_64:glibc|tool-x86_64-linux-glibc.tgz"
+    "linux:x86_64:any|tool-x86_64-linux-any.tgz"
+  )
+  local got
+  got="$(select_asset linux x86_64 gnu "${ASSETS[@]}")"
+
+  assert_eq "linux glibc fallback" "tool-x86_64-linux-glibc.tgz" "$got"
+}
+
+test_linux_any_asset_fallback() {
+  log "linux hosts fall back to any asset"
+
+  source_tool_selector_libs
+
+  local -a ASSETS=(
+    "linux:x86_64:any|tool-x86_64-linux-any.tgz"
+  )
+  local got
+  got="$(select_asset linux x86_64 gnu "${ASSETS[@]}")"
+
+  assert_eq "linux any fallback" "tool-x86_64-linux-any.tgz" "$got"
+}
+
+test_asset_selection_no_match() {
+  log "asset selection reports no match"
+
+  source_tool_selector_libs
+
+  local -a ASSETS=(
+    "linux:x86_64:any|tool-x86_64-linux-any.tgz"
+  )
+
+  if select_asset darwin aarch64 any "${ASSETS[@]}" >/dev/null; then
+    printf 'Expected no matching asset for darwin/aarch64/any\n' >&2
+    return 1
+  fi
+}
+
 register_test test_asset_name_mappings
-register_test test_linux_gnu_variant_selection
+register_test test_linux_gnu_asset_selection
+register_test test_linux_glibc_asset_fallback
+register_test test_linux_any_asset_fallback
+register_test test_asset_selection_no_match

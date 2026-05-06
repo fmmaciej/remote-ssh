@@ -33,9 +33,9 @@ main() {
 
   tag_prefix_and_version "$GITHUB_TAG"
 
-  detect_asset_prefix "$tool" "$DEFAULT_VERSION" "${GITHUB_ASSETS[@]}"
+  detect_asset_prefix "$tool" "$VERSION" "${GITHUB_ASSETS[@]}"
 
-  build_variants_from_assets "${GITHUB_ASSETS[@]}"
+  build_assets_from_assets "${GITHUB_ASSETS[@]}"
   render_defs "$tool" "$repo" "$GITHUB_TAG"
 }
 

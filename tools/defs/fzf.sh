@@ -3,19 +3,14 @@
 
 TOOL_NAME="fzf"
 GH_REPO="junegunn/fzf"
-DEFAULT_VERSION="0.67.0"
-TAG_PREFIX="v"
+RELEASE_TAG="v0.67.0"
+VERSION="0.67.0"
 
 BINARY_NAME="fzf"
 
-ASSET_PREFIX="fzf"
-
-# "<os>:<arch>:<libc>|<asset_template>|<arch_kind>|<os_kind>"
-#
-# Uwaga: szkic na podstawie assets z tagu: v0.67.0
-VARIANTS=(
-  "darwin:x86_64:any|prefix-version-os_arch|amd64_arm64|linux_darwin"
-  "darwin:aarch64:any|prefix-version-os_arch|amd64_arm64|linux_darwin"
-  "linux:x86_64:any|prefix-version-os_arch|amd64_arm64|linux_darwin"
-  "linux:aarch64:any|prefix-version-os_arch|amd64_arm64|linux_darwin"
+ASSETS=(
+  "darwin:x86_64:any|fzf-0.67.0-darwin_amd64.tar.gz"
+  "darwin:aarch64:any|fzf-0.67.0-darwin_arm64.tar.gz"
+  "linux:x86_64:any|fzf-0.67.0-linux_amd64.tar.gz"
+  "linux:aarch64:any|fzf-0.67.0-linux_arm64.tar.gz"
 )

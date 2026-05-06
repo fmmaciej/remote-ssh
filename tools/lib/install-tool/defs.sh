@@ -11,19 +11,18 @@ load_defs() {
     exit 1
   }
 
-  unset BINARY_ALIASES
+  unset ASSETS BINARY_ALIASES
 
   # shellcheck source=/dev/null
   . "$def_file"
 
   : "${TOOL_NAME:?}"
   : "${GH_REPO:?}"
-  : "${DEFAULT_VERSION:?}"
-  : "${ASSET_PREFIX:?}"
-  : "${VARIANTS:?}"
+  : "${RELEASE_TAG:?}"
+  : "${VERSION:?}"
+  : "${ASSETS:?}"
 
   BINARY_NAME="${BINARY_NAME:-$TOOL_NAME}"
-  TAG_PREFIX="${TAG_PREFIX:-}"
 
   if ! declare -p BINARY_ALIASES >/dev/null 2>&1; then
     BINARY_ALIASES=()

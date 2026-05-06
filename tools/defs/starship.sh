@@ -3,20 +3,15 @@
 
 TOOL_NAME="starship"
 GH_REPO="starship/starship"
-DEFAULT_VERSION="1.24.1"
-TAG_PREFIX="v"
+RELEASE_TAG="v1.24.1"
+VERSION="1.24.1"
 
 BINARY_NAME="starship"
 
-ASSET_PREFIX="starship"
-
-# "<os>:<arch>:<libc>|<asset_template>|<arch_kind>|<os_kind>"
-#
-# Uwaga: szkic na podstawie assets z tagu: v1.24.1
-VARIANTS=(
-  "darwin:aarch64:any|prefix-arch-os-tgz|x86_64_aarch64|rust_triple"
-  "darwin:x86_64:any|prefix-arch-os-tgz|x86_64_aarch64|rust_triple"
-  "linux:aarch64:musl|prefix-arch-os-tgz|x86_64_aarch64|rust_musl"
-  "linux:x86_64:musl|prefix-arch-os-tgz|x86_64_aarch64|rust_musl"
-  "linux:x86_64:gnu|prefix-arch-os-tgz|x86_64_aarch64|rust_triple"
+ASSETS=(
+  "darwin:aarch64:any|starship-aarch64-apple-darwin.tar.gz"
+  "darwin:x86_64:any|starship-x86_64-apple-darwin.tar.gz"
+  "linux:aarch64:musl|starship-aarch64-unknown-linux-musl.tar.gz"
+  "linux:x86_64:musl|starship-x86_64-unknown-linux-musl.tar.gz"
+  "linux:x86_64:gnu|starship-x86_64-unknown-linux-gnu.tar.gz"
 )

@@ -13,21 +13,18 @@ render_defs() {
 
 TOOL_NAME="${tool}"
 GH_REPO="${repo}"
-DEFAULT_VERSION="${DEFAULT_VERSION}"
-TAG_PREFIX="${TAG_PREFIX}"
+RELEASE_TAG="${RELEASE_TAG}"
+VERSION="${VERSION}"
 
 BINARY_NAME="${tool}"
 
-ASSET_PREFIX="${ASSET_PREFIX}"
-
-# "<os>:<arch>:<libc>|<asset_template>|<arch_kind>|<os_kind>"
+# "<os>:<arch>:<libc>|<asset_name>"
 #
-# Uwaga:  szkic na podstawie assets z tagu: ${tag}
-#         preferuj wersje musl
-VARIANTS=(
+# Uwaga: szkic na podstawie assets z tagu: ${tag}
+ASSETS=(
 EOF
 
-  printf '  %s\n' "${VARIANTS_EMIT[@]}"
+  printf '  %s\n' "${ASSETS_EMIT[@]}"
 
   cat <<'EOF'
 )

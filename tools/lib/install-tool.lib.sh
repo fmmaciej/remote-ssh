@@ -8,16 +8,12 @@ ensure_this_file_sourced
 
 # common/*
 . "$TOOLS_COMMON_DIR/platform.sh"
-. "$TOOLS_COMMON_DIR/mappings.sh"
-. "$TOOLS_COMMON_DIR/assets.sh"
-. "$TOOLS_COMMON_DIR/github.sh"
 . "$TOOLS_COMMON_DIR/requirements.sh"
 . "$TOOLS_COMMON_DIR/extract.sh"
 
 # install-tool/*
 . "$TOOLS_INSTALL_TOOL_DIR/defs.sh"
-. "$TOOLS_INSTALL_TOOL_DIR/variants.sh"
-. "$TOOLS_INSTALL_TOOL_DIR/version.sh"
+. "$TOOLS_INSTALL_TOOL_DIR/assets.sh"
 . "$TOOLS_INSTALL_TOOL_DIR/download.sh"
 . "$TOOLS_INSTALL_TOOL_DIR/install.sh"
 . "$TOOLS_INSTALL_TOOL_DIR/main.sh"

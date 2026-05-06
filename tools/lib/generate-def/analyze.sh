@@ -5,35 +5,34 @@ ensure_this_file_sourced
 
 # tag_prefix_and_version <tag>
 # Input: tag (np. "v1.2.3")
-# Output: sets globals TAG_PREFIX + DEFAULT_VERSION
+# Output: sets globals RELEASE_TAG + VERSION
 tag_prefix_and_version() {
   local tag="${1:?tag required}"
 
-  TAG_PREFIX=""
-  DEFAULT_VERSION="$tag"
+  RELEASE_TAG="$tag"
+  VERSION="$tag"
 
   if [[ $tag == v* ]]; then
-    TAG_PREFIX="v"
-    DEFAULT_VERSION="${tag#v}"
+    VERSION="${tag#v}"
   fi
 }
 
 # detect_asset_prefix <tool> <version> <assets...>
 # Input: tool+version+assets
-# Output: sets global ASSET_PREFIX (np. "fd-v" vs "fd")
+# Output: sets global ASSET_FILTER_PREFIX (np. "fd-v" vs "fd")
 detect_asset_prefix() {
   local tool="${1:?tool required}"
   local version="${2:?version required}"
   shift 2
 
-  ASSET_PREFIX="$tool"
+  ASSET_FILTER_PREFIX="$tool"
 
   local a
 
   # 1) fd-v10.3.0-...
   for a in "$@"; do
     [[ $a == "${tool}-v${version}"* ]] && {
-      ASSET_PREFIX="${tool}-v"
+      ASSET_FILTER_PREFIX="${tool}-v"
       return 0
     }
   done
@@ -41,7 +40,7 @@ detect_asset_prefix() {
   # 2) rg-14.1.0-... / fzf-0.67.0-...
   for a in "$@"; do
     [[ $a == "${tool}-${version}"* ]] && {
-      ASSET_PREFIX="${tool}"
+      ASSET_FILTER_PREFIX="${tool}"
       return 0
     }
   done
@@ -49,7 +48,7 @@ detect_asset_prefix() {
   # 3) fzf_0.67.0
   for a in "$@"; do
     [[ $a == "${tool}_${version}"* ]] && {
-      ASSET_PREFIX="${tool}"
+      ASSET_FILTER_PREFIX="${tool}"
       return 0
     }
   done
@@ -80,16 +79,16 @@ asset_matches_prefix() {
   return 1
 }
 
-# build_variants_from_assets <assets...>
+# build_assets_from_assets <assets...>
 # Input: asset names
-# Output: sets global array VARIANTS_EMIT with unique
-#         "<os>:<arch>:<libc>|<template>|<arch_kind>|<os_kind>" records
-build_variants_from_assets() {
+# Output: sets global array ASSETS_EMIT with unique
+#         "<os>:<arch>:<libc>|<asset_name>" records
+build_assets_from_assets() {
   local assets=("$@")
   local seen=()
-  VARIANTS_EMIT=()
+  ASSETS_EMIT=()
 
-  local a os arch libc key template arch_kind os_kind
+  local a os arch libc key
   for a in "${assets[@]}"; do
     # pomijamy sumy, sygnatury, itp.
     case "$a" in
@@ -98,8 +97,8 @@ build_variants_from_assets() {
     *-update) continue ;;
     esac
 
-    if [[ -n ${ASSET_PREFIX:-} && -n ${DEFAULT_VERSION:-} ]]; then
-      asset_matches_prefix "$a" "$ASSET_PREFIX" "$DEFAULT_VERSION" || continue
+    if [[ -n ${ASSET_FILTER_PREFIX:-} && -n ${VERSION:-} ]]; then
+      asset_matches_prefix "$a" "$ASSET_FILTER_PREFIX" "$VERSION" || continue
     fi
 
     os="$(detect_os "$a")"
@@ -117,19 +116,13 @@ build_variants_from_assets() {
     fi
     seen+=("$key")
 
-    template="$(guess_template "$a")"
-    arch_kind="$(guess_arch_kind "$a")"
-    os_kind="$(guess_os_kind "$a")"
-
-    [[ $os == "linux" && $libc == "musl" ]] && os_kind="rust_musl"
-
-    VARIANTS_EMIT+=("\"${key}|${template}|${arch_kind}|${os_kind}\"")
+    ASSETS_EMIT+=("\"${key}|${a}\"")
   done
 
-  if ((${#VARIANTS_EMIT[@]} == 0)); then
-    echo "WARN: no variants detected; sample assets:" >&2
+  if ((${#ASSETS_EMIT[@]} == 0)); then
+    echo "WARN: no assets detected; sample assets:" >&2
     printf '  - %s\n' "${assets[@]:0:10}" >&2
-    VARIANTS_EMIT+=('"linux:x86_64:gnu|prefix-version-arch-os|x86_64_aarch64|rust_triple" # TODO: adjust')
+    ASSETS_EMIT+=('"linux:x86_64:gnu|example-x86_64-unknown-linux-gnu.tar.gz" # TODO: adjust')
   fi
 }
 

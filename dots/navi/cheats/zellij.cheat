@@ -1,0 +1,28 @@
+% terminal, multiplexer, zellij
+
+# Start Zellij
+zellij
+
+# Attach to an existing session or create it
+zellij attach <session> --create
+
+$ session: zellij list-sessions 2>/dev/null | sed -n 's/ .*//p'
+
+# List sessions
+zellij list-sessions
+
+# Kill a session
+zellij kill-session <session>
+
+# Start with a named session
+zellij --session <session>
+
+# Run a command in a new Zellij session
+zellij --session <session> -- <command>
+
+$ command: printf '%s\n' 'bash' 'nvim' 'yazi' 'logrun make build'
+
+# Print shell completion script
+zellij setup --generate-completion <shell>
+
+$ shell: printf '%s\n' bash zsh fish

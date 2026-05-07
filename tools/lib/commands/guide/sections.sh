@@ -12,6 +12,7 @@ Commands
   remote-ssh git setup        Add remote-ssh Git config via include.path
   remote-ssh git status       Check Git identity, SSH agent, and Git SSH auth
   remote-ssh update           Git pull this checkout, then run install
+  remote-ssh update check     Check whether upstream has changed
   remote-ssh doctor           Check runtime requirements and installed tools
   remote-ssh prune [--apply]  Report or remove unused installed releases
   remote-ssh guide [section]  Show this configuration guide
@@ -88,6 +89,8 @@ remote_ssh_cmd_guide_print_notes() {
 Notes
   remote-ssh --help is intentionally short.
   remote-ssh guide shows the loaded shell configuration.
+  Interactive shells run a throttled background update check by default.
+  Disable it with REMOTE_SSH_UPDATE_CHECK=0.
   remote-ssh prune is dry-run by default; use --apply to remove candidates.
   Use logrun make build to save make.log, or command 2>&1 | log file.log.
   vim/nvim and tmux are not installed by remote-ssh.

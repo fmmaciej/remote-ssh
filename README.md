@@ -97,6 +97,7 @@ remote-ssh check [--strict] [tool ...]
 remote-ssh git setup
 remote-ssh git status [ssh-host]
 remote-ssh update
+remote-ssh update check
 remote-ssh doctor
 remote-ssh prune [--apply]
 remote-ssh guide [section]
@@ -106,6 +107,22 @@ remote-ssh help
 `remote-ssh --help` and `remote-ssh help` are intentionally short CLI usage
 outputs. Use `remote-ssh guide` for the longer, dynamic guide generated from
 the currently loaded shell configuration.
+
+Interactive remote-ssh shells run a throttled background update check by
+default. The check only compares the current checkout with its configured
+upstream and prints a short hint when an update is available; it never pulls or
+modifies files during login. Disable it with:
+
+```bash
+export REMOTE_SSH_UPDATE_CHECK=0
+```
+
+The default interval is one day. Override it with
+`REMOTE_SSH_UPDATE_CHECK_INTERVAL=<seconds>`. To check manually:
+
+```bash
+remote-ssh update check
+```
 
 `remote-ssh prune` is dry-run by default. It prints old installed tool release
 directories and removes them only when called with `--apply`.
@@ -203,6 +220,7 @@ Runtime requirements are intentionally small:
 - `find`
 - `sed`
 - `grep`
+- `date`
 - `unzip` only when the selected asset is a `.zip`
 - `sha256sum` or `shasum` when the selected asset has a pinned checksum
 

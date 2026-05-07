@@ -9,6 +9,7 @@ test_remote_ssh_usage_and_unknown_command() {
   assert_contains "remote-ssh commands" "prune [--apply]" "$got"
   assert_contains "remote-ssh guide command" "guide [section]" "$got"
   assert_contains "remote-ssh git command" "git <command>" "$got"
+  assert_contains "remote-ssh update command" "update [check]" "$got"
 
   got="$(bash "$REPO_DIR/bin/remote-ssh" help 2>&1)"
   assert_contains "remote-ssh help usage" "Usage: remote-ssh <command> [args]" "$got"
@@ -38,6 +39,7 @@ test_remote_ssh_guide_renders_commands_section() {
   assert_contains "remote-ssh guide command" "remote-ssh guide [section]  Show this configuration guide" "$got"
   assert_contains "remote-ssh check command" "remote-ssh check --strict   Report pinned tools vs local bin and PATH" "$got"
   assert_contains "remote-ssh git setup command" "remote-ssh git setup        Add remote-ssh Git config via include.path" "$got"
+  assert_contains "remote-ssh update check command" "remote-ssh update check     Check whether upstream has changed" "$got"
 }
 
 test_remote_ssh_git_usage_and_unknown_command() {

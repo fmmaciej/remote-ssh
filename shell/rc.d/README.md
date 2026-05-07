@@ -38,6 +38,32 @@ Keep `aliases.sh` focused on aliases and simple command wrappers. Shell runtime
 initialization such as `eval "$(tool init ...)"`, shell hooks, and tool-specific
 session exports belongs in `rc.d/*.sh`.
 
+## Update check
+
+`04-update-check.sh` runs only in interactive shells. It reads a small cache
+from `${XDG_STATE_HOME:-$HOME/.local/state}/remote-ssh/update-check`, prints a
+one-line hint when an update is known to be available, and refreshes that cache
+in the background when it is stale.
+
+The refresh uses:
+
+```bash
+remote-ssh update check --quiet --write-cache
+```
+
+It never runs `git pull`, never installs tools, and should not block shell
+startup. Disable it before loading `rc.sh` when needed:
+
+```bash
+export REMOTE_SSH_UPDATE_CHECK=0
+```
+
+The default interval is one day. Override it with:
+
+```bash
+export REMOTE_SSH_UPDATE_CHECK_INTERVAL=3600
+```
+
 ## OS files
 
 Use `os.d` for platform-specific runtime behavior:

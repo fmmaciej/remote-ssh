@@ -25,7 +25,7 @@ Commands:
   install [tool ...]        Install default or selected remote-ssh tools
   tool install <tool ...>   Install selected pinned tools
   check [--strict] [tool]   Report pinned tools vs local bin and PATH
-  update                    Git pull this checkout, then run install
+  update [check]            Git pull/install, or check whether upstream changed
   git <command>             Configure and inspect Git/SSH integration
   doctor                    Check runtime requirements and installed tools
   prune [--apply]           Report or remove unused installed tool releases

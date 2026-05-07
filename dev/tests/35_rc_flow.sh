@@ -68,3 +68,45 @@ EOF
 }
 
 register_test test_rc_loads_os_and_host_overrides
+
+test_update_check_rc_skips_noninteractive_shells() {
+  log "update check rc hook skips non-interactive shells"
+
+  local tmp got
+  tmp="$(mktemp -d)"
+  trap 'rm -rf "$tmp"' RETURN
+
+  mkdir -p "$tmp/remote/lib" "$tmp/remote/bin" "$tmp/remote/shell/rc.d"
+
+  cp "$REPO_DIR/lib/guards.sh" "$tmp/remote/lib/guards.sh"
+  cp "$REPO_DIR/lib/helpers.sh" "$tmp/remote/lib/helpers.sh"
+  cp "$REPO_DIR/shell/env.sh" "$tmp/remote/shell/env.sh"
+  cp "$REPO_DIR/shell/aliases.sh" "$tmp/remote/shell/aliases.sh"
+  cp "$REPO_DIR/shell/rc.sh" "$tmp/remote/shell/rc.sh"
+  cp "$REPO_DIR/shell/rc.d/04-update-check.sh" "$tmp/remote/shell/rc.d/04-update-check.sh"
+
+  cat >"$tmp/remote/bin/remote-ssh" <<EOF
+#!/usr/bin/env bash
+touch "$tmp/called"
+exit 1
+EOF
+  chmod +x "$tmp/remote/bin/remote-ssh"
+
+  got="$(
+    export REMOTE_SSH_UPDATE_CHECK_STATE_DIR="$tmp/state"
+    # shellcheck source=/dev/null
+    . "$tmp/remote/shell/rc.sh"
+    if [[ -e "$tmp/called" ]]; then
+      printf 'called\n'
+    else
+      printf 'skipped\n'
+    fi
+  )"
+
+  assert_eq "non-interactive update check hook" "skipped" "$got"
+
+  trap - RETURN
+  rm -rf "$tmp"
+}
+
+register_test test_update_check_rc_skips_noninteractive_shells

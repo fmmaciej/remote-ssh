@@ -10,6 +10,7 @@ ensure_this_file_sourced
 . "$TOOLS_COMMON_DIR/requirements.sh"
 
 # install/
+. "$TOOLS_INSTALL_DIR/defaults.sh"
 . "$TOOLS_INSTALL_DIR/requirements.sh"
 . "$TOOLS_INSTALL_DIR/install.sh"
 . "$TOOLS_INSTALL_DIR/dirs.sh"

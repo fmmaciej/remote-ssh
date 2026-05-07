@@ -5,8 +5,6 @@
 - Complete pinned checksum coverage for tools whose upstream releases do not
   publish per-asset `.sha256` files
 - Consider signature or artifact attestation validation
-- Make version installation atomic
-- Add a version report/check command: intended tools vs binaries currently in PATH
 
 **sshf:**
 

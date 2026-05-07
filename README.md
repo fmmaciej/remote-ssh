@@ -79,6 +79,7 @@ The remote-ssh shell loads a few small helpers:
 
 - `remote-ssh-help`: show available commands, aliases, paths, and Git SSH notes.
 - `starship-help`: explain the bundled Starship prompt symbols.
+- `remote-ssh-check`: report pinned tools, local install symlinks, and PATH.
 - `remote-ssh-git-setup`: opt in to the bundled Git and SSH include files.
 - `remote-ssh-git-identity`: inspect Git identity and SSH auth state.
 - `sshf`: pick a host from your SSH config with `fzf`, then run `ssh`.

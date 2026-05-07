@@ -18,6 +18,7 @@ Commands
   remote-ssh-git-setup   Add remote-ssh Git config via include.path
   remote-ssh-git-identity
                          Check Git identity, SSH agent, and Git SSH auth
+  remote-ssh-check       Report pinned tools vs local bin and PATH
   starship-help          Explain remote-ssh prompt and Git status symbols
   sshf                   Pick an SSH host with fzf and connect
 
@@ -74,6 +75,7 @@ Commands
   remote-ssh-git-setup   Add remote-ssh Git config via include.path
   remote-ssh-git-identity
                          Check Git identity, SSH agent, and Git SSH auth
+  remote-ssh-check       Report pinned tools vs local bin and PATH
   starship-help          Explain remote-ssh prompt and Git status symbols
   sshf                   Pick an SSH host with fzf and connect
 EOF

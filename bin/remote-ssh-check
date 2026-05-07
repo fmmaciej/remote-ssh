@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+repo_dir="${REMOTE_ENV_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
+
+# shellcheck source=/dev/null
+. "$repo_dir/tools/lib/env.sh"
+# shellcheck source=/dev/null
+. "$TOOLS_LIB_DIR/install.lib.sh"
+# shellcheck source=/dev/null
+. "$TOOLS_LIB_DIR/install-tool.lib.sh"
+
+usage() {
+  cat <<'EOF' >&2
+Usage: remote-ssh-check [--strict] [tool ...]
+
+Reports pinned remote-ssh tools, local installation symlinks, and the binary
+that currently wins in PATH.
+
+Without tool arguments, checks the default install set.
+With --strict, exits non-zero when a tool is missing, external-only, or shadowed.
+EOF
+  exit 1
+}
+
+strict=0
+tools=()
+
+for arg in "$@"; do
+  case "$arg" in
+    --strict) strict=1 ;;
+    -h|--help) usage ;;
+    -*) usage ;;
+    *) tools+=("$arg") ;;
+  esac
+done
+
+((${#tools[@]} > 0)) || tools=("${DEFAULT_TOOLS[@]}")
+
+def_dir="$TOOLS_DIR/defs"
+problems=0
+
+print_path_value() {
+  local value="$1"
+
+  if [[ -n "$value" ]]; then
+    printf '%s\n' "$value"
+  else
+    printf '[missing]\n'
+  fi
+}
+
+read_link_target() {
+  local path="$1"
+
+  if [[ -L "$path" ]]; then
+    readlink "$path"
+  else
+    printf '%s\n' "$path"
+  fi
+}
+
+report_tool() {
+  local tool="$1"
+  local local_bin path_bin local_target status alias_name
+
+  load_defs "$def_dir" "$tool"
+
+  local_bin="${INSTALL_BIN_DIR}/${TOOL_NAME}"
+  path_bin="$(command -v "$TOOL_NAME" 2>/dev/null || true)"
+  status="missing"
+
+  if [[ -x "$local_bin" ]]; then
+    local_target="$(read_link_target "$local_bin")"
+    if [[ "$path_bin" == "$local_bin" ]]; then
+      status="ok"
+    elif [[ -n "$path_bin" ]]; then
+      status="path-shadowed"
+      problems=1
+    else
+      status="local-not-in-path"
+      problems=1
+    fi
+  elif [[ -n "$path_bin" ]]; then
+    local_target="[missing]"
+    status="external-only"
+    problems=1
+  else
+    local_target="[missing]"
+    problems=1
+  fi
+
+  printf '%s\n' "$TOOL_NAME"
+  printf '  %-10s %s\n' 'expected:' "VERSION=${VERSION} ${GH_REPO}@${RELEASE_TAG}"
+  printf '  %-10s %s\n' 'local:' "$(print_path_value "$local_bin")"
+  printf '  %-10s %s\n' 'target:' "$local_target"
+  printf '  %-10s %s\n' 'path:' "$(print_path_value "$path_bin")"
+  printf '  %-10s %s\n' 'status:' "$status"
+
+  if ((${#BINARY_ALIASES[@]} > 0)); then
+    for alias_name in "${BINARY_ALIASES[@]}"; do
+      printf '  %-10s %s -> %s\n' 'alias:' "$alias_name" "$(print_path_value "$(command -v "$alias_name" 2>/dev/null || true)")"
+    done
+  fi
+}
+
+printf 'remote-ssh check\n\n'
+printf 'Install paths\n'
+printf '  %-10s %s\n' 'prefix:' "$INSTALL_PREFIX"
+printf '  %-10s %s\n' 'bin:' "$INSTALL_BIN_DIR"
+printf '\nTools\n'
+
+for tool in "${tools[@]}"; do
+  report_tool "$tool"
+done
+
+if ((strict == 1 && problems == 1)); then
+  exit 1
+fi

@@ -12,6 +12,7 @@ test_remote_ssh_help_lists_core_entries() {
   grep -q '^remote-ssh help$' <<<"$got"
   grep -q '^  sshf                   Pick an SSH host with fzf and connect$' <<<"$got"
   grep -q '^  starship-help          Explain remote-ssh prompt and Git status symbols$' <<<"$got"
+  grep -q '^  remote-ssh-check       Report pinned tools vs local bin and PATH$' <<<"$got"
   grep -q '^  remote-ssh-git-identity$' <<<"$got"
   grep -q '^  rcrc                   Reload remote-ssh shell config$' <<<"$got"
   grep -q '^  remote_atuin_debug     Print current Atuin integration state$' <<<"$got"

@@ -2,7 +2,7 @@
 # shellcheck disable=SC2030,SC2031
 
 test_remote_ssh_git_setup_adds_include_once() {
-  log "remote-ssh-git-setup adds include path once"
+  log "remote-ssh git setup adds include path once"
 
   require_cmd git
 
@@ -19,8 +19,8 @@ test_remote_ssh_git_setup_adds_include_once() {
     export HOME="$tmp/home"
     mkdir -p "$HOME"
 
-    bash "$repo_copy/bin/remote-ssh-git-setup" >/dev/null
-    bash "$repo_copy/bin/remote-ssh-git-setup" >/dev/null
+    bash "$repo_copy/bin/remote-ssh" git setup >/dev/null
+    bash "$repo_copy/bin/remote-ssh" git setup >/dev/null
 
     git config --global --get-all include.path
   )"
@@ -32,7 +32,7 @@ test_remote_ssh_git_setup_adds_include_once() {
 }
 
 test_remote_ssh_git_setup_creates_user_local_example() {
-  log "remote-ssh-git-setup creates local examples"
+  log "remote-ssh git setup creates local examples"
 
   require_cmd git
 
@@ -50,7 +50,7 @@ test_remote_ssh_git_setup_creates_user_local_example() {
     export HOME="$tmp/home"
     mkdir -p "$HOME"
 
-    bash "$repo_copy/bin/remote-ssh-git-setup" >/dev/null
+    bash "$repo_copy/bin/remote-ssh" git setup >/dev/null
     cat "$repo_copy/dots/git/user.local"
     printf '%s\n' '--- ssh ---'
     cat "$repo_copy/dots/ssh/config.local"
@@ -67,7 +67,7 @@ test_remote_ssh_git_setup_creates_user_local_example() {
 }
 
 test_remote_ssh_git_setup_adds_ssh_include_once() {
-  log "remote-ssh-git-setup adds SSH include once"
+  log "remote-ssh git setup adds SSH include once"
 
   require_cmd git
 
@@ -88,8 +88,8 @@ Host existing
   HostName example.com
 EOF
 
-    bash "$repo_copy/bin/remote-ssh-git-setup" >/dev/null
-    bash "$repo_copy/bin/remote-ssh-git-setup" >/dev/null
+    bash "$repo_copy/bin/remote-ssh" git setup >/dev/null
+    bash "$repo_copy/bin/remote-ssh" git setup >/dev/null
 
     cat "$HOME/.ssh/config"
     printf 'mode:%s\n' "$(stat -f '%Lp' "$HOME/.ssh/config" 2>/dev/null || stat -c '%a' "$HOME/.ssh/config")"
@@ -106,7 +106,7 @@ mode:600" "$got"
 }
 
 test_remote_ssh_git_setup_exposes_base_defaults_via_include() {
-  log "remote-ssh-git-setup exposes base defaults via include"
+  log "remote-ssh git setup exposes base defaults via include"
 
   require_cmd git
 
@@ -132,7 +132,7 @@ EOF
     export HOME="$tmp/home"
     mkdir -p "$HOME"
 
-    bash "$repo_copy/bin/remote-ssh-git-setup" >/dev/null
+    bash "$repo_copy/bin/remote-ssh" git setup >/dev/null
 
     printf '%s\n' "$(git config init.defaultBranch)"
     printf '%s\n' "$(git config fetch.prune)"

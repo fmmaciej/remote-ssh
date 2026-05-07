@@ -69,12 +69,12 @@ Commands
   remote-ssh install [tool]   Install default or selected remote-ssh tools
   remote-ssh tool install     Install selected pinned tools
   remote-ssh check --strict   Report pinned tools vs local bin and PATH
+  remote-ssh git setup        Add remote-ssh Git config via include.path
+  remote-ssh git status       Check Git identity, SSH agent, and Git SSH auth
   remote-ssh update           Git pull this checkout, then run install
   remote-ssh doctor           Check runtime requirements and installed tools
   remote-ssh prune [--apply]  Report or remove unused installed releases
   remote-ssh guide [section]  Show this configuration guide
-  remote-ssh-git-setup        Add remote-ssh Git config via include.path
-  remote-ssh-git-identity     Check Git identity, SSH agent, and Git SSH auth
   starship-help               Explain prompt and Git status symbols
   sshf                        Pick an SSH host with fzf and connect
   cheats                      Open private navi cheatsheets
@@ -121,7 +121,7 @@ print_git() {
   cat <<EOF
 Git SSH flow
   Run setup:
-    remote-ssh-git-setup
+    remote-ssh git setup
   Edit your remote-ssh Git identity:
     $dots_dir/git/user.local
   Edit your account-specific SSH alias:
@@ -133,7 +133,7 @@ Git SSH flow
   Verify the Git account used by SSH:
     ssh -T git@github.com-myuser
   Check Git config, SSH agent, and SSH auth together:
-    remote-ssh-git-identity github.com-myuser
+    remote-ssh git status github.com-myuser
   Disable the session identity override before rc.sh loads:
     export REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=0
 EOF

@@ -18,6 +18,8 @@ fi
 . "$TOOLS_LIB_DIR/install.lib.sh"
 # shellcheck source=/dev/null
 . "$TOOLS_LIB_DIR/install-tool.lib.sh"
+# shellcheck source=/dev/null
+. "$TOOLS_LIB_DIR/git.sh"
 
 usage() {
   cat <<'EOF'
@@ -28,6 +30,7 @@ Commands:
   tool install <tool ...>   Install selected pinned tools
   check [--strict] [tool]   Report pinned tools vs local bin and PATH
   update                    Git pull this checkout, then run install
+  git <command>             Configure and inspect Git/SSH integration
   doctor                    Check runtime requirements and installed tools
   prune [--apply]           Report or remove unused installed tool releases
   guide [section]           Show shell configuration guide
@@ -88,6 +91,10 @@ run_tool() {
 
 run_check() {
   remote_ssh_check_main "$@"
+}
+
+run_git() {
+  remote_ssh_git_main "$@"
 }
 
 run_update() {
@@ -338,6 +345,7 @@ main() {
     install) shift; run_install "$@" ;;
     tool) shift; run_tool "$@" ;;
     check) shift; run_check "$@" ;;
+    git) shift; run_git "$@" ;;
     update) shift; (($# == 0)) || die_usage; run_update ;;
     doctor) shift; (($# == 0)) || die_usage; run_doctor ;;
     prune) shift; run_prune "$@" ;;

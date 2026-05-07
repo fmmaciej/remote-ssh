@@ -68,7 +68,7 @@ Git config is no longer injected from `rc.sh`.
 Use the explicit setup command instead:
 
 ```bash
-remote-ssh-git-setup
+remote-ssh git setup
 ```
 
 This adds `dots/git/config.base` to your global Git config via

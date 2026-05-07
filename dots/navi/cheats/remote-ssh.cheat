@@ -6,6 +6,12 @@ remote-ssh doctor
 # Show pinned tools vs local bin and PATH
 remote-ssh check --strict
 
+# Enable bundled Git defaults and SSH alias includes
+remote-ssh git setup
+
+# Show Git identity, SSH agent, and Git SSH auth
+remote-ssh git status <ssh-host>
+
 # Show concise CLI usage
 remote-ssh --help
 

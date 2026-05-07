@@ -82,11 +82,9 @@ RemoteCommand bash --rcfile '<install-dir>/shell/rc.sh' -i
 
 The remote-ssh shell loads a few small helpers:
 
-- `remote-ssh`: main entrypoint for install, check, update, doctor, and prune.
+- `remote-ssh`: main entrypoint for install, check, git, update, doctor, and prune.
 - `remote-ssh guide`: show loaded aliases, functions, paths, tools, and Git SSH notes.
 - `starship-help`: explain the bundled Starship prompt symbols.
-- `remote-ssh-git-setup`: opt in to the bundled Git and SSH include files.
-- `remote-ssh-git-identity`: inspect Git identity and SSH auth state.
 - `sshf`: pick a host from your SSH config with `fzf`, then run `ssh`.
 - `cheats`: open private `navi` cheatsheets from `dots/navi/cheats`.
 
@@ -96,6 +94,8 @@ Main entrypoint commands:
 remote-ssh install [tool ...]
 remote-ssh tool install rg
 remote-ssh check [--strict] [tool ...]
+remote-ssh git setup
+remote-ssh git status [ssh-host]
 remote-ssh update
 remote-ssh doctor
 remote-ssh prune [--apply]

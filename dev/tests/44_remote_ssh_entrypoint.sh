@@ -8,6 +8,7 @@ test_remote_ssh_usage_and_unknown_command() {
   assert_contains "remote-ssh usage" "Usage: remote-ssh <command> [args]" "$got"
   assert_contains "remote-ssh commands" "prune [--apply]" "$got"
   assert_contains "remote-ssh guide command" "guide [section]" "$got"
+  assert_contains "remote-ssh git command" "git <command>" "$got"
 
   got="$(bash "$REPO_DIR/bin/remote-ssh" help 2>&1)"
   assert_contains "remote-ssh help usage" "Usage: remote-ssh <command> [args]" "$got"
@@ -36,6 +37,23 @@ test_remote_ssh_guide_delegates_to_guide_command() {
   assert_contains "remote-ssh guide commands" "Commands" "$got"
   assert_contains "remote-ssh guide command" "remote-ssh guide [section]  Show this configuration guide" "$got"
   assert_contains "remote-ssh check command" "remote-ssh check --strict   Report pinned tools vs local bin and PATH" "$got"
+  assert_contains "remote-ssh git setup command" "remote-ssh git setup        Add remote-ssh Git config via include.path" "$got"
+}
+
+test_remote_ssh_git_usage_and_unknown_command() {
+  log "remote-ssh git shows usage and rejects unknown commands"
+
+  local got
+  got="$(bash "$REPO_DIR/bin/remote-ssh" git --help 2>&1)"
+  assert_contains "remote-ssh git usage" "Usage: remote-ssh git <command> [args]" "$got"
+  assert_contains "remote-ssh git setup" "setup" "$got"
+  assert_contains "remote-ssh git status" "status [ssh-host]" "$got"
+
+  got="$(bash "$REPO_DIR/bin/remote-ssh" git wat 2>&1)" && {
+    printf 'Expected unknown git command to fail\n' >&2
+    return 1
+  }
+  assert_contains "remote-ssh git unknown" "Unknown remote-ssh git command: wat" "$got"
 }
 
 test_remote_ssh_check_delegates_to_check_command() {
@@ -195,6 +213,7 @@ test_remote_ssh_prune_apply_removes_only_candidates() {
 
 register_test test_remote_ssh_usage_and_unknown_command
 register_test test_remote_ssh_guide_delegates_to_guide_command
+register_test test_remote_ssh_git_usage_and_unknown_command
 register_test test_remote_ssh_check_delegates_to_check_command
 register_test test_remote_ssh_doctor_reports_missing_tools
 register_test test_remote_ssh_doctor_rejects_mismatched_remote_env_dir

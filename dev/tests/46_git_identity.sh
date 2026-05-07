@@ -2,7 +2,7 @@
 # shellcheck disable=SC2030,SC2031
 
 test_remote_ssh_git_identity_reports_git_and_ssh_state() {
-  log "remote-ssh-git-identity reports Git and SSH state"
+  log "remote-ssh git status reports Git and SSH state"
 
   require_cmd git
 
@@ -39,10 +39,10 @@ EOF
     git config user.useConfigOnly true
     git remote add origin git@github.com-myuser:fmmaciej/remote-ssh.git
 
-    "$REPO_DIR/bin/remote-ssh-git-identity"
+    "$REPO_DIR/bin/remote-ssh" git status
   )"
 
-  grep -q '^remote-ssh git identity$' <<<"$got"
+  grep -q '^remote-ssh git status$' <<<"$got"
   grep -q '^  user.name:         Test User ' <<<"$got"
   grep -q '^  user.email:        test@example.com ' <<<"$got"
   grep -q '^  user.useConfigOnly: true ' <<<"$got"
@@ -59,7 +59,7 @@ EOF
 }
 
 test_remote_ssh_git_identity_accepts_explicit_host_without_remote() {
-  log "remote-ssh-git-identity accepts explicit host without origin"
+  log "remote-ssh git status accepts explicit host without origin"
 
   require_cmd git
 
@@ -93,7 +93,7 @@ EOF
     cd "$tmp/repo" || exit
     git init -q
 
-    "$REPO_DIR/bin/remote-ssh-git-identity" github.com-myuser
+    "$REPO_DIR/bin/remote-ssh" git status github.com-myuser
   )"
 
   grep -q '^  origin:            \[missing\]$' <<<"$got"
@@ -107,7 +107,7 @@ EOF
 }
 
 test_remote_ssh_git_identity_reports_session_override() {
-  log "remote-ssh-git-identity reports session override"
+  log "remote-ssh git status reports session override"
 
   require_cmd git
 
@@ -150,7 +150,7 @@ EOF
     git config --local user.name "Repo User"
     git config --local user.email "repo@example.com"
 
-    "$REPO_DIR/bin/remote-ssh-git-identity" github.com-myuser
+    "$REPO_DIR/bin/remote-ssh" git status github.com-myuser
   )"
 
   grep -q '^  user.name:         Session User ' <<<"$got"

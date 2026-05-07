@@ -3,4 +3,4 @@
 
 ensure_this_file_sourced
 
-DEFAULT_TOOLS=(fd rg sd fzf bat yazi nvim zellij nu starship eza zoxide atuin navi tspin vector)
+DEFAULT_TOOLS=(fd rg sd dust fzf bat yazi nvim zellij nu starship eza zoxide atuin navi tspin vector)

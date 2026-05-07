@@ -34,6 +34,11 @@ bat|linux:aarch64:musl|bat-v0.26.1-aarch64-unknown-linux-musl.tar.gz
 bat|linux:x86_64:musl|bat-v0.26.1-x86_64-unknown-linux-musl.tar.gz
 bat|linux:aarch64:gnu|bat-v0.26.1-aarch64-unknown-linux-gnu.tar.gz
 bat|linux:x86_64:gnu|bat-v0.26.1-x86_64-unknown-linux-gnu.tar.gz
+dust|linux:aarch64:gnu|dust-v1.2.4-aarch64-unknown-linux-gnu.tar.gz
+dust|linux:aarch64:musl|dust-v1.2.4-aarch64-unknown-linux-musl.tar.gz
+dust|darwin:x86_64:any|dust-v1.2.4-x86_64-apple-darwin.tar.gz
+dust|linux:x86_64:gnu|dust-v1.2.4-x86_64-unknown-linux-gnu.tar.gz
+dust|linux:x86_64:musl|dust-v1.2.4-x86_64-unknown-linux-musl.tar.gz
 eza|linux:aarch64:gnu|eza_aarch64-unknown-linux-gnu.tar.gz
 eza|linux:x86_64:musl|eza_x86_64-unknown-linux-musl.tar.gz
 eza|linux:x86_64:gnu|eza_x86_64-unknown-linux-gnu.tar.gz
@@ -132,6 +137,8 @@ atuin|linux:x86_64:gnu|atuin-x86_64-unknown-linux-musl.tar.gz
 atuin|linux:aarch64:gnu|atuin-aarch64-unknown-linux-musl.tar.gz
 bat|linux:x86_64:gnu|bat-v0.26.1-x86_64-unknown-linux-musl.tar.gz
 bat|linux:aarch64:gnu|bat-v0.26.1-aarch64-unknown-linux-musl.tar.gz
+dust|linux:x86_64:gnu|dust-v1.2.4-x86_64-unknown-linux-musl.tar.gz
+dust|linux:aarch64:gnu|dust-v1.2.4-aarch64-unknown-linux-musl.tar.gz
 eza|linux:x86_64:gnu|eza_x86_64-unknown-linux-musl.tar.gz
 eza|linux:aarch64:gnu|eza_aarch64-unknown-linux-gnu.tar.gz
 fd|linux:x86_64:gnu|fd-v10.3.0-x86_64-unknown-linux-musl.tar.gz

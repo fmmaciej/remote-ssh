@@ -1,0 +1,31 @@
+% disk, usage, dust
+
+# Show disk usage for current directory
+dust
+
+# Show disk usage for a path
+dust <path>
+
+$ path: printf '%s\n' . "$HOME" /tmp /var/log
+
+# Limit tree depth
+dust --depth <depth> <path>
+
+$ depth: printf '%s\n' 1 2 3 4
+
+# Show apparent size instead of disk blocks
+dust --apparent-size <path>
+
+# Reverse output order
+dust --reverse <path>
+
+# Do not cross filesystem boundaries
+dust --one-file-system <path>
+
+# Show only directories
+dust --only-dir <path>
+
+# Ignore common noisy paths
+dust --ignore-directory <name> <path>
+
+$ name: printf '%s\n' .git node_modules target vendor

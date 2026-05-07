@@ -22,11 +22,13 @@ Commands
   remote-ssh-check       Report pinned tools vs local bin and PATH
   starship-help          Explain remote-ssh prompt and Git status symbols
   sshf                   Pick an SSH host with fzf and connect
+  cheats                 Open private navi cheatsheets
 
 Aliases
   rcrc                   Reload remote-ssh shell config
   rhelp                  Show remote-ssh help
   rssh                   Cd into the installed remote-ssh repo
+  cheats                 Open private navi cheatsheets
 
 Functions
   remote_atuin_debug     Print current Atuin integration state
@@ -87,6 +89,7 @@ Commands
   remote-ssh-check       Report pinned tools vs local bin and PATH
   starship-help          Explain remote-ssh prompt and Git status symbols
   sshf                   Pick an SSH host with fzf and connect
+  cheats                 Open private navi cheatsheets
 EOF
 }
 
@@ -96,6 +99,7 @@ Aliases
   rcrc                   Reload remote-ssh shell config
   rhelp                  Show remote-ssh help
   rssh                   Cd into the installed remote-ssh repo
+  cheats                 Open private navi cheatsheets
 EOF
 }
 

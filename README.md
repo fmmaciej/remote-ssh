@@ -38,7 +38,7 @@ From a checked-out repository:
 With no arguments, this installs the default tool set:
 
 ```text
-fd rg fzf bat yazi nvim nu starship eza zoxide atuin
+fd rg fzf bat yazi nvim nu starship eza zoxide atuin navi
 ```
 
 To install only selected tools:
@@ -84,6 +84,7 @@ The remote-ssh shell loads a few small helpers:
 - `remote-ssh-git-setup`: opt in to the bundled Git and SSH include files.
 - `remote-ssh-git-identity`: inspect Git identity and SSH auth state.
 - `sshf`: pick a host from your SSH config with `fzf`, then run `ssh`.
+- `cheats`: open private `navi` cheatsheets from `dots/navi/cheats`.
 
 Main entrypoint commands:
 
@@ -99,6 +100,16 @@ remote-ssh help [section]
 
 `remote-ssh prune` is dry-run by default. It prints old installed tool release
 directories and removes them only when called with `--apply`.
+
+Private cheatsheets are stored in:
+
+```text
+dots/navi/cheats
+```
+
+Remote-ssh shells prepend that directory to `NAVI_PATH`, so `navi` and the
+`cheats` alias can search project-local snippets without copying them into a
+global user directory.
 
 `sshf` reads host aliases from `$HOME/.ssh/config`, including `Include` files,
 and ignores wildcard entries such as `Host *`. It currently uses

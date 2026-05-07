@@ -1,0 +1,47 @@
+% docker, containers
+
+# List running containers
+docker ps
+
+# List all containers
+docker ps -a
+
+# List images
+docker images
+
+# Pull image
+docker pull <image>
+
+$ image: printf '%s\n' alpine ubuntu nginx postgres redis
+
+# Run interactive shell in a temporary container
+docker run --rm -it <image> <shell>
+
+$ shell: printf '%s\n' sh bash
+
+# Run container with a name and port mapping
+docker run --rm --name <name> -p <host_port>:<container_port> <image>
+
+$ name: printf '%s\n' app web db cache
+$ host_port: printf '%s\n' 3000 5432 6379 8080 9000
+$ container_port: printf '%s\n' 80 3000 5432 6379 8080
+
+# Execute shell in running container
+docker exec -it <container> <shell>
+
+$ container: docker ps --format '{{.Names}}'
+
+# Show container logs
+docker logs -f <container>
+
+# Stop container
+docker stop <container>
+
+# Remove stopped containers
+docker container prune
+
+# Remove unused images
+docker image prune
+
+# Show disk usage
+docker system df

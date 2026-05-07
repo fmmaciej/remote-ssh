@@ -1,0 +1,18 @@
+% remote-ssh, tools
+
+# Check remote-ssh installation health
+remote-ssh doctor
+
+# Show pinned tools vs local bin and PATH
+remote-ssh check --strict
+
+# Install default remote-ssh tools
+remote-ssh install
+
+# Install selected remote-ssh tool
+remote-ssh tool install <tool>
+
+$ tool: printf '%s\n' fd rg fzf bat yazi nvim nu starship eza zoxide atuin navi
+
+# Remove old inactive tool release directories after reviewing dry-run
+remote-ssh prune --apply

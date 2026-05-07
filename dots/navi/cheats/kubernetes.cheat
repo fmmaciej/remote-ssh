@@ -1,0 +1,50 @@
+% kubernetes, kubectl, k8s
+
+# Show current context
+kubectl config current-context
+
+# List contexts
+kubectl config get-contexts
+
+# Switch context
+kubectl config use-context <context>
+
+$ context: kubectl config get-contexts -o name
+
+# List namespaces
+kubectl get namespaces
+
+# List pods in namespace
+kubectl get pods -n <namespace>
+
+$ namespace: kubectl get namespaces -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
+
+# List services in namespace
+kubectl get services -n <namespace>
+
+# List deployments in namespace
+kubectl get deployments -n <namespace>
+
+# Describe pod
+kubectl describe pod <pod> -n <namespace>
+
+$ pod: kubectl get pods -n "${namespace:-default}" -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
+
+# Follow pod logs
+kubectl logs -f <pod> -n <namespace>
+
+# Execute shell in pod
+kubectl exec -it <pod> -n <namespace> -- <shell>
+
+$ shell: printf '%s\n' sh bash
+
+# Restart deployment
+kubectl rollout restart deployment/<deployment> -n <namespace>
+
+$ deployment: kubectl get deployments -n "${namespace:-default}" -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
+
+# Watch pods in namespace
+kubectl get pods -n <namespace> -w
+
+# Show events sorted by time
+kubectl get events -n <namespace> --sort-by=.lastTimestamp

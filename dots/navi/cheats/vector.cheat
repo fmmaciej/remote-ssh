@@ -16,6 +16,9 @@ vector --config <config> --verbose
 
 $ command: printf '%s\n' 'docker logs -f <container>' 'kubectl logs -f <pod> -n <namespace>' 'journalctl -f' 'tail -f <file>'
 
+# Save command stdout and stderr before routing it elsewhere
+logrun --output <file> <command>
+
 # Create a minimal stdin to console config
 cat > <config> <<'EOF'
 [sources.stdin]

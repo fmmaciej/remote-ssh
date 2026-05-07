@@ -31,6 +31,8 @@ Aliases
   cheats                 Open private navi cheatsheets
 
 Functions
+  log                    Save stdin to a log file and show highlighted output
+  logrun                 Run a command, capture stdout/stderr, and save a log
   remote_atuin_debug     Print current Atuin integration state
 
 Paths
@@ -47,6 +49,7 @@ Notes
     remote-ssh doctor
     remote-ssh prune
   remote-ssh prune is dry-run by default; use --apply to remove candidates.
+  Use logrun make build to save make.log, or command 2>&1 | log file.log.
   vim/nvim and tmux are not installed by remote-ssh.
   Install them manually on hosts where you want to use them.
   sshf currently requires python3 for SSH config parsing.
@@ -106,6 +109,8 @@ EOF
 print_functions() {
   cat <<'EOF'
 Functions
+  log                    Save stdin to a log file and show highlighted output
+  logrun                 Run a command, capture stdout/stderr, and save a log
   remote_atuin_debug     Print current Atuin integration state
 EOF
 }

@@ -18,6 +18,8 @@ test_remote_ssh_help_lists_core_entries() {
   grep -q '^  cheats                 Open private navi cheatsheets$' <<<"$got"
   grep -q '^  rcrc                   Reload remote-ssh shell config$' <<<"$got"
   grep -q '^  cheats                 Open private navi cheatsheets$' <<<"$got"
+  grep -q '^  log                    Save stdin to a log file and show highlighted output$' <<<"$got"
+  grep -q '^  logrun                 Run a command, capture stdout/stderr, and save a log$' <<<"$got"
   grep -q '^  remote_atuin_debug     Print current Atuin integration state$' <<<"$got"
   grep -q '^Git SSH flow$' <<<"$got"
   grep -q '^    /tmp/remote-ssh-help-test/.local/share/remote-ssh/dots/git/user.local$' <<<"$got"

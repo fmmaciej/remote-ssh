@@ -5,6 +5,12 @@
 
 $ command: printf '%s\n' 'docker logs -f <container>' 'kubectl logs -f <pod> -n <namespace>' 'journalctl -f' 'tail -f <file>'
 
+# Save command stdout and stderr to command.log and highlight output
+logrun <command>
+
+# Save piped logs to a chosen file and highlight output
+<command> 2>&1 | log <file>
+
 # Filter logs, save them, and highlight output
 <command> 2>&1 | grep <filter> | tee <file> | tspin
 

@@ -1,0 +1,32 @@
+% replace, text, sd, sed
+
+# Replace text from stdin
+printf '%s\n' '<text>' | sd '<find>' '<replace>'
+
+$ text: printf '%s\n' 'hello world' 'foo=bar' 'image: app:old'
+$ find: printf '%s\n' world foo old '\\s+$'
+$ replace: printf '%s\n' remote bar new ''
+
+# Replace regex in a file in place
+sd '<find>' '<replace>' <file>
+
+$ file: fd --type file | sed -n '1,50p'
+
+# Preview replacement without modifying the file
+sd --preview '<find>' '<replace>' <file>
+
+# Replace literal text without regex interpretation
+sd --fixed-strings '<find>' '<replace>' <file>
+
+# Replace in files found by fd
+fd --type file '<pattern>' --exec sd '<find>' '<replace>' {}
+
+$ pattern: printf '%s\n' '\\.md$' '\\.sh$' '\\.yaml$' '\\.toml$'
+
+# Remove trailing whitespace in a file
+sd '\\s+$' '' <file>
+
+# Rewrite image tag in Kubernetes YAML
+sd 'image: ([^:]+):[^[:space:]]+' 'image: $1:<tag>' <file>
+
+$ tag: printf '%s\n' latest dev v1.0.0

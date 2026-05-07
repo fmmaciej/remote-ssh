@@ -24,10 +24,20 @@ generate_def_from_fixture() {
     "atuin-aarch64-apple-darwin.tar.gz.sha256"
     "atuin-server-x86_64-apple-darwin.tar.gz"
   )
+  # shellcheck disable=SC2034
+  GITHUB_ASSET_DIGESTS=(
+    "atuin-aarch64-apple-darwin.tar.gz|1111111111111111111111111111111111111111111111111111111111111111"
+    "atuin-aarch64-unknown-linux-gnu.tar.gz|2222222222222222222222222222222222222222222222222222222222222222"
+    "atuin-x86_64-unknown-linux-gnu.tar.gz|3333333333333333333333333333333333333333333333333333333333333333"
+    "atuin-aarch64-unknown-linux-musl.tar.gz|4444444444444444444444444444444444444444444444444444444444444444"
+    "atuin-x86_64-unknown-linux-musl.tar.gz|5555555555555555555555555555555555555555555555555555555555555555"
+    "atuin-server-x86_64-apple-darwin.tar.gz|6666666666666666666666666666666666666666666666666666666666666666"
+  )
 
   tag_prefix_and_version "$GITHUB_TAG"
   detect_asset_prefix "atuin" "$VERSION" "${GITHUB_ASSETS[@]}"
   build_assets_from_assets "${GITHUB_ASSETS[@]}"
+  build_checksums_from_emitted_assets
   render_defs "atuin" "atuinsh/atuin" "$GITHUB_TAG"
 }
 
@@ -56,6 +66,14 @@ ASSETS=(
   "linux:aarch64:musl|atuin-aarch64-unknown-linux-musl.tar.gz"
   "linux:x86_64:musl|atuin-x86_64-unknown-linux-musl.tar.gz"
 )
+
+CHECKSUMS=(
+  "atuin-aarch64-apple-darwin.tar.gz|1111111111111111111111111111111111111111111111111111111111111111"
+  "atuin-aarch64-unknown-linux-gnu.tar.gz|2222222222222222222222222222222222222222222222222222222222222222"
+  "atuin-x86_64-unknown-linux-gnu.tar.gz|3333333333333333333333333333333333333333333333333333333333333333"
+  "atuin-aarch64-unknown-linux-musl.tar.gz|4444444444444444444444444444444444444444444444444444444444444444"
+  "atuin-x86_64-unknown-linux-musl.tar.gz|5555555555555555555555555555555555555555555555555555555555555555"
+)
 EOF
 )"
   got="$(generate_def_from_fixture)"
@@ -64,6 +82,29 @@ EOF
 }
 
 register_test test_generate_def_atuin_fixture
+
+test_github_parse_asset_digests() {
+  log "github parser reads asset digests"
+
+  cd "$REPO_DIR" || return
+  # shellcheck source=/dev/null
+  . "$REPO_DIR/tools/lib/env.sh"
+  # shellcheck source=/dev/null
+  . "$TOOLS_LIB_DIR/generate-def.lib.sh"
+
+  local json got
+  json='{
+    "assets": [
+      {"name": "one.tar.gz", "digest": "sha256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+      {"name": "two.zip", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}
+    ]
+  }'
+  got="$(github_parse_asset_digests "$json")"
+
+  assert_eq "asset digests" $'one.tar.gz|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\ntwo.zip|bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb' "$got"
+}
+
+register_test test_github_parse_asset_digests
 
 test_generate_def_infers_tool_from_repo() {
   log "generate-def infers tool name from repo"

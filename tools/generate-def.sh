@@ -126,6 +126,7 @@ main() {
   detect_asset_prefix "$tool" "$VERSION" "${GITHUB_ASSETS[@]}"
 
   build_assets_from_assets "${GITHUB_ASSETS[@]}"
+  build_checksums_from_emitted_assets
   render_defs "$tool" "$repo" "$GITHUB_TAG"
 }
 

@@ -29,4 +29,17 @@ EOF
   cat <<'EOF'
 )
 EOF
+
+  if declare -p CHECKSUMS_EMIT >/dev/null 2>&1 && ((${#CHECKSUMS_EMIT[@]} > 0)); then
+    cat <<'EOF'
+
+CHECKSUMS=(
+EOF
+
+    printf '  %s\n' "${CHECKSUMS_EMIT[@]}"
+
+    cat <<'EOF'
+)
+EOF
+  fi
 }

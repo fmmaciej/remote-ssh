@@ -61,6 +61,26 @@ github_parse_asset_names() {
     sed '/^$/d'
 }
 
+github_parse_asset_digests() {
+  local json="${1:?json required}"
+
+  awk '
+    /"name": / {
+      name = $0
+      sub(/^.*"name":[[:space:]]*"/, "", name)
+      sub(/".*$/, "", name)
+    }
+    /"digest": "sha256:/ {
+      digest = $0
+      sub(/^.*"digest":[[:space:]]*"sha256:/, "", digest)
+      sub(/".*$/, "", digest)
+      if (name != "" && digest ~ /^[0-9a-fA-F]{64}$/) {
+        print name "|" tolower(digest)
+      }
+    }
+  ' <<<"$json"
+}
+
 github_parse_release_tags() {
   local json="${1:?json required}"
 
@@ -89,10 +109,15 @@ github_latest_release() {
   # shellcheck disable=SC2034
   GITHUB_TAG="$tag"
   GITHUB_ASSETS=()
+  GITHUB_ASSET_DIGESTS=()
 
   while IFS= read -r line; do
     [[ -n $line ]] && GITHUB_ASSETS+=("$line")
   done < <(github_parse_asset_names "$json")
+
+  while IFS= read -r line; do
+    [[ -n $line ]] && GITHUB_ASSET_DIGESTS+=("$line")
+  done < <(github_parse_asset_digests "$json")
 
   ((${#GITHUB_ASSETS[@]} > 0)) || {
     echo "ERROR: no assets in latest release" >&2
@@ -115,10 +140,15 @@ github_release_by_tag() {
   # shellcheck disable=SC2034
   GITHUB_TAG="$parsed_tag"
   GITHUB_ASSETS=()
+  GITHUB_ASSET_DIGESTS=()
 
   while IFS= read -r line; do
     [[ -n $line ]] && GITHUB_ASSETS+=("$line")
   done < <(github_parse_asset_names "$json")
+
+  while IFS= read -r line; do
+    [[ -n $line ]] && GITHUB_ASSET_DIGESTS+=("$line")
+  done < <(github_parse_asset_digests "$json")
 
   ((${#GITHUB_ASSETS[@]} > 0)) || {
     echo "ERROR: no assets in release ${tag}" >&2

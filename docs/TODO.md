@@ -42,3 +42,15 @@
   - do not install dependencies from `rc.d`
 - Document this boundary in `shell/rc.d/README.md` and `AGENTS.md`
 - Consider roles later: `rc.d/roles.d/db.sh`, `web.sh`
+
+**Low priority / polish:**
+
+- Improve `remote-ssh git status` SSH diagnosis edge cases:
+  - classify broader `Permission denied` variants that include `publickey`,
+    not only the exact `Permission denied (publickey)` output
+  - avoid over-suggesting agent fixes when `ssh-add` is missing but SSH auth
+    succeeds through `IdentityFile` or another non-agent path
+  - if this area grows, split `dev/tests/46_git_identity.sh` into separate
+    success, agent, and auth test files
+- Consider moving remaining Git config reads from the `git status` renderer
+  into the status model, so rendering is purely formatting.

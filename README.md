@@ -6,8 +6,9 @@ bundled dotfiles, helper commands, and pinned standalone CLI tools downloaded
 from GitHub Releases.
 
 The runtime target is a fresh or minimally configured Unix-like host. The normal
-installation path intentionally avoids package managers, source builds, Python,
-`jq`, and GitHub API discovery.
+installation path intentionally avoids package managers, source builds, `jq`,
+and GitHub API discovery. Python is not needed for the core installer, but the
+optional `sshf` helper currently uses a Python parser for SSH config files.
 
 ## Quick Start
 
@@ -72,6 +73,22 @@ The post-install output also prints an example SSH config using:
 RemoteCommand bash --rcfile '<install-dir>/shell/rc.sh' -i
 ```
 
+## Shell Helpers
+
+The remote-ssh shell loads a few small helpers:
+
+- `remote-ssh-help`: show available commands, aliases, paths, and Git SSH notes.
+- `starship-help`: explain the bundled Starship prompt symbols.
+- `remote-ssh-git-setup`: opt in to the bundled Git and SSH include files.
+- `remote-ssh-git-identity`: inspect Git identity and SSH auth state.
+- `sshf`: pick a host from your SSH config with `fzf`, then run `ssh`.
+
+`sshf` reads host aliases from `$HOME/.ssh/config`, including `Include` files,
+and ignores wildcard entries such as `Host *`. It currently uses
+`scripts/ssh_hosts.py`, so this helper requires `python3`. The dependency is
+intentional for now because the parser is more reliable than a shell-only
+version; a future version may replace it or add a fallback.
+
 ## Repository Structure
 
 | Path | Role |
@@ -104,6 +121,11 @@ ASSETS=(
   "linux:x86_64:musl|example-v1.2.3-x86_64-unknown-linux-musl.tar.gz"
   "darwin:aarch64:any|example-v1.2.3-aarch64-apple-darwin.tar.gz"
 )
+
+CHECKSUMS=(
+  "example-v1.2.3-x86_64-unknown-linux-musl.tar.gz|<sha256>"
+  "example-v1.2.3-aarch64-apple-darwin.tar.gz|<sha256>"
+)
 ```
 
 Supported release asset formats:
@@ -125,6 +147,11 @@ Exact manifests are pinned. `tools/install-tool.sh <tool>` installs the pinned
 `VERSION`; `latest` and arbitrary version arguments are rejected for manifest
 based definitions.
 
+When a selected asset has a matching `CHECKSUMS` entry, the installer verifies
+its SHA-256 before extraction or installation. Some upstream projects do not
+publish checksum files for every asset yet; those remaining entries are tracked
+as follow-up hardening work.
+
 ## Runtime Requirements
 
 Runtime requirements are intentionally small:
@@ -137,6 +164,11 @@ Runtime requirements are intentionally small:
 - `sed`
 - `grep`
 - `unzip` only when the selected asset is a `.zip`
+- `sha256sum` or `shasum` when the selected asset has a pinned checksum
+
+Optional helper requirements:
+
+- `python3` for `sshf`
 
 Developer tooling may require more, but it is isolated in `dev/`.
 

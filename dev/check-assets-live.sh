@@ -37,6 +37,16 @@ check_asset_exists() {
   return 1
 }
 
+live_checksum() {
+  local repo="$1" tag="$2" asset="$3"
+  local url="https://github.com/${repo}/releases/download/${tag}/${asset}.sha256"
+
+  fetch_json "$url" |
+    sed -n 's/^\([0-9a-fA-F]\{64\}\).*/\1/p' |
+    tr '[:upper:]' '[:lower:]' |
+    head -n1
+}
+
 check_def_assets() {
   :
 
@@ -53,6 +63,22 @@ check_def_assets() {
   for rec in "${ASSETS[@]}"; do
     asset="$(manifest_asset_name "$rec")"
     check_asset_exists "$GH_REPO" "$tag" "$asset" "$json"
+  done
+
+  local expected got
+  for rec in "${CHECKSUMS[@]}"; do
+    asset="${rec%%|*}"
+    expected="${rec#*|}"
+    if ! got="$(live_checksum "$GH_REPO" "$tag" "$asset")" || [[ -z $got ]]; then
+      printf 'Could not fetch live checksum for %s %s: %s\n' "$GH_REPO" "$tag" "$asset" >&2
+      return 1
+    fi
+    if [[ $got != "$expected" ]]; then
+      printf 'Checksum mismatch for %s %s: %s\n' "$GH_REPO" "$tag" "$asset" >&2
+      printf '  expected: %s\n' "$expected" >&2
+      printf '  live:     %s\n' "$got" >&2
+      return 1
+    fi
   done
 }
 

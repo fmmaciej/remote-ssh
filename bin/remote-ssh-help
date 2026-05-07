@@ -38,6 +38,7 @@ Paths
 Notes
   vim/nvim and tmux are not installed by remote-ssh.
   Install them manually on hosts where you want to use them.
+  sshf currently requires python3 for SSH config parsing.
 
 Git SSH flow
   Git config is opt-in. Run:

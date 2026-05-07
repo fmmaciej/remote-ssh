@@ -11,7 +11,7 @@ load_defs() {
     exit 1
   }
 
-  unset ASSETS BINARY_ALIASES
+  unset ASSETS CHECKSUMS BINARY_ALIASES
 
   # shellcheck source=/dev/null
   . "$def_file"
@@ -26,5 +26,8 @@ load_defs() {
 
   if ! declare -p BINARY_ALIASES >/dev/null 2>&1; then
     BINARY_ALIASES=()
+  fi
+  if ! declare -p CHECKSUMS >/dev/null 2>&1; then
+    CHECKSUMS=()
   fi
 }

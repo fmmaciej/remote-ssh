@@ -1,5 +1,18 @@
 # TODO
 
+**Hardening / install reliability:**
+
+- Complete pinned checksum coverage for tools whose upstream releases do not
+  publish per-asset `.sha256` files
+- Consider signature or artifact attestation validation
+- Make version installation atomic
+- Add a version report/check command: intended tools vs binaries currently in PATH
+
+**sshf:**
+
+- Documented as optional helper requiring `python3` for now
+- Decide later whether to keep Python, replace `ssh_hosts.py`, or add a shell fallback
+
 **Entrypoint:**
 
 - Install

@@ -30,7 +30,7 @@ install_tool_main() {
 
   log_info "Installing: ${GH_REPO}, version=${VERSION}, raw=${raw_os}/${raw_arch}, libc=${libc}"
 
-  download_and_extract "$GH_REPO" "$RELEASE_TAG" "$asset_name" "$BINARY_NAME" || exit 1
+  download_and_extract "$GH_REPO" "$RELEASE_TAG" "$asset_name" "$BINARY_NAME" "${CHECKSUMS[@]}" || exit 1
 
   install_binary "$TOOL_NAME" "$BINARY_NAME" "$VERSION" "$EXTRACT_DIR" "${BINARY_ALIASES[@]}" || exit 1
 }

@@ -10,6 +10,7 @@ test_remote_ssh_help_lists_core_entries() {
   )"
 
   grep -q '^remote-ssh help$' <<<"$got"
+  grep -q '^  remote-ssh             Main entrypoint for install/check/update/doctor/prune$' <<<"$got"
   grep -q '^  sshf                   Pick an SSH host with fzf and connect$' <<<"$got"
   grep -q '^  starship-help          Explain remote-ssh prompt and Git status symbols$' <<<"$got"
   grep -q '^  remote-ssh-check       Report pinned tools vs local bin and PATH$' <<<"$got"

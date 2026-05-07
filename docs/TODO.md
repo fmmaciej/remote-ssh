@@ -13,10 +13,7 @@
 
 **Entrypoint:**
 
-- Install
 - Uninstall
-- Update
-- Check
 
 **tmux:**
 
@@ -26,7 +23,3 @@
 **rc.d:**
 
 - Consider roles later: `rc.d/roles.d/db.sh`, `web.sh`
-
-**atuin:**
-
-- Use as a history manager?

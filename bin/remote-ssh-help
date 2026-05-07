@@ -14,6 +14,7 @@ print_all() {
 remote-ssh help
 
 Commands
+  remote-ssh             Main entrypoint for install/check/update/doctor/prune
   remote-ssh-help        Show this help
   remote-ssh-git-setup   Add remote-ssh Git config via include.path
   remote-ssh-git-identity
@@ -37,6 +38,13 @@ Paths
   atuin marker           $atuin_marker
 
 Notes
+  Prefer the main entrypoint:
+    remote-ssh install
+    remote-ssh check
+    remote-ssh update
+    remote-ssh doctor
+    remote-ssh prune
+  remote-ssh prune is dry-run by default; use --apply to remove candidates.
   vim/nvim and tmux are not installed by remote-ssh.
   Install them manually on hosts where you want to use them.
   sshf currently requires python3 for SSH config parsing.
@@ -71,6 +79,7 @@ EOF
 print_commands() {
   cat <<'EOF'
 Commands
+  remote-ssh             Main entrypoint for install/check/update/doctor/prune
   remote-ssh-help        Show this help
   remote-ssh-git-setup   Add remote-ssh Git config via include.path
   remote-ssh-git-identity

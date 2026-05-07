@@ -77,12 +77,28 @@ RemoteCommand bash --rcfile '<install-dir>/shell/rc.sh' -i
 
 The remote-ssh shell loads a few small helpers:
 
+- `remote-ssh`: main entrypoint for install, check, update, doctor, and prune.
 - `remote-ssh-help`: show available commands, aliases, paths, and Git SSH notes.
 - `starship-help`: explain the bundled Starship prompt symbols.
 - `remote-ssh-check`: report pinned tools, local install symlinks, and PATH.
 - `remote-ssh-git-setup`: opt in to the bundled Git and SSH include files.
 - `remote-ssh-git-identity`: inspect Git identity and SSH auth state.
 - `sshf`: pick a host from your SSH config with `fzf`, then run `ssh`.
+
+Main entrypoint commands:
+
+```bash
+remote-ssh install [tool ...]
+remote-ssh tool install rg
+remote-ssh check [--strict] [tool ...]
+remote-ssh update
+remote-ssh doctor
+remote-ssh prune [--apply]
+remote-ssh help [section]
+```
+
+`remote-ssh prune` is dry-run by default. It prints old installed tool release
+directories and removes them only when called with `--apply`.
 
 `sshf` reads host aliases from `$HOME/.ssh/config`, including `Include` files,
 and ignores wildcard entries such as `Host *`. It currently uses
@@ -197,9 +213,7 @@ or `GH_TOKEN`.
 - No developer tooling from `dev/` is required on remote hosts.
 - The working copy used for development may differ from the installed copy.
 - Review the remote install script before running it on production machines.
-- There is no general `remote-ssh` entrypoint yet.
-- To update an installed checkout, use `git pull` in
-  `~/.local/share/remote-ssh`, then run `./install.sh`.
+- To update an installed checkout, run `remote-ssh update`.
 
 ## License
 

@@ -2,45 +2,56 @@
 
 ensure_this_file_sourced
 
-# Sprawdza, czy narzędzie jest już dostępne:
-#   1) executable in $INSTALL_BIN_DIR/<tool>
-#   2) jakakolwiek binarka w PATH: `command -v <tool>`
-#
-# Zwraca:
-#   0 - jeśli tool jest dostępny (pomijamy instalację),
-#   1 - jeśli trzeba instalować.
 is_tool_installed() {
   local tool="$1"
+  local expected_version="${2:-}"
   local local_bin="${INSTALL_BIN_DIR}/${tool}"
+  local target existing
 
   if [[ ${FORCE:-0} == "1" ]]; then
     log_info "FORCE=1"
     return 1
   fi
 
-  # 1. configured install bin dir
   if [[ -x $local_bin ]]; then
-    log_info "'$tool' is installed in ${local_bin} - SKIPPING."
-    return 0
+    if [[ -z $expected_version ]]; then
+      log_info "'$tool' is installed in ${local_bin} - SKIPPING."
+      return 0
+    fi
+
+    if [[ -L $local_bin ]]; then
+      target="$(readlink "$local_bin")"
+      case "$target" in
+        "$INSTALL_PREFIX/${tool}-${expected_version}/"* | "$INSTALL_PREFIX/${tool}-${expected_version}".*/*)
+          log_info "'$tool' ${expected_version} is installed in ${local_bin} - SKIPPING."
+          return 0
+          ;;
+      esac
+
+      log_info "'$tool' is installed in ${local_bin}, but target is not VERSION=${expected_version}: ${target}"
+      return 1
+    fi
+
+    log_info "'$tool' exists in ${local_bin}, but is not a managed version symlink - installing pinned VERSION=${expected_version}."
+    return 1
   fi
 
-  # 2. cokolwiek w PATH (np. z systemowego pakietu)
   if have "$tool"; then
-    local existing
     existing="$(command -v "$tool")"
-    log_info "'$tool' is present in PATH (${existing}) - SKIPPING."
-    return 0
+    log_info "'$tool' is present in PATH (${existing}), but remote-ssh pinned VERSION=${expected_version} is not installed."
   fi
 
-  # Trzeba instalować
   return 1
 }
 
 install_tool() {
   local tool="$1"
   local install_tool_sh="$TOOLS_DIR/install-tool.sh"
+  local def_dir="$TOOLS_DIR/defs"
 
-  is_tool_installed "$tool" && return 0
+  load_defs "$def_dir" "$tool"
+
+  is_tool_installed "$TOOL_NAME" "$VERSION" && return 0
 
   "$install_tool_sh" "$tool" || {
     log_error "'$tool': installation failed."

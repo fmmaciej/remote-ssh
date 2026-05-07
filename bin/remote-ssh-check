@@ -20,7 +20,8 @@ Reports pinned remote-ssh tools, local installation symlinks, and the binary
 that currently wins in PATH.
 
 Without tool arguments, checks the default install set.
-With --strict, exits non-zero when a tool is missing, external-only, or shadowed.
+With --strict, exits non-zero when a tool is missing, stale, external-only,
+shadowed, or otherwise not managed by remote-ssh.
 EOF
   exit 1
 }
@@ -62,6 +63,18 @@ read_link_target() {
   fi
 }
 
+target_matches_version() {
+  local target="$1" tool="$2" version="$3"
+
+  case "$target" in
+    "$INSTALL_PREFIX/${tool}-${version}/"* | "$INSTALL_PREFIX/${tool}-${version}".*/*)
+      return 0
+      ;;
+  esac
+
+  return 1
+}
+
 report_tool() {
   local tool="$1"
   local local_bin path_bin local_target status alias_name
@@ -72,9 +85,17 @@ report_tool() {
   path_bin="$(command -v "$TOOL_NAME" 2>/dev/null || true)"
   status="missing"
 
+  # VERSION is assigned by load_defs.
+  # shellcheck disable=SC2153
   if [[ -x "$local_bin" ]]; then
     local_target="$(read_link_target "$local_bin")"
-    if [[ "$path_bin" == "$local_bin" ]]; then
+    if ! [[ -L "$local_bin" ]]; then
+      status="unmanaged-local"
+      problems=1
+    elif ! target_matches_version "$local_target" "$TOOL_NAME" "$VERSION"; then
+      status="stale-local"
+      problems=1
+    elif [[ "$path_bin" == "$local_bin" ]]; then
       status="ok"
     elif [[ -n "$path_bin" ]]; then
       status="path-shadowed"

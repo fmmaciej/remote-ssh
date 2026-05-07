@@ -6,12 +6,16 @@ test_static_checks() {
     -path "$REPO_DIR/.git" -prune -o \
     -name '*.sh' -print0 \
     | xargs -0 bash -n
+  find "$REPO_DIR/bin" -maxdepth 1 -type f -print0 \
+    | xargs -0 bash -n
 
   log "shellcheck"
   require_cmd shellcheck
   find "$REPO_DIR" \
     -path "$REPO_DIR/.git" -prune -o \
     -name '*.sh' -print0 \
+    | xargs -0 shellcheck
+  find "$REPO_DIR/bin" -maxdepth 1 -type f -print0 \
     | xargs -0 shellcheck
 
   log "python checks"

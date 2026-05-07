@@ -60,5 +60,36 @@ test_remote_ssh_check_strict_rejects_external_only_tool() {
   rm -rf "$tmp"
 }
 
+test_remote_ssh_check_strict_rejects_stale_local_tool() {
+  log "remote-ssh-check strict rejects stale local tool"
+
+  local tmp got
+  tmp="$(mktemp -d)"
+  trap 'rm -rf "$tmp"' RETURN
+
+  mkdir -p "$tmp/home" "$tmp/bin" "$tmp/opt/rg-14.1.0"
+  printf '#!/usr/bin/env bash\nprintf rg\n' >"$tmp/opt/rg-14.1.0/rg"
+  chmod +x "$tmp/opt/rg-14.1.0/rg"
+  ln -s "$tmp/opt/rg-14.1.0/rg" "$tmp/bin/rg"
+
+  got="$(
+    HOME="$tmp/home" \
+      INSTALL_PREFIX="$tmp/opt" \
+      INSTALL_BIN_DIR="$tmp/bin" \
+      PATH="$tmp/bin:/usr/bin:/bin" \
+      bash "$REPO_DIR/bin/remote-ssh-check" --strict rg
+  )" && {
+    printf 'Expected strict check to fail for stale local tool\n' >&2
+    return 1
+  }
+
+  assert_contains "check stale status" "status:    stale-local" "$got"
+  assert_contains "check stale target" "target:    $tmp/opt/rg-14.1.0/rg" "$got"
+
+  trap - RETURN
+  rm -rf "$tmp"
+}
+
 register_test test_remote_ssh_check_reports_local_tool
 register_test test_remote_ssh_check_strict_rejects_external_only_tool
+register_test test_remote_ssh_check_strict_rejects_stale_local_tool

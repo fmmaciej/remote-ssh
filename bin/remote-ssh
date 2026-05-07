@@ -20,7 +20,7 @@ fi
 . "$TOOLS_LIB_DIR/install-tool.lib.sh"
 
 usage() {
-  cat <<'EOF' >&2
+  cat <<'EOF'
 Usage: remote-ssh <command> [args]
 
 Commands:
@@ -30,12 +30,13 @@ Commands:
   update                    Git pull this checkout, then run install
   doctor                    Check runtime requirements and installed tools
   prune [--apply]           Report or remove unused installed tool releases
-  help [section]            Show remote-ssh help
+  guide [section]           Show shell configuration guide
+  help                      Show this help
 EOF
 }
 
 die_usage() {
-  usage
+  usage >&2
   exit 1
 }
 
@@ -318,6 +319,17 @@ run_prune() {
   ((found == 1)) || printf 'No prune candidates.\n'
 }
 
+run_help() {
+  if (($# == 0)); then
+    usage
+    return 0
+  fi
+
+  printf 'remote-ssh help does not accept sections.\n' >&2
+  printf 'Use: remote-ssh guide %s\n' "$*" >&2
+  exit 1
+}
+
 main() {
   local command="${1:-}"
 
@@ -329,14 +341,8 @@ main() {
     update) shift; (($# == 0)) || die_usage; run_update ;;
     doctor) shift; (($# == 0)) || die_usage; run_doctor ;;
     prune) shift; run_prune "$@" ;;
-    help)
-      shift
-      if (($# > 0)); then
-        "$BIN_DIR/remote-ssh-help" "$@"
-      else
-        "$BIN_DIR/remote-ssh-help"
-      fi
-      ;;
+    guide) shift; "$BIN_DIR/remote-ssh-guide" "$@" ;;
+    help) shift; run_help "$@" ;;
     *) printf 'Unknown remote-ssh command: %s\n' "$command" >&2; die_usage ;;
   esac
 }

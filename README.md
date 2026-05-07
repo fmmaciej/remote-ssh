@@ -83,7 +83,7 @@ RemoteCommand bash --rcfile '<install-dir>/shell/rc.sh' -i
 The remote-ssh shell loads a few small helpers:
 
 - `remote-ssh`: main entrypoint for install, check, update, doctor, and prune.
-- `remote-ssh-help`: show available commands, aliases, paths, and Git SSH notes.
+- `remote-ssh guide`: show loaded aliases, functions, paths, tools, and Git SSH notes.
 - `starship-help`: explain the bundled Starship prompt symbols.
 - `remote-ssh-check`: report pinned tools, local install symlinks, and PATH.
 - `remote-ssh-git-setup`: opt in to the bundled Git and SSH include files.
@@ -100,8 +100,13 @@ remote-ssh check [--strict] [tool ...]
 remote-ssh update
 remote-ssh doctor
 remote-ssh prune [--apply]
-remote-ssh help [section]
+remote-ssh guide [section]
+remote-ssh help
 ```
+
+`remote-ssh --help` and `remote-ssh help` are intentionally short CLI usage
+outputs. Use `remote-ssh guide` for the longer, dynamic guide generated from
+the currently loaded shell configuration.
 
 `remote-ssh prune` is dry-run by default. It prints old installed tool release
 directories and removes them only when called with `--apply`.

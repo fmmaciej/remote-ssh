@@ -6,6 +6,12 @@ remote-ssh doctor
 # Show pinned tools vs local bin and PATH
 remote-ssh check --strict
 
+# Show concise CLI usage
+remote-ssh --help
+
+# Show the dynamic shell configuration guide
+remote-ssh guide
+
 # Install default remote-ssh tools
 remote-ssh install
 

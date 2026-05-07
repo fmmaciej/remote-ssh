@@ -35,11 +35,16 @@ From a checked-out repository:
 ./install.sh
 ```
 
-With no arguments, this installs the default tool set:
+With no arguments, this installs the platform-supported subset of the default
+tool set:
 
 ```text
 fd rg sd dust fzf bat yazi nvim zellij nu starship eza zoxide atuin navi tspin vector
 ```
+
+Tools without a matching asset for the current OS/architecture are skipped with
+a clear install log entry. Explicitly requested tools still fail if unsupported
+on the current platform.
 
 To install only selected tools:
 

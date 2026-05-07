@@ -91,6 +91,49 @@ test_install_bin_reinstalls_stale_local_version() {
 
 register_test test_install_bin_reinstalls_stale_local_version
 
+test_default_tools_are_filtered_by_platform() {
+  log "default tools are filtered by platform asset support"
+
+  local got unsupported
+  got="$(
+    cd "$REPO_DIR" || exit
+    # shellcheck source=/dev/null
+    . "$REPO_DIR/tools/lib/env.sh"
+    # shellcheck source=/dev/null
+    . "$TOOLS_LIB_DIR/install.lib.sh"
+    default_tools_for_platform darwin aarch64 any
+  )"
+  unsupported="$(
+    cd "$REPO_DIR" || exit
+    # shellcheck source=/dev/null
+    . "$REPO_DIR/tools/lib/env.sh"
+    # shellcheck source=/dev/null
+    . "$TOOLS_LIB_DIR/install.lib.sh"
+    unsupported_default_tools_for_platform darwin aarch64 any
+  )"
+
+  grep -Fxq 'fd' <<<"$got"
+  grep -Fxq 'vector' <<<"$got"
+  grep -Fxq 'zellij' <<<"$got"
+  if grep -Fxq 'eza' <<<"$got"; then
+    printf 'Expected eza to be unsupported on darwin/aarch64\n' >&2
+    return 1
+  fi
+  if grep -Fxq 'dust' <<<"$got"; then
+    printf 'Expected dust to be unsupported on darwin/aarch64\n' >&2
+    return 1
+  fi
+
+  grep -Fxq 'eza' <<<"$unsupported"
+  grep -Fxq 'dust' <<<"$unsupported"
+  if grep -Fxq 'vector' <<<"$unsupported"; then
+    printf 'Expected vector to be supported on darwin/aarch64\n' >&2
+    return 1
+  fi
+}
+
+register_test test_default_tools_are_filtered_by_platform
+
 test_install_binary_aliases() {
   log "install creates configured binary aliases"
 

@@ -38,7 +38,11 @@ for arg in "$@"; do
   esac
 done
 
-((${#tools[@]} > 0)) || tools=("${DEFAULT_TOOLS[@]}")
+if ((${#tools[@]} == 0)); then
+  while IFS= read -r tool; do
+    [[ -n "$tool" ]] && tools+=("$tool")
+  done < <(current_default_tools)
+fi
 
 def_dir="$TOOLS_DIR/defs"
 problems=0

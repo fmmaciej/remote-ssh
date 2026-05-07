@@ -12,7 +12,7 @@ remote-ssh install
 # Install selected remote-ssh tool
 remote-ssh tool install <tool>
 
-$ tool: printf '%s\n' fd rg fzf bat yazi nvim nu starship eza zoxide atuin navi tspin
+$ tool: printf '%s\n' fd rg fzf bat yazi nvim nu starship eza zoxide atuin navi tspin vector
 
 # Remove old inactive tool release directories after reviewing dry-run
 remote-ssh prune --apply

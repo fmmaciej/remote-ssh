@@ -1,0 +1,34 @@
+% logs, observability, vector
+
+# Validate a Vector config
+vector validate <config>
+
+$ config: printf '%s\n' vector.toml vector.yaml /tmp/vector.toml
+
+# Run Vector with a config
+vector --config <config>
+
+# Run Vector with verbose internal logs
+vector --config <config> --verbose
+
+# Pipe command output into a stdin source
+<command> 2>&1 | vector --config <config>
+
+$ command: printf '%s\n' 'docker logs -f <container>' 'kubectl logs -f <pod> -n <namespace>' 'journalctl -f' 'tail -f <file>'
+
+# Create a minimal stdin to console config
+cat > <config> <<'EOF'
+[sources.stdin]
+type = "stdin"
+
+[sinks.console]
+type = "console"
+inputs = ["stdin"]
+encoding.codec = "json"
+EOF
+
+# Test config unit tests, if the config defines them
+vector test <config>
+
+# Inspect live events from a running Vector instance
+vector tap

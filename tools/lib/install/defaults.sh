@@ -3,4 +3,4 @@
 
 ensure_this_file_sourced
 
-DEFAULT_TOOLS=(fd rg fzf bat yazi nvim nu starship eza zoxide atuin navi tspin)
+DEFAULT_TOOLS=(fd rg fzf bat yazi nvim nu starship eza zoxide atuin navi tspin vector)

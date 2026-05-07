@@ -47,6 +47,22 @@ live_checksum() {
     head -n1
 }
 
+release_asset_digest() {
+  local json="$1" asset="$2"
+
+  awk -v asset="$asset" '
+    index($0, "\"name\": \"" asset "\"") { in_asset = 1 }
+    in_asset && /"digest": "sha256:/ {
+      digest = $0
+      sub(/^.*"digest": "sha256:/, "", digest)
+      sub(/".*$/, "", digest)
+      print tolower(digest)
+      exit
+    }
+    in_asset && /^[[:space:]]*}[,]?$/ { in_asset = 0 }
+  ' <<<"$json"
+}
+
 check_def_assets() {
   :
 
@@ -69,7 +85,11 @@ check_def_assets() {
   for rec in "${CHECKSUMS[@]}"; do
     asset="${rec%%|*}"
     expected="${rec#*|}"
-    if ! got="$(live_checksum "$GH_REPO" "$tag" "$asset")" || [[ -z $got ]]; then
+    got="$(release_asset_digest "$json" "$asset")"
+    if [[ -z $got ]] && ! got="$(live_checksum "$GH_REPO" "$tag" "$asset")"; then
+      got=""
+    fi
+    if [[ -z $got ]]; then
       printf 'Could not fetch live checksum for %s %s: %s\n' "$GH_REPO" "$tag" "$asset" >&2
       return 1
     fi
@@ -85,6 +105,7 @@ check_def_assets() {
 main() {
   require_cmd curl
   require_cmd grep
+  require_cmd awk
 
   source_tool_libs
 

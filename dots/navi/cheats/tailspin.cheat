@@ -1,0 +1,29 @@
+% logs, tailspin, tspin
+
+# Highlight logs from stdin
+<command> 2>&1 | tspin
+
+$ command: printf '%s\n' 'docker logs -f <container>' 'kubectl logs -f <pod> -n <namespace>' 'journalctl -f' 'tail -f <file>'
+
+# Filter logs, save them, and highlight output
+<command> 2>&1 | grep <filter> | tee <file> | tspin
+
+$ filter: printf '%s\n' error warn exception timeout failed denied
+$ file: printf '%s\n' logs.txt /tmp/app.log /tmp/filtered.log
+
+# Follow a log file
+tspin -f <file>
+
+# Highlight Docker container logs
+docker logs -f <container> 2>&1 | tspin
+
+$ container: docker ps --format '{{.Names}}'
+
+# Highlight Kubernetes pod logs
+kubectl logs -f <pod> -n <namespace> 2>&1 | tspin
+
+$ namespace: kubectl get namespaces -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
+$ pod: kubectl get pods -n "${namespace:-default}" -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
+
+# Run a log command through tailspin exec mode
+tspin --exec='<command>'

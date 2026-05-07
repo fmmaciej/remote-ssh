@@ -38,7 +38,7 @@ From a checked-out repository:
 With no arguments, this installs the default tool set:
 
 ```text
-fd rg fzf bat yazi nvim nu starship eza zoxide atuin navi
+fd rg fzf bat yazi nvim nu starship eza zoxide atuin navi tspin
 ```
 
 To install only selected tools:

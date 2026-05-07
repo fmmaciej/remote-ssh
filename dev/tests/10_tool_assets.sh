@@ -70,6 +70,10 @@ starship|darwin:x86_64:any|starship-x86_64-apple-darwin.tar.gz
 starship|linux:aarch64:musl|starship-aarch64-unknown-linux-musl.tar.gz
 starship|linux:x86_64:musl|starship-x86_64-unknown-linux-musl.tar.gz
 starship|linux:x86_64:gnu|starship-x86_64-unknown-linux-gnu.tar.gz
+tspin|darwin:aarch64:any|tailspin-aarch64-apple-darwin.tar.gz
+tspin|darwin:x86_64:any|tailspin-x86_64-apple-darwin.tar.gz
+tspin|linux:aarch64:musl|tailspin-aarch64-unknown-linux-musl.tar.gz
+tspin|linux:x86_64:musl|tailspin-x86_64-unknown-linux-musl.tar.gz
 yazi|darwin:aarch64:any|yazi-aarch64-apple-darwin.zip
 yazi|darwin:x86_64:any|yazi-x86_64-apple-darwin.zip
 yazi|linux:aarch64:musl|yazi-aarch64-unknown-linux-musl.zip
@@ -130,6 +134,8 @@ rg|linux:x86_64:gnu|ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz
 rg|linux:aarch64:gnu|ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz
 starship|linux:x86_64:gnu|starship-x86_64-unknown-linux-musl.tar.gz
 starship|linux:aarch64:gnu|starship-aarch64-unknown-linux-musl.tar.gz
+tspin|linux:x86_64:gnu|tailspin-x86_64-unknown-linux-musl.tar.gz
+tspin|linux:aarch64:gnu|tailspin-aarch64-unknown-linux-musl.tar.gz
 yazi|linux:x86_64:gnu|yazi-x86_64-unknown-linux-musl.zip
 yazi|linux:aarch64:gnu|yazi-aarch64-unknown-linux-musl.zip
 zoxide|linux:x86_64:gnu|zoxide-0.9.9-x86_64-unknown-linux-musl.tar.gz

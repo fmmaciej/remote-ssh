@@ -33,6 +33,9 @@ $ pod: kubectl get pods -n "${namespace:-default}" -o jsonpath='{range .items[*]
 # Follow pod logs
 kubectl logs -f <pod> -n <namespace>
 
+# Follow highlighted pod logs with tailspin
+kubectl logs -f <pod> -n <namespace> 2>&1 | tspin
+
 # Execute shell in pod
 kubectl exec -it <pod> -n <namespace> -- <shell>
 

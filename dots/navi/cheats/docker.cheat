@@ -34,6 +34,9 @@ $ container: docker ps --format '{{.Names}}'
 # Show container logs
 docker logs -f <container>
 
+# Show highlighted container logs with tailspin
+docker logs -f <container> 2>&1 | tspin
+
 # Stop container
 docker stop <container>
 

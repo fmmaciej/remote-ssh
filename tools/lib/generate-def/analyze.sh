@@ -3,6 +3,14 @@
 
 ensure_this_file_sourced
 
+infer_tool_name_from_repo() {
+  local repo="${1:?repo required}"
+  local tool="${repo##*/}"
+
+  tool="${tool%.git}"
+  echo "$tool"
+}
+
 # tag_prefix_and_version <tag>
 # Input: tag (np. "v1.2.3")
 # Output: sets globals RELEASE_TAG + VERSION

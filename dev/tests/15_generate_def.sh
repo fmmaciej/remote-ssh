@@ -64,3 +64,38 @@ EOF
 }
 
 register_test test_generate_def_atuin_fixture
+
+test_generate_def_infers_tool_from_repo() {
+  log "generate-def infers tool name from repo"
+
+  cd "$REPO_DIR" || return
+  # shellcheck source=/dev/null
+  . "$REPO_DIR/tools/lib/env.sh"
+  # shellcheck source=/dev/null
+  . "$TOOLS_LIB_DIR/generate-def.lib.sh"
+
+  assert_eq "repo basename" "sd" "$(infer_tool_name_from_repo chmln/sd)"
+  assert_eq "repo basename strips git suffix" "ripgrep" "$(infer_tool_name_from_repo BurntSushi/ripgrep.git)"
+}
+
+test_github_parse_release_tags() {
+  log "github parser lists release tags"
+
+  cd "$REPO_DIR" || return
+  # shellcheck source=/dev/null
+  . "$REPO_DIR/tools/lib/env.sh"
+  # shellcheck source=/dev/null
+  . "$TOOLS_LIB_DIR/generate-def.lib.sh"
+
+  local json got
+  json='[
+    {"tag_name": "v1.2.0", "name": "one"},
+    {"tag_name": "v1.1.0", "name": "two"}
+  ]'
+  got="$(github_parse_release_tags "$json")"
+
+  assert_eq "release tags" $'v1.2.0\nv1.1.0' "$got"
+}
+
+register_test test_generate_def_infers_tool_from_repo
+register_test test_github_parse_release_tags

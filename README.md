@@ -218,6 +218,20 @@ pinned assets exist. Run it only when you explicitly want live asset validation.
 If GitHub API rate limits are a problem, create `dev/.env` and set `GITHUB_TOKEN`
 or `GH_TOKEN`.
 
+Generate a draft tool definition from GitHub Releases:
+
+```bash
+tools/generate-def.sh chmln/sd
+tools/generate-def.sh BurntSushi/ripgrep --tool rg --tag 15.1.0
+tools/generate-def.sh nushell/nushell --tool nu --version 0.112.2
+tools/generate-def.sh chmln/sd --list
+```
+
+Without `--tool`, the tool name is inferred from the repository basename.
+Use `--tool` when the repository name differs from the installed binary name.
+`--tag` and `--version` both select an exact GitHub release tag; without either
+option the generator uses the latest release.
+
 ## Notes
 
 - `runme.sh` is not meant to be run from a local clone.

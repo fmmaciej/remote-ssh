@@ -50,17 +50,8 @@ live_checksum() {
 release_asset_digest() {
   local json="$1" asset="$2"
 
-  awk -v asset="$asset" '
-    index($0, "\"name\": \"" asset "\"") { in_asset = 1 }
-    in_asset && /"digest": "sha256:/ {
-      digest = $0
-      sub(/^.*"digest": "sha256:/, "", digest)
-      sub(/".*$/, "", digest)
-      print tolower(digest)
-      exit
-    }
-    in_asset && /^[[:space:]]*}[,]?$/ { in_asset = 0 }
-  ' <<<"$json"
+  github_parse_asset_digests "$json" |
+    awk -F'|' -v asset="$asset" '$1 == asset { print $2; exit }'
 }
 
 check_def_assets() {
@@ -78,7 +69,7 @@ check_def_assets() {
   local rec asset
   for rec in "${ASSETS[@]}"; do
     asset="$(manifest_asset_name "$rec")"
-    check_asset_exists "$GH_REPO" "$tag" "$asset" "$json"
+    check_asset_exists "$GH_REPO" "$tag" "$asset" "$json" || return 1
   done
 
   local expected got

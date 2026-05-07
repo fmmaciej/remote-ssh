@@ -17,13 +17,16 @@ source_tool_selector_libs() {
 with_each_tool_def() {
   local callback="$1"
   local def
+  local failed=0
 
   for def in "$REPO_DIR"/tools/defs/*.sh; do
     unset TOOL_NAME GH_REPO RELEASE_TAG VERSION BINARY_NAME BINARY_ALIASES ASSETS CHECKSUMS
     # shellcheck source=/dev/null
     . "$def"
-    "$callback" "$def"
+    "$callback" "$def" || failed=1
   done
+
+  return "$failed"
 }
 
 manifest_asset_key() {

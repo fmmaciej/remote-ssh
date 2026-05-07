@@ -75,7 +75,6 @@ Commands
   remote-ssh guide [section]  Show this configuration guide
   remote-ssh-git-setup        Add remote-ssh Git config via include.path
   remote-ssh-git-identity     Check Git identity, SSH agent, and Git SSH auth
-  remote-ssh-check            Compatibility entrypoint for tool reports
   starship-help               Explain prompt and Git status symbols
   sshf                        Pick an SSH host with fzf and connect
   cheats                      Open private navi cheatsheets

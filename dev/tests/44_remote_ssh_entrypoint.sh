@@ -35,7 +35,7 @@ test_remote_ssh_guide_delegates_to_guide_command() {
 
   assert_contains "remote-ssh guide commands" "Commands" "$got"
   assert_contains "remote-ssh guide command" "remote-ssh guide [section]  Show this configuration guide" "$got"
-  assert_contains "remote-ssh check command" "remote-ssh-check            Compatibility entrypoint for tool reports" "$got"
+  assert_contains "remote-ssh check command" "remote-ssh check --strict   Report pinned tools vs local bin and PATH" "$got"
 }
 
 test_remote_ssh_check_delegates_to_check_command() {

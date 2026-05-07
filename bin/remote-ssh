@@ -87,7 +87,7 @@ run_tool() {
 }
 
 run_check() {
-  "$BIN_DIR/remote-ssh-check" "$@"
+  remote_ssh_check_main "$@"
 }
 
 run_update() {

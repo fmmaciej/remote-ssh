@@ -21,7 +21,6 @@ test_remote_ssh_guide_lists_core_entries() {
   grep -q '^  remote-ssh guide \[section\]  Show this configuration guide$' <<<"$got"
   grep -q '^  sshf                        Pick an SSH host with fzf and connect$' <<<"$got"
   grep -q '^  starship-help               Explain prompt and Git status symbols$' <<<"$got"
-  grep -q '^  remote-ssh-check            Compatibility entrypoint for tool reports$' <<<"$got"
   grep -q '^  remote-ssh-git-identity     Check Git identity, SSH agent, and Git SSH auth$' <<<"$got"
   grep -q "^  alias rhelp='remote-ssh guide'$" <<<"$got"
   grep -q '^  log$' <<<"$got"

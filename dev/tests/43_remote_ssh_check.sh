@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 test_remote_ssh_check_reports_local_tool() {
-  log "remote-ssh-check reports local tool state"
+  log "remote-ssh check reports local tool state"
 
   local tmp got
   tmp="$(mktemp -d)"
@@ -17,7 +17,7 @@ test_remote_ssh_check_reports_local_tool() {
       INSTALL_PREFIX="$tmp/opt" \
       INSTALL_BIN_DIR="$tmp/bin" \
       PATH="$tmp/bin:/usr/bin:/bin" \
-      bash "$REPO_DIR/bin/remote-ssh-check" rg
+      bash "$REPO_DIR/bin/remote-ssh" check rg
   )"
 
   assert_contains "check title" "remote-ssh check" "$got"
@@ -32,7 +32,7 @@ test_remote_ssh_check_reports_local_tool() {
 }
 
 test_remote_ssh_check_strict_rejects_external_only_tool() {
-  log "remote-ssh-check strict rejects external-only tool"
+  log "remote-ssh check strict rejects external-only tool"
 
   local tmp got
   tmp="$(mktemp -d)"
@@ -47,7 +47,7 @@ test_remote_ssh_check_strict_rejects_external_only_tool() {
       INSTALL_PREFIX="$tmp/opt" \
       INSTALL_BIN_DIR="$tmp/bin" \
       PATH="$tmp/external:/usr/bin:/bin" \
-      bash "$REPO_DIR/bin/remote-ssh-check" --strict rg
+      bash "$REPO_DIR/bin/remote-ssh" check --strict rg
   )" && {
     printf 'Expected strict check to fail for external-only tool\n' >&2
     return 1
@@ -61,7 +61,7 @@ test_remote_ssh_check_strict_rejects_external_only_tool() {
 }
 
 test_remote_ssh_check_strict_rejects_stale_local_tool() {
-  log "remote-ssh-check strict rejects stale local tool"
+  log "remote-ssh check strict rejects stale local tool"
 
   local tmp got
   tmp="$(mktemp -d)"
@@ -77,7 +77,7 @@ test_remote_ssh_check_strict_rejects_stale_local_tool() {
       INSTALL_PREFIX="$tmp/opt" \
       INSTALL_BIN_DIR="$tmp/bin" \
       PATH="$tmp/bin:/usr/bin:/bin" \
-      bash "$REPO_DIR/bin/remote-ssh-check" --strict rg
+      bash "$REPO_DIR/bin/remote-ssh" check --strict rg
   )" && {
     printf 'Expected strict check to fail for stale local tool\n' >&2
     return 1

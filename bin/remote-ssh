@@ -15,13 +15,9 @@ fi
 # shellcheck source=/dev/null
 . "$lib_repo_dir/tools/lib/env.sh"
 # shellcheck source=/dev/null
-. "$TOOLS_LIB_DIR/install.lib.sh"
-# shellcheck source=/dev/null
-. "$TOOLS_LIB_DIR/install-tool.lib.sh"
-# shellcheck source=/dev/null
-. "$TOOLS_LIB_DIR/git.sh"
+. "$TOOLS_LIB_DIR/commands.lib.sh"
 
-usage() {
+remote_ssh_usage() {
   cat <<'EOF'
 Usage: remote-ssh <command> [args]
 
@@ -39,301 +35,7 @@ EOF
 }
 
 die_usage() {
-  usage >&2
-  exit 1
-}
-
-run_install() {
-  local -a tools=("$@")
-  local tool
-
-  if ((${#tools[@]} == 0)); then
-    tools=()
-    while IFS= read -r tool; do
-      [[ -n "$tool" ]] && tools+=("$tool")
-    done < <(current_default_tools)
-  fi
-
-  log_info "Begin."
-  install_check_requirements
-  if (($# == 0)); then
-    while IFS= read -r tool; do
-      [[ -n "$tool" ]] && log_info "Skipping unsupported default tool on this platform: $tool"
-    done < <(current_unsupported_default_tools)
-  fi
-  install_tools "${tools[@]}"
-
-  log_info "Configuring environment..."
-  install_shell_dir
-  install_bin_dir
-  install_dots_dir
-
-  log_info "Done."
-  install_print_post_install "$repo_dir"
-}
-
-run_tool() {
-  local subcommand="${1:-}"
-  shift || true
-
-  case "$subcommand" in
-    install)
-      (($# > 0)) || {
-        printf 'Usage: remote-ssh tool install <tool ...>\n' >&2
-        exit 1
-      }
-      install_check_requirements
-      install_tools "$@"
-      ;;
-    *) die_usage ;;
-  esac
-}
-
-run_check() {
-  remote_ssh_check_main "$@"
-}
-
-run_git() {
-  remote_ssh_git_main "$@"
-}
-
-run_update() {
-  command -v git >/dev/null 2>&1 || {
-    printf '[ERROR] git is required for remote-ssh update.\n' >&2
-    exit 127
-  }
-
-  [[ -d "$repo_dir/.git" ]] || {
-    printf '[ERROR] %s is not a Git checkout.\n' "$repo_dir" >&2
-    exit 1
-  }
-
-  git -C "$repo_dir" pull --ff-only
-  run_install
-}
-
-path_contains_install_bin() {
-  local part
-  local -a path_parts
-
-  IFS=':' read -r -a path_parts <<<"${PATH:-}"
-  for part in "${path_parts[@]}"; do
-    [[ "$part" == "$INSTALL_BIN_DIR" ]] && return 0
-  done
-  return 1
-}
-
-git_output() {
-  git -C "$repo_dir" "$@" 2>/dev/null || true
-}
-
-shell_rc_loads() {
-  REMOTE_SSH_ENABLE_ATUIN_AUTO_IMPORT=0 \
-    bash --noprofile --norc -c 'source "$1"' _ "$repo_dir/shell/rc.sh" >/dev/null 2>&1
-}
-
-run_doctor() {
-  local failed=0 branch commit dirty requested_status
-  local git_status check_output check_status
-
-  printf 'remote-ssh doctor\n\n'
-
-  printf 'Runtime requirements\n'
-  if check_req_tools; then
-    printf '  status: ok\n'
-  else
-    printf '  status: failed\n'
-    failed=1
-  fi
-
-  printf '\nRepository\n'
-  printf '  path:   %s\n' "$repo_dir"
-  printf '  script: %s\n' "$script_repo_dir"
-  if [[ -n "$requested_repo_dir" ]]; then
-    printf '  env:    %s\n' "$requested_repo_dir"
-    if [[ "$requested_repo_dir" == "$script_repo_dir" ]]; then
-      requested_status="ok"
-    else
-      requested_status="mismatch"
-      failed=1
-    fi
-  else
-    requested_status="derived"
-  fi
-  printf '  env status: %s\n' "$requested_status"
-  if [[ -d "$repo_dir/.git" ]] && git -C "$repo_dir" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    printf '  git:    ok\n'
-    branch="$(git_output symbolic-ref --short HEAD)"
-    commit="$(git_output rev-parse --short HEAD)"
-    git_status="$(git_output status --porcelain)"
-    if [[ -n "$git_status" ]]; then
-      dirty="yes"
-    else
-      dirty="no"
-    fi
-    printf '  branch: %s\n' "${branch:-[detached]}"
-    printf '  commit: %s\n' "${commit:-[unknown]}"
-    printf '  dirty:  %s\n' "$dirty"
-  else
-    printf '  git:    missing-or-invalid\n'
-    failed=1
-  fi
-
-  printf '\nPATH\n'
-  printf '  bin:    %s\n' "$INSTALL_BIN_DIR"
-  if path_contains_install_bin; then
-    printf '  status: ok\n'
-  else
-    printf '  status: missing-from-PATH\n'
-    failed=1
-  fi
-
-  printf '\nShell rc\n'
-  printf '  file:   %s\n' "$repo_dir/shell/rc.sh"
-  if [[ -r "$repo_dir/shell/rc.sh" ]] && shell_rc_loads; then
-    printf '  status: ok\n'
-  else
-    printf '  status: failed\n'
-    failed=1
-  fi
-
-  printf '\nOptional helpers\n'
-  if command -v python3 >/dev/null 2>&1; then
-    printf '  sshf python3: ok\n'
-  else
-    printf '  sshf python3: missing-optional\n'
-  fi
-
-  printf '\nTool check\n'
-  if [[ "$requested_status" == "mismatch" ]]; then
-    printf '  summary: skipped-env-mismatch\n'
-    failed=1
-  else
-    set +e
-    check_output="$(run_check --strict 2>&1)"
-    check_status=$?
-    set -e
-
-    if ((check_status == 0)); then
-      printf '  summary: ok\n\n'
-    else
-      printf '  summary: failed\n\n'
-      failed=1
-    fi
-
-    printf '%s\n' "$check_output"
-
-    if ((check_status != 0)); then
-      printf '\nNext steps\n'
-      if grep -Eq 'status:[[:space:]]+(missing|external-only|stale-local|unmanaged-local)' <<<"$check_output"; then
-        printf '  run: remote-ssh install\n'
-      fi
-      if grep -Eq 'status:[[:space:]]+path-shadowed' <<<"$check_output"; then
-        printf '  check PATH order: %s should come before external tool directories\n' "$INSTALL_BIN_DIR"
-      fi
-      printf '  inspect: remote-ssh check --strict\n'
-    fi
-  fi
-
-  ((failed == 0))
-}
-
-protected_release_dirs() {
-  local def_dir="$TOOLS_DIR/defs"
-  local def_file tool alias_name link target
-  local -a aliases
-
-  for def_file in "$def_dir"/*.sh; do
-    tool="$(basename "$def_file" .sh)"
-    load_defs "$def_dir" "$tool"
-
-    link="$INSTALL_BIN_DIR/$TOOL_NAME"
-    if [[ -L "$link" ]]; then
-      target="$(readlink "$link")"
-      printf '%s\n' "$(dirname "$target")"
-    fi
-
-    set +u
-    aliases=("${BINARY_ALIASES[@]}")
-    for alias_name in "${aliases[@]}"; do
-      link="$INSTALL_BIN_DIR/$alias_name"
-      [[ -L "$link" ]] || continue
-      target="$(readlink "$link")"
-      printf '%s\n' "$(dirname "$target")"
-    done
-    set -u
-  done
-}
-
-is_protected_release_dir() {
-  local dir="$1" protected="$2"
-
-  grep -Fx -- "$dir" <<<"$protected" >/dev/null
-}
-
-is_known_release_dir_name() {
-  local name="$1" def_dir="$TOOLS_DIR/defs" def_file tool
-
-  for def_file in "$def_dir"/*.sh; do
-    tool="$(basename "$def_file" .sh)"
-    load_defs "$def_dir" "$tool"
-    case "$name" in
-      "$TOOL_NAME"-*) return 0 ;;
-    esac
-  done
-
-  return 1
-}
-
-run_prune() {
-  local apply=0 arg protected dir name found=0
-
-  for arg in "$@"; do
-    case "$arg" in
-      --apply) apply=1 ;;
-      -h|--help)
-        printf 'Usage: remote-ssh prune [--apply]\n' >&2
-        exit 0
-        ;;
-      *) printf 'Unknown prune argument: %s\n' "$arg" >&2; exit 1 ;;
-    esac
-  done
-
-  mkdir -p "$INSTALL_PREFIX"
-  protected="$(protected_release_dirs | sort -u)"
-
-  if ((apply == 1)); then
-    printf 'remote-ssh prune --apply\n'
-  else
-    printf 'remote-ssh prune (dry-run)\n'
-  fi
-
-  while IFS= read -r dir; do
-    [[ -n "$dir" ]] || continue
-    name="$(basename "$dir")"
-    is_known_release_dir_name "$name" || continue
-    is_protected_release_dir "$dir" "$protected" && continue
-
-    found=1
-    if ((apply == 1)); then
-      rm -rf "$dir"
-      printf 'removed: %s\n' "$dir"
-    else
-      printf 'candidate: %s\n' "$dir"
-    fi
-  done < <(find "$INSTALL_PREFIX" -mindepth 1 -maxdepth 1 -type d -print | sort)
-
-  ((found == 1)) || printf 'No prune candidates.\n'
-}
-
-run_help() {
-  if (($# == 0)); then
-    usage
-    return 0
-  fi
-
-  printf 'remote-ssh help does not accept sections.\n' >&2
-  printf 'Use: remote-ssh guide %s\n' "$*" >&2
+  remote_ssh_usage >&2
   exit 1
 }
 
@@ -341,16 +43,16 @@ main() {
   local command="${1:-}"
 
   case "$command" in
-    ''|-h|--help) usage ;;
-    install) shift; run_install "$@" ;;
-    tool) shift; run_tool "$@" ;;
-    check) shift; run_check "$@" ;;
-    git) shift; run_git "$@" ;;
-    update) shift; (($# == 0)) || die_usage; run_update ;;
-    doctor) shift; (($# == 0)) || die_usage; run_doctor ;;
-    prune) shift; run_prune "$@" ;;
-    guide) shift; "$BIN_DIR/remote-ssh-guide" "$@" ;;
-    help) shift; run_help "$@" ;;
+    ''|-h|--help) remote_ssh_usage ;;
+    install) shift; remote_ssh_cmd_install_main "$repo_dir" "$@" ;;
+    tool) shift; remote_ssh_cmd_tool_main "$@" ;;
+    check) shift; remote_ssh_cmd_check_main "$@" ;;
+    git) shift; remote_ssh_cmd_git_main "$@" ;;
+    update) shift; remote_ssh_cmd_update_main "$repo_dir" "$@" ;;
+    doctor) shift; (($# == 0)) || die_usage; remote_ssh_cmd_doctor_main "$repo_dir" "$script_repo_dir" "$requested_repo_dir" ;;
+    prune) shift; remote_ssh_cmd_prune_main "$@" ;;
+    guide) shift; remote_ssh_cmd_guide_main "$@" ;;
+    help) shift; remote_ssh_cmd_help_main "$@" ;;
     *) printf 'Unknown remote-ssh command: %s\n' "$command" >&2; die_usage ;;
   esac
 }

@@ -133,10 +133,13 @@ version; a future version may replace it or add a fallback.
 | `runme.sh`                | Remote installer for `curl` or `bash`                    |
 | `install.sh`              | Local installer and default tool selection               |
 | `tools/defs/`             | Pinned tool definitions with exact GitHub release assets |
-| `tools/lib/install-tool/` | Runtime tool installer                                   |
+| `tools/lib/commands/`     | Public `remote-ssh` subcommand implementations           |
+| `tools/lib/common/`       | Shared tooling helpers                                   |
+| `tools/lib/install/`      | Environment install defaults, dirs, checks, post-install |
+| `tools/lib/install-tool/` | Single-tool GitHub asset installer                       |
 | `tools/lib/generate-def/` | Developer-only manifest generation helpers               |
 | `shell/`                  | Bash/Zsh-oriented shell environment                      |
-| `bin/`                    | Helper commands exposed in remote-ssh sessions           |
+| `bin/`                    | Thin entrypoints exposed in remote-ssh sessions          |
 | `dots/`                   | Bundled configuration files                              |
 | `dev/`                    | Optional developer tooling and tests                     |
 

@@ -16,7 +16,6 @@ ensure_this_file_sourced
 . "$TOOLS_INSTALL_DIR/requirements.sh"
 . "$TOOLS_INSTALL_TOOL_DIR/defs.sh"
 . "$TOOLS_INSTALL_TOOL_DIR/assets.sh"
-. "$TOOLS_INSTALL_DIR/check.sh"
 . "$TOOLS_INSTALL_DIR/install.sh"
 . "$TOOLS_INSTALL_DIR/dirs.sh"
 . "$TOOLS_INSTALL_DIR/post_install.sh"

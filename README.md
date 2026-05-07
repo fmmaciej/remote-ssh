@@ -124,17 +124,17 @@ version; a future version may replace it or add a fallback.
 
 ## Repository Structure
 
-| Path | Role |
-| --- | --- |
-| `runme.sh` | Remote installer for `curl | bash` |
-| `install.sh` | Local installer and default tool selection |
-| `tools/defs/` | Pinned tool definitions with exact GitHub release assets |
-| `tools/lib/install-tool/` | Runtime tool installer |
-| `tools/lib/generate-def/` | Developer-only manifest generation helpers |
-| `shell/` | Bash/Zsh-oriented shell environment |
-| `bin/` | Helper commands exposed in remote-ssh sessions |
-| `dots/` | Bundled configuration files |
-| `dev/` | Optional developer tooling and tests |
+| Path                      | Role                                                     |
+| ------------------------- | -------------------------------------------------------- |
+| `runme.sh`                | Remote installer for `curl` or `bash`                    |
+| `install.sh`              | Local installer and default tool selection               |
+| `tools/defs/`             | Pinned tool definitions with exact GitHub release assets |
+| `tools/lib/install-tool/` | Runtime tool installer                                   |
+| `tools/lib/generate-def/` | Developer-only manifest generation helpers               |
+| `shell/`                  | Bash/Zsh-oriented shell environment                      |
+| `bin/`                    | Helper commands exposed in remote-ssh sessions           |
+| `dots/`                   | Bundled configuration files                              |
+| `dev/`                    | Optional developer tooling and tests                     |
 
 ## Tool Definitions
 

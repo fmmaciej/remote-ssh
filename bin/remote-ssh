@@ -114,7 +114,7 @@ shell_rc_loads() {
 
 run_doctor() {
   local failed=0 branch commit dirty requested_status
-  local git_status
+  local git_status check_output check_status
 
   printf 'remote-ssh doctor\n\n'
 
@@ -186,13 +186,33 @@ run_doctor() {
 
   printf '\nTool check\n'
   if [[ "$requested_status" == "mismatch" ]]; then
-    printf '  status: skipped-env-mismatch\n'
+    printf '  summary: skipped-env-mismatch\n'
     failed=1
-  elif run_check --strict; then
-    printf '  status: ok\n'
   else
-    printf '  status: failed\n'
-    failed=1
+    set +e
+    check_output="$(run_check --strict 2>&1)"
+    check_status=$?
+    set -e
+
+    if ((check_status == 0)); then
+      printf '  summary: ok\n\n'
+    else
+      printf '  summary: failed\n\n'
+      failed=1
+    fi
+
+    printf '%s\n' "$check_output"
+
+    if ((check_status != 0)); then
+      printf '\nNext steps\n'
+      if grep -Eq 'status:[[:space:]]+(missing|external-only|stale-local|unmanaged-local)' <<<"$check_output"; then
+        printf '  run: remote-ssh install\n'
+      fi
+      if grep -Eq 'status:[[:space:]]+path-shadowed' <<<"$check_output"; then
+        printf '  check PATH order: %s should come before external tool directories\n' "$INSTALL_BIN_DIR"
+      fi
+      printf '  inspect: remote-ssh check --strict\n'
+    fi
   fi
 
   ((failed == 0))

@@ -85,7 +85,10 @@ test_remote_ssh_doctor_reports_missing_tools() {
   assert_contains "doctor optional" "Optional helpers" "$got"
   assert_contains "doctor python" "sshf python3:" "$got"
   assert_contains "doctor check" "Tool check" "$got"
-  assert_contains "doctor failed" "status: failed" "$got"
+  assert_contains "doctor failed" "summary: failed" "$got"
+  assert_contains "doctor next steps" "Next steps" "$got"
+  assert_contains "doctor install hint" "run: remote-ssh install" "$got"
+  assert_contains "doctor inspect hint" "inspect: remote-ssh check --strict" "$got"
 
   trap - RETURN
   rm -rf "$tmp"

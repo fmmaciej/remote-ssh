@@ -5,6 +5,10 @@ sessions on remote machines. It provides a small Bash-based session environment,
 bundled dotfiles, helper commands, and pinned standalone CLI tools downloaded
 from GitHub Releases.
 
+The shell environment is Bash-first. Start it with
+`bash --rcfile <remote-ssh>/shell/rc.sh -i`; sourcing `shell/rc.sh` from Zsh is
+not supported.
+
 The runtime target is a fresh or minimally configured Unix-like host. The normal
 installation path intentionally avoids package managers, source builds, `jq`,
 and GitHub API discovery. Python is not needed for the core installer, but the

@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if [[ -z ${BASH_VERSION:-} ]]; then
+  printf 'ERROR: remote-ssh shell/rc.sh must be loaded by bash.\n' >&2
+  printf 'Use: bash --rcfile /path/to/remote-ssh/shell/rc.sh -i\n' >&2
+  return 1
+fi
+
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 REMOTE_SHELL_DIR="$SCRIPT_DIR"

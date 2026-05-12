@@ -6,6 +6,9 @@ After installation, start a shell with the remote-ssh environment:
 bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i
 ```
 
+`shell/rc.sh` is Bash-first and must be loaded by Bash. Do not source it from
+Zsh; use the `bash --rcfile ... -i` form above instead.
+
 The post-install output also prints an example SSH config using:
 
 ```text

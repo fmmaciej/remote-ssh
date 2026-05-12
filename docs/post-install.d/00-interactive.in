@@ -6,4 +6,6 @@ To start an interactive shell using the remote-ssh environment:
 
   bash --rcfile "@INSTALL_DIR@/shell/rc.sh"
 
+remote-ssh's shell environment is Bash-first. Do not source shell/rc.sh from
+Zsh; start Bash with --rcfile as shown above.
 

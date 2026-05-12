@@ -121,3 +121,14 @@ def test_update_check_rc_skips_noninteractive_shells(repo_dir: Path, tmp_path: P
 
     assert_ok(result)
     assert result.stdout.rstrip("\n") == "skipped"
+
+
+def test_rc_fails_clearly_when_sourced_from_zsh(repo_dir: Path, tmp_path: Path) -> None:
+    remote = prepare_minimal_remote_tree(repo_dir, tmp_path)
+
+    result = run_cmd(["zsh", "-c", '. "$1/shell/rc.sh"', "_", remote])
+
+    assert result.returncode != 0
+    assert "remote-ssh shell/rc.sh must be loaded by bash" in result.stderr
+    assert "bash --rcfile /path/to/remote-ssh/shell/rc.sh -i" in result.stderr
+    assert "remote_source_dir" not in result.stderr

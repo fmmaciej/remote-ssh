@@ -58,6 +58,12 @@ The remote-ssh shell loads a few small helpers:
 outputs. Use `remote-ssh guide` for the longer, dynamic guide generated from
 the currently loaded shell configuration.
 
+To reprint the post-install setup instructions later, run:
+
+```bash
+remote-ssh guide post-install
+```
+
 ## Update Check
 
 Interactive remote-ssh shells run a throttled background update check by

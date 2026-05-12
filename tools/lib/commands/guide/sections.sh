@@ -19,6 +19,8 @@ Commands
   remote-ssh prune [--apply]  Report or remove unused installed releases
   remote-ssh guide [section]  Show this configuration guide
   remote-ssh guide starship   Explain prompt and Git status symbols
+  remote-ssh guide post-install
+                              Reprint setup instructions
   sshf                        Pick an SSH host with fzf and connect
   cheats                      Open private navi cheatsheets
 EOF
@@ -119,11 +121,17 @@ Built-in explanation
 EOF
 }
 
+remote_ssh_cmd_guide_print_post_install() {
+  remote_ssh_cmd_require_install_libs
+  install_render_post_install "$(remote_ssh_cmd_guide_repo_dir)"
+}
+
 remote_ssh_cmd_guide_print_notes() {
   cat <<EOF
 Notes
   remote-ssh --help is intentionally short.
   remote-ssh guide shows the loaded shell configuration.
+  Use remote-ssh guide post-install to reprint setup instructions.
   Interactive shells run a throttled background update check by default.
   Disable it with REMOTE_SSH_UPDATE_CHECK=0.
   remote-ssh prune is dry-run by default; use --apply to remove candidates.

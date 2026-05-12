@@ -16,6 +16,7 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "  remote-ssh git status       Check Git identity, SSH agent, and Git SSH auth" in result.stdout
     assert "  sshf                        Pick an SSH host with fzf and connect" in result.stdout
     assert "  remote-ssh guide starship   Explain prompt and Git status symbols" in result.stdout
+    assert "  remote-ssh guide post-install" in result.stdout
     assert "  alias rhelp='remote-ssh guide'" in result.stdout
     assert "  log" in result.stdout
     assert "  logrun" in result.stdout
@@ -108,3 +109,21 @@ def test_remote_ssh_guide_supports_starship_section(
     ):
         assert expected in lines
     assert "Commands" not in result.stdout
+
+
+def test_remote_ssh_guide_supports_post_install_section(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "post-install"], env=isolated_env.env)
+
+    assert_ok(result)
+    output = result.stdout
+    assert "Interactive usage" in output
+    assert "SSH configuration" in output
+    assert "VS Code Remote-SSH terminal profile" in output
+    assert "Optional Git setup" in output
+    assert f'bash --rcfile "{repo_dir}/shell/rc.sh"' in output
+    assert '"terminal.integrated.defaultProfile.linux": "bash + remote-ssh"' in output
+    assert "Commands" not in output
+    assert "@INSTALL_DIR@" not in output

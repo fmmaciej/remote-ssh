@@ -23,6 +23,7 @@ remote_ssh_cmd_guide_main() {
     git) remote_ssh_cmd_guide_print_git ;;
     tools) remote_ssh_cmd_guide_print_tools ;;
     starship) remote_ssh_cmd_guide_print_starship ;;
+    post-install) remote_ssh_cmd_guide_print_post_install ;;
     -h|--help)
       remote_ssh_cmd_guide_usage
       return 1

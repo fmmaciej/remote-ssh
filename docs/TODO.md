@@ -7,6 +7,9 @@
 - Consider signature or artifact attestation validation
 - Harden archive extraction before unpacking trusted-but-external assets:
   reject absolute paths, `..` traversal, and unsafe symlink entries
+- Make binary selection from extracted archives less heuristic than
+  `find ... -name "$BINARY_NAME" | head -n1`; prefer an explicit or validated
+  candidate path when archive layouts are ambiguous
 
 **sshf:**
 
@@ -53,11 +56,26 @@
   - examples: aliases, exports, shell hooks, host-specific command wrappers
   - do not use them as source of truth for default tool installation
   - do not install dependencies from `rc.d`
-- Document this boundary in `shell/rc.d/README.md` and `AGENTS.md`
 - Consider roles later: `rc.d/roles.d/db.sh`, `web.sh`
 
 **Low priority / polish:**
 
+- Clarify the partial Zsh story:
+  - `shell/rc.sh` is Bash-first and should fail clearly when sourced from Zsh
+  - keep or remove Zsh-specific init branches intentionally, so docs and tests
+    do not imply full Zsh support
+- Consider pinning the quick-start `runme.sh` flow more strongly:
+  - decide whether examples should prefer a tag over the moving `main` branch
+- Make the login-time update check easier to tune:
+  - keep it throttled and non-mutating
+  - consider a more visible config file or command for the existing
+    disable/interval settings
+- Refresh developer documentation after recent structure changes:
+  - update stale repository layout references in `dev/README.md`
+  - keep post-install docs consistent about `bash --rcfile ... -i`
+- Split larger pytest files when they become hard to review, especially
+  `dev/tests/test_tool_init_shell.py`, `dev/tests/test_install_tool_core.py`,
+  and shared helpers in `dev/tests/conftest.py`
 - Improve `remote-ssh git status` SSH diagnosis edge cases:
   - classify broader `Permission denied` variants that include `publickey`,
     not only the exact `Permission denied (publickey)` output

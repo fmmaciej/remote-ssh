@@ -2,28 +2,73 @@
 
 **Hardening / install reliability:**
 
-- Complete pinned `CHECKSUMS` coverage for definitions that still lack it:
-  `bat`, `eza`, `fd`, `fzf`, `navi`, `nu`, `nvim`, `yazi`, `zoxide`
-- Consider signature or artifact attestation validation
-- Harden archive extraction before unpacking trusted-but-external assets:
-  reject absolute paths, `..` traversal, and unsafe symlink entries
-- Make binary selection from extracted archives less heuristic than
-  `find ... -name "$BINARY_NAME" | head -n1`; prefer an explicit or validated
-  candidate path when archive layouts are ambiguous
+- Finish checksum coverage for tools that still install without pinned
+  `CHECKSUMS`: `bat`, `eza`, `fd`, `fzf`, `navi`, `nu`, `nvim`, `yazi`,
+  `zoxide`.
+  - Goal: every downloaded asset should be verified before extraction or
+    installation whenever an upstream SHA-256 can be trusted.
+  - Keep checksums optional only for projects that do not publish trustworthy
+    hashes.
+
+- Later, consider checking whether downloaded files are officially signed by
+  the upstream project.
+  - This is lower priority than SHA-256 coverage.
+  - Do not add heavyweight verification dependencies to runtime without a
+    deliberate design decision.
+
+- Harden archive extraction before unpacking external release assets.
+  - Current risk: `tar`/`unzip` extraction trusts archive paths.
+  - Reject absolute paths, `..` traversal, and unsafe symlink entries before
+    extraction.
+  - Keep the implementation Bash-friendly and compatible with the minimal
+    runtime dependency policy.
+
+- Make binary selection from extracted archives explicit enough to avoid
+  installing the wrong file.
+  - Current behavior searches for the first file named `$BINARY_NAME` under
+    the extracted tree.
+  - Prefer a validated candidate path or manifest field when archive layouts
+    are ambiguous.
+  - Errors should explain which candidates were found and why none was chosen.
 
 **sshf:**
 
 - Documented as optional helper requiring `python3` for now
+
 - Decide later whether to keep Python, replace `ssh_hosts.py`, or add a shell fallback
 
 **Entrypoint:**
 
 - Uninstall
 
-**tmux:**
+**Tmux vs Zellij:**
 
-- Launch automatically if present
+- Launch automatically if present;
+  document when each one makes sense
+    before adding any automatic launch behavior.
+
 - Session name "user@host"
+
+- Consider whether remote-ssh should recommend `tmux`, `zellij`, both, or
+  neither by default.
+  - `tmux` pros:
+    - widely available on servers and familiar to many admins
+    - very stable for long-running SSH sessions
+    - works well even on older/minimal systems
+  - `tmux` cons:
+    - config and keybindings are less discoverable
+    - harder for new users to learn
+    - usually depends on the host package manager, not the remote-ssh exact
+      asset workflow
+  - `zellij` pros:
+    - standalone GitHub release fits the remote-ssh tool model
+    - more discoverable UI and layouts
+    - good fit for project-oriented terminal workspaces
+  - `zellij` cons:
+    - less universally installed and less familiar than `tmux`
+    - may be heavier than needed for minimal remote sessions
+    - default keybindings can conflict with existing user habits
+  - Likely direction: keep both optional
 
 **Docker / Kubernetes:**
 
@@ -51,11 +96,13 @@
     practical
   - keep installer asset selection based on `tools/defs/*` exact `ASSETS`,
     `detect_libc`, and `current_default_tools`
+
 - Keep `shell/rc.d/os.d` and `shell/rc.d/host.d` scoped to shell runtime
   customizations only:
   - examples: aliases, exports, shell hooks, host-specific command wrappers
   - do not use them as source of truth for default tool installation
   - do not install dependencies from `rc.d`
+
 - Consider roles later: `rc.d/roles.d/db.sh`, `web.sh`
 
 **Low priority / polish:**
@@ -64,18 +111,23 @@
   - `shell/rc.sh` is Bash-first and should fail clearly when sourced from Zsh
   - keep or remove Zsh-specific init branches intentionally, so docs and tests
     do not imply full Zsh support
+
 - Consider pinning the quick-start `runme.sh` flow more strongly:
   - decide whether examples should prefer a tag over the moving `main` branch
+
 - Make the login-time update check easier to tune:
   - keep it throttled and non-mutating
   - consider a more visible config file or command for the existing
     disable/interval settings
+
 - Refresh developer documentation after recent structure changes:
   - update stale repository layout references in `dev/README.md`
   - keep post-install docs consistent about `bash --rcfile ... -i`
+
 - Split larger pytest files when they become hard to review, especially
   `dev/tests/test_tool_init_shell.py`, `dev/tests/test_install_tool_core.py`,
   and shared helpers in `dev/tests/conftest.py`
+
 - Improve `remote-ssh git status` SSH diagnosis edge cases:
   - classify broader `Permission denied` variants that include `publickey`,
     not only the exact `Permission denied (publickey)` output
@@ -83,5 +135,6 @@
     succeeds through `IdentityFile` or another non-agent path
   - if this area grows, split `dev/tests/test_git_status.py` into separate
     success, agent, and auth test files
+
 - Consider moving remaining Git config reads from the `git status` renderer
   into the status model, so rendering is purely formatting.

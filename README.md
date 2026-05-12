@@ -83,7 +83,6 @@ symlinks in `~/.local/bin`.
 ```bash
 remote-ssh install [tool ...]
 remote-ssh install --full [--yes]
-remote-ssh tool install rg
 remote-ssh tool list
 remote-ssh check [--strict] [tool ...]
 remote-ssh git setup

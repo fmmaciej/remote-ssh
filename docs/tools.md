@@ -48,6 +48,10 @@ Exact manifests are pinned. `tools/install-tool.sh <tool>` installs the pinned
 `VERSION`; `latest` and arbitrary version arguments are rejected for manifest
 based definitions.
 
+For manual debugging through the public CLI, `remote-ssh tool install <tool>`
+installs selected pinned tools without changing the user's saved
+`expected-tools` set. Regular users should prefer `remote-ssh install`.
+
 When a selected asset has a matching `CHECKSUMS` entry, the installer verifies
 its SHA-256 before extraction or installation. Some upstream projects do not
 publish checksum files for every asset yet; those remaining entries are tracked

@@ -22,8 +22,10 @@ remote_ssh_usage() {
 Usage: remote-ssh <command> [args]
 
 Commands:
-  install [tool ...]        Install default or selected remote-ssh tools
+  install [tool ...]        Install expected or selected remote-ssh tools
+  install --full [--yes]    Install all supported default tools
   tool install <tool ...>   Install selected pinned tools
+  tool list                 Show default, expected, installed, unsupported tools
   check [--strict] [tool]   Report pinned tools vs local bin and PATH
   update [check]            Git pull/install, or check whether upstream changed
   git <command>             Configure and inspect Git/SSH integration

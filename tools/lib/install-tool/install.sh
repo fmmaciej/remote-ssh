@@ -51,16 +51,80 @@ choose_release_dir() {
   return 1
 }
 
-atomic_symlink() {
-  local target="$1" link_path="$2"
+install_binary_validate_link_path() {
+  local link_path="$1"
+
+  if [[ -e "$link_path" && ! -L "$link_path" ]]; then
+    log_error "Refusing to replace unmanaged path: $link_path"
+    return 1
+  fi
+}
+
+install_binary_cleanup_tmp_links() {
   local tmp_link
 
-  tmp_link="${link_path}.tmp.$$-${RANDOM}"
-  ln -s "$target" "$tmp_link" || return 1
-  mv -f "$tmp_link" "$link_path" || {
-    rm -f "$tmp_link"
-    return 1
-  }
+  for tmp_link in "$@"; do
+    [[ -n "$tmp_link" ]] && rm -f "$tmp_link"
+  done
+}
+
+install_binary_rollback_links() {
+  local entry link_path old_exists old_target
+
+  for entry in "$@"; do
+    link_path="${entry%%|*}"
+    entry="${entry#*|}"
+    old_exists="${entry%%|*}"
+    old_target="${entry#*|}"
+
+    rm -f "$link_path"
+    if [[ "$old_exists" == "1" ]]; then
+      ln -s "$old_target" "$link_path" 2>/dev/null || true
+    fi
+  done
+}
+
+install_binary_switch_links() {
+  local target="$1"
+  shift
+
+  local link_path tmp_link old_exists old_target
+  local -a link_paths=("$@") tmp_links=() rollback_entries=()
+
+  for link_path in "${link_paths[@]}"; do
+    install_binary_validate_link_path "$link_path" || return 1
+  done
+
+  for link_path in "${link_paths[@]}"; do
+    tmp_link="${link_path}.tmp.$$-${RANDOM}"
+    ln -s "$target" "$tmp_link" || {
+      install_binary_cleanup_tmp_links "${tmp_links[@]}"
+      return 1
+    }
+    tmp_links+=("$tmp_link")
+  done
+
+  local i
+  for i in "${!link_paths[@]}"; do
+    link_path="${link_paths[$i]}"
+    tmp_link="${tmp_links[$i]}"
+    old_exists=0
+    old_target=""
+
+    if [[ -L "$link_path" ]]; then
+      old_exists=1
+      old_target="$(readlink "$link_path")"
+    fi
+
+    if mv -f "$tmp_link" "$link_path"; then
+      rollback_entries+=("${link_path}|${old_exists}|${old_target}")
+      tmp_links[i]=""
+    else
+      install_binary_cleanup_tmp_links "${tmp_links[@]}"
+      install_binary_rollback_links "${rollback_entries[@]}"
+      return 1
+    fi
+  done
 }
 
 install_binary() {
@@ -68,6 +132,7 @@ install_binary() {
   local -a binary_aliases=("${@:5}")
 
   local rel target_dir stage_dir release_dir alias_name
+  local -a link_paths
   rel="$(find_binary_path_by_name "$extract_dir" "$binary_name")"
 
   [[ -n $rel ]] || {
@@ -101,13 +166,17 @@ install_binary() {
     return 1
   }
 
-  atomic_symlink "$release_dir/$binary_name" "$INSTALL_BIN_DIR/$tool_name" || return 1
+  link_paths=("$INSTALL_BIN_DIR/$tool_name")
+  for alias_name in "${binary_aliases[@]}"; do
+    link_paths+=("$INSTALL_BIN_DIR/$alias_name")
+  done
+
+  install_binary_switch_links "$release_dir/$binary_name" "${link_paths[@]}" || return 1
 
   log_info "Installed: $release_dir"
   log_info "Symlink:   $INSTALL_BIN_DIR/$tool_name"
 
   for alias_name in "${binary_aliases[@]}"; do
-    atomic_symlink "$release_dir/$binary_name" "$INSTALL_BIN_DIR/$alias_name" || return 1
     log_info "Alias:     $INSTALL_BIN_DIR/$alias_name"
   done
 }

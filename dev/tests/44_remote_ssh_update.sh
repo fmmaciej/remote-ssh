@@ -10,6 +10,9 @@ if [[ "${1:-}" == "-C" ]]; then
 fi
 
 case "${1:-}" in
+  pull)
+    exit 0
+    ;;
   rev-parse)
     case "${2:-}" in
       --is-inside-work-tree)
@@ -156,7 +159,39 @@ test_remote_ssh_update_check_writes_cached_message() {
   rm -rf "$tmp"
 }
 
+test_remote_ssh_update_runs_install_without_tool_arguments() {
+  log "remote-ssh update delegates to install without tool arguments"
+
+  local tmp got
+  tmp="$(mktemp -d)"
+  trap 'rm -rf "$tmp"' RETURN
+
+  mkdir -p "$tmp/bin" "$tmp/repo/.git"
+  write_fake_update_git "$tmp/bin"
+
+  got="$(
+    PATH="$tmp/bin:/usr/bin:/bin" \
+      bash -c '
+        set -euo pipefail
+        source "$1/tools/lib/env.sh"
+        source "$TOOLS_LIB_DIR/commands.lib.sh"
+        remote_ssh_cmd_install_main() {
+          printf "argc=%s\n" "$#"
+          printf "repo=%s\n" "${1:-}"
+        }
+        remote_ssh_cmd_update_run "$2"
+      ' _ "$REPO_DIR" "$tmp/repo"
+  )"
+
+  assert_contains "update install argc" "argc=1" "$got"
+  assert_contains "update install repo" "repo=$tmp/repo" "$got"
+
+  trap - RETURN
+  rm -rf "$tmp"
+}
+
 register_test test_remote_ssh_update_check_reports_current
 register_test test_remote_ssh_update_check_reports_update_available
 register_test test_remote_ssh_update_check_reports_missing_upstream
 register_test test_remote_ssh_update_check_writes_cached_message
+register_test test_remote_ssh_update_runs_install_without_tool_arguments

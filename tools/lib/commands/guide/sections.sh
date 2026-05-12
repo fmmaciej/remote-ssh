@@ -6,8 +6,10 @@ remote_ssh_cmd_guide_print_commands() {
   cat <<'EOF'
 Commands
   remote-ssh --help           Show concise CLI usage
-  remote-ssh install [tool]   Install default or selected remote-ssh tools
+  remote-ssh install [tool]   Install expected or selected remote-ssh tools
+  remote-ssh install --full   Install all supported default tools
   remote-ssh tool install     Install selected pinned tools
+  remote-ssh tool list        Show tool selection and install state
   remote-ssh check --strict   Report pinned tools vs local bin and PATH
   remote-ssh git setup        Add remote-ssh Git config via include.path
   remote-ssh git status       Check Git identity, SSH agent, and Git SSH auth

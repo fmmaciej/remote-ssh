@@ -25,6 +25,8 @@ remote_ssh_cmd_guide_print_tools() {
   cat <<'EOF'
 Tools
   install      remote-ssh install
+  install all  remote-ssh install --full
+  list         remote-ssh tool list
   check        remote-ssh check --strict
   doctor       remote-ssh doctor
   prune        remote-ssh prune

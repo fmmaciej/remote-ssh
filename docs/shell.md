@@ -1,0 +1,86 @@
+# Shell Helpers
+
+After installation, start a shell with the remote-ssh environment:
+
+```bash
+bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i
+```
+
+The post-install output also prints an example SSH config using:
+
+```text
+RemoteCommand bash --rcfile '<install-dir>/shell/rc.sh' -i
+```
+
+## Loaded Helpers
+
+The remote-ssh shell loads a few small helpers:
+
+- `remote-ssh`: main entrypoint for install, check, git, update, doctor, and prune.
+- `remote-ssh guide`: show loaded aliases, functions, paths, tools, and Git SSH notes.
+- `starship-help`: explain the bundled Starship prompt symbols.
+- `sshf`: pick a host from your SSH config with `fzf`, then run `ssh`.
+- `cheats`: open private `navi` cheatsheets from `dots/navi/cheats`.
+- `log` and `logrun`: capture command output to a file while still streaming it.
+
+`remote-ssh --help` and `remote-ssh help` are intentionally short CLI usage
+outputs. Use `remote-ssh guide` for the longer, dynamic guide generated from
+the currently loaded shell configuration.
+
+## Update Check
+
+Interactive remote-ssh shells run a throttled background update check by
+default. The check only compares the current checkout with its configured
+upstream and prints a short hint when an update is available; it never pulls or
+modifies files during login.
+
+Disable it with:
+
+```bash
+export REMOTE_SSH_UPDATE_CHECK=0
+```
+
+The default interval is one day. Override it with:
+
+```bash
+export REMOTE_SSH_UPDATE_CHECK_INTERVAL=<seconds>
+```
+
+To check manually:
+
+```bash
+remote-ssh update check
+```
+
+## Cheatsheets
+
+Private cheatsheets are stored in:
+
+```text
+dots/navi/cheats
+```
+
+Remote-ssh shells prepend that directory to `NAVI_PATH`, so `navi` and the
+`cheats` alias can search project-local snippets without copying them into a
+global user directory.
+
+## sshf
+
+`sshf` reads host aliases from `$HOME/.ssh/config`, including `Include` files,
+and ignores wildcard entries such as `Host *`. It currently uses
+`scripts/ssh_hosts.py`, so this helper requires `python3`.
+
+The dependency is intentional for now because the parser is more reliable than
+a shell-only version; a future version may replace it or add a fallback.
+
+## Runtime Plugin Files
+
+`shell/rc.sh` loads shell customizations from `shell/rc.d/`, then optional
+platform and host-specific files from:
+
+```text
+shell/rc.d/os.d/<os>.sh
+shell/rc.d/host.d/<hostname>.sh
+```
+
+See `shell/rc.d/README.md` for the load order and plugin conventions.

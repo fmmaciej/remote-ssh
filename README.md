@@ -10,13 +10,27 @@ installation path intentionally avoids package managers, source builds, `jq`,
 and GitHub API discovery. Python is not needed for the core installer, but the
 optional `sshf` helper currently uses a Python parser for SSH config files.
 
+## Why This Exists
+
+I often work on remote, shared machines where I do not have a dedicated user
+account. Over the years I built a small personal workflow around fast shell
+navigation, search, editing, Git, logs, and pinned CLI tools. Remote-ssh keeps
+that workflow portable and isolated, so I can make a temporary session feel
+familiar without changing the machine globally or disrupting other users.
+
+It is worth trying if you work on shared accounts, move between short-lived
+remote machines, want your own tools without using the system package manager,
+or need a repeatable shell setup that stays out of everyone else's way.
+
 ## Quick Start
 
-`runme.sh` is the remote install script. It is intended to be executed directly,
-for example through `curl | bash`, and not from a local repository checkout.
+Download `runme.sh`, review or edit the `RUNME_TOOLS` list, then run it:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh | bash
+curl -fsSLO https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh
+chmod +x runme.sh
+$EDITOR runme.sh
+./runme.sh
 ```
 
 The script clones or updates this repository in:
@@ -25,74 +39,48 @@ The script clones or updates this repository in:
 ~/.local/share/remote-ssh
 ```
 
-Then it runs `install.sh`.
+Then it runs `remote-ssh install` with the selected tools. The installer prints
+the final tool list and asks for confirmation before installing.
+
+If you already know the desired set, pass tools directly:
+
+```bash
+./runme.sh fd rg fzf zoxide
+./runme.sh --yes fd rg fzf zoxide
+```
+
+For a non-interactive full install without editing the bootstrap list:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh | bash -s -- --full --yes
+```
 
 ## Local Install
 
 From a checked-out repository:
 
 ```bash
-./install.sh
+./bin/remote-ssh install --full --yes
+./bin/remote-ssh install fd rg fzf
+./bin/remote-ssh install --yes fd rg fzf
 ```
 
-With no arguments, this installs the platform-supported subset of the default
-tool set:
+The selected tool set is saved in:
 
 ```text
-fd rg sd dust fzf bat yazi nvim zellij nu starship eza zoxide atuin navi tspin vector
+~/.config/remote-ssh/expected-tools
 ```
 
-Tools without a matching asset for the current OS/architecture are skipped with
-a clear install log entry. Explicitly requested tools still fail if unsupported
-on the current platform.
+Installed tool versions are placed under `~/.local/opt/<tool>-<version>`, with
+symlinks in `~/.local/bin`.
 
-To install only selected tools:
-
-```bash
-./install.sh fd rg fzf
-```
-
-Installed tool versions are placed under:
-
-```text
-~/.local/opt/<tool>-<version>
-```
-
-Symlinks are created in:
-
-```text
-~/.local/bin
-```
-
-## Interactive Shell
-
-After installation, start a shell with the remote-ssh environment:
-
-```bash
-bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i
-```
-
-The post-install output also prints an example SSH config using:
-
-```text
-RemoteCommand bash --rcfile '<install-dir>/shell/rc.sh' -i
-```
-
-## Shell Helpers
-
-The remote-ssh shell loads a few small helpers:
-
-- `remote-ssh`: main entrypoint for install, check, git, update, doctor, and prune.
-- `remote-ssh guide`: show loaded aliases, functions, paths, tools, and Git SSH notes.
-- `starship-help`: explain the bundled Starship prompt symbols.
-- `sshf`: pick a host from your SSH config with `fzf`, then run `ssh`.
-- `cheats`: open private `navi` cheatsheets from `dots/navi/cheats`.
-
-Main entrypoint commands:
+## Main Commands
 
 ```bash
 remote-ssh install [tool ...]
+remote-ssh install --full [--yes]
 remote-ssh tool install rg
+remote-ssh tool list
 remote-ssh check [--strict] [tool ...]
 remote-ssh git setup
 remote-ssh git status [ssh-host]
@@ -104,117 +92,13 @@ remote-ssh guide [section]
 remote-ssh help
 ```
 
-`remote-ssh --help` and `remote-ssh help` are intentionally short CLI usage
-outputs. Use `remote-ssh guide` for the longer, dynamic guide generated from
-the currently loaded shell configuration.
-
-Interactive remote-ssh shells run a throttled background update check by
-default. The check only compares the current checkout with its configured
-upstream and prints a short hint when an update is available; it never pulls or
-modifies files during login. Disable it with:
-
-```bash
-export REMOTE_SSH_UPDATE_CHECK=0
-```
-
-The default interval is one day. Override it with
-`REMOTE_SSH_UPDATE_CHECK_INTERVAL=<seconds>`. To check manually:
-
-```bash
-remote-ssh update check
-```
-
-`remote-ssh prune` is dry-run by default. It prints old installed tool release
-directories and removes them only when called with `--apply`.
-
-Private cheatsheets are stored in:
-
-```text
-dots/navi/cheats
-```
-
-Remote-ssh shells prepend that directory to `NAVI_PATH`, so `navi` and the
-`cheats` alias can search project-local snippets without copying them into a
-global user directory.
-
-`sshf` reads host aliases from `$HOME/.ssh/config`, including `Include` files,
-and ignores wildcard entries such as `Host *`. It currently uses
-`scripts/ssh_hosts.py`, so this helper requires `python3`. The dependency is
-intentional for now because the parser is more reliable than a shell-only
-version; a future version may replace it or add a fallback.
-
-## Repository Structure
-
-| Path                      | Role                                                     |
-| ------------------------- | -------------------------------------------------------- |
-| `runme.sh`                | Remote installer for `curl` or `bash`                    |
-| `install.sh`              | Local installer and default tool selection               |
-| `tools/defs/`             | Pinned tool definitions with exact GitHub release assets |
-| `tools/lib/commands/`     | Public `remote-ssh` subcommand implementations           |
-| `tools/lib/common/`       | Shared tooling helpers                                   |
-| `tools/lib/install/`      | Environment install defaults, dirs, checks, post-install |
-| `tools/lib/install-tool/` | Single-tool GitHub asset installer                       |
-| `tools/lib/generate-def/` | Developer-only manifest generation helpers               |
-| `shell/`                  | Bash/Zsh-oriented shell environment                      |
-| `bin/`                    | Thin entrypoints exposed in remote-ssh sessions          |
-| `dots/`                   | Bundled configuration files                              |
-| `dev/`                    | Optional developer tooling and tests                     |
-
-## Tool Definitions
-
-Tools are installed from exact GitHub Release asset manifests. Runtime install
-does not generate asset names dynamically and does not use GitHub API discovery.
-
-Each `tools/defs/<tool>.sh` defines a pinned release:
-
-```bash
-TOOL_NAME="example"
-GH_REPO="owner/repo"
-RELEASE_TAG="v1.2.3"
-VERSION="1.2.3"
-BINARY_NAME="example"
-
-ASSETS=(
-  "linux:x86_64:musl|example-v1.2.3-x86_64-unknown-linux-musl.tar.gz"
-  "darwin:aarch64:any|example-v1.2.3-aarch64-apple-darwin.tar.gz"
-)
-
-CHECKSUMS=(
-  "example-v1.2.3-x86_64-unknown-linux-musl.tar.gz|<sha256>"
-  "example-v1.2.3-aarch64-apple-darwin.tar.gz|<sha256>"
-)
-```
-
-Supported release asset formats:
-
-- `.tar.gz`
-- `.tgz`
-- `.zip`
-- raw executable assets
-
-Unsupported by design:
-
-- source archives that need building
-- `.deb`
-- `.rpm`
-- `.apk`
-- package manager installs
-
-Exact manifests are pinned. `tools/install-tool.sh <tool>` installs the pinned
-`VERSION`; `latest` and arbitrary version arguments are rejected for manifest
-based definitions.
-
-When a selected asset has a matching `CHECKSUMS` entry, the installer verifies
-its SHA-256 before extraction or installation. Some upstream projects do not
-publish checksum files for every asset yet; those remaining entries are tracked
-as follow-up hardening work.
+`remote-ssh --help` is intentionally short. Use `remote-ssh guide` for a dynamic
+guide generated from the currently loaded shell configuration.
 
 ## Runtime Requirements
 
-Runtime requirements are intentionally small:
-
 - `bash`
-- `git` for `runme.sh`
+- `git` for `runme.sh`, `remote-ssh update`, and update checks
 - `curl`
 - `tar`
 - `find`
@@ -228,47 +112,13 @@ Optional helper requirements:
 
 - `python3` for `sshf`
 
-Developer tooling may require more, but it is isolated in `dev/`.
+## More Documentation
 
-## Development
-
-Useful commands:
-
-```bash
-just smoke
-just lint
-just fmt
-just test-assets-live
-```
-
-`just smoke` is the default verification for normal changes.
-
-`just test-assets-live` uses the network and GitHub Releases API to verify that
-pinned assets exist. Run it only when you explicitly want live asset validation.
-If GitHub API rate limits are a problem, create `dev/.env` and set `GITHUB_TOKEN`
-or `GH_TOKEN`.
-
-Generate a draft tool definition from GitHub Releases:
-
-```bash
-tools/generate-def.sh chmln/sd
-tools/generate-def.sh BurntSushi/ripgrep --tool rg --tag 15.1.0
-tools/generate-def.sh nushell/nushell --tool nu --version 0.112.2
-tools/generate-def.sh chmln/sd --list
-```
-
-Without `--tool`, the tool name is inferred from the repository basename.
-Use `--tool` when the repository name differs from the installed binary name.
-`--tag` and `--version` both select an exact GitHub release tag; without either
-option the generator uses the latest release.
-
-## Notes
-
-- `runme.sh` is not meant to be run from a local clone.
-- No developer tooling from `dev/` is required on remote hosts.
-- The working copy used for development may differ from the installed copy.
-- Review the remote install script before running it on production machines.
-- To update an installed checkout, run `remote-ssh update`.
+- [Install flow](docs/install.md)
+- [Shell helpers and runtime behavior](docs/shell.md)
+- [Tool definitions and pinned assets](docs/tools.md)
+- [Developer tooling](dev/README.md)
+- [TODO](docs/TODO.md)
 
 ## License
 

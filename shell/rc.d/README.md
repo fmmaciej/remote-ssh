@@ -32,7 +32,7 @@ eval "$(atuin init bash)"
 ```
 
 Do not install dependencies from `rc.d` files. Installation belongs to
-`install.sh` and `tools/defs`.
+`remote-ssh install` and `tools/defs`.
 
 Keep `aliases.sh` focused on aliases and simple command wrappers. Shell runtime
 initialization such as `eval "$(tool init ...)"`, shell hooks, and tool-specific

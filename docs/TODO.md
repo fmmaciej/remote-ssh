@@ -7,10 +7,6 @@
 - Consider signature or artifact attestation validation
 - Harden archive extraction before unpacking trusted-but-external assets:
   reject absolute paths, `..` traversal, and unsafe symlink entries
-- Consider installing `runme.sh` from an explicit tag/ref instead of always
-  cloning the moving `main` branch
-- Make `remote-ssh check --strict` validate `BINARY_ALIASES`, not just the
-  primary tool symlink
 
 **sshf:**
 

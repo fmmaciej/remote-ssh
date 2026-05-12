@@ -2,15 +2,40 @@
 
 set -euo pipefail
 
-# stdin comes from terminal, not from pipe or file
-if [ -t 0 ]; then
-  echo "NOTE: This script is intended to be run remotely (curl | bash)."
-  exit 1
-fi
-
 REPO_URL="https://github.com/fmmaciej/remote-ssh.git"
 INSTALL_DIR="${HOME}/.local/share/remote-ssh"
-INSTALL_SCRIPT="install.sh"
+REMOTE_SSH_REF="${REMOTE_SSH_REF:-}"
+
+# First-install tool selection.
+# Download this file, remove tools you do not want, then run: bash runme.sh
+# Passing arguments overrides this list, e.g.: bash runme.sh fd rg fzf
+# Any arguments are forwarded to remote-ssh install without interpretation.
+RUNME_TOOLS=(
+  fd
+  rg
+  sd
+  dust
+  fzf
+  bat
+  yazi
+  nvim
+  zellij
+  nu
+  starship
+  eza
+  zoxide
+  atuin
+  navi
+  tspin
+  vector
+)
+
+install_args=()
+if (($# > 0)); then
+  install_args=("$@")
+else
+  install_args=("${RUNME_TOOLS[@]}")
+fi
 
 if ! command -v git >/dev/null 2>&1; then
   echo "ERROR: git is required to install remote-ssh." >&2
@@ -20,18 +45,28 @@ fi
 echo "[*] Cloning repo to: $INSTALL_DIR"
 
 if [[ -d "$INSTALL_DIR/.git" ]]; then
-  echo "[*] Updating existing installation..."
-
-  git -C "$INSTALL_DIR" pull --ff-only
+  if [[ -n "$REMOTE_SSH_REF" ]]; then
+    echo "[*] Fetching remote-ssh ref: $REMOTE_SSH_REF"
+    git -C "$INSTALL_DIR" fetch --depth 1 origin "$REMOTE_SSH_REF"
+    git -C "$INSTALL_DIR" checkout --detach FETCH_HEAD
+  else
+    echo "[*] Updating existing installation..."
+    git -C "$INSTALL_DIR" pull --ff-only
+  fi
 else
   echo "[*] Installing into $INSTALL_DIR..."
 
   mkdir -p "$(dirname "$INSTALL_DIR")"
   git clone --depth 1 "$REPO_URL" "$INSTALL_DIR"
+  if [[ -n "$REMOTE_SSH_REF" ]]; then
+    echo "[*] Fetching remote-ssh ref: $REMOTE_SSH_REF"
+    git -C "$INSTALL_DIR" fetch --depth 1 origin "$REMOTE_SSH_REF"
+    git -C "$INSTALL_DIR" checkout --detach FETCH_HEAD
+  fi
 fi
 
 echo "[*] Running install..."
 (
   cd "$INSTALL_DIR"
-  ./"$INSTALL_SCRIPT"
+  ./bin/remote-ssh install "${install_args[@]}"
 )

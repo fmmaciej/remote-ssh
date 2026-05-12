@@ -29,21 +29,23 @@ remote_ssh_cmd_doctor_shell_rc_loads() {
 
 remote_ssh_cmd_doctor_collect_tool_statuses() {
   local def_dir="$TOOLS_DIR/defs"
-  local tool
+  local tool status
 
   REMOTE_SSH_DOCTOR_TOOL_STATUSES=()
 
-  while IFS= read -r tool; do
-    [[ -n "$tool" ]] || continue
+  read_expected_tools_for_current_platform || return 0
+  for tool in "${REMOTE_SSH_EXPECTED_TOOLS[@]}"; do
     remote_ssh_tool_status_load "$tool" "$def_dir"
-    REMOTE_SSH_DOCTOR_TOOL_STATUSES+=("$REMOTE_SSH_TOOL_STATUS_STATUS")
-  done < <(current_default_tools)
+    for status in "${REMOTE_SSH_TOOL_STATUS_STATUSES[@]}"; do
+      REMOTE_SSH_DOCTOR_TOOL_STATUSES+=("$status")
+    done
+  done
 }
 
 remote_ssh_cmd_doctor_has_tool_status() {
   local wanted="$1" status
 
-  for status in "${REMOTE_SSH_DOCTOR_TOOL_STATUSES[@]}"; do
+  for status in ${REMOTE_SSH_DOCTOR_TOOL_STATUSES[@]+"${REMOTE_SSH_DOCTOR_TOOL_STATUSES[@]}"}; do
     [[ "$status" == "$wanted" ]] && return 0
   done
 
@@ -155,7 +157,10 @@ remote_ssh_cmd_doctor_main() {
       remote_ssh_cmd_doctor_collect_tool_statuses
 
       printf '\nNext steps\n'
-      if remote_ssh_cmd_doctor_has_install_hint_status; then
+      if ! expected_tools_exists; then
+        printf '  choose tools: remote-ssh install fd rg fzf\n'
+        printf '  or install all supported tools: remote-ssh install --full --yes\n'
+      elif remote_ssh_cmd_doctor_has_install_hint_status; then
         printf '  run: remote-ssh install\n'
       fi
       if remote_ssh_cmd_doctor_has_tool_status path-shadowed; then

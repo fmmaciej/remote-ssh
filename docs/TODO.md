@@ -26,6 +26,23 @@
 - Launch automatically if present
 - Session name "user@host"
 
+**Docker / Kubernetes:**
+
+- Consider whether Dozzle belongs in the remote-ssh workflow as an optional
+  live log viewer for Docker/Kubernetes.
+  - Pros:
+    - useful browser UI for live container logs
+    - easier than juggling many `docker logs -f` / `kubectl logs -f` sessions
+    - can help with quick debugging on Docker Compose or small clusters
+    - fits as docs/examples/cheatsheet material
+  - Cons:
+    - it is a web/container app, not a standalone CLI tool for `$PATH`
+    - not a replacement for Vector, Loki, ELK/OpenSearch, or retained logs
+    - adds socket/RBAC/security considerations
+    - may be too heavy for the minimal remote-ssh default install
+  - Likely direction: do not add as a default tool; maybe add docs or navi
+    examples for running it when needed.
+
 **rc.d / platform detection:**
 
 - Unify platform detection used by shell runtime and installer:

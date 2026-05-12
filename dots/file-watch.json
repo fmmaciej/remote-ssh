@@ -1,0 +1,26 @@
+{
+  "cache_dir": "~/.cache/remote-ssh/file-watch",
+  "state_file": "~/.local/state/remote-ssh/file-watch/state.json",
+  "pointers": {
+    "get-started-v1": {
+      "type": "git",
+      "repo": "https://github.com/example/example-repo.git",
+      "ref": "v1.0.0",
+      "file": "docs/get-started.md"
+    },
+    "get-started-main": {
+      "type": "git",
+      "repo": "https://github.com/example/example-repo.git",
+      "ref": "main",
+      "file": "docs/get-started.md"
+    }
+  },
+  "watches": [
+    {
+      "name": "get-started-watch",
+      "left": "get-started-v1",
+      "right": "get-started-main",
+      "fail_on_diff": false
+    }
+  ]
+}

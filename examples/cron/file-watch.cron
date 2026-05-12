@@ -1,0 +1,6 @@
+# Edit paths before installing with crontab.
+# Cron has a minimal environment, so prefer absolute paths.
+#
+# Runs every 30 minutes and appends output to a user-local log file.
+
+*/30 * * * * mkdir -p /home/YOUR_USER/.local/state/remote-ssh/file-watch && /home/YOUR_USER/.local/share/remote-ssh/scripts/file-watch.sh run /home/YOUR_USER/.local/share/remote-ssh/dots/file-watch.json >> /home/YOUR_USER/.local/state/remote-ssh/file-watch/watch.log 2>&1

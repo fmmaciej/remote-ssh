@@ -143,6 +143,9 @@ and ignores wildcard entries such as `Host *`. It currently uses
 intentional for now because the parser is more reliable than a shell-only
 version; a future version may replace it or add a fallback.
 
+For cron-based checks that compare configured local or Git-backed files, see
+`docs/file-watch.md`.
+
 ## Repository Structure
 
 | Path                      | Role                                                     |

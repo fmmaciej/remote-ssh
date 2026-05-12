@@ -1,5 +1,16 @@
 # TODO
 
+**Top priority: README:**
+
+- Reorganize `README.md` as the main landing page for the project.
+  - Make the first screen explain what remote-ssh is, who it is for, and why it
+    exists.
+  - Keep install instructions short and route details to `docs/install.md`.
+  - Keep shell, tool, and developer details out of README unless they are needed
+    for first-time use.
+  - Make sure README links clearly to `docs/shell.md`, `docs/tools.md`,
+    `docs/install.md`, `dev/README.md`, and this TODO.
+
 **Hardening / install reliability:**
 
 - Finish checksum coverage for tools that still install without pinned

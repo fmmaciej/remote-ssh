@@ -1,14 +1,4 @@
 repos:
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.9
-    hooks:
-      - id: ruff
-        args: [--fix, --config=dev/pyproject.toml]
-        files: ^scripts/.*\.py$
-      - id: ruff-format
-        args: [--config=dev/pyproject.toml]
-        files: ^scripts/.*\.py$
-
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: v3.8.0-1
     hooks:
@@ -17,6 +7,18 @@ repos:
 
   - repo: local
     hooks:
+      - id: ruff
+        name: ruff
+        entry: bash -lc 'cd dev && uv run ruff check --fix ../scripts check_assets_live.py tests'
+        language: system
+        pass_filenames: false
+        files: ^(scripts/.*\.py|dev/check_assets_live\.py|dev/tests/.*\.py)$
+      - id: ruff-format
+        name: ruff format
+        entry: bash -lc 'cd dev && uv run ruff format ../scripts check_assets_live.py tests'
+        language: system
+        pass_filenames: false
+        files: ^(scripts/.*\.py|dev/check_assets_live\.py|dev/tests/.*\.py)$
       - id: shellcheck
         name: shellcheck
         entry: shellcheck
@@ -24,10 +26,10 @@ repos:
         files: \.sh$
       - id: mypy
         name: mypy
-        entry: mypy --config-file dev/pyproject.toml scripts
+        entry: bash -lc 'cd dev && uv run mypy --config-file pyproject.toml ../scripts check_assets_live.py'
         language: system
         pass_filenames: false
-        files: ^scripts/.*\.py$
+        files: ^(scripts/.*\.py|dev/check_assets_live\.py)$
       - id: smoke
         name: smoke tests
         entry: just smoke

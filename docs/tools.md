@@ -74,7 +74,7 @@ Preferred workflow:
 1. Run `tools/generate-def.sh owner/repo [--tool name] [--tag tag]`.
 2. Add or update `tools/defs/<tool>.sh`.
 3. Add the tool to `DEFAULT_TOOLS` only if it should be a default candidate.
-4. Update asset contract tests in `dev/tests/10_tool_assets.sh` and related files.
+4. Update asset contract tests in `dev/tests/test_tool_assets.py`.
 5. Add or update `dots/navi/cheats/<tool>.cheat` when useful.
 6. Update `runme.sh` `RUNME_TOOLS` and the default tool list in
    `docs/install.md` if defaults changed.

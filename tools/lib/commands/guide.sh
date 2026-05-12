@@ -22,6 +22,7 @@ remote_ssh_cmd_guide_main() {
     paths) remote_ssh_cmd_guide_print_paths ;;
     git) remote_ssh_cmd_guide_print_git ;;
     tools) remote_ssh_cmd_guide_print_tools ;;
+    starship) remote_ssh_cmd_guide_print_starship ;;
     -h|--help)
       remote_ssh_cmd_guide_usage
       return 1

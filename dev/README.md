@@ -4,6 +4,7 @@ This directory contains **optional developer tooling** used to maintain this rep
 Nothing here is required to run the scripts on remote servers or production machines.
 
 The tools below are intended for **local development only**.
+Python developer tooling targets Python 3.13.
 
 ---
 
@@ -18,13 +19,9 @@ Yeah, it's a cool tool.
 Task runner used to define and run common development commands
 (e.g. linting and formatting).
 
-### ruff
+### ruff, mypy, pytest, pre-commit
 
-Python linter and formatter used for scripts in `bin/`.
-
-### pre-commit
-
-Git hook manager used to run checks automatically before commits.
+Python developer tools managed by `uv` from `dev/pyproject.toml`.
 
 ---
 
@@ -52,12 +49,19 @@ Debian / Ubuntu
 apt install uv just
 ```
 
-### Tools
+### Python developer environment
 
 ```bash
-uv tool install ruff
-uv tool install mypy
-uv tool install pre-commit
+cd dev
+uv sync
+```
+
+### Git hooks
+
+After syncing the developer environment, install the local pre-commit hooks:
+
+```bash
+just pre-commit-install
 ```
 
 ## Usage
@@ -70,19 +74,24 @@ just fmt
 just type
 just test
 just smoke
+just pre-commit-install
+just pre-commit
 just test-assets-live
 ```
 
-Developer divectory `dev/`:
+Developer directory `dev/`:
 
 ```bash
 just py-lint
 just py-fmt
 just py-type
+just py-test
 just sh-lint
 just sh-fmt
 just test
 just smoke
+just pre-commit-install
+just pre-commit
 just test-assets-live
 ```
 
@@ -92,21 +101,27 @@ not download the release archives.
 
 If you hit GitHub API rate limits, copy `dev/.env.example` to `dev/.env` and
 set `GITHUB_TOKEN` or `GH_TOKEN`. `dev/.env` is local-only and ignored by git.
+The live checker is implemented in `dev/check_assets_live.py` and is normally
+run through `just test-assets-live`.
 
-Smoke tests live in `dev/tests/`. Files are prefixed with numbers to keep the
-execution order readable.
+Smoke checks are split by responsibility:
 
-Optional: enable git hooks locally:
+- `dev/lib.sh` contains small helpers for developer scripts.
+- `dev/smoke.sh` runs static checks: Bash syntax, `shellcheck`, `ruff`, and
+  `mypy`.
+- `dev/tests/` contains pytest subprocess and integration tests.
 
-```bash
-pre-commit install -c dev/.pre-commit-config.yaml
-```
+Prefer pytest for new CLI/integration tests. Tests may still launch Bash
+subprocesses when they need to source shell functions, rc files, aliases, or
+tool definitions.
+
+The pre-commit hooks are optional but recommended for regular development.
 
 ---
 
 ## Notes
 
-- No Python virtual environment is required.
+- No global Python developer tools are required beyond `uv`.
 - Python scripts in this repository are expected to run using the standard library only.
 - This tooling is intentionally isolated in `dev/` to avoid impacting runtime environments.
 

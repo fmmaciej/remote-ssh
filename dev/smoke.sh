@@ -7,21 +7,36 @@ REPO_DIR="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 
 export SCRIPT_DIR REPO_DIR
 
+export DEV_LOG_PREFIX=smoke
+
 # shellcheck disable=SC1091
-. "$SCRIPT_DIR/tests/lib.sh"
-# shellcheck disable=SC1091
-. "$SCRIPT_DIR/tests/tool_assets_lib.sh"
+. "$SCRIPT_DIR/lib.sh"
 
-for test_file in "$SCRIPT_DIR"/tests/*.sh; do
-  case "$(basename "$test_file")" in
-    lib.sh|tool_assets_lib.sh) continue ;;
-  esac
-  # shellcheck source=/dev/null
-  . "$test_file"
-done
+dev_log "bash syntax"
+find "$REPO_DIR" \
+  -path "$REPO_DIR/.git" -prune -o \
+  -path "$REPO_DIR/dev/.venv" -prune -o \
+  -name '*.sh' -print0 \
+  | xargs -0 bash -n
+find "$REPO_DIR/bin" -maxdepth 1 -type f -print0 \
+  | xargs -0 bash -n
 
-for test_name in "${SMOKE_TESTS[@]}"; do
-  "$test_name"
-done
+dev_log "shellcheck"
+dev_require_cmd shellcheck
+find "$REPO_DIR" \
+  -path "$REPO_DIR/.git" -prune -o \
+  -path "$REPO_DIR/dev/.venv" -prune -o \
+  -name '*.sh' -print0 \
+  | xargs -0 shellcheck
+find "$REPO_DIR/bin" -maxdepth 1 -type f -print0 \
+  | xargs -0 shellcheck
 
-log "ok"
+dev_log "python checks"
+dev_require_cmd uv
+(
+  cd "$SCRIPT_DIR" || exit
+  PYTHONDONTWRITEBYTECODE=1 uv run ruff check --no-fix ../scripts check_assets_live.py
+  PYTHONDONTWRITEBYTECODE=1 uv run mypy --config-file pyproject.toml ../scripts check_assets_live.py
+)
+
+dev_log "ok"

@@ -2,32 +2,50 @@
 
 # Folder ze skryptami pythonowymi
 py_scripts := "../scripts"
+py_dev_scripts := "check_assets_live.py"
+py_tests := "tests"
 
 default:
     @just --list
 
+sync:
+    UV_CACHE_DIR="${UV_CACHE_DIR:-${TMPDIR:-/tmp}/remote-ssh-uv-cache}" uv sync
+
+pre-commit-install:
+    uv run pre-commit install -c .pre-commit-config.yaml
+
+pre-commit:
+    uv run pre-commit run --all-files -c .pre-commit-config.yaml
+
 py-lint:
     # shellcheck disable=SC1083
-    ruff check --fix {{py_scripts}}
+    uv run ruff check --fix {{ py_scripts }} {{ py_dev_scripts }} {{ py_tests }}
 
 py-fmt:
     # shellcheck disable=SC1083
-    ruff format {{py_scripts}}
+    uv run ruff format {{ py_scripts }} {{ py_dev_scripts }} {{ py_tests }}
 
 py-type:
     # shellcheck disable=SC1083
-    mypy --config-file pyproject.toml {{py_scripts}}
+    uv run mypy --config-file pyproject.toml {{ py_scripts }} {{ py_dev_scripts }}
+
+py-test:
+    UV_CACHE_DIR="${UV_CACHE_DIR:-${TMPDIR:-/tmp}/remote-ssh-uv-cache}" uv run pytest -q {{ py_tests }}
+
+py-test-verbose:
+    UV_CACHE_DIR="${UV_CACHE_DIR:-${TMPDIR:-/tmp}/remote-ssh-uv-cache}" uv run pytest -vv -ra tests
 
 sh-lint:
-    find .. -path ../.git -prune -o -name "*.sh" -exec shellcheck {} +
+    find .. -path ../.git -prune -o -path ../dev/.venv -prune -o -name "*.sh" -exec shellcheck {} +
 
 sh-fmt:
-    find .. -path ../.git -prune -o -name '*.sh' -exec shfmt -w {} +
+    find .. -path ../.git -prune -o -path ../dev/.venv -prune -o -name '*.sh' -exec shfmt -w {} +
 
 smoke:
     ./smoke.sh
+    just py-test
 
 test: smoke
 
 test-assets-live:
-    ./check-assets-live.sh
+    UV_CACHE_DIR="${UV_CACHE_DIR:-${TMPDIR:-/tmp}/remote-ssh-uv-cache}" uv run python check_assets_live.py

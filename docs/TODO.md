@@ -63,7 +63,7 @@
     not only the exact `Permission denied (publickey)` output
   - avoid over-suggesting agent fixes when `ssh-add` is missing but SSH auth
     succeeds through `IdentityFile` or another non-agent path
-  - if this area grows, split `dev/tests/46_git_identity.sh` into separate
+  - if this area grows, split `dev/tests/test_git_status.py` into separate
     success, agent, and auth test files
 - Consider moving remaining Git config reads from the `git status` renderer
   into the status model, so rendering is purely formatting.

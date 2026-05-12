@@ -4,7 +4,7 @@ ensure_this_file_sourced
 
 remote_ssh_cmd_guide_usage() {
   cat <<'EOF' >&2
-Usage: remote-ssh guide [all|commands|aliases|functions|paths|git|tools]
+Usage: remote-ssh guide [all|commands|aliases|functions|paths|git|tools|starship]
 EOF
 }
 
@@ -30,6 +30,10 @@ remote_ssh_cmd_guide_cheats_dir() {
 
 remote_ssh_cmd_guide_atuin_marker() {
   printf '%s\n' "${XDG_STATE_HOME:-$HOME/.local/state}/remote-ssh/atuin-import-auto.done"
+}
+
+remote_ssh_cmd_guide_starship_config() {
+  printf '%s\n' "${STARSHIP_CONFIG:-$(remote_ssh_cmd_guide_dots_dir)/starship.toml}"
 }
 
 remote_ssh_cmd_guide_print_prefixed_lines() {

@@ -18,7 +18,7 @@ Commands
   remote-ssh doctor           Check runtime requirements and installed tools
   remote-ssh prune [--apply]  Report or remove unused installed releases
   remote-ssh guide [section]  Show this configuration guide
-  starship-help               Explain prompt and Git status symbols
+  remote-ssh guide starship   Explain prompt and Git status symbols
   sshf                        Pick an SSH host with fzf and connect
   cheats                      Open private navi cheatsheets
 EOF
@@ -86,6 +86,39 @@ Git SSH flow
 EOF
 }
 
+remote_ssh_cmd_guide_print_starship() {
+  cat <<EOF
+remote-ssh Starship prompt
+
+Git segment
+  git::<branch>          Current branch
+  [!]                    Merge conflict
+  [+]                    Staged changes
+  [~]                    Modified tracked files
+  [>]                    Renamed files
+  [-]                    Deleted files
+  [?]                    Untracked files
+  [\$]                    Stashed changes
+  [+N]                   Local branch is N commits ahead
+  [-N]                   Local branch is N commits behind
+  [<>A/B]                Local branch has A ahead and B behind commits
+
+Other segments
+  time                   Current time
+  user@hostname          Current user and host
+  directory              Full current directory path
+  [virtualenv]           Active Python virtual environment
+  >                      Last command succeeded
+  !                      Last command failed
+
+Config
+  $(remote_ssh_cmd_guide_starship_config)
+
+Built-in explanation
+  starship explain
+EOF
+}
+
 remote_ssh_cmd_guide_print_notes() {
   cat <<EOF
 Notes
@@ -113,6 +146,8 @@ remote_ssh_cmd_guide_print_all() {
   remote_ssh_cmd_guide_print_tools
   printf '\n'
   remote_ssh_cmd_guide_print_git
+  printf '\n'
+  remote_ssh_cmd_guide_print_starship
   printf '\n'
   remote_ssh_cmd_guide_print_notes
 }

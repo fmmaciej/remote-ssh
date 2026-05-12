@@ -18,7 +18,7 @@ The remote-ssh shell loads a few small helpers:
 
 - `remote-ssh`: main entrypoint for install, check, git, update, doctor, and prune.
 - `remote-ssh guide`: show loaded aliases, functions, paths, tools, and Git SSH notes.
-- `starship-help`: explain the bundled Starship prompt symbols.
+- `remote-ssh guide starship`: explain the bundled Starship prompt symbols.
 - `sshf`: pick a host from your SSH config with `fzf`, then run `ssh`.
 - `cheats`: open private `navi` cheatsheets from `dots/navi/cheats`.
 - `log` and `logrun`: capture command output to a file while still streaming it.

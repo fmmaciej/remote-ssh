@@ -69,7 +69,7 @@ remote_ssh_update_check_print_cached_message() {
 }
 
 remote_ssh_update_check_refresh_in_background() {
-  local file="$1" state_dir lock_dir
+  local file="$1" state_dir lock_dir pid
 
   have remote-ssh || return 0
   have git || return 0
@@ -82,8 +82,12 @@ remote_ssh_update_check_refresh_in_background() {
 
   (
     trap 'rmdir "$lock_dir" 2>/dev/null || true' EXIT
-    remote-ssh update check --quiet --write-cache >/dev/null 2>&1
+    if remote-ssh update check --quiet --write-cache >/dev/null 2>&1; then
+      remote-ssh update check --cached-message 2>/dev/null || true
+    fi
   ) &
+  pid=$!
+  disown "$pid" 2>/dev/null || true
 }
 
 case $- in

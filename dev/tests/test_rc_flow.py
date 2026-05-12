@@ -123,6 +123,68 @@ def test_update_check_rc_skips_noninteractive_shells(repo_dir: Path, tmp_path: P
     assert result.stdout.rstrip("\n") == "skipped"
 
 
+def test_update_check_rc_notifies_from_background_without_job_message(
+    repo_dir: Path,
+    tmp_path: Path,
+) -> None:
+    remote = prepare_minimal_remote_tree(repo_dir, tmp_path)
+    shutil_source = repo_dir / "shell" / "rc.d" / "04-update-check.sh"
+    update_check = remote / "shell" / "rc.d" / "04-update-check.sh"
+    update_check.write_text(shutil_source.read_text(encoding="utf-8"), encoding="utf-8")
+
+    write_executable(
+        remote / "bin" / "git",
+        """
+        #!/usr/bin/env bash
+        exit 0
+        """,
+    )
+    write_executable(
+        remote / "bin" / "remote-ssh",
+        """
+        #!/usr/bin/env bash
+        state_file="${REMOTE_SSH_UPDATE_CHECK_STATE_DIR}/update-check"
+        case "$*" in
+          "update check --quiet --write-cache")
+            mkdir -p "${REMOTE_SSH_UPDATE_CHECK_STATE_DIR}"
+            printf 'checked_at=1\nstatus=update-available\n' >"${state_file}"
+            exit 0
+            ;;
+          "update check --cached-message")
+            if grep -q '^status=update-available$' "${state_file}"; then
+              printf 'remote-ssh: update available. Run: remote-ssh update\n'
+            fi
+            exit 0
+            ;;
+        esac
+        printf 'unexpected remote-ssh args: %s\n' "$*" >&2
+        exit 99
+        """,
+    )
+
+    result = run_cmd(
+        [
+            "bash",
+            "-i",
+            "-c",
+            """
+            export REMOTE_SSH_UPDATE_CHECK_STATE_DIR="$1/state"
+            export REMOTE_SSH_UPDATE_CHECK_INTERVAL=0
+            . "$2/shell/rc.sh"
+            sleep 0.2
+            """,
+            "_",
+            tmp_path,
+            remote,
+        ]
+    )
+
+    assert_ok(result)
+    assert "remote-ssh: update available. Run: remote-ssh update" in result.stdout
+    assert "Done" not in result.stderr
+    assert "remote-ssh update check --quiet --write-cache" not in result.stderr
+
+
 def test_rc_fails_clearly_when_sourced_from_zsh(repo_dir: Path, tmp_path: Path) -> None:
     remote = prepare_minimal_remote_tree(repo_dir, tmp_path)
 

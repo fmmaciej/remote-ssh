@@ -1,0 +1,25 @@
+======================================================================
+VS Code Remote-SSH terminal profile
+======================================================================
+
+For VS Code Remote-SSH, prefer configuring the integrated terminal profile
+instead of forcing RemoteCommand for the whole connection. This lets VS Code
+start its server normally, while new terminals still load remote-ssh.
+
+Add this to the VS Code settings used for the remote host:
+
+  {
+    "terminal.integrated.profiles.linux": {
+      "bash + remote-ssh": {
+        "path": "bash",
+        "icon": "terminal-bash",
+        "args": [
+          "--rcfile",
+          "@INSTALL_DIR@/shell/rc.sh",
+          "-i"
+        ],
+        "overrideName": true
+      }
+    },
+    "terminal.integrated.defaultProfile.linux": "bash + remote-ssh"
+  }

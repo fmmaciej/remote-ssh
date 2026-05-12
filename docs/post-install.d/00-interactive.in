@@ -1,0 +1,9 @@
+======================================================================
+Interactive usage
+======================================================================
+
+To start an interactive shell using the remote-ssh environment:
+
+  bash --rcfile "@INSTALL_DIR@/shell/rc.sh"
+
+

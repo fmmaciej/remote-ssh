@@ -12,6 +12,34 @@ The post-install output also prints an example SSH config using:
 RemoteCommand bash --rcfile '<install-dir>/shell/rc.sh' -i
 ```
 
+## VS Code Remote-SSH Terminal
+
+VS Code Remote-SSH does not need `RemoteCommand` to start its own server. For
+VS Code, prefer a remote terminal profile that starts Bash with remote-ssh's
+`rc.sh`. Add this to the VS Code `settings.json` used for the remote host:
+
+```json
+{
+  "terminal.integrated.profiles.linux": {
+    "bash + remote-ssh": {
+      "path": "bash",
+      "icon": "terminal-bash",
+      "args": [
+        "--rcfile",
+        "${env:HOME}/.local/share/remote-ssh/shell/rc.sh",
+        "-i"
+      ],
+      "overrideName": true
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "bash + remote-ssh"
+}
+```
+
+If remote-ssh is installed somewhere other than
+`~/.local/share/remote-ssh`, replace the `rc.sh` path with the actual install
+path.
+
 ## Loaded Helpers
 
 The remote-ssh shell loads a few small helpers:

@@ -11,8 +11,8 @@ Commands:
   status  Show matching GitHub Actions jobs and suggested log commands
 
 Options:
-  --repo owner/repo  Pass a repository to gh run view
-  --attempt n        Pass a workflow run attempt to gh run view
+  --repo owner/repo  Fetch jobs from this repository
+  --attempt n        Fetch jobs from this workflow run attempt
   --all              Print log commands for successful jobs too
   -h, --help         Show this help
 EOF
@@ -48,6 +48,65 @@ ci_run_print_log_command() {
   printf ' --job '
   ci_run_shell_quote "$job_id"
   printf ' %s\n' "$log_flag"
+}
+
+ci_run_repo_from_git_remote() {
+  local remote_url
+
+  remote_url="$(git config --get remote.origin.url 2>/dev/null || true)"
+  [[ -n "$remote_url" ]] || return 1
+
+  case "$remote_url" in
+    https://github.com/*/*.git)
+      remote_url="${remote_url#https://github.com/}"
+      printf '%s\n' "${remote_url%.git}"
+      ;;
+    https://github.com/*/*)
+      remote_url="${remote_url#https://github.com/}"
+      printf '%s\n' "${remote_url%.git}"
+      ;;
+    git@github.com:*/*.git)
+      remote_url="${remote_url#git@github.com:}"
+      printf '%s\n' "${remote_url%.git}"
+      ;;
+    git@github.com:*/*)
+      remote_url="${remote_url#git@github.com:}"
+      printf '%s\n' "${remote_url%.git}"
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+ci_run_repo_api_path() {
+  local repo="$1"
+
+  repo="${repo#https://github.com/}"
+  repo="${repo#git@github.com:}"
+  repo="${repo%.git}"
+
+  case "$repo" in
+    github.com/*/*)
+      repo="${repo#github.com/}"
+      ;;
+    */*/*)
+      repo="${repo#*/}"
+      ;;
+  esac
+
+  [[ "$repo" == */* && "$repo" != */*/* ]] || return 1
+  printf '%s\n' "$repo"
+}
+
+ci_run_jobs_endpoint() {
+  local repo_path="$1" run_id="$2" attempt="$3"
+
+  if [[ -n "$attempt" ]]; then
+    printf '/repos/%s/actions/runs/%s/attempts/%s/jobs?per_page=30\n' "$repo_path" "$run_id" "$attempt"
+  else
+    printf '/repos/%s/actions/runs/%s/jobs?per_page=30\n' "$repo_path" "$run_id"
+  fi
 }
 
 ci_run_classify_job() {
@@ -132,20 +191,30 @@ ci_run_status_main() {
     return 127
   fi
 
-  local jq_filter
-  jq_filter='.jobs[] | [(.conclusion // .status // "unknown"), (.status // "unknown"), (.conclusion // "unknown"), (.name // "unknown"), (.databaseId // "unknown" | tostring)] | @tsv'
+  local resolved_repo="$repo"
+  if [[ -z "$resolved_repo" ]]; then
+    if ! resolved_repo="$(ci_run_repo_from_git_remote)"; then
+      printf 'ci-run: --repo owner/repo is required outside a github.com Git checkout.\n' >&2
+      return 64
+    fi
+  fi
 
-  local -a gh_args=(run view "$run_id" --json jobs --jq "$jq_filter")
-  if [[ -n "$repo" ]]; then
-    gh_args+=(--repo "$repo")
+  local repo_path
+  if ! repo_path="$(ci_run_repo_api_path "$resolved_repo")"; then
+    printf 'ci-run: unsupported repo format: %s\n' "$resolved_repo" >&2
+    printf 'ci-run: expected owner/repo or github.com/owner/repo.\n' >&2
+    return 64
   fi
-  if [[ -n "$attempt" ]]; then
-    gh_args+=(--attempt "$attempt")
-  fi
+
+  local jq_filter
+  jq_filter='.jobs[] | [(.conclusion // .status // "unknown"), (.status // "unknown"), (.conclusion // "unknown"), (.name // "unknown"), (.id // "unknown" | tostring)] | @tsv'
+
+  local endpoint
+  endpoint="$(ci_run_jobs_endpoint "$repo_path" "$run_id" "$attempt")"
 
   local gh_output
-  if ! gh_output="$(gh "${gh_args[@]}" 2>&1)"; then
-    printf 'ci-run: gh run view failed.\n' >&2
+  if ! gh_output="$(gh api "$endpoint" --paginate --jq "$jq_filter" 2>&1)"; then
+    printf 'ci-run: gh api failed while fetching workflow run jobs.\n' >&2
     [[ -n "$gh_output" ]] && printf '%s\n' "$gh_output" >&2
     return 3
   fi
@@ -178,7 +247,7 @@ ci_run_status_main() {
   printf 'ci-run status\n\n'
   printf 'Run\n'
   printf '  id:      %s\n' "$run_id"
-  [[ -n "$repo" ]] && printf '  repo:    %s\n' "$repo"
+  printf '  repo:    %s\n' "$repo_path"
   [[ -n "$attempt" ]] && printf '  attempt: %s\n' "$attempt"
   printf '  filter:  %s\n' "$app_filter"
 

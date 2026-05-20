@@ -44,7 +44,7 @@ def write_fake_gh(bin_dir: Path, rows: Sequence[JobRow], *, exit_code: int = 0) 
           exit {exit_code}
         fi
 
-        if [[ "${{1:-}}" == "run" && "${{2:-}}" == "view" ]]; then
+        if [[ "${{1:-}}" == "api" ]]; then
           printf '%s\\n' {shlex.quote(payload)}
           exit 0
         fi
@@ -63,6 +63,19 @@ def test_ci_run_help(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
     assert "ci-run status <run-id> <app-filter>" in result.stdout
 
 
+def test_ci_run_status_requires_repo_outside_github_checkout(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    write_fake_gh(isolated_env.bin_dir, [])
+
+    result = run_ci_run(repo_dir, ["status", "1234567890", "app"], env=isolated_env.env)
+
+    assert_failed(result)
+    assert result.returncode == 64
+    assert "--repo owner/repo is required" in result.stderr
+
+
 def test_ci_run_status_passes_when_all_matches_succeed(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
@@ -77,7 +90,11 @@ def test_ci_run_status_passes_when_all_matches_succeed(
         ],
     )
 
-    result = run_ci_run(repo_dir, ["status", "1234567890", "app"], env=isolated_env.env)
+    result = run_ci_run(
+        repo_dir,
+        ["status", "1234567890", "app", "--repo", "owner/repo"],
+        env=isolated_env.env,
+    )
 
     assert_ok(result)
     assert "ci-run status" in result.stdout
@@ -103,14 +120,18 @@ def test_ci_run_status_reports_failure_and_suggests_failed_job_logs(
         ],
     )
 
-    result = run_ci_run(repo_dir, ["status", "1234567890", "app"], env=isolated_env.env)
+    result = run_ci_run(
+        repo_dir,
+        ["status", "1234567890", "app", "--repo", "owner/repo"],
+        env=isolated_env.env,
+    )
 
     assert_failed(result)
     assert result.returncode == 1
     assert "failed:  1" in result.stdout
     assert "app | helm" in result.stdout
-    assert "gh run view 1234567890 --job 102 --log-failed" in result.stdout
-    assert "gh run view 1234567890 --job 102 --log" in result.stdout
+    assert "gh run view 1234567890 --repo owner/repo --job 102 --log-failed" in result.stdout
+    assert "gh run view 1234567890 --repo owner/repo --job 102 --log" in result.stdout
     assert "--job 101 --log" not in result.stdout
 
 
@@ -123,12 +144,16 @@ def test_ci_run_status_reports_pending_for_running_or_unknown_jobs(
         [("in_progress", "in_progress", "unknown", "app | smoke", "301")],
     )
 
-    result = run_ci_run(repo_dir, ["status", "1234567890", "app"], env=isolated_env.env)
+    result = run_ci_run(
+        repo_dir,
+        ["status", "1234567890", "app", "--repo", "owner/repo"],
+        env=isolated_env.env,
+    )
 
     assert_failed(result)
     assert result.returncode == 2
     assert "pending: 1" in result.stdout
-    assert "gh run view 1234567890 --job 301 --log-failed" in result.stdout
+    assert "gh run view 1234567890 --repo owner/repo --job 301 --log-failed" in result.stdout
 
 
 def test_ci_run_status_reports_no_matches(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
@@ -137,7 +162,11 @@ def test_ci_run_status_reports_no_matches(repo_dir: Path, isolated_env: Isolated
         [("success", "completed", "success", "api | docker", "401")],
     )
 
-    result = run_ci_run(repo_dir, ["status", "1234567890", "app"], env=isolated_env.env)
+    result = run_ci_run(
+        repo_dir,
+        ["status", "1234567890", "app", "--repo", "owner/repo"],
+        env=isolated_env.env,
+    )
 
     assert_failed(result)
     assert result.returncode == 2
@@ -155,11 +184,19 @@ def test_ci_run_filter_is_case_insensitive_literal_substring(
         [("success", "completed", "success", "APP | docker", "501")],
     )
 
-    result = run_ci_run(repo_dir, ["status", "1234567890", "app"], env=isolated_env.env)
+    result = run_ci_run(
+        repo_dir,
+        ["status", "1234567890", "app", "--repo", "owner/repo"],
+        env=isolated_env.env,
+    )
     assert_ok(result)
     assert "APP | docker" in result.stdout
 
-    result = run_ci_run(repo_dir, ["status", "1234567890", "app."], env=isolated_env.env)
+    result = run_ci_run(
+        repo_dir,
+        ["status", "1234567890", "app.", "--repo", "owner/repo"],
+        env=isolated_env.env,
+    )
     assert_failed(result)
     assert result.returncode == 2
     assert "matched: 0" in result.stdout
@@ -185,10 +222,33 @@ def test_ci_run_status_passes_repo_and_attempt_to_gh_and_log_commands(
     assert_failed(result)
     assert result.returncode == 1
     gh_args = log_file.read_text(encoding="utf-8")
-    assert "--repo owner/repo" in gh_args
-    assert "--attempt 2" in gh_args
+    assert "/repos/owner/repo/actions/runs/1234567890/attempts/2/jobs?per_page=30" in gh_args
+    assert "--paginate --jq" in gh_args
     assert "gh run view 1234567890 --repo owner/repo --attempt 2 --job 601 --log-failed" in (
         result.stdout
+    )
+
+
+def test_ci_run_status_accepts_github_host_repo_prefix(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    log_file = isolated_env.home / "gh-args.log"
+    write_fake_gh(
+        isolated_env.bin_dir,
+        [("success", "completed", "success", "app | docker", "801")],
+    )
+    env = isolated_env.env | {"FAKE_GH_LOG": str(log_file)}
+
+    result = run_ci_run(
+        repo_dir,
+        ["status", "1234567890", "app", "--repo", "github.com/owner/repo"],
+        env=env,
+    )
+
+    assert_ok(result)
+    assert "/repos/owner/repo/actions/runs/1234567890/jobs?per_page=30" in log_file.read_text(
+        encoding="utf-8"
     )
 
 
@@ -201,17 +261,25 @@ def test_ci_run_all_includes_successful_job_log_commands(
         [("success", "completed", "success", "app | docker", "701")],
     )
 
-    result = run_ci_run(repo_dir, ["status", "1234567890", "app", "--all"], env=isolated_env.env)
+    result = run_ci_run(
+        repo_dir,
+        ["status", "1234567890", "app", "--repo", "owner/repo", "--all"],
+        env=isolated_env.env,
+    )
 
     assert_ok(result)
-    assert "gh run view 1234567890 --job 701 --log-failed" in result.stdout
-    assert "gh run view 1234567890 --job 701 --log" in result.stdout
+    assert "gh run view 1234567890 --repo owner/repo --job 701 --log-failed" in result.stdout
+    assert "gh run view 1234567890 --repo owner/repo --job 701 --log" in result.stdout
 
 
 def test_ci_run_missing_gh_returns_127(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
     env = isolated_env.env | {"PATH": str(isolated_env.bin_dir)}
 
-    result = run_ci_run_script(repo_dir, ["status", "1234567890", "app"], env=env)
+    result = run_ci_run_script(
+        repo_dir,
+        ["status", "1234567890", "app", "--repo", "owner/repo"],
+        env=env,
+    )
 
     assert_failed(result)
     assert result.returncode == 127
@@ -221,9 +289,13 @@ def test_ci_run_missing_gh_returns_127(repo_dir: Path, isolated_env: IsolatedEnv
 def test_ci_run_gh_failure_returns_3(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
     write_fake_gh(isolated_env.bin_dir, [], exit_code=1)
 
-    result = run_ci_run(repo_dir, ["status", "1234567890", "app"], env=isolated_env.env)
+    result = run_ci_run(
+        repo_dir,
+        ["status", "1234567890", "app", "--repo", "owner/repo"],
+        env=isolated_env.env,
+    )
 
     assert_failed(result)
     assert result.returncode == 3
-    assert "gh run view failed" in result.stderr
+    assert "gh api failed" in result.stderr
     assert "gh failed" in result.stderr

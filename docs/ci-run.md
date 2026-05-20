@@ -66,8 +66,14 @@ also print log commands for successful jobs.
 `ci-run` calls:
 
 ```bash
-gh run view <run-id> --json jobs --jq '<job projection>'
+gh api '/repos/<owner>/<repo>/actions/runs/<run-id>/jobs?per_page=30' \
+  --paginate \
+  --jq '<job projection>'
 ```
+
+It intentionally uses the REST API with `per_page=30` instead of
+`gh run view --json jobs`, because very large workflow runs can fail on the
+GitHub jobs endpoint when requested with `per_page=100`.
 
 If the current directory is not inside the target repository, pass the
 repository explicitly:
@@ -80,4 +86,10 @@ For a retry attempt, pass the attempt number:
 
 ```bash
 ci-run status 1234567890 <app> --attempt 2
+```
+
+That uses the attempt-specific jobs endpoint:
+
+```text
+/repos/<owner>/<repo>/actions/runs/<run-id>/attempts/<attempt>/jobs?per_page=30
 ```

@@ -120,6 +120,7 @@ def test_helm_chart_diff_help(repo_dir: Path, isolated_env: IsolatedEnv) -> None
     assert "Usage:" in result.stdout
     assert "--local-chart <path>" in result.stdout
     assert "--github-chart <owner/repo:path>" in result.stdout
+    assert "--raw" in result.stdout
 
 
 def test_helm_chart_diff_requires_source(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
@@ -219,16 +220,18 @@ def test_helm_chart_diff_local_chart_passes_when_contents_match(
     ) in result.stdout
     assert "diff -ruN --exclude '.git' --exclude '.DS_Store'" in result.stdout
     assert str(local_chart) in result.stdout
-    assert "# Change file to the relative chart path shown by diff." in result.stdout
-    assert "file='Chart.yaml'" in result.stdout
-    assert f'cat {local_chart}/"$file"' in result.stdout
-    assert 'cat "$(find "$tmp/oci-extract" -mindepth 1 -maxdepth 1 -type d)"/"$file"' in (
+    assert "Normalized mode filters YAML files before diffing" in result.stdout
+    assert "file='values.yaml'" in result.stdout
+    assert f'cat {local_chart}/"$file" | sed ' in result.stdout
+    assert 'cat "$(find "$tmp/oci-extract" -mindepth 1 -maxdepth 1 -type d)"/"$file" | sed ' in (
         result.stdout
     )
-    assert "OK: chart contents are the same" in result.stdout
+    assert "LC_ALL=C sort" in result.stdout
+    assert "Normalized diff" in result.stdout
+    assert "OK: normalized chart contents are the same" in result.stdout
 
 
-def test_helm_chart_diff_local_chart_reports_differences(
+def test_helm_chart_diff_normalized_yaml_ignores_order_and_comments(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
     tmp_path: Path,
@@ -236,8 +239,53 @@ def test_helm_chart_diff_local_chart_reports_differences(
     oci_parent = tmp_path / "oci-parent"
     oci_chart = oci_parent / "app"
     local_chart = tmp_path / "local-chart"
-    write_chart(oci_chart, chart_files(value="oci"))
-    write_chart(local_chart, chart_files(value="local"))
+    write_chart(
+        oci_chart,
+        {
+            "Chart.yaml": "name: app\n# chart comment\napiVersion: v2\nversion: 1.2.3\n",
+            "values.yaml": "# heading\nb: 2\na: 1 # inline comment\n",
+        },
+    )
+    write_chart(
+        local_chart,
+        {
+            "Chart.yaml": "version: 1.2.3\napiVersion: v2\nname: app\n",
+            "values.yaml": "a: 1\n# local heading\nb: 2\n",
+        },
+    )
+    write_fake_helm(isolated_env.bin_dir)
+
+    env = isolated_env.env | {
+        "FAKE_OCI_PARENT": str(oci_parent),
+        "FAKE_OCI_NAME": "app",
+    }
+    result = run_helm_chart_diff(
+        repo_dir,
+        [
+            "--oci",
+            "oci://registry-1.docker.io/owner/app",
+            "--version",
+            "1.2.3",
+            "--local-chart",
+            str(local_chart),
+        ],
+        env=env,
+    )
+
+    assert_ok(result)
+    assert "OK: normalized chart contents are the same" in result.stdout
+
+
+def test_helm_chart_diff_normalized_yaml_reports_value_differences_without_comments(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    tmp_path: Path,
+) -> None:
+    oci_parent = tmp_path / "oci-parent"
+    oci_chart = oci_parent / "app"
+    local_chart = tmp_path / "local-chart"
+    write_chart(oci_chart, chart_files(value="oci # hidden"))
+    write_chart(local_chart, chart_files(value="local # hidden"))
     write_fake_helm(isolated_env.bin_dir)
 
     env = isolated_env.env | {
@@ -259,9 +307,97 @@ def test_helm_chart_diff_local_chart_reports_differences(
 
     assert_failed(result)
     assert result.returncode == 1
+    assert "Normalized diff" in result.stdout
     assert "values.yaml" in result.stdout
     assert "value: local" in result.stdout
     assert "value: oci" in result.stdout
+    assert "hidden" not in result.stdout
+
+
+def test_helm_chart_diff_raw_mode_reports_order_and_comment_differences(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    tmp_path: Path,
+) -> None:
+    oci_parent = tmp_path / "oci-parent"
+    oci_chart = oci_parent / "app"
+    local_chart = tmp_path / "local-chart"
+    write_chart(
+        oci_chart,
+        {
+            "Chart.yaml": "name: app\napiVersion: v2\nversion: 1.2.3\n",
+            "values.yaml": "# oci comment\nb: 2\na: 1\n",
+        },
+    )
+    write_chart(
+        local_chart,
+        {
+            "Chart.yaml": "version: 1.2.3\napiVersion: v2\nname: app\n",
+            "values.yaml": "a: 1\n# local comment\nb: 2\n",
+        },
+    )
+    write_fake_helm(isolated_env.bin_dir)
+
+    env = isolated_env.env | {
+        "FAKE_OCI_PARENT": str(oci_parent),
+        "FAKE_OCI_NAME": "app",
+    }
+    result = run_helm_chart_diff(
+        repo_dir,
+        [
+            "--raw",
+            "--oci",
+            "oci://registry-1.docker.io/owner/app",
+            "--version",
+            "1.2.3",
+            "--local-chart",
+            str(local_chart),
+        ],
+        env=env,
+    )
+
+    assert_failed(result)
+    assert result.returncode == 1
+    assert "\nDiff\n" in result.stdout
+    assert "Normalized diff" not in result.stdout
+    assert "# local comment" in result.stdout
+    assert "# oci comment" in result.stdout
+
+
+def test_helm_chart_diff_non_yaml_files_remain_raw_in_normalized_mode(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    tmp_path: Path,
+) -> None:
+    oci_parent = tmp_path / "oci-parent"
+    oci_chart = oci_parent / "app"
+    local_chart = tmp_path / "local-chart"
+    write_chart(oci_chart, chart_files() | {"README.txt": "second\nfirst\n"})
+    write_chart(local_chart, chart_files() | {"README.txt": "first\nsecond\n"})
+    write_fake_helm(isolated_env.bin_dir)
+
+    env = isolated_env.env | {
+        "FAKE_OCI_PARENT": str(oci_parent),
+        "FAKE_OCI_NAME": "app",
+    }
+    result = run_helm_chart_diff(
+        repo_dir,
+        [
+            "--oci",
+            "oci://registry-1.docker.io/owner/app",
+            "--version",
+            "1.2.3",
+            "--local-chart",
+            str(local_chart),
+        ],
+        env=env,
+    )
+
+    assert_failed(result)
+    assert result.returncode == 1
+    assert "README.txt" in result.stdout
+    assert "first" in result.stdout
+    assert "second" in result.stdout
 
 
 def test_helm_chart_diff_local_chart_accepts_chart_yaml_file(
@@ -432,15 +568,16 @@ def test_helm_chart_diff_github_chart_passes_with_fake_curl(
     assert '"$(find "$tmp/github-extract" -mindepth 1 -maxdepth 1 -type d)/charts/app"' in (
         result.stdout
     )
-    assert "file='Chart.yaml'" in result.stdout
+    assert "file='values.yaml'" in result.stdout
     assert (
-        'cat "$(find "$tmp/github-extract" -mindepth 1 -maxdepth 1 -type d)/charts/app"/"$file"'
+        'cat "$(find "$tmp/github-extract" -mindepth 1 -maxdepth 1 -type d)/charts/app"/"$file" | sed '
         in result.stdout
     )
-    assert 'cat "$(find "$tmp/oci-extract" -mindepth 1 -maxdepth 1 -type d)"/"$file"' in (
+    assert 'cat "$(find "$tmp/oci-extract" -mindepth 1 -maxdepth 1 -type d)"/"$file" | sed ' in (
         result.stdout
     )
-    assert "OK: chart contents are the same" in result.stdout
+    assert "LC_ALL=C sort" in result.stdout
+    assert "OK: normalized chart contents are the same" in result.stdout
 
 
 def test_helm_chart_diff_github_chart_uses_github_token(

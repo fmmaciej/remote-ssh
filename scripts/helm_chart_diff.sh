@@ -7,8 +7,8 @@ HELM_CHART_DIFF_TMP=""
 helm_chart_diff_usage() {
   cat <<'EOF'
 Usage:
-  helm-chart-diff --oci <oci-chart> --version <version> --local-chart <path>
-  helm-chart-diff --oci <oci-chart> --version <version> --github-chart <owner/repo:path> --ref <ref>
+  helm-chart-diff [--raw] --oci <oci-chart> --version <version> --local-chart <path>
+  helm-chart-diff [--raw] --oci <oci-chart> --version <version> --github-chart <owner/repo:path> --ref <ref>
 
 Compare a Helm chart package pulled from an OCI registry with a local chart
 directory or a chart directory from a GitHub repository tarball.
@@ -20,6 +20,7 @@ Options:
   --github-chart <owner/repo:path>
                                  GitHub repository and chart path inside it
   --ref <ref>                    GitHub branch, tag, or commit for --github-chart
+  --raw                          Compare raw chart directories without YAML normalization
   -h, --help                     Show this help
 
 Set GITHUB_TOKEN to access private GitHub repositories.
@@ -41,10 +42,11 @@ helm_chart_diff_shell_quote() {
 
 # shellcheck disable=SC2016
 helm_chart_diff_print_manual_commands() {
-  local oci="$1" version="$2" source_chart="$3" github_chart="$4" ref="$5"
+  local raw="$1" oci="$2" version="$3" source_chart="$4" github_chart="$5" ref="$6"
   local quoted_oci quoted_version quoted_source quoted_url
   local oci_chart_expr='"$(find "$tmp/oci-extract" -mindepth 1 -maxdepth 1 -type d)"'
   local github_source_expr
+  local yaml_filter='sed -e '\''s/[[:space:]]#.*$//'\'' -e '\''s/[[:space:]]*$//'\'' -e '\''/^[[:space:]]*#/d'\'' -e '\''/^[[:space:]]*$/d'\'' | LC_ALL=C sort'
 
   quoted_oci="$(helm_chart_diff_shell_quote "$oci")"
   quoted_version="$(helm_chart_diff_shell_quote "$version")"
@@ -66,21 +68,89 @@ helm_chart_diff_print_manual_commands() {
     fi
     printf '  tar -xzf "$tmp/github.tar.gz" -C "$tmp/github-extract"\n'
     github_source_expr="\"\$(find \"\$tmp/github-extract\" -mindepth 1 -maxdepth 1 -type d)/${GITHUB_CHART_PATH}\""
-    printf '  diff -ruN --exclude '\''.git'\'' --exclude '\''.DS_Store'\'' %s %s\n' "$github_source_expr" "$oci_chart_expr"
-    printf '  # Change file to the relative chart path shown by diff.\n'
-    printf '  file='\''Chart.yaml'\''\n'
-    printf '  cat %s/"$file"\n' "$github_source_expr"
-    printf '  cat %s/"$file"\n' "$oci_chart_expr"
+    if ((raw == 1)); then
+      printf '  diff -ruN --exclude '\''.git'\'' --exclude '\''.DS_Store'\'' %s %s\n' "$github_source_expr" "$oci_chart_expr"
+      printf '  # Change file to the relative chart path shown by diff.\n'
+      printf '  file='\''Chart.yaml'\''\n'
+      printf '  cat %s/"$file"\n' "$github_source_expr"
+      printf '  cat %s/"$file"\n' "$oci_chart_expr"
+    else
+      printf '  # Normalized mode filters YAML files before diffing. For a single YAML file:\n'
+      printf '  file='\''values.yaml'\''\n'
+      printf '  cat %s/"$file" | %s\n' "$github_source_expr" "$yaml_filter"
+      printf '  cat %s/"$file" | %s\n' "$oci_chart_expr" "$yaml_filter"
+      printf '  # The helper then diffs its generated normalized trees:\n'
+      printf '  diff -ruN --exclude '\''.git'\'' --exclude '\''.DS_Store'\'' "$tmp/source-normalized" "$tmp/oci-normalized"\n'
+    fi
   else
     quoted_source="$(helm_chart_diff_shell_quote "$source_chart")"
-    printf '  diff -ruN --exclude '\''.git'\'' --exclude '\''.DS_Store'\'' %s %s\n' "$quoted_source" "$oci_chart_expr"
-    printf '  # Change file to the relative chart path shown by diff.\n'
-    printf '  file='\''Chart.yaml'\''\n'
-    printf '  cat %s/"$file"\n' "$quoted_source"
-    printf '  cat %s/"$file"\n' "$oci_chart_expr"
+    if ((raw == 1)); then
+      printf '  diff -ruN --exclude '\''.git'\'' --exclude '\''.DS_Store'\'' %s %s\n' "$quoted_source" "$oci_chart_expr"
+      printf '  # Change file to the relative chart path shown by diff.\n'
+      printf '  file='\''Chart.yaml'\''\n'
+      printf '  cat %s/"$file"\n' "$quoted_source"
+      printf '  cat %s/"$file"\n' "$oci_chart_expr"
+    else
+      printf '  # Normalized mode filters YAML files before diffing. For a single YAML file:\n'
+      printf '  file='\''values.yaml'\''\n'
+      printf '  cat %s/"$file" | %s\n' "$quoted_source" "$yaml_filter"
+      printf '  cat %s/"$file" | %s\n' "$oci_chart_expr" "$yaml_filter"
+      printf '  # The helper then diffs its generated normalized trees:\n'
+      printf '  diff -ruN --exclude '\''.git'\'' --exclude '\''.DS_Store'\'' "$tmp/source-normalized" "$tmp/oci-normalized"\n'
+    fi
   fi
 
   printf '  rm -rf "$tmp"\n'
+}
+
+helm_chart_diff_is_yaml_file() {
+  local rel="$1"
+
+  case "$rel" in
+    *.yaml | *.yml) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+helm_chart_diff_should_skip_file() {
+  local rel="$1"
+
+  case "$rel" in
+    .DS_Store | */.DS_Store | .git/* | */.git/*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+helm_chart_diff_normalize_yaml_file() {
+  local source="$1" dest="$2"
+
+  sed \
+    -e 's/[[:space:]]#.*$//' \
+    -e 's/[[:space:]]*$//' \
+    -e '/^[[:space:]]*#/d' \
+    -e '/^[[:space:]]*$/d' \
+    "$source" | LC_ALL=C sort >"$dest"
+}
+
+helm_chart_diff_prepare_normalized_tree() {
+  local source_dir="$1" dest_dir="$2"
+  local file rel dest
+
+  mkdir -p "$dest_dir"
+
+  while IFS= read -r file; do
+    rel="${file#"$source_dir"/}"
+    helm_chart_diff_should_skip_file "$rel" && continue
+
+    dest="$dest_dir/$rel"
+    mkdir -p "$(dirname "$dest")"
+
+    if helm_chart_diff_is_yaml_file "$rel"; then
+      helm_chart_diff_normalize_yaml_file "$file" "$dest"
+    else
+      cp "$file" "$dest"
+    fi
+  done < <(find "$source_dir" -type f -print)
 }
 
 helm_chart_diff_find_one() {
@@ -263,7 +333,7 @@ helm_chart_diff_fetch_github_chart() {
 }
 
 helm_chart_diff_main() {
-  local oci="" version="" local_chart="" github_chart="" ref=""
+  local oci="" version="" local_chart="" github_chart="" ref="" raw=0
   local arg
 
   while (($# > 0)); do
@@ -308,6 +378,10 @@ helm_chart_diff_main() {
         }
         ref="$2"
         shift 2
+        ;;
+      --raw)
+        raw=1
+        shift
         ;;
       -h | --help)
         helm_chart_diff_usage
@@ -370,11 +444,16 @@ helm_chart_diff_main() {
   helm_chart_diff_require_command tar || return 127
   helm_chart_diff_require_command find || return 127
   helm_chart_diff_require_command diff || return 127
+  if ((raw == 0)); then
+    helm_chart_diff_require_command sed || return 127
+    helm_chart_diff_require_command sort || return 127
+    helm_chart_diff_require_command cp || return 127
+  fi
   if [[ -n "$github_chart" ]]; then
     helm_chart_diff_require_command curl || return 127
   fi
 
-  local tmp oci_chart diff_status
+  local tmp oci_chart diff_left diff_right diff_status
   tmp="$(mktemp -d)"
   HELM_CHART_DIFF_TMP="$tmp"
   trap 'rm -rf "$HELM_CHART_DIFF_TMP"' EXIT
@@ -397,11 +476,27 @@ helm_chart_diff_main() {
   printf 'OCI chart:    %s @ %s\n' "$oci" "$version"
   printf 'Source chart: %s\n\n' "$source_chart"
 
-  helm_chart_diff_print_manual_commands "$oci" "$version" "$source_chart" "$github_chart" "$ref"
-  printf '\nDiff\n'
+  helm_chart_diff_print_manual_commands "$raw" "$oci" "$version" "$source_chart" "$github_chart" "$ref"
 
-  if diff -ruN --exclude '.git' --exclude '.DS_Store' "$source_chart" "$oci_chart"; then
-    printf 'OK: chart contents are the same\n'
+  diff_left="$source_chart"
+  diff_right="$oci_chart"
+
+  if ((raw == 0)); then
+    diff_left="$tmp/source-normalized"
+    diff_right="$tmp/oci-normalized"
+    helm_chart_diff_prepare_normalized_tree "$source_chart" "$diff_left"
+    helm_chart_diff_prepare_normalized_tree "$oci_chart" "$diff_right"
+    printf '\nNormalized diff\n'
+  else
+    printf '\nDiff\n'
+  fi
+
+  if diff -ruN --exclude '.git' --exclude '.DS_Store' "$diff_left" "$diff_right"; then
+    if ((raw == 0)); then
+      printf 'OK: normalized chart contents are the same\n'
+    else
+      printf 'OK: chart contents are the same\n'
+    fi
     return 0
   else
     diff_status=$?

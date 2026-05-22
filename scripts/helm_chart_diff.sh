@@ -84,6 +84,57 @@ helm_chart_diff_parse_github_chart() {
   fi
 }
 
+helm_chart_diff_expand_local_path() {
+  local path="$1"
+
+  case "$path" in
+    \~)
+      printf '%s\n' "$HOME"
+      ;;
+    \~/*)
+      printf '%s/%s\n' "$HOME" "${path:2}"
+      ;;
+    *)
+      printf '%s\n' "$path"
+      ;;
+  esac
+}
+
+helm_chart_diff_resolve_local_chart() {
+  local input_path="$1"
+  local expanded_path
+
+  expanded_path="$(helm_chart_diff_expand_local_path "$input_path")"
+
+  if [[ -d "$expanded_path" ]]; then
+    printf '%s\n' "$expanded_path"
+    return 0
+  fi
+
+  if [[ -f "$expanded_path" && "${expanded_path##*/}" == "Chart.yaml" ]]; then
+    local chart_dir="."
+    if [[ "$expanded_path" == */* ]]; then
+      chart_dir="${expanded_path%/*}"
+      [[ -n "$chart_dir" ]] || chart_dir="/"
+    fi
+    printf '%s\n' "$chart_dir"
+    return 0
+  fi
+
+  if [[ -e "$expanded_path" ]]; then
+    printf 'helm-chart-diff: local chart path exists but is not a chart directory: %s\n' "$input_path" >&2
+    printf 'helm-chart-diff: pass the chart directory, or its Chart.yaml file.\n' >&2
+    return 2
+  fi
+
+  printf 'helm-chart-diff: local chart directory does not exist: %s\n' "$input_path" >&2
+  if [[ "$expanded_path" != "$input_path" ]]; then
+    printf 'helm-chart-diff: expanded path: %s\n' "$expanded_path" >&2
+  fi
+  printf 'helm-chart-diff: current directory: %s\n' "$PWD" >&2
+  return 2
+}
+
 helm_chart_diff_pull_oci() {
   local oci="$1" version="$2" tmp="$3"
   local pull_dir="$tmp/oci-pull"
@@ -248,6 +299,15 @@ helm_chart_diff_main() {
     return 64
   fi
 
+  local source_chart=""
+  if [[ -n "$local_chart" ]]; then
+    if source_chart="$(helm_chart_diff_resolve_local_chart "$local_chart")"; then
+      :
+    else
+      return $?
+    fi
+  fi
+
   helm_chart_diff_require_command helm || return 127
   helm_chart_diff_require_command tar || return 127
   helm_chart_diff_require_command find || return 127
@@ -256,7 +316,7 @@ helm_chart_diff_main() {
     helm_chart_diff_require_command curl || return 127
   fi
 
-  local tmp source_chart oci_chart diff_status
+  local tmp oci_chart diff_status
   tmp="$(mktemp -d)"
   HELM_CHART_DIFF_TMP="$tmp"
   trap 'rm -rf "$HELM_CHART_DIFF_TMP"' EXIT
@@ -267,13 +327,7 @@ helm_chart_diff_main() {
     return $?
   fi
 
-  if [[ -n "$local_chart" ]]; then
-    if [[ ! -d "$local_chart" ]]; then
-      printf 'helm-chart-diff: local chart directory does not exist: %s\n' "$local_chart" >&2
-      return 2
-    fi
-    source_chart="$local_chart"
-  else
+  if [[ -n "$github_chart" ]]; then
     if source_chart="$(helm_chart_diff_fetch_github_chart "$github_chart" "$ref" "$tmp")"; then
       :
     else

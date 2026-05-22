@@ -19,6 +19,10 @@ helm-chart-diff \
   --local-chart ./charts/<chart>
 ```
 
+`--local-chart` may point to the chart directory or to that directory's
+`Chart.yaml` file. Relative paths are resolved from the current directory, and
+`~/...` is expanded against `$HOME`.
+
 Compare against a chart directory from GitHub:
 
 ```bash

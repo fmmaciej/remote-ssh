@@ -251,6 +251,130 @@ def test_helm_chart_diff_local_chart_reports_differences(
     assert "value: oci" in result.stdout
 
 
+def test_helm_chart_diff_local_chart_accepts_chart_yaml_file(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    tmp_path: Path,
+) -> None:
+    oci_parent = tmp_path / "oci-parent"
+    oci_chart = oci_parent / "app"
+    local_chart = tmp_path / "local-chart"
+    write_chart(oci_chart, chart_files())
+    write_chart(local_chart, chart_files())
+    write_fake_helm(isolated_env.bin_dir)
+
+    env = isolated_env.env | {
+        "FAKE_OCI_PARENT": str(oci_parent),
+        "FAKE_OCI_NAME": "app",
+    }
+    result = run_helm_chart_diff(
+        repo_dir,
+        [
+            "--oci",
+            "oci://registry-1.docker.io/owner/app",
+            "--version",
+            "1.2.3",
+            "--local-chart",
+            str(local_chart / "Chart.yaml"),
+        ],
+        env=env,
+    )
+
+    assert_ok(result)
+    assert f"Source chart: {local_chart}" in result.stdout
+
+
+def test_helm_chart_diff_local_chart_expands_home(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    tmp_path: Path,
+) -> None:
+    oci_parent = tmp_path / "oci-parent"
+    oci_chart = oci_parent / "app"
+    local_chart = isolated_env.home / "charts" / "app"
+    write_chart(oci_chart, chart_files())
+    write_chart(local_chart, chart_files())
+    write_fake_helm(isolated_env.bin_dir)
+
+    env = isolated_env.env | {
+        "FAKE_OCI_PARENT": str(oci_parent),
+        "FAKE_OCI_NAME": "app",
+    }
+    result = run_helm_chart_diff(
+        repo_dir,
+        [
+            "--oci",
+            "oci://registry-1.docker.io/owner/app",
+            "--version",
+            "1.2.3",
+            "--local-chart",
+            "~/charts/app",
+        ],
+        env=env,
+    )
+
+    assert_ok(result)
+    assert f"Source chart: {local_chart}" in result.stdout
+
+
+def test_helm_chart_diff_local_chart_reports_existing_non_chart_path(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    tmp_path: Path,
+) -> None:
+    oci_parent = tmp_path / "oci-parent"
+    oci_chart = oci_parent / "app"
+    local_file = tmp_path / "not-a-chart.txt"
+    write_chart(oci_chart, chart_files())
+    local_file.write_text("not a chart\n", encoding="utf-8")
+    write_fake_helm(isolated_env.bin_dir)
+
+    env = isolated_env.env | {
+        "FAKE_OCI_PARENT": str(oci_parent),
+        "FAKE_OCI_NAME": "app",
+    }
+    result = run_helm_chart_diff(
+        repo_dir,
+        [
+            "--oci",
+            "oci://registry-1.docker.io/owner/app",
+            "--version",
+            "1.2.3",
+            "--local-chart",
+            str(local_file),
+        ],
+        env=env,
+    )
+
+    assert_failed(result)
+    assert result.returncode == 2
+    assert "exists but is not a chart directory" in result.stderr
+    assert "pass the chart directory, or its Chart.yaml file" in result.stderr
+
+
+def test_helm_chart_diff_local_chart_missing_path_reports_cwd(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_helm_chart_diff(
+        repo_dir,
+        [
+            "--oci",
+            "oci://registry-1.docker.io/owner/app",
+            "--version",
+            "1.2.3",
+            "--local-chart",
+            "missing-chart",
+        ],
+        env=isolated_env.env,
+    )
+
+    assert_failed(result)
+    assert result.returncode == 2
+    assert "local chart directory does not exist: missing-chart" in result.stderr
+    assert "current directory:" in result.stderr
+
+
 def test_helm_chart_diff_github_chart_passes_with_fake_curl(
     repo_dir: Path,
     isolated_env: IsolatedEnv,

@@ -19,6 +19,7 @@ remote_ssh_cmd_require_install_libs() {
 }
 
 . "$TOOLS_COMMANDS_DIR/install.sh"
+. "$TOOLS_COMMANDS_DIR/uninstall.sh"
 . "$TOOLS_COMMANDS_DIR/tool.sh"
 . "$TOOLS_COMMANDS_DIR/tool_status.sh"
 . "$TOOLS_COMMANDS_DIR/check.sh"

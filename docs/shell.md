@@ -47,7 +47,7 @@ path.
 
 The remote-ssh shell loads a few small helpers:
 
-- `remote-ssh`: main entrypoint for install, check, git, update, doctor, and prune.
+- `remote-ssh`: main entrypoint for install, uninstall, check, git, update, doctor, and prune.
 - `remote-ssh guide`: show loaded aliases, functions, paths, tools, and Git SSH notes.
 - `remote-ssh guide starship`: explain the bundled Starship prompt symbols.
 - `ci-run`: inspect app-specific GitHub Actions jobs with user-provided `gh`.

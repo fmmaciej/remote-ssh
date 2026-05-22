@@ -48,10 +48,6 @@
 
 - Decide later whether to keep Python, replace `ssh_hosts.py`, or add a shell fallback
 
-**Entrypoint:**
-
-- Uninstall
-
 **Tmux vs Zellij:**
 
 - Launch automatically if present;

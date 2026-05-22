@@ -8,6 +8,8 @@ Commands
   remote-ssh --help           Show concise CLI usage
   remote-ssh install [tool]   Install expected or selected remote-ssh tools
   remote-ssh install --full   Install all supported default tools
+  remote-ssh uninstall [tool ...]
+                              Uninstall managed remote-ssh tools
   remote-ssh tool install     Install selected pinned tools
   remote-ssh tool list        Show tool selection and install state
   remote-ssh check --strict   Report pinned tools vs local bin and PATH

@@ -79,6 +79,19 @@ For non-interactive scripts:
 ./bin/remote-ssh install --yes fd rg fzf
 ```
 
+To uninstall managed tools:
+
+```bash
+remote-ssh uninstall rg
+remote-ssh uninstall --yes rg
+remote-ssh uninstall --yes
+```
+
+Without explicit tool names, `remote-ssh uninstall` removes all managed tools
+detected from symlinks in `~/.local/bin`. It removes matching release
+directories under `~/.local/opt` and updates `expected-tools`; it does not
+remove the remote-ssh checkout or SSH/Git configuration.
+
 ## Expected Tools
 
 The selected tool set is saved in:

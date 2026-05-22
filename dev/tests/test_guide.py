@@ -12,6 +12,7 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "remote-ssh guide" in result.stdout
     assert "Commands" in result.stdout
     assert "  remote-ssh guide [section]  Show this configuration guide" in result.stdout
+    assert "  remote-ssh uninstall [tool ...]" in result.stdout
     assert "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
     assert "  remote-ssh git status       Check Git identity, SSH agent, and Git SSH auth" in result.stdout
     assert "  sshf                        Pick an SSH host with fzf and connect" in result.stdout

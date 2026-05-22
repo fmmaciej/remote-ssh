@@ -24,6 +24,8 @@ Usage: remote-ssh <command> [args]
 Commands:
   install [tool ...]        Install expected or selected remote-ssh tools
   install --full [--yes]    Install all supported default tools
+  uninstall [--yes] [tool ...]
+                            Uninstall managed remote-ssh tools
   tool install <tool ...>   Install selected pinned tools
   tool list                 Show default, expected, installed, unsupported tools
   check [--strict] [tool]   Report pinned tools vs local bin and PATH
@@ -47,6 +49,7 @@ main() {
   case "$command" in
     ''|-h|--help) remote_ssh_usage ;;
     install) shift; remote_ssh_cmd_install_main "$repo_dir" "$@" ;;
+    uninstall) shift; remote_ssh_cmd_uninstall_main "$@" ;;
     tool) shift; remote_ssh_cmd_tool_main "$@" ;;
     check) shift; remote_ssh_cmd_check_main "$@" ;;
     git) shift; remote_ssh_cmd_git_main "$@" ;;

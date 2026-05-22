@@ -6,7 +6,33 @@ from pathlib import Path
 from conftest import IsolatedEnv, assert_ok, run_cmd, write_executable
 
 
-def test_post_install_renders_split_templates_in_order(
+def test_post_install_prints_short_guide_hint(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    script = textwrap.dedent(
+        r"""
+        set -euo pipefail
+        . "$1/tools/lib/env.sh"
+        . "$1/tools/lib/install/post_install.sh"
+        install_print_post_install "/opt/remote-ssh"
+        """
+    )
+    result = run_cmd(["bash", "-c", script, "bash", repo_dir], env=isolated_env.env)
+
+    assert_ok(result)
+    output = result.stdout
+
+    assert "Post-install setup:" in output
+    assert "  run: remote-ssh guide post-install" in output
+    assert "  includes SSH, VS Code Remote-SSH, Git, and interactive shell setup" in output
+    assert "Interactive usage" not in output
+    assert "SSH configuration" not in output
+    assert "VS Code Remote-SSH terminal profile" not in output
+    assert "Optional Git setup" not in output
+
+
+def test_post_install_renderer_renders_split_templates_in_order(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
 ) -> None:
@@ -31,7 +57,7 @@ def test_post_install_renders_split_templates_in_order(
         . "$1/tools/lib/env.sh"
         . "$1/tools/lib/install/post_install.sh"
         export SSH_CONNECTION="198.51.100.20 12345 203.0.113.10 22"
-        install_print_post_install "/opt/remote-ssh"
+        install_render_post_install "/opt/remote-ssh"
         """
     )
     result = run_cmd(["bash", "-c", script, "bash", repo_dir], env=isolated_env.env)

@@ -42,5 +42,9 @@ install_render_post_install() {
 }
 
 install_print_post_install() {
-  install_render_post_install "$@"
+  cat <<'EOF'
+Post-install setup:
+  run: remote-ssh guide post-install
+  includes SSH, VS Code Remote-SSH, Git, and interactive shell setup
+EOF
 }

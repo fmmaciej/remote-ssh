@@ -9,11 +9,14 @@ bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i
 `shell/rc.sh` is Bash-first and must be loaded by Bash. Do not source it from
 Zsh; use the `bash --rcfile ... -i` form above instead.
 
-The post-install output also prints an example SSH config using:
+The post-install output points to the full setup guide:
 
-```text
-RemoteCommand bash --rcfile '<install-dir>/shell/rc.sh' -i
+```bash
+remote-ssh guide post-install
 ```
+
+That guide includes SSH, VS Code Remote-SSH, Git, and interactive shell setup,
+including an SSH `RemoteCommand` example using `bash --rcfile ... -i`.
 
 ## VS Code Remote-SSH Terminal
 

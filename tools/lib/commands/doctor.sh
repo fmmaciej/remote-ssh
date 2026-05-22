@@ -129,9 +129,9 @@ remote_ssh_cmd_doctor_main() {
 
   printf '\nOptional helpers\n'
   if command -v python3 >/dev/null 2>&1; then
-    printf '  sshf python3: ok\n'
+    printf '  ssh-pick python3: ok\n'
   else
-    printf '  sshf python3: missing-optional\n'
+    printf '  ssh-pick python3: missing-optional\n'
   fi
 
   printf '\nTool check\n'

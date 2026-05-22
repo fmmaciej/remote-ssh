@@ -25,7 +25,7 @@ Commands
   remote-ssh guide starship   Explain prompt and Git status symbols
   remote-ssh guide post-install
                               Reprint setup instructions
-  sshf                        Pick an SSH host with fzf and connect
+  ssh-pick                    Pick an SSH host with fzf and connect
   cheats                      Open private navi cheatsheets
 EOF
 }
@@ -145,7 +145,7 @@ Notes
   remote-ssh prune is dry-run by default; use --apply to remove candidates.
   Use logrun make build to save make.log, or command 2>&1 | log file.log.
   vim/nvim and tmux are not installed by remote-ssh.
-  sshf currently requires python3 for SSH config parsing.
+  ssh-pick currently requires python3 for SSH config parsing.
 EOF
 }
 

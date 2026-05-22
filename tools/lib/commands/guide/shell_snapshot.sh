@@ -24,7 +24,7 @@ remote_ssh_cmd_guide_remote_shell_snapshot() {
           alias -p | sort
           ;;
         functions)
-          for fn in log logrun sshf remote_atuin_debug; do
+          for fn in log logrun ssh-pick remote_atuin_debug; do
             if declare -F "$fn" >/dev/null 2>&1; then
               printf "%s\n" "$fn"
             fi

@@ -42,7 +42,7 @@
     are ambiguous.
   - Errors should explain which candidates were found and why none was chosen.
 
-**sshf:**
+**ssh-pick:**
 
 - Documented as optional helper requiring `python3` for now
 

@@ -115,10 +115,10 @@ Remote-ssh shells prepend that directory to `NAVI_PATH`, so `navi` and the
 `cheats` alias can search project-local snippets without copying them into a
 global user directory.
 
-## sshf
+## ssh-pick
 
-`sshf` reads host aliases from `$HOME/.ssh/config`, including `Include` files,
-and ignores wildcard entries such as `Host *`. It currently uses
+`ssh-pick` reads host aliases from `$HOME/.ssh/config`, including `Include`
+files, and ignores wildcard entries such as `Host *`. It currently uses
 `scripts/ssh_hosts.py`, so this helper requires `python3`.
 
 The dependency is intentional for now because the parser is more reliable than

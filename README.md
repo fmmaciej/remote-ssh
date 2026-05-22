@@ -12,7 +12,7 @@ not supported.
 The runtime target is a fresh or minimally configured Unix-like host. The normal
 installation path intentionally avoids package managers, source builds, `jq`,
 and GitHub API discovery. Python is not needed for the core installer, but the
-optional `sshf` helper currently uses a Python parser for SSH config files.
+optional `ssh-pick` helper currently uses a Python parser for SSH config files.
 
 ## Why This Exists
 
@@ -115,7 +115,7 @@ guide generated from the currently loaded shell configuration.
 
 Optional helper requirements:
 
-- `python3` for `sshf`
+- `python3` for `ssh-pick`
 - `gh` for `ci-run`, the optional GitHub Actions run helper
 - `helm` for `helm-chart-diff`, the optional Helm chart comparison helper
 

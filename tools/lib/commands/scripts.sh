@@ -12,7 +12,7 @@ Usage:
 Helpers:
   ci-run
   helm-chart-diff
-  sshf
+  ssh-pick
 EOF
 }
 
@@ -20,7 +20,7 @@ remote_ssh_cmd_scripts_entries() {
   cat <<'EOF'
 ci-run|command|gh|Inspect GitHub Actions jobs and print log commands.|ci-run status <run-id> <app-filter> [--repo owner/repo] [--attempt n] [--all]|bin/ci-run|scripts/ci_run.sh|docs/ci-run.md|one workflow run contains several app-specific job variants.
 helm-chart-diff|command|helm|Compare an OCI Helm chart package with a local or GitHub chart directory.|helm-chart-diff --oci <oci-chart> --version <version> --local-chart <path>|bin/helm-chart-diff|scripts/helm_chart_diff.sh|docs/helm-chart-diff.md|you need to compare packaged chart contents with source chart files.
-sshf|shell function|python3, fzf|Pick an SSH config host with fzf and connect with ssh.|sshf [ssh-args...]|shell/rc.d/30-sshf.sh|scripts/ssh_hosts.py|docs/shell.md#sshf|you want an interactive host picker for entries in ~/.ssh/config.
+ssh-pick|shell function|python3, fzf|Pick an SSH config host with fzf and connect with ssh.|ssh-pick [ssh-args...]|shell/rc.d/30-ssh-pick.sh|scripts/ssh_hosts.py|docs/shell.md#ssh-pick|you want an interactive host picker for entries in ~/.ssh/config.
 EOF
 }
 

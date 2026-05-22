@@ -39,7 +39,7 @@ Host *.wildcard
     assert result.stdout.rstrip("\n") == "direct\nlab-a\nlab-b"
 
 
-def test_sshf_default_flow(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+def test_ssh_pick_default_flow(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
     ssh_dir = isolated_env.home / ".ssh"
     ssh_dir.mkdir(parents=True)
     (ssh_dir / "config").write_text(
@@ -73,8 +73,8 @@ Host devbox
             """
             set -euo pipefail
             . "$1/shell/env.sh"
-            . "$1/shell/rc.d/30-sshf.sh"
-            sshf -- true
+            . "$1/shell/rc.d/30-ssh-pick.sh"
+            ssh-pick -- true
             """,
             "_",
             repo_dir,
@@ -87,7 +87,7 @@ Host devbox
     assert out.read_text(encoding="utf-8").rstrip("\n") == "devbox -- true"
 
 
-def test_sshf_reports_parser_failure(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+def test_ssh_pick_reports_parser_failure(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
     result = run_cmd(
         [
             "bash",
@@ -95,8 +95,8 @@ def test_sshf_reports_parser_failure(repo_dir: Path, isolated_env: IsolatedEnv) 
             """
             set -euo pipefail
             . "$1/shell/env.sh"
-            . "$1/shell/rc.d/30-sshf.sh"
-            SSH_HOSTS_CMD=false sshf
+            . "$1/shell/rc.d/30-ssh-pick.sh"
+            SSH_HOSTS_CMD=false ssh-pick
             """,
             "_",
             repo_dir,
@@ -107,5 +107,5 @@ def test_sshf_reports_parser_failure(repo_dir: Path, isolated_env: IsolatedEnv) 
 
     assert_failed(result)
     output = result.stdout + result.stderr
-    assert "sshf could not list SSH hosts" in output
+    assert "ssh-pick could not list SSH hosts" in output
     assert "requires python3" in output

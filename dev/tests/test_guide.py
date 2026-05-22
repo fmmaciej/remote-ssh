@@ -16,7 +16,7 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
     assert "  remote-ssh git status       Check Git identity, SSH agent, and Git SSH auth" in result.stdout
     assert "  remote-ssh scripts --list   List bundled helper scripts" in result.stdout
-    assert "  sshf                        Pick an SSH host with fzf and connect" in result.stdout
+    assert "  ssh-pick                    Pick an SSH host with fzf and connect" in result.stdout
     assert "  remote-ssh guide starship   Explain prompt and Git status symbols" in result.stdout
     assert "  remote-ssh guide post-install" in result.stdout
     assert "  alias rhelp='remote-ssh guide'" in result.stdout
@@ -54,7 +54,7 @@ def test_remote_ssh_guide_supports_functions_section(
     assert "Functions" in result.stdout
     assert "  log" in result.stdout
     assert "  logrun" in result.stdout
-    assert "  sshf" in result.stdout
+    assert "  ssh-pick" in result.stdout
     assert "  remote_atuin_debug" in result.stdout
     assert "Commands" not in result.stdout
 
@@ -97,7 +97,7 @@ def test_remote_ssh_guide_supports_scripts_section(
     assert "Scripts" in output
     assert "ci-run" in output
     assert "helm-chart-diff" in output
-    assert "sshf" in output
+    assert "ssh-pick" in output
     assert "Requires: gh" in output
     assert "Commands" not in output
     assert "Tools" not in output

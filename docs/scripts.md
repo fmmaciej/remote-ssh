@@ -5,7 +5,7 @@ Use the CLI to list them from an installed checkout:
 
 ```bash
 remote-ssh scripts --list
-remote-ssh guide scripts
+remote-ssh guide scripts [helper]
 ```
 
 The current public helpers are:

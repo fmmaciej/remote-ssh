@@ -65,7 +65,7 @@ remote-ssh scripts --list
 For the helper guide:
 
 ```bash
-remote-ssh guide scripts
+remote-ssh guide scripts [helper]
 ```
 
 `remote-ssh --help` and `remote-ssh help` are intentionally short CLI usage

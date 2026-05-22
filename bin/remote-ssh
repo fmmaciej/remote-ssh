@@ -33,7 +33,7 @@ Commands:
   git <command>             Configure and inspect Git/SSH integration
   doctor                    Check runtime requirements and installed tools
   prune [--apply]           Report or remove unused installed tool releases
-  scripts [--list|guide]    List and explain bundled helper scripts
+  scripts --list            List bundled helper scripts
   guide [section]           Show shell configuration guide
   help                      Show this help
 EOF

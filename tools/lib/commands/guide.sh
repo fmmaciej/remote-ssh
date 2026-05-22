@@ -13,18 +13,19 @@ ensure_this_file_sourced
 
 remote_ssh_cmd_guide_main() {
   local section="${1:-all}"
+  [[ $# -gt 0 ]] && shift || true
 
   case "$section" in
-    all) remote_ssh_cmd_guide_print_all ;;
-    commands) remote_ssh_cmd_guide_print_commands ;;
-    aliases) remote_ssh_cmd_guide_print_aliases ;;
-    functions) remote_ssh_cmd_guide_print_functions ;;
-    paths) remote_ssh_cmd_guide_print_paths ;;
-    git) remote_ssh_cmd_guide_print_git ;;
-    tools) remote_ssh_cmd_guide_print_tools ;;
-    scripts) remote_ssh_cmd_guide_print_scripts ;;
-    starship) remote_ssh_cmd_guide_print_starship ;;
-    post-install) remote_ssh_cmd_guide_print_post_install ;;
+    all) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_all ;;
+    commands) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_commands ;;
+    aliases) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_aliases ;;
+    functions) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_functions ;;
+    paths) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_paths ;;
+    git) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_git ;;
+    tools) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_tools ;;
+    scripts) (($# <= 1)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_scripts "${1:-}" ;;
+    starship) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_starship ;;
+    post-install) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_post_install ;;
     -h|--help)
       remote_ssh_cmd_guide_usage
       return 1

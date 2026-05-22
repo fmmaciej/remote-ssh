@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from conftest import IsolatedEnv, assert_ok, run_remote_ssh
+from conftest import IsolatedEnv, assert_failed, assert_ok, run_remote_ssh
 
 
 def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
@@ -101,6 +101,35 @@ def test_remote_ssh_guide_supports_scripts_section(
     assert "Requires: gh" in output
     assert "Commands" not in output
     assert "Tools" not in output
+
+
+def test_remote_ssh_guide_scripts_supports_single_helper(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "scripts", "ssh-pick"], env=isolated_env.env)
+
+    assert_ok(result)
+    output = result.stdout
+    assert "Scripts" in output
+    assert "ssh-pick" in output
+    assert "ssh-pick [ssh-args...]" in output
+    assert "Entry point: shell/rc.d/30-ssh-pick.sh" in output
+    assert "ci-run" not in output
+    assert "helm-chart-diff" not in output
+    assert "sshf" not in output
+
+
+def test_remote_ssh_guide_scripts_rejects_unknown_helper(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "scripts", "sshf"], env=isolated_env.env)
+
+    assert_failed(result)
+    assert "Unknown remote-ssh script helper: sshf" in result.stderr
+    assert "Usage:" in result.stderr
+    assert "remote-ssh guide scripts [helper]" in result.stderr
 
 
 def test_remote_ssh_guide_supports_starship_section(

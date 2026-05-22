@@ -22,6 +22,8 @@ Commands
   remote-ssh scripts --list   List bundled helper scripts
   remote-ssh guide [section]  Show this configuration guide
   remote-ssh guide scripts    Explain bundled helper scripts
+  remote-ssh guide scripts <helper>
+                              Explain one helper script
   remote-ssh guide starship   Explain prompt and Git status symbols
   remote-ssh guide post-install
                               Reprint setup instructions
@@ -131,7 +133,7 @@ remote_ssh_cmd_guide_print_post_install() {
 }
 
 remote_ssh_cmd_guide_print_scripts() {
-  remote_ssh_cmd_scripts_print_guide
+  remote_ssh_cmd_scripts_print_guide "${1:-}"
 }
 
 remote_ssh_cmd_guide_print_notes() {

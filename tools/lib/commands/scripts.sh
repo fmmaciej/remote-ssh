@@ -7,7 +7,16 @@ remote_ssh_cmd_scripts_usage() {
 Usage:
   remote-ssh scripts --list
   remote-ssh scripts list
-  remote-ssh scripts guide [helper]
+
+For helper details:
+  remote-ssh guide scripts [helper]
+EOF
+}
+
+remote_ssh_cmd_scripts_guide_usage() {
+  cat <<'EOF'
+Usage:
+  remote-ssh guide scripts [helper]
 
 Helpers:
   ci-run
@@ -74,7 +83,7 @@ remote_ssh_cmd_scripts_print_guide() {
 
   if [[ -n "$helper" ]] && ! remote_ssh_cmd_scripts_is_known "$helper"; then
     printf 'Unknown remote-ssh script helper: %s\n' "$helper" >&2
-    remote_ssh_cmd_scripts_usage >&2
+    remote_ssh_cmd_scripts_guide_usage >&2
     return 1
   fi
 
@@ -94,16 +103,13 @@ remote_ssh_cmd_scripts_main() {
       }
       remote_ssh_cmd_scripts_print_list
       ;;
-    guide)
-      shift
-      (($# <= 1)) || {
-        remote_ssh_cmd_scripts_usage >&2
-        return 1
-      }
-      remote_ssh_cmd_scripts_print_guide "${1:-}"
-      ;;
     -h|--help)
       remote_ssh_cmd_scripts_usage
+      ;;
+    guide)
+      printf 'remote-ssh scripts guide moved to remote-ssh guide scripts.\n' >&2
+      printf 'Use: remote-ssh guide scripts [helper]\n' >&2
+      return 1
       ;;
     *)
       printf 'Unknown remote-ssh scripts command: %s\n' "$subcommand" >&2

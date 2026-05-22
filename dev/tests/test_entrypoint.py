@@ -23,7 +23,7 @@ def test_remote_ssh_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStat
     assert "install --full [--yes]" in result.stdout
     assert "uninstall [--yes] [tool ...]" in result.stdout
     assert "tool list" in result.stdout
-    assert "scripts [--list|guide]" in result.stdout
+    assert "scripts --list" in result.stdout
 
     result = run_remote_ssh(repo_dir, ["help"], env=tool_env.env)
     assert_ok(result)

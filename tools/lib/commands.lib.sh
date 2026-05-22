@@ -27,5 +27,6 @@ remote_ssh_cmd_require_install_libs() {
 . "$TOOLS_COMMANDS_DIR/git.sh"
 . "$TOOLS_COMMANDS_DIR/doctor.sh"
 . "$TOOLS_COMMANDS_DIR/prune.sh"
+. "$TOOLS_COMMANDS_DIR/scripts.sh"
 . "$TOOLS_COMMANDS_DIR/guide.sh"
 . "$TOOLS_COMMANDS_DIR/help.sh"

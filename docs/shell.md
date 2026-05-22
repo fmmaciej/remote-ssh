@@ -50,14 +50,23 @@ path.
 
 The remote-ssh shell loads a few small helpers:
 
-- `remote-ssh`: main entrypoint for install, uninstall, check, git, update, doctor, and prune.
+- `remote-ssh`: main entrypoint for install, uninstall, check, git, update, doctor, prune, and scripts.
 - `remote-ssh guide`: show loaded aliases, functions, paths, tools, and Git SSH notes.
 - `remote-ssh guide starship`: explain the bundled Starship prompt symbols.
-- `ci-run`: inspect app-specific GitHub Actions jobs with user-provided `gh`.
-- `helm-chart-diff`: compare an OCI chart package with a local or GitHub chart directory.
-- `sshf`: pick a host from your SSH config with `fzf`, then run `ssh`.
 - `cheats`: open private `navi` cheatsheets from `dots/navi/cheats`.
 - `log` and `logrun`: capture command output to a file while still streaming it.
+
+To list script-backed helper commands and shell functions:
+
+```bash
+remote-ssh scripts --list
+```
+
+For the helper guide:
+
+```bash
+remote-ssh guide scripts
+```
 
 `remote-ssh --help` and `remote-ssh help` are intentionally short CLI usage
 outputs. Use `remote-ssh guide` for the longer, dynamic guide generated from

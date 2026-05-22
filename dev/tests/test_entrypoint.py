@@ -23,6 +23,7 @@ def test_remote_ssh_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStat
     assert "install --full [--yes]" in result.stdout
     assert "uninstall [--yes] [tool ...]" in result.stdout
     assert "tool list" in result.stdout
+    assert "scripts [--list|guide]" in result.stdout
 
     result = run_remote_ssh(repo_dir, ["help"], env=tool_env.env)
     assert_ok(result)
@@ -50,6 +51,7 @@ def test_remote_ssh_guide_renders_commands_section(repo_dir: Path, tool_env: Too
     assert "remote-ssh uninstall [tool ...]" in result.stdout
     assert "remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
     assert "remote-ssh update check     Check whether upstream has changed" in result.stdout
+    assert "remote-ssh scripts --list   List bundled helper scripts" in result.stdout
 
 
 def test_remote_ssh_git_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStateEnv) -> None:

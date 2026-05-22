@@ -33,6 +33,7 @@ Commands:
   git <command>             Configure and inspect Git/SSH integration
   doctor                    Check runtime requirements and installed tools
   prune [--apply]           Report or remove unused installed tool releases
+  scripts [--list|guide]    List and explain bundled helper scripts
   guide [section]           Show shell configuration guide
   help                      Show this help
 EOF
@@ -56,6 +57,7 @@ main() {
     update) shift; remote_ssh_cmd_update_main "$repo_dir" "$@" ;;
     doctor) shift; (($# == 0)) || die_usage; remote_ssh_cmd_doctor_main "$repo_dir" "$script_repo_dir" "$requested_repo_dir" ;;
     prune) shift; remote_ssh_cmd_prune_main "$@" ;;
+    scripts) shift; remote_ssh_cmd_scripts_main "$@" ;;
     guide) shift; remote_ssh_cmd_guide_main "$@" ;;
     help) shift; remote_ssh_cmd_help_main "$@" ;;
     *) printf 'Unknown remote-ssh command: %s\n' "$command" >&2; die_usage ;;

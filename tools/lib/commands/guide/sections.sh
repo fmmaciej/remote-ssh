@@ -19,7 +19,9 @@ Commands
   remote-ssh update check     Check whether upstream has changed
   remote-ssh doctor           Check runtime requirements and installed tools
   remote-ssh prune [--apply]  Report or remove unused installed releases
+  remote-ssh scripts --list   List bundled helper scripts
   remote-ssh guide [section]  Show this configuration guide
+  remote-ssh guide scripts    Explain bundled helper scripts
   remote-ssh guide starship   Explain prompt and Git status symbols
   remote-ssh guide post-install
                               Reprint setup instructions
@@ -128,6 +130,10 @@ remote_ssh_cmd_guide_print_post_install() {
   install_render_post_install "$(remote_ssh_cmd_guide_repo_dir)"
 }
 
+remote_ssh_cmd_guide_print_scripts() {
+  remote_ssh_cmd_scripts_print_guide
+}
+
 remote_ssh_cmd_guide_print_notes() {
   cat <<EOF
 Notes
@@ -154,6 +160,8 @@ remote_ssh_cmd_guide_print_all() {
   remote_ssh_cmd_guide_print_paths
   printf '\n'
   remote_ssh_cmd_guide_print_tools
+  printf '\n'
+  remote_ssh_cmd_guide_print_scripts
   printf '\n'
   remote_ssh_cmd_guide_print_git
   printf '\n'

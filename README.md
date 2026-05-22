@@ -92,6 +92,7 @@ remote-ssh update
 remote-ssh update check
 remote-ssh doctor
 remote-ssh prune [--apply]
+remote-ssh scripts --list
 remote-ssh guide [section]
 remote-ssh help
 ```
@@ -122,6 +123,7 @@ Optional helper requirements:
 
 - [Install flow](docs/install.md)
 - [Shell helpers and runtime behavior](docs/shell.md)
+- [Helper scripts](docs/scripts.md)
 - [GitHub Actions run helper](docs/ci-run.md)
 - [Helm chart comparison helper](docs/helm-chart-diff.md)
 - [Tool definitions and pinned assets](docs/tools.md)

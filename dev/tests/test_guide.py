@@ -15,6 +15,7 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "  remote-ssh uninstall [tool ...]" in result.stdout
     assert "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
     assert "  remote-ssh git status       Check Git identity, SSH agent, and Git SSH auth" in result.stdout
+    assert "  remote-ssh scripts --list   List bundled helper scripts" in result.stdout
     assert "  sshf                        Pick an SSH host with fzf and connect" in result.stdout
     assert "  remote-ssh guide starship   Explain prompt and Git status symbols" in result.stdout
     assert "  remote-ssh guide post-install" in result.stdout
@@ -24,6 +25,7 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "  remote_atuin_debug" in result.stdout
     assert "Git SSH flow" in result.stdout
     assert "Tools" in result.stdout
+    assert "Scripts" in result.stdout
     assert "remote-ssh Starship prompt" in result.stdout
     assert f"    {repo_dir}/dots/git/user.local" in result.stdout
     assert "    git remote set-url origin git@github.com-myuser:OWNER/REPO.git" in result.stdout
@@ -82,6 +84,23 @@ def test_remote_ssh_guide_supports_tools_section(
     assert "Default tools on this platform" in result.stdout
     assert "  rg" in result.stdout
     assert "Commands" not in result.stdout
+
+
+def test_remote_ssh_guide_supports_scripts_section(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "scripts"], env=isolated_env.env)
+
+    assert_ok(result)
+    output = result.stdout
+    assert "Scripts" in output
+    assert "ci-run" in output
+    assert "helm-chart-diff" in output
+    assert "sshf" in output
+    assert "Requires: gh" in output
+    assert "Commands" not in output
+    assert "Tools" not in output
 
 
 def test_remote_ssh_guide_supports_starship_section(

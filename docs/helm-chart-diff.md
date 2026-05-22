@@ -23,6 +23,11 @@ helm-chart-diff \
 `Chart.yaml` file. Relative paths are resolved from the current directory, and
 `~/...` is expanded against `$HOME`.
 
+Each run prints a `Commands` section with the equivalent `helm`, `curl`, `tar`,
+and `diff` commands needed to reproduce the check manually. When `GITHUB_TOKEN`
+is set, the printed `curl` command references `${GITHUB_TOKEN}` instead of
+printing the token value.
+
 Compare against a chart directory from GitHub:
 
 ```bash

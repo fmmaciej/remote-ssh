@@ -212,6 +212,13 @@ def test_helm_chart_diff_local_chart_passes_when_contents_match(
     )
 
     assert_ok(result)
+    assert "Commands\n" in result.stdout
+    assert (
+        'helm pull oci://registry-1.docker.io/owner/app --version 1.2.3 '
+        '--destination "$tmp/oci-pull"'
+    ) in result.stdout
+    assert "diff -ruN --exclude '.git' --exclude '.DS_Store'" in result.stdout
+    assert str(local_chart) in result.stdout
     assert "OK: chart contents are the same" in result.stdout
 
 
@@ -412,6 +419,13 @@ def test_helm_chart_diff_github_chart_passes_with_fake_curl(
     )
 
     assert_ok(result)
+    assert "Commands\n" in result.stdout
+    assert "curl -L -fsS https://api.github.com/repos/owner/repo/tarball/v1.2.3" in (
+        result.stdout
+    )
+    assert '"$(find "$tmp/github-extract" -mindepth 1 -maxdepth 1 -type d)/charts/app"' in (
+        result.stdout
+    )
     assert "OK: chart contents are the same" in result.stdout
 
 
@@ -455,6 +469,8 @@ def test_helm_chart_diff_github_chart_uses_github_token(
     )
 
     assert_ok(result)
+    assert "secret-token" not in result.stdout
+    assert 'curl -L -fsS -H "Authorization: Bearer ${GITHUB_TOKEN}"' in result.stdout
     assert "Authorization: Bearer secret-token" in curl_log.read_text(encoding="utf-8")
 
 

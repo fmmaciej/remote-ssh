@@ -35,6 +35,46 @@ helm_chart_diff_require_command() {
   fi
 }
 
+helm_chart_diff_shell_quote() {
+  printf '%q' "$1"
+}
+
+# shellcheck disable=SC2016
+helm_chart_diff_print_manual_commands() {
+  local oci="$1" version="$2" source_chart="$3" github_chart="$4" ref="$5"
+  local quoted_oci quoted_version quoted_source quoted_url
+  local oci_chart_expr='"$(find "$tmp/oci-extract" -mindepth 1 -maxdepth 1 -type d)"'
+  local github_source_expr
+
+  quoted_oci="$(helm_chart_diff_shell_quote "$oci")"
+  quoted_version="$(helm_chart_diff_shell_quote "$version")"
+
+  printf 'Commands\n'
+  printf '  tmp="$(mktemp -d)"\n'
+  printf '  mkdir -p "$tmp/oci-pull" "$tmp/oci-extract"\n'
+  printf '  helm pull %s --version %s --destination "$tmp/oci-pull"\n' "$quoted_oci" "$quoted_version"
+  printf '  tar -xzf "$(find "$tmp/oci-pull" -maxdepth 1 -name '\''*.tgz'\'' -type f)" -C "$tmp/oci-extract"\n'
+
+  if [[ -n "$github_chart" ]]; then
+    local github_url="https://api.github.com/repos/${GITHUB_CHART_REPO}/tarball/${ref}"
+    quoted_url="$(helm_chart_diff_shell_quote "$github_url")"
+    printf '  mkdir -p "$tmp/github-extract"\n'
+    if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+      printf '  curl -L -fsS -H "Authorization: Bearer ${GITHUB_TOKEN}" %s -o "$tmp/github.tar.gz"\n' "$quoted_url"
+    else
+      printf '  curl -L -fsS %s -o "$tmp/github.tar.gz"\n' "$quoted_url"
+    fi
+    printf '  tar -xzf "$tmp/github.tar.gz" -C "$tmp/github-extract"\n'
+    github_source_expr="\"\$(find \"\$tmp/github-extract\" -mindepth 1 -maxdepth 1 -type d)/${GITHUB_CHART_PATH}\""
+    printf '  diff -ruN --exclude '\''.git'\'' --exclude '\''.DS_Store'\'' %s %s\n' "$github_source_expr" "$oci_chart_expr"
+  else
+    quoted_source="$(helm_chart_diff_shell_quote "$source_chart")"
+    printf '  diff -ruN --exclude '\''.git'\'' --exclude '\''.DS_Store'\'' %s %s\n' "$quoted_source" "$oci_chart_expr"
+  fi
+
+  printf '  rm -rf "$tmp"\n'
+}
+
 helm_chart_diff_find_one() {
   local dir="$1" pattern="$2"
   local found="" count=0 path
@@ -300,6 +340,16 @@ helm_chart_diff_main() {
   fi
 
   local source_chart=""
+  if [[ -n "$github_chart" ]]; then
+    GITHUB_CHART_REPO=""
+    GITHUB_CHART_PATH=""
+    if ! helm_chart_diff_parse_github_chart "$github_chart"; then
+      printf 'helm-chart-diff: unsupported --github-chart format: %s\n' "$github_chart" >&2
+      printf 'helm-chart-diff: expected owner/repo:path/to/chart.\n' >&2
+      return 64
+    fi
+  fi
+
   if [[ -n "$local_chart" ]]; then
     if source_chart="$(helm_chart_diff_resolve_local_chart "$local_chart")"; then
       :
@@ -338,6 +388,9 @@ helm_chart_diff_main() {
   printf 'helm-chart-diff\n\n'
   printf 'OCI chart:    %s @ %s\n' "$oci" "$version"
   printf 'Source chart: %s\n\n' "$source_chart"
+
+  helm_chart_diff_print_manual_commands "$oci" "$version" "$source_chart" "$github_chart" "$ref"
+  printf '\nDiff\n'
 
   if diff -ruN --exclude '.git' --exclude '.DS_Store' "$source_chart" "$oci_chart"; then
     printf 'OK: chart contents are the same\n'

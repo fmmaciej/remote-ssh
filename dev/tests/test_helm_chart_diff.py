@@ -219,6 +219,12 @@ def test_helm_chart_diff_local_chart_passes_when_contents_match(
     ) in result.stdout
     assert "diff -ruN --exclude '.git' --exclude '.DS_Store'" in result.stdout
     assert str(local_chart) in result.stdout
+    assert "# Change file to the relative chart path shown by diff." in result.stdout
+    assert "file='Chart.yaml'" in result.stdout
+    assert f'cat {local_chart}/"$file"' in result.stdout
+    assert 'cat "$(find "$tmp/oci-extract" -mindepth 1 -maxdepth 1 -type d)"/"$file"' in (
+        result.stdout
+    )
     assert "OK: chart contents are the same" in result.stdout
 
 
@@ -424,6 +430,14 @@ def test_helm_chart_diff_github_chart_passes_with_fake_curl(
         result.stdout
     )
     assert '"$(find "$tmp/github-extract" -mindepth 1 -maxdepth 1 -type d)/charts/app"' in (
+        result.stdout
+    )
+    assert "file='Chart.yaml'" in result.stdout
+    assert (
+        'cat "$(find "$tmp/github-extract" -mindepth 1 -maxdepth 1 -type d)/charts/app"/"$file"'
+        in result.stdout
+    )
+    assert 'cat "$(find "$tmp/oci-extract" -mindepth 1 -maxdepth 1 -type d)"/"$file"' in (
         result.stdout
     )
     assert "OK: chart contents are the same" in result.stdout

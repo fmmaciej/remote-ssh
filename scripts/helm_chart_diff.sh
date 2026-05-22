@@ -67,9 +67,17 @@ helm_chart_diff_print_manual_commands() {
     printf '  tar -xzf "$tmp/github.tar.gz" -C "$tmp/github-extract"\n'
     github_source_expr="\"\$(find \"\$tmp/github-extract\" -mindepth 1 -maxdepth 1 -type d)/${GITHUB_CHART_PATH}\""
     printf '  diff -ruN --exclude '\''.git'\'' --exclude '\''.DS_Store'\'' %s %s\n' "$github_source_expr" "$oci_chart_expr"
+    printf '  # Change file to the relative chart path shown by diff.\n'
+    printf '  file='\''Chart.yaml'\''\n'
+    printf '  cat %s/"$file"\n' "$github_source_expr"
+    printf '  cat %s/"$file"\n' "$oci_chart_expr"
   else
     quoted_source="$(helm_chart_diff_shell_quote "$source_chart")"
     printf '  diff -ruN --exclude '\''.git'\'' --exclude '\''.DS_Store'\'' %s %s\n' "$quoted_source" "$oci_chart_expr"
+    printf '  # Change file to the relative chart path shown by diff.\n'
+    printf '  file='\''Chart.yaml'\''\n'
+    printf '  cat %s/"$file"\n' "$quoted_source"
+    printf '  cat %s/"$file"\n' "$oci_chart_expr"
   fi
 
   printf '  rm -rf "$tmp"\n'

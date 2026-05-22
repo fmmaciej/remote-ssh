@@ -24,9 +24,11 @@ helm-chart-diff \
 `~/...` is expanded against `$HOME`.
 
 Each run prints a `Commands` section with the equivalent `helm`, `curl`, `tar`,
-and `diff` commands needed to reproduce the check manually. When `GITHUB_TOKEN`
-is set, the printed `curl` command references `${GITHUB_TOKEN}` instead of
-printing the token value.
+`diff`, and paired `cat` commands needed to reproduce the check manually. The
+`cat` commands use a `file='Chart.yaml'` placeholder; change it to the relative
+chart path shown by `diff` to inspect both copies of the same file. When
+`GITHUB_TOKEN` is set, the printed `curl` command references `${GITHUB_TOKEN}`
+instead of printing the token value.
 
 Compare against a chart directory from GitHub:
 

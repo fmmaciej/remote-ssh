@@ -6,13 +6,14 @@ remote_ssh_cmd_install_usage() {
   cat <<'EOF'
 Usage:
   remote-ssh install [tool ...]
+  remote-ssh install --profile <mini|quick|full> [--yes]
   remote-ssh install --full [--yes]
 
 Installs selected pinned tools and saves the selected set in:
   ${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/expected-tools
 
-Without tool arguments, installs the saved expected tool set. Use --full to
-install the full platform-supported default set.
+Without tool arguments, installs the saved expected tool set. Use --profile to
+install a named profile. --full is an alias for --profile full.
 EOF
 }
 
@@ -52,7 +53,7 @@ remote_ssh_cmd_install_main() {
   local repo_dir="$1"
   shift
 
-  local arg full=0 yes=0 source_label="selected"
+  local arg full=0 yes=0 profile="" source_label="selected"
   local -a requested=() tools=() skipped=()
   local tool
 
@@ -61,6 +62,22 @@ remote_ssh_cmd_install_main() {
     case "$arg" in
       --full)
         full=1
+        shift
+        ;;
+      --profile)
+        if (($# < 2)) || [[ "$2" == -* ]]; then
+          printf 'remote-ssh install --profile requires one of: mini, quick, full\n' >&2
+          return 1
+        fi
+        profile="$2"
+        shift 2
+        ;;
+      --profile=*)
+        profile="${arg#--profile=}"
+        if [[ -z "$profile" ]]; then
+          printf 'remote-ssh install --profile requires one of: mini, quick, full\n' >&2
+          return 1
+        fi
         shift
         ;;
       --yes)
@@ -88,27 +105,44 @@ remote_ssh_cmd_install_main() {
     esac
   done
 
+  if ((full == 1)); then
+    if [[ -n "$profile" ]]; then
+      printf 'remote-ssh install does not accept both --full and --profile.\n' >&2
+      return 1
+    fi
+    profile="full"
+  fi
+
+  if [[ -n "$profile" ]]; then
+    if ! install_profile_known "$profile"; then
+      printf 'Unknown remote-ssh install profile: %s\n' "$profile" >&2
+      printf 'Known profiles: mini quick full\n' >&2
+      return 1
+    fi
+    if ((${#requested[@]} > 0)); then
+      printf 'remote-ssh install --profile does not accept explicit tool arguments.\n' >&2
+      return 1
+    fi
+  fi
+
   log_info "Begin."
   install_check_requirements
 
-  if ((full == 1)); then
-    if ((${#requested[@]} > 0)); then
-      printf 'remote-ssh install --full does not accept explicit tool arguments.\n' >&2
-      return 1
-    fi
-    source_label="full platform-supported set"
+  if [[ -n "$profile" ]]; then
+    source_label="${profile} profile platform-supported set"
     while IFS= read -r tool; do
       [[ -n "$tool" ]] && requested+=("$tool")
-    done < <(current_default_tools)
+    done < <(current_install_profile_tools "$profile")
     while IFS= read -r tool; do
       [[ -n "$tool" ]] && skipped+=("$tool")
-    done < <(current_unsupported_default_tools)
+    done < <(current_unsupported_install_profile_tools "$profile")
+    tools=("${requested[@]}")
 
   elif ((${#requested[@]} == 0)); then
     source_label="saved expected tools"
     if ! read_expected_tools_for_current_platform; then
       printf 'No expected tools config found: %s\n' "$(expected_tools_file)" >&2
-      printf 'Run: remote-ssh install --full --yes\n' >&2
+      printf 'Run: remote-ssh install --profile quick --yes\n' >&2
       printf 'Or install a selected set, for example: remote-ssh install fd rg fzf\n' >&2
       return 1
     fi
@@ -127,10 +161,6 @@ remote_ssh_cmd_install_main() {
     fi
   fi
 
-  if ((full == 1)); then
-    tools=("${requested[@]}")
-  fi
-
   ((${#tools[@]} > 0)) || {
     printf 'No supported tools selected for this platform.\n' >&2
     return 1
@@ -142,7 +172,7 @@ remote_ssh_cmd_install_main() {
     remote_ssh_cmd_install_print_list "Skipped unsupported tools:" "${skipped[@]}"
   fi
 
-  if ((yes == 0 && (${#requested[@]} > 0 || full == 1))); then
+  if ((yes == 0 && ${#requested[@]} > 0)); then
     remote_ssh_cmd_install_confirm "$source_label" || return 1
   fi
 

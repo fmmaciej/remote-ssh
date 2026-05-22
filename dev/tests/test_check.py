@@ -49,7 +49,7 @@ def test_remote_ssh_check_reports_missing_expected_config(
 
     assert_failed(result)
     assert "No expected tools config found:" in result.stderr
-    assert "remote-ssh install --full --yes" in result.stderr
+    assert "remote-ssh install --profile quick --yes" in result.stderr
 
 
 def test_remote_ssh_check_warns_about_unknown_expected_tool(

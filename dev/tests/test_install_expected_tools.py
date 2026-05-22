@@ -94,6 +94,25 @@ def test_default_tools_are_filtered_by_platform(
     assert "vector" not in unsupported
 
 
+def test_install_profiles_are_defined(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+    got = _run_repo_bash(
+        repo_dir,
+        """
+        repo="$1"
+        . "$repo/tools/lib/env.sh"
+        . "$TOOLS_LIB_DIR/install.lib.sh"
+        for profile in "${INSTALL_PROFILES[@]}"; do
+          printf '%s=%s\n' "$profile" "$(install_profile_tools "$profile" | tr '\n' ' ' | sed 's/[[:space:]]$//')"
+        done
+        """,
+        env=isolated_env.env,
+    )
+
+    assert "mini=rg fd sd" in got
+    assert "quick=rg fd sd bat starship eza zoxide navi atuin" in got
+    assert "full=fd rg sd dust fzf bat yazi nvim zellij nu starship eza zoxide atuin navi tspin vector" in got
+
+
 def test_expected_tools_read_write_config(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
@@ -230,7 +249,7 @@ def test_install_without_expected_tools_reports_next_step(
     )
 
     assert "No expected tools config found:" in got
-    assert "remote-ssh install --full --yes" in got
+    assert "remote-ssh install --profile quick --yes" in got
 
 
 def test_install_full_requires_confirmation(
@@ -290,6 +309,134 @@ def test_install_full_yes_saves_supported_defaults(
     )
 
     assert got == expected
+
+
+def test_install_profile_quick_yes_saves_supported_profile(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    installed = isolated_env.home / "installed"
+    got = _run_repo_bash(
+        repo_dir,
+        """
+        repo="$1"
+        installed="$2"
+        . "$repo/tools/lib/env.sh"
+        . "$TOOLS_LIB_DIR/commands.lib.sh"
+        remote_ssh_cmd_require_install_libs
+        install_check_requirements() { :; }
+        install_tools() { printf '%s\n' "$@" >"$installed"; }
+        install_shell_dir() { :; }
+        install_bin_dir() { :; }
+        install_dots_dir() { :; }
+        install_print_post_install() { :; }
+        remote_ssh_cmd_install_main "$repo" --profile=quick --yes >/dev/null
+        printf 'installed=%s\n' "$(tr '\n' ' ' <"$installed" | sed 's/[[:space:]]$//')"
+        printf 'expected=%s\n' "$(grep -v '^#' "$(expected_tools_file)" | tr '\n' ' ' | sed 's/[[:space:]]$//')"
+        printf 'profile=%s\n' "$(current_install_profile_tools quick | tr '\n' ' ' | sed 's/[[:space:]]$//')"
+        """,
+        env=_install_env(isolated_env),
+        args=[installed],
+    )
+
+    lines = dict(line.split("=", 1) for line in got.splitlines())
+    assert lines["installed"] == lines["profile"]
+    assert lines["expected"] == lines["profile"]
+
+
+def test_install_profile_mini_yes_installs_minimal_tools(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    installed = isolated_env.home / "installed"
+    got = _run_repo_bash(
+        repo_dir,
+        """
+        repo="$1"
+        installed="$2"
+        . "$repo/tools/lib/env.sh"
+        . "$TOOLS_LIB_DIR/commands.lib.sh"
+        remote_ssh_cmd_require_install_libs
+        install_check_requirements() { :; }
+        install_tools() { printf '%s\n' "$@" >"$installed"; }
+        install_shell_dir() { :; }
+        install_bin_dir() { :; }
+        install_dots_dir() { :; }
+        install_print_post_install() { :; }
+        remote_ssh_cmd_install_main "$repo" --profile mini --yes >/dev/null
+        cat "$installed"
+        """,
+        env=_install_env(isolated_env),
+        args=[installed],
+    )
+
+    assert got == "rg\nfd\nsd"
+
+
+def test_install_profile_full_matches_full_alias(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    installed = isolated_env.home / "installed"
+    got = _run_repo_bash(
+        repo_dir,
+        """
+        repo="$1"
+        installed="$2"
+        . "$repo/tools/lib/env.sh"
+        . "$TOOLS_LIB_DIR/commands.lib.sh"
+        remote_ssh_cmd_require_install_libs
+        install_check_requirements() { :; }
+        install_tools() { printf '%s\n' "$@" >"$installed"; }
+        install_shell_dir() { :; }
+        install_bin_dir() { :; }
+        install_dots_dir() { :; }
+        install_print_post_install() { :; }
+        remote_ssh_cmd_install_main "$repo" --profile full --yes >/dev/null
+        cat "$installed"
+        """,
+        env=_install_env(isolated_env),
+        args=[installed],
+    )
+    expected = _run_repo_bash(
+        repo_dir,
+        """
+        repo="$1"
+        . "$repo/tools/lib/env.sh"
+        . "$TOOLS_LIB_DIR/install.lib.sh"
+        current_default_tools
+        """,
+        env=isolated_env.env,
+    )
+
+    assert got == expected
+
+
+def test_install_profile_rejects_invalid_combinations(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    cases = {
+        "unknown": "remote_ssh_cmd_install_main \"$repo\" --profile nope --yes",
+        "missing": "remote_ssh_cmd_install_main \"$repo\" --profile --yes",
+        "explicit": "remote_ssh_cmd_install_main \"$repo\" --profile quick rg",
+        "full": "remote_ssh_cmd_install_main \"$repo\" --full --profile quick",
+    }
+
+    for name, command in cases.items():
+        got = _run_repo_bash_failed(
+            repo_dir,
+            f"""
+            repo="$1"
+            . "$repo/tools/lib/env.sh"
+            . "$TOOLS_LIB_DIR/commands.lib.sh"
+            remote_ssh_cmd_require_install_libs
+            install_check_requirements() {{ :; }}
+            {command}
+            """,
+            env=_install_env(isolated_env),
+        )
+        assert "remote-ssh install" in got or "Unknown remote-ssh install profile" in got, name
 
 
 def test_install_expected_tools_does_not_require_confirmation(

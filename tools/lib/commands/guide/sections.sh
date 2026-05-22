@@ -7,6 +7,8 @@ remote_ssh_cmd_guide_print_commands() {
 Commands
   remote-ssh --help           Show concise CLI usage
   remote-ssh install [tool]   Install expected or selected remote-ssh tools
+  remote-ssh install --profile <name>
+                              Install mini, quick, or full profile
   remote-ssh install --full   Install all supported default tools
   remote-ssh uninstall [tool ...]
                               Uninstall managed remote-ssh tools

@@ -28,16 +28,17 @@ With arguments, it forwards them directly to `remote-ssh install`:
 ```bash
 ./runme.sh fd rg fzf zoxide
 ./runme.sh --yes fd rg fzf zoxide
+./runme.sh --profile quick --yes
 ./runme.sh --full --yes
 ```
 
-For a non-interactive full install without editing the bootstrap list:
+For a non-interactive quick install without editing the bootstrap list:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh | bash -s -- --full --yes
+curl -fsSL https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh | bash -s -- --profile quick --yes
 ```
 
-That path delegates directly to `remote-ssh install --full --yes`; it does not
+That path delegates directly to `remote-ssh install --profile quick --yes`; it does not
 use the editable `RUNME_TOOLS` list.
 
 To bootstrap from a specific branch, tag, or fetchable Git ref:
@@ -55,13 +56,23 @@ checkout uses `git pull --ff-only`.
 From a checked-out repository:
 
 ```bash
-./bin/remote-ssh install --full --yes
+./bin/remote-ssh install --profile quick --yes
 ```
 
-`--full` installs the platform-supported subset of the full default tool set:
+Install profiles are platform-filtered:
 
 ```text
-fd rg sd dust fzf bat yazi nvim zellij nu starship eza zoxide atuin navi tspin vector
+mini   rg fd sd
+quick  rg fd sd bat starship eza zoxide navi atuin
+full   fd rg sd dust fzf bat yazi nvim zellij nu starship eza zoxide atuin navi tspin vector
+```
+
+`--full` is a compatibility alias for `--profile full`:
+
+```bash
+./bin/remote-ssh install --profile mini --yes
+./bin/remote-ssh install --profile full --yes
+./bin/remote-ssh install --full --yes
 ```
 
 Tools without a matching asset for the current OS/architecture are skipped with
@@ -116,8 +127,12 @@ If no expected tools config exists, `remote-ssh install` asks you to choose
 tools explicitly or run:
 
 ```bash
-remote-ssh install --full --yes
+remote-ssh install --profile quick --yes
 ```
+
+Helper scripts such as `ci-run`, `helm-chart-diff`, and `ssh-pick` are part of
+the remote-ssh checkout. There is no `--scripts` install flag; use
+`remote-ssh guide scripts` to inspect helper requirements.
 
 ## Installed Paths
 

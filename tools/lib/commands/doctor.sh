@@ -159,7 +159,7 @@ remote_ssh_cmd_doctor_main() {
       printf '\nNext steps\n'
       if ! expected_tools_exists; then
         printf '  choose tools: remote-ssh install fd rg fzf\n'
-        printf '  or install all supported tools: remote-ssh install --full --yes\n'
+        printf '  or install quick profile: remote-ssh install --profile quick --yes\n'
       elif remote_ssh_cmd_doctor_has_install_hint_status; then
         printf '  run: remote-ssh install\n'
       fi

@@ -20,6 +20,7 @@ def test_remote_ssh_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStat
     assert "guide [section]" in result.stdout
     assert "git <command>" in result.stdout
     assert "update [check]" in result.stdout
+    assert "install --profile <name>" in result.stdout
     assert "install --full [--yes]" in result.stdout
     assert "uninstall [--yes] [tool ...]" in result.stdout
     assert "tool list" in result.stdout
@@ -46,6 +47,7 @@ def test_remote_ssh_guide_renders_commands_section(repo_dir: Path, tool_env: Too
     assert_ok(result)
     assert "Commands" in result.stdout
     assert "remote-ssh guide [section]  Show this configuration guide" in result.stdout
+    assert "remote-ssh install --profile <name>" in result.stdout
     assert "remote-ssh check --strict   Report pinned tools vs local bin and PATH" in result.stdout
     assert "remote-ssh tool list        Show tool selection and install state" in result.stdout
     assert "remote-ssh uninstall [tool ...]" in result.stdout
@@ -88,6 +90,10 @@ def test_remote_ssh_tool_list_reports_tool_sets(repo_dir: Path, tool_env: ToolSt
     assert_ok(result)
     assert "remote-ssh tool list" in result.stdout
     assert "Default tools:" in result.stdout
+    assert "Install profiles:" in result.stdout
+    assert "  mini" in result.stdout
+    assert "  quick" in result.stdout
+    assert "  full" in result.stdout
     assert "Expected tools:" in result.stdout
     assert "  rg" in result.stdout
     assert "Managed installed tools:" in result.stdout

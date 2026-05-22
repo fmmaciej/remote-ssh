@@ -81,6 +81,11 @@ def test_remote_ssh_guide_supports_tools_section(
     assert_ok(result)
     assert "Tools" in result.stdout
     assert "  install      remote-ssh install" in result.stdout
+    assert "  install quick remote-ssh install --profile quick" in result.stdout
+    assert "Install profiles" in result.stdout
+    assert "  mini  remote-ssh install --profile mini" in result.stdout
+    assert "  quick remote-ssh install --profile quick" in result.stdout
+    assert "  full  remote-ssh install --profile full" in result.stdout
     assert "Default tools on this platform" in result.stdout
     assert "  rg" in result.stdout
     assert "Commands" not in result.stdout

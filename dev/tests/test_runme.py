@@ -97,6 +97,19 @@ def test_runme_forwards_full_install(repo_dir: Path, isolated_env: IsolatedEnv) 
     assert args_file.read_text(encoding="utf-8") == "install\n--full\n--yes\n"
 
 
+def test_runme_forwards_profile_install(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+    args_file = isolated_env.home / "args"
+    prepare_runme(isolated_env, args_file)
+
+    result = run_cmd(
+        ["bash", repo_dir / "runme.sh", "--profile", "quick", "--yes"],
+        env=isolated_env.env,
+    )
+
+    assert_ok(result)
+    assert args_file.read_text(encoding="utf-8") == "install\n--profile\nquick\n--yes\n"
+
+
 def test_runme_updates_existing_checkout_by_default(
     repo_dir: Path,
     isolated_env: IsolatedEnv,

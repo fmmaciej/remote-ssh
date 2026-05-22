@@ -23,6 +23,20 @@ remote_ssh_cmd_tool_print_lines() {
   printf '  %s\n' "$@"
 }
 
+remote_ssh_cmd_tool_print_profiles() {
+  local profile tool
+  local -a tools
+
+  printf 'Install profiles:\n'
+  for profile in "${INSTALL_PROFILES[@]}"; do
+    tools=()
+    while IFS= read -r tool; do
+      [[ -n "$tool" ]] && tools+=("$tool")
+    done < <(install_profile_tools "$profile")
+    printf '  %-5s %s\n' "$profile" "${tools[*]}"
+  done
+}
+
 remote_ssh_cmd_tool_list() {
   local tool
   local -a expected=() installed=() unsupported=()
@@ -42,6 +56,8 @@ remote_ssh_cmd_tool_list() {
   done < <(current_unsupported_default_tools)
 
   printf 'remote-ssh tool list\n\n'
+  remote_ssh_cmd_tool_print_profiles
+  printf '\n'
   remote_ssh_cmd_tool_print_lines "Default tools:" "${DEFAULT_TOOLS[@]}"
   printf '\n'
   printf 'Expected tools config: %s\n' "$(expected_tools_file)"

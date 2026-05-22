@@ -77,7 +77,7 @@ remote_ssh_cmd_check_main() {
   if ((${#tools[@]} == 0)); then
     if ! read_expected_tools_for_current_platform; then
       printf 'No expected tools config found: %s\n' "$(expected_tools_file)" >&2
-      printf 'Run: remote-ssh install --full --yes\n' >&2
+      printf 'Run: remote-ssh install --profile quick --yes\n' >&2
       printf 'Or install a selected set, for example: remote-ssh install fd rg fzf\n' >&2
       return 1
     fi

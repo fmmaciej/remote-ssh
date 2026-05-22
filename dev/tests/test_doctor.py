@@ -79,7 +79,7 @@ def test_remote_ssh_doctor_reports_missing_expected_tools_config(
     assert_failed(result)
     assert "No expected tools config found:" in result.stdout
     assert "choose tools: remote-ssh install fd rg fzf" in result.stdout
-    assert "remote-ssh install --full --yes" in result.stdout
+    assert "remote-ssh install --profile quick --yes" in result.stdout
 
 
 def test_remote_ssh_doctor_reports_missing_binary_alias(

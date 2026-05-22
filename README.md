@@ -53,10 +53,10 @@ If you already know the desired set, pass tools directly:
 ./runme.sh --yes fd rg fzf zoxide
 ```
 
-For a non-interactive full install without editing the bootstrap list:
+For a non-interactive quick install without editing the bootstrap list:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh | bash -s -- --full --yes
+curl -fsSL https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh | bash -s -- --profile quick --yes
 ```
 
 ## Local Install
@@ -64,6 +64,8 @@ curl -fsSL https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh |
 From a checked-out repository:
 
 ```bash
+./bin/remote-ssh install --profile quick --yes
+./bin/remote-ssh install --profile mini --yes
 ./bin/remote-ssh install --full --yes
 ./bin/remote-ssh install fd rg fzf
 ./bin/remote-ssh install --yes fd rg fzf
@@ -82,6 +84,7 @@ symlinks in `~/.local/bin`.
 
 ```bash
 remote-ssh install [tool ...]
+remote-ssh install --profile <name> [--yes]
 remote-ssh install --full [--yes]
 remote-ssh uninstall [--yes] [tool ...]
 remote-ssh tool list

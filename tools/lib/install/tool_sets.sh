@@ -3,7 +3,10 @@
 
 ensure_this_file_sourced
 
+MINI_TOOLS=(rg fd sd)
+QUICK_TOOLS=(rg fd sd bat starship eza zoxide navi atuin)
 DEFAULT_TOOLS=(fd rg sd dust fzf bat yazi nvim zellij nu starship eza zoxide atuin navi tspin vector)
+INSTALL_PROFILES=(mini quick full)
 
 default_platform() {
   local plat raw_os raw_arch libc
@@ -24,25 +27,51 @@ default_tool_supported_on_platform() {
 }
 
 default_tools_for_platform() {
-  local raw_os="$1" raw_arch="$2" libc="$3"
-  local tool
-
-  for tool in "${DEFAULT_TOOLS[@]}"; do
-    if default_tool_supported_on_platform "$tool" "$raw_os" "$raw_arch" "$libc"; then
-      printf '%s\n' "$tool"
-    fi
-  done
+  install_profile_tools_for_platform full "$@"
 }
 
 unsupported_default_tools_for_platform() {
-  local raw_os="$1" raw_arch="$2" libc="$3"
+  unsupported_install_profile_tools_for_platform full "$@"
+}
+
+install_profile_known() {
+  case "${1:-}" in
+    mini|quick|full) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+install_profile_tools() {
+  local profile="${1:?profile required}"
+
+  case "$profile" in
+    mini) printf '%s\n' "${MINI_TOOLS[@]}" ;;
+    quick) printf '%s\n' "${QUICK_TOOLS[@]}" ;;
+    full) printf '%s\n' "${DEFAULT_TOOLS[@]}" ;;
+    *) return 1 ;;
+  esac
+}
+
+install_profile_tools_for_platform() {
+  local profile="$1" raw_os="$2" raw_arch="$3" libc="$4"
   local tool
 
-  for tool in "${DEFAULT_TOOLS[@]}"; do
+  while IFS= read -r tool; do
+    if default_tool_supported_on_platform "$tool" "$raw_os" "$raw_arch" "$libc"; then
+      printf '%s\n' "$tool"
+    fi
+  done < <(install_profile_tools "$profile")
+}
+
+unsupported_install_profile_tools_for_platform() {
+  local profile="$1" raw_os="$2" raw_arch="$3" libc="$4"
+  local tool
+
+  while IFS= read -r tool; do
     if ! default_tool_supported_on_platform "$tool" "$raw_os" "$raw_arch" "$libc"; then
       printf '%s\n' "$tool"
     fi
-  done
+  done < <(install_profile_tools "$profile")
 }
 
 current_default_tools() {
@@ -59,6 +88,24 @@ current_unsupported_default_tools() {
   platform="$(default_platform)"
   IFS=: read -r raw_os raw_arch libc <<<"$platform"
   unsupported_default_tools_for_platform "$raw_os" "$raw_arch" "$libc"
+}
+
+current_install_profile_tools() {
+  local profile="$1"
+  local platform raw_os raw_arch libc
+
+  platform="$(default_platform)"
+  IFS=: read -r raw_os raw_arch libc <<<"$platform"
+  install_profile_tools_for_platform "$profile" "$raw_os" "$raw_arch" "$libc"
+}
+
+current_unsupported_install_profile_tools() {
+  local profile="$1"
+  local platform raw_os raw_arch libc
+
+  platform="$(default_platform)"
+  IFS=: read -r raw_os raw_arch libc <<<"$platform"
+  unsupported_install_profile_tools_for_platform "$profile" "$raw_os" "$raw_arch" "$libc"
 }
 
 filter_tools_for_current_platform() {

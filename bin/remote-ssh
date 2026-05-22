@@ -23,6 +23,7 @@ Usage: remote-ssh <command> [args]
 
 Commands:
   install [tool ...]        Install expected or selected remote-ssh tools
+  install --profile <name>  Install mini, quick, or full profile
   install --full [--yes]    Install all supported default tools
   uninstall [--yes] [tool ...]
                             Uninstall managed remote-ssh tools

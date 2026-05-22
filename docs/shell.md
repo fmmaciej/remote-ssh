@@ -51,6 +51,7 @@ The remote-ssh shell loads a few small helpers:
 - `remote-ssh guide`: show loaded aliases, functions, paths, tools, and Git SSH notes.
 - `remote-ssh guide starship`: explain the bundled Starship prompt symbols.
 - `ci-run`: inspect app-specific GitHub Actions jobs with user-provided `gh`.
+- `helm-chart-diff`: compare an OCI chart package with a local or GitHub chart directory.
 - `sshf`: pick a host from your SSH config with `fzf`, then run `ssh`.
 - `cheats`: open private `navi` cheatsheets from `dots/navi/cheats`.
 - `log` and `logrun`: capture command output to a file while still streaming it.

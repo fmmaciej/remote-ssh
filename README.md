@@ -115,12 +115,14 @@ Optional helper requirements:
 
 - `python3` for `sshf`
 - `gh` for `ci-run`, the optional GitHub Actions run helper
+- `helm` for `helm-chart-diff`, the optional Helm chart comparison helper
 
 ## More Documentation
 
 - [Install flow](docs/install.md)
 - [Shell helpers and runtime behavior](docs/shell.md)
 - [GitHub Actions run helper](docs/ci-run.md)
+- [Helm chart comparison helper](docs/helm-chart-diff.md)
 - [Tool definitions and pinned assets](docs/tools.md)
 - [Developer tooling](dev/README.md)
 - [TODO](docs/TODO.md)

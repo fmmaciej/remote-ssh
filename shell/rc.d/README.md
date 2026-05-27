@@ -41,11 +41,9 @@ session exports belongs in `rc.d/*.sh`.
 ## Update check
 
 `04-update-check.sh` runs only in interactive shells. It reads a small cache
-from `${XDG_STATE_HOME:-$HOME/.local/state}/remote-ssh/update-check` and prints
-the cached login status from
-`${XDG_STATE_HOME:-$HOME/.local/state}/remote-ssh/login-status`. When the cache
-is stale, the hook refreshes it in the background for the next login without
-writing from the background job to the terminal.
+from `${XDG_STATE_HOME:-$HOME/.local/state}/remote-ssh/update-check` and, when
+that cache is stale, refreshes it in the background without writing to the
+terminal.
 
 The refresh uses:
 
@@ -64,6 +62,59 @@ The default interval is one day. Override it with:
 
 ```bash
 export REMOTE_SSH_UPDATE_CHECK_INTERVAL=3600
+```
+
+## Runtime config
+
+`shell/env.sh` reads `${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/config`
+before `rc.d` hooks run. The config file supports allowlisted `KEY=value`
+settings only; it is not sourced as shell. When a key appears more than once,
+the last allowlisted line wins. Existing environment variables take precedence
+over config values. After `REMOTE_SSH_CONFIG=0; rcrc`, values previously loaded
+only from this config return to defaults while manually exported values remain
+environment values.
+
+Inspect effective config values with:
+
+```bash
+remote-ssh guide config
+```
+
+Disable config loading before loading `rc.sh` when needed:
+
+```bash
+export REMOTE_SSH_CONFIG=0
+```
+
+## Welcome
+
+`08-welcome.sh` runs only in interactive shells and delegates the runner to
+`shell/welcome/runner.sh`. `shell/welcome/` contains internal library modules;
+executable status modules live in `shell/welcome.d/`. The runner executes
+bundled modules from `shell/welcome.d/`, then user executable modules from
+`${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/welcome.d`. Bundled modules render
+the login status for remote-ssh, hardware, SSH agent, and Git session config.
+The `next` line is reserved for actionable problems; disabled or missing update
+cache state and standalone SSH agent status are informational.
+Use `shell/welcome.d/user-module.sh.example` as a starting point for custom
+user-local welcome lines.
+User-local modules should stay fast, local-only, and noninteractive because they
+run during shell startup.
+
+Disable it before loading `rc.sh` when needed:
+
+```bash
+export REMOTE_SSH_WELCOME=0
+```
+
+Other welcome toggles:
+
+```bash
+export REMOTE_SSH_WELCOME_USER=0
+export REMOTE_SSH_WELCOME_BANNER=0
+export REMOTE_SSH_WELCOME_COLOR=0
+export REMOTE_SSH_WELCOME_DEBUG=1
+export NO_COLOR=1
 ```
 
 ## OS files

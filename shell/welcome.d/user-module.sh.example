@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#
+# Example user welcome module.
+#
+# Install as:
+#   ${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/welcome.d/10-example.sh
+#
+# User welcome modules must be executable. They run after bundled modules during
+# interactive shell startup. Stdout is shown in the welcome panel; stderr is
+# hidden unless REMOTE_SSH_WELCOME_DEBUG=1. Stdin is /dev/null, so modules must
+# not prompt. Keep modules fast, local-only, and noninteractive.
+
+project="${REMOTE_SSH_PROJECT:-none}"
+printf 'project: %s\n' "$project"

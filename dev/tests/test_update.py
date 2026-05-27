@@ -80,9 +80,7 @@ def test_remote_ssh_update_check_writes_cached_message(
     cache_text = cache.read_text(encoding="utf-8")
     assert "status=update-available" in cache_text
     assert "checked_at_text=" in cache_text
-    login_status = (state_dir / "login-status").read_text(encoding="utf-8").rstrip("\n")
-    assert login_status.startswith("remote-ssh: update available. Run: remote-ssh update")
-    assert " (checked: " in login_status
+    assert not (state_dir / "login-status").exists()
 
     result = run_remote_ssh(
         repo_dir,
@@ -92,6 +90,79 @@ def test_remote_ssh_update_check_writes_cached_message(
 
     assert_ok(result)
     assert result.stdout.rstrip("\n") == "remote-ssh: update available. Run: remote-ssh update"
+
+
+def test_update_check_helper_stale_decisions(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    tmp_path: Path,
+) -> None:
+    cache = tmp_path / "update-check"
+
+    result = run_cmd(
+        [
+            "bash",
+            "-c",
+            """
+            set -euo pipefail
+            . "$1/shell/update-check.lib.sh"
+
+            unset REMOTE_SSH_UPDATE_CHECK_INTERVAL
+            printf 'default-interval=%s\n' "$(remote_ssh_update_check_interval)"
+
+            if remote_ssh_update_check_is_stale "$2"; then
+              printf 'missing=stale\n'
+            else
+              printf 'missing=fresh\n'
+            fi
+
+            printf 'checked_at=not-a-number\n' >"$2"
+            if remote_ssh_update_check_is_stale "$2"; then
+              printf 'invalid=stale\n'
+            else
+              printf 'invalid=fresh\n'
+            fi
+
+            REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+            printf 'checked_at=%s\n' "$(date +%s)" >"$2"
+            if remote_ssh_update_check_is_stale "$2"; then
+              printf 'fresh=stale\n'
+            else
+              printf 'fresh=fresh\n'
+            fi
+
+            printf 'checked_at=%s\n' "$(($(date +%s) + 3600))" >"$2"
+            if remote_ssh_update_check_is_stale "$2"; then
+              printf 'future=stale\n'
+            else
+              printf 'future=fresh\n'
+            fi
+
+            printf 'checked_at=1\n' >"$2"
+            REMOTE_SSH_UPDATE_CHECK_INTERVAL=1
+            if remote_ssh_update_check_is_stale "$2"; then
+              printf 'expired=stale\n'
+            else
+              printf 'expired=fresh\n'
+            fi
+            """,
+            "_",
+            repo_dir,
+            cache,
+        ],
+        env=isolated_env.env,
+    )
+
+    assert_ok(result)
+    assert result.stderr == ""
+    assert result.stdout.splitlines() == [
+        "default-interval=86400",
+        "missing=stale",
+        "invalid=stale",
+        "fresh=fresh",
+        "future=stale",
+        "expired=stale",
+    ]
 
 
 def test_remote_ssh_update_marks_cached_status_current(
@@ -139,9 +210,7 @@ def test_remote_ssh_update_marks_cached_status_current(
     assert "checked_at_text=" in cache_text
     assert "local_head=bbbbbbbb" in cache_text
     assert "remote_head=bbbbbbbb" in cache_text
-    login_status = (state_dir / "login-status").read_text(encoding="utf-8").rstrip("\n")
-    assert login_status.startswith("remote-ssh: current")
-    assert " (checked: " in login_status
+    assert not (state_dir / "login-status").exists()
 
 
 def test_remote_ssh_update_runs_install_without_tool_arguments(

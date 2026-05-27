@@ -21,6 +21,12 @@ export REMOTE_ENV_DIR REMOTE_BIN_DIR REMOTE_DOTS_DIR REMOTE_LIB_DIR REMOTE_SHELL
 # shellcheck disable=SC1091
 [ -f "$REMOTE_LIB_DIR/helpers.sh" ] && . "$REMOTE_LIB_DIR/helpers.sh"
 
+if [ -f "$REMOTE_SHELL_DIR/config.lib.sh" ]; then
+  # shellcheck disable=SC1091
+  . "$REMOTE_SHELL_DIR/config.lib.sh"
+  remote_ssh_config_load
+fi
+
 # Bootstrap wrzuca rzeczy tutaj
 path_prepend "$HOME/.local/bin"
 

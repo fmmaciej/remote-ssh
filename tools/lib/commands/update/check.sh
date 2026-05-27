@@ -2,6 +2,9 @@
 
 ensure_this_file_sourced
 
+# shellcheck source=/dev/null
+. "$SHELL_DIR/update-check.lib.sh"
+
 remote_ssh_cmd_update_check_usage() {
   cat <<'EOF'
 Usage:
@@ -13,90 +16,14 @@ This does not fetch, pull, or modify the working tree.
 EOF
 }
 
-remote_ssh_cmd_update_check_state_dir() {
-  local state_home
-
-  if [[ -n "${REMOTE_SSH_UPDATE_CHECK_STATE_DIR:-}" ]]; then
-    printf '%s\n' "$REMOTE_SSH_UPDATE_CHECK_STATE_DIR"
-    return 0
-  fi
-
-  if [[ -n "${XDG_STATE_HOME:-}" ]]; then
-    state_home="$XDG_STATE_HOME"
-  elif [[ -n "${HOME:-}" ]]; then
-    state_home="$HOME/.local/state"
-  else
-    return 1
-  fi
-
-  printf '%s\n' "$state_home/remote-ssh"
-}
-
-remote_ssh_cmd_update_check_cache_file() {
-  local state_dir
-
-  state_dir="$(remote_ssh_cmd_update_check_state_dir)" || return 1
-  printf '%s/update-check\n' "$state_dir"
-}
-
-remote_ssh_cmd_update_check_login_status_file() {
-  local state_dir
-
-  state_dir="$(remote_ssh_cmd_update_check_state_dir)" || return 1
-  printf '%s/login-status\n' "$state_dir"
-}
-
-remote_ssh_cmd_update_check_cache_get() {
-  local file="$1" key="$2" line
-
-  [[ -r "$file" ]] || return 1
-  line="$(grep -m 1 "^${key}=" "$file" 2>/dev/null)" || return 1
-  printf '%s\n' "${line#*=}"
-}
-
-remote_ssh_cmd_update_check_checked_at_text() {
-  date '+%Y-%m-%d %H:%M:%S %Z' 2>/dev/null || date 2>/dev/null || printf 'unknown'
-}
-
-remote_ssh_cmd_update_check_login_status_suffix() {
-  printf ' (checked: %s)' "${REMOTE_SSH_UPDATE_CHECK_CHECKED_AT_TEXT:-unknown}"
-}
-
-remote_ssh_cmd_update_check_login_status_render() {
-  case "${REMOTE_SSH_UPDATE_CHECK_STATUS:-}" in
-    current)
-      printf 'remote-ssh: current%s\n' "$(remote_ssh_cmd_update_check_login_status_suffix)"
-      ;;
-    update-available)
-      printf 'remote-ssh: update available. Run: remote-ssh update%s\n' "$(remote_ssh_cmd_update_check_login_status_suffix)"
-      ;;
-    error)
-      printf 'remote-ssh: update check unavailable%s\n' "$(remote_ssh_cmd_update_check_login_status_suffix)"
-      ;;
-    *)
-      printf 'remote-ssh: update status unknown%s\n' "$(remote_ssh_cmd_update_check_login_status_suffix)"
-      ;;
-  esac
-}
-
-remote_ssh_cmd_update_check_login_status_write() {
-  local file tmp
-
-  file="$(remote_ssh_cmd_update_check_login_status_file)" || return 0
-  mkdir -p "${file%/*}" || return 0
-
-  tmp="${file}.$$"
-  remote_ssh_cmd_update_check_login_status_render >"$tmp" && mv "$tmp" "$file"
-}
-
 remote_ssh_cmd_update_check_cache_write() {
   local file tmp
 
-  file="$(remote_ssh_cmd_update_check_cache_file)" || return 0
+  file="$(remote_ssh_update_check_cache_file)" || return 0
   mkdir -p "${file%/*}" || return 0
 
   tmp="${file}.$$"
-  if {
+  {
     printf 'checked_at=%s\n' "${REMOTE_SSH_UPDATE_CHECK_CHECKED_AT:-}"
     printf 'checked_at_text=%s\n' "${REMOTE_SSH_UPDATE_CHECK_CHECKED_AT_TEXT:-unknown}"
     printf 'status=%s\n' "${REMOTE_SSH_UPDATE_CHECK_STATUS:-error}"
@@ -106,9 +33,7 @@ remote_ssh_cmd_update_check_cache_write() {
     printf 'local_head=%s\n' "${REMOTE_SSH_UPDATE_CHECK_LOCAL_HEAD:-}"
     printf 'remote_head=%s\n' "${REMOTE_SSH_UPDATE_CHECK_REMOTE_HEAD:-}"
     printf 'message=%s\n' "${REMOTE_SSH_UPDATE_CHECK_MESSAGE:-}"
-  } >"$tmp" && mv "$tmp" "$file"; then
-    remote_ssh_cmd_update_check_login_status_write
-  fi
+  } >"$tmp" && mv "$tmp" "$file"
 }
 
 remote_ssh_cmd_update_check_set_error() {
@@ -123,7 +48,7 @@ remote_ssh_cmd_update_check_collect() {
 
   REMOTE_SSH_UPDATE_CHECK_REPO="$repo_dir"
   REMOTE_SSH_UPDATE_CHECK_CHECKED_AT="$(date +%s 2>/dev/null || printf '0')"
-  REMOTE_SSH_UPDATE_CHECK_CHECKED_AT_TEXT="$(remote_ssh_cmd_update_check_checked_at_text)"
+  REMOTE_SSH_UPDATE_CHECK_CHECKED_AT_TEXT="$(remote_ssh_update_check_checked_at_text)"
   REMOTE_SSH_UPDATE_CHECK_STATUS="error"
   REMOTE_SSH_UPDATE_CHECK_BRANCH=""
   REMOTE_SSH_UPDATE_CHECK_UPSTREAM=""
@@ -203,7 +128,7 @@ remote_ssh_cmd_update_check_cache_mark_current() {
 
   REMOTE_SSH_UPDATE_CHECK_REPO="$repo_dir"
   REMOTE_SSH_UPDATE_CHECK_CHECKED_AT="$(date +%s 2>/dev/null || printf '0')"
-  REMOTE_SSH_UPDATE_CHECK_CHECKED_AT_TEXT="$(remote_ssh_cmd_update_check_checked_at_text)"
+  REMOTE_SSH_UPDATE_CHECK_CHECKED_AT_TEXT="$(remote_ssh_update_check_checked_at_text)"
   REMOTE_SSH_UPDATE_CHECK_STATUS="current"
   REMOTE_SSH_UPDATE_CHECK_BRANCH=""
   REMOTE_SSH_UPDATE_CHECK_UPSTREAM=""
@@ -244,8 +169,8 @@ remote_ssh_cmd_update_check_render() {
 remote_ssh_cmd_update_check_cached_message() {
   local file status
 
-  file="$(remote_ssh_cmd_update_check_cache_file)" || return 0
-  status="$(remote_ssh_cmd_update_check_cache_get "$file" status 2>/dev/null || true)"
+  file="$(remote_ssh_update_check_cache_file)" || return 0
+  status="$(remote_ssh_update_check_cache_get "$file" status 2>/dev/null || true)"
 
   if [[ "$status" == "update-available" ]]; then
     printf 'remote-ssh: update available. Run: remote-ssh update\n'

@@ -21,6 +21,7 @@ remote_ssh_cmd_guide_main() {
     aliases) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_aliases ;;
     functions) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_functions ;;
     paths) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_paths ;;
+    config) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_config ;;
     git) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_git ;;
     tools) (($# == 0)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_tools ;;
     scripts) (($# <= 1)) || { remote_ssh_cmd_guide_usage; return 1; }; remote_ssh_cmd_guide_print_scripts "${1:-}" ;;

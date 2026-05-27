@@ -2,6 +2,9 @@
 
 ensure_this_file_sourced
 
+# shellcheck source=/dev/null
+. "$SHELL_DIR/config.lib.sh"
+
 remote_ssh_cmd_guide_print_commands() {
   cat <<'EOF'
 Commands
@@ -23,6 +26,7 @@ Commands
   remote-ssh prune [--apply]  Report or remove unused installed releases
   remote-ssh scripts --list   List bundled helper scripts
   remote-ssh guide [section]  Show this configuration guide
+  remote-ssh guide config     Show runtime config sources and values
   remote-ssh guide scripts    Explain bundled helper scripts
   remote-ssh guide scripts <helper>
                               Explain one helper script
@@ -68,6 +72,52 @@ Paths
   cheats        $(remote_ssh_cmd_guide_cheats_dir)
   atuin marker  $(remote_ssh_cmd_guide_atuin_marker)
 EOF
+}
+
+remote_ssh_cmd_guide_config_value() {
+  local key="$1" default="$2" value source config_value
+
+  if [[ -n "${!key+x}" ]]; then
+    value="${!key}"
+    source="env"
+
+    if remote_ssh_config_enabled &&
+      remote_ssh_config_value_is_current_owned "$key" &&
+      config_value="$(remote_ssh_config_file_value_raw "$key" 2>/dev/null)" &&
+      [[ "$value" == "$config_value" ]]; then
+      source="config"
+    fi
+  elif value="$(remote_ssh_config_file_value "$key" 2>/dev/null)"; then
+    source="config"
+  else
+    value="$default"
+    source="default"
+  fi
+
+  printf '%s|%s|%s\n' "$key" "$value" "$source"
+}
+
+remote_ssh_cmd_guide_print_config() {
+  local file loading key default _key value source
+
+  file="$(remote_ssh_config_file 2>/dev/null || printf '[unavailable]')"
+  if remote_ssh_config_enabled; then
+    loading="enabled"
+  else
+    loading="disabled"
+  fi
+
+  printf 'Runtime config\n'
+  printf '  file:    %s\n' "$file"
+  printf '  loading: %s\n' "$loading"
+  printf '\nValues\n'
+
+  while IFS='|' read -r key default; do
+    IFS='|' read -r _key value source < <(
+      remote_ssh_cmd_guide_config_value "$key" "$default"
+    )
+    printf '  %s=%s [%s]\n' "$key" "$value" "$source"
+  done < <(remote_ssh_config_entries)
 }
 
 remote_ssh_cmd_guide_print_git() {
@@ -145,7 +195,12 @@ Notes
   remote-ssh guide shows the loaded shell configuration.
   Use remote-ssh guide post-install to reprint setup instructions.
   Interactive shells run a throttled background update check by default.
+  Interactive shells render a welcome panel by default.
+  Runtime config is read from \${XDG_CONFIG_HOME:-\$HOME/.config}/remote-ssh/config.
+  Inspect effective config with remote-ssh guide config.
+  Custom welcome module template: shell/welcome.d/user-module.sh.example.
   Disable it with REMOTE_SSH_UPDATE_CHECK=0.
+  Disable the welcome panel with REMOTE_SSH_WELCOME=0.
   remote-ssh prune is dry-run by default; use --apply to remove candidates.
   Use logrun make build to save make.log, or command 2>&1 | log file.log.
   vim/nvim and tmux are not installed by remote-ssh.
@@ -162,6 +217,8 @@ remote_ssh_cmd_guide_print_all() {
   remote_ssh_cmd_guide_print_functions
   printf '\n'
   remote_ssh_cmd_guide_print_paths
+  printf '\n'
+  remote_ssh_cmd_guide_print_config
   printf '\n'
   remote_ssh_cmd_guide_print_tools
   printf '\n'

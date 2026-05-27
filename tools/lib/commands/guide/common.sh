@@ -5,7 +5,7 @@ ensure_this_file_sourced
 remote_ssh_cmd_guide_usage() {
   cat <<'EOF' >&2
 Usage:
-  remote-ssh guide [all|commands|aliases|functions|paths|git|tools|scripts|starship|post-install]
+  remote-ssh guide [all|commands|aliases|functions|paths|config|git|tools|scripts|starship|post-install]
   remote-ssh guide scripts [helper]
 EOF
 }

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import shutil
 import textwrap
 from pathlib import Path
 
@@ -123,7 +124,7 @@ def test_update_check_rc_skips_noninteractive_shells(repo_dir: Path, tmp_path: P
     assert result.stdout.rstrip("\n") == "skipped"
 
 
-def test_update_check_rc_prints_cached_status_and_refreshes_silently(
+def test_update_check_rc_refreshes_cache_silently(
     repo_dir: Path,
     tmp_path: Path,
 ) -> None:
@@ -131,14 +132,19 @@ def test_update_check_rc_prints_cached_status_and_refreshes_silently(
     shutil_source = repo_dir / "shell" / "rc.d" / "04-update-check.sh"
     update_check = remote / "shell" / "rc.d" / "04-update-check.sh"
     update_check.write_text(shutil_source.read_text(encoding="utf-8"), encoding="utf-8")
+    (remote / "shell" / "update-check.lib.sh").write_text(
+        (repo_dir / "shell" / "update-check.lib.sh").read_text(encoding="utf-8"),
+        encoding="utf-8",
+    )
+    shutil.copytree(
+        repo_dir / "shell" / "update-check",
+        remote / "shell" / "update-check",
+        dirs_exist_ok=True,
+    )
     state_dir = tmp_path / "state"
     state_dir.mkdir()
     (state_dir / "update-check").write_text(
         "checked_at=1\nchecked_at_text=2026-05-27 12:00:00 UTC\nstatus=current\n",
-        encoding="utf-8",
-    )
-    (state_dir / "login-status").write_text(
-        "remote-ssh: current (checked: 2026-05-27 12:00:00 UTC)\n",
         encoding="utf-8",
     )
 
@@ -154,12 +160,10 @@ def test_update_check_rc_prints_cached_status_and_refreshes_silently(
         """
         #!/usr/bin/env bash
         state_file="${REMOTE_SSH_UPDATE_CHECK_STATE_DIR}/update-check"
-        status_file="${REMOTE_SSH_UPDATE_CHECK_STATE_DIR}/login-status"
         case "$*" in
           "update check --quiet --write-cache")
             mkdir -p "${REMOTE_SSH_UPDATE_CHECK_STATE_DIR}"
             printf 'checked_at=1\nchecked_at_text=2026-05-27 12:01:00 UTC\nstatus=update-available\n' >"${state_file}"
-            printf 'remote-ssh: update available. Run: remote-ssh update (checked: 2026-05-27 12:01:00 UTC)\n' >"${status_file}"
             exit 0
             ;;
         esac
@@ -186,29 +190,10 @@ def test_update_check_rc_prints_cached_status_and_refreshes_silently(
     )
 
     assert_ok(result)
-    assert result.stdout.count("remote-ssh: current (checked: 2026-05-27 12:00:00 UTC)") == 1
-    assert "remote-ssh: update available. Run: remote-ssh update" not in result.stdout
+    assert "remote-ssh:" not in result.stdout
     assert "Done" not in result.stderr
     assert "remote-ssh update check --quiet --write-cache" not in result.stderr
-
-    result = run_cmd(
-        [
-            "bash",
-            "-i",
-            "-c",
-            """
-            export REMOTE_SSH_UPDATE_CHECK_STATE_DIR="$1/state"
-            export REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
-            . "$2/shell/rc.sh"
-            """,
-            "_",
-            tmp_path,
-            remote,
-        ]
-    )
-
-    assert_ok(result)
-    assert "remote-ssh: update available. Run: remote-ssh update (checked: 2026-05-27 12:01:00 UTC)" in result.stdout
+    assert "status=update-available" in (state_dir / "update-check").read_text(encoding="utf-8")
 
 
 def test_rc_fails_clearly_when_sourced_from_zsh(repo_dir: Path, tmp_path: Path) -> None:

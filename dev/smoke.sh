@@ -35,8 +35,8 @@ dev_log "python checks"
 dev_require_cmd uv
 (
   cd "$SCRIPT_DIR" || exit
-  PYTHONDONTWRITEBYTECODE=1 uv run ruff check --no-fix ../scripts check_assets_live.py
-  PYTHONDONTWRITEBYTECODE=1 uv run mypy --config-file pyproject.toml ../scripts check_assets_live.py
+  PYTHONDONTWRITEBYTECODE=1 uv run ruff check --no-fix ../scripts check_assets_live.py bench_shell_startup.py bench
+  PYTHONDONTWRITEBYTECODE=1 uv run mypy --config-file pyproject.toml ../scripts check_assets_live.py bench_shell_startup.py bench
 )
 
 dev_log "ok"

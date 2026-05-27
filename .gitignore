@@ -2,10 +2,5 @@
 
 .mypy_cache/
 .ruff_cache/
-dev/.mypy_cache/
-dev/.ruff_cache/
-dev/tests/__pycache__/
-dev/.venv/
-dev/.env
 dots/git/user.local
 dots/ssh/config.local

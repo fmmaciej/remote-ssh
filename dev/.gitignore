@@ -1,0 +1,8 @@
+.env
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+__pycache__/
+tests/__pycache__/
+config/shell_startup_references.local.json

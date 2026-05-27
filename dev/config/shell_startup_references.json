@@ -1,0 +1,10 @@
+{
+  "references": [
+    {
+      "name": "zsh-reference",
+      "description": "Zsh startup reference from local dotfiles benchmark; synthetic value, not a runtime measurement",
+      "ready_ms": 200.0,
+      "total_ms": 200.0
+    }
+  ]
+}

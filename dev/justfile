@@ -2,7 +2,7 @@
 
 # Folder ze skryptami pythonowymi
 py_scripts := "../scripts"
-py_dev_scripts := "check_assets_live.py bench_shell_startup.py"
+py_dev_scripts := "check_assets_live.py bench_shell_startup.py bench"
 py_tests := "tests"
 
 default:

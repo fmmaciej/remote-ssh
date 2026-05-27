@@ -41,9 +41,11 @@ session exports belongs in `rc.d/*.sh`.
 ## Update check
 
 `04-update-check.sh` runs only in interactive shells. It reads a small cache
-from `${XDG_STATE_HOME:-$HOME/.local/state}/remote-ssh/update-check`, prints a
-one-line hint when an update is known to be available, and refreshes that cache
-in the background when it is stale.
+from `${XDG_STATE_HOME:-$HOME/.local/state}/remote-ssh/update-check` and prints
+the cached login status from
+`${XDG_STATE_HOME:-$HOME/.local/state}/remote-ssh/login-status`. When the cache
+is stale, the hook refreshes it in the background for the next login without
+writing from the background job to the terminal.
 
 The refresh uses:
 

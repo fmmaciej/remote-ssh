@@ -34,6 +34,7 @@ remote_ssh_cmd_update_run() {
   }
 
   git -C "$repo_dir" pull --ff-only
+  remote_ssh_cmd_update_check_cache_mark_current "$repo_dir" || true
   remote_ssh_cmd_install_main "$repo_dir"
 }
 

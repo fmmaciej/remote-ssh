@@ -81,9 +81,10 @@ remote-ssh guide post-install
 ## Update Check
 
 Interactive remote-ssh shells run a throttled background update check by
-default. The check only compares the current checkout with its configured
-upstream and prints a short hint when an update is available; it never pulls or
-modifies files during login.
+default. Login prints the cached remote-ssh status, while stale status is
+refreshed silently in the background for the next login. The check only compares
+the current checkout with its configured upstream; it never pulls or modifies
+files during login.
 
 Disable it with:
 

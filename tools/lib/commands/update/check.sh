@@ -39,12 +39,54 @@ remote_ssh_cmd_update_check_cache_file() {
   printf '%s/update-check\n' "$state_dir"
 }
 
+remote_ssh_cmd_update_check_login_status_file() {
+  local state_dir
+
+  state_dir="$(remote_ssh_cmd_update_check_state_dir)" || return 1
+  printf '%s/login-status\n' "$state_dir"
+}
+
 remote_ssh_cmd_update_check_cache_get() {
   local file="$1" key="$2" line
 
   [[ -r "$file" ]] || return 1
   line="$(grep -m 1 "^${key}=" "$file" 2>/dev/null)" || return 1
   printf '%s\n' "${line#*=}"
+}
+
+remote_ssh_cmd_update_check_checked_at_text() {
+  date '+%Y-%m-%d %H:%M:%S %Z' 2>/dev/null || date 2>/dev/null || printf 'unknown'
+}
+
+remote_ssh_cmd_update_check_login_status_suffix() {
+  printf ' (checked: %s)' "${REMOTE_SSH_UPDATE_CHECK_CHECKED_AT_TEXT:-unknown}"
+}
+
+remote_ssh_cmd_update_check_login_status_render() {
+  case "${REMOTE_SSH_UPDATE_CHECK_STATUS:-}" in
+    current)
+      printf 'remote-ssh: current%s\n' "$(remote_ssh_cmd_update_check_login_status_suffix)"
+      ;;
+    update-available)
+      printf 'remote-ssh: update available. Run: remote-ssh update%s\n' "$(remote_ssh_cmd_update_check_login_status_suffix)"
+      ;;
+    error)
+      printf 'remote-ssh: update check unavailable%s\n' "$(remote_ssh_cmd_update_check_login_status_suffix)"
+      ;;
+    *)
+      printf 'remote-ssh: update status unknown%s\n' "$(remote_ssh_cmd_update_check_login_status_suffix)"
+      ;;
+  esac
+}
+
+remote_ssh_cmd_update_check_login_status_write() {
+  local file tmp
+
+  file="$(remote_ssh_cmd_update_check_login_status_file)" || return 0
+  mkdir -p "${file%/*}" || return 0
+
+  tmp="${file}.$$"
+  remote_ssh_cmd_update_check_login_status_render >"$tmp" && mv "$tmp" "$file"
 }
 
 remote_ssh_cmd_update_check_cache_write() {
@@ -54,8 +96,9 @@ remote_ssh_cmd_update_check_cache_write() {
   mkdir -p "${file%/*}" || return 0
 
   tmp="${file}.$$"
-  {
+  if {
     printf 'checked_at=%s\n' "${REMOTE_SSH_UPDATE_CHECK_CHECKED_AT:-}"
+    printf 'checked_at_text=%s\n' "${REMOTE_SSH_UPDATE_CHECK_CHECKED_AT_TEXT:-unknown}"
     printf 'status=%s\n' "${REMOTE_SSH_UPDATE_CHECK_STATUS:-error}"
     printf 'repo=%s\n' "${REMOTE_SSH_UPDATE_CHECK_REPO:-}"
     printf 'branch=%s\n' "${REMOTE_SSH_UPDATE_CHECK_BRANCH:-}"
@@ -63,7 +106,9 @@ remote_ssh_cmd_update_check_cache_write() {
     printf 'local_head=%s\n' "${REMOTE_SSH_UPDATE_CHECK_LOCAL_HEAD:-}"
     printf 'remote_head=%s\n' "${REMOTE_SSH_UPDATE_CHECK_REMOTE_HEAD:-}"
     printf 'message=%s\n' "${REMOTE_SSH_UPDATE_CHECK_MESSAGE:-}"
-  } >"$tmp" && mv "$tmp" "$file"
+  } >"$tmp" && mv "$tmp" "$file"; then
+    remote_ssh_cmd_update_check_login_status_write
+  fi
 }
 
 remote_ssh_cmd_update_check_set_error() {
@@ -78,6 +123,7 @@ remote_ssh_cmd_update_check_collect() {
 
   REMOTE_SSH_UPDATE_CHECK_REPO="$repo_dir"
   REMOTE_SSH_UPDATE_CHECK_CHECKED_AT="$(date +%s 2>/dev/null || printf '0')"
+  REMOTE_SSH_UPDATE_CHECK_CHECKED_AT_TEXT="$(remote_ssh_cmd_update_check_checked_at_text)"
   REMOTE_SSH_UPDATE_CHECK_STATUS="error"
   REMOTE_SSH_UPDATE_CHECK_BRANCH=""
   REMOTE_SSH_UPDATE_CHECK_UPSTREAM=""
@@ -149,6 +195,32 @@ remote_ssh_cmd_update_check_collect() {
     REMOTE_SSH_UPDATE_CHECK_STATUS="update-available"
     REMOTE_SSH_UPDATE_CHECK_MESSAGE="remote-ssh upstream has changed."
   fi
+}
+
+remote_ssh_cmd_update_check_cache_mark_current() {
+  local repo_dir="$1"
+  local local_head branch upstream
+
+  REMOTE_SSH_UPDATE_CHECK_REPO="$repo_dir"
+  REMOTE_SSH_UPDATE_CHECK_CHECKED_AT="$(date +%s 2>/dev/null || printf '0')"
+  REMOTE_SSH_UPDATE_CHECK_CHECKED_AT_TEXT="$(remote_ssh_cmd_update_check_checked_at_text)"
+  REMOTE_SSH_UPDATE_CHECK_STATUS="current"
+  REMOTE_SSH_UPDATE_CHECK_BRANCH=""
+  REMOTE_SSH_UPDATE_CHECK_UPSTREAM=""
+  REMOTE_SSH_UPDATE_CHECK_LOCAL_HEAD=""
+  REMOTE_SSH_UPDATE_CHECK_REMOTE_HEAD=""
+  REMOTE_SSH_UPDATE_CHECK_MESSAGE="remote-ssh is current."
+
+  local_head="$(git -C "$repo_dir" rev-parse HEAD 2>/dev/null || true)"
+  branch="$(git -C "$repo_dir" symbolic-ref --quiet --short HEAD 2>/dev/null || true)"
+  upstream="$(git -C "$repo_dir" rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null || true)"
+
+  REMOTE_SSH_UPDATE_CHECK_LOCAL_HEAD="$local_head"
+  REMOTE_SSH_UPDATE_CHECK_REMOTE_HEAD="$local_head"
+  REMOTE_SSH_UPDATE_CHECK_BRANCH="$branch"
+  REMOTE_SSH_UPDATE_CHECK_UPSTREAM="$upstream"
+
+  remote_ssh_cmd_update_check_cache_write
 }
 
 remote_ssh_cmd_update_check_render() {

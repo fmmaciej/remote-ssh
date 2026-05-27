@@ -432,7 +432,10 @@ def test_bash_preexec_loads_in_rc_flow(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
 ) -> None:
-    env = isolated_env.env | {"REPO_DIR": str(repo_dir)}
+    env = isolated_env.env | {
+        "REMOTE_SSH_UPDATE_CHECK": "0",
+        "REPO_DIR": str(repo_dir),
+    }
 
     result = run_cmd(
         [

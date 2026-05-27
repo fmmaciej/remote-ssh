@@ -77,6 +77,22 @@
     - default keybindings can conflict with existing user habits
   - Likely direction: keep both optional
 
+**Neovim / LazyVim:**
+
+- Consider optional LazyVim support as a separate Neovim profile, not the
+  default editor.
+  - Keep `vim` and `nvim` on the lightweight bundled `dots/vimrc`.
+  - Use `NVIM_APPNAME=remote-ssh-lazyvim` for isolation from the default
+    Neovim state and config.
+  - Add an optional helper or alias such as
+    `nvim-lazy='NVIM_APPNAME=remote-ssh-lazyvim nvim'`.
+  - Do not install LazyVim plugins during `runme.sh`; first launch may need
+    network access and can be slow.
+  - If added, document the manual starter install flow in `remote-ssh guide`
+    or shell docs.
+  - Keep this opt-in because LazyVim may require Git, network access, fonts,
+    and plugin-specific tools depending on the selected plugin set.
+
 **Docker / Kubernetes:**
 
 - Consider whether Dozzle belongs in the remote-ssh workflow as an optional

@@ -1,0 +1,24 @@
+% process, ps, procs
+
+# List processes
+procs
+
+# Search processes by keyword
+procs <keyword>
+
+$ keyword: printf '%s\n' ssh bash python node java docker
+
+# Show process tree
+procs --tree
+
+# Watch processes like top
+procs --watch
+
+# Sort by CPU descending
+procs --sortd cpu
+
+# Sort by memory descending
+procs --sortd mem
+
+# Show help
+procs --help

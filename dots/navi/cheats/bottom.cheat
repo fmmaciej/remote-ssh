@@ -1,0 +1,21 @@
+% process, monitor, bottom, btm
+
+# Open bottom system monitor
+btm
+
+# Open htop-like basic mode
+btm --basic
+
+# Open process tree mode
+btm --tree
+
+# Start focused on processes
+btm --default_widget_type proc
+
+# Use a slower refresh rate
+btm --rate <milliseconds>
+
+$ milliseconds: printf '%s\n' 1000 2000 5000
+
+# Show help
+btm --help

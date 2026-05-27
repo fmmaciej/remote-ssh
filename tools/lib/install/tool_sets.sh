@@ -5,7 +5,7 @@ ensure_this_file_sourced
 
 MINI_TOOLS=(rg fd sd)
 QUICK_TOOLS=(rg fd sd bat starship eza zoxide navi atuin)
-DEFAULT_TOOLS=(fd rg sd dust fzf bat yazi nvim zellij nu starship eza zoxide atuin navi tspin vector)
+DEFAULT_TOOLS=(fd rg sd dust fzf bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi tspin vector)
 INSTALL_PROFILES=(mini quick full)
 
 default_platform() {

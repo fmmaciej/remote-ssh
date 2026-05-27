@@ -17,6 +17,8 @@ RUNME_TOOLS=(
   dust
   fzf
   bat
+  bottom
+  procs
   yazi
   nvim
   zellij

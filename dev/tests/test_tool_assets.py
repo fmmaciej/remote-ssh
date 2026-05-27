@@ -45,6 +45,12 @@ bat|linux:aarch64:musl|bat-v0.26.1-aarch64-unknown-linux-musl.tar.gz
 bat|linux:x86_64:musl|bat-v0.26.1-x86_64-unknown-linux-musl.tar.gz
 bat|linux:aarch64:gnu|bat-v0.26.1-aarch64-unknown-linux-gnu.tar.gz
 bat|linux:x86_64:gnu|bat-v0.26.1-x86_64-unknown-linux-gnu.tar.gz
+bottom|darwin:aarch64:any|bottom_aarch64-apple-darwin.tar.gz
+bottom|darwin:x86_64:any|bottom_x86_64-apple-darwin.tar.gz
+bottom|linux:aarch64:gnu|bottom_aarch64-unknown-linux-gnu.tar.gz
+bottom|linux:aarch64:musl|bottom_aarch64-unknown-linux-musl.tar.gz
+bottom|linux:x86_64:gnu|bottom_x86_64-unknown-linux-gnu-2-17.tar.gz
+bottom|linux:x86_64:musl|bottom_x86_64-unknown-linux-musl.tar.gz
 dust|linux:aarch64:gnu|dust-v1.2.4-aarch64-unknown-linux-gnu.tar.gz
 dust|linux:aarch64:musl|dust-v1.2.4-aarch64-unknown-linux-musl.tar.gz
 dust|darwin:x86_64:any|dust-v1.2.4-x86_64-apple-darwin.tar.gz
@@ -77,6 +83,8 @@ nvim|linux:aarch64:gnu|nvim-linux-arm64.tar.gz
 nvim|linux:x86_64:gnu|nvim-linux-x86_64.tar.gz
 nvim|darwin:aarch64:any|nvim-macos-arm64.tar.gz
 nvim|darwin:x86_64:any|nvim-macos-x86_64.tar.gz
+procs|linux:aarch64:gnu|procs-v0.14.11-aarch64-linux.zip
+procs|linux:x86_64:gnu|procs-v0.14.11-x86_64-linux.zip
 rg|darwin:aarch64:any|ripgrep-15.1.0-aarch64-apple-darwin.tar.gz
 rg|darwin:x86_64:any|ripgrep-15.1.0-x86_64-apple-darwin.tar.gz
 rg|linux:x86_64:musl|ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz
@@ -143,6 +151,8 @@ def test_linux_gnu_asset_selection(repo_dir: Path) -> None:
 atuin|linux:aarch64:gnu|atuin-aarch64-unknown-linux-musl.tar.gz
 bat|linux:x86_64:gnu|bat-v0.26.1-x86_64-unknown-linux-musl.tar.gz
 bat|linux:aarch64:gnu|bat-v0.26.1-aarch64-unknown-linux-musl.tar.gz
+bottom|linux:x86_64:gnu|bottom_x86_64-unknown-linux-musl.tar.gz
+bottom|linux:aarch64:gnu|bottom_aarch64-unknown-linux-musl.tar.gz
 dust|linux:x86_64:gnu|dust-v1.2.4-x86_64-unknown-linux-musl.tar.gz
 dust|linux:aarch64:gnu|dust-v1.2.4-aarch64-unknown-linux-musl.tar.gz
 eza|linux:x86_64:gnu|eza_x86_64-unknown-linux-musl.tar.gz
@@ -157,6 +167,8 @@ nu|linux:x86_64:gnu|nu-0.112.2-x86_64-unknown-linux-musl.tar.gz
 nu|linux:aarch64:gnu|nu-0.112.2-aarch64-unknown-linux-musl.tar.gz
 nvim|linux:x86_64:gnu|nvim-linux-x86_64.tar.gz
 nvim|linux:aarch64:gnu|nvim-linux-arm64.tar.gz
+procs|linux:x86_64:gnu|procs-v0.14.11-x86_64-linux.zip
+procs|linux:aarch64:gnu|procs-v0.14.11-aarch64-linux.zip
 rg|linux:x86_64:gnu|ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz
 rg|linux:aarch64:gnu|ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz
 sd|linux:x86_64:gnu|sd-v1.1.0-x86_64-unknown-linux-musl.tar.gz

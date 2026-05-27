@@ -20,10 +20,10 @@ else
 fi
 
 if have nvim; then
-  alias nvim='nvim -u ${REMOTE_DOTS_DIR}/vimrc'
-  alias vim='nvim'
+  alias nvim='command nvim -u ${REMOTE_DOTS_DIR}/vimrc'
+  alias vim='command nvim -u ${REMOTE_DOTS_DIR}/vimrc'
 elif have vim; then
-  alias vim='vim -u ${REMOTE_DOTS_DIR}/vimrc'
+  alias vim='command vim -u ${REMOTE_DOTS_DIR}/vimrc'
 fi
 
 have ripgrep && alias rg="ripgrep"

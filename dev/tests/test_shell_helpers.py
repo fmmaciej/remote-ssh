@@ -112,6 +112,57 @@ def test_editor_prefers_nvim_and_sets_visual(
     assert "visual=nvim" in lines
 
 
+def test_bundled_vimrc_uses_system_clipboard_when_available(repo_dir: Path) -> None:
+    conf = (repo_dir / "dots" / "vimrc").read_text(encoding="utf-8")
+
+    assert "set clipboard=unnamed,unnamedplus" in conf
+    assert 'nnoremap <leader>p "+p' in conf
+
+
+def test_vim_alias_uses_bundled_vimrc_when_nvim_is_available(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    write_executable(
+        isolated_env.bin_dir / "nvim",
+        """
+        #!/usr/bin/env bash
+        printf '%s\n' "$@" >"$NVIM_ARGS_LOG"
+        """,
+    )
+    args_log = isolated_env.home / "nvim.args"
+    env = isolated_env.env | {
+        "PATH": f"{isolated_env.bin_dir}:/usr/bin:/bin",
+        "REMOTE_DOTS_DIR": str(repo_dir / "dots"),
+        "NVIM_ARGS_LOG": str(args_log),
+    }
+
+    result = run_cmd(
+        [
+            "bash",
+            "--noprofile",
+            "--norc",
+            "-ic",
+            """
+            . "$1/lib/guards.sh"
+            . "$1/lib/helpers.sh"
+            . "$1/shell/aliases.sh"
+            eval 'vim sample.txt'
+            """,
+            "_",
+            repo_dir,
+        ],
+        env=env,
+    )
+
+    assert_ok(result)
+    assert args_log.read_text(encoding="utf-8").splitlines() == [
+        "-u",
+        str(repo_dir / "dots" / "vimrc"),
+        "sample.txt",
+    ]
+
+
 def test_editor_warns_when_missing(
     repo_dir: Path,
     isolated_env: IsolatedEnv,

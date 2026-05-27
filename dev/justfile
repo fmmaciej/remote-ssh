@@ -2,7 +2,7 @@
 
 # Folder ze skryptami pythonowymi
 py_scripts := "../scripts"
-py_dev_scripts := "check_assets_live.py"
+py_dev_scripts := "check_assets_live.py bench_shell_startup.py"
 py_tests := "tests"
 
 default:
@@ -49,3 +49,6 @@ test: smoke
 
 test-assets-live:
     UV_CACHE_DIR="${UV_CACHE_DIR:-${TMPDIR:-/tmp}/remote-ssh-uv-cache}" uv run python check_assets_live.py
+
+bench-shell *args:
+    UV_CACHE_DIR="${UV_CACHE_DIR:-${TMPDIR:-/tmp}/remote-ssh-uv-cache}" uv run python bench_shell_startup.py {{ args }}

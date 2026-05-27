@@ -90,6 +90,7 @@ just sh-lint
 just sh-fmt
 just test
 just smoke
+just bench-shell
 just pre-commit-install
 just pre-commit
 just test-assets-live
@@ -103,6 +104,13 @@ If you hit GitHub API rate limits, copy `dev/.env.example` to `dev/.env` and
 set `GITHUB_TOKEN` or `GH_TOKEN`. `dev/.env` is local-only and ignored by git.
 The live checker is implemented in `dev/check_assets_live.py` and is normally
 run through `just test-assets-live`.
+
+`just bench-shell` runs a local, developer-only shell startup benchmark. It
+measures remote-ssh startup variants relative to a clean Bash baseline on the
+same machine. It is diagnostic output, not a pass/fail test, and is intentionally
+not part of `just smoke`. When a single `--scenario` is selected, the benchmark
+adds `bash-baseline` automatically so ratio and delta stay meaningful. Use
+`--format json` to inspect captured output from failed samples.
 
 Smoke checks are split by responsibility:
 

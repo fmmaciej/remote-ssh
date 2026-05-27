@@ -31,4 +31,7 @@ test: smoke
 test-assets-live:
     just -f dev/justfile test-assets-live
 
+bench-shell *args:
+    just -f dev/justfile bench-shell {{ args }}
+
 all: lint fmt type

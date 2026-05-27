@@ -9,6 +9,9 @@ alias rhelp='remote-ssh guide'
 alias rssh="cd ~/.local/share/remote-ssh"
 
 alias l="ls"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
 
 if have eza; then
   alias ls="eza"

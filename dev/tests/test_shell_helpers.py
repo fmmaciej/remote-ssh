@@ -112,6 +112,36 @@ def test_editor_prefers_nvim_and_sets_visual(
     assert "visual=nvim" in lines
 
 
+def test_shell_aliases_include_parent_directory_shortcuts(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_cmd(
+        [
+            "bash",
+            "--noprofile",
+            "--norc",
+            "-ic",
+            """
+            . "$1/lib/guards.sh"
+            . "$1/lib/helpers.sh"
+            . "$1/shell/aliases.sh"
+            alias ..
+            alias ...
+            alias ....
+            """,
+            "_",
+            repo_dir,
+        ],
+        env=isolated_env.env,
+    )
+
+    assert_ok(result)
+    assert "alias ..='cd ..'" in result.stdout
+    assert "alias ...='cd ../..'" in result.stdout
+    assert "alias ....='cd ../../..'" in result.stdout
+
+
 def test_bundled_vimrc_uses_system_clipboard_when_available(repo_dir: Path) -> None:
     conf = (repo_dir / "dots" / "vimrc").read_text(encoding="utf-8")
 

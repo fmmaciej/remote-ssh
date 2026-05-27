@@ -27,6 +27,13 @@ remote_ssh_welcome_ssh_agent_status() {
 remote_ssh_welcome_git_user_config_status() {
   local repo_dir user_config name email
 
+  case "${REMOTE_SSH_GIT_SESSION_IDENTITY_STATUS:-}" in
+    ok | disabled | missing | invalid | inactive | unavailable)
+      printf '%s\n' "$REMOTE_SSH_GIT_SESSION_IDENTITY_STATUS"
+      return 0
+      ;;
+  esac
+
   if [[ "${REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY:-1}" != "1" ]]; then
     printf 'disabled\n'
     return 0

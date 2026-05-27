@@ -5,10 +5,11 @@ import sys
 from pathlib import Path
 
 import pytest
+from bench import scenarios as bench_scenarios
 from bench.model import Sample
 from bench.references import reference_file_paths
 from bench.report import sample_to_json
-from bench.scenarios import SCENARIO_ORDER, scenario_environment
+from bench.scenarios import ATUIN_IMPORT_MARKER, SCENARIO_ORDER, scenario_environment
 from bench.stats import series_stats
 from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd
 
@@ -50,10 +51,67 @@ def test_scenario_environment_is_isolated(repo_dir: Path, tmp_path: Path) -> Non
     ).exists()
 
 
+def test_scenario_environment_preseeds_once_per_home_state(
+    repo_dir: Path,
+    tmp_path: Path,
+) -> None:
+    env = scenario_environment(
+        "remote-ssh-default-preseed",
+        {"PATH": "/usr/bin:/bin"},
+        tmp_path / "scenario",
+        repo_dir,
+    )
+
+    state_dir = Path(env["XDG_STATE_HOME"]) / "remote-ssh"
+    assert (state_dir / "update-check").exists()
+    assert (state_dir / ATUIN_IMPORT_MARKER).exists()
+
+
+def test_warm_home_scenario_reuses_home_for_primer_warmups_and_samples(
+    repo_dir: Path,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    homes: list[str] = []
+
+    def fake_run_pty_sample(
+        _args: object,
+        env: dict[str, str],
+        _cwd: Path,
+        _marker: str,
+        _timeout_seconds: float,
+    ) -> Sample:
+        homes.append(env["HOME"])
+        return Sample(
+            ready_ms=1.0,
+            total_ms=1.0,
+            returncode=0,
+            timed_out=False,
+            output_tail="",
+        )
+
+    monkeypatch.setattr(bench_scenarios, "run_pty_sample", fake_run_pty_sample)
+
+    result = bench_scenarios.run_scenario(
+        "remote-ssh-default-warm-home",
+        repo_dir,
+        tmp_path / "bench",
+        iterations=2,
+        warmup=1,
+        timeout_seconds=1.0,
+    )
+
+    assert len(homes) == 4
+    assert len(set(homes)) == 1
+    assert len(result.samples) == 2
+    assert (Path(homes[0]) / ".local" / "state" / "remote-ssh" / "update-check").exists()
+
+
 def run_bench_json(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
     scenario: str | None = None,
+    suite: str | None = None,
 ) -> dict[str, object]:
     args: list[str | Path] = [
         sys.executable,
@@ -67,6 +125,8 @@ def run_bench_json(
     ]
     if scenario is not None:
         args.extend(["--scenario", scenario])
+    if suite is not None:
+        args.extend(["--suite", suite])
 
     result = run_cmd(
         args,
@@ -135,6 +195,8 @@ def test_cli_json_default_includes_references(
         "remote-ssh-min",
         "remote-ssh-welcome",
         "remote-ssh-default",
+        "remote-ssh-default-preseed",
+        "remote-ssh-default-warm-home",
     ]
 
 
@@ -152,6 +214,73 @@ def test_cli_json_adds_baseline_for_single_remote_scenario(
     summary = data["scenarios"][2]["summary"]
     assert summary["ratio_ready_vs_baseline"] is not None
     assert summary["delta_ready_ms_vs_baseline"] is not None
+
+
+def test_cli_json_adds_baseline_for_warm_home_scenario(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    data = run_bench_json(repo_dir, isolated_env, "remote-ssh-default-warm-home")
+
+    assert [item["name"] for item in data["scenarios"]] == [
+        "bash-baseline",
+        "zsh-reference",
+        "remote-ssh-default-warm-home",
+    ]
+    summary = data["scenarios"][2]["summary"]
+    assert summary["ratio_ready_vs_baseline"] is not None
+    assert summary["delta_ready_ms_vs_baseline"] is not None
+
+
+def test_cli_json_login_suite_runs_sensible_scenarios(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    data = run_bench_json(repo_dir, isolated_env, suite="login")
+
+    assert [item["name"] for item in data["scenarios"]] == [
+        "bash-baseline",
+        "zsh-reference",
+        "remote-ssh-min",
+        "remote-ssh-default",
+        "remote-ssh-default-warm-home",
+    ]
+
+
+def test_cli_json_suite_can_be_combined_with_scenario(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    data = run_bench_json(repo_dir, isolated_env, scenario="remote-ssh-welcome", suite="login")
+
+    assert [item["name"] for item in data["scenarios"]] == [
+        "bash-baseline",
+        "zsh-reference",
+        "remote-ssh-min",
+        "remote-ssh-default",
+        "remote-ssh-default-warm-home",
+        "remote-ssh-welcome",
+    ]
+
+
+def test_cli_unknown_suite_fails(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_cmd(
+        [
+            sys.executable,
+            repo_dir / "dev" / "bench_shell_startup.py",
+            "--suite",
+            "unknown",
+            "--format",
+            "json",
+        ],
+        env=isolated_env.env,
+    )
+
+    assert_failed(result)
+    assert "unknown suite: unknown; available: login" in result.stderr
 
 
 def test_cli_json_reference_scenario_adds_baseline(

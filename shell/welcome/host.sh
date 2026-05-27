@@ -16,6 +16,10 @@ remote_ssh_welcome_host_ip_from_hostname() {
 remote_ssh_welcome_host_ip_from_ip_route() {
   local word previous output
 
+  case "$(uname -s 2>/dev/null || true)" in
+    Darwin) return 1 ;;
+  esac
+
   command -v ip >/dev/null 2>&1 || return 1
   output="$(ip route get 1.1.1.1 2>/dev/null || true)"
   previous=""

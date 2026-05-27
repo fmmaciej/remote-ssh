@@ -10,7 +10,12 @@ from pathlib import Path
 from bench.model import BenchConfigError
 from bench.references import load_reference_scenarios
 from bench.report import print_table, report_json
-from bench.scenarios import run_named_scenario, selected_scenario_names, validate_scenario_names
+from bench.scenarios import (
+    expand_scenario_suites,
+    run_named_scenario,
+    selected_scenario_names,
+    validate_scenario_names,
+)
 from bench.stats import baseline_ready_median
 
 
@@ -28,6 +33,11 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
         "--scenario",
         action="append",
         help="scenario to run; may be passed more than once",
+    )
+    parser.add_argument(
+        "--suite",
+        action="append",
+        help="scenario suite to run; available: login",
     )
     parser.add_argument("--format", choices=("table", "json"), default="table")
     return parser.parse_args(argv)
@@ -52,7 +62,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         reference_scenarios = load_reference_scenarios(current_repo)
         reference_map = {reference.name: reference for reference in reference_scenarios}
-        scenario_names = selected_scenario_names(args.scenario, tuple(reference_map))
+        requested = (*expand_scenario_suites(args.suite), *(args.scenario or ()))
+        scenario_names = selected_scenario_names(requested or None, tuple(reference_map))
         validate_scenario_names(scenario_names, reference_map)
     except BenchConfigError as exc:
         print(f"bench_shell_startup: {exc}", file=sys.stderr)

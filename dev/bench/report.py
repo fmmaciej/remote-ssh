@@ -48,14 +48,15 @@ def report_json(
 
 
 def print_table(results: Sequence[ScenarioResult], baseline_median: float | None) -> None:
+    scenario_width = max(20, *(len(result.name) for result in results))
     print("Shell startup benchmark (local PTY)")
     print()
     print(
-        "Scenario              n  fail  ready med  ready p95  ready min  "
+        f"{'Scenario':<{scenario_width}}  n  fail  ready med  ready p95  ready min  "
         "ready max  delta   ratio  slower  total med"
     )
     print(
-        "-------------------- -- ----- ---------- ---------- ---------- "
+        f"{'-' * scenario_width} -- ----- ---------- ---------- ---------- "
         "---------- ------- ------ ------- ---------"
     )
     for result in results:
@@ -63,7 +64,7 @@ def print_table(results: Sequence[ScenarioResult], baseline_median: float | None
         ready_stats = summary["ready_ms"] or {}
         total_stats = summary["total_ms"] or {}
         print(
-            f"{result.name:<20} "
+            f"{result.name:<{scenario_width}} "
             f"{summary['iterations']:>2} "
             f"{summary['failed']:>5} "
             f"{fmt_ms(ready_stats.get('median')):>10} "

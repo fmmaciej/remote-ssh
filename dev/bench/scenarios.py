@@ -14,18 +14,33 @@ MEASURED_SCENARIO_ORDER = (
     "remote-ssh-min",
     "remote-ssh-welcome",
     "remote-ssh-default",
+    "remote-ssh-default-preseed",
+    "remote-ssh-default-warm-home",
 )
 SCENARIO_ORDER = MEASURED_SCENARIO_ORDER
+SCENARIO_SUITES = {
+    "login": (
+        "remote-ssh-min",
+        "remote-ssh-default",
+        "remote-ssh-default-warm-home",
+    ),
+}
 
 MEASURED_SCENARIO_DESCRIPTIONS = {
     "bash-baseline": "bash --noprofile --norc",
     "remote-ssh-min": "remote-ssh rc.sh with welcome/update disabled",
     "remote-ssh-welcome": "remote-ssh welcome, update disabled, user modules disabled",
     "remote-ssh-default": "remote-ssh default with fresh local update cache",
+    "remote-ssh-default-preseed": (
+        "remote-ssh default with fresh HOME and once-per-HOME state preseeded"
+    ),
+    "remote-ssh-default-warm-home": "remote-ssh default with one warmed isolated HOME",
 }
 
 REMOTE_SSH_ENV_PREFIX = "REMOTE_SSH_"
 NO_COLOR_ENV = "NO_COLOR"
+ATUIN_IMPORT_MARKER = "atuin-import-auto.done"
+WARM_HOME_SCENARIOS = frozenset({"remote-ssh-default-warm-home"})
 
 
 def clean_parent_env(parent_env: Mapping[str, str]) -> dict[str, str]:
@@ -67,8 +82,14 @@ def scenario_environment(
     elif scenario_name == "remote-ssh-welcome":
         env["REMOTE_SSH_UPDATE_CHECK"] = "0"
         env["REMOTE_SSH_WELCOME_USER"] = "0"
-    elif scenario_name == "remote-ssh-default":
+    elif scenario_name in {
+        "remote-ssh-default",
+        "remote-ssh-default-preseed",
+        "remote-ssh-default-warm-home",
+    }:
         write_fresh_update_cache(xdg_state_home)
+        if scenario_name == "remote-ssh-default-preseed":
+            write_atuin_import_marker(xdg_state_home)
 
     return env
 
@@ -96,6 +117,12 @@ def write_fresh_update_cache(xdg_state_home: Path) -> None:
     )
 
 
+def write_atuin_import_marker(xdg_state_home: Path) -> None:
+    state_dir = xdg_state_home / "remote-ssh"
+    state_dir.mkdir(parents=True, exist_ok=True)
+    (state_dir / ATUIN_IMPORT_MARKER).write_text("", encoding="utf-8")
+
+
 def shell_command(marker: str) -> str:
     return f"printf '%s\\n' {shlex.quote(marker)}"
 
@@ -113,12 +140,18 @@ def run_sample(
     bench_root: Path,
     sample_index: int,
     timeout_seconds: float,
+    sample_dir: Path | None = None,
 ) -> Sample:
     marker = f"__REMOTE_SSH_BENCH_READY_{os.getpid()}_{sample_index}__"
-    sample_dir = bench_root / scenario_name / str(sample_index)
+    if sample_dir is None:
+        sample_dir = bench_root / scenario_name / str(sample_index)
     env = scenario_environment(scenario_name, os.environ, sample_dir, current_repo)
     args = scenario_args(scenario_name, current_repo, marker)
     return run_pty_sample(args, env, current_repo, marker, timeout_seconds)
+
+
+def warm_home_sample_dir(bench_root: Path, scenario_name: str) -> Path:
+    return bench_root / scenario_name / "shared-home"
 
 
 def run_scenario(
@@ -129,11 +162,37 @@ def run_scenario(
     warmup: int,
     timeout_seconds: float,
 ) -> ScenarioResult:
+    sample_dir = None
+    if scenario_name in WARM_HOME_SCENARIOS:
+        sample_dir = warm_home_sample_dir(bench_root, scenario_name)
+        run_sample(
+            scenario_name,
+            current_repo,
+            bench_root,
+            -warmup - 2,
+            timeout_seconds,
+            sample_dir=sample_dir,
+        )
+
     for index in range(warmup):
-        run_sample(scenario_name, current_repo, bench_root, -index - 1, timeout_seconds)
+        run_sample(
+            scenario_name,
+            current_repo,
+            bench_root,
+            -index - 1,
+            timeout_seconds,
+            sample_dir=sample_dir,
+        )
 
     samples = tuple(
-        run_sample(scenario_name, current_repo, bench_root, index, timeout_seconds)
+        run_sample(
+            scenario_name,
+            current_repo,
+            bench_root,
+            index,
+            timeout_seconds,
+            sample_dir=sample_dir,
+        )
         for index in range(iterations)
     )
     return ScenarioResult(
@@ -191,6 +250,27 @@ def dedupe_names(names: Sequence[str]) -> tuple[str, ...]:
         seen.add(name)
         selected.append(name)
     return tuple(selected)
+
+
+def expand_scenario_suites(requested_suites: Sequence[str] | None) -> tuple[str, ...]:
+    if not requested_suites:
+        return ()
+
+    names: list[str] = []
+    unknown: list[str] = []
+    for suite in requested_suites:
+        suite_names = SCENARIO_SUITES.get(suite)
+        if suite_names is None:
+            unknown.append(suite)
+            continue
+        names.extend(suite_names)
+
+    if unknown:
+        available_text = ", ".join(sorted(SCENARIO_SUITES))
+        unknown_text = ", ".join(unknown)
+        raise BenchConfigError(f"unknown suite: {unknown_text}; available: {available_text}")
+
+    return dedupe_names(names)
 
 
 def selected_scenario_names(

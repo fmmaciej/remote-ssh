@@ -23,6 +23,16 @@ threshold.
 - `remote-ssh-welcome`: welcome enabled, update check disabled, user modules
   disabled.
 - `remote-ssh-default`: default welcome with an isolated fresh update cache.
+- `remote-ssh-default-preseed`: default welcome with a fresh `HOME` per sample,
+  plus preseeded once-per-HOME state such as the Atuin auto-import marker.
+- `remote-ssh-default-warm-home`: default welcome with one isolated `HOME`
+  shared by the primer, warmups, and measured samples.
+
+`remote-ssh-default` is a cold/fresh-home diagnostic. It is useful for first
+login cost, but it can overstate repeated-login cost because every sample looks
+like a new account to once-per-HOME hooks. Use `remote-ssh-default-preseed` to
+remove known one-time state setup from otherwise fresh samples, and
+`remote-ssh-default-warm-home` to model repeated logins on the same account.
 
 Each sample reports:
 
@@ -33,6 +43,7 @@ Each sample reports:
 
 ```bash
 just bench-shell --iterations 50
+just bench-shell --suite login
 just bench-shell --scenario remote-ssh-default
 just bench-shell --scenario remote-ssh-default --format json
 ```
@@ -43,6 +54,21 @@ inspect captured output from failed samples.
 
 The table also shows `slower`, the percentage slower or faster than the current
 measured `bash-baseline`.
+
+## Suites
+
+Suites are named groups of measured scenarios. They are useful when the full
+default report is too broad, but a single `--scenario` is too narrow.
+
+```bash
+just bench-shell --iterations 10 --warmup 2 --suite login
+```
+
+- `login`: `remote-ssh-min`, `remote-ssh-default`,
+  `remote-ssh-default-warm-home`.
+
+References are still added automatically for measured suites, so `login` shows
+`bash-baseline` and `zsh-reference` before the suite scenarios.
 
 ## Reference Values
 

@@ -8,19 +8,18 @@ remote_ssh_welcome_load_commands() {
   export REMOTE_ENV_DIR
 
   # shellcheck source=/dev/null
-  . "$repo_dir/tools/lib/env.sh" 2>/dev/null || return 1
-  # shellcheck source=/dev/null
-  . "$TOOLS_LIB_DIR/commands.lib.sh" 2>/dev/null || return 1
+  . "$repo_dir/tools/lib/status.lib.sh" 2>/dev/null || return 1
 }
 
 remote_ssh_welcome_print_tools() {
   local tool checked=0 ok=0
 
-  remote_ssh_cmd_require_install_libs >/dev/null 2>&1 || {
+  if ! declare -F read_expected_tools_for_current_platform >/dev/null ||
+    ! declare -F remote_ssh_tool_status_load >/dev/null; then
     printf 'tools:   0 checked / 0 ok\n'
     remote_ssh_welcome_issue tools
     return 0
-  }
+  fi
 
   if ! read_expected_tools_for_current_platform; then
     printf 'tools:   0 checked / 0 ok\n'

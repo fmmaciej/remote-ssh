@@ -970,6 +970,36 @@ def test_remote_ssh_welcome_module_reports_statuses(
     assert "scripts: 3 checked / 3 ok" in output
 
 
+def test_remote_ssh_welcome_module_uses_status_lib_without_commands_dispatcher(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    tmp_path: Path,
+) -> None:
+    remote = prepare_minimal_remote_tree(repo_dir, tmp_path)
+    _copy_welcome_lib(repo_dir, remote)
+    (remote / "shell" / "welcome.d").mkdir()
+    shutil.copy2(
+        repo_dir / "shell" / "welcome.d" / "00-remote-ssh.sh",
+        remote / "shell" / "welcome.d" / "00-remote-ssh.sh",
+    )
+    shutil.copytree(repo_dir / "tools", remote / "tools")
+    (remote / "tools" / "lib" / "commands.lib.sh").unlink()
+
+    result = run_cmd(
+        [remote / "shell" / "welcome.d" / "00-remote-ssh.sh"],
+        env=isolated_env.env
+        | {
+            "REMOTE_ENV_DIR": str(remote),
+            "REMOTE_SSH_UPDATE_CHECK": "0",
+            "REMOTE_SSH_WELCOME_BANNER": "0",
+        },
+    )
+
+    assert_ok(result)
+    assert "tools:" in result.stdout
+    assert "scripts:" in result.stdout
+
+
 def test_remote_ssh_welcome_module_reports_update_and_tool_problems(
     repo_dir: Path,
     tool_env: ToolStateEnv,
@@ -1058,6 +1088,112 @@ def test_welcome_ip_falls_back_to_unknown(
     assert result.stdout.rstrip("\n") == "unknown"
 
 
+def test_welcome_ip_skips_ip_route_on_darwin(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    called = isolated_env.home / "ip-called"
+    write_executable(
+        isolated_env.bin_dir / "hostname",
+        """
+        #!/usr/bin/env bash
+        exit 1
+        """,
+    )
+    write_executable(
+        isolated_env.bin_dir / "uname",
+        """
+        #!/usr/bin/env bash
+        printf 'Darwin\n'
+        """,
+    )
+    write_executable(
+        isolated_env.bin_dir / "ip",
+        f"""
+        #!/usr/bin/env bash
+        touch {called}
+        printf 'unexpected ip route\n'
+        exit 0
+        """,
+    )
+    write_executable(
+        isolated_env.bin_dir / "ifconfig",
+        """
+        #!/usr/bin/env bash
+        printf 'en0: flags=8863<UP>\\n'
+        printf '    inet 10.0.0.9 netmask 0xffffff00 broadcast 10.0.0.255\\n'
+        """,
+    )
+
+    result = run_cmd(
+        [
+            "/bin/bash",
+            "-c",
+            '. "$1/shell/welcome.lib.sh"; remote_ssh_welcome_host_ip',
+            "_",
+            repo_dir,
+        ],
+        env=isolated_env.env
+        | {"PATH": f"{isolated_env.bin_dir}:/usr/bin:/bin"},
+    )
+
+    assert_ok(result)
+    assert result.stdout.rstrip("\n") == "10.0.0.9"
+    assert not called.exists()
+
+
+def test_welcome_ip_uses_ip_route_on_linux(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    ifconfig_called = isolated_env.home / "ifconfig-called"
+    write_executable(
+        isolated_env.bin_dir / "hostname",
+        """
+        #!/usr/bin/env bash
+        exit 1
+        """,
+    )
+    write_executable(
+        isolated_env.bin_dir / "uname",
+        """
+        #!/usr/bin/env bash
+        printf 'Linux\n'
+        """,
+    )
+    write_executable(
+        isolated_env.bin_dir / "ip",
+        """
+        #!/usr/bin/env bash
+        printf '1.1.1.1 via 10.0.0.1 dev eth0 src 10.0.0.8 uid 1000\n'
+        """,
+    )
+    write_executable(
+        isolated_env.bin_dir / "ifconfig",
+        f"""
+        #!/usr/bin/env bash
+        touch {ifconfig_called}
+        exit 1
+        """,
+    )
+
+    result = run_cmd(
+        [
+            "/bin/bash",
+            "-c",
+            '. "$1/shell/welcome.lib.sh"; remote_ssh_welcome_host_ip',
+            "_",
+            repo_dir,
+        ],
+        env=isolated_env.env
+        | {"PATH": f"{isolated_env.bin_dir}:/usr/bin:/bin"},
+    )
+
+    assert_ok(result)
+    assert result.stdout.rstrip("\n") == "10.0.0.8"
+    assert not ifconfig_called.exists()
+
+
 def test_sw_welcome_module_reports_agent_and_git_config(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
@@ -1083,6 +1219,77 @@ def test_sw_welcome_module_reports_agent_and_git_config(
 
     assert_ok(result)
     assert result.stdout.rstrip("\n") == "sw:      ssh-agent ok / git config ok"
+
+
+def test_sw_uses_exported_git_session_identity_status_without_git(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    for status in ("ok", "disabled", "missing", "invalid", "unavailable"):
+        result = run_cmd(
+            [
+                "/bin/bash",
+                "-c",
+                '. "$1/shell/welcome.lib.sh"; remote_ssh_welcome_git_user_config_status',
+                "_",
+                repo_dir,
+            ],
+            env=isolated_env.env
+            | {
+                "PATH": "/nonexistent",
+                "REMOTE_SSH_GIT_SESSION_IDENTITY_STATUS": status,
+            },
+        )
+
+        assert_ok(result)
+        assert result.stdout.rstrip("\n") == status
+
+
+def test_git_session_identity_hook_exports_status_for_welcome(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    tmp_path: Path,
+) -> None:
+    remote = prepare_minimal_remote_tree(repo_dir, tmp_path)
+    (remote / "shell" / "rc.d" / "07-git-session-identity.sh").write_text(
+        (repo_dir / "shell" / "rc.d" / "07-git-session-identity.sh").read_text(
+            encoding="utf-8"
+        ),
+        encoding="utf-8",
+    )
+    write_git_user_local(remote / "dots")
+    write_executable(
+        isolated_env.bin_dir / "git",
+        """
+        #!/usr/bin/env bash
+        if [[ "${1:-}" == "config" && "${2:-}" == "--file" ]]; then
+          case "${5:-}" in
+            user.name) printf 'Session User\n'; exit 0 ;;
+            user.email) printf 'session@example.com\n'; exit 0 ;;
+          esac
+        fi
+        exit 1
+        """,
+    )
+
+    result = run_cmd(
+        [
+            "/bin/bash",
+            "-c",
+            """
+            . "$1/shell/rc.sh"
+            printf '%s:%s\n' \
+              "$REMOTE_SSH_GIT_SESSION_IDENTITY" \
+              "$REMOTE_SSH_GIT_SESSION_IDENTITY_STATUS"
+            """,
+            "_",
+            remote,
+        ],
+        env=isolated_env.env,
+    )
+
+    assert_ok(result)
+    assert result.stdout.rstrip("\n") == "1:ok"
 
 
 def test_sw_welcome_module_treats_agent_empty_as_information(

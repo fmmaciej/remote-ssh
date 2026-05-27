@@ -127,8 +127,7 @@
   - consider a more visible config file or command for the existing
     disable/interval settings
 
-- Refresh developer documentation after recent structure changes:
-  - update stale repository layout references in `dev/README.md`
+- Refresh post-install docs after recent structure changes:
   - keep post-install docs consistent about `bash --rcfile ... -i`
 
 - Split larger pytest files when they become hard to review, especially

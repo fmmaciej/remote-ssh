@@ -1,153 +1,41 @@
-# Developer tooling
+# Developer Tooling
 
-This directory contains **optional developer tooling** used to maintain this repository.
-Nothing here is required to run the scripts on remote servers or production machines.
+`dev/` contains optional local tooling used to maintain this repository. Nothing
+here is required on remote hosts, and developer dependencies must stay isolated
+from runtime shell code.
 
-The tools below are intended for **local development only**.
 Python developer tooling targets Python 3.13.
 
----
-
-## Tools used
-
-### uv
-
-Yeah, it's a cool tool.
-
-### just
-
-Task runner used to define and run common development commands
-(e.g. linting and formatting).
-
-### ruff, mypy, pytest, pre-commit
-
-Python developer tools managed by `uv` from `dev/pyproject.toml`.
-
----
-
-## Installation
-
-### macOS
-
-Using Homebrew:
-
-```bash
-brew install uv just
-```
-
-### Linux
-
-Arch Linux
-
-```bash
-pacman -S uv just
-```
-
-Debian / Ubuntu
-
-```bash
-apt install uv just
-```
-
-### Python developer environment
+## Quick Start
 
 ```bash
 cd dev
 uv sync
+just smoke
 ```
 
-### Git hooks
-
-After syncing the developer environment, install the local pre-commit hooks:
-
-```bash
-just pre-commit-install
-```
-
-## Usage
-
-Top level directory:
+From the repository root, the top-level `justfile` delegates common developer
+commands to `dev/justfile`:
 
 ```bash
+just smoke
 just lint
 just fmt
-just type
-just test
-just smoke
-just pre-commit-install
-just pre-commit
-just test-assets-live
 ```
 
-Developer directory `dev/`:
+## Sections
 
-```bash
-just py-lint
-just py-fmt
-just py-type
-just py-test
-just sh-lint
-just sh-fmt
-just test
-just smoke
-just bench-shell
-just pre-commit-install
-just pre-commit
-just test-assets-live
-```
-
-`just test-assets-live` is optional and uses the GitHub Releases API to
-check that generated asset names exist for the pinned tool versions. It does
-not download the release archives.
-
-If you hit GitHub API rate limits, copy `dev/.env.example` to `dev/.env` and
-set `GITHUB_TOKEN` or `GH_TOKEN`. `dev/.env` is local-only and ignored by git.
-The live checker is implemented in `dev/check_assets_live.py` and is normally
-run through `just test-assets-live`.
-
-`just bench-shell` runs a local, developer-only shell startup benchmark. It
-measures remote-ssh startup variants relative to a clean Bash baseline on the
-same machine. It is diagnostic output, not a pass/fail test, and is intentionally
-not part of `just smoke`. When a single `--scenario` is selected, the benchmark
-adds `bash-baseline` automatically so ratio and delta stay meaningful. Use
-`--format json` to inspect captured output from failed samples.
-
-Smoke checks are split by responsibility:
-
-- `dev/lib.sh` contains small helpers for developer scripts.
-- `dev/smoke.sh` runs static checks: Bash syntax, `shellcheck`, `ruff`, and
-  `mypy`.
-- `dev/tests/` contains pytest subprocess and integration tests.
-
-Prefer pytest for new CLI/integration tests. Tests may still launch Bash
-subprocesses when they need to source shell functions, rc files, aliases, or
-tool definitions.
-
-The pre-commit hooks are optional but recommended for regular development.
-
----
+- [Start](docs/start.md): required local tools, `uv sync`, and pre-commit hooks.
+- [Commands](docs/commands.md): root and `dev/` `just` recipes.
+- [Checks](docs/checks.md): smoke, lint, type checks, pytest, and test guidance.
+- [Live Assets](docs/live-assets.md): optional GitHub Releases validation.
+- [Shell Startup Benchmark](docs/bench-shell.md): local PTY benchmark for
+  remote-ssh shell startup cost.
 
 ## Notes
 
 - No global Python developer tools are required beyond `uv`.
-- Python scripts in this repository are expected to run using the standard library only.
-- This tooling is intentionally isolated in `dev/` to avoid impacting runtime environments.
-
-## Repository structure
-
-```bash
-$HOME/
-  .local/
-    bin/      # symlinks do fd/rg/fzf/yazi/nvim/starship itd.
-    dev/
-    opt/      # binaries: fd-10.3.0, rg-15.1.0...
-    share/
-      remote-ssh/
-        bin/
-        dots/
-        libs/
-        shell/
-        tools/
-        POST_INSTALL.txt
-        README.md
-```
+- Python scripts in this repository should use the standard library unless a
+  dependency is explicitly isolated in developer tooling.
+- Runtime install paths are documented in
+  [Install Flow](../docs/install.md#installed-paths).

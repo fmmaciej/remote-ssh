@@ -30,6 +30,7 @@ RUNME_TOOLS=(
   navi
   tspin
   vector
+  bssh
 )
 
 install_args=()

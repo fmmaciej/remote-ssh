@@ -51,6 +51,11 @@ bottom|linux:aarch64:gnu|bottom_aarch64-unknown-linux-gnu.tar.gz
 bottom|linux:aarch64:musl|bottom_aarch64-unknown-linux-musl.tar.gz
 bottom|linux:x86_64:gnu|bottom_x86_64-unknown-linux-gnu-2-17.tar.gz
 bottom|linux:x86_64:musl|bottom_x86_64-unknown-linux-musl.tar.gz
+bssh|linux:aarch64:musl|bssh-linux-aarch64-musl.tar.gz
+bssh|linux:aarch64:gnu|bssh-linux-aarch64.tar.gz
+bssh|linux:x86_64:musl|bssh-linux-x86_64-musl.tar.gz
+bssh|linux:x86_64:gnu|bssh-linux-x86_64.tar.gz
+bssh|darwin:aarch64:any|bssh-macos-aarch64.zip
 dust|linux:aarch64:gnu|dust-v1.2.4-aarch64-unknown-linux-gnu.tar.gz
 dust|linux:aarch64:musl|dust-v1.2.4-aarch64-unknown-linux-musl.tar.gz
 dust|darwin:x86_64:any|dust-v1.2.4-x86_64-apple-darwin.tar.gz
@@ -153,6 +158,8 @@ bat|linux:x86_64:gnu|bat-v0.26.1-x86_64-unknown-linux-musl.tar.gz
 bat|linux:aarch64:gnu|bat-v0.26.1-aarch64-unknown-linux-musl.tar.gz
 bottom|linux:x86_64:gnu|bottom_x86_64-unknown-linux-musl.tar.gz
 bottom|linux:aarch64:gnu|bottom_aarch64-unknown-linux-musl.tar.gz
+bssh|linux:x86_64:gnu|bssh-linux-x86_64-musl.tar.gz
+bssh|linux:aarch64:gnu|bssh-linux-aarch64-musl.tar.gz
 dust|linux:x86_64:gnu|dust-v1.2.4-x86_64-unknown-linux-musl.tar.gz
 dust|linux:aarch64:gnu|dust-v1.2.4-aarch64-unknown-linux-musl.tar.gz
 eza|linux:x86_64:gnu|eza_x86_64-unknown-linux-musl.tar.gz

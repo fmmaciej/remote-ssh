@@ -64,7 +64,7 @@ Install profiles are platform-filtered:
 ```text
 mini   rg fd sd
 quick  rg fd sd bat starship eza zoxide navi atuin
-full   fd rg sd dust fzf bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi tspin vector
+full   fd rg sd dust fzf bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi tspin vector bssh
 ```
 
 `--full` is a compatibility alias for `--profile full`:

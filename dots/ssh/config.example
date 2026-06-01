@@ -1,21 +1,42 @@
 # GitHub account-specific SSH aliases.
 #
-# 1. Replace github.com-myuser with a short account alias.
-# 2. If you use agent forwarding, keep IdentitiesOnly no and omit IdentityFile.
-# 3. If you keep the key on this machine, set IdentityFile and use IdentitiesOnly yes.
-# 4. Point repository remotes at the alias, for example:
+# 1. Choose connection variant
+#    - Local-key
+#    - Proxy
+#    - JumpHost proxy
+# 2. Replace github.com-myuser with a short account alias.
+# 3. If you use agent forwarding, keep IdentitiesOnly no and
+#      omit IdentityFile.
+# 4. If you keep the key on this machine, set IdentityFile and
+#      use IdentitiesOnly yes.
+# 5. Point repository remotes at the alias, for example:
 #      git remote set-url origin git@github.com-myuser:OWNER/REPO.git
 
-Host github.com-myuser
-  HostName github.com
-  User git
-  IdentitiesOnly no
-  ProxyCommand nc -X connect -x proxy.example.com:PORT %h %p
-
-# Local-key variant:
+# 1. Local-key variant:
 #
 # Host github.com-myuser-local
 #   HostName github.com
 #   User git
-#   IdentityFile ~/.ssh/id_ed25519_myuser
 #   IdentitiesOnly yes
+#   IdentityFile ~/.ssh/id_ed25519_myuser
+
+# 2. Proxy variant:
+#
+# Host github.com-myuser
+#   HostName github.com
+#   User git
+#   IdentitiesOnly no
+#   ProxyCommand nc -X connect -x proxy.example.com:PORT %h %p
+
+# 3. JumpHost proxy variant:
+#
+# Host JumpHost
+#   User user
+#   HostName ip-address
+#   ForwardAgent yes
+#
+# Host github.com-myuser
+#   HostName github.com
+#   User git
+#   IdentitiesOnly no
+#   ProxyCommand ssh -q JumpHost nc -X connect -x proxy.example.com:PORT %h %p

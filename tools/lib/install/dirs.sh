@@ -19,5 +19,5 @@ install_bin_dir() {
 install_dots_dir() {
   log_info "  dots/..."
 
-  [[ -f "$DOTS_DIR/starship.toml" ]] && log_info "    Found dots/starship.toml"
+  [[ -d "$DOTS_DIR" ]] && log_info "    Found bundled dotfiles and app configs"
 }

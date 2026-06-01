@@ -116,6 +116,36 @@ def test_install_profiles_are_defined(repo_dir: Path, isolated_env: IsolatedEnv)
     assert "full=fd rg sd dust fzf bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi tspin vector" in got
 
 
+def test_install_dots_dir_reports_bundled_dotfiles(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_cmd(
+        [
+            "bash",
+            "-c",
+            textwrap.dedent(
+                """
+        repo="$1"
+        . "$repo/tools/lib/env.sh"
+        . "$TOOLS_LIB_DIR/install.lib.sh"
+        install_dots_dir
+        """
+            ).lstrip(),
+            "_",
+            repo_dir,
+        ],
+        cwd=repo_dir,
+        env=isolated_env.env,
+    )
+    assert_ok(result)
+    got = result.stdout + result.stderr
+
+    assert "  dots/..." in got
+    assert "    Found bundled dotfiles and app configs" in got
+    assert "Found dots/starship.toml" not in got
+
+
 def test_expected_tools_read_write_config(
     repo_dir: Path,
     isolated_env: IsolatedEnv,

@@ -18,6 +18,7 @@ remote_ssh_welcome_print_full_banner() {
 | |_) |  _| | |\/| | | | || | |  _| _____\___ \___ \| |_| |
 |  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |
 |_| \_\_____|_|  |_|\___/ |_| |_____|    |____/____/|_| |_|
+
 EOF
   if remote_ssh_welcome_color_enabled; then
     printf '\033[0m'

@@ -950,7 +950,7 @@ def test_remote_ssh_welcome_module_reports_statuses(
     write_expected_tools(tool_env, ["rg", "fd"])
     make_managed_tool(tool_env, "rg", "15.1.0")
     make_managed_tool(tool_env, "fd", "10.3.0")
-    for command in ("gh", "helm", "python3", "fzf"):
+    for command in ("bssh", "gh", "helm", "python3", "fzf"):
         write_executable(tool_env.bin_dir / command, "#!/usr/bin/env bash\nexit 0\n")
 
     result = run_cmd(
@@ -967,7 +967,7 @@ def test_remote_ssh_welcome_module_reports_statuses(
     output = result.stdout
     assert "update:  current (checked: 2026-05-27 12:00:00 UTC)" in output
     assert "tools:   2 checked / 2 ok" in output
-    assert "scripts: 3 checked / 3 ok" in output
+    assert "scripts: 5 checked / 5 ok" in output
 
 
 def test_remote_ssh_welcome_module_uses_status_lib_without_commands_dispatcher(

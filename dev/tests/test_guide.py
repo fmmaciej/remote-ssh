@@ -17,6 +17,8 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "  remote-ssh git status       Check Git identity, SSH agent, and Git SSH auth" in result.stdout
     assert "  remote-ssh scripts --list   List bundled helper scripts" in result.stdout
     assert "  remote-ssh guide config     Show runtime config sources and values" in result.stdout
+    assert "  bssh                        Run bssh with the shared SSH config" in result.stdout
+    assert "  bssh-ip                     Print resolved SSH host address" in result.stdout
     assert "  ssh-pick                    Pick an SSH host with fzf and connect" in result.stdout
     assert "  remote-ssh guide starship   Explain prompt and Git status symbols" in result.stdout
     assert "  remote-ssh guide post-install" in result.stdout
@@ -55,6 +57,8 @@ def test_remote_ssh_guide_supports_functions_section(
     assert "Functions" in result.stdout
     assert "  log" in result.stdout
     assert "  logrun" in result.stdout
+    assert "  bssh" in result.stdout
+    assert "  bssh-ip" in result.stdout
     assert "  ssh-pick" in result.stdout
     assert "  remote_atuin_debug" in result.stdout
     assert "Commands" not in result.stdout
@@ -289,9 +293,12 @@ def test_remote_ssh_guide_supports_scripts_section(
     assert_ok(result)
     output = result.stdout
     assert "Scripts" in output
+    assert "bssh" in output
+    assert "bssh-ip" in output
     assert "ci-run" in output
     assert "helm-chart-diff" in output
     assert "ssh-pick" in output
+    assert "Requires: bssh" in output
     assert "Requires: gh" in output
     assert "Commands" not in output
     assert "Tools" not in output
@@ -313,6 +320,25 @@ def test_remote_ssh_guide_scripts_supports_single_helper(
     assert "ci-run" not in output
     assert "helm-chart-diff" not in output
     assert "sshf" not in output
+
+
+def test_remote_ssh_guide_scripts_supports_bssh_ip_helper(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "scripts", "bssh-ip"], env=isolated_env.env)
+
+    assert_ok(result)
+    output = result.stdout
+    assert "Scripts" in output
+    assert "bssh-ip" in output
+    assert "bssh-ip <host>" in output
+    assert "Requires: ssh, awk" in output
+    assert "Entry point: shell/rc.d/26-bssh.sh" in output
+    assert "Docs: docs/shell/helpers.md#bssh" in output
+    assert "ci-run" not in output
+    assert "helm-chart-diff" not in output
+    assert "ssh-pick" not in output
 
 
 def test_remote_ssh_guide_scripts_rejects_unknown_helper(

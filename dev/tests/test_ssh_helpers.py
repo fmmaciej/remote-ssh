@@ -109,3 +109,175 @@ def test_ssh_pick_reports_parser_failure(repo_dir: Path, isolated_env: IsolatedE
     output = result.stdout + result.stderr
     assert "ssh-pick could not list SSH hosts" in output
     assert "requires python3" in output
+
+
+def test_bssh_wrapper_uses_default_shared_config(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    write_executable(
+        isolated_env.bin_dir / "bssh",
+        """
+        #!/usr/bin/env bash
+        printf '%s\\n' "$*" >"${BSSH_STUB_OUT:?}"
+        """,
+    )
+    out = isolated_env.home / "bssh.out"
+    env = isolated_env.env | {"BSSH_STUB_OUT": str(out)}
+
+    result = run_cmd(
+        [
+            "bash",
+            "-c",
+            """
+            set -euo pipefail
+            . "$1/shell/env.sh"
+            . "$1/shell/rc.d/26-bssh.sh"
+            bssh lab --plain
+            """,
+            "_",
+            repo_dir,
+        ],
+        cwd=repo_dir,
+        env=env,
+    )
+
+    assert_ok(result)
+    default_config = isolated_env.home / ".ssh" / "config.d" / "00-all.conf"
+    assert out.read_text(encoding="utf-8").rstrip("\n") == (
+        f"--stream --ssh-config {default_config} lab --plain"
+    )
+
+
+def test_bssh_config_can_be_overridden_before_rc_load(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    custom_config = isolated_env.home / "custom-ssh.conf"
+    result = run_cmd(
+        [
+            "bash",
+            "-c",
+            """
+            set -euo pipefail
+            . "$1/shell/env.sh"
+            . "$1/shell/rc.d/26-bssh.sh"
+            printf '%s\\n' "$BSSH_SSH_CONFIG"
+            """,
+            "_",
+            repo_dir,
+        ],
+        cwd=repo_dir,
+        env=isolated_env.env | {"BSSH_SSH_CONFIG": str(custom_config)},
+    )
+
+    assert_ok(result)
+    assert result.stdout.rstrip("\n") == str(custom_config)
+
+
+def test_bssh_ip_resolves_host_with_shared_config(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    write_executable(
+        isolated_env.bin_dir / "ssh",
+        """
+        #!/usr/bin/env bash
+        printf '%s\\n' "$*" >"${SSH_STUB_OUT:?}"
+        printf 'hostname 10.1.2.3\\n'
+        printf 'user alice\\n'
+        printf 'port 2222\\n'
+        """,
+    )
+    out = isolated_env.home / "ssh.out"
+    env = isolated_env.env | {"SSH_STUB_OUT": str(out)}
+
+    result = run_cmd(
+        [
+            "bash",
+            "-c",
+            """
+            set -euo pipefail
+            . "$1/shell/env.sh"
+            . "$1/shell/rc.d/26-bssh.sh"
+            bssh-ip lab-a
+            """,
+            "_",
+            repo_dir,
+        ],
+        cwd=repo_dir,
+        env=env,
+    )
+
+    assert_ok(result)
+    default_config = isolated_env.home / ".ssh" / "config.d" / "00-all.conf"
+    assert out.read_text(encoding="utf-8").rstrip("\n") == f"-G -F {default_config} lab-a"
+    assert result.stdout.rstrip("\n") == "10.1.2.3  # user=alice port=2222"
+
+
+def test_bssh_ip_without_host_returns_usage_without_exiting_shell(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_cmd(
+        [
+            "bash",
+            "-c",
+            """
+            set -euo pipefail
+            . "$1/shell/env.sh"
+            . "$1/shell/rc.d/26-bssh.sh"
+            set +e
+            bssh-ip
+            status=$?
+            set -e
+            printf 'status=%s\\n' "$status"
+            printf 'alive\\n'
+            """,
+            "_",
+            repo_dir,
+        ],
+        cwd=repo_dir,
+        env=isolated_env.env,
+    )
+
+    assert_ok(result)
+    assert result.stdout.splitlines() == ["status=2", "alive"]
+    assert "usage: bssh-ip HOST" in result.stderr
+
+
+def test_bssh_ip_returns_one_when_hostname_is_missing(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    write_executable(
+        isolated_env.bin_dir / "ssh",
+        """
+        #!/usr/bin/env bash
+        printf 'user alice\\n'
+        """,
+    )
+
+    result = run_cmd(
+        [
+            "bash",
+            "-c",
+            """
+            set -euo pipefail
+            . "$1/shell/env.sh"
+            . "$1/shell/rc.d/26-bssh.sh"
+            set +e
+            bssh-ip lab-a
+            status=$?
+            set -e
+            printf 'status=%s\\n' "$status"
+            """,
+            "_",
+            repo_dir,
+        ],
+        cwd=repo_dir,
+        env=isolated_env.env,
+    )
+
+    assert_ok(result)
+    assert result.stdout.rstrip("\n") == "status=1"

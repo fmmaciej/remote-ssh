@@ -12,6 +12,8 @@ The remote-ssh shell loads a few small helpers:
 - `cheats`: open private `navi` cheatsheets from `dots/navi/cheats`.
 - `log` and `logrun`: capture command output to a file while still streaming
   it.
+- `bssh`: run `bssh` with stream output and the shared SSH config.
+- `bssh-ip`: print the resolved SSH hostname, user, and port for a host.
 
 To list script-backed helper commands and shell functions:
 
@@ -46,6 +48,32 @@ dots/navi/cheats
 Remote-ssh shells prepend that directory to `NAVI_PATH`, so `navi` and the
 `cheats` alias can search project-local snippets without copying them into a
 global user directory.
+
+## bssh
+
+`bssh` wraps the installed `bssh` binary with:
+
+```bash
+bssh --stream --ssh-config "$BSSH_SSH_CONFIG" <args>
+```
+
+`BSSH_SSH_CONFIG` defaults to:
+
+```text
+$HOME/.ssh/config.d/00-all.conf
+```
+
+Set `BSSH_SSH_CONFIG` before loading `rc.sh` to use a different config file.
+
+Examples:
+
+```bash
+bssh lab
+bssh-ip lab-a
+```
+
+`bssh-ip HOST` uses `ssh -G -F "$BSSH_SSH_CONFIG" HOST` and prints the resolved
+`HostName`, plus `user` and `port` when OpenSSH reports them.
 
 ## ssh-pick
 

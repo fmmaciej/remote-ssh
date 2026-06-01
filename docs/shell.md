@@ -19,7 +19,7 @@ instead.
 - [Welcome panel](shell/welcome.md): login status, update cache, custom welcome
   modules, colors, and debug toggles.
 - [Helpers](shell/helpers.md): loaded helper commands, `cheats`, `log`,
-  `logrun`, and `ssh-pick`.
+  `logrun`, `bssh`, `bssh-ip`, and `ssh-pick`.
 - [Runtime hooks](shell/hooks.md): `shell/rc.sh`, `shell/rc.d/`, and platform or
   host-specific hook files.
 

@@ -19,6 +19,8 @@ Usage:
   remote-ssh guide scripts [helper]
 
 Helpers:
+  bssh
+  bssh-ip
   ci-run
   helm-chart-diff
   ssh-pick
@@ -27,6 +29,8 @@ EOF
 
 remote_ssh_cmd_scripts_entries() {
   cat <<'EOF'
+bssh|shell function|bssh|Run bssh with stream output and the shared SSH config.|bssh <host-pattern>|shell/rc.d/26-bssh.sh|shell/rc.d/26-bssh.sh|docs/shell/helpers.md#bssh|you want to browse SSH hosts through bssh using the shared config.
+bssh-ip|shell function|ssh, awk|Print the resolved HostName, user, and port for an SSH host.|bssh-ip <host>|shell/rc.d/26-bssh.sh|shell/rc.d/26-bssh.sh|docs/shell/helpers.md#bssh|you want to inspect the address bssh or ssh will use.
 ci-run|command|gh|Inspect GitHub Actions jobs and print log commands.|ci-run status <run-id> <app-filter> [--repo owner/repo] [--attempt n] [--all]|bin/ci-run|scripts/ci_run.sh|docs/ci-run.md|one workflow run contains several app-specific job variants.
 helm-chart-diff|command|helm|Compare an OCI Helm chart package with a local or GitHub chart directory.|helm-chart-diff --oci <oci-chart> --version <version> --local-chart <path>|bin/helm-chart-diff|scripts/helm_chart_diff.sh|docs/helm-chart-diff.md|you need to compare packaged chart contents with source chart files.
 ssh-pick|shell function|python3, fzf|Pick an SSH config host with fzf and connect with ssh.|ssh-pick [ssh-args...]|shell/rc.d/30-ssh-pick.sh|scripts/ssh_hosts.py|docs/shell/helpers.md#ssh-pick|you want an interactive host picker for entries in ~/.ssh/config.

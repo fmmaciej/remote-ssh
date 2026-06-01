@@ -11,6 +11,8 @@ def test_remote_ssh_scripts_list_public_helpers(repo_dir: Path, tool_env: ToolSt
     assert_ok(result)
     output = result.stdout
     assert "remote-ssh scripts" in output
+    assert "bssh" in output
+    assert "bssh-ip" in output
     assert "ci-run" in output
     assert "helm-chart-diff" in output
     assert "ssh-pick" in output

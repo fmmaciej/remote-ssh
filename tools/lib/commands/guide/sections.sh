@@ -33,6 +33,8 @@ Commands
   remote-ssh guide starship   Explain prompt and Git status symbols
   remote-ssh guide post-install
                               Reprint setup instructions
+  bssh                        Run bssh with the shared SSH config
+  bssh-ip                     Print resolved SSH host address
   ssh-pick                    Pick an SSH host with fzf and connect
   cheats                      Open private navi cheatsheets
 EOF
@@ -203,6 +205,7 @@ Notes
   Disable the welcome panel with REMOTE_SSH_WELCOME=0.
   remote-ssh prune is dry-run by default; use --apply to remove candidates.
   Use logrun make build to save make.log, or command 2>&1 | log file.log.
+  bssh uses BSSH_SSH_CONFIG, defaulting to $HOME/.ssh/config.d/00-all.conf.
   vim/nvim and tmux are not installed by remote-ssh.
   ssh-pick currently requires python3 for SSH config parsing.
 EOF

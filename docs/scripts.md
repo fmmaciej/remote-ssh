@@ -10,6 +10,10 @@ remote-ssh guide scripts [helper]
 
 The current public helpers are:
 
+- `bssh`: run `bssh` with stream output and the shared SSH config. See
+  [Shell helpers](shell/helpers.md#bssh).
+- `bssh-ip`: print the resolved SSH hostname, user, and port. See
+  [Shell helpers](shell/helpers.md#bssh).
 - `ci-run`: inspect GitHub Actions jobs. See [ci-run](ci-run.md).
 - `helm-chart-diff`: compare OCI Helm chart packages with chart source. See
   [helm-chart-diff](helm-chart-diff.md).

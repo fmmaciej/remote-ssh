@@ -30,7 +30,7 @@ def test_remote_ssh_git_setup_adds_include_once(
     assert result.stdout.rstrip("\n") == str(repo_copy / "dots" / "git" / "config.base")
 
 
-def test_remote_ssh_git_setup_creates_local_examples(
+def test_remote_ssh_git_setup_creates_git_local_example_only(
     repo_dir: Path,
     tmp_path: Path,
     isolated_env: IsolatedEnv,
@@ -45,16 +45,14 @@ def test_remote_ssh_git_setup_creates_local_examples(
     result = run_git_setup(repo_copy, env=isolated_env.env)
 
     assert_ok(result)
-    output = user_local.read_text(encoding="utf-8") + "\n--- ssh ---\n"
-    output += ssh_config_local.read_text(encoding="utf-8")
+    output = user_local.read_text(encoding="utf-8")
     assert "[user]\n" in output
     assert "    name = Your Name\n" in output
     assert "    email = your.email@example.com\n" in output
-    assert "Host github.com-myuser\n" in output
-    assert "  IdentitiesOnly no\n" in output
+    assert not ssh_config_local.exists()
 
 
-def test_remote_ssh_git_setup_adds_ssh_include_once(
+def test_remote_ssh_git_setup_does_not_modify_ssh_config(
     repo_dir: Path,
     tmp_path: Path,
     isolated_env: IsolatedEnv,
@@ -64,6 +62,7 @@ def test_remote_ssh_git_setup_adds_ssh_include_once(
     ssh_config = isolated_env.home / ".ssh" / "config"
     ssh_config.parent.mkdir(parents=True)
     ssh_config.write_text("Host existing\n  HostName example.com\n", encoding="utf-8")
+    before_mode = oct(ssh_config.stat().st_mode & 0o777)[2:]
 
     result = run_git_setup(repo_copy, env=isolated_env.env)
     assert_ok(result)
@@ -72,11 +71,9 @@ def test_remote_ssh_git_setup_adds_ssh_include_once(
 
     mode = oct(ssh_config.stat().st_mode & 0o777)[2:]
     assert ssh_config.read_text(encoding="utf-8") + f"mode:{mode}\n" == (
-        f"Include {repo_copy / 'dots' / 'ssh' / 'config.local'}\n"
-        "\n"
         "Host existing\n"
         "  HostName example.com\n"
-        "mode:600\n"
+        f"mode:{before_mode}\n"
     )
 
 

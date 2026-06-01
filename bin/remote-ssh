@@ -22,6 +22,7 @@ remote_ssh_usage() {
 Usage: remote-ssh <command> [args]
 
 Commands:
+  setup                     Configure bundled SSH and Git defaults
   install [tool ...]        Install expected or selected remote-ssh tools
   install --profile <name>  Install mini, quick, or full profile
   install --full [--yes]    Install all supported default tools
@@ -31,7 +32,8 @@ Commands:
   tool list                 Show default, expected, installed, unsupported tools
   check [--strict] [tool]   Report pinned tools vs local bin and PATH
   update [check]            Git pull/install, or check whether upstream changed
-  git <command>             Configure and inspect Git/SSH integration
+  ssh <command>             Configure and inspect SSH integration
+  git <command>             Configure and inspect Git integration
   doctor                    Check runtime requirements and installed tools
   prune [--apply]           Report or remove unused installed tool releases
   scripts --list            List bundled helper scripts
@@ -50,10 +52,12 @@ main() {
 
   case "$command" in
     ''|-h|--help) remote_ssh_usage ;;
+    setup) shift; remote_ssh_cmd_setup_main "$@" ;;
     install) shift; remote_ssh_cmd_install_main "$repo_dir" "$@" ;;
     uninstall) shift; remote_ssh_cmd_uninstall_main "$@" ;;
     tool) shift; remote_ssh_cmd_tool_main "$@" ;;
     check) shift; remote_ssh_cmd_check_main "$@" ;;
+    ssh) shift; remote_ssh_cmd_ssh_main "$@" ;;
     git) shift; remote_ssh_cmd_git_main "$@" ;;
     update) shift; remote_ssh_cmd_update_main "$repo_dir" "$@" ;;
     doctor) shift; (($# == 0)) || die_usage; remote_ssh_cmd_doctor_main "$repo_dir" "$script_repo_dir" "$requested_repo_dir" ;;

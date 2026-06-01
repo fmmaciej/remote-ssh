@@ -13,8 +13,11 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "Commands" in result.stdout
     assert "  remote-ssh guide [section]  Show this configuration guide" in result.stdout
     assert "  remote-ssh uninstall [tool ...]" in result.stdout
+    assert "  remote-ssh setup            Configure bundled SSH and Git defaults" in result.stdout
     assert "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
     assert "  remote-ssh git status       Check Git identity, SSH agent, and Git SSH auth" in result.stdout
+    assert "  remote-ssh ssh setup        Add remote-ssh SSH config include" in result.stdout
+    assert "  remote-ssh ssh status       Check SSH config, host resolution, and agent" in result.stdout
     assert "  remote-ssh scripts --list   List bundled helper scripts" in result.stdout
     assert "  remote-ssh guide config     Show runtime config sources and values" in result.stdout
     assert "  bssh                        Run bssh with the shared SSH config" in result.stdout
@@ -26,7 +29,7 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "  log" in result.stdout
     assert "  logrun" in result.stdout
     assert "  remote_atuin_debug" in result.stdout
-    assert "Git SSH flow" in result.stdout
+    assert "Git and SSH flow" in result.stdout
     assert "Tools" in result.stdout
     assert "Scripts" in result.stdout
     assert "remote-ssh Starship prompt" in result.stdout
@@ -68,12 +71,14 @@ def test_remote_ssh_guide_supports_git_section(repo_dir: Path, isolated_env: Iso
     result = run_remote_ssh(repo_dir, ["guide", "git"], env=isolated_env.env)
 
     assert_ok(result)
-    assert "Git SSH flow" in result.stdout
+    assert "Git and SSH flow" in result.stdout
+    assert "    remote-ssh setup" in result.stdout
+    assert "    remote-ssh ssh setup" in result.stdout
     assert "    remote-ssh git setup" in result.stdout
     assert f"    {repo_dir}/dots/git/user.local" in result.stdout
+    assert "    remote-ssh ssh status github.com-myuser" in result.stdout
     assert "    remote-ssh git status github.com-myuser" in result.stdout
     assert f"    {repo_dir}/dots/ssh/config.local" in result.stdout
-    assert "    ssh -T git@github.com-myuser" in result.stdout
     assert "Commands" not in result.stdout
 
 
@@ -392,7 +397,7 @@ def test_remote_ssh_guide_supports_post_install_section(
     assert "Interactive usage" in output
     assert "SSH configuration" in output
     assert "VS Code Remote-SSH terminal profile" in output
-    assert "Optional Git setup" in output
+    assert "Optional Git and SSH setup" in output
     assert f'bash --rcfile "{repo_dir}/shell/rc.sh"' in output
     assert '"terminal.integrated.defaultProfile.linux": "bash + remote-ssh"' in output
     assert "Commands" not in output

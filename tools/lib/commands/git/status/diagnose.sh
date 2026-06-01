@@ -4,23 +4,8 @@
 ensure_this_file_sourced
 
 remote_ssh_cmd_git_status_diagnose_agent() {
-  local output="$REMOTE_SSH_GIT_STATUS_SSH_ADD_OUTPUT"
-
-  if [[ "$REMOTE_SSH_GIT_STATUS_SSH_ADD_FOUND" -ne 1 ]]; then
-    REMOTE_SSH_GIT_STATUS_AGENT_STATUS="ssh-add-missing"
-  elif [[ "$REMOTE_SSH_GIT_STATUS_SSH_ADD_EXIT" -eq 0 ]]; then
-    REMOTE_SSH_GIT_STATUS_AGENT_STATUS="ok"
-  elif grep -qi 'no identities' <<<"$output"; then
-    REMOTE_SSH_GIT_STATUS_AGENT_STATUS="no-keys"
-  elif [[ -z "$REMOTE_SSH_GIT_STATUS_SSH_AUTH_SOCK" ]]; then
-    REMOTE_SSH_GIT_STATUS_AGENT_STATUS="missing-sock"
-  elif [[ ! -e "$REMOTE_SSH_GIT_STATUS_SSH_AUTH_SOCK" && ! -S "$REMOTE_SSH_GIT_STATUS_SSH_AUTH_SOCK" ]]; then
-    REMOTE_SSH_GIT_STATUS_AGENT_STATUS="stale-sock"
-  elif grep -Eqi 'error connecting to agent|could not open a connection' <<<"$output"; then
-    REMOTE_SSH_GIT_STATUS_AGENT_STATUS="unreachable"
-  else
-    REMOTE_SSH_GIT_STATUS_AGENT_STATUS="unreachable"
-  fi
+  remote_ssh_cmd_ssh_status_diagnose_agent
+  REMOTE_SSH_GIT_STATUS_AGENT_STATUS="$REMOTE_SSH_STATUS_AGENT_STATUS"
 }
 
 remote_ssh_cmd_git_status_diagnose_auth() {

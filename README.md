@@ -86,9 +86,12 @@ symlinks in `~/.local/bin`.
 remote-ssh install [tool ...]
 remote-ssh install --profile <name> [--yes]
 remote-ssh install --full [--yes]
+remote-ssh setup
 remote-ssh uninstall [--yes] [tool ...]
 remote-ssh tool list
 remote-ssh check [--strict] [tool ...]
+remote-ssh ssh setup
+remote-ssh ssh status [host]
 remote-ssh git setup
 remote-ssh git status [ssh-host]
 remote-ssh update

@@ -18,6 +18,8 @@ def test_remote_ssh_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStat
     assert "Usage: remote-ssh <command> [args]" in result.stdout
     assert "prune [--apply]" in result.stdout
     assert "guide [section]" in result.stdout
+    assert "setup" in result.stdout
+    assert "ssh <command>" in result.stdout
     assert "git <command>" in result.stdout
     assert "update [check]" in result.stdout
     assert "install --profile <name>" in result.stdout
@@ -51,7 +53,10 @@ def test_remote_ssh_guide_renders_commands_section(repo_dir: Path, tool_env: Too
     assert "remote-ssh check --strict   Report pinned tools vs local bin and PATH" in result.stdout
     assert "remote-ssh tool list        Show tool selection and install state" in result.stdout
     assert "remote-ssh uninstall [tool ...]" in result.stdout
+    assert "remote-ssh setup            Configure bundled SSH and Git defaults" in result.stdout
     assert "remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
+    assert "remote-ssh ssh setup        Add remote-ssh SSH config include" in result.stdout
+    assert "remote-ssh ssh status       Check SSH config, host resolution, and agent" in result.stdout
     assert "remote-ssh update check     Check whether upstream has changed" in result.stdout
     assert "remote-ssh scripts --list   List bundled helper scripts" in result.stdout
 

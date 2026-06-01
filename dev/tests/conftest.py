@@ -148,6 +148,14 @@ def run_git_setup(repo_dir: Path, *, env: Mapping[str, str]) -> subprocess.Compl
     return run_remote_ssh(repo_dir, ["git", "setup"], env=env)
 
 
+def run_ssh_setup(repo_dir: Path, *, env: Mapping[str, str]) -> subprocess.CompletedProcess[str]:
+    return run_remote_ssh(repo_dir, ["ssh", "setup"], env=env)
+
+
+def run_setup(repo_dir: Path, *, env: Mapping[str, str]) -> subprocess.CompletedProcess[str]:
+    return run_remote_ssh(repo_dir, ["setup"], env=env)
+
+
 def git_config(
     args: Sequence[str],
     *,

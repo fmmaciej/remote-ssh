@@ -140,18 +140,28 @@ shell/rc.d/host.d/<hostname -s>.sh
 Example files are provided as `.example` files and are not loaded until copied
 to `.sh`.
 
-## Git Config
+## Git And SSH Config
 
 Git config is no longer injected from `rc.sh`.
 
-Use the explicit setup command instead:
+Use the explicit setup command for both bundled SSH aliases and Git defaults:
 
 ```bash
+remote-ssh setup
+```
+
+Or run the granular setup commands:
+
+```bash
+remote-ssh ssh setup
 remote-ssh git setup
 ```
 
-This adds `dots/git/config.base` to your global Git config via
-`include.path` and creates `dots/git/user.local` from the example if it is
+`remote-ssh ssh setup` creates `dots/ssh/config.local` from the example if it
+is missing and adds an `Include` line to `~/.ssh/config`.
+
+`remote-ssh git setup` adds `dots/git/config.base` to your global Git config
+via `include.path` and creates `dots/git/user.local` from the example if it is
 missing.
 
 In remote-ssh shells, `dots/git/user.local` is also applied as a session Git
@@ -163,9 +173,7 @@ repositories. Disable it before loading `rc.sh` if needed:
 export REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=0
 ```
 
-It also creates `dots/ssh/config.local` from the example if needed and adds an
-`Include` line to `~/.ssh/config`. Use that file for account-specific Git SSH
-aliases:
+Use `dots/ssh/config.local` for account-specific Git SSH aliases:
 
 ```sshconfig
 Host github.com-myuser

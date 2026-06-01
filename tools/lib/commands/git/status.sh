@@ -3,6 +3,8 @@
 ensure_this_file_sourced
 
 # shellcheck disable=SC1091
+. "$TOOLS_COMMANDS_DIR/ssh/status/agent.sh"
+# shellcheck disable=SC1091
 . "$TOOLS_COMMANDS_DIR/git/status/model.sh"
 # shellcheck disable=SC1091
 . "$TOOLS_COMMANDS_DIR/git/status/diagnose.sh"

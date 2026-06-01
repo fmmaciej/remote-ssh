@@ -29,7 +29,7 @@ def test_post_install_prints_short_guide_hint(
     assert "Interactive usage" not in output
     assert "SSH configuration" not in output
     assert "VS Code Remote-SSH terminal profile" not in output
-    assert "Optional Git setup" not in output
+    assert "Optional Git and SSH setup" not in output
 
 
 def test_post_install_renderer_renders_split_templates_in_order(
@@ -67,7 +67,7 @@ def test_post_install_renderer_renders_split_templates_in_order(
 
     assert output.index("Interactive usage") < output.index("SSH configuration")
     assert output.index("SSH configuration") < output.index("VS Code Remote-SSH terminal profile")
-    assert output.index("VS Code Remote-SSH terminal profile") < output.index("Optional Git setup")
+    assert output.index("VS Code Remote-SSH terminal profile") < output.index("Optional Git and SSH setup")
     assert 'bash --rcfile "/opt/remote-ssh/shell/rc.sh"' in output
     assert "Host test-host.example" in output
     assert "HostName 203.0.113.10" in output

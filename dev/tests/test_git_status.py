@@ -185,7 +185,7 @@ def test_remote_ssh_git_status_reports_publickey_denied_with_keys(
         "  - Check the SSH alias, IdentityFile, and whether the public key is registered "
         "with your Git provider."
     ) in output
-    assert "  - Run remote-ssh git setup if the Git SSH aliases are not configured yet." in output
+    assert "  - Run remote-ssh ssh setup if the SSH aliases are not configured yet." in output
 
 
 def test_remote_ssh_git_status_reports_session_override(

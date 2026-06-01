@@ -14,7 +14,7 @@ remote_ssh_cmd_git_usage() {
 Usage: remote-ssh git <command> [args]
 
 Commands:
-  setup              Enable bundled Git defaults and SSH alias includes
+  setup              Enable bundled Git defaults
   status [ssh-host]  Report Git identity, SSH agent, and Git SSH auth
 EOF
 }

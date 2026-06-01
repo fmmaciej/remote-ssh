@@ -40,7 +40,7 @@ remote_ssh_cmd_git_status_print_auth_hint() {
         printf '  - Fix the SSH agent first, then retry remote-ssh git status %s.\n' "$REMOTE_SSH_GIT_STATUS_SSH_HOST"
       else
         printf '  - Check the SSH alias, IdentityFile, and whether the public key is registered with your Git provider.\n'
-        printf '  - Run remote-ssh git setup if the Git SSH aliases are not configured yet.\n'
+        printf '  - Run remote-ssh ssh setup if the SSH aliases are not configured yet.\n'
       fi
       ;;
     host-unresolved)

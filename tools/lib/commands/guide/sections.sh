@@ -9,6 +9,7 @@ remote_ssh_cmd_guide_print_commands() {
   cat <<'EOF'
 Commands
   remote-ssh --help           Show concise CLI usage
+  remote-ssh setup            Configure bundled SSH and Git defaults
   remote-ssh install [tool]   Install expected or selected remote-ssh tools
   remote-ssh install --profile <name>
                               Install mini, quick, or full profile
@@ -20,6 +21,8 @@ Commands
   remote-ssh check --strict   Report pinned tools vs local bin and PATH
   remote-ssh git setup        Add remote-ssh Git config via include.path
   remote-ssh git status       Check Git identity, SSH agent, and Git SSH auth
+  remote-ssh ssh setup        Add remote-ssh SSH config include
+  remote-ssh ssh status       Check SSH config, host resolution, and agent
   remote-ssh update           Git pull this checkout, then run install
   remote-ssh update check     Check whether upstream has changed
   remote-ssh doctor           Check runtime requirements and installed tools
@@ -128,8 +131,12 @@ remote_ssh_cmd_guide_print_git() {
   dots_dir="$(remote_ssh_cmd_guide_dots_dir)"
 
   cat <<EOF
-Git SSH flow
-  Run setup:
+Git and SSH flow
+  Run full setup:
+    remote-ssh setup
+  Configure SSH aliases:
+    remote-ssh ssh setup
+  Configure Git defaults:
     remote-ssh git setup
   Edit your remote-ssh Git identity:
     $dots_dir/git/user.local
@@ -139,8 +146,8 @@ Git SSH flow
   so it can override repository .git/config without writing to it.
   Use that alias in repository remotes:
     git remote set-url origin git@github.com-myuser:OWNER/REPO.git
-  Verify the Git account used by SSH:
-    ssh -T git@github.com-myuser
+  Check SSH config and agent locally:
+    remote-ssh ssh status github.com-myuser
   Check Git config, SSH agent, and SSH auth together:
     remote-ssh git status github.com-myuser
   Disable the session identity override before rc.sh loads:

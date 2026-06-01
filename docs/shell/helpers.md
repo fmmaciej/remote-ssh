@@ -4,9 +4,9 @@ Back: [Shell Runtime](../shell.md)
 
 The remote-ssh shell loads a few small helpers:
 
-- `remote-ssh`: main entrypoint for install, uninstall, check, git, update,
-  doctor, prune, and scripts.
-- `remote-ssh guide`: show loaded aliases, functions, paths, tools, and Git SSH
+- `remote-ssh`: main entrypoint for setup, install, uninstall, check, ssh, git,
+  update, doctor, prune, and scripts.
+- `remote-ssh guide`: show loaded aliases, functions, paths, tools, and Git/SSH
   notes.
 - `remote-ssh guide starship`: explain the bundled Starship prompt symbols.
 - `cheats`: open private `navi` cheatsheets from `dots/navi/cheats`.

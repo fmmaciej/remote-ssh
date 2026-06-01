@@ -141,8 +141,23 @@ def test_install_dots_dir_reports_bundled_dotfiles(
     assert_ok(result)
     got = result.stdout + result.stderr
 
-    assert "  dots/..." in got
-    assert "    Found bundled dotfiles and app configs" in got
+    expected = [
+        "  dots/...",
+        "    App configs:",
+        "      dots/starship.toml",
+        "      dots/tmux.conf",
+        "      dots/vimrc",
+        "      dots/atuin/config.toml",
+        "    Setup templates:",
+        "      dots/git/config.base",
+        "      dots/git/user.local.example",
+        "      dots/ssh/config.example",
+        "    Cheatsheets:",
+        "      dots/navi/cheats/*.cheat",
+    ]
+    for line in expected:
+        assert line in got
+    assert "Found bundled dotfiles and app configs" not in got
     assert "Found dots/starship.toml" not in got
 
 

@@ -78,8 +78,31 @@ bssh-ip lab-a
 ## ssh-pick
 
 `ssh-pick` reads host aliases from `$HOME/.ssh/config`, including `Include`
-files, and ignores wildcard entries such as `Host *`. It currently uses
-`scripts/ssh_hosts.py`, so this helper requires `python3`.
+files, and ignores wildcard entries such as `Host *`. The picker shows matching
+`HostName`, `/etc/hosts` IP addresses, `user`, and `port` when they can be
+resolved locally.
+
+Examples:
+
+```bash
+ssh-pick
+ssh-pick --query lab-a
+ssh-pick --query 10.1.2
+ssh-pick --query 10.1.2.3 uptime
+```
+
+`--query` filters by alias, resolved hostname, or IP address. If the query has
+one match, `ssh-pick` connects immediately; otherwise it opens `fzf` with the
+matching rows.
+
+Set `SSH_PICK_CONFIG` before loading `rc.sh` to use a specific OpenSSH config
+for the picker. If it is unset, `ssh-pick` uses `SSH_CONFIG`, then
+`$HOME/.ssh/config`, then `BSSH_SSH_CONFIG` when that file exists. Set
+`SSH_HOSTS_FILE` to test or override the hosts-file lookup; it defaults to
+`/etc/hosts`.
+
+It currently uses `scripts/ssh_hosts.py` plus `ssh -G`, so this helper requires
+`python3`, `ssh`, and `fzf`.
 
 The dependency is intentional for now because the parser is more reliable than
 a shell-only version; a future version may replace it or add a fallback.

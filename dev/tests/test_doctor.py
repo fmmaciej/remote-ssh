@@ -29,6 +29,8 @@ def test_remote_ssh_doctor_reports_missing_tools(repo_dir: Path, tool_env: ToolS
     assert "shell/rc.sh" in output
     assert "Optional helpers" in output
     assert "ssh-pick python3:" in output
+    assert "ssh-pick ssh:" in output
+    assert "ssh-pick fzf:" in output
     assert "Tool check" in output
     assert "summary: failed" in output
     assert "Next steps" in output

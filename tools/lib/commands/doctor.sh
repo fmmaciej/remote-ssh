@@ -133,6 +133,16 @@ remote_ssh_cmd_doctor_main() {
   else
     printf '  ssh-pick python3: missing-optional\n'
   fi
+  if command -v ssh >/dev/null 2>&1; then
+    printf '  ssh-pick ssh:     ok\n'
+  else
+    printf '  ssh-pick ssh:     missing-optional\n'
+  fi
+  if command -v fzf >/dev/null 2>&1; then
+    printf '  ssh-pick fzf:     ok\n'
+  else
+    printf '  ssh-pick fzf:     missing-optional\n'
+  fi
 
   printf '\nTool check\n'
   if [[ "$requested_status" == "mismatch" ]]; then

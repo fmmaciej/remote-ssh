@@ -25,7 +25,7 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "  remote-ssh guide config     Show runtime config sources and values" in result.stdout
     assert "  bssh                        Run bssh with the shared SSH config" in result.stdout
     assert "  bssh-ip                     Print resolved SSH host address" in result.stdout
-    assert "  ssh-pick                    Pick an SSH host with fzf and connect" in result.stdout
+    assert "  ssh-pick                    Pick an SSH host by name/IP and connect" in result.stdout
     assert "  remote-ssh guide starship   Explain prompt and Git status symbols" in result.stdout
     assert "  remote-ssh guide post-install" in result.stdout
     assert "  alias rhelp='remote-ssh guide'" in result.stdout
@@ -323,7 +323,7 @@ def test_remote_ssh_guide_scripts_supports_single_helper(
     output = result.stdout
     assert "Scripts" in output
     assert "ssh-pick" in output
-    assert "ssh-pick [ssh-args...]" in output
+    assert "ssh-pick [--query QUERY] [remote-command...]" in output
     assert "Entry point: shell/rc.d/30-ssh-pick.sh" in output
     assert "Docs: docs/shell/helpers.md#ssh-pick" in output
     assert "ci-run" not in output

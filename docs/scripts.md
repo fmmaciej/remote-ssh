@@ -17,7 +17,7 @@ The current public helpers are:
 - `ci-run`: inspect GitHub Actions jobs. See [ci-run](ci-run.md).
 - `helm-chart-diff`: compare OCI Helm chart packages with chart source. See
   [helm-chart-diff](helm-chart-diff.md).
-- `ssh-pick`: pick an SSH config host with `fzf`. See
+- `ssh-pick`: pick an SSH host by alias, hostname, or IP address. See
   [Shell helpers](shell/helpers.md#ssh-pick).
 
 Files under `scripts/` are implementation details unless they are exposed by a

@@ -20,7 +20,7 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
         in result.stdout
     )
     assert "  remote-ssh ssh setup        Add remote-ssh SSH config include" in result.stdout
-    assert "  remote-ssh ssh status       Check SSH config, host resolution, and agent" in result.stdout
+    assert "  remote-ssh ssh status       Check SSH config, host, agent, and auth" in result.stdout
     assert "  remote-ssh scripts --list   List bundled helper scripts" in result.stdout
     assert "  remote-ssh guide config     Show runtime config sources and values" in result.stdout
     assert "  bssh                        Run bssh with the shared SSH config" in result.stdout

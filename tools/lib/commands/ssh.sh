@@ -17,7 +17,7 @@ Usage: remote-ssh ssh <command> [args]
 
 Commands:
   setup          Enable bundled SSH alias includes
-  status [host]  Report SSH config and agent state
+  status [host]  Report SSH config, agent, host, and auth state
 EOF
 }
 

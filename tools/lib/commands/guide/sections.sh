@@ -22,7 +22,7 @@ Commands
   remote-ssh git setup        Add remote-ssh Git config via include.path
   remote-ssh git status       Check Git identity, session override, and origin
   remote-ssh ssh setup        Add remote-ssh SSH config include
-  remote-ssh ssh status       Check SSH config, host resolution, and agent
+  remote-ssh ssh status       Check SSH config, host, agent, and auth
   remote-ssh update           Git pull this checkout, then run install
   remote-ssh update check     Check whether upstream has changed
   remote-ssh doctor           Check runtime requirements and installed tools
@@ -146,7 +146,7 @@ Git and SSH flow
   so it can override repository .git/config without writing to it.
   Use that alias in repository remotes:
     git remote set-url origin git@github.com-myuser:OWNER/REPO.git
-  Check SSH config and agent locally:
+  Check SSH config, agent, host resolution, and auth:
     remote-ssh ssh status github.com-myuser
   Check Git config, session override, and origin:
     remote-ssh git status

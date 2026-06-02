@@ -56,7 +56,7 @@ def test_remote_ssh_guide_renders_commands_section(repo_dir: Path, tool_env: Too
     assert "remote-ssh setup            Configure bundled SSH and Git defaults" in result.stdout
     assert "remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
     assert "remote-ssh ssh setup        Add remote-ssh SSH config include" in result.stdout
-    assert "remote-ssh ssh status       Check SSH config, host resolution, and agent" in result.stdout
+    assert "remote-ssh ssh status       Check SSH config, host, agent, and auth" in result.stdout
     assert "remote-ssh update check     Check whether upstream has changed" in result.stdout
     assert "remote-ssh scripts --list   List bundled helper scripts" in result.stdout
 

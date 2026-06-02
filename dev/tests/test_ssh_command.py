@@ -115,12 +115,13 @@ def test_remote_ssh_ssh_status_reports_config_and_agent_without_host(
     assert f"  local config:      {repo_copy / 'dots' / 'ssh' / 'config.local'} [readable]" in output
     assert f"  SSH_AUTH_SOCK:     {isolated_env.home / 'agent.sock'}" in output
     assert "  key:              256 SHA256:testkey forwarded-key (ED25519)" in output
+    assert "SSH auth" not in output
     assert "  ssh config:        ok" in output
     assert "  ssh agent:         ok" in output
     assert "  [none]" in output
 
 
-def test_remote_ssh_ssh_status_resolves_host_without_auth(
+def test_remote_ssh_ssh_status_resolves_host_and_checks_auth(
     repo_dir: Path,
     tmp_path: Path,
     isolated_env: IsolatedEnv,
@@ -132,7 +133,7 @@ def test_remote_ssh_ssh_status_resolves_host_without_auth(
         isolated_env.bin_dir / "ssh",
         """
         #!/usr/bin/env bash
-        printf '%s\\n' "$*" >"$FAKE_SSH_ARGS"
+        printf '%s\\n' "$*" >>"$FAKE_SSH_ARGS"
         if [[ "$1" == "-G" && "$2" == "github.com-myuser" ]]; then
           cat <<'EOF'
         hostname github.com
@@ -142,6 +143,12 @@ def test_remote_ssh_ssh_status_resolves_host_without_auth(
         proxyjump jump.example
         EOF
           exit 0
+        fi
+        if [[ "$1" == "-o" && "$2" == "BatchMode=yes" &&
+          "$3" == "-o" && "$4" == "ConnectTimeout=10" &&
+          "$5" == "-T" && "$6" == "github.com-myuser" ]]; then
+          printf "Hi test-user! You've successfully authenticated, but GitHub does not provide shell access.\\n" >&2
+          exit 1
         fi
         printf 'unexpected ssh args: %s\\n' "$*" >&2
         exit 99
@@ -158,7 +165,10 @@ def test_remote_ssh_ssh_status_resolves_host_without_auth(
 
     assert_ok(result)
     output = result.stdout
-    assert args_path.read_text(encoding="utf-8").strip() == "-G github.com-myuser"
+    assert args_path.read_text(encoding="utf-8").splitlines() == [
+        "-G github.com-myuser",
+        "-o BatchMode=yes -o ConnectTimeout=10 -T github.com-myuser",
+    ]
     assert "git@github.com-myuser" not in output
     assert "  command:           ssh -G github.com-myuser" in output
     assert "  status:            ok" in output
@@ -167,3 +177,52 @@ def test_remote_ssh_ssh_status_resolves_host_without_auth(
     assert "  port:              2222" in output
     assert "  identityfile:      ~/.ssh/id_ed25519" in output
     assert "  proxyjump:         jump.example" in output
+    assert "SSH auth" in output
+    assert "  command:           ssh -o BatchMode=yes -o ConnectTimeout=10 -T github.com-myuser" in output
+    assert "  exit:              1" in output
+    assert "  output:           Hi test-user! You've successfully authenticated" in output
+    assert "  ssh auth:          ok" in output
+    assert "  [none]" in output
+
+
+def test_remote_ssh_ssh_status_reports_auth_denied_hint(
+    repo_dir: Path,
+    tmp_path: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    repo_copy = copy_repo_for_git_setup(repo_dir, tmp_path)
+    write_fake_ssh_add(isolated_env.bin_dir, "256 SHA256:testkey forwarded-key (ED25519)")
+    write_executable(
+        isolated_env.bin_dir / "ssh",
+        """
+        #!/usr/bin/env bash
+        if [[ "$1" == "-G" && "$2" == "github.com-myuser" ]]; then
+          printf 'hostname github.com\\nuser git\\nport 22\\n'
+          exit 0
+        fi
+        if [[ "$1" == "-o" && "$2" == "BatchMode=yes" &&
+          "$3" == "-o" && "$4" == "ConnectTimeout=10" &&
+          "$5" == "-T" && "$6" == "github.com-myuser" ]]; then
+          printf 'git@github.com: Permission denied (publickey).\\n' >&2
+          exit 255
+        fi
+        printf 'unexpected ssh args: %s\\n' "$*" >&2
+        exit 99
+        """,
+    )
+    result = run_ssh_setup(repo_copy, env=isolated_env.env)
+    assert_ok(result)
+    env = isolated_env.env | {"SSH_AUTH_SOCK": str(isolated_env.home / "agent.sock")}
+
+    result = run_remote_ssh(repo_copy, ["ssh", "status", "github.com-myuser"], env=env)
+
+    assert_ok(result)
+    output = result.stdout
+    assert "SSH auth" in output
+    assert "  status:            denied-publickey" in output
+    assert "  exit:              255" in output
+    assert "  ssh auth:          denied-publickey" in output
+    assert (
+        "  - Check the SSH alias, IdentityFile, and whether the public key is registered"
+        in output
+    )

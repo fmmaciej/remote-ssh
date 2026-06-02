@@ -66,7 +66,8 @@ def test_remote_ssh_git_usage_and_unknown_command(repo_dir: Path, tool_env: Tool
     assert_ok(result)
     assert "Usage: remote-ssh git <command> [args]" in result.stdout
     assert "setup" in result.stdout
-    assert "status [ssh-host]" in result.stdout
+    assert "status             Report Git identity, session override, and origin" in result.stdout
+    assert "status [ssh-host]" not in result.stdout
 
     result = run_remote_ssh(repo_dir, ["git", "wat"], env=tool_env.env)
     assert_failed(result)

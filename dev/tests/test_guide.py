@@ -15,7 +15,10 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "  remote-ssh uninstall [tool ...]" in result.stdout
     assert "  remote-ssh setup            Configure bundled SSH and Git defaults" in result.stdout
     assert "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
-    assert "  remote-ssh git status       Check Git identity, SSH agent, and Git SSH auth" in result.stdout
+    assert (
+        "  remote-ssh git status       Check Git identity, session override, and origin"
+        in result.stdout
+    )
     assert "  remote-ssh ssh setup        Add remote-ssh SSH config include" in result.stdout
     assert "  remote-ssh ssh status       Check SSH config, host resolution, and agent" in result.stdout
     assert "  remote-ssh scripts --list   List bundled helper scripts" in result.stdout
@@ -77,7 +80,8 @@ def test_remote_ssh_guide_supports_git_section(repo_dir: Path, isolated_env: Iso
     assert "    remote-ssh git setup" in result.stdout
     assert f"    {repo_dir}/dots/git/user.local" in result.stdout
     assert "    remote-ssh ssh status github.com-myuser" in result.stdout
-    assert "    remote-ssh git status github.com-myuser" in result.stdout
+    assert "    remote-ssh git status" in result.stdout
+    assert "    remote-ssh git status github.com-myuser" not in result.stdout
     assert f"    {repo_dir}/dots/ssh/config.local" in result.stdout
     assert "Commands" not in result.stdout
 

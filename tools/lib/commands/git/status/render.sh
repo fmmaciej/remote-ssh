@@ -4,10 +4,7 @@
 ensure_this_file_sourced
 
 remote_ssh_cmd_git_status_print_git_config_value() {
-  local key="$1" value origin
-
-  value="$(git config --get "$key" 2>/dev/null || true)"
-  origin="$(git config --show-origin --get "$key" 2>/dev/null | sed 's/[[:space:]].*$//' || true)"
+  local key="$1" value="$2" origin="$3"
 
   if [[ -n "$value" ]]; then
     if [[ -n "$origin" ]]; then
@@ -48,61 +45,47 @@ remote_ssh_cmd_git_status_print_session_identity() {
   [[ "$found" -eq 1 ]] || printf '  %-18s [none]\n' 'session keys:'
 }
 
-remote_ssh_cmd_git_status_render_agent() {
-  printf '\nSSH agent\n'
-  if [[ -n "$REMOTE_SSH_GIT_STATUS_SSH_AUTH_SOCK" ]]; then
-    printf '  %-18s %s\n' 'SSH_AUTH_SOCK:' "$REMOTE_SSH_GIT_STATUS_SSH_AUTH_SOCK"
-  else
-    printf '  %-18s [missing]\n' 'SSH_AUTH_SOCK:'
+remote_ssh_cmd_git_status_print_next_steps() {
+  local printed=0
+
+  printf '\nNext steps\n'
+
+  if [[ "$REMOTE_SSH_GIT_STATUS_INSIDE_WORK_TREE" -ne 1 ]]; then
+    printf '  - Run remote-ssh git status from inside a Git work tree.\n'
+    printed=1
   fi
 
-  if [[ "$REMOTE_SSH_GIT_STATUS_SSH_ADD_FOUND" -eq 1 ]]; then
-    if [[ "$REMOTE_SSH_GIT_STATUS_SSH_ADD_EXIT" -eq 0 ]]; then
-      while IFS= read -r line; do
-        [[ -n "$line" ]] && printf '  key:              %s\n' "$line"
-      done <<<"$REMOTE_SSH_GIT_STATUS_SSH_ADD_OUTPUT"
-    else
-      printf '  %-18s %s\n' 'keys:' "$REMOTE_SSH_GIT_STATUS_SSH_ADD_OUTPUT"
-    fi
-  else
-    printf '  %-18s [ssh-add not found]\n' 'keys:'
-  fi
-}
-
-remote_ssh_cmd_git_status_render_auth() {
-  if [[ -z "$REMOTE_SSH_GIT_STATUS_SSH_HOST" ]]; then
-    printf '\nSSH auth\n'
-    printf '  %-18s [skipped]\n' 'status:'
-    return 0
+  if [[ -z "$REMOTE_SSH_GIT_STATUS_USER_NAME" ||
+    -z "$REMOTE_SSH_GIT_STATUS_USER_EMAIL" ||
+    -z "$REMOTE_SSH_GIT_STATUS_USER_USE_CONFIG_ONLY" ]]; then
+    printf '  - Run remote-ssh git setup to configure bundled Git defaults.\n'
+    printed=1
   fi
 
-  printf '\nSSH auth\n'
-  printf '  %-18s ssh -T git@%s\n' 'command:' "$REMOTE_SSH_GIT_STATUS_SSH_HOST"
-
-  if [[ "$REMOTE_SSH_GIT_STATUS_AUTH_STATUS" == "ok" ]]; then
-    printf '  %-18s ok\n' 'status:'
-  else
-    printf '  %-18s exit %s\n' 'status:' "$REMOTE_SSH_GIT_STATUS_SSH_EXIT"
+  if [[ -z "$REMOTE_SSH_GIT_STATUS_ORIGIN_URL" ]]; then
+    printf '  - Add an origin remote, or run this from a repository that has one.\n'
+    printed=1
   fi
 
-  while IFS= read -r line; do
-    [[ -n "$line" ]] && printf '  output:           %s\n' "$line"
-  done <<<"$REMOTE_SSH_GIT_STATUS_SSH_OUTPUT"
-}
-
-remote_ssh_cmd_git_status_render_diagnosis() {
-  printf '\nDiagnosis\n'
-  printf '  %-18s %s\n' 'ssh agent:' "$REMOTE_SSH_GIT_STATUS_AGENT_STATUS"
-  printf '  %-18s %s\n' 'ssh auth:' "$REMOTE_SSH_GIT_STATUS_AUTH_STATUS"
+  [[ "$printed" -eq 1 ]] || printf '  [none]\n'
 }
 
 remote_ssh_cmd_git_status_render() {
   printf 'remote-ssh git status\n\n'
 
   printf 'Git config\n'
-  remote_ssh_cmd_git_status_print_git_config_value user.name
-  remote_ssh_cmd_git_status_print_git_config_value user.email
-  remote_ssh_cmd_git_status_print_git_config_value user.useConfigOnly
+  remote_ssh_cmd_git_status_print_git_config_value \
+    user.name \
+    "$REMOTE_SSH_GIT_STATUS_USER_NAME" \
+    "$REMOTE_SSH_GIT_STATUS_USER_NAME_ORIGIN"
+  remote_ssh_cmd_git_status_print_git_config_value \
+    user.email \
+    "$REMOTE_SSH_GIT_STATUS_USER_EMAIL" \
+    "$REMOTE_SSH_GIT_STATUS_USER_EMAIL_ORIGIN"
+  remote_ssh_cmd_git_status_print_git_config_value \
+    user.useConfigOnly \
+    "$REMOTE_SSH_GIT_STATUS_USER_USE_CONFIG_ONLY" \
+    "$REMOTE_SSH_GIT_STATUS_USER_USE_CONFIG_ONLY_ORIGIN"
 
   if [[ "$REMOTE_SSH_GIT_STATUS_INSIDE_WORK_TREE" -eq 1 ]]; then
     [[ -n "$REMOTE_SSH_GIT_STATUS_AUTHOR_IDENT" ]] &&
@@ -122,14 +105,5 @@ remote_ssh_cmd_git_status_render() {
     printf '  %-18s [missing]\n' 'origin:'
   fi
 
-  if [[ -n "$REMOTE_SSH_GIT_STATUS_SSH_HOST" ]]; then
-    printf '  %-18s %s\n' 'ssh host:' "$REMOTE_SSH_GIT_STATUS_SSH_HOST"
-  else
-    printf '  %-18s [missing; pass one, e.g. github.com-myuser]\n' 'ssh host:'
-  fi
-
-  remote_ssh_cmd_git_status_render_agent
-  remote_ssh_cmd_git_status_render_auth
-  remote_ssh_cmd_git_status_render_diagnosis
-  remote_ssh_cmd_git_status_print_hints
+  remote_ssh_cmd_git_status_print_next_steps
 }

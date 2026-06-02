@@ -15,7 +15,7 @@ Usage: remote-ssh git <command> [args]
 
 Commands:
   setup              Enable bundled Git defaults
-  status [ssh-host]  Report Git identity, SSH agent, and Git SSH auth
+  status             Report Git identity, session override, and origin
 EOF
 }
 

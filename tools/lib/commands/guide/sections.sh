@@ -20,7 +20,7 @@ Commands
   remote-ssh tool list        Show tool selection and install state
   remote-ssh check --strict   Report pinned tools vs local bin and PATH
   remote-ssh git setup        Add remote-ssh Git config via include.path
-  remote-ssh git status       Check Git identity, SSH agent, and Git SSH auth
+  remote-ssh git status       Check Git identity, session override, and origin
   remote-ssh ssh setup        Add remote-ssh SSH config include
   remote-ssh ssh status       Check SSH config, host resolution, and agent
   remote-ssh update           Git pull this checkout, then run install
@@ -148,8 +148,8 @@ Git and SSH flow
     git remote set-url origin git@github.com-myuser:OWNER/REPO.git
   Check SSH config and agent locally:
     remote-ssh ssh status github.com-myuser
-  Check Git config, SSH agent, and SSH auth together:
-    remote-ssh git status github.com-myuser
+  Check Git config, session override, and origin:
+    remote-ssh git status
   Disable the session identity override before rc.sh loads:
     export REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=0
 EOF

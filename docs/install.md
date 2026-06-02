@@ -130,8 +130,8 @@ tools explicitly or run:
 remote-ssh install --profile quick --yes
 ```
 
-Helper scripts such as `ci-run`, `helm-chart-diff`, and `ssh-pick` are part of
-the remote-ssh checkout. There is no `--scripts` install flag; use
+Helper scripts such as `ci-run`, `helm-chart-diff`, `ssh-find`, and `ssh-pick`
+are part of the remote-ssh checkout. There is no `--scripts` install flag; use
 `remote-ssh guide scripts` to inspect helper requirements.
 
 ## Installed Paths

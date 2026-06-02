@@ -42,11 +42,11 @@
     are ambiguous.
   - Errors should explain which candidates were found and why none was chosen.
 
-**ssh-pick:**
+**ssh-find / ssh-pick:**
 
-- Documented as optional helper requiring `python3` for now
+- Documented as optional helper requiring `python3`, `ssh`, and `fzf` for now
 
-- Decide later whether to keep Python, replace `ssh_hosts.py`, or add a shell fallback
+- Decide later whether to keep Python, replace `ssh_find.py`, or add a shell fallback
 
 **Tmux vs Zellij:**
 

@@ -25,6 +25,7 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "  remote-ssh guide config     Show runtime config sources and values" in result.stdout
     assert "  bssh                        Run bssh with the shared SSH config" in result.stdout
     assert "  bssh-ip                     Print resolved SSH host address" in result.stdout
+    assert "  ssh-find                    Find an SSH host by name/IP with fzf" in result.stdout
     assert "  ssh-pick                    Pick an SSH host by name/IP and connect" in result.stdout
     assert "  remote-ssh guide starship   Explain prompt and Git status symbols" in result.stdout
     assert "  remote-ssh guide post-install" in result.stdout
@@ -306,6 +307,7 @@ def test_remote_ssh_guide_supports_scripts_section(
     assert "bssh-ip" in output
     assert "ci-run" in output
     assert "helm-chart-diff" in output
+    assert "ssh-find" in output
     assert "ssh-pick" in output
     assert "Requires: bssh" in output
     assert "Requires: gh" in output
@@ -329,6 +331,26 @@ def test_remote_ssh_guide_scripts_supports_single_helper(
     assert "ci-run" not in output
     assert "helm-chart-diff" not in output
     assert "sshf" not in output
+
+
+def test_remote_ssh_guide_scripts_supports_ssh_find_helper(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "scripts", "ssh-find"], env=isolated_env.env)
+
+    assert_ok(result)
+    output = result.stdout
+    assert "Scripts" in output
+    assert "ssh-find" in output
+    assert "ssh-find [query]" in output
+    assert "Requires: python3, ssh, fzf" in output
+    assert "Entry point: bin/ssh-find" in output
+    assert "Backend: scripts/ssh_find.py" in output
+    assert "Docs: docs/shell/helpers.md#ssh-find" in output
+    assert "ci-run" not in output
+    assert "helm-chart-diff" not in output
+    assert "ssh-pick [--query QUERY]" not in output
 
 
 def test_remote_ssh_guide_scripts_supports_bssh_ip_helper(

@@ -14,6 +14,8 @@ The remote-ssh shell loads a few small helpers:
   it.
 - `bssh`: run `bssh` with stream output and the shared SSH config.
 - `bssh-ip`: print the resolved SSH hostname, user, and port for a host.
+- `ssh-find`: find an SSH host by alias, hostname, or IP address.
+- `ssh-pick`: connect to an SSH host selected through `ssh-find`.
 
 To list script-backed helper commands and shell functions:
 
@@ -75,12 +77,49 @@ bssh-ip lab-a
 `bssh-ip HOST` uses `ssh -G -F "$BSSH_SSH_CONFIG" HOST` and prints the resolved
 `HostName`, plus `user` and `port` when OpenSSH reports them.
 
+## ssh-find
+
+`ssh-find` reads host aliases from `$HOME/.ssh/config`, including `Include`
+files, plus the supported subset of `$HOME/.config/bssh/config.yaml`. It opens
+`fzf` and shows:
+
+```text
+alias  address  user  source
+```
+
+The selected row is printed as a full tab-separated record for other helpers.
+`ssh-find` does not connect anywhere.
+
+Examples:
+
+```bash
+ssh-find
+ssh-find lab-a
+ssh-find 10.1.2
+```
+
+The optional argument sets the initial `fzf` query. It does not auto-select a
+single match; press Enter to choose a row.
+
+OpenSSH entries resolve `HostName`, `User`, and `Port` through `ssh -G`. bssh
+entries support `defaults.user`, `defaults.port`, `clusters.<name>.user`,
+`clusters.<name>.port`, and `clusters.<name>.nodes` as strings
+(`user@host:port`, `host:port`, `host`) or simple maps (`name`/`alias`, `host`,
+`user`, `port`). `/etc/hosts` is used only to map a hostname to a display IP.
+
+Set `SSH_FIND_SSH_CONFIG` to use a specific OpenSSH config. Set
+`SSH_FIND_BSSH_CONFIG` to use a specific bssh config. Set `SSH_HOSTS_FILE` to
+test or override the hosts-file lookup.
+
+It currently uses `scripts/ssh_find.py` plus `ssh -G`, so this helper requires
+`python3`, `ssh`, and `fzf`.
+
 ## ssh-pick
 
-`ssh-pick` reads host aliases from `$HOME/.ssh/config`, including `Include`
-files, and ignores wildcard entries such as `Host *`. The picker shows matching
-`HostName`, `/etc/hosts` IP addresses, `user`, and `port` when they can be
-resolved locally.
+`ssh-pick` calls `ssh-find`, then connects to the selected record. OpenSSH
+records connect through their alias so options such as `IdentityFile`,
+`ProxyJump`, and `RemoteCommand` stay active. bssh records connect directly to
+`[user@]host` with `-p PORT` when a port is known.
 
 Examples:
 
@@ -90,19 +129,6 @@ ssh-pick --query lab-a
 ssh-pick --query 10.1.2
 ssh-pick --query 10.1.2.3 uptime
 ```
-
-`--query` filters by alias, resolved hostname, or IP address. If the query has
-one match, `ssh-pick` connects immediately; otherwise it opens `fzf` with the
-matching rows.
-
-Set `SSH_PICK_CONFIG` before loading `rc.sh` to use a specific OpenSSH config
-for the picker. If it is unset, `ssh-pick` uses `SSH_CONFIG`, then
-`$HOME/.ssh/config`, then `BSSH_SSH_CONFIG` when that file exists. Set
-`SSH_HOSTS_FILE` to test or override the hosts-file lookup; it defaults to
-`/etc/hosts`.
-
-It currently uses `scripts/ssh_hosts.py` plus `ssh -G`, so this helper requires
-`python3`, `ssh`, and `fzf`.
 
 The dependency is intentional for now because the parser is more reliable than
 a shell-only version; a future version may replace it or add a fallback.

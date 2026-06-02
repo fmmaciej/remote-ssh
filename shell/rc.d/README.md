@@ -203,7 +203,7 @@ dots/ssh/config.local
 ## fzf and Atuin
 
 `fzf` stays enabled as a general-purpose picker and as a dependency for tools
-such as `ssh-pick`.
+such as `ssh-find` and `ssh-pick`.
 
 `atuin` is loaded separately by `23-atuin.sh` in interactive shells. When
 `atuin` exists in `PATH`, it owns shell history integration. The `Ctrl-r`

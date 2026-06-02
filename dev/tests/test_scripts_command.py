@@ -15,10 +15,12 @@ def test_remote_ssh_scripts_list_public_helpers(repo_dir: Path, tool_env: ToolSt
     assert "bssh-ip" in output
     assert "ci-run" in output
     assert "helm-chart-diff" in output
+    assert "ssh-find" in output
     assert "ssh-pick" in output
     assert "command" in output
     assert "shell function" in output
     assert "ssh_hosts.py" not in output
+    assert "ssh_find.py" not in output
 
 
 def test_remote_ssh_scripts_list_alias(repo_dir: Path, tool_env: ToolStateEnv) -> None:

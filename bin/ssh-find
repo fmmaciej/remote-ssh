@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+repo_dir="$(cd -- "$script_dir/.." && pwd)"
+
+ssh_find_backend="${SSH_FIND_BACKEND:-$repo_dir/scripts/ssh_find.py}"
+query="$*"
+
+records="$("$ssh_find_backend" 2>&1)" || {
+  printf '[WARN] ssh-find could not list SSH hosts.\n' >&2
+  printf '[WARN] ssh-find currently requires python3 for scripts/ssh_find.py.\n' >&2
+  [[ -n "$records" ]] && printf '%s\n' "$records" >&2
+  exit 1
+}
+
+if [[ -z "$records" ]]; then
+  printf '[WARN] ssh-find found no SSH hosts.\n' >&2
+  exit 1
+fi
+
+fzf_args=(
+  --prompt='ssh host> '
+  --delimiter=$'\t'
+  "--with-nth=1,2,3,4"
+  "--nth=1,2,3,4"
+)
+
+if [[ -n "$query" ]]; then
+  fzf_args+=(--query="$query")
+fi
+
+selected="$(printf '%s\n' "$records" | fzf "${fzf_args[@]}")" || {
+  status=$?
+  exit "$status"
+}
+
+if [[ -z "$selected" ]]; then
+  printf '[WARN] ssh-find selected an empty SSH host.\n' >&2
+  exit 1
+fi
+
+printf '%s\n' "$selected"

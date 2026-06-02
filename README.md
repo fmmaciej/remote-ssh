@@ -12,8 +12,8 @@ not supported.
 The runtime target is a fresh or minimally configured Unix-like host. The normal
 installation path intentionally avoids package managers, source builds, `jq`,
 and GitHub API discovery. Python is not needed for the core installer, but the
-optional `ssh-pick` helper currently uses a Python parser plus `ssh -G` for SSH
-config lookup.
+optional `ssh-find` and `ssh-pick` helpers currently use a Python parser plus
+`ssh -G` for SSH config lookup.
 
 ## Why This Exists
 
@@ -122,7 +122,7 @@ guide generated from the currently loaded shell configuration.
 
 Optional helper requirements:
 
-- `python3`, `ssh`, and `fzf` for `ssh-pick`
+- `python3`, `ssh`, and `fzf` for `ssh-find` and `ssh-pick`
 - `gh` for `ci-run`, the optional GitHub Actions run helper
 - `helm` for `helm-chart-diff`, the optional Helm chart comparison helper
 

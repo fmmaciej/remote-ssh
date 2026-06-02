@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd, write_executable
+from conftest import IsolatedEnv, assert_ok, run_cmd, write_executable
 
 
 def test_ssh_hosts_parser(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
@@ -39,17 +39,47 @@ Host *.wildcard
     assert result.stdout.rstrip("\n") == "direct\nlab-a\nlab-b"
 
 
-def test_ssh_hosts_pick_format_includes_resolved_hosts_file_addresses(
+def test_ssh_find_backend_indexes_ssh_config_and_bssh_records(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
 ) -> None:
     ssh_dir = isolated_env.home / ".ssh"
-    ssh_dir.mkdir(parents=True)
+    config_d = ssh_dir / "config.d"
+    config_d.mkdir(parents=True)
     ssh_config = ssh_dir / "config"
     ssh_config.write_text(
         """\
+Include config.d/*.conf
+""",
+        encoding="utf-8",
+    )
+    (config_d / "10-lab.conf").write_text(
+        """\
 Host lab-a
   HostName labbox
+""",
+        encoding="utf-8",
+    )
+    bssh_config = isolated_env.home / ".config" / "bssh" / "config.yaml"
+    bssh_config.parent.mkdir(parents=True)
+    bssh_config.write_text(
+        """\
+defaults:
+  user: fallback
+  port: 22
+clusters:
+  prod:
+    user: deploy
+    port: 2200
+    nodes:
+      - user1@web1:2221
+      - web2:2222
+      - name: gpu-a
+        host: gpu-host
+      - alias: npu-a
+        host: 10.1.2.9
+        user: root
+        port: 2229
 """,
         encoding="utf-8",
     )
@@ -58,7 +88,10 @@ Host lab-a
         """\
 127.0.0.1 localhost
 255.255.255.255 broadcasthost
-10.1.2.3 labbox lab-a-hosts
+10.1.2.3 labbox
+10.1.2.4 gpu-host
+10.1.2.5 web1
+10.1.2.6 web2
 """,
         encoding="utf-8",
     )
@@ -74,106 +107,136 @@ Host lab-a
 
     env = isolated_env.env | {
         "PYTHONDONTWRITEBYTECODE": "1",
-        "SSH_CONFIG": str(ssh_config),
+        "SSH_FIND_SSH_CONFIG": str(ssh_config),
+        "SSH_FIND_BSSH_CONFIG": str(bssh_config),
         "SSH_HOSTS_FILE": str(hosts_file),
     }
-    result = run_cmd([repo_dir / "scripts" / "ssh_hosts.py", "--format", "pick"], env=env)
+    result = run_cmd([repo_dir / "scripts" / "ssh_find.py"], env=env)
 
     assert_ok(result)
     assert result.stdout.splitlines() == [
-        "lab-a\thostname=labbox\tip=10.1.2.3\tuser=alice\tport=2222",
-        "lab-a-hosts\tip=10.1.2.3",
+        "gpu-a\t10.1.2.4\tdeploy\t.config/bssh/config.yaml\t2200\tdirect\tgpu-host",
+        "lab-a\t10.1.2.3\talice\t.ssh/config\t2222\tssh-config\tlab-a",
+        "npu-a\t10.1.2.9\troot\t.config/bssh/config.yaml\t2229\tdirect\t10.1.2.9",
+        "web1\t10.1.2.5\tuser1\t.config/bssh/config.yaml\t2221\tdirect\tweb1",
+        "web2\t10.1.2.6\tdeploy\t.config/bssh/config.yaml\t2222\tdirect\tweb2",
     ]
 
 
-def test_ssh_pick_default_flow(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
-    ssh_dir = isolated_env.home / ".ssh"
-    ssh_dir.mkdir(parents=True)
-    (ssh_dir / "config").write_text(
+def test_ssh_find_opens_fzf_without_query(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+    write_executable(
+        isolated_env.bin_dir / "ssh_find_backend",
         """\
-Host devbox
-  HostName devbox.example
-""",
-        encoding="utf-8",
+        #!/usr/bin/env bash
+        printf 'lab-a\\t10.1.2.3\\talice\\t.ssh/config\\t2222\\tssh-config\\tlab-a\\n'
+        printf 'gpu-a\\t10.1.2.4\\tdeploy\\t.config/bssh/config.yaml\\t2200\\tdirect\\tgpu-host\\n'
+        """,
     )
     write_executable(
         isolated_env.bin_dir / "fzf",
         """
         #!/usr/bin/env bash
-        sed -n '/^devbox/p'
+        printf '%s\\n' "$*" >"${FZF_ARGS_OUT:?}"
+        sed -n '2p'
+        """,
+    )
+    fzf_args_out = isolated_env.home / "fzf.args"
+    env = isolated_env.env | {
+        "FZF_ARGS_OUT": str(fzf_args_out),
+        "SSH_FIND_BACKEND": str(isolated_env.bin_dir / "ssh_find_backend"),
+    }
+
+    result = run_cmd([repo_dir / "bin" / "ssh-find"], env=env)
+
+    assert_ok(result)
+    assert result.stdout.rstrip("\n") == (
+        "gpu-a\t10.1.2.4\tdeploy\t.config/bssh/config.yaml\t2200\tdirect\tgpu-host"
+    )
+    fzf_args = fzf_args_out.read_text(encoding="utf-8")
+    assert "--with-nth=1,2,3,4" in fzf_args
+    assert "--nth=1,2,3,4" in fzf_args
+    assert "--query=" not in fzf_args
+
+
+def test_ssh_find_passes_query_to_fzf(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+    write_executable(
+        isolated_env.bin_dir / "ssh_find_backend",
+        """\
+        #!/usr/bin/env bash
+        printf 'lab-a\\t10.1.2.3\\talice\\t.ssh/config\\t2222\\tssh-config\\tlab-a\\n'
         """,
     )
     write_executable(
-        isolated_env.bin_dir / "ssh",
+        isolated_env.bin_dir / "fzf",
         """
         #!/usr/bin/env bash
-        printf '%s\\n' "$*" >"${SSH_STUB_OUT:?}"
+        printf '%s\\n' "$*" >"${FZF_ARGS_OUT:?}"
+        sed -n '1p'
         """,
     )
-    out = isolated_env.home / "ssh.out"
-    env = isolated_env.env | {"SSH_STUB_OUT": str(out)}
+    fzf_args_out = isolated_env.home / "fzf.args"
+    env = isolated_env.env | {
+        "FZF_ARGS_OUT": str(fzf_args_out),
+        "SSH_FIND_BACKEND": str(isolated_env.bin_dir / "ssh_find_backend"),
+    }
 
-    result = run_cmd(
-        [
-            "bash",
-            "-c",
-            """
-            set -euo pipefail
-            . "$1/shell/env.sh"
-            . "$1/shell/rc.d/30-ssh-pick.sh"
-            ssh-pick -- true
-            """,
-            "_",
-            repo_dir,
-        ],
-        cwd=repo_dir,
-        env=env,
-    )
+    result = run_cmd([repo_dir / "bin" / "ssh-find", "10.1"], env=env)
 
     assert_ok(result)
-    assert out.read_text(encoding="utf-8").rstrip("\n") == "devbox -- true"
+    assert "--query=10.1" in fzf_args_out.read_text(encoding="utf-8")
+    assert result.stdout.rstrip("\n") == (
+        "lab-a\t10.1.2.3\talice\t.ssh/config\t2222\tssh-config\tlab-a"
+    )
 
 
-def test_ssh_pick_query_selects_unique_ip_match(
+def test_ssh_find_cancel_returns_fzf_status(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+    write_executable(
+        isolated_env.bin_dir / "ssh_find_backend",
+        """\
+        #!/usr/bin/env bash
+        printf 'lab-a\\t10.1.2.3\\talice\\t.ssh/config\\t2222\\tssh-config\\tlab-a\\n'
+        """,
+    )
+    write_executable(
+        isolated_env.bin_dir / "fzf",
+        """
+        #!/usr/bin/env bash
+        exit 130
+        """,
+    )
+    env = isolated_env.env | {
+        "SSH_FIND_BACKEND": str(isolated_env.bin_dir / "ssh_find_backend"),
+    }
+
+    result = run_cmd([repo_dir / "bin" / "ssh-find"], env=env)
+
+    assert result.returncode == 130
+
+
+def test_ssh_pick_connects_to_ssh_config_alias(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
 ) -> None:
-    ssh_dir = isolated_env.home / ".ssh"
-    ssh_dir.mkdir(parents=True)
-    ssh_config = ssh_dir / "config"
-    ssh_config.write_text(
+    write_executable(
+        isolated_env.bin_dir / "ssh_find",
         """\
-Host lab-a
-  HostName labbox
-""",
-        encoding="utf-8",
+        #!/usr/bin/env bash
+        printf '%s\\n' "$*" >"${SSH_FIND_ARGS_OUT:?}"
+        printf 'lab-a\\t10.1.2.3\\talice\\t.ssh/config\\t2222\\tssh-config\\tlab-a\\n'
+        """,
     )
-    hosts_file = isolated_env.home / "hosts"
-    hosts_file.write_text("10.1.2.3 labbox\n", encoding="utf-8")
     write_executable(
         isolated_env.bin_dir / "ssh",
-        """
+        """\
         #!/usr/bin/env bash
-        if [[ "$1" == "-G" ]]; then
-          printf 'hostname labbox\\n'
-          printf 'user alice\\n'
-          printf 'port 2222\\n'
-          exit 0
-        fi
         printf '%s\\n' "$*" >"${SSH_STUB_OUT:?}"
         """,
     )
-    write_executable(
-        isolated_env.bin_dir / "fzf",
-        """
-        #!/usr/bin/env bash
-        printf 'fzf should not be called for a unique query match\\n' >&2
-        exit 1
-        """,
-    )
+    find_args_out = isolated_env.home / "ssh-find.args"
     out = isolated_env.home / "ssh.out"
     env = isolated_env.env | {
-        "SSH_HOSTS_FILE": str(hosts_file),
+        "SSH_FIND_ARGS_OUT": str(find_args_out),
+        "SSH_FIND_CMD": str(isolated_env.bin_dir / "ssh_find"),
         "SSH_STUB_OUT": str(out),
     }
 
@@ -185,7 +248,7 @@ Host lab-a
             set -euo pipefail
             . "$1/shell/env.sh"
             . "$1/shell/rc.d/30-ssh-pick.sh"
-            ssh-pick --query 10.1.2.3
+            ssh-pick --query 10.1 uptime
             """,
             "_",
             repo_dir,
@@ -195,10 +258,34 @@ Host lab-a
     )
 
     assert_ok(result)
-    assert out.read_text(encoding="utf-8").rstrip("\n") == "lab-a"
+    assert find_args_out.read_text(encoding="utf-8").rstrip("\n") == "10.1"
+    assert out.read_text(encoding="utf-8").rstrip("\n") == "lab-a uptime"
 
 
-def test_ssh_pick_reports_parser_failure(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+def test_ssh_pick_connects_to_bssh_direct_target(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    write_executable(
+        isolated_env.bin_dir / "ssh_find",
+        """\
+        #!/usr/bin/env bash
+        printf 'gpu-a\\t10.1.2.4\\tdeploy\\t.config/bssh/config.yaml\\t2200\\tdirect\\tgpu-host\\n'
+        """,
+    )
+    write_executable(
+        isolated_env.bin_dir / "ssh",
+        """\
+        #!/usr/bin/env bash
+        printf '%s\\n' "$*" >"${SSH_STUB_OUT:?}"
+        """,
+    )
+    out = isolated_env.home / "ssh.out"
+    env = isolated_env.env | {
+        "SSH_FIND_CMD": str(isolated_env.bin_dir / "ssh_find"),
+        "SSH_STUB_OUT": str(out),
+    }
+
     result = run_cmd(
         [
             "bash",
@@ -207,19 +294,17 @@ def test_ssh_pick_reports_parser_failure(repo_dir: Path, isolated_env: IsolatedE
             set -euo pipefail
             . "$1/shell/env.sh"
             . "$1/shell/rc.d/30-ssh-pick.sh"
-            SSH_HOSTS_CMD=false ssh-pick
+            ssh-pick -- uptime
             """,
             "_",
             repo_dir,
         ],
         cwd=repo_dir,
-        env=isolated_env.env,
+        env=env,
     )
 
-    assert_failed(result)
-    output = result.stdout + result.stderr
-    assert "ssh-pick could not list SSH hosts" in output
-    assert "requires python3" in output
+    assert_ok(result)
+    assert out.read_text(encoding="utf-8").rstrip("\n") == "-p 2200 deploy@gpu-host uptime"
 
 
 def test_bssh_wrapper_uses_default_shared_config(

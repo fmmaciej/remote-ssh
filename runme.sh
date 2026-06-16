@@ -28,8 +28,8 @@ RUNME_TOOLS=(
   zoxide
   atuin
   navi
-  tspin
-  vector
+  # tspin
+  # vector
   bssh
 )
 

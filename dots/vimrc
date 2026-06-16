@@ -36,6 +36,11 @@ endif
 set ttimeout
 set ttimeoutlen=10
 
+" Classic Vim can receive bracketed-paste input on startup in some terminals.
+if !has('nvim')
+  set t_BE=
+endif
+
 " Paste-mode toggle
 if exists('+pastetoggle') && !has('nvim')
   set pastetoggle=<F2>

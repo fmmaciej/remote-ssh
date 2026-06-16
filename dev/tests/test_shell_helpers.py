@@ -149,6 +149,13 @@ def test_bundled_vimrc_uses_system_clipboard_when_available(repo_dir: Path) -> N
     assert 'nnoremap <leader>p "+p' in conf
 
 
+def test_bundled_vimrc_disables_classic_vim_bracketed_paste(repo_dir: Path) -> None:
+    conf = (repo_dir / "dots" / "vimrc").read_text(encoding="utf-8")
+
+    assert "if !has('nvim')" in conf
+    assert "set t_BE=" in conf
+
+
 def test_vim_alias_uses_bundled_vimrc_when_nvim_is_available(
     repo_dir: Path,
     isolated_env: IsolatedEnv,

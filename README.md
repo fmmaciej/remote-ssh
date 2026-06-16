@@ -1,31 +1,24 @@
 # Remote-ssh
 
-Remote-ssh is a lightweight, shell-first framework for bootstrapping useful SSH
-sessions on remote machines. It provides a small Bash-based session environment,
-bundled dotfiles, helper commands, and pinned standalone CLI tools downloaded
-from GitHub Releases.
+Remote-ssh makes a new SSH session feel like your own shell.
 
-The shell environment is Bash-first. Start it with
-`bash --rcfile <remote-ssh>/shell/rc.sh -i`; sourcing `shell/rc.sh` from Zsh is
-not supported.
-
-The runtime target is a fresh or minimally configured Unix-like host. The normal
-installation path intentionally avoids package managers, source builds, `jq`,
-and GitHub API discovery. Python is not needed for the core installer, but the
-optional `ssh-find` and `ssh-pick` helpers currently use a Python parser plus
-`ssh -G` for SSH config lookup.
+It sets up a small Bash environment, dotfiles, helper commands, and a pinned set
+of standalone CLI tools. It does not use the system package manager. Tools are
+downloaded as release binaries, so the setup stays local to your user account.
 
 ## Why This Exists
 
-I often work on remote, shared machines where I do not have a dedicated user
-account. Over the years I built a small personal workflow around fast shell
-navigation, search, editing, Git, logs, and pinned CLI tools. Remote-ssh keeps
-that workflow portable and isolated, so I can make a temporary session feel
-familiar without changing the machine globally or disrupting other users.
+Remote machines are often shared, temporary, or barely configured. Remote-ssh is
+for making them usable quickly without changing global settings or getting in
+other users' way.
 
-It is worth trying if you work on shared accounts, move between short-lived
-remote machines, want your own tools without using the system package manager,
-or need a repeatable shell setup that stays out of everyone else's way.
+It is worth trying if:
+
+- you use shared accounts and cannot change system-wide configuration,
+- you could change global settings, but do not want to affect other users,
+- you want your usual tools without depending on apt, yum, brew, or similar,
+- you want a shell setup that is already tuned for how you work,
+- you often need to make a fresh remote machine comfortable in a few minutes.
 
 ## Quick Start
 
@@ -34,7 +27,7 @@ Download `runme.sh`, review or edit the `RUNME_TOOLS` list, then run it:
 ```bash
 curl -fsSLO https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh
 chmod +x runme.sh
-$EDITOR runme.sh
+cat runme.sh
 ./runme.sh
 ```
 
@@ -50,14 +43,9 @@ the final tool list and asks for confirmation before installing.
 If you already know the desired set, pass tools directly:
 
 ```bash
-./runme.sh fd rg fzf zoxide
+./runme.sh --full --yes
 ./runme.sh --yes fd rg fzf zoxide
-```
-
-For a non-interactive quick install without editing the bootstrap list:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh | bash -s -- --profile quick --yes
+./runme.sh fd rg fzf zoxide
 ```
 
 ## Local Install
@@ -65,9 +53,10 @@ curl -fsSL https://raw.githubusercontent.com/fmmaciej/remote-ssh/main/runme.sh |
 From a checked-out repository:
 
 ```bash
+./bin/remote-ssh install --full --yes
+./bin/remote-ssh install --profile full --yes
 ./bin/remote-ssh install --profile quick --yes
 ./bin/remote-ssh install --profile mini --yes
-./bin/remote-ssh install --full --yes
 ./bin/remote-ssh install fd rg fzf
 ./bin/remote-ssh install --yes fd rg fzf
 ```

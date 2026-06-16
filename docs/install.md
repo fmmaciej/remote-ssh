@@ -64,7 +64,7 @@ Install profiles are platform-filtered:
 ```text
 mini   rg fd sd
 quick  rg fd sd bat starship eza zoxide navi atuin
-full   fd rg sd dust fzf bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi tspin vector bssh
+full   fd rg sd dust fzf bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi bssh
 ```
 
 `--full` is a compatibility alias for `--profile full`:
@@ -130,9 +130,9 @@ tools explicitly or run:
 remote-ssh install --profile quick --yes
 ```
 
-Helper scripts such as `ci-run`, `helm-chart-diff`, `ssh-find`, and `ssh-pick`
-are part of the remote-ssh checkout. There is no `--scripts` install flag; use
-`remote-ssh guide scripts` to inspect helper requirements.
+Helper scripts such as `ssh-find` and `ssh-pick` are part of the remote-ssh
+checkout. There is no `--scripts` install flag; use `remote-ssh guide scripts`
+to inspect helper requirements.
 
 ## Installed Paths
 

@@ -86,11 +86,11 @@ def test_default_tools_are_filtered_by_platform(
 
     assert "fd" in got
     assert "bottom" in got
-    assert "vector" in got
     assert "zellij" in got
     assert "procs" not in got
     assert "eza" not in got
     assert "dust" not in got
+    assert "vector" not in got
     assert "procs" in unsupported
     assert "eza" in unsupported
     assert "dust" in unsupported
@@ -113,7 +113,7 @@ def test_install_profiles_are_defined(repo_dir: Path, isolated_env: IsolatedEnv)
 
     assert "mini=rg fd sd" in got
     assert "quick=rg fd sd bat starship eza zoxide navi atuin" in got
-    assert "full=fd rg sd dust fzf bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi tspin vector" in got
+    assert "full=fd rg sd dust fzf bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi bssh" in got
 
 
 def test_install_dots_dir_reports_bundled_dotfiles(

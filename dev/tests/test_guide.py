@@ -305,12 +305,9 @@ def test_remote_ssh_guide_supports_scripts_section(
     assert "Scripts" in output
     assert "bssh" in output
     assert "bssh-ip" in output
-    assert "ci-run" in output
-    assert "helm-chart-diff" in output
     assert "ssh-find" in output
     assert "ssh-pick" in output
     assert "Requires: bssh" in output
-    assert "Requires: gh" in output
     assert "Commands" not in output
     assert "Tools" not in output
 
@@ -328,8 +325,6 @@ def test_remote_ssh_guide_scripts_supports_single_helper(
     assert "ssh-pick [--query QUERY] [remote-command...]" in output
     assert "Entry point: shell/rc.d/30-ssh-pick.sh" in output
     assert "Docs: docs/shell/helpers.md#ssh-pick" in output
-    assert "ci-run" not in output
-    assert "helm-chart-diff" not in output
     assert "sshf" not in output
 
 
@@ -348,8 +343,6 @@ def test_remote_ssh_guide_scripts_supports_ssh_find_helper(
     assert "Entry point: bin/ssh-find" in output
     assert "Backend: scripts/ssh_find.py" in output
     assert "Docs: docs/shell/helpers.md#ssh-find" in output
-    assert "ci-run" not in output
-    assert "helm-chart-diff" not in output
     assert "ssh-pick [--query QUERY]" not in output
 
 
@@ -367,8 +360,6 @@ def test_remote_ssh_guide_scripts_supports_bssh_ip_helper(
     assert "Requires: ssh, awk" in output
     assert "Entry point: shell/rc.d/26-bssh.sh" in output
     assert "Docs: docs/shell/helpers.md#bssh" in output
-    assert "ci-run" not in output
-    assert "helm-chart-diff" not in output
     assert "ssh-pick" not in output
 
 

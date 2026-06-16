@@ -13,8 +13,6 @@ def test_remote_ssh_scripts_list_public_helpers(repo_dir: Path, tool_env: ToolSt
     assert "remote-ssh scripts" in output
     assert "bssh" in output
     assert "bssh-ip" in output
-    assert "ci-run" in output
-    assert "helm-chart-diff" in output
     assert "ssh-find" in output
     assert "ssh-pick" in output
     assert "command" in output
@@ -28,7 +26,7 @@ def test_remote_ssh_scripts_list_alias(repo_dir: Path, tool_env: ToolStateEnv) -
 
     assert_ok(result)
     assert "remote-ssh scripts" in result.stdout
-    assert "helm-chart-diff" in result.stdout
+    assert "ssh-find" in result.stdout
 
 
 def test_remote_ssh_scripts_guide_points_to_guide_section(

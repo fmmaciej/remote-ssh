@@ -1,67 +1,54 @@
 " VIMRC
 
+" Use Vim defaults instead of old vi-compatible behavior.
 set nocompatible
+" Ignore per-file modelines from untrusted shared machines.
+set nomodeline
 
+" Keep line numbers visible and leave context around the cursor while scrolling.
 set number
 set numberwidth=4
 set scrolloff=8
+
+" Wrap long visual lines at word boundaries and mark wrapped continuations.
 set linebreak
 set showbreak=>\
-set textwidth=100
+
+" Show a soft 100-column guide and highlight matching brackets.
+set colorcolumn=100
 set showmatch
+
+" Enable mouse support in terminals that provide it.
 set mouse=a
 
+" Make searches incremental, highlighted, and case-aware.
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
 
-" Indentation
+" Use spaces for indentation and keep inserted indents predictable.
 set autoindent
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-" Undo / backspace
+" Keep enough undo history and allow backspace across autoindent/newlines.
 set undolevels=1000
 set backspace=indent,eol,start
 
-" Filetype helpers
+" Load filetype-specific plugins, indentation rules, and syntax highlighting.
 filetype plugin indent on
 if has('syntax') && filereadable(expand('$VIMRUNTIME/syntax/syntax.vim'))
   syntax on
 endif
 
-" Timeouty pod ESC
-set ttimeout
-set ttimeoutlen=10
-
-" Classic Vim can receive bracketed-paste input on startup in some terminals.
-if !has('nvim')
-  set t_BE=
-endif
-
-" Paste-mode toggle
-if exists('+pastetoggle') && !has('nvim')
-  set pastetoggle=<F2>
-endif
-
-" Leader + szybkie source
-let mapleader=","
-nnoremap <leader>s :source $MYVIMRC<CR>
-
-" Timestamp
-nnoremap <F5> "=strftime("%c")<CR>P
-inoremap <F5> <C-R>=strftime("%c")<CR>
-
-" Clipboard: ustaw tylko jeśli opcja istnieje
+" Use the system clipboard when Vim was compiled with clipboard support.
 if has('clipboard')
   set clipboard=unnamed,unnamedplus
 endif
 
-" Paste from system clipboard (dziala tylko gdy jest +clipboard)
-nnoremap <leader>p "+p
-vnoremap <leader>p "+p
-
-" Invisible chars (ASCII-only)
+" Show invisible whitespace with simple ASCII markers.
+set list
 set listchars=tab:>\ ,trail:.,extends:>,precedes:<,space:.

@@ -213,6 +213,79 @@ def test_remote_ssh_update_marks_cached_status_current(
     assert not (state_dir / "login-status").exists()
 
 
+def test_remote_ssh_update_refreshes_tracked_files_from_upstream(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    write_fake_update_git(isolated_env.bin_dir)
+    repo_copy = isolated_env.home / "repo"
+    repo_copy.joinpath(".git").mkdir(parents=True)
+    git_log = isolated_env.home / "git.log"
+
+    result = run_cmd(
+        [
+            "bash",
+            "-c",
+            """
+            set -euo pipefail
+            source "$1/tools/lib/env.sh"
+            source "$TOOLS_LIB_DIR/commands.lib.sh"
+            remote_ssh_cmd_install_main() { :; }
+            remote_ssh_cmd_update_run "$2"
+            """,
+            "_",
+            repo_dir,
+            repo_copy,
+        ],
+        env=isolated_env.env | {"FAKE_GIT_LOG": str(git_log)},
+    )
+
+    assert_ok(result)
+    output = git_log.read_text(encoding="utf-8")
+    assert "git fetch origin main" in output
+    assert "git reset --hard origin/main" in output
+    assert "git ls-files --others --exclude-standard" in output
+    assert "pull" not in output
+    assert "clean" not in output
+
+
+def test_remote_ssh_update_reports_untracked_files_without_removing_them(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    write_fake_update_git(isolated_env.bin_dir)
+    repo_copy = isolated_env.home / "repo"
+    repo_copy.joinpath(".git").mkdir(parents=True)
+    git_log = isolated_env.home / "git.log"
+
+    result = run_cmd(
+        [
+            "bash",
+            "-c",
+            """
+            set -euo pipefail
+            source "$1/tools/lib/env.sh"
+            source "$TOOLS_LIB_DIR/commands.lib.sh"
+            remote_ssh_cmd_install_main() { :; }
+            remote_ssh_cmd_update_run "$2"
+            """,
+            "_",
+            repo_dir,
+            repo_copy,
+        ],
+        env=isolated_env.env
+        | {
+            "FAKE_GIT_LOG": str(git_log),
+            "FAKE_UNTRACKED": "local-note.md",
+        },
+    )
+
+    assert_ok(result)
+    assert "[WARN] Untracked files were left in place:" in result.stdout
+    assert "  local-note.md" in result.stdout
+    assert "clean" not in git_log.read_text(encoding="utf-8")
+
+
 def test_remote_ssh_update_runs_install_without_tool_arguments(
     repo_dir: Path,
     isolated_env: IsolatedEnv,

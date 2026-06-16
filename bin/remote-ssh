@@ -31,7 +31,7 @@ Commands:
   tool install <tool ...>   Install selected pinned tools
   tool list                 Show default, expected, installed, unsupported tools
   check [--strict] [tool]   Report pinned tools vs local bin and PATH
-  update [check]            Git pull/install, or check whether upstream changed
+  update [check]            Refresh checkout, or check whether upstream changed
   ssh <command>             Configure and inspect SSH integration
   git <command>             Configure and inspect Git integration
   doctor                    Check runtime requirements and installed tools

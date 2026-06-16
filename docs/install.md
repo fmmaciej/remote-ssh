@@ -47,9 +47,9 @@ To bootstrap from a specific branch, tag, or fetchable Git ref:
 REMOTE_SSH_REF=v1.2.3 bash runme.sh
 ```
 
-With `REMOTE_SSH_REF` set, `runme.sh` fetches that ref and checks out
+With `REMOTE_SSH_REF` set, `runme.sh` fetches that ref and force-checks out
 `FETCH_HEAD` before running `remote-ssh install`. Without it, an existing
-checkout uses `git pull --ff-only`.
+checkout fetches its upstream branch and resets tracked files to that upstream.
 
 ## Local Install
 
@@ -167,6 +167,10 @@ To update an installed checkout:
 ```bash
 remote-ssh update
 ```
+
+This discards local edits to tracked files in the remote-ssh checkout and
+recreates them from the upstream branch. Untracked files are reported but left
+in place.
 
 To only check whether the upstream checkout changed:
 

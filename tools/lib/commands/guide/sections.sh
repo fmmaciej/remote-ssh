@@ -23,7 +23,7 @@ Commands
   remote-ssh git status       Check Git identity, session override, and origin
   remote-ssh ssh setup        Add remote-ssh SSH config include
   remote-ssh ssh status       Check SSH config, host, agent, and auth
-  remote-ssh update           Git pull this checkout, then run install
+  remote-ssh update           Refresh checkout from upstream, then run install
   remote-ssh update check     Check whether upstream has changed
   remote-ssh doctor           Check runtime requirements and installed tools
   remote-ssh prune [--apply]  Report or remove unused installed releases

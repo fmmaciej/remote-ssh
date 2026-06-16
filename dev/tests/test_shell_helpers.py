@@ -146,14 +146,33 @@ def test_bundled_vimrc_uses_system_clipboard_when_available(repo_dir: Path) -> N
     conf = (repo_dir / "dots" / "vimrc").read_text(encoding="utf-8")
 
     assert "set clipboard=unnamed,unnamedplus" in conf
-    assert 'nnoremap <leader>p "+p' in conf
 
 
-def test_bundled_vimrc_disables_classic_vim_bracketed_paste(repo_dir: Path) -> None:
+def test_bundled_vimrc_does_not_override_terminal_escape_timeouts(repo_dir: Path) -> None:
     conf = (repo_dir / "dots" / "vimrc").read_text(encoding="utf-8")
 
-    assert "if !has('nvim')" in conf
-    assert "set t_BE=" in conf
+    assert "set ttimeout" not in conf
+    assert "set ttimeoutlen" not in conf
+
+
+def test_bundled_vimrc_keeps_remote_safe_defaults(repo_dir: Path) -> None:
+    conf = (repo_dir / "dots" / "vimrc").read_text(encoding="utf-8")
+
+    assert "set nomodeline" in conf
+    assert "set tabstop=4" in conf
+    assert "set colorcolumn=100" in conf
+    assert "set textwidth=100" not in conf
+    assert "set list\n" in conf
+    assert "set listchars=" in conf
+
+
+def test_bundled_vimrc_omits_personal_mappings(repo_dir: Path) -> None:
+    conf = (repo_dir / "dots" / "vimrc").read_text(encoding="utf-8")
+
+    assert "mapleader" not in conf
+    assert "<leader>s" not in conf
+    assert "<leader>p" not in conf
+    assert "<F5>" not in conf
 
 
 def test_vim_alias_uses_bundled_vimrc_when_nvim_is_available(

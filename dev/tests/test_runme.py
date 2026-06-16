@@ -122,7 +122,12 @@ def test_runme_updates_existing_checkout_by_default(
     result = run_cmd(["bash", repo_dir / "runme.sh", "fd"], env=env)
 
     assert_ok(result)
-    assert "pull --ff-only" in git_log.read_text(encoding="utf-8")
+    output = git_log.read_text(encoding="utf-8")
+    assert "fetch origin main" in output
+    assert "reset --hard origin/main" in output
+    assert "ls-files --others --exclude-standard" in output
+    assert "pull --ff-only" not in output
+    assert "clean" not in output
 
 
 def test_runme_checks_out_requested_ref(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
@@ -139,4 +144,4 @@ def test_runme_checks_out_requested_ref(repo_dir: Path, isolated_env: IsolatedEn
     assert_ok(result)
     output = git_log.read_text(encoding="utf-8")
     assert "fetch --depth 1 origin v1.2.3" in output
-    assert "checkout --detach FETCH_HEAD" in output
+    assert "checkout --force --detach FETCH_HEAD" in output

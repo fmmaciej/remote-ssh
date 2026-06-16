@@ -237,15 +237,31 @@ def write_fake_runme_git(bin_dir: Path) -> None:
           printf 'git %s\n' "$*" >>"$RUNME_GIT_LOG"
         fi
 
-        if [[ "${1:-}" == "-C" && "${3:-}" == "pull" && "${4:-}" == "--ff-only" ]]; then
-          exit 0
-        fi
-
         if [[ "${1:-}" == "-C" && "${3:-}" == "fetch" && "${4:-}" == "--depth" && "${5:-}" == "1" && "${6:-}" == "origin" && -n "${7:-}" ]]; then
           exit 0
         fi
 
-        if [[ "${1:-}" == "-C" && "${3:-}" == "checkout" && "${4:-}" == "--detach" && "${5:-}" == "FETCH_HEAD" ]]; then
+        if [[ "${1:-}" == "-C" && "${3:-}" == "checkout" && "${4:-}" == "--force" && "${5:-}" == "--detach" && "${6:-}" == "FETCH_HEAD" ]]; then
+          exit 0
+        fi
+
+        if [[ "${1:-}" == "-C" && "${3:-}" == "rev-parse" && "${4:-}" == "--abbrev-ref" && "${5:-}" == "--symbolic-full-name" && "${6:-}" == "@{upstream}" ]]; then
+          printf '%s\n' "${FAKE_UPSTREAM:-origin/main}"
+          exit 0
+        fi
+
+        if [[ "${1:-}" == "-C" && "${3:-}" == "fetch" && "${4:-}" == "origin" && "${5:-}" == "main" ]]; then
+          exit 0
+        fi
+
+        if [[ "${1:-}" == "-C" && "${3:-}" == "reset" && "${4:-}" == "--hard" && "${5:-}" == "${FAKE_UPSTREAM:-origin/main}" ]]; then
+          exit 0
+        fi
+
+        if [[ "${1:-}" == "-C" && "${3:-}" == "ls-files" && "${4:-}" == "--others" && "${5:-}" == "--exclude-standard" ]]; then
+          if [[ -n "${FAKE_UNTRACKED:-}" ]]; then
+            printf '%s\n' "$FAKE_UNTRACKED"
+          fi
           exit 0
         fi
 
@@ -266,7 +282,37 @@ def write_fake_update_git(bin_dir: Path) -> None:
 
         case "${1:-}" in
           pull)
+            printf 'unexpected git pull\n' >&2
+            exit 99
+            ;;
+          fetch)
+            if [[ -n "${FAKE_GIT_LOG:-}" ]]; then
+              printf 'git fetch %s %s\n' "${2:-}" "${3:-}" >>"$FAKE_GIT_LOG"
+            fi
             exit 0
+            ;;
+          reset)
+            if [[ "${2:-}" == "--hard" ]]; then
+              if [[ -n "${FAKE_GIT_LOG:-}" ]]; then
+                printf 'git reset --hard %s\n' "${3:-}" >>"$FAKE_GIT_LOG"
+              fi
+              exit 0
+            fi
+            ;;
+          ls-files)
+            if [[ "${2:-}" == "--others" && "${3:-}" == "--exclude-standard" ]]; then
+              if [[ -n "${FAKE_GIT_LOG:-}" ]]; then
+                printf 'git ls-files --others --exclude-standard\n' >>"$FAKE_GIT_LOG"
+              fi
+              if [[ -n "${FAKE_UNTRACKED:-}" ]]; then
+                printf '%s\n' "$FAKE_UNTRACKED"
+              fi
+              exit 0
+            fi
+            ;;
+          clean)
+            printf 'unexpected git clean\n' >&2
+            exit 99
             ;;
           rev-parse)
             case "${2:-}" in

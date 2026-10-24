@@ -5,13 +5,14 @@ import sys
 from pathlib import Path
 
 import pytest
+from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd
+
 from bench import scenarios as bench_scenarios
 from bench.model import Sample
 from bench.references import reference_file_paths
 from bench.report import sample_to_json
 from bench.scenarios import ATUIN_IMPORT_MARKER, SCENARIO_ORDER, scenario_environment
 from bench.stats import series_stats
-from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd
 
 
 def test_series_stats_are_deterministic() -> None:
@@ -137,7 +138,9 @@ def run_bench_json(
     return json.loads(result.stdout)
 
 
-def make_reference_repo(tmp_path: Path, default_references: str, local_references: str = "") -> Path:
+def make_reference_repo(
+    tmp_path: Path, default_references: str, local_references: str = ""
+) -> Path:
     repo = tmp_path / "repo"
     (repo / "dev" / "config").mkdir(parents=True)
     (repo / "shell").mkdir()
@@ -351,9 +354,7 @@ def test_reference_local_override_changes_existing_reference(
 ) -> None:
     repo = make_reference_repo(
         tmp_path,
-        (repo_dir / "dev" / "config" / "shell_startup_references.json").read_text(
-            encoding="utf-8"
-        ),
+        (repo_dir / "dev" / "config" / "shell_startup_references.json").read_text(encoding="utf-8"),
         """
         {
           "references": [
@@ -400,9 +401,7 @@ def test_reference_local_file_adds_reference(
 ) -> None:
     repo = make_reference_repo(
         tmp_path,
-        (repo_dir / "dev" / "config" / "shell_startup_references.json").read_text(
-            encoding="utf-8"
-        ),
+        (repo_dir / "dev" / "config" / "shell_startup_references.json").read_text(encoding="utf-8"),
         """
         {
           "references": [

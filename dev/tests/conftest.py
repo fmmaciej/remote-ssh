@@ -17,6 +17,20 @@ DEV_DIR = Path(__file__).resolve().parents[1]
 if str(DEV_DIR) not in sys.path:
     sys.path.insert(0, str(DEV_DIR))
 
+RUNTIME_BASHES = tuple(
+    dict.fromkeys(
+        str(Path(path).resolve())
+        for path in ("/bin/bash", shutil.which("bash"))
+        if path and Path(path).is_file()
+    )
+)
+
+
+@pytest.fixture(params=RUNTIME_BASHES, ids=lambda path: str(path))
+def runtime_bash(request: pytest.FixtureRequest) -> str:
+    """Select explicitly, including env-bash children, rather than trusting PATH."""
+    return str(request.param)
+
 
 @dataclass
 class IsolatedEnv:
@@ -251,11 +265,11 @@ def write_fake_runme_git(bin_dir: Path) -> None:
         fi
 
         if [[ "${1:-}" == "-C" && "${3:-}" == "fetch" && "${4:-}" == "origin" && "${5:-}" == "main" ]]; then
-          exit 0
+          exit "${FAKE_FETCH_EXIT:-0}"
         fi
 
         if [[ "${1:-}" == "-C" && "${3:-}" == "reset" && "${4:-}" == "--hard" && "${5:-}" == "${FAKE_UPSTREAM:-origin/main}" ]]; then
-          exit 0
+          exit "${FAKE_RESET_EXIT:-0}"
         fi
 
         if [[ "${1:-}" == "-C" && "${3:-}" == "ls-files" && "${4:-}" == "--others" && "${5:-}" == "--exclude-standard" ]]; then
@@ -289,14 +303,14 @@ def write_fake_update_git(bin_dir: Path) -> None:
             if [[ -n "${FAKE_GIT_LOG:-}" ]]; then
               printf 'git fetch %s %s\n' "${2:-}" "${3:-}" >>"$FAKE_GIT_LOG"
             fi
-            exit 0
+            exit "${FAKE_FETCH_EXIT:-0}"
             ;;
           reset)
             if [[ "${2:-}" == "--hard" ]]; then
               if [[ -n "${FAKE_GIT_LOG:-}" ]]; then
                 printf 'git reset --hard %s\n' "${3:-}" >>"$FAKE_GIT_LOG"
               fi
-              exit 0
+              exit "${FAKE_RESET_EXIT:-0}"
             fi
             ;;
           ls-files)
@@ -400,11 +414,28 @@ def make_managed_tool(
         executable,
         content or f"#!/usr/bin/env bash\nprintf {shlex.quote(binary_name)}\n",
     )
+    mark_managed_release(release_dir, tool, version, executable=binary_name)
     link = tool_env.bin_dir / symlink_name
     if link.exists() or link.is_symlink():
         link.unlink()
     link.symlink_to(executable)
     return executable
+
+
+def mark_managed_release(
+    release_dir: Path,
+    tool: str,
+    version: str,
+    *,
+    executable: str | None = None,
+    layout: str = "binary",
+) -> None:
+    executable = executable or tool
+    if not (release_dir / executable).exists():
+        write_executable(release_dir / executable, "#!/bin/sh\nexit 0\n")
+    (release_dir / ".remote-ssh-release").write_text(
+        f"format=1\ntool={tool}\nversion={version}\nlayout={layout}\nexecutable={executable}\n"
+    )
 
 
 def make_external_tool(

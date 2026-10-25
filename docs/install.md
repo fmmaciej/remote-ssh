@@ -191,6 +191,11 @@ This discards local edits to tracked files in the remote-ssh checkout and
 recreates them from the upstream branch. Untracked files are reported but left
 in place.
 
+A failed fetch or reset stops the update before installation and before marking
+the checkout current. After a successful reset, installation runs in a new
+process using the refreshed checkout's code. Installation failures are returned
+to the caller.
+
 To only check whether the upstream checkout changed:
 
 ```bash

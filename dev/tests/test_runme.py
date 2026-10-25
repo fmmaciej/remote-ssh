@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from conftest import (
     IsolatedEnv,
     assert_ok,
@@ -145,3 +146,24 @@ def test_runme_checks_out_requested_ref(repo_dir: Path, isolated_env: IsolatedEn
     output = git_log.read_text(encoding="utf-8")
     assert "fetch --depth 1 origin v1.2.3" in output
     assert "checkout --force --detach FETCH_HEAD" in output
+
+
+@pytest.mark.parametrize("step", ["FETCH", "RESET"])
+def test_runme_stops_before_install_after_git_failure(
+    repo_dir: Path, isolated_env: IsolatedEnv, step: str
+) -> None:
+    args_file = isolated_env.home / "args"
+    log = isolated_env.home / "git.log"
+    prepare_runme(isolated_env, args_file)
+    result = run_cmd(
+        ["bash", repo_dir / "runme.sh", "fd"],
+        env=isolated_env.env
+        | {
+            f"FAKE_{step}_EXIT": "17",
+            "RUNME_GIT_LOG": str(log),
+        },
+    )
+    assert result.returncode == 17
+    assert not args_file.exists()
+    if step == "FETCH":
+        assert "reset" not in log.read_text()

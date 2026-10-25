@@ -49,10 +49,10 @@ refresh_checkout_from_upstream() {
   remote_branch="${upstream#*/}"
 
   echo "[*] Fetching $remote/$remote_branch"
-  git -C "$repo_dir" fetch "$remote" "$remote_branch"
+  git -C "$repo_dir" fetch "$remote" "$remote_branch" || return $?
 
   echo "[*] Resetting tracked files to $upstream"
-  git -C "$repo_dir" reset --hard "$upstream"
+  git -C "$repo_dir" reset --hard "$upstream" || return $?
 
   untracked="$(git -C "$repo_dir" ls-files --others --exclude-standard 2>/dev/null || true)"
   if [[ -n "$untracked" ]]; then

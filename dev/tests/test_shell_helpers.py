@@ -263,7 +263,8 @@ def test_tmux_conf_uses_modern_copy_mode_api(repo_dir: Path) -> None:
 def test_tmux_conf_reloads_project_config(repo_dir: Path) -> None:
     conf = (repo_dir / "dots" / "tmux.conf").read_text(encoding="utf-8")
 
-    assert "source-file ~/.local/share/remote-ssh/dots/tmux.conf" in conf
+    assert "source-file -F '#{@remote-ssh-root}/dots/tmux.conf'" in conf
+    assert "confirm-before" in conf
 
 
 def test_navi_init_sets_cheats_path(

@@ -207,3 +207,12 @@ macOS Bash 3.2, shell-command bindings cannot be enumerated. If any tracked
 binding is unreadable, remote-ssh passes `--disable-up-arrow`: Up and vi-command
 `k` stay under user control while Atuin still records history. remote-ssh leaves
 Ctrl-R out of its own Atuin initialization.
+
+## Tmux
+
+The bundled configuration locates the checkout from the configuration file's
+path, including paths with spaces. New panes start `/bin/bash` with that
+checkout's `shell/rc.sh`. `prefix+r` reloads the same checkout's configuration.
+`prefix+q` asks for confirmation before restarting and killing the current pane
+process. Loading the configuration requires tmux support for `current_file`
+and format expansion in `set-option -F`.

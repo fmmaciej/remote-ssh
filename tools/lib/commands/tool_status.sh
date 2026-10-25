@@ -93,7 +93,7 @@ remote_ssh_tool_status_load() {
   REMOTE_SSH_TOOL_STATUS_STATUSES+=("$REMOTE_SSH_TOOL_STATUS_STATUS")
 
   if ((${#BINARY_ALIASES[@]} > 0)); then
-    for alias_name in "${BINARY_ALIASES[@]}"; do
+    for alias_name in ${BINARY_ALIASES[@]+"${BINARY_ALIASES[@]}"}; do
       alias_local_bin="${INSTALL_BIN_DIR}/${alias_name}"
       alias_path="$(command -v "$alias_name" 2>/dev/null || true)"
       remote_ssh_tool_status_classify_bin \

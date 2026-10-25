@@ -45,7 +45,7 @@ write_expected_tools() {
   {
     printf '# remote-ssh expected tools\n'
     printf '# One tool per line. Blank lines and # comments are ignored.\n'
-    for tool in "${tools[@]}"; do
+    for tool in ${tools[@]+"${tools[@]}"}; do
       printf '%s\n' "$tool"
     done
   } >"$tmp" && mv "$tmp" "$file"

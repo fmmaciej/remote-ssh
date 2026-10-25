@@ -35,7 +35,7 @@ select_asset() {
     ;;
   esac
 
-  for candidate in "${wanted[@]}"; do
+  for candidate in ${wanted[@]+"${wanted[@]}"}; do
     for rec in "$@"; do
       key="${rec%%|*}"
       [[ $key == "$candidate" ]] || continue

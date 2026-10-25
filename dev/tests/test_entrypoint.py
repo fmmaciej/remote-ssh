@@ -2,14 +2,36 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from conftest import (
     ToolStateEnv,
     assert_failed,
     assert_ok,
     make_managed_tool,
+    run_cmd,
     run_remote_ssh,
     write_expected_tools,
 )
+
+
+@pytest.mark.parametrize(
+    "args,code",
+    [
+        (["install", "--help"], 0),
+        (["tool", "list"], 0),
+        (["check", "rg"], 0),
+        (["check", "--strict", "rg"], 1),
+        (["uninstall", "--yes"], 0),
+        (["prune"], 0),
+    ],
+)
+def test_public_commands_with_empty_state_on_supported_bash(
+    repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str, args: list[str], code: int
+) -> None:
+    (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+    result = run_cmd([runtime_bash, repo_dir / "bin/remote-ssh", *args], env=tool_env.env)
+    assert result.returncode == code, result.stdout + result.stderr
+    assert "unbound variable" not in result.stderr
 
 
 def test_remote_ssh_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStateEnv) -> None:

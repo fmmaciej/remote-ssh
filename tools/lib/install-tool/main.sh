@@ -21,16 +21,16 @@ install_tool_main() {
   libc="$(detect_libc "$raw_os")"
 
   local asset_name
-  asset_name="$(select_asset "$raw_os" "$raw_arch" "$libc" "${ASSETS[@]}")" || {
+  asset_name="$(select_asset "$raw_os" "$raw_arch" "$libc" ${ASSETS[@]+"${ASSETS[@]}"})" || {
     log_error "No matching asset for ${tool}: platform=${raw_os}/${raw_arch}/${libc}, os=${raw_os}, arch=${raw_arch}, libc=${libc}"
     printf 'Available assets:\n' >&2
-    printf '  - %s\n' "${ASSETS[@]}" >&2
+    printf '  - %s\n' ${ASSETS[@]+"${ASSETS[@]}"} >&2
     exit 1
   }
 
   log_info "Installing: ${GH_REPO}, version=${VERSION}, raw=${raw_os}/${raw_arch}, libc=${libc}"
 
-  download_and_extract "$GH_REPO" "$RELEASE_TAG" "$asset_name" "$BINARY_NAME" "${CHECKSUMS[@]}" || exit 1
+  download_and_extract "$GH_REPO" "$RELEASE_TAG" "$asset_name" "$BINARY_NAME" ${CHECKSUMS[@]+"${CHECKSUMS[@]}"} || exit 1
 
-  install_binary "$TOOL_NAME" "$BINARY_NAME" "$VERSION" "$EXTRACT_DIR" "${BINARY_ALIASES[@]}" || exit 1
+  install_binary "$TOOL_NAME" "$BINARY_NAME" "$VERSION" "$EXTRACT_DIR" ${BINARY_ALIASES[@]+"${BINARY_ALIASES[@]}"} || exit 1
 }

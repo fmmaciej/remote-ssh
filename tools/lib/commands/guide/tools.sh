@@ -24,7 +24,7 @@ remote_ssh_cmd_guide_print_install_profiles() {
   local -a tools
 
   printf 'Install profiles\n'
-  for profile in "${INSTALL_PROFILES[@]}"; do
+  for profile in ${INSTALL_PROFILES[@]+"${INSTALL_PROFILES[@]}"}; do
     tools=()
     while IFS= read -r tool; do
       [[ -n "$tool" ]] && tools+=("$tool")

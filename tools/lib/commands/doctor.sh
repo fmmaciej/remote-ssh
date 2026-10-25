@@ -7,7 +7,7 @@ remote_ssh_cmd_doctor_path_contains_install_bin() {
   local -a path_parts
 
   IFS=':' read -r -a path_parts <<<"${PATH:-}"
-  for part in "${path_parts[@]}"; do
+  for part in ${path_parts[@]+"${path_parts[@]}"}; do
     [[ "$part" == "$INSTALL_BIN_DIR" ]] && return 0
   done
   return 1
@@ -34,9 +34,9 @@ remote_ssh_cmd_doctor_collect_tool_statuses() {
   REMOTE_SSH_DOCTOR_TOOL_STATUSES=()
 
   read_expected_tools_for_current_platform || return 0
-  for tool in "${REMOTE_SSH_EXPECTED_TOOLS[@]}"; do
+  for tool in ${REMOTE_SSH_EXPECTED_TOOLS[@]+"${REMOTE_SSH_EXPECTED_TOOLS[@]}"}; do
     remote_ssh_tool_status_load "$tool" "$def_dir"
-    for status in "${REMOTE_SSH_TOOL_STATUS_STATUSES[@]}"; do
+    for status in ${REMOTE_SSH_TOOL_STATUS_STATUSES[@]+"${REMOTE_SSH_TOOL_STATUS_STATUSES[@]}"}; do
       REMOTE_SSH_DOCTOR_TOOL_STATUSES+=("$status")
     done
   done

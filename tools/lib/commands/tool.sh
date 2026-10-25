@@ -28,7 +28,7 @@ remote_ssh_cmd_tool_print_profiles() {
   local -a tools
 
   printf 'Install profiles:\n'
-  for profile in "${INSTALL_PROFILES[@]}"; do
+  for profile in ${INSTALL_PROFILES[@]+"${INSTALL_PROFILES[@]}"}; do
     tools=()
     while IFS= read -r tool; do
       [[ -n "$tool" ]] && tools+=("$tool")
@@ -58,14 +58,14 @@ remote_ssh_cmd_tool_list() {
   printf 'remote-ssh tool list\n\n'
   remote_ssh_cmd_tool_print_profiles
   printf '\n'
-  remote_ssh_cmd_tool_print_lines "Default tools:" "${DEFAULT_TOOLS[@]}"
+  remote_ssh_cmd_tool_print_lines "Default tools:" ${DEFAULT_TOOLS[@]+"${DEFAULT_TOOLS[@]}"}
   printf '\n'
   printf 'Expected tools config: %s\n' "$(expected_tools_file)"
-  remote_ssh_cmd_tool_print_lines "Expected tools:" "${expected[@]}"
+  remote_ssh_cmd_tool_print_lines "Expected tools:" ${expected[@]+"${expected[@]}"}
   printf '\n'
-  remote_ssh_cmd_tool_print_lines "Managed installed tools:" "${installed[@]}"
+  remote_ssh_cmd_tool_print_lines "Managed installed tools:" ${installed[@]+"${installed[@]}"}
   printf '\n'
-  remote_ssh_cmd_tool_print_lines "Unsupported default tools on this platform:" "${unsupported[@]}"
+  remote_ssh_cmd_tool_print_lines "Unsupported default tools on this platform:" ${unsupported[@]+"${unsupported[@]}"}
 }
 
 remote_ssh_cmd_tool_main() {

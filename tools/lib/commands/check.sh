@@ -31,7 +31,7 @@ remote_ssh_cmd_check_report_tool() {
   printf '  %-10s %s\n' 'status:' "$REMOTE_SSH_TOOL_STATUS_STATUS"
 
   if ((${#REMOTE_SSH_TOOL_STATUS_ALIAS_RECORDS[@]} > 0)); then
-    for alias_record in "${REMOTE_SSH_TOOL_STATUS_ALIAS_RECORDS[@]}"; do
+    for alias_record in ${REMOTE_SSH_TOOL_STATUS_ALIAS_RECORDS[@]+"${REMOTE_SSH_TOOL_STATUS_ALIAS_RECORDS[@]}"}; do
       alias_name="${alias_record%%|*}"
       alias_rest="${alias_record#*|}"
       alias_path="${alias_rest%%|*}"
@@ -81,7 +81,7 @@ remote_ssh_cmd_check_main() {
       printf 'Or install a selected set, for example: remote-ssh install fd rg fzf\n' >&2
       return 1
     fi
-    tools=("${REMOTE_SSH_EXPECTED_TOOLS[@]}")
+    tools=(${REMOTE_SSH_EXPECTED_TOOLS[@]+"${REMOTE_SSH_EXPECTED_TOOLS[@]}"})
   fi
 
   ((${#tools[@]} > 0)) || {
@@ -98,17 +98,17 @@ remote_ssh_cmd_check_main() {
 
   if ((${#REMOTE_SSH_UNKNOWN_TOOLS[@]} > 0)); then
     printf '\nWarnings\n'
-    printf '  unknown expected tool: %s\n' "${REMOTE_SSH_UNKNOWN_TOOLS[@]}"
+    printf '  unknown expected tool: %s\n' ${REMOTE_SSH_UNKNOWN_TOOLS[@]+"${REMOTE_SSH_UNKNOWN_TOOLS[@]}"}
   fi
 
   if ((${#REMOTE_SSH_UNSUPPORTED_TOOLS[@]} > 0)); then
     printf '\nSkipped unsupported expected tools\n'
-    printf '  %s\n' "${REMOTE_SSH_UNSUPPORTED_TOOLS[@]}"
+    printf '  %s\n' ${REMOTE_SSH_UNSUPPORTED_TOOLS[@]+"${REMOTE_SSH_UNSUPPORTED_TOOLS[@]}"}
   fi
 
   printf '\nTools\n'
 
-  for tool in "${tools[@]}"; do
+  for tool in ${tools[@]+"${tools[@]}"}; do
     if ! remote_ssh_cmd_check_report_tool "$tool" "$def_dir"; then
       problems=1
     fi

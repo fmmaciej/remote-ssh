@@ -7,7 +7,7 @@ check_req_tools() {
   local required=(curl grep sed find tar uname mktemp)
   local missing=()
 
-  for cmd in "${required[@]}"; do
+  for cmd in ${required[@]+"${required[@]}"}; do
     have "$cmd" || missing+=("$cmd")
   done
 
@@ -20,7 +20,7 @@ check_req_tools() {
 
   if ((${#missing[@]} > 0)); then
     printf 'Missing required tools:\n' >&2
-    printf '  - %s\n' "${missing[@]}" >&2
+    printf '  - %s\n' ${missing[@]+"${missing[@]}"} >&2
 
     return 1
   fi

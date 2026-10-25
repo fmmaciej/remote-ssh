@@ -136,7 +136,7 @@ remote_ssh_cmd_install_main() {
     while IFS= read -r tool; do
       [[ -n "$tool" ]] && skipped+=("$tool")
     done < <(current_unsupported_install_profile_tools "$profile")
-    tools=("${requested[@]}")
+    tools=(${requested[@]+"${requested[@]}"})
 
   elif ((${#requested[@]} == 0)); then
     source_label="saved expected tools"
@@ -146,17 +146,17 @@ remote_ssh_cmd_install_main() {
       printf 'Or install a selected set, for example: remote-ssh install fd rg fzf\n' >&2
       return 1
     fi
-    tools=("${REMOTE_SSH_EXPECTED_TOOLS[@]}")
-    skipped=("${REMOTE_SSH_UNSUPPORTED_TOOLS[@]}")
+    tools=(${REMOTE_SSH_EXPECTED_TOOLS[@]+"${REMOTE_SSH_EXPECTED_TOOLS[@]}"})
+    skipped=(${REMOTE_SSH_UNSUPPORTED_TOOLS[@]+"${REMOTE_SSH_UNSUPPORTED_TOOLS[@]}"})
     if ((${#REMOTE_SSH_UNKNOWN_TOOLS[@]} > 0)); then
-      remote_ssh_cmd_install_print_list "Unknown expected tools:" "${REMOTE_SSH_UNKNOWN_TOOLS[@]}" >&2
+      remote_ssh_cmd_install_print_list "Unknown expected tools:" ${REMOTE_SSH_UNKNOWN_TOOLS[@]+"${REMOTE_SSH_UNKNOWN_TOOLS[@]}"} >&2
     fi
   else
-    filter_tools_for_current_platform "${requested[@]}"
-    tools=("${REMOTE_SSH_SUPPORTED_TOOLS[@]}")
-    skipped=("${REMOTE_SSH_UNSUPPORTED_TOOLS[@]}")
+    filter_tools_for_current_platform ${requested[@]+"${requested[@]}"}
+    tools=(${REMOTE_SSH_SUPPORTED_TOOLS[@]+"${REMOTE_SSH_SUPPORTED_TOOLS[@]}"})
+    skipped=(${REMOTE_SSH_UNSUPPORTED_TOOLS[@]+"${REMOTE_SSH_UNSUPPORTED_TOOLS[@]}"})
     if ((${#REMOTE_SSH_UNKNOWN_TOOLS[@]} > 0)); then
-      remote_ssh_cmd_install_print_list "Unknown tools:" "${REMOTE_SSH_UNKNOWN_TOOLS[@]}" >&2
+      remote_ssh_cmd_install_print_list "Unknown tools:" ${REMOTE_SSH_UNKNOWN_TOOLS[@]+"${REMOTE_SSH_UNKNOWN_TOOLS[@]}"} >&2
       return 1
     fi
   fi
@@ -166,23 +166,23 @@ remote_ssh_cmd_install_main() {
     return 1
   }
 
-  remote_ssh_cmd_install_print_list "Selected tools (${source_label}):" "${tools[@]}"
+  remote_ssh_cmd_install_print_list "Selected tools (${source_label}):" ${tools[@]+"${tools[@]}"}
   if ((${#skipped[@]} > 0)); then
     printf '\n'
-    remote_ssh_cmd_install_print_list "Skipped unsupported tools:" "${skipped[@]}"
+    remote_ssh_cmd_install_print_list "Skipped unsupported tools:" ${skipped[@]+"${skipped[@]}"}
   fi
 
   if ((yes == 0 && ${#requested[@]} > 0)); then
     remote_ssh_cmd_install_confirm "$source_label" || return 1
   fi
 
-  install_tools "${tools[@]}"
+  install_tools ${tools[@]+"${tools[@]}"}
 
   log_info "Configuring environment..."
   install_shell_dir
   install_bin_dir
   install_dots_dir
-  write_expected_tools "${tools[@]}"
+  write_expected_tools ${tools[@]+"${tools[@]}"}
 
   log_info "Done."
   printf 'Expected tools saved: %s\n' "$(expected_tools_file)"

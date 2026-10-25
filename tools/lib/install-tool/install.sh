@@ -91,14 +91,14 @@ install_binary_switch_links() {
   local link_path tmp_link old_exists old_target
   local -a link_paths=("$@") tmp_links=() rollback_entries=()
 
-  for link_path in "${link_paths[@]}"; do
+  for link_path in ${link_paths[@]+"${link_paths[@]}"}; do
     install_binary_validate_link_path "$link_path" || return 1
   done
 
-  for link_path in "${link_paths[@]}"; do
+  for link_path in ${link_paths[@]+"${link_paths[@]}"}; do
     tmp_link="${link_path}.tmp.$$-${RANDOM}"
     ln -s "$target" "$tmp_link" || {
-      install_binary_cleanup_tmp_links "${tmp_links[@]}"
+      install_binary_cleanup_tmp_links ${tmp_links[@]+"${tmp_links[@]}"}
       return 1
     }
     tmp_links+=("$tmp_link")
@@ -120,8 +120,8 @@ install_binary_switch_links() {
       rollback_entries+=("${link_path}|${old_exists}|${old_target}")
       tmp_links[i]=""
     else
-      install_binary_cleanup_tmp_links "${tmp_links[@]}"
-      install_binary_rollback_links "${rollback_entries[@]}"
+      install_binary_cleanup_tmp_links ${tmp_links[@]+"${tmp_links[@]}"}
+      install_binary_rollback_links ${rollback_entries[@]+"${rollback_entries[@]}"}
       return 1
     fi
   done
@@ -167,16 +167,16 @@ install_binary() {
   }
 
   link_paths=("$INSTALL_BIN_DIR/$tool_name")
-  for alias_name in "${binary_aliases[@]}"; do
+  for alias_name in ${binary_aliases[@]+"${binary_aliases[@]}"}; do
     link_paths+=("$INSTALL_BIN_DIR/$alias_name")
   done
 
-  install_binary_switch_links "$release_dir/$binary_name" "${link_paths[@]}" || return 1
+  install_binary_switch_links "$release_dir/$binary_name" ${link_paths[@]+"${link_paths[@]}"} || return 1
 
   log_info "Installed: $release_dir"
   log_info "Symlink:   $INSTALL_BIN_DIR/$tool_name"
 
-  for alias_name in "${binary_aliases[@]}"; do
+  for alias_name in ${binary_aliases[@]+"${binary_aliases[@]}"}; do
     log_info "Alias:     $INSTALL_BIN_DIR/$alias_name"
   done
 }

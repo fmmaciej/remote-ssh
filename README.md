@@ -98,7 +98,7 @@ guide generated from the currently loaded shell configuration.
 
 ## Runtime Requirements
 
-- `bash`
+- `bash` 3.2 or newer
 - `git` for `runme.sh`, `remote-ssh update`, and update checks
 - `curl`
 - `tar`

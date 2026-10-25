@@ -23,7 +23,7 @@ default_tool_supported_on_platform() {
   local def_dir="$TOOLS_DIR/defs"
 
   load_defs "$def_dir" "$tool"
-  select_asset "$raw_os" "$raw_arch" "$libc" "${ASSETS[@]}" >/dev/null
+  select_asset "$raw_os" "$raw_arch" "$libc" ${ASSETS[@]+"${ASSETS[@]}"} >/dev/null
 }
 
 default_tools_for_platform() {
@@ -45,9 +45,9 @@ install_profile_tools() {
   local profile="${1:?profile required}"
 
   case "$profile" in
-    mini) printf '%s\n' "${MINI_TOOLS[@]}" ;;
-    quick) printf '%s\n' "${QUICK_TOOLS[@]}" ;;
-    full) printf '%s\n' "${DEFAULT_TOOLS[@]}" ;;
+    mini) printf '%s\n' ${MINI_TOOLS[@]+"${MINI_TOOLS[@]}"} ;;
+    quick) printf '%s\n' ${QUICK_TOOLS[@]+"${QUICK_TOOLS[@]}"} ;;
+    full) printf '%s\n' ${DEFAULT_TOOLS[@]+"${DEFAULT_TOOLS[@]}"} ;;
     *) return 1 ;;
   esac
 }
@@ -143,7 +143,7 @@ read_expected_tools_for_current_platform() {
     [[ -n "$tool" ]] && configured+=("$tool")
   done < <(read_expected_tools)
 
-  filter_tools_for_current_platform "${configured[@]}"
-  REMOTE_SSH_EXPECTED_TOOLS=("${REMOTE_SSH_SUPPORTED_TOOLS[@]}")
+  filter_tools_for_current_platform ${configured[@]+"${configured[@]}"}
+  REMOTE_SSH_EXPECTED_TOOLS=(${REMOTE_SSH_SUPPORTED_TOOLS[@]+"${REMOTE_SSH_SUPPORTED_TOOLS[@]}"})
   return 0
 }

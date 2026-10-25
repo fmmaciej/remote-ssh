@@ -38,7 +38,7 @@ install_render_post_install() {
     -e "s|@HOSTNAME@|$(_sed_escape "${hostname:-<hostname>}")|g" \
     -e "s|@IP_ADDRESS@|$(_sed_escape "${ip:-<ip-address>}")|g" \
     -e "s|@WHO_AM_I@|$(_sed_escape "${who:-<user>}")|g" \
-    "${templates[@]}"
+    ${templates[@]+"${templates[@]}"}
 }
 
 install_print_post_install() {

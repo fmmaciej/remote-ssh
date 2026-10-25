@@ -65,5 +65,5 @@ install_tools() {
   mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR"
 
   local t
-  for t in "${tools[@]}"; do install_tool "$t"; done
+  for t in ${tools[@]+"${tools[@]}"}; do install_tool "$t"; done
 }

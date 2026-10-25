@@ -10,42 +10,16 @@ remote_ssh_cmd_prune_canonical_dir() {
 }
 
 remote_ssh_cmd_prune_symlink_target_dir() {
-  local link="$1"
-  local target target_dir
-
-  [[ -L "$link" ]] || return 1
-  target="$(readlink "$link")"
-  case "$target" in
-    /*) target_dir="$(dirname "$target")" ;;
-    *) target_dir="$(dirname "$link")/$(dirname "$target")" ;;
-  esac
-
-  remote_ssh_cmd_prune_canonical_dir "$target_dir"
+  remote_ssh_release_for_link "$1"
 }
 
 remote_ssh_cmd_prune_protected_release_dirs() {
-  local def_dir="$TOOLS_DIR/defs"
-  local def_file tool alias_name link protected_dir
-  local -a aliases
-
-  for def_file in "$def_dir"/*.sh; do
-    tool="$(basename "$def_file" .sh)"
-    load_defs "$def_dir" "$tool"
-
-    link="$INSTALL_BIN_DIR/$TOOL_NAME"
+  local link protected_dir
+  # Protect custom and older alias names too, not just aliases in today's defs.
+  for link in "$INSTALL_BIN_DIR"/*; do
     if protected_dir="$(remote_ssh_cmd_prune_symlink_target_dir "$link")"; then
       printf '%s\n' "$protected_dir"
     fi
-
-    set +u
-    aliases=("${BINARY_ALIASES[@]}")
-    for alias_name in "${aliases[@]}"; do
-      link="$INSTALL_BIN_DIR/$alias_name"
-      if protected_dir="$(remote_ssh_cmd_prune_symlink_target_dir "$link")"; then
-        printf '%s\n' "$protected_dir"
-      fi
-    done
-    set -u
   done
 }
 
@@ -111,11 +85,16 @@ remote_ssh_cmd_prune_main() {
     remote_ssh_cmd_prune_is_direct_child_of_prefix "$dir_canon" "$prefix_canon" || continue
     name="$(basename "$dir")"
     remote_ssh_cmd_prune_is_known_release_dir_name "$name" || continue
+    if ! remote_ssh_release_validate "$dir"; then
+      printf 'protected: %s (legacy or invalid ownership record)\n' "$dir"
+      continue
+    fi
     remote_ssh_cmd_prune_is_protected_release_dir "$dir_canon" "$protected" && continue
 
     found=1
     if ((apply == 1)); then
-      rm -rf "$dir"
+      remote_ssh_release_validate "$dir" || return 1
+      rm -rf "$dir" || return 1
       printf 'removed: %s\n' "$dir"
     else
       printf 'candidate: %s\n' "$dir"

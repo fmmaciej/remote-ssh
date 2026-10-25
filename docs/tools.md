@@ -27,6 +27,32 @@ CHECKSUMS=(
 
 `BINARY_ALIASES=(...)` is optional. For example, `nu` also installs `nushell`.
 
+### Bundled runtimes
+
+Single-binary installation is the default. Tools such as Neovim also need their
+packaged runtime and libraries. Declare an explicit bundle layout and one root
+for each exact asset:
+
+```bash
+INSTALL_LAYOUT="bundle"
+BINARY_PATH="bin/nvim"
+BUNDLE_ROOTS=(
+  "nvim-linux-x86_64.tar.gz|nvim-linux-x86_64"
+  "nvim-macos-arm64.tar.gz|nvim-macos-arm64"
+)
+```
+
+`BINARY_PATH` is relative to the declared package root. The installer preserves
+that root's contents in the release directory and points the tool symlink at
+the nested executable. Bundle mode currently accepts `.tar.gz` and `.tgz`
+archives containing ordinary files and directories only. Before extraction it
+rejects paths outside the declared root, absolute paths, traversal, links, and
+special files. Keep the asset and root mappings explicit when updating a bundle
+definition; the generator's default single-binary output needs this manual step.
+
+Old single-file Neovim installations are considered incomplete and repaired by
+a normal pinned reinstall. `remote-ssh check` can report `incomplete-local`.
+
 ## Asset Policy
 
 Supported release asset formats:
@@ -56,6 +82,9 @@ When a selected asset has a matching `CHECKSUMS` entry, the installer verifies
 its SHA-256 before extraction or installation. Some upstream projects do not
 publish checksum files for every asset yet; those remaining entries are tracked
 as follow-up hardening work.
+
+Download, hash calculation, checksum verification, and extraction failures stop
+installation with a nonzero exit status before switching any active symlinks.
 
 ## Adding Or Updating Tools
 

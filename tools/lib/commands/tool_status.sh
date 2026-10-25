@@ -54,8 +54,12 @@ remote_ssh_tool_status_classify_bin() {
       "$version"; then
       REMOTE_SSH_TOOL_STATUS_ITEM_STATUS="stale-local"
     elif [[ "$path_bin" == "$local_bin" ]]; then
-      REMOTE_SSH_TOOL_STATUS_ITEM_STATUS="ok"
-      REMOTE_SSH_TOOL_STATUS_ITEM_PROBLEM=0
+      if [[ "${INSTALL_LAYOUT:-binary}" == bundle ]] && ! remote_ssh_bundle_install_valid "$local_bin" "$expected_tool" "$BINARY_PATH"; then
+        REMOTE_SSH_TOOL_STATUS_ITEM_STATUS="incomplete-local"
+      else
+        REMOTE_SSH_TOOL_STATUS_ITEM_STATUS="ok"
+        REMOTE_SSH_TOOL_STATUS_ITEM_PROBLEM=0
+      fi
     elif [[ -n "$path_bin" ]]; then
       REMOTE_SSH_TOOL_STATUS_ITEM_STATUS="path-shadowed"
     else

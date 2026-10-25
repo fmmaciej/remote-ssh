@@ -19,6 +19,7 @@ fi
 : "${TOOLS_COMMANDS_DIR:?TOOLS_COMMANDS_DIR is not set (source tools/lib/env.sh first)}"
 
 . "$TOOLS_COMMON_DIR/platform.sh"
+. "$TOOLS_COMMON_DIR/release.sh"
 . "$TOOLS_INSTALL_TOOL_DIR/defs.sh"
 . "$TOOLS_INSTALL_TOOL_DIR/assets.sh"
 . "$TOOLS_INSTALL_DIR/expected_tools.sh"

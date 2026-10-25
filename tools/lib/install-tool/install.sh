@@ -33,14 +33,14 @@ choose_release_dir() {
   local tool_name="$1" version="$2" canonical_dir="$3"
   local release_dir attempts_left=20
 
-  if [[ ! -e $canonical_dir ]]; then
+  if [[ ! -e $canonical_dir && ! -L $canonical_dir ]]; then
     echo "$canonical_dir"
     return 0
   fi
 
   while ((attempts_left > 0)); do
     release_dir="${INSTALL_PREFIX}/${tool_name}-${version}.$$-${RANDOM}"
-    if [[ ! -e $release_dir ]]; then
+    if [[ ! -e $release_dir && ! -L $release_dir ]]; then
       echo "$release_dir"
       return 0
     fi
@@ -127,32 +127,58 @@ install_binary_switch_links() {
   done
 }
 
+install_binary_validate_candidate() {
+  local candidate="$1"
+  [[ -f "$candidate" && ! -L "$candidate" && -x "$candidate" ]] || {
+    log_error "Not a regular executable file: $candidate"
+    return 1
+  }
+}
+
 install_binary() {
   local tool_name="$1" binary_name="$2" version="$3" extract_dir="$4"
   local -a binary_aliases=("${@:5}")
 
-  local rel target_dir stage_dir release_dir alias_name
+  local rel target_dir stage_dir release_dir alias_name source layout="${INSTALL_LAYOUT:-binary}"
   local -a link_paths
-  rel="$(find_binary_path_by_name "$extract_dir" "$binary_name")"
+  if [[ "$layout" == bundle ]]; then
+    rel="${BINARY_PATH:?}"
+    source="$extract_dir/${SELECTED_BUNDLE_ROOT:?}"
+  else
+    source="$extract_dir"
+    rel="$(find_binary_path_by_name "$extract_dir" "$binary_name")"
+  fi
 
   [[ -n $rel ]] || {
     log_error "Binary '$binary_name' not found"
     return 1
   }
-  [[ -x "$extract_dir/$rel" ]] || {
-    log_error "Not executable: $extract_dir/$rel"
-    return 1
-  }
+  install_binary_validate_candidate "$source/$rel" || return 1
 
   target_dir="${INSTALL_PREFIX}/${tool_name}-${version}"
   mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR"
 
   stage_dir="$(make_install_staging_dir "$tool_name" "$version")" || return 1
-  cp "$extract_dir/$rel" "$stage_dir/$binary_name" || {
+  if [[ "$layout" == bundle ]]; then
+    cp -R "$source/." "$stage_dir/" || {
+      rm -rf "$stage_dir"
+      return 1
+    }
+  elif ! cp "$source/$rel" "$stage_dir/$binary_name"; then
+    rm -rf "$stage_dir"
+    return 1
+  fi
+  # Single-file installs flatten the source path, bundles keep it.
+  [[ "$layout" == bundle ]] || rel="$binary_name"
+  install_binary_validate_candidate "$stage_dir/$rel" || {
     rm -rf "$stage_dir"
     return 1
   }
-  chmod +x "$stage_dir/$binary_name" || {
+  chmod +x "$stage_dir/$rel" || {
+    rm -rf "$stage_dir"
+    return 1
+  }
+  remote_ssh_release_write "$stage_dir" "$tool_name" "$version" "$layout" "$rel" || {
     rm -rf "$stage_dir"
     return 1
   }
@@ -171,7 +197,7 @@ install_binary() {
     link_paths+=("$INSTALL_BIN_DIR/$alias_name")
   done
 
-  install_binary_switch_links "$release_dir/$binary_name" ${link_paths[@]+"${link_paths[@]}"} || return 1
+  install_binary_switch_links "$release_dir/$rel" ${link_paths[@]+"${link_paths[@]}"} || return 1
 
   log_info "Installed: $release_dir"
   log_info "Symlink:   $INSTALL_BIN_DIR/$tool_name"

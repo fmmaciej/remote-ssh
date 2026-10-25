@@ -30,6 +30,11 @@ install_tool_main() {
 
   log_info "Installing: ${GH_REPO}, version=${VERSION}, raw=${raw_os}/${raw_arch}, libc=${libc}"
 
+  if [[ "$INSTALL_LAYOUT" == bundle ]]; then
+    # shellcheck disable=SC2034
+    SELECTED_BUNDLE_ROOT="$(bundle_root_for_asset "$asset_name")" || exit 1
+  fi
+
   download_and_extract "$GH_REPO" "$RELEASE_TAG" "$asset_name" "$BINARY_NAME" ${CHECKSUMS[@]+"${CHECKSUMS[@]}"} || exit 1
 
   install_binary "$TOOL_NAME" "$BINARY_NAME" "$VERSION" "$EXTRACT_DIR" ${BINARY_ALIASES[@]+"${BINARY_ALIASES[@]}"} || exit 1

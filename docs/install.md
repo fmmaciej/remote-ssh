@@ -99,7 +99,7 @@ remote-ssh uninstall --yes
 ```
 
 Without explicit tool names, `remote-ssh uninstall` removes all managed tools
-detected from symlinks in `~/.local/bin`. It removes matching release
+detected from symlinks in `~/.local/bin` and valid ownership records. It removes managed release
 directories under `~/.local/opt` and updates `expected-tools`; it does not
 remove the remote-ssh checkout or SSH/Git configuration.
 
@@ -147,6 +147,25 @@ Symlinks are created in:
 ```text
 ~/.local/bin
 ```
+
+New releases contain a `.remote-ssh-release` ownership record identifying the
+tool, version, layout, and relative executable path. Neovim preserves its full
+package layout, so its symlink targets `<release>/bin/nvim`.
+
+Removal requires a valid ownership record inside a direct child of the install
+prefix. Files, directory symlinks, foreign directories such as `rg-personal-notes`,
+and older releases without a record are protected. Active binary and alias
+symlinks protect their entire release during prune, including bundled runtimes.
+
+Older unmarked releases remain usable and are left for manual review. Reinstall
+a tool to create a new marked release without changing `expected-tools`:
+
+```bash
+FORCE=1 remote-ssh tool install rg
+```
+
+The old unmarked directory remains protected; reinstalling does not adopt or
+delete it automatically.
 
 Old inactive release directories can be reported with:
 

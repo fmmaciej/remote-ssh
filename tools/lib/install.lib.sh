@@ -10,6 +10,7 @@ ensure_this_file_sourced
 # common/
 . "$TOOLS_COMMON_DIR/platform.sh"
 . "$TOOLS_COMMON_DIR/requirements.sh"
+. "$TOOLS_COMMON_DIR/release.sh"
 
 # install/
 . "$TOOLS_INSTALL_DIR/defaults.sh"

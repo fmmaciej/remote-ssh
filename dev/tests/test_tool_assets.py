@@ -6,6 +6,26 @@ from pathlib import Path
 from conftest import assert_ok, run_cmd
 
 
+def test_neovim_declares_exact_bundle_roots(repo_dir: Path) -> None:
+    _run_repo_bash(
+        repo_dir,
+        """
+        set -euo pipefail
+        . "$1/tools/lib/env.sh"
+        . "$TOOLS_LIB_DIR/install-tool.lib.sh"
+        load_defs "$TOOLS_DIR/defs" nvim
+        [[ "$INSTALL_LAYOUT" == bundle && "$BINARY_PATH" == bin/nvim ]]
+        for entry in "${ASSETS[@]}"; do
+          asset="${entry#*|}"
+          root="$(bundle_root_for_asset "$asset")"
+          [[ "$root.tar.gz" == "$asset" ]]
+        done
+        load_defs "$TOOLS_DIR/defs" rg
+        [[ "$INSTALL_LAYOUT" == binary && "$BINARY_PATH" == rg ]]
+    """,
+    )
+
+
 def _run_repo_bash(repo_dir: Path, script: str) -> str:
     result = run_cmd(
         ["bash", "-c", textwrap.dedent(script).lstrip(), "_", repo_dir],

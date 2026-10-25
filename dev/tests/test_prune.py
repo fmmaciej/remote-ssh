@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from conftest import IsolatedEnv, assert_ok, run_remote_ssh
+from conftest import IsolatedEnv, assert_ok, mark_managed_release, run_remote_ssh
 
 
 def prepare_prune_dirs(env: IsolatedEnv) -> tuple[Path, Path]:
@@ -23,6 +23,8 @@ def prepare_rg_install(bin_dir: Path, opt_dir: Path) -> None:
     rg = active / "rg"
     rg.write_text("#!/usr/bin/env bash\nprintf rg\n", encoding="utf-8")
     rg.chmod(0o755)
+    mark_managed_release(active, "rg", "15.1.0")
+    mark_managed_release(stale, "rg", "14.1.0")
     (bin_dir / "rg").symlink_to(rg)
 
 
@@ -84,6 +86,8 @@ def test_prune_preserves_relative_symlink_target(
     rg = active / "rg"
     rg.write_text("#!/usr/bin/env bash\nprintf rg\n", encoding="utf-8")
     rg.chmod(0o755)
+    mark_managed_release(active, "rg", "15.1.0")
+    mark_managed_release(stale, "rg", "14.1.0")
     (bin_dir / "rg").symlink_to(Path("../managed-opt/rg-15.1.0/rg"))
 
     result = run_remote_ssh(

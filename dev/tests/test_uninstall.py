@@ -7,6 +7,7 @@ from conftest import (
     assert_failed,
     assert_ok,
     make_managed_tool,
+    mark_managed_release,
     run_remote_ssh,
     write_expected_tools,
 )
@@ -57,6 +58,7 @@ def test_uninstall_yes_without_args_removes_all_managed_tools(
     fd = make_managed_tool(tool_env, "fd", "10.3.0")
     unknown = tool_env.opt_dir / "not-a-tool-1.0.0"
     rg_stale.mkdir()
+    mark_managed_release(rg_stale, "rg", "14.1.0")
     unknown.mkdir()
     expected_file = write_expected_tools(tool_env, ["rg", "fd", "fzf"])
 
@@ -124,7 +126,7 @@ def test_uninstall_protects_unmanaged_paths(
     assert "Protected/skipped paths:" in result.stdout
     assert f"{unmanaged} (not a symlink)" in result.stdout
     assert unmanaged.exists()
-    assert not release_dir.exists()
+    assert release_dir.exists()
 
 
 def test_uninstall_protects_symlink_outside_install_prefix(
@@ -181,6 +183,7 @@ def test_uninstall_without_args_detects_relative_managed_symlink(
     release_dir.mkdir()
     executable.write_text("#!/usr/bin/env bash\nprintf rg\n", encoding="utf-8")
     executable.chmod(0o755)
+    mark_managed_release(release_dir, "rg", "15.1.0")
     (tool_env.bin_dir / "rg").symlink_to(Path("../home/opt/rg-15.1.0/rg"))
 
     result = run_remote_ssh(repo_dir, ["uninstall", "--yes"], env=tool_env.env)

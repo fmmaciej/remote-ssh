@@ -6,7 +6,7 @@ is_tool_installed() {
   local tool="$1"
   local expected_version="${2:-}"
   local local_bin="${INSTALL_BIN_DIR}/${tool}"
-  local target existing
+  local target existing release
 
   if [[ ${FORCE:-0} == "1" ]]; then
     log_info "FORCE=1"
@@ -23,6 +23,12 @@ is_tool_installed() {
       target="$(readlink "$local_bin")"
       case "$target" in
         "$INSTALL_PREFIX/${tool}-${expected_version}/"* | "$INSTALL_PREFIX/${tool}-${expected_version}".*/*)
+          if [[ "${INSTALL_LAYOUT:-binary}" == bundle ]]; then
+            release="$(remote_ssh_release_for_link "$local_bin" "$tool")" || return 1
+            remote_ssh_release_validate "$release" "$tool" || return 1
+            [[ "$REMOTE_SSH_RELEASE_LAYOUT" == bundle &&
+              "$REMOTE_SSH_RELEASE_EXECUTABLE" == "$BINARY_PATH" ]] || return 1
+          fi
           log_info "'$tool' ${expected_version} is installed in ${local_bin} - SKIPPING."
           return 0
           ;;

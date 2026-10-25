@@ -76,30 +76,10 @@ remote_ssh_cmd_uninstall_link_target_path() {
 }
 
 remote_ssh_cmd_uninstall_managed_link_target() {
-  local link="$1" prefix_canon="$2"
-  local target target_dir target_dir_canon target_path
-
-  target="$(remote_ssh_cmd_uninstall_link_target_path "$link")" || return 1
-  target_dir="$(dirname "$target")"
-
-  if target_dir_canon="$(remote_ssh_cmd_uninstall_canonical_dir "$target_dir")"; then
-    target_path="${target_dir_canon}/$(basename "$target")"
-    case "$target_path" in
-      "$prefix_canon"/*)
-        printf '%s\n' "$target_path"
-        return 0
-        ;;
-    esac
-  fi
-
-  case "$target" in
-    "$INSTALL_PREFIX"/*)
-      printf '%s\n' "$target"
-      return 0
-      ;;
-  esac
-
-  return 1
+  local link="$1" _prefix_canon="$2" expected_tool="${3:-}" root
+  root="$(remote_ssh_release_for_link "$link" "$expected_tool")" || return 1
+  remote_ssh_release_validate "$root" "$expected_tool" || return 1
+  printf '%s/%s\n' "$root" "$REMOTE_SSH_RELEASE_EXECUTABLE"
 }
 
 remote_ssh_cmd_uninstall_collect_links_for_tool() {
@@ -116,7 +96,7 @@ remote_ssh_cmd_uninstall_collect_links_for_tool() {
   for alias_name in ${link_names[@]+"${link_names[@]}"}; do
     link_path="$INSTALL_BIN_DIR/$alias_name"
     if [[ -L "$link_path" ]]; then
-      if target="$(remote_ssh_cmd_uninstall_managed_link_target "$link_path" "$prefix_canon")"; then
+      if target="$(remote_ssh_cmd_uninstall_managed_link_target "$link_path" "$prefix_canon" "$TOOL_NAME")"; then
         printf 'remove|%s\n' "$link_path"
       else
         printf 'protect|%s -> %s\n' "$link_path" "$(readlink "$link_path")"
@@ -144,6 +124,7 @@ remote_ssh_cmd_uninstall_collect_release_dirs_for_tool() {
 
     dir_canon="$(remote_ssh_cmd_uninstall_canonical_dir "$dir")" || continue
     [[ "$(dirname "$dir_canon")" == "$prefix_canon" ]] || continue
+    remote_ssh_release_validate "$dir" "$TOOL_NAME" || continue
     printf '%s\n' "$dir"
   done < <(find "$INSTALL_PREFIX" -mindepth 1 -maxdepth 1 -type d -print | sort)
 }
@@ -156,7 +137,7 @@ remote_ssh_cmd_uninstall_managed_tools() {
     load_defs "$TOOLS_DIR/defs" "$tool"
     link_path="$INSTALL_BIN_DIR/$TOOL_NAME"
     [[ -L "$link_path" ]] || continue
-    remote_ssh_cmd_uninstall_managed_link_target "$link_path" "$prefix_canon" >/dev/null || continue
+    remote_ssh_cmd_uninstall_managed_link_target "$link_path" "$prefix_canon" "$TOOL_NAME" >/dev/null || continue
     printf '%s\n' "$tool"
   done
 }
@@ -345,7 +326,8 @@ remote_ssh_cmd_uninstall_main() {
   done
 
   for value in ${release_dirs[@]+"${release_dirs[@]}"}; do
-    rm -rf "$value"
+    remote_ssh_release_validate "$value" || return 1
+    rm -rf "$value" || return 1
     printf 'removed release dir: %s\n' "$value"
   done
 

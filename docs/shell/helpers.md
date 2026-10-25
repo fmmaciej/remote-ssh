@@ -145,3 +145,65 @@ ssh-pick --query 10.1.2.3 uptime
 
 The dependency is intentional for now because the parser is more reliable than
 a shell-only version; a future version may replace it or add a fallback.
+
+## History
+
+When remote-ssh initializes Atuin successfully, it owns persistent command
+history and Bash file writes are disabled for that integration's lifetime.
+When our integration is unavailable, disabled with `REMOTE_SSH_ENABLE_ATUIN=0`,
+or fails to initialize, Bash keeps its normal history file. fzf supplies Ctrl-R
+when available, unless independently initialized Atuin owns the bindings.
+
+An explicit `HISTFILE` is preserved for fallback, including an empty value or
+`/dev/null` to disable file persistence. Reloading with `rcrc` does not duplicate
+Atuin hooks; disabling or removing Atuin restores fallback history and its
+previous arrow key bindings unless those bindings were subsequently changed by
+the user. Reload also detects a removed executable still cached by Bash.
+
+Re-enabling Atuin in the same shell reattaches its saved hooks and bindings
+without running the upstream initializer again. User callbacks are preserved,
+including callbacks added while Atuin was active. If reattachment cannot find
+a required Atuin helper, Bash history and the available fzf fallback remain
+enabled. Atuin initialized independently before remote-ssh keeps its own
+registrations and bindings, including its default Ctrl-R search. The fzf
+fallback does not replace these bindings, even when remote-ssh's Atuin toggle
+is disabled. A failed remote-ssh initialization still enables the usual fallback.
+
+When disabling our integration with `rcrc`, the current command's history entry
+is finished at the following prompt, using that command's exit status. Later
+time spent in the fallback is excluded. A temporary first prompt statement
+handles owned history completion before user prompt commands, including a
+multiline `PROMPT_COMMAND` that forwards dispatch through a function or script.
+The owned registration is removed after completion. User precmd callbacks run
+at their normal dispatch point: a prefix preparing data for a wrapper still
+runs before those callbacks. Status, pipeline metadata, and the previous argument
+delivered to callbacks follow the normal dispatcher for that prompt layout.
+On Bash 5.1 and newer, a prepended completion boundary uses a separate prompt
+array entry so Bash preserves the inputs of the user's prefix or wrapper.
+Cleanup restores the original prompt layout while retaining user edits. Bash
+3.2 retains the upstream dispatcher's pipeline capture behavior.
+Disabling and re-enabling within one input line still finishes the entry once.
+
+Completion is best-effort. The pending entry is tied to the outer interactive
+call site at the beginning of the prompt, independently of history settings. If
+the executable, completion helper, or prompt hook is unavailable, or the completion
+context is uncertain, remote-ssh drops the local pending association. A directly
+entered multiline block may change that call site before the prompt; in that
+case the local pending association is dropped. Multiline functions and sourced
+scripts invoked from one input line keep the same outer call site.
+
+Removing all prompt dispatch after disable also removes the opportunity for
+immediate cleanup. The next reload or resumed completion callback discards an
+expired association before trying to finish it. Old registrations restored
+directly or through a cached wrapper retain normal prompt dispatch, including
+after reactivation. Exact owned statements are removed from the current prompt;
+cached user function bodies are preserved and can replay compatible statements
+again. The backend may retain an unfinished entry, but a later command's status
+or time in the fallback is never used to finish that detached ID.
+
+On Bash with `bind -X`, restoration includes shell commands installed with
+`bind -x`, Readline functions, macros, and unbound keys. On older Bash, including
+macOS Bash 3.2, shell-command bindings cannot be enumerated. If any tracked
+binding is unreadable, remote-ssh passes `--disable-up-arrow`: Up and vi-command
+`k` stay under user control while Atuin still records history. remote-ssh leaves
+Ctrl-R out of its own Atuin initialization.

@@ -1,9 +1,78 @@
 # Shell Startup Benchmark TODO
 
-This note tracks likely startup-time wins after the welcome/status benchmark
-work.
+Status: deferred to a separate follow-up after the
+[audit fixes](docs/audit-fix-plan.md).
 
-Current local shape:
+## Audit observations from 2026-10-16
+
+These measurements precede the correctness fixes and remain a baseline for the
+later optimization work.
+
+Local PTY measurements used five measured samples and one warmup per scenario:
+
+```bash
+just bench-shell --suite login --iterations 5 --warmup 1
+```
+
+| Scenario | Ready median |
+| --- | ---: |
+| bash-baseline | 10.0 ms |
+| remote-ssh-min | 234.1 ms |
+| remote-ssh-default | 402.9 ms |
+| remote-ssh-default-warm-home | 361.7 ms |
+
+These measurements used the local machine and available integrations, including
+Starship, Zoxide, and fzf, without Atuin. Compare changes on the same machine
+with the same tools and state. The benchmark's `zsh-reference` is a synthetic
+reference and is not a measured competing shell.
+
+A separate isolated measurement of loading `shell/config.lib.sh` and calling
+`remote_ssh_config_load` under `/bin/bash` gave medians of 61.1 ms without a
+config file and 486.9 ms with all nine allowed keys, over five runs each. This
+is a loader measurement, separate from the PTY scenarios above. The current
+loader scans the config file again for every key and creates many subprocesses.
+
+## Deferred simplification work
+
+1. Parse the config file once per load. Preserve the allowed-key list,
+   environment precedence, literal values without code execution, and reload
+   behavior when settings change or disappear. Measure both absent and populated
+   config files before adding caching.
+2. Reduce work performed by welcome. Consider a short login summary and move
+   detailed tool, hardware, and integration inspection to `remote-ssh doctor`.
+   First try rendering bundled modules in the current process; preserve
+   isolation for user modules.
+3. Review the startup load graph and repeated source guards. Consolidate tiny
+   private modules where it improves readability, and avoid external `basename`
+   calls just to construct guard messages. Keep public command facades.
+4. Review optional initialization for Atuin, bash-preexec, Starship, and Zoxide.
+   Load only the integrations needed by the selected shell behavior. Preserve
+   history and prompt correctness before trying lazy initialization.
+5. Revisit the default tool selection. Promote `mini` and `quick` as lightweight
+   starting points and keep the full set available. Review `nu`, `nvim`, `yazi`,
+   `zellij`, and `bssh` as optional additions. Any default-list change must keep
+   `DEFAULT_TOOLS`, `RUNME_TOOLS`, documentation, and tests synchronized.
+6. Check callers before removing unused `load_once` and `init_lib`, the older
+   `scripts/ssh_hosts.py`, and duplicated SSH parsing. Keep the Python dependency
+   of `ssh-find` and `ssh-pick` explicit.
+7. Remove unreachable Zsh branches only after choosing the supported integration
+   boundary and adjusting tests. The public shell entrypoint remains Bash-only.
+8. Keep developer simplification separate: replace heuristic GitHub JSON parsing
+   with a real parser in developer tooling without adding runtime dependencies.
+
+Do not turn this list into a broad refactor during the correctness fixes.
+History fallback is part of the current repair plan, even though it touches
+shell initialization.
+
+## Earlier profiling notes
+
+The following measurements came from an earlier local diagnostic. They are
+historical context, not the current baseline or a guaranteed performance target.
+
+This earlier diagnostic tracked startup-time wins after the welcome/status
+benchmark work.
+
+Earlier local shape:
 
 ```text
 bash-baseline                 ~12 ms
@@ -19,9 +88,13 @@ The remaining cost is not one single hook:
 - warm-home removes some once-per-HOME cost, but repeated-login startup is
   still around `450 ms`.
 
-## Highest-Value Optimizations
+### Earlier Optimization Candidates
 
 1. Replace `git config` calls in `07-git-session-identity.sh`.
+
+   Revisit the proposed parser before implementation: prefer one Git query or
+   deferred lookup. A handwritten parser must not silently lose supported Git
+   quoting or configuration semantics.
 
    The hook currently calls `git config --file dots/git/user.local --get`
    twice. Local profiling showed:
@@ -69,7 +142,7 @@ The remaining cost is not one single hook:
    status still costs roughly `50-80 ms`. A cache could help, but it adds state
    semantics and refresh policy, so it should come after the lower-risk wins.
 
-## Lower-Priority Areas
+### Earlier Lower Priority Areas
 
 - Atuin, bash-preexec, Starship, and Zoxide are visible but functional
   tradeoffs. Disabling them by default would change the shell experience.
@@ -77,7 +150,7 @@ The remaining cost is not one single hook:
   require flattening loader paths and reducing source calls, which may hurt
   maintainability for a smaller gain.
 
-## Practical Target
+### Earlier Target
 
 Getting `remote-ssh-default` from roughly `500 ms` to `330-380 ms` looks
 realistic without a major architecture change. Getting below `250 ms` probably

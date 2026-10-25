@@ -31,6 +31,10 @@ just fmt
 - [Live Assets](docs/live-assets.md): optional GitHub Releases validation.
 - [Shell Startup Benchmark](docs/bench-shell.md): local PTY benchmark for
   remote-ssh shell startup cost.
+- [Audit Fix Plan](docs/audit-fix-plan.md): correctness fixes and regression
+  coverage in delivery order.
+- [Deferred Shell Simplification](todo-bench.md): startup measurements and
+  simplification ideas to revisit after the correctness fixes.
 
 ## Notes
 

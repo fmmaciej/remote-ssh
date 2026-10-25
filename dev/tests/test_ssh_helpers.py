@@ -116,7 +116,7 @@ clusters:
     assert_ok(result)
     assert result.stdout.splitlines() == [
         "gpu-a\t10.1.2.4\tdeploy\t.config/bssh/config.yaml\t2200\tdirect\tgpu-host",
-        "lab-a\t10.1.2.3\talice\t.ssh/config\t2222\tssh-config\tlab-a",
+        f"lab-a\t10.1.2.3\talice\t.ssh/config\t2222\tssh-config\tlab-a\t{ssh_config.resolve()}",
         "npu-a\t10.1.2.9\troot\t.config/bssh/config.yaml\t2229\tdirect\t10.1.2.9",
         "web1\t10.1.2.5\tuser1\t.config/bssh/config.yaml\t2221\tdirect\tweb1",
         "web2\t10.1.2.6\tdeploy\t.config/bssh/config.yaml\t2222\tdirect\tweb2",

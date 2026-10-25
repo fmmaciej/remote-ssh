@@ -90,6 +90,12 @@ alias  address  user  source
 The selected row is printed as a full tab-separated record for other helpers.
 `ssh-find` does not connect anywhere.
 
+The first seven fields are alias, address, user, source, port, connection kind,
+and connection target. OpenSSH records append an eighth field with the absolute
+config path only when a config override was explicitly selected. Automatic
+selection and direct bssh records retain seven fields. Optional user and port
+fields may be empty.
+
 Examples:
 
 ```bash
@@ -107,7 +113,10 @@ entries support `defaults.user`, `defaults.port`, `clusters.<name>.user`,
 (`user@host:port`, `host:port`, `host`) or simple maps (`name`/`alias`, `host`,
 `user`, `port`). `/etc/hosts` is used only to map a hostname to a display IP.
 
-Set `SSH_FIND_SSH_CONFIG` to use a specific OpenSSH config. Set
+Set `SSH_FIND_SSH_CONFIG` to use a specific OpenSSH config; `SSH_CONFIG` is the
+fallback selector. Empty values are ignored. Without either override, aliases
+come from `~/.ssh/config` and resolution uses ordinary `ssh -G` configuration
+loading, including system defaults. Set
 `SSH_FIND_BSSH_CONFIG` to use a specific bssh config. Set `SSH_HOSTS_FILE` to
 test or override the hosts-file lookup.
 
@@ -118,7 +127,11 @@ It currently uses `scripts/ssh_find.py` plus `ssh -G`, so this helper requires
 
 `ssh-pick` calls `ssh-find`, then connects to the selected record. OpenSSH
 records connect through their alias so options such as `IdentityFile`,
-`ProxyJump`, and `RemoteCommand` stay active. bssh records connect directly to
+`ProxyJump`, and `RemoteCommand` stay active. Automatic selection connects using
+`ssh alias`, preserving ordinary configuration loading. Explicit selection uses
+the same `ssh -F CONFIG` override for resolution and connection, even when CONFIG
+is `~/.ssh/config`. As with OpenSSH itself, `-F` excludes system-wide SSH config.
+bssh records connect directly to
 `[user@]host` with `-p PORT` when a port is known.
 
 Examples:

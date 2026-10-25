@@ -24,6 +24,13 @@ class FindRecord:
     port: str
     connect_kind: str
     connect_target: str
+    ssh_config: str = ""
+
+
+@dataclass(frozen=True)
+class SshConfigSelection:
+    path: Path
+    explicit: bool
 
 
 @dataclass
@@ -33,22 +40,22 @@ class YamlLine:
 
 
 def clean_field(value: str) -> str:
-    return value.replace("\t", " ").replace("\n", " ").strip()
+    return value.replace("\t", " ").replace("\n", " ").replace("\x1f", " ").strip()
 
 
 def render_record(record: FindRecord) -> str:
-    return "\t".join(
-        clean_field(field)
-        for field in (
-            record.alias,
-            record.address,
-            record.user,
-            record.source,
-            record.port,
-            record.connect_kind,
-            record.connect_target,
-        )
+    fields: tuple[str, ...] = (
+        record.alias,
+        record.address,
+        record.user,
+        record.source,
+        record.port,
+        record.connect_kind,
+        record.connect_target,
     )
+    if record.ssh_config:
+        fields += (record.ssh_config,)
+    return "\t".join(clean_field(field) for field in fields)
 
 
 def expand_path(path: Path | str) -> Path:
@@ -105,13 +112,13 @@ def display_address(hostname: str, hosts_by_name: dict[str, list[str]]) -> str:
     return hostname
 
 
-def default_ssh_config_path() -> Path:
+def select_ssh_config() -> SshConfigSelection:
     for key in ("SSH_FIND_SSH_CONFIG", "SSH_CONFIG"):
         value = os.environ.get(key)
         if value:
-            return expand_path(value)
+            return SshConfigSelection(expand_path(value), explicit=True)
 
-    return Path.home() / ".ssh" / "config"
+    return SshConfigSelection(Path.home() / ".ssh" / "config", explicit=False)
 
 
 def default_bssh_config_path() -> Path:
@@ -183,10 +190,14 @@ def parse_ssh_config(path: Path, seen_files: set[Path] | None = None) -> Iterabl
                     yield host
 
 
-def resolve_ssh_host(alias: str, config_path: Path) -> dict[str, str]:
+def resolve_ssh_host(alias: str, config_override: Path | None) -> dict[str, str]:
+    args = ["ssh", "-G"]
+    if config_override is not None:
+        args.extend(["-F", str(config_override)])
+    args.append(alias)
     try:
         result = subprocess.run(
-            ["ssh", "-G", "-F", str(config_path), alias],
+            args,
             text=True,
             capture_output=True,
             check=False,
@@ -211,15 +222,16 @@ def resolve_ssh_host(alias: str, config_path: Path) -> dict[str, str]:
 
 
 def build_ssh_config_records(
-    config_path: Path,
+    config: SshConfigSelection,
     hosts_by_name: dict[str, list[str]],
 ) -> list[FindRecord]:
-    if not config_path.is_file():
+    if not config.path.is_file():
         return []
 
+    config_override = config.path.resolve() if config.explicit else None
     records: list[FindRecord] = []
-    for alias in sorted(set(parse_ssh_config(config_path))):
-        resolved = resolve_ssh_host(alias, config_path)
+    for alias in sorted(set(parse_ssh_config(config.path))):
+        resolved = resolve_ssh_host(alias, config_override)
         hostname = resolved.get("hostname", alias)
         records.append(
             FindRecord(
@@ -230,6 +242,7 @@ def build_ssh_config_records(
                 port=resolved.get("port", ""),
                 connect_kind="ssh-config",
                 connect_target=alias,
+                ssh_config=str(config_override) if config_override is not None else "",
             )
         )
 
@@ -390,7 +403,9 @@ def parse_node_string(value: str) -> dict[str, str]:
     return node
 
 
-def find_child_blocks(lines: list[YamlLine], parent_indent: int) -> list[tuple[str, list[YamlLine]]]:
+def find_child_blocks(
+    lines: list[YamlLine], parent_indent: int
+) -> list[tuple[str, list[YamlLine]]]:
     child_indent = min(
         (
             line.indent
@@ -423,7 +438,9 @@ def find_child_blocks(lines: list[YamlLine], parent_indent: int) -> list[tuple[s
     return blocks
 
 
-def extract_nodes_blocks(cluster_lines: list[YamlLine]) -> tuple[list[list[YamlLine]], list[YamlLine]]:
+def extract_nodes_blocks(
+    cluster_lines: list[YamlLine],
+) -> tuple[list[list[YamlLine]], list[YamlLine]]:
     nodes_blocks: list[list[YamlLine]] = []
     non_node_lines: list[YamlLine] = []
 
@@ -556,7 +573,7 @@ def build_bssh_records(path: Path, hosts_by_name: dict[str, list[str]]) -> list[
 def main() -> int:
     hosts_by_name = parse_hosts_file(default_hosts_file_path())
     records = [
-        *build_ssh_config_records(default_ssh_config_path(), hosts_by_name),
+        *build_ssh_config_records(select_ssh_config(), hosts_by_name),
         *build_bssh_records(default_bssh_config_path(), hosts_by_name),
     ]
 

@@ -6,7 +6,7 @@ ssh-pick() {
   local ssh_find_cmd="${SSH_FIND_CMD:-ssh-find}"
   local query="${SSH_PICK_QUERY:-}"
   local selected status
-  local alias _address user _source port connect_kind connect_target _rest
+  local alias _address user _source port connect_kind connect_target ssh_config _rest
 
   while (($# > 0)); do
     case "$1" in
@@ -48,7 +48,10 @@ ssh-pick() {
     fi
   fi
 
-  IFS=$'\t' read -r alias _address user _source port connect_kind connect_target _rest <<<"$selected"
+  # Tab is IFS whitespace, which would collapse empty columns. A non-whitespace
+  # separator preserves optional user/port fields and paths containing spaces.
+  IFS=$'\x1f' read -r alias _address user _source port connect_kind connect_target ssh_config _rest \
+    <<<"${selected//$'\t'/$'\x1f'}"
 
   if [[ -z "$alias" || -z "$connect_kind" || -z "$connect_target" ]]; then
     printf '[WARN] ssh-pick received an invalid ssh-find record.\n' >&2
@@ -57,8 +60,10 @@ ssh-pick() {
 
   case "$connect_kind" in
     ssh-config)
+      local config_args=()
+      [[ -z "$ssh_config" ]] || config_args=(-F "$ssh_config")
       # shellcheck disable=SC2029
-      ssh "$connect_target" "$@"
+      ssh ${config_args[@]+"${config_args[@]}"} "$connect_target" "$@"
       ;;
     direct)
       local ssh_args=()
@@ -72,7 +77,7 @@ ssh-pick() {
       fi
 
       # shellcheck disable=SC2029
-      ssh "${ssh_args[@]}" "$target" "$@"
+      ssh ${ssh_args[@]+"${ssh_args[@]}"} "$target" "$@"
       ;;
     *)
       printf '[WARN] ssh-pick received unknown connect kind: %s\n' "$connect_kind" >&2

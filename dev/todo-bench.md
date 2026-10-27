@@ -1,7 +1,17 @@
 # Shell Startup Benchmark TODO
 
-Status: deferred to a separate follow-up after the
-[audit fixes](docs/audit-fix-plan.md).
+Status: config loader optimization implemented and independently reviewed.
+Other shell startup simplification remains deferred.
+
+The completed follow-up is documented in the
+[implementation record](docs/config-loader-implementation-record.md), following
+the [accepted plan](docs/config-loader-implementation-plan.md) and an independent
+[implementation audit](docs/config-loader-implementation-audit.md). A fresh
+[behavior re-audit](docs/config-loader-independent-reaudit.md) and
+[paired performance verification](docs/config-loader-reaudit-performance.md)
+confirm the size of the measured saving; the fresh audit accepted repair R1.
+The earlier
+[audit fixes](docs/audit-fix-plan.md) remain a separate correctness workstream.
 
 ## Audit observations from 2026-10-16
 
@@ -32,12 +42,12 @@ config file and 486.9 ms with all nine allowed keys, over five runs each. This
 is a loader measurement, separate from the PTY scenarios above. The current
 loader scans the config file again for every key and creates many subprocesses.
 
-## Deferred simplification work
+## Simplification work
 
-1. Parse the config file once per load. Preserve the allowed-key list,
-   environment precedence, literal values without code execution, and reload
-   behavior when settings change or disappear. Measure both absent and populated
-   config files before adding caching.
+1. Completed: parse config once per load and remove repeated parser/marker
+   subprocesses. Allowed keys, literal values, environment precedence, reload
+   behavior, and child-process provenance are preserved. See the
+   [implementation and measurements](docs/config-loader-implementation-record.md).
 2. Reduce work performed by welcome. Consider a short login summary and move
    detailed tool, hardware, and integration inspection to `remote-ssh doctor`.
    First try rendering bundled modules in the current process; preserve

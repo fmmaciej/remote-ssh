@@ -1,0 +1,11 @@
+Command (from repository root):
+dev/.venv/bin/python -m pytest -q -p no:cacheprovider --basetemp=/private/tmp/config-reaudit-pytest dev/tests/test_config.py dev/tests/test_welcome.py dev/tests/test_guide.py -k config
+
+Result:
+..................................................                       [100%]
+50 passed, 38 deselected in 8.28s
+
+Process exit status: 0
+The runtime_bash fixture resolves /bin/bash 3.2.57 and the Homebrew Bash 5.3.20.
+Older non-parameterized welcome/guide tests use /bin/bash through their isolated PATH.
+No full smoke or live asset checker was run for this independent re-audit.

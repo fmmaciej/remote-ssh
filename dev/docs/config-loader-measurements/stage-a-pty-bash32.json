@@ -1,0 +1,1263 @@
+{
+  "checkpoint": "stage-a",
+  "mode": "pty",
+  "bash": "/bin/bash",
+  "bash_version": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+  "os": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.13.9 (main, Oct 14 2025, 21:10:40) [Clang 20.1.4 ]",
+  "timestamp_utc": "2026-10-27T21:51:03Z",
+  "repo": "/Users/fm/Programming/00_Other/remote-ssh",
+  "fixture_utf8": "REMOTE_SSH_WELCOME=1\nREMOTE_SSH_WELCOME_BANNER=1\nREMOTE_SSH_WELCOME_COLOR=1\nREMOTE_SSH_WELCOME_DEBUG=0\nREMOTE_SSH_WELCOME_USER=1\nREMOTE_SSH_UPDATE_CHECK=1\nREMOTE_SSH_UPDATE_CHECK_INTERVAL=86400\nREMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1\nNO_COLOR=\n",
+  "fixture_sha256": "1a40e20fe72c1a202aa3d0a04ae4a7a5f2508e7a8b172fa99d94342a9ae6f444",
+  "harness_sha256": "c055150fd19613d5f0ef5ae9ef9a4f50035b444b035af0e28929c83612c31714",
+  "runtime_files": {
+    "shell/config/parse.sh": {
+      "sha256": "144974b02abba3ed2cabf50fd22474380fba862de0cefb09a99646bd5b2da9cf",
+      "source": "# shellcheck shell=bash\n\nremote_ssh_config_trim() {\n  local value=\"$1\"\n\n  value=\"${value#\"${value%%[![:space:]]*}\"}\"\n  value=\"${value%\"${value##*[![:space:]]}\"}\"\n  printf '%s\\n' \"$value\"\n}\n\nremote_ssh_config_unquote() {\n  local value=\"$1\"\n\n  case \"$value\" in\n    \\\"*\\\")\n      value=\"${value#\\\"}\"\n      value=\"${value%\\\"}\"\n      ;;\n    \\'*\\')\n      value=\"${value#\\'}\"\n      value=\"${value%\\'}\"\n      ;;\n  esac\n  printf '%s\\n' \"$value\"\n}\n\n# Private output contract: callers declare the three indexed snapshot arrays\n# and count locally. These helpers intentionally update those dynamically scoped\n# locals; scratch names must not shadow any of the four output names.\nremote_ssh_config_snapshot_init() {\n  local __remote_ssh_config_init_key __remote_ssh_config_init_default\n  local __remote_ssh_config_init_index=0\n\n  __remote_ssh_config_snapshot_keys=()\n  __remote_ssh_config_snapshot_values=()\n  __remote_ssh_config_snapshot_present=()\n  __remote_ssh_config_snapshot_count=0\n  while IFS='|' read -r __remote_ssh_config_init_key __remote_ssh_config_init_default; do\n    __remote_ssh_config_snapshot_keys[__remote_ssh_config_init_index]=\"$__remote_ssh_config_init_key\"\n    __remote_ssh_config_snapshot_values[__remote_ssh_config_init_index]=''\n    __remote_ssh_config_snapshot_present[__remote_ssh_config_init_index]=0\n    __remote_ssh_config_init_index=$((__remote_ssh_config_init_index + 1))\n  done < <(remote_ssh_config_entries)\n  __remote_ssh_config_snapshot_count=\"$__remote_ssh_config_init_index\"\n  return 0\n}\n\nremote_ssh_config_snapshot_read() {\n  local __remote_ssh_config_scan_file __remote_ssh_config_scan_line=''\n  local __remote_ssh_config_scan_key __remote_ssh_config_scan_value\n  local __remote_ssh_config_scan_index\n\n  __remote_ssh_config_scan_file=\"$(remote_ssh_config_file 2>/dev/null)\" || return 0\n  [[ -r \"$__remote_ssh_config_scan_file\" ]] || return 0\n\n  # Guard open/read errors as absent entries, including strict-mode callers.\n  if {\n    while IFS= read -r __remote_ssh_config_scan_line || [[ -n \"$__remote_ssh_config_scan_line\" ]]; do\n      __remote_ssh_config_scan_line=\"${__remote_ssh_config_scan_line#\"${__remote_ssh_config_scan_line%%[![:space:]]*}\"}\"\n      __remote_ssh_config_scan_line=\"${__remote_ssh_config_scan_line%\"${__remote_ssh_config_scan_line##*[![:space:]]}\"}\"\n      case \"$__remote_ssh_config_scan_line\" in\n        '' | \\#*) continue ;;\n        *=*) ;;\n        *) continue ;;\n      esac\n\n      __remote_ssh_config_scan_key=\"${__remote_ssh_config_scan_line%%=*}\"\n      __remote_ssh_config_scan_key=\"${__remote_ssh_config_scan_key#\"${__remote_ssh_config_scan_key%%[![:space:]]*}\"}\"\n      __remote_ssh_config_scan_key=\"${__remote_ssh_config_scan_key%\"${__remote_ssh_config_scan_key##*[![:space:]]}\"}\"\n      __remote_ssh_config_scan_index=0\n      while ((__remote_ssh_config_scan_index < __remote_ssh_config_snapshot_count)); do\n        if [[ \"${__remote_ssh_config_snapshot_keys[__remote_ssh_config_scan_index]}\" == \"$__remote_ssh_config_scan_key\" ]]; then\n          __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_line#*=}\"\n          __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_value#\"${__remote_ssh_config_scan_value%%[![:space:]]*}\"}\"\n          __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_value%\"${__remote_ssh_config_scan_value##*[![:space:]]}\"}\"\n          case \"$__remote_ssh_config_scan_value\" in\n            \\\"*\\\")\n              __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_value#\\\"}\"\n              __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_value%\\\"}\"\n              ;;\n            \\'*\\')\n              __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_value#\\'}\"\n              __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_value%\\'}\"\n              ;;\n          esac\n          __remote_ssh_config_snapshot_values[__remote_ssh_config_scan_index]=\"$__remote_ssh_config_scan_value\"\n          __remote_ssh_config_snapshot_present[__remote_ssh_config_scan_index]=1\n          break\n        fi\n        __remote_ssh_config_scan_index=$((__remote_ssh_config_scan_index + 1))\n      done\n    done <\"$__remote_ssh_config_scan_file\"\n  } 2>/dev/null; then\n    :\n  fi\n  return 0\n}\n\nremote_ssh_config_file_value_raw() {\n  local -a __remote_ssh_config_snapshot_keys=() __remote_ssh_config_snapshot_values=()\n  local -a __remote_ssh_config_snapshot_present=()\n  local __remote_ssh_config_snapshot_count=0 __remote_ssh_config_lookup_index=0\n  local __remote_ssh_config_lookup_key=\"$1\"\n\n  remote_ssh_config_snapshot_init\n  remote_ssh_config_snapshot_read\n  while ((__remote_ssh_config_lookup_index < __remote_ssh_config_snapshot_count)); do\n    if [[ \"${__remote_ssh_config_snapshot_keys[__remote_ssh_config_lookup_index]}\" == \"$__remote_ssh_config_lookup_key\" &&\n      \"${__remote_ssh_config_snapshot_present[__remote_ssh_config_lookup_index]}\" == 1 ]]; then\n      printf '%s\\n' \"${__remote_ssh_config_snapshot_values[__remote_ssh_config_lookup_index]}\"\n      return 0\n    fi\n    __remote_ssh_config_lookup_index=$((__remote_ssh_config_lookup_index + 1))\n  done\n  return 1\n}\n\nremote_ssh_config_file_value() {\n  remote_ssh_config_enabled || return 1\n  remote_ssh_config_file_value_raw \"$@\"\n}\n"
+    },
+    "shell/config/load.sh": {
+      "sha256": "b34d057eb296bee51ff7d60f842a398182c52718a21e55243d60fedc09857bf3",
+      "source": "# shellcheck shell=bash\n\nremote_ssh_config_load() {\n  local -a __remote_ssh_config_snapshot_keys=() __remote_ssh_config_snapshot_values=()\n  local -a __remote_ssh_config_snapshot_present=()\n  local __remote_ssh_config_snapshot_count=0 __remote_ssh_config_load_index=0\n  local __remote_ssh_config_load_key __remote_ssh_config_load_value\n\n  remote_ssh_config_snapshot_init\n  if remote_ssh_config_enabled; then\n    remote_ssh_config_snapshot_read\n  fi\n\n  while ((__remote_ssh_config_load_index < __remote_ssh_config_snapshot_count)); do\n    __remote_ssh_config_load_key=\"${__remote_ssh_config_snapshot_keys[__remote_ssh_config_load_index]}\"\n    if [[ \"${__remote_ssh_config_snapshot_present[__remote_ssh_config_load_index]}\" == 0 ]]; then\n      if remote_ssh_config_value_is_owned \"$__remote_ssh_config_load_key\"; then\n        unset \"$__remote_ssh_config_load_key\"\n      fi\n      remote_ssh_config_clear_source \"$__remote_ssh_config_load_key\"\n    elif [[ -z \"${!__remote_ssh_config_load_key+x}\" ]] || remote_ssh_config_value_is_owned \"$__remote_ssh_config_load_key\"; then\n      __remote_ssh_config_load_value=\"${__remote_ssh_config_snapshot_values[__remote_ssh_config_load_index]}\"\n      export \"$__remote_ssh_config_load_key=$__remote_ssh_config_load_value\"\n      remote_ssh_config_mark_owned \"$__remote_ssh_config_load_key\" \"$__remote_ssh_config_load_value\"\n    else\n      remote_ssh_config_clear_source \"$__remote_ssh_config_load_key\"\n    fi\n    __remote_ssh_config_load_index=$((__remote_ssh_config_load_index + 1))\n  done\n  return 0\n}\n"
+    },
+    "shell/config/markers.sh": {
+      "sha256": "48bfeb1f3fe78248b2217022cdd7127d5b065e21b051c8622880fd0eb9f5a5d2",
+      "source": "# shellcheck shell=bash\n\nremote_ssh_config_marker_key() {\n  local key=\"$1\"\n\n  case \"$key\" in\n    REMOTE_SSH_*) printf '%s\\n' \"${key#REMOTE_SSH_}\" ;;\n    *) printf '%s\\n' \"$key\" ;;\n  esac\n}\n\nremote_ssh_config_source_var() {\n  printf 'REMOTE_SSH_CONFIG_SOURCE_%s\\n' \"$(remote_ssh_config_marker_key \"$1\")\"\n}\n\nremote_ssh_config_loaded_value_var() {\n  printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\\n' \"$(remote_ssh_config_marker_key \"$1\")\"\n}\n\nremote_ssh_config_mark_owned() {\n  local key=\"$1\" value=\"$2\" source_var loaded_var\n\n  source_var=\"$(remote_ssh_config_source_var \"$key\")\"\n  loaded_var=\"$(remote_ssh_config_loaded_value_var \"$key\")\"\n  export \"$source_var=config\"\n  export \"$loaded_var=$value\"\n}\n\nremote_ssh_config_clear_source() {\n  local key=\"$1\" source_var loaded_var\n\n  source_var=\"$(remote_ssh_config_source_var \"$key\")\"\n  loaded_var=\"$(remote_ssh_config_loaded_value_var \"$key\")\"\n  unset \"$source_var\"\n  unset \"$loaded_var\"\n}\n\nremote_ssh_config_source() {\n  local key=\"$1\" source_var\n\n  source_var=\"$(remote_ssh_config_source_var \"$key\")\"\n  printf '%s\\n' \"${!source_var:-}\"\n}\n\nremote_ssh_config_loaded_value() {\n  local key=\"$1\" loaded_var\n\n  loaded_var=\"$(remote_ssh_config_loaded_value_var \"$key\")\"\n  [[ -n \"${!loaded_var+x}\" ]] || return 1\n  printf '%s\\n' \"${!loaded_var}\"\n}\n\nremote_ssh_config_value_is_current_owned() {\n  local key=\"$1\" source_var loaded_var\n\n  [[ -n \"${!key+x}\" ]] || return 1\n  source_var=\"$(remote_ssh_config_source_var \"$key\")\"\n  loaded_var=\"$(remote_ssh_config_loaded_value_var \"$key\")\"\n\n  [[ \"${!source_var:-}\" == \"config\" ]] || return 1\n  [[ -n \"${!loaded_var+x}\" ]] || return 1\n  [[ \"${!key}\" == \"${!loaded_var}\" ]]\n}\n\nremote_ssh_config_value_is_owned() {\n  remote_ssh_config_value_is_current_owned \"$1\"\n}\n"
+    }
+  },
+  "environment": {
+    "PATH": "<temporary bash shim>:/usr/bin:/bin",
+    "LC_ALL": "C",
+    "TERM": "xterm-256color",
+    "cleaned": "REMOTE_SSH_*, NO_COLOR, BASH_ENV, ENV, SHELLOPTS, BASHOPTS",
+    "loader_home": "isolated; fresh per case, reused across 1 warmup + 7 samples",
+    "pty_home": "isolated; fresh for every warmup and measured sample",
+    "scenario_overrides": {
+      "bash-baseline": {},
+      "remote-ssh-min": {
+        "REMOTE_SSH_WELCOME": "0",
+        "REMOTE_SSH_UPDATE_CHECK": "0"
+      },
+      "remote-ssh-welcome": {
+        "REMOTE_SSH_UPDATE_CHECK": "0",
+        "REMOTE_SSH_WELCOME_USER": "0"
+      }
+    },
+    "optional_tools": {
+      "starship": null,
+      "atuin": null,
+      "fzf": null,
+      "navi": null,
+      "eza": null,
+      "bat": null,
+      "git": "/usr/bin/git",
+      "python3": "/usr/bin/python3"
+    }
+  },
+  "sampling": {
+    "warmup": 3,
+    "measured": 20
+  },
+  "command": "docs/config-loader-measurements/measure.py stage-a --mode pty --bash /bin/bash",
+  "results": {
+    "bash-baseline/missing": {
+      "samples": [
+        {
+          "ready_ms": 5.368333,
+          "total_ms": 5.682083,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_3__\r\n"
+        },
+        {
+          "ready_ms": 6.898583,
+          "total_ms": 7.198083,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_4__\r\n"
+        },
+        {
+          "ready_ms": 6.530917,
+          "total_ms": 6.852917,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_5__\r\n"
+        },
+        {
+          "ready_ms": 13.84875,
+          "total_ms": 14.208167,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_6__\r\n"
+        },
+        {
+          "ready_ms": 5.795375,
+          "total_ms": 6.097542,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_7__\r\n"
+        },
+        {
+          "ready_ms": 5.242583,
+          "total_ms": 5.58725,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_8__\r\n"
+        },
+        {
+          "ready_ms": 5.404625,
+          "total_ms": 5.725292,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_9__\r\n"
+        },
+        {
+          "ready_ms": 5.8525,
+          "total_ms": 6.181917,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_10__\r\n"
+        },
+        {
+          "ready_ms": 6.162458,
+          "total_ms": 6.508708,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_11__\r\n"
+        },
+        {
+          "ready_ms": 12.22725,
+          "total_ms": 12.588292,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_12__\r\n"
+        },
+        {
+          "ready_ms": 13.043708,
+          "total_ms": 13.3995,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_13__\r\n"
+        },
+        {
+          "ready_ms": 5.815875,
+          "total_ms": 6.137416,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_14__\r\n"
+        },
+        {
+          "ready_ms": 5.725333,
+          "total_ms": 6.049791,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_15__\r\n"
+        },
+        {
+          "ready_ms": 6.013375,
+          "total_ms": 6.346208,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_16__\r\n"
+        },
+        {
+          "ready_ms": 5.289458,
+          "total_ms": 5.606833,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_17__\r\n"
+        },
+        {
+          "ready_ms": 5.907583,
+          "total_ms": 6.223083,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_18__\r\n"
+        },
+        {
+          "ready_ms": 5.865667,
+          "total_ms": 6.187583,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_19__\r\n"
+        },
+        {
+          "ready_ms": 8.513958,
+          "total_ms": 8.855666,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_20__\r\n"
+        },
+        {
+          "ready_ms": 5.877416,
+          "total_ms": 6.205375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_21__\r\n"
+        },
+        {
+          "ready_ms": 6.104375,
+          "total_ms": 6.437375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_22__\r\n"
+        }
+      ],
+      "ready": {
+        "samples_ms": [
+          5.368333,
+          6.898583,
+          6.530917,
+          13.84875,
+          5.795375,
+          5.242583,
+          5.404625,
+          5.8525,
+          6.162458,
+          12.22725,
+          13.043708,
+          5.815875,
+          5.725333,
+          6.013375,
+          5.289458,
+          5.907583,
+          5.865667,
+          8.513958,
+          5.877416,
+          6.104375
+        ],
+        "median_ms": 5.8924995,
+        "min_ms": 5.242583,
+        "max_ms": 13.84875,
+        "p95_ms": 13.043708
+      },
+      "total": {
+        "samples_ms": [
+          5.682083,
+          7.198083,
+          6.852917,
+          14.208167,
+          6.097542,
+          5.58725,
+          5.725292,
+          6.181917,
+          6.508708,
+          12.588292,
+          13.3995,
+          6.137416,
+          6.049791,
+          6.346208,
+          5.606833,
+          6.223083,
+          6.187583,
+          8.855666,
+          6.205375,
+          6.437375
+        ],
+        "median_ms": 6.214229,
+        "min_ms": 5.58725,
+        "max_ms": 14.208167,
+        "p95_ms": 13.3995
+      }
+    },
+    "bash-baseline/ninekeys": {
+      "samples": [
+        {
+          "ready_ms": 4.808875,
+          "total_ms": 5.124959,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_3__\r\n"
+        },
+        {
+          "ready_ms": 5.268666,
+          "total_ms": 5.5735,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_4__\r\n"
+        },
+        {
+          "ready_ms": 5.257417,
+          "total_ms": 5.625084,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_5__\r\n"
+        },
+        {
+          "ready_ms": 4.875708,
+          "total_ms": 5.17175,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_6__\r\n"
+        },
+        {
+          "ready_ms": 5.500125,
+          "total_ms": 5.823417,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_7__\r\n"
+        },
+        {
+          "ready_ms": 5.368,
+          "total_ms": 5.6975,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_8__\r\n"
+        },
+        {
+          "ready_ms": 5.666542,
+          "total_ms": 5.989667,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_9__\r\n"
+        },
+        {
+          "ready_ms": 5.391458,
+          "total_ms": 5.69575,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_10__\r\n"
+        },
+        {
+          "ready_ms": 5.625459,
+          "total_ms": 5.955042,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_11__\r\n"
+        },
+        {
+          "ready_ms": 6.060333,
+          "total_ms": 6.373667,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_12__\r\n"
+        },
+        {
+          "ready_ms": 5.297084,
+          "total_ms": 5.605084,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_13__\r\n"
+        },
+        {
+          "ready_ms": 6.30525,
+          "total_ms": 6.636084,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_14__\r\n"
+        },
+        {
+          "ready_ms": 5.440083,
+          "total_ms": 5.739125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_15__\r\n"
+        },
+        {
+          "ready_ms": 4.875167,
+          "total_ms": 5.190583,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_16__\r\n"
+        },
+        {
+          "ready_ms": 5.093,
+          "total_ms": 5.395625,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_17__\r\n"
+        },
+        {
+          "ready_ms": 4.966333,
+          "total_ms": 5.255583,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_18__\r\n"
+        },
+        {
+          "ready_ms": 5.620292,
+          "total_ms": 5.919292,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_19__\r\n"
+        },
+        {
+          "ready_ms": 5.245208,
+          "total_ms": 5.556125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_20__\r\n"
+        },
+        {
+          "ready_ms": 5.156,
+          "total_ms": 5.497458,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_21__\r\n"
+        },
+        {
+          "ready_ms": 5.617708,
+          "total_ms": 5.969666,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_22__\r\n"
+        }
+      ],
+      "ready": {
+        "samples_ms": [
+          4.808875,
+          5.268666,
+          5.257417,
+          4.875708,
+          5.500125,
+          5.368,
+          5.666542,
+          5.391458,
+          5.625459,
+          6.060333,
+          5.297084,
+          6.30525,
+          5.440083,
+          4.875167,
+          5.093,
+          4.966333,
+          5.620292,
+          5.245208,
+          5.156,
+          5.617708
+        ],
+        "median_ms": 5.332542,
+        "min_ms": 4.808875,
+        "max_ms": 6.30525,
+        "p95_ms": 6.060333
+      },
+      "total": {
+        "samples_ms": [
+          5.124959,
+          5.5735,
+          5.625084,
+          5.17175,
+          5.823417,
+          5.6975,
+          5.989667,
+          5.69575,
+          5.955042,
+          6.373667,
+          5.605084,
+          6.636084,
+          5.739125,
+          5.190583,
+          5.395625,
+          5.255583,
+          5.919292,
+          5.556125,
+          5.497458,
+          5.969666
+        ],
+        "median_ms": 5.660417000000001,
+        "min_ms": 5.124959,
+        "max_ms": 6.636084,
+        "p95_ms": 6.373667
+      }
+    },
+    "remote-ssh-min/missing": {
+      "samples": [
+        {
+          "ready_ms": 195.132125,
+          "total_ms": 195.582959,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_3__\r\n"
+        },
+        {
+          "ready_ms": 196.797625,
+          "total_ms": 197.141833,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_4__\r\n"
+        },
+        {
+          "ready_ms": 200.034,
+          "total_ms": 200.412541,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_5__\r\n"
+        },
+        {
+          "ready_ms": 205.674375,
+          "total_ms": 206.028375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_6__\r\n"
+        },
+        {
+          "ready_ms": 195.332458,
+          "total_ms": 195.657083,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_7__\r\n"
+        },
+        {
+          "ready_ms": 188.093333,
+          "total_ms": 188.452,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_8__\r\n"
+        },
+        {
+          "ready_ms": 210.548416,
+          "total_ms": 210.887291,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_9__\r\n"
+        },
+        {
+          "ready_ms": 204.593875,
+          "total_ms": 204.934875,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_10__\r\n"
+        },
+        {
+          "ready_ms": 211.672625,
+          "total_ms": 212.02375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_11__\r\n"
+        },
+        {
+          "ready_ms": 221.479542,
+          "total_ms": 221.7715,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_12__\r\n"
+        },
+        {
+          "ready_ms": 217.428542,
+          "total_ms": 217.771459,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_13__\r\n"
+        },
+        {
+          "ready_ms": 206.610416,
+          "total_ms": 206.931833,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_14__\r\n"
+        },
+        {
+          "ready_ms": 239.693583,
+          "total_ms": 240.058166,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_15__\r\n"
+        },
+        {
+          "ready_ms": 222.649834,
+          "total_ms": 223.031,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_16__\r\n"
+        },
+        {
+          "ready_ms": 206.826167,
+          "total_ms": 207.176333,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_17__\r\n"
+        },
+        {
+          "ready_ms": 222.853416,
+          "total_ms": 223.212708,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_18__\r\n"
+        },
+        {
+          "ready_ms": 207.102666,
+          "total_ms": 207.434416,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_19__\r\n"
+        },
+        {
+          "ready_ms": 224.899666,
+          "total_ms": 225.277958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_20__\r\n"
+        },
+        {
+          "ready_ms": 199.545875,
+          "total_ms": 199.919959,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_21__\r\n"
+        },
+        {
+          "ready_ms": 201.653041,
+          "total_ms": 202.014791,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_22__\r\n"
+        }
+      ],
+      "ready": {
+        "samples_ms": [
+          195.132125,
+          196.797625,
+          200.034,
+          205.674375,
+          195.332458,
+          188.093333,
+          210.548416,
+          204.593875,
+          211.672625,
+          221.479542,
+          217.428542,
+          206.610416,
+          239.693583,
+          222.649834,
+          206.826167,
+          222.853416,
+          207.102666,
+          224.899666,
+          199.545875,
+          201.653041
+        ],
+        "median_ms": 206.7182915,
+        "min_ms": 188.093333,
+        "max_ms": 239.693583,
+        "p95_ms": 224.899666
+      },
+      "total": {
+        "samples_ms": [
+          195.582959,
+          197.141833,
+          200.412541,
+          206.028375,
+          195.657083,
+          188.452,
+          210.887291,
+          204.934875,
+          212.02375,
+          221.7715,
+          217.771459,
+          206.931833,
+          240.058166,
+          223.031,
+          207.176333,
+          223.212708,
+          207.434416,
+          225.277958,
+          199.919959,
+          202.014791
+        ],
+        "median_ms": 207.054083,
+        "min_ms": 188.452,
+        "max_ms": 240.058166,
+        "p95_ms": 225.277958
+      }
+    },
+    "remote-ssh-min/ninekeys": {
+      "samples": [
+        {
+          "ready_ms": 227.578125,
+          "total_ms": 227.965042,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_3__\r\n"
+        },
+        {
+          "ready_ms": 200.069792,
+          "total_ms": 200.421292,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_4__\r\n"
+        },
+        {
+          "ready_ms": 199.670709,
+          "total_ms": 200.061084,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_5__\r\n"
+        },
+        {
+          "ready_ms": 197.443792,
+          "total_ms": 197.805,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_6__\r\n"
+        },
+        {
+          "ready_ms": 208.516709,
+          "total_ms": 208.927875,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_7__\r\n"
+        },
+        {
+          "ready_ms": 199.817625,
+          "total_ms": 200.165958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_8__\r\n"
+        },
+        {
+          "ready_ms": 205.361625,
+          "total_ms": 205.753708,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_9__\r\n"
+        },
+        {
+          "ready_ms": 217.028334,
+          "total_ms": 217.417375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_10__\r\n"
+        },
+        {
+          "ready_ms": 203.199084,
+          "total_ms": 203.5725,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_11__\r\n"
+        },
+        {
+          "ready_ms": 208.518167,
+          "total_ms": 208.9095,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_12__\r\n"
+        },
+        {
+          "ready_ms": 201.561667,
+          "total_ms": 201.887083,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_13__\r\n"
+        },
+        {
+          "ready_ms": 198.87575,
+          "total_ms": 199.24425,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_14__\r\n"
+        },
+        {
+          "ready_ms": 196.600542,
+          "total_ms": 197.093917,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_15__\r\n"
+        },
+        {
+          "ready_ms": 196.079167,
+          "total_ms": 196.416792,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_16__\r\n"
+        },
+        {
+          "ready_ms": 198.461625,
+          "total_ms": 198.80675,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_17__\r\n"
+        },
+        {
+          "ready_ms": 201.326,
+          "total_ms": 201.680667,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_18__\r\n"
+        },
+        {
+          "ready_ms": 197.144417,
+          "total_ms": 197.463375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_19__\r\n"
+        },
+        {
+          "ready_ms": 193.952333,
+          "total_ms": 194.33125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_20__\r\n"
+        },
+        {
+          "ready_ms": 192.765458,
+          "total_ms": 193.142083,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_21__\r\n"
+        },
+        {
+          "ready_ms": 211.238,
+          "total_ms": 211.632709,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "__CONFIG_MEASURE_READY_22903_22__\r\n"
+        }
+      ],
+      "ready": {
+        "samples_ms": [
+          227.578125,
+          200.069792,
+          199.670709,
+          197.443792,
+          208.516709,
+          199.817625,
+          205.361625,
+          217.028334,
+          203.199084,
+          208.518167,
+          201.561667,
+          198.87575,
+          196.600542,
+          196.079167,
+          198.461625,
+          201.326,
+          197.144417,
+          193.952333,
+          192.765458,
+          211.238
+        ],
+        "median_ms": 199.9437085,
+        "min_ms": 192.765458,
+        "max_ms": 227.578125,
+        "p95_ms": 217.028334
+      },
+      "total": {
+        "samples_ms": [
+          227.965042,
+          200.421292,
+          200.061084,
+          197.805,
+          208.927875,
+          200.165958,
+          205.753708,
+          217.417375,
+          203.5725,
+          208.9095,
+          201.887083,
+          199.24425,
+          197.093917,
+          196.416792,
+          198.80675,
+          201.680667,
+          197.463375,
+          194.33125,
+          193.142083,
+          211.632709
+        ],
+        "median_ms": 200.293625,
+        "min_ms": 193.142083,
+        "max_ms": 227.965042,
+        "p95_ms": 217.417375
+      }
+    },
+    "remote-ssh-welcome/missing": {
+      "samples": [
+        {
+          "ready_ms": 369.355542,
+          "total_ms": 369.762625,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_3__\r\n"
+        },
+        {
+          "ready_ms": 338.183166,
+          "total_ms": 338.878666,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_4__\r\n"
+        },
+        {
+          "ready_ms": 381.84625,
+          "total_ms": 382.282792,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_5__\r\n"
+        },
+        {
+          "ready_ms": 368.981375,
+          "total_ms": 369.761917,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_6__\r\n"
+        },
+        {
+          "ready_ms": 378.389333,
+          "total_ms": 378.804833,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_7__\r\n"
+        },
+        {
+          "ready_ms": 373.574042,
+          "total_ms": 374.006333,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_8__\r\n"
+        },
+        {
+          "ready_ms": 364.240375,
+          "total_ms": 364.655917,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_9__\r\n"
+        },
+        {
+          "ready_ms": 363.774708,
+          "total_ms": 364.271416,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_10__\r\n"
+        },
+        {
+          "ready_ms": 365.123083,
+          "total_ms": 365.535583,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_11__\r\n"
+        },
+        {
+          "ready_ms": 371.801208,
+          "total_ms": 372.291458,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_12__\r\n"
+        },
+        {
+          "ready_ms": 403.639834,
+          "total_ms": 404.096834,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_13__\r\n"
+        },
+        {
+          "ready_ms": 379.54525,
+          "total_ms": 380.034084,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_14__\r\n"
+        },
+        {
+          "ready_ms": 381.0335,
+          "total_ms": 381.49225,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_15__\r\n"
+        },
+        {
+          "ready_ms": 375.205833,
+          "total_ms": 375.627208,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_16__\r\n"
+        },
+        {
+          "ready_ms": 399.480208,
+          "total_ms": 399.932125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_17__\r\n"
+        },
+        {
+          "ready_ms": 421.556584,
+          "total_ms": 422.119625,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_18__\r\n"
+        },
+        {
+          "ready_ms": 369.97,
+          "total_ms": 370.493916,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_19__\r\n"
+        },
+        {
+          "ready_ms": 366.390875,
+          "total_ms": 366.857083,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_20__\r\n"
+        },
+        {
+          "ready_ms": 355.969583,
+          "total_ms": 356.389333,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_21__\r\n"
+        },
+        {
+          "ready_ms": 341.540708,
+          "total_ms": 341.900791,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_22__\r\n"
+        }
+      ],
+      "ready": {
+        "samples_ms": [
+          369.355542,
+          338.183166,
+          381.84625,
+          368.981375,
+          378.389333,
+          373.574042,
+          364.240375,
+          363.774708,
+          365.123083,
+          371.801208,
+          403.639834,
+          379.54525,
+          381.0335,
+          375.205833,
+          399.480208,
+          421.556584,
+          369.97,
+          366.390875,
+          355.969583,
+          341.540708
+        ],
+        "median_ms": 370.885604,
+        "min_ms": 338.183166,
+        "max_ms": 421.556584,
+        "p95_ms": 403.639834
+      },
+      "total": {
+        "samples_ms": [
+          369.762625,
+          338.878666,
+          382.282792,
+          369.761917,
+          378.804833,
+          374.006333,
+          364.655917,
+          364.271416,
+          365.535583,
+          372.291458,
+          404.096834,
+          380.034084,
+          381.49225,
+          375.627208,
+          399.932125,
+          422.119625,
+          370.493916,
+          366.857083,
+          356.389333,
+          341.900791
+        ],
+        "median_ms": 371.392687,
+        "min_ms": 338.878666,
+        "max_ms": 422.119625,
+        "p95_ms": 404.096834
+      }
+    },
+    "remote-ssh-welcome/ninekeys": {
+      "samples": [
+        {
+          "ready_ms": 370.800125,
+          "total_ms": 371.19725,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_3__\r\n"
+        },
+        {
+          "ready_ms": 358.477167,
+          "total_ms": 358.961084,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_4__\r\n"
+        },
+        {
+          "ready_ms": 355.884166,
+          "total_ms": 356.276166,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_5__\r\n"
+        },
+        {
+          "ready_ms": 341.895292,
+          "total_ms": 342.314292,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_6__\r\n"
+        },
+        {
+          "ready_ms": 353.630791,
+          "total_ms": 354.010833,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_7__\r\n"
+        },
+        {
+          "ready_ms": 328.845459,
+          "total_ms": 329.235625,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_8__\r\n"
+        },
+        {
+          "ready_ms": 343.473541,
+          "total_ms": 343.874958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_9__\r\n"
+        },
+        {
+          "ready_ms": 323.594625,
+          "total_ms": 323.95575,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_10__\r\n"
+        },
+        {
+          "ready_ms": 344.169375,
+          "total_ms": 344.574334,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_11__\r\n"
+        },
+        {
+          "ready_ms": 362.978583,
+          "total_ms": 363.3865,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_12__\r\n"
+        },
+        {
+          "ready_ms": 358.830708,
+          "total_ms": 359.313792,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_13__\r\n"
+        },
+        {
+          "ready_ms": 373.517333,
+          "total_ms": 373.971292,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_14__\r\n"
+        },
+        {
+          "ready_ms": 367.798375,
+          "total_ms": 368.185958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_15__\r\n"
+        },
+        {
+          "ready_ms": 346.555333,
+          "total_ms": 346.9745,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_16__\r\n"
+        },
+        {
+          "ready_ms": 328.929083,
+          "total_ms": 329.35125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_17__\r\n"
+        },
+        {
+          "ready_ms": 323.451375,
+          "total_ms": 323.865166,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_18__\r\n"
+        },
+        {
+          "ready_ms": 310.693333,
+          "total_ms": 311.076375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_19__\r\n"
+        },
+        {
+          "ready_ms": 325.342709,
+          "total_ms": 325.795459,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_20__\r\n"
+        },
+        {
+          "ready_ms": 323.847375,
+          "total_ms": 324.24,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_21__\r\n"
+        },
+        {
+          "ready_ms": 307.811834,
+          "total_ms": 308.170667,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\n\u001b[0mRemote-SSH\r\n\r\nhost:    MacBook-Pro-Maciej / unknown\r\nupdate:  disabled\r\ntools:   0 checked / 0 ok\r\nscripts: 4 checked / 2 ok\r\nhw:      10 cpu / unknown ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\r\n__CONFIG_MEASURE_READY_22903_22__\r\n"
+        }
+      ],
+      "ready": {
+        "samples_ms": [
+          370.800125,
+          358.477167,
+          355.884166,
+          341.895292,
+          353.630791,
+          328.845459,
+          343.473541,
+          323.594625,
+          344.169375,
+          362.978583,
+          358.830708,
+          373.517333,
+          367.798375,
+          346.555333,
+          328.929083,
+          323.451375,
+          310.693333,
+          325.342709,
+          323.847375,
+          307.811834
+        ],
+        "median_ms": 343.821458,
+        "min_ms": 307.811834,
+        "max_ms": 373.517333,
+        "p95_ms": 370.800125
+      },
+      "total": {
+        "samples_ms": [
+          371.19725,
+          358.961084,
+          356.276166,
+          342.314292,
+          354.010833,
+          329.235625,
+          343.874958,
+          323.95575,
+          344.574334,
+          363.3865,
+          359.313792,
+          373.971292,
+          368.185958,
+          346.9745,
+          329.35125,
+          323.865166,
+          311.076375,
+          325.795459,
+          324.24,
+          308.170667
+        ],
+        "median_ms": 344.224646,
+        "min_ms": 308.170667,
+        "max_ms": 373.971292,
+        "p95_ms": 371.19725
+      }
+    }
+  }
+}

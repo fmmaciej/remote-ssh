@@ -31,6 +31,12 @@ just fmt
 - [Live Assets](docs/live-assets.md): optional GitHub Releases validation.
 - [Shell Startup Benchmark](docs/bench-shell.md): local PTY benchmark for
   remote-ssh shell startup cost.
+- [Config Loader Optimization](docs/config-loader-implementation-record.md):
+  implementation, verification, and measurements, with the
+  [accepted plan](docs/config-loader-implementation-plan.md) and
+  [initial implementation audit](docs/config-loader-implementation-audit.md),
+  [fresh behavior re-audit](docs/config-loader-independent-reaudit.md), and
+  [independent performance verification](docs/config-loader-reaudit-performance.md).
 - [Audit Fix Plan](docs/audit-fix-plan.md): correctness fixes and regression
   coverage in delivery order.
 - [Archive Extraction Plan](docs/archive-extraction-plan.md): validation,

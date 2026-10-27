@@ -2,6 +2,18 @@
 
 Back: [Developer tooling](../README.md)
 
+The 2026-10-27 config-loader optimization has a separate
+[execution record](config-loader-implementation-record.md), including its frozen
+measurement source, fixture, baseline/Stage A/Stage B raw results, and correctness
+checks. Those one-off measurements include both the isolated loader and full
+PTY startup with missing/populated config; they do not change this benchmark's
+public scenarios or CLI.
+
+The repaired R1 version also has a separate
+[independent paired comparison and execution trace](config-loader-reaudit-performance.md),
+with value/ownership assertions and final source fingerprints. That report keeps
+the final R1 measurements separate from retained R0 timing evidence.
+
 `just bench-shell` runs a local, developer-only benchmark for shell startup
 cost:
 

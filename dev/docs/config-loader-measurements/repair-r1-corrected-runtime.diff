@@ -1,0 +1,38 @@
+--- Stage B/shell/config/parse.sh
++++ Corrected R1/shell/config/parse.sh
+@@ -40,7 +40,7 @@
+     __remote_ssh_config_snapshot_values[__remote_ssh_config_init_index]=''
+     __remote_ssh_config_snapshot_present[__remote_ssh_config_init_index]=0
+     __remote_ssh_config_init_index=$((__remote_ssh_config_init_index + 1))
+-  done < <(remote_ssh_config_entries)
++  done < <(remote_ssh_config_entries) || return $?
+   __remote_ssh_config_snapshot_count="$__remote_ssh_config_init_index"
+   return 0
+ }
+@@ -102,7 +102,7 @@
+   local __remote_ssh_config_snapshot_count=0 __remote_ssh_config_lookup_index=0
+   local __remote_ssh_config_lookup_key="$1"
+ 
+-  remote_ssh_config_snapshot_init
++  remote_ssh_config_snapshot_init || return $?
+   remote_ssh_config_snapshot_read
+   while ((__remote_ssh_config_lookup_index < __remote_ssh_config_snapshot_count)); do
+     if [[ "${__remote_ssh_config_snapshot_keys[__remote_ssh_config_lookup_index]}" == "$__remote_ssh_config_lookup_key" &&
+--- Stage B/shell/config/load.sh
++++ Corrected R1/shell/config/load.sh
+@@ -4,9 +4,13 @@
+   local -a __remote_ssh_config_snapshot_keys=() __remote_ssh_config_snapshot_values=()
+   local -a __remote_ssh_config_snapshot_present=()
+   local __remote_ssh_config_snapshot_count=0 __remote_ssh_config_load_index=0
+-  local __remote_ssh_config_load_key __remote_ssh_config_load_value
++  local __remote_ssh_config_load_key __remote_ssh_config_load_value __remote_ssh_config_load_status
+ 
+-  remote_ssh_config_snapshot_init
++  remote_ssh_config_snapshot_init || {
++    __remote_ssh_config_load_status=$?
++    remote_ssh_config_enabled || return 0
++    return "$__remote_ssh_config_load_status"
++  }
+   if remote_ssh_config_enabled; then
+     remote_ssh_config_snapshot_read
+   fi

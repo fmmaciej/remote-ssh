@@ -1,0 +1,3597 @@
++pid=61958 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/before/shell/config.lib.sh
++++pid=61970 sub=1 remote_ssh_config_lib_dir
++++pid=61970 sub=1 local script_path=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/before/shell/config.lib.sh
++++pid=61970 sub=1 case "$script_path" in
++++pid=61970 sub=1 script_path=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/before/shell
++++pid=61970 sub=1 cd -- /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/before/shell
++++pid=61970 sub=1 pwd
+++pid=61958 sub=0 REMOTE_SSH_CONFIG_LIB_DIR=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/before/shell/config
+++pid=61958 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/before/shell/config/entries.sh
+++pid=61958 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/before/shell/config/path.sh
+++pid=61958 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/before/shell/config/parse.sh
+++pid=61958 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/before/shell/config/markers.sh
+++pid=61958 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/before/shell/config/load.sh
+++pid=61958 sub=0 unset REMOTE_SSH_CONFIG_LIB_DIR
++pid=61958 sub=0 remote_ssh_config_load
++pid=61958 sub=0 local key _default value
++pid=61958 sub=0 remote_ssh_config_enabled
++pid=61958 sub=0 case "${REMOTE_SSH_CONFIG:-1}" in
++pid=61958 sub=0 return 0
++pid=61958 sub=0 IFS='|'
++pid=61958 sub=0 read -r key _default
+++pid=61971 sub=1 remote_ssh_config_entries
+++pid=61971 sub=1 cat
+++pid=61976 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_WELCOME
+++pid=61976 sub=1 local wanted=REMOTE_SSH_WELCOME file line key value found=0
++++pid=61977 sub=2 remote_ssh_config_file
++++pid=61977 sub=2 [[ -n /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config ]]
++++pid=61977 sub=2 printf '%s/remote-ssh/config\n' /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config
+++pid=61976 sub=1 file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config
+++pid=61976 sub=1 [[ -r /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config ]]
+++pid=61976 sub=1 IFS=
+++pid=61976 sub=1 read -r line
++++pid=61978 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME=1
++++pid=61978 sub=2 local value=REMOTE_SSH_WELCOME=1
++++pid=61978 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=61978 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=61978 sub=2 printf '%s\n' REMOTE_SSH_WELCOME=1
+++pid=61976 sub=1 line=REMOTE_SSH_WELCOME=1
+++pid=61976 sub=1 case "$line" in
++++pid=61980 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME
++++pid=61980 sub=2 local value=REMOTE_SSH_WELCOME
++++pid=61980 sub=2 value=REMOTE_SSH_WELCOME
++++pid=61980 sub=2 value=REMOTE_SSH_WELCOME
++++pid=61980 sub=2 printf '%s\n' REMOTE_SSH_WELCOME
+++pid=61976 sub=1 case "$line" in
+++pid=61976 sub=1 key=REMOTE_SSH_WELCOME
+++pid=61976 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME
+++pid=61976 sub=1 local wanted=REMOTE_SSH_WELCOME key _default
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
++++pid=61982 sub=2 remote_ssh_config_entries
++++pid=61982 sub=2 cat
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME ]]
+++pid=61976 sub=1 return 0
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME ]]
++++pid=61985 sub=2 remote_ssh_config_trim 1
++++pid=61985 sub=2 local value=1
++++pid=61985 sub=2 value=1
++++pid=61985 sub=2 value=1
++++pid=61985 sub=2 printf '%s\n' 1
+++pid=61976 sub=1 value=1
++++pid=61987 sub=2 remote_ssh_config_unquote 1
++++pid=61987 sub=2 local value=1
++++pid=61987 sub=2 case "$value" in
++++pid=61987 sub=2 printf '%s\n' 1
+++pid=61976 sub=1 value=1
+++pid=61976 sub=1 found=1
+++pid=61976 sub=1 IFS=
+++pid=61976 sub=1 read -r line
++++pid=61989 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER=1
++++pid=61989 sub=2 local value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=61989 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=61989 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=61989 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER=1
+++pid=61976 sub=1 line=REMOTE_SSH_WELCOME_BANNER=1
+++pid=61976 sub=1 case "$line" in
++++pid=61992 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER
++++pid=61992 sub=2 local value=REMOTE_SSH_WELCOME_BANNER
++++pid=61992 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=61992 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=61992 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER
+++pid=61976 sub=1 case "$line" in
+++pid=61976 sub=1 key=REMOTE_SSH_WELCOME_BANNER
+++pid=61976 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_BANNER
+++pid=61976 sub=1 local wanted=REMOTE_SSH_WELCOME_BANNER key _default
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
++++pid=61993 sub=2 remote_ssh_config_entries
++++pid=61993 sub=2 cat
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=61976 sub=1 return 0
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME ]]
+++pid=61976 sub=1 continue
+++pid=61976 sub=1 IFS=
+++pid=61976 sub=1 read -r line
++++pid=61996 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR=1
++++pid=61996 sub=2 local value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=61996 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=61996 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=61996 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR=1
+++pid=61976 sub=1 line=REMOTE_SSH_WELCOME_COLOR=1
+++pid=61976 sub=1 case "$line" in
++++pid=61999 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR
++++pid=61999 sub=2 local value=REMOTE_SSH_WELCOME_COLOR
++++pid=61999 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=61999 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=61999 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR
+++pid=61976 sub=1 case "$line" in
+++pid=61976 sub=1 key=REMOTE_SSH_WELCOME_COLOR
+++pid=61976 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_COLOR
+++pid=61976 sub=1 local wanted=REMOTE_SSH_WELCOME_COLOR key _default
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
++++pid=62000 sub=2 remote_ssh_config_entries
++++pid=62000 sub=2 cat
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=61976 sub=1 return 0
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME ]]
+++pid=61976 sub=1 continue
+++pid=61976 sub=1 IFS=
+++pid=61976 sub=1 read -r line
++++pid=62002 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62002 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62002 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62002 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62002 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG=0
+++pid=61976 sub=1 line=REMOTE_SSH_WELCOME_DEBUG=0
+++pid=61976 sub=1 case "$line" in
++++pid=62005 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG
++++pid=62005 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62005 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62005 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62005 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG
+++pid=61976 sub=1 case "$line" in
+++pid=61976 sub=1 key=REMOTE_SSH_WELCOME_DEBUG
+++pid=61976 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_DEBUG
+++pid=61976 sub=1 local wanted=REMOTE_SSH_WELCOME_DEBUG key _default
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
++++pid=62007 sub=2 remote_ssh_config_entries
++++pid=62007 sub=2 cat
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=61976 sub=1 return 0
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME ]]
+++pid=61976 sub=1 continue
+++pid=61976 sub=1 IFS=
+++pid=61976 sub=1 read -r line
++++pid=62009 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER=1
++++pid=62009 sub=2 local value=REMOTE_SSH_WELCOME_USER=1
++++pid=62009 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62009 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62009 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER=1
+++pid=61976 sub=1 line=REMOTE_SSH_WELCOME_USER=1
+++pid=61976 sub=1 case "$line" in
++++pid=62011 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER
++++pid=62011 sub=2 local value=REMOTE_SSH_WELCOME_USER
++++pid=62011 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62011 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62011 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER
+++pid=61976 sub=1 case "$line" in
+++pid=61976 sub=1 key=REMOTE_SSH_WELCOME_USER
+++pid=61976 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_USER
+++pid=61976 sub=1 local wanted=REMOTE_SSH_WELCOME_USER key _default
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
++++pid=62014 sub=2 remote_ssh_config_entries
++++pid=62014 sub=2 cat
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_USER ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_USER ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_USER ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_USER ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_USER ]]
+++pid=61976 sub=1 return 0
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME ]]
+++pid=61976 sub=1 continue
+++pid=61976 sub=1 IFS=
+++pid=61976 sub=1 read -r line
++++pid=62017 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK=1
++++pid=62017 sub=2 local value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62017 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62017 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62017 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK=1
+++pid=61976 sub=1 line=REMOTE_SSH_UPDATE_CHECK=1
+++pid=61976 sub=1 case "$line" in
++++pid=62019 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK
++++pid=62019 sub=2 local value=REMOTE_SSH_UPDATE_CHECK
++++pid=62019 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62019 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62019 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK
+++pid=61976 sub=1 case "$line" in
+++pid=61976 sub=1 key=REMOTE_SSH_UPDATE_CHECK
+++pid=61976 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK
+++pid=61976 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK key _default
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
++++pid=62021 sub=2 remote_ssh_config_entries
++++pid=62021 sub=2 cat
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=61976 sub=1 return 0
+++pid=61976 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_WELCOME ]]
+++pid=61976 sub=1 continue
+++pid=61976 sub=1 IFS=
+++pid=61976 sub=1 read -r line
++++pid=62024 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62024 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62024 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62024 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62024 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=61976 sub=1 line=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=61976 sub=1 case "$line" in
++++pid=62027 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62027 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62027 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62027 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62027 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=61976 sub=1 case "$line" in
+++pid=61976 sub=1 key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=61976 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=61976 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK_INTERVAL key _default
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
++++pid=62029 sub=2 remote_ssh_config_entries
++++pid=62029 sub=2 cat
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=61976 sub=1 return 0
+++pid=61976 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_WELCOME ]]
+++pid=61976 sub=1 continue
+++pid=61976 sub=1 IFS=
+++pid=61976 sub=1 read -r line
++++pid=62032 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62032 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62032 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62032 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62032 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=61976 sub=1 line=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=61976 sub=1 case "$line" in
++++pid=62034 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62034 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62034 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62034 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62034 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=61976 sub=1 case "$line" in
+++pid=61976 sub=1 key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=61976 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=61976 sub=1 local wanted=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY key _default
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
++++pid=62036 sub=2 remote_ssh_config_entries
++++pid=62036 sub=2 cat
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=61976 sub=1 return 0
+++pid=61976 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_WELCOME ]]
+++pid=61976 sub=1 continue
+++pid=61976 sub=1 IFS=
+++pid=61976 sub=1 read -r line
++++pid=62039 sub=2 remote_ssh_config_trim NO_COLOR=
++++pid=62039 sub=2 local value=NO_COLOR=
++++pid=62039 sub=2 value=NO_COLOR=
++++pid=62039 sub=2 value=NO_COLOR=
++++pid=62039 sub=2 printf '%s\n' NO_COLOR=
+++pid=61976 sub=1 line=NO_COLOR=
+++pid=61976 sub=1 case "$line" in
++++pid=62041 sub=2 remote_ssh_config_trim NO_COLOR
++++pid=62041 sub=2 local value=NO_COLOR
++++pid=62041 sub=2 value=NO_COLOR
++++pid=62041 sub=2 value=NO_COLOR
++++pid=62041 sub=2 printf '%s\n' NO_COLOR
+++pid=61976 sub=1 case "$line" in
+++pid=61976 sub=1 key=NO_COLOR
+++pid=61976 sub=1 remote_ssh_config_key_allowed NO_COLOR
+++pid=61976 sub=1 local wanted=NO_COLOR key _default
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
++++pid=62044 sub=2 remote_ssh_config_entries
++++pid=62044 sub=2 cat
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME == NO_COLOR ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == NO_COLOR ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == NO_COLOR ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == NO_COLOR ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_WELCOME_USER == NO_COLOR ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == NO_COLOR ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == NO_COLOR ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == NO_COLOR ]]
+++pid=61976 sub=1 IFS='|'
+++pid=61976 sub=1 read -r key _default
+++pid=61976 sub=1 [[ NO_COLOR == NO_COLOR ]]
+++pid=61976 sub=1 return 0
+++pid=61976 sub=1 [[ NO_COLOR == REMOTE_SSH_WELCOME ]]
+++pid=61976 sub=1 continue
+++pid=61976 sub=1 IFS=
+++pid=61976 sub=1 read -r line
+++pid=61976 sub=1 [[ -n '' ]]
+++pid=61976 sub=1 (( found == 1 ))
+++pid=61976 sub=1 printf '%s\n' 1
+++pid=61976 sub=1 return 0
++pid=61958 sub=0 value=1
++pid=61958 sub=0 [[ -z '' ]]
++pid=61958 sub=0 export REMOTE_SSH_WELCOME=1
++pid=61958 sub=0 REMOTE_SSH_WELCOME=1
++pid=61958 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME 1
++pid=61958 sub=0 local key=REMOTE_SSH_WELCOME value=1 source_var loaded_var
+++pid=62047 sub=1 remote_ssh_config_source_var REMOTE_SSH_WELCOME
++++pid=62050 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME
++++pid=62050 sub=2 local key=REMOTE_SSH_WELCOME
++++pid=62050 sub=2 case "$key" in
++++pid=62050 sub=2 printf '%s\n' WELCOME
+++pid=62047 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' WELCOME
++pid=61958 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME
+++pid=62051 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_WELCOME
++++pid=62052 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME
++++pid=62052 sub=2 local key=REMOTE_SSH_WELCOME
++++pid=62052 sub=2 case "$key" in
++++pid=62052 sub=2 printf '%s\n' WELCOME
+++pid=62051 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' WELCOME
++pid=61958 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME=config
++pid=61958 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME=config
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME=1
++pid=61958 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME=1
++pid=61958 sub=0 IFS='|'
++pid=61958 sub=0 read -r key _default
+++pid=62055 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_WELCOME_BANNER
+++pid=62055 sub=1 local wanted=REMOTE_SSH_WELCOME_BANNER file line key value found=0
++++pid=62057 sub=2 remote_ssh_config_file
++++pid=62057 sub=2 [[ -n /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config ]]
++++pid=62057 sub=2 printf '%s/remote-ssh/config\n' /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config
+++pid=62055 sub=1 file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config
+++pid=62055 sub=1 [[ -r /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config ]]
+++pid=62055 sub=1 IFS=
+++pid=62055 sub=1 read -r line
++++pid=62060 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME=1
++++pid=62060 sub=2 local value=REMOTE_SSH_WELCOME=1
++++pid=62060 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62060 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62060 sub=2 printf '%s\n' REMOTE_SSH_WELCOME=1
+++pid=62055 sub=1 line=REMOTE_SSH_WELCOME=1
+++pid=62055 sub=1 case "$line" in
++++pid=62061 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME
++++pid=62061 sub=2 local value=REMOTE_SSH_WELCOME
++++pid=62061 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62061 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62061 sub=2 printf '%s\n' REMOTE_SSH_WELCOME
+++pid=62055 sub=1 case "$line" in
+++pid=62055 sub=1 key=REMOTE_SSH_WELCOME
+++pid=62055 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME
+++pid=62055 sub=1 local wanted=REMOTE_SSH_WELCOME key _default
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
++++pid=62062 sub=2 remote_ssh_config_entries
++++pid=62062 sub=2 cat
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME ]]
+++pid=62055 sub=1 return 0
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62055 sub=1 continue
+++pid=62055 sub=1 IFS=
+++pid=62055 sub=1 read -r line
++++pid=62067 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER=1
++++pid=62067 sub=2 local value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62067 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62067 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62067 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER=1
+++pid=62055 sub=1 line=REMOTE_SSH_WELCOME_BANNER=1
+++pid=62055 sub=1 case "$line" in
++++pid=62068 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER
++++pid=62068 sub=2 local value=REMOTE_SSH_WELCOME_BANNER
++++pid=62068 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62068 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62068 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER
+++pid=62055 sub=1 case "$line" in
+++pid=62055 sub=1 key=REMOTE_SSH_WELCOME_BANNER
+++pid=62055 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_BANNER
+++pid=62055 sub=1 local wanted=REMOTE_SSH_WELCOME_BANNER key _default
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
++++pid=62070 sub=2 remote_ssh_config_entries
++++pid=62070 sub=2 cat
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62055 sub=1 return 0
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_BANNER ]]
++++pid=62074 sub=2 remote_ssh_config_trim 1
++++pid=62074 sub=2 local value=1
++++pid=62074 sub=2 value=1
++++pid=62074 sub=2 value=1
++++pid=62074 sub=2 printf '%s\n' 1
+++pid=62055 sub=1 value=1
++++pid=62076 sub=2 remote_ssh_config_unquote 1
++++pid=62076 sub=2 local value=1
++++pid=62076 sub=2 case "$value" in
++++pid=62076 sub=2 printf '%s\n' 1
+++pid=62055 sub=1 value=1
+++pid=62055 sub=1 found=1
+++pid=62055 sub=1 IFS=
+++pid=62055 sub=1 read -r line
++++pid=62078 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR=1
++++pid=62078 sub=2 local value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62078 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62078 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62078 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR=1
+++pid=62055 sub=1 line=REMOTE_SSH_WELCOME_COLOR=1
+++pid=62055 sub=1 case "$line" in
++++pid=62079 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR
++++pid=62079 sub=2 local value=REMOTE_SSH_WELCOME_COLOR
++++pid=62079 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62079 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62079 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR
+++pid=62055 sub=1 case "$line" in
+++pid=62055 sub=1 key=REMOTE_SSH_WELCOME_COLOR
+++pid=62055 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_COLOR
+++pid=62055 sub=1 local wanted=REMOTE_SSH_WELCOME_COLOR key _default
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
++++pid=62081 sub=2 remote_ssh_config_entries
++++pid=62081 sub=2 cat
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62055 sub=1 return 0
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62055 sub=1 continue
+++pid=62055 sub=1 IFS=
+++pid=62055 sub=1 read -r line
++++pid=62085 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62085 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62085 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62085 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62085 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62055 sub=1 line=REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62055 sub=1 case "$line" in
++++pid=62086 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG
++++pid=62086 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62086 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62086 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62086 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG
+++pid=62055 sub=1 case "$line" in
+++pid=62055 sub=1 key=REMOTE_SSH_WELCOME_DEBUG
+++pid=62055 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_DEBUG
+++pid=62055 sub=1 local wanted=REMOTE_SSH_WELCOME_DEBUG key _default
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
++++pid=62088 sub=2 remote_ssh_config_entries
++++pid=62088 sub=2 cat
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62055 sub=1 return 0
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62055 sub=1 continue
+++pid=62055 sub=1 IFS=
+++pid=62055 sub=1 read -r line
++++pid=62092 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER=1
++++pid=62092 sub=2 local value=REMOTE_SSH_WELCOME_USER=1
++++pid=62092 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62092 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62092 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER=1
+++pid=62055 sub=1 line=REMOTE_SSH_WELCOME_USER=1
+++pid=62055 sub=1 case "$line" in
++++pid=62093 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER
++++pid=62093 sub=2 local value=REMOTE_SSH_WELCOME_USER
++++pid=62093 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62093 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62093 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER
+++pid=62055 sub=1 case "$line" in
+++pid=62055 sub=1 key=REMOTE_SSH_WELCOME_USER
+++pid=62055 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_USER
+++pid=62055 sub=1 local wanted=REMOTE_SSH_WELCOME_USER key _default
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
++++pid=62094 sub=2 remote_ssh_config_entries
++++pid=62094 sub=2 cat
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_USER ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_USER ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_USER ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62055 sub=1 return 0
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62055 sub=1 continue
+++pid=62055 sub=1 IFS=
+++pid=62055 sub=1 read -r line
++++pid=62099 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK=1
++++pid=62099 sub=2 local value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62099 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62099 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62099 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK=1
+++pid=62055 sub=1 line=REMOTE_SSH_UPDATE_CHECK=1
+++pid=62055 sub=1 case "$line" in
++++pid=62100 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK
++++pid=62100 sub=2 local value=REMOTE_SSH_UPDATE_CHECK
++++pid=62100 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62100 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62100 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK
+++pid=62055 sub=1 case "$line" in
+++pid=62055 sub=1 key=REMOTE_SSH_UPDATE_CHECK
+++pid=62055 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK
+++pid=62055 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK key _default
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
++++pid=62103 sub=2 remote_ssh_config_entries
++++pid=62103 sub=2 cat
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62055 sub=1 return 0
+++pid=62055 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62055 sub=1 continue
+++pid=62055 sub=1 IFS=
+++pid=62055 sub=1 read -r line
++++pid=62108 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62108 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62108 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62108 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62108 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62055 sub=1 line=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62055 sub=1 case "$line" in
++++pid=62109 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62109 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62109 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62109 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62109 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62055 sub=1 case "$line" in
+++pid=62055 sub=1 key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62055 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62055 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK_INTERVAL key _default
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
++++pid=62110 sub=2 remote_ssh_config_entries
++++pid=62110 sub=2 cat
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62055 sub=1 return 0
+++pid=62055 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62055 sub=1 continue
+++pid=62055 sub=1 IFS=
+++pid=62055 sub=1 read -r line
++++pid=62115 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62115 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62115 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62115 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62115 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62055 sub=1 line=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62055 sub=1 case "$line" in
++++pid=62116 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62116 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62116 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62116 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62116 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62055 sub=1 case "$line" in
+++pid=62055 sub=1 key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62055 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62055 sub=1 local wanted=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY key _default
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
++++pid=62117 sub=2 remote_ssh_config_entries
++++pid=62117 sub=2 cat
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62055 sub=1 return 0
+++pid=62055 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62055 sub=1 continue
+++pid=62055 sub=1 IFS=
+++pid=62055 sub=1 read -r line
++++pid=62122 sub=2 remote_ssh_config_trim NO_COLOR=
++++pid=62122 sub=2 local value=NO_COLOR=
++++pid=62122 sub=2 value=NO_COLOR=
++++pid=62122 sub=2 value=NO_COLOR=
++++pid=62122 sub=2 printf '%s\n' NO_COLOR=
+++pid=62055 sub=1 line=NO_COLOR=
+++pid=62055 sub=1 case "$line" in
++++pid=62123 sub=2 remote_ssh_config_trim NO_COLOR
++++pid=62123 sub=2 local value=NO_COLOR
++++pid=62123 sub=2 value=NO_COLOR
++++pid=62123 sub=2 value=NO_COLOR
++++pid=62123 sub=2 printf '%s\n' NO_COLOR
+++pid=62055 sub=1 case "$line" in
+++pid=62055 sub=1 key=NO_COLOR
+++pid=62055 sub=1 remote_ssh_config_key_allowed NO_COLOR
+++pid=62055 sub=1 local wanted=NO_COLOR key _default
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
++++pid=62124 sub=2 remote_ssh_config_entries
++++pid=62124 sub=2 cat
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME == NO_COLOR ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == NO_COLOR ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == NO_COLOR ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == NO_COLOR ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_WELCOME_USER == NO_COLOR ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == NO_COLOR ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == NO_COLOR ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == NO_COLOR ]]
+++pid=62055 sub=1 IFS='|'
+++pid=62055 sub=1 read -r key _default
+++pid=62055 sub=1 [[ NO_COLOR == NO_COLOR ]]
+++pid=62055 sub=1 return 0
+++pid=62055 sub=1 [[ NO_COLOR == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62055 sub=1 continue
+++pid=62055 sub=1 IFS=
+++pid=62055 sub=1 read -r line
+++pid=62055 sub=1 [[ -n '' ]]
+++pid=62055 sub=1 (( found == 1 ))
+++pid=62055 sub=1 printf '%s\n' 1
+++pid=62055 sub=1 return 0
++pid=61958 sub=0 value=1
++pid=61958 sub=0 [[ -z '' ]]
++pid=61958 sub=0 export REMOTE_SSH_WELCOME_BANNER=1
++pid=61958 sub=0 REMOTE_SSH_WELCOME_BANNER=1
++pid=61958 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME_BANNER 1
++pid=61958 sub=0 local key=REMOTE_SSH_WELCOME_BANNER value=1 source_var loaded_var
+++pid=62129 sub=1 remote_ssh_config_source_var REMOTE_SSH_WELCOME_BANNER
++++pid=62130 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_BANNER
++++pid=62130 sub=2 local key=REMOTE_SSH_WELCOME_BANNER
++++pid=62130 sub=2 case "$key" in
++++pid=62130 sub=2 printf '%s\n' WELCOME_BANNER
+++pid=62129 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' WELCOME_BANNER
++pid=61958 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME_BANNER
+++pid=62132 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_WELCOME_BANNER
++++pid=62134 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_BANNER
++++pid=62134 sub=2 local key=REMOTE_SSH_WELCOME_BANNER
++++pid=62134 sub=2 case "$key" in
++++pid=62134 sub=2 printf '%s\n' WELCOME_BANNER
+++pid=62132 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' WELCOME_BANNER
++pid=61958 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_BANNER
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME_BANNER=config
++pid=61958 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME_BANNER=config
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_BANNER=1
++pid=61958 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_BANNER=1
++pid=61958 sub=0 IFS='|'
++pid=61958 sub=0 read -r key _default
+++pid=62137 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_WELCOME_COLOR
+++pid=62137 sub=1 local wanted=REMOTE_SSH_WELCOME_COLOR file line key value found=0
++++pid=62138 sub=2 remote_ssh_config_file
++++pid=62138 sub=2 [[ -n /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config ]]
++++pid=62138 sub=2 printf '%s/remote-ssh/config\n' /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config
+++pid=62137 sub=1 file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config
+++pid=62137 sub=1 [[ -r /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config ]]
+++pid=62137 sub=1 IFS=
+++pid=62137 sub=1 read -r line
++++pid=62140 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME=1
++++pid=62140 sub=2 local value=REMOTE_SSH_WELCOME=1
++++pid=62140 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62140 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62140 sub=2 printf '%s\n' REMOTE_SSH_WELCOME=1
+++pid=62137 sub=1 line=REMOTE_SSH_WELCOME=1
+++pid=62137 sub=1 case "$line" in
++++pid=62142 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME
++++pid=62142 sub=2 local value=REMOTE_SSH_WELCOME
++++pid=62142 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62142 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62142 sub=2 printf '%s\n' REMOTE_SSH_WELCOME
+++pid=62137 sub=1 case "$line" in
+++pid=62137 sub=1 key=REMOTE_SSH_WELCOME
+++pid=62137 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME
+++pid=62137 sub=1 local wanted=REMOTE_SSH_WELCOME key _default
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
++++pid=62144 sub=2 remote_ssh_config_entries
++++pid=62144 sub=2 cat
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME ]]
+++pid=62137 sub=1 return 0
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62137 sub=1 continue
+++pid=62137 sub=1 IFS=
+++pid=62137 sub=1 read -r line
++++pid=62146 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER=1
++++pid=62146 sub=2 local value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62146 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62146 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62146 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER=1
+++pid=62137 sub=1 line=REMOTE_SSH_WELCOME_BANNER=1
+++pid=62137 sub=1 case "$line" in
++++pid=62149 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER
++++pid=62149 sub=2 local value=REMOTE_SSH_WELCOME_BANNER
++++pid=62149 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62149 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62149 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER
+++pid=62137 sub=1 case "$line" in
+++pid=62137 sub=1 key=REMOTE_SSH_WELCOME_BANNER
+++pid=62137 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_BANNER
+++pid=62137 sub=1 local wanted=REMOTE_SSH_WELCOME_BANNER key _default
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
++++pid=62151 sub=2 remote_ssh_config_entries
++++pid=62151 sub=2 cat
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62137 sub=1 return 0
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62137 sub=1 continue
+++pid=62137 sub=1 IFS=
+++pid=62137 sub=1 read -r line
++++pid=62154 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR=1
++++pid=62154 sub=2 local value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62154 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62154 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62154 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR=1
+++pid=62137 sub=1 line=REMOTE_SSH_WELCOME_COLOR=1
+++pid=62137 sub=1 case "$line" in
++++pid=62156 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR
++++pid=62156 sub=2 local value=REMOTE_SSH_WELCOME_COLOR
++++pid=62156 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62156 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62156 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR
+++pid=62137 sub=1 case "$line" in
+++pid=62137 sub=1 key=REMOTE_SSH_WELCOME_COLOR
+++pid=62137 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_COLOR
+++pid=62137 sub=1 local wanted=REMOTE_SSH_WELCOME_COLOR key _default
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
++++pid=62159 sub=2 remote_ssh_config_entries
++++pid=62159 sub=2 cat
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62137 sub=1 return 0
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_COLOR ]]
++++pid=62160 sub=2 remote_ssh_config_trim 1
++++pid=62160 sub=2 local value=1
++++pid=62160 sub=2 value=1
++++pid=62160 sub=2 value=1
++++pid=62160 sub=2 printf '%s\n' 1
+++pid=62137 sub=1 value=1
++++pid=62163 sub=2 remote_ssh_config_unquote 1
++++pid=62163 sub=2 local value=1
++++pid=62163 sub=2 case "$value" in
++++pid=62163 sub=2 printf '%s\n' 1
+++pid=62137 sub=1 value=1
+++pid=62137 sub=1 found=1
+++pid=62137 sub=1 IFS=
+++pid=62137 sub=1 read -r line
++++pid=62165 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62165 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62165 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62165 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62165 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62137 sub=1 line=REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62137 sub=1 case "$line" in
++++pid=62167 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG
++++pid=62167 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62167 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62167 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62167 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG
+++pid=62137 sub=1 case "$line" in
+++pid=62137 sub=1 key=REMOTE_SSH_WELCOME_DEBUG
+++pid=62137 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_DEBUG
+++pid=62137 sub=1 local wanted=REMOTE_SSH_WELCOME_DEBUG key _default
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
++++pid=62168 sub=2 remote_ssh_config_entries
++++pid=62168 sub=2 cat
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62137 sub=1 return 0
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62137 sub=1 continue
+++pid=62137 sub=1 IFS=
+++pid=62137 sub=1 read -r line
++++pid=62171 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER=1
++++pid=62171 sub=2 local value=REMOTE_SSH_WELCOME_USER=1
++++pid=62171 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62171 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62171 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER=1
+++pid=62137 sub=1 line=REMOTE_SSH_WELCOME_USER=1
+++pid=62137 sub=1 case "$line" in
++++pid=62174 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER
++++pid=62174 sub=2 local value=REMOTE_SSH_WELCOME_USER
++++pid=62174 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62174 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62174 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER
+++pid=62137 sub=1 case "$line" in
+++pid=62137 sub=1 key=REMOTE_SSH_WELCOME_USER
+++pid=62137 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_USER
+++pid=62137 sub=1 local wanted=REMOTE_SSH_WELCOME_USER key _default
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
++++pid=62175 sub=2 remote_ssh_config_entries
++++pid=62175 sub=2 cat
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_USER ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_USER ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_USER ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62137 sub=1 return 0
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62137 sub=1 continue
+++pid=62137 sub=1 IFS=
+++pid=62137 sub=1 read -r line
++++pid=62177 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK=1
++++pid=62177 sub=2 local value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62177 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62177 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62177 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK=1
+++pid=62137 sub=1 line=REMOTE_SSH_UPDATE_CHECK=1
+++pid=62137 sub=1 case "$line" in
++++pid=62179 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK
++++pid=62179 sub=2 local value=REMOTE_SSH_UPDATE_CHECK
++++pid=62179 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62179 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62179 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK
+++pid=62137 sub=1 case "$line" in
+++pid=62137 sub=1 key=REMOTE_SSH_UPDATE_CHECK
+++pid=62137 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK
+++pid=62137 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK key _default
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
++++pid=62182 sub=2 remote_ssh_config_entries
++++pid=62182 sub=2 cat
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62137 sub=1 return 0
+++pid=62137 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62137 sub=1 continue
+++pid=62137 sub=1 IFS=
+++pid=62137 sub=1 read -r line
++++pid=62184 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62184 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62184 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62184 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62184 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62137 sub=1 line=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62137 sub=1 case "$line" in
++++pid=62186 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62186 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62186 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62186 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62186 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62137 sub=1 case "$line" in
+++pid=62137 sub=1 key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62137 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62137 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK_INTERVAL key _default
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
++++pid=62188 sub=2 remote_ssh_config_entries
++++pid=62188 sub=2 cat
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62137 sub=1 return 0
+++pid=62137 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62137 sub=1 continue
+++pid=62137 sub=1 IFS=
+++pid=62137 sub=1 read -r line
++++pid=62192 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62192 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62192 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62192 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62192 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62137 sub=1 line=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62137 sub=1 case "$line" in
++++pid=62193 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62193 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62193 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62193 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62193 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62137 sub=1 case "$line" in
+++pid=62137 sub=1 key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62137 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62137 sub=1 local wanted=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY key _default
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
++++pid=62196 sub=2 remote_ssh_config_entries
++++pid=62196 sub=2 cat
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62137 sub=1 return 0
+++pid=62137 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62137 sub=1 continue
+++pid=62137 sub=1 IFS=
+++pid=62137 sub=1 read -r line
++++pid=62199 sub=2 remote_ssh_config_trim NO_COLOR=
++++pid=62199 sub=2 local value=NO_COLOR=
++++pid=62199 sub=2 value=NO_COLOR=
++++pid=62199 sub=2 value=NO_COLOR=
++++pid=62199 sub=2 printf '%s\n' NO_COLOR=
+++pid=62137 sub=1 line=NO_COLOR=
+++pid=62137 sub=1 case "$line" in
++++pid=62200 sub=2 remote_ssh_config_trim NO_COLOR
++++pid=62200 sub=2 local value=NO_COLOR
++++pid=62200 sub=2 value=NO_COLOR
++++pid=62200 sub=2 value=NO_COLOR
++++pid=62200 sub=2 printf '%s\n' NO_COLOR
+++pid=62137 sub=1 case "$line" in
+++pid=62137 sub=1 key=NO_COLOR
+++pid=62137 sub=1 remote_ssh_config_key_allowed NO_COLOR
+++pid=62137 sub=1 local wanted=NO_COLOR key _default
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
++++pid=62203 sub=2 remote_ssh_config_entries
++++pid=62203 sub=2 cat
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME == NO_COLOR ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == NO_COLOR ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == NO_COLOR ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == NO_COLOR ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_WELCOME_USER == NO_COLOR ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == NO_COLOR ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == NO_COLOR ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == NO_COLOR ]]
+++pid=62137 sub=1 IFS='|'
+++pid=62137 sub=1 read -r key _default
+++pid=62137 sub=1 [[ NO_COLOR == NO_COLOR ]]
+++pid=62137 sub=1 return 0
+++pid=62137 sub=1 [[ NO_COLOR == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62137 sub=1 continue
+++pid=62137 sub=1 IFS=
+++pid=62137 sub=1 read -r line
+++pid=62137 sub=1 [[ -n '' ]]
+++pid=62137 sub=1 (( found == 1 ))
+++pid=62137 sub=1 printf '%s\n' 1
+++pid=62137 sub=1 return 0
++pid=61958 sub=0 value=1
++pid=61958 sub=0 [[ -z '' ]]
++pid=61958 sub=0 export REMOTE_SSH_WELCOME_COLOR=1
++pid=61958 sub=0 REMOTE_SSH_WELCOME_COLOR=1
++pid=61958 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME_COLOR 1
++pid=61958 sub=0 local key=REMOTE_SSH_WELCOME_COLOR value=1 source_var loaded_var
+++pid=62206 sub=1 remote_ssh_config_source_var REMOTE_SSH_WELCOME_COLOR
++++pid=62209 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_COLOR
++++pid=62209 sub=2 local key=REMOTE_SSH_WELCOME_COLOR
++++pid=62209 sub=2 case "$key" in
++++pid=62209 sub=2 printf '%s\n' WELCOME_COLOR
+++pid=62206 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' WELCOME_COLOR
++pid=61958 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME_COLOR
+++pid=62212 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_WELCOME_COLOR
++++pid=62213 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_COLOR
++++pid=62213 sub=2 local key=REMOTE_SSH_WELCOME_COLOR
++++pid=62213 sub=2 case "$key" in
++++pid=62213 sub=2 printf '%s\n' WELCOME_COLOR
+++pid=62212 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' WELCOME_COLOR
++pid=61958 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_COLOR
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME_COLOR=config
++pid=61958 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME_COLOR=config
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_COLOR=1
++pid=61958 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_COLOR=1
++pid=61958 sub=0 IFS='|'
++pid=61958 sub=0 read -r key _default
+++pid=62214 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_WELCOME_DEBUG
+++pid=62214 sub=1 local wanted=REMOTE_SSH_WELCOME_DEBUG file line key value found=0
++++pid=62216 sub=2 remote_ssh_config_file
++++pid=62216 sub=2 [[ -n /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config ]]
++++pid=62216 sub=2 printf '%s/remote-ssh/config\n' /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config
+++pid=62214 sub=1 file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config
+++pid=62214 sub=1 [[ -r /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config ]]
+++pid=62214 sub=1 IFS=
+++pid=62214 sub=1 read -r line
++++pid=62218 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME=1
++++pid=62218 sub=2 local value=REMOTE_SSH_WELCOME=1
++++pid=62218 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62218 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62218 sub=2 printf '%s\n' REMOTE_SSH_WELCOME=1
+++pid=62214 sub=1 line=REMOTE_SSH_WELCOME=1
+++pid=62214 sub=1 case "$line" in
++++pid=62221 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME
++++pid=62221 sub=2 local value=REMOTE_SSH_WELCOME
++++pid=62221 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62221 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62221 sub=2 printf '%s\n' REMOTE_SSH_WELCOME
+++pid=62214 sub=1 case "$line" in
+++pid=62214 sub=1 key=REMOTE_SSH_WELCOME
+++pid=62214 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME
+++pid=62214 sub=1 local wanted=REMOTE_SSH_WELCOME key _default
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
++++pid=62222 sub=2 remote_ssh_config_entries
++++pid=62222 sub=2 cat
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME ]]
+++pid=62214 sub=1 return 0
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62214 sub=1 continue
+++pid=62214 sub=1 IFS=
+++pid=62214 sub=1 read -r line
++++pid=62224 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER=1
++++pid=62224 sub=2 local value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62224 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62224 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62224 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER=1
+++pid=62214 sub=1 line=REMOTE_SSH_WELCOME_BANNER=1
+++pid=62214 sub=1 case "$line" in
++++pid=62227 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER
++++pid=62227 sub=2 local value=REMOTE_SSH_WELCOME_BANNER
++++pid=62227 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62227 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62227 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER
+++pid=62214 sub=1 case "$line" in
+++pid=62214 sub=1 key=REMOTE_SSH_WELCOME_BANNER
+++pid=62214 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_BANNER
+++pid=62214 sub=1 local wanted=REMOTE_SSH_WELCOME_BANNER key _default
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
++++pid=62229 sub=2 remote_ssh_config_entries
++++pid=62229 sub=2 cat
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62214 sub=1 return 0
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62214 sub=1 continue
+++pid=62214 sub=1 IFS=
+++pid=62214 sub=1 read -r line
++++pid=62231 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR=1
++++pid=62231 sub=2 local value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62231 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62231 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62231 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR=1
+++pid=62214 sub=1 line=REMOTE_SSH_WELCOME_COLOR=1
+++pid=62214 sub=1 case "$line" in
++++pid=62233 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR
++++pid=62233 sub=2 local value=REMOTE_SSH_WELCOME_COLOR
++++pid=62233 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62233 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62233 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR
+++pid=62214 sub=1 case "$line" in
+++pid=62214 sub=1 key=REMOTE_SSH_WELCOME_COLOR
+++pid=62214 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_COLOR
+++pid=62214 sub=1 local wanted=REMOTE_SSH_WELCOME_COLOR key _default
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
++++pid=62235 sub=2 remote_ssh_config_entries
++++pid=62235 sub=2 cat
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62214 sub=1 return 0
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62214 sub=1 continue
+++pid=62214 sub=1 IFS=
+++pid=62214 sub=1 read -r line
++++pid=62239 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62239 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62239 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62239 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62239 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62214 sub=1 line=REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62214 sub=1 case "$line" in
++++pid=62240 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG
++++pid=62240 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62240 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62240 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62240 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG
+++pid=62214 sub=1 case "$line" in
+++pid=62214 sub=1 key=REMOTE_SSH_WELCOME_DEBUG
+++pid=62214 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_DEBUG
+++pid=62214 sub=1 local wanted=REMOTE_SSH_WELCOME_DEBUG key _default
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
++++pid=62241 sub=2 remote_ssh_config_entries
++++pid=62241 sub=2 cat
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62214 sub=1 return 0
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_DEBUG ]]
++++pid=62246 sub=2 remote_ssh_config_trim 0
++++pid=62246 sub=2 local value=0
++++pid=62246 sub=2 value=0
++++pid=62246 sub=2 value=0
++++pid=62246 sub=2 printf '%s\n' 0
+++pid=62214 sub=1 value=0
++++pid=62248 sub=2 remote_ssh_config_unquote 0
++++pid=62248 sub=2 local value=0
++++pid=62248 sub=2 case "$value" in
++++pid=62248 sub=2 printf '%s\n' 0
+++pid=62214 sub=1 value=0
+++pid=62214 sub=1 found=1
+++pid=62214 sub=1 IFS=
+++pid=62214 sub=1 read -r line
++++pid=62250 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER=1
++++pid=62250 sub=2 local value=REMOTE_SSH_WELCOME_USER=1
++++pid=62250 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62250 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62250 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER=1
+++pid=62214 sub=1 line=REMOTE_SSH_WELCOME_USER=1
+++pid=62214 sub=1 case "$line" in
++++pid=62252 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER
++++pid=62252 sub=2 local value=REMOTE_SSH_WELCOME_USER
++++pid=62252 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62252 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62252 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER
+++pid=62214 sub=1 case "$line" in
+++pid=62214 sub=1 key=REMOTE_SSH_WELCOME_USER
+++pid=62214 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_USER
+++pid=62214 sub=1 local wanted=REMOTE_SSH_WELCOME_USER key _default
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
++++pid=62254 sub=2 remote_ssh_config_entries
++++pid=62254 sub=2 cat
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_USER ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_USER ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_USER ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62214 sub=1 return 0
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62214 sub=1 continue
+++pid=62214 sub=1 IFS=
+++pid=62214 sub=1 read -r line
++++pid=62257 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK=1
++++pid=62257 sub=2 local value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62257 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62257 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62257 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK=1
+++pid=62214 sub=1 line=REMOTE_SSH_UPDATE_CHECK=1
+++pid=62214 sub=1 case "$line" in
++++pid=62260 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK
++++pid=62260 sub=2 local value=REMOTE_SSH_UPDATE_CHECK
++++pid=62260 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62260 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62260 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK
+++pid=62214 sub=1 case "$line" in
+++pid=62214 sub=1 key=REMOTE_SSH_UPDATE_CHECK
+++pid=62214 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK
+++pid=62214 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK key _default
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
++++pid=62262 sub=2 remote_ssh_config_entries
++++pid=62262 sub=2 cat
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62214 sub=1 return 0
+++pid=62214 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62214 sub=1 continue
+++pid=62214 sub=1 IFS=
+++pid=62214 sub=1 read -r line
++++pid=62264 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62264 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62264 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62264 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62264 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62214 sub=1 line=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62214 sub=1 case "$line" in
++++pid=62266 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62266 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62266 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62266 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62266 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62214 sub=1 case "$line" in
+++pid=62214 sub=1 key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62214 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62214 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK_INTERVAL key _default
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
++++pid=62269 sub=2 remote_ssh_config_entries
++++pid=62269 sub=2 cat
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62214 sub=1 return 0
+++pid=62214 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62214 sub=1 continue
+++pid=62214 sub=1 IFS=
+++pid=62214 sub=1 read -r line
++++pid=62272 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62272 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62272 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62272 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62272 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62214 sub=1 line=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62214 sub=1 case "$line" in
++++pid=62274 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62274 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62274 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62274 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62274 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62214 sub=1 case "$line" in
+++pid=62214 sub=1 key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62214 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62214 sub=1 local wanted=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY key _default
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
++++pid=62276 sub=2 remote_ssh_config_entries
++++pid=62276 sub=2 cat
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62214 sub=1 return 0
+++pid=62214 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62214 sub=1 continue
+++pid=62214 sub=1 IFS=
+++pid=62214 sub=1 read -r line
++++pid=62279 sub=2 remote_ssh_config_trim NO_COLOR=
++++pid=62279 sub=2 local value=NO_COLOR=
++++pid=62279 sub=2 value=NO_COLOR=
++++pid=62279 sub=2 value=NO_COLOR=
++++pid=62279 sub=2 printf '%s\n' NO_COLOR=
+++pid=62214 sub=1 line=NO_COLOR=
+++pid=62214 sub=1 case "$line" in
++++pid=62281 sub=2 remote_ssh_config_trim NO_COLOR
++++pid=62281 sub=2 local value=NO_COLOR
++++pid=62281 sub=2 value=NO_COLOR
++++pid=62281 sub=2 value=NO_COLOR
++++pid=62281 sub=2 printf '%s\n' NO_COLOR
+++pid=62214 sub=1 case "$line" in
+++pid=62214 sub=1 key=NO_COLOR
+++pid=62214 sub=1 remote_ssh_config_key_allowed NO_COLOR
+++pid=62214 sub=1 local wanted=NO_COLOR key _default
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
++++pid=62283 sub=2 remote_ssh_config_entries
++++pid=62283 sub=2 cat
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME == NO_COLOR ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == NO_COLOR ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == NO_COLOR ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == NO_COLOR ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_WELCOME_USER == NO_COLOR ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == NO_COLOR ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == NO_COLOR ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == NO_COLOR ]]
+++pid=62214 sub=1 IFS='|'
+++pid=62214 sub=1 read -r key _default
+++pid=62214 sub=1 [[ NO_COLOR == NO_COLOR ]]
+++pid=62214 sub=1 return 0
+++pid=62214 sub=1 [[ NO_COLOR == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62214 sub=1 continue
+++pid=62214 sub=1 IFS=
+++pid=62214 sub=1 read -r line
+++pid=62214 sub=1 [[ -n '' ]]
+++pid=62214 sub=1 (( found == 1 ))
+++pid=62214 sub=1 printf '%s\n' 0
+++pid=62214 sub=1 return 0
++pid=61958 sub=0 value=0
++pid=61958 sub=0 [[ -z '' ]]
++pid=61958 sub=0 export REMOTE_SSH_WELCOME_DEBUG=0
++pid=61958 sub=0 REMOTE_SSH_WELCOME_DEBUG=0
++pid=61958 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME_DEBUG 0
++pid=61958 sub=0 local key=REMOTE_SSH_WELCOME_DEBUG value=0 source_var loaded_var
+++pid=62287 sub=1 remote_ssh_config_source_var REMOTE_SSH_WELCOME_DEBUG
++++pid=62289 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_DEBUG
++++pid=62289 sub=2 local key=REMOTE_SSH_WELCOME_DEBUG
++++pid=62289 sub=2 case "$key" in
++++pid=62289 sub=2 printf '%s\n' WELCOME_DEBUG
+++pid=62287 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' WELCOME_DEBUG
++pid=61958 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME_DEBUG
+++pid=62292 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_WELCOME_DEBUG
++++pid=62294 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_DEBUG
++++pid=62294 sub=2 local key=REMOTE_SSH_WELCOME_DEBUG
++++pid=62294 sub=2 case "$key" in
++++pid=62294 sub=2 printf '%s\n' WELCOME_DEBUG
+++pid=62292 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' WELCOME_DEBUG
++pid=61958 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_DEBUG
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME_DEBUG=config
++pid=61958 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME_DEBUG=config
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_DEBUG=0
++pid=61958 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_DEBUG=0
++pid=61958 sub=0 IFS='|'
++pid=61958 sub=0 read -r key _default
+++pid=62295 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_WELCOME_USER
+++pid=62295 sub=1 local wanted=REMOTE_SSH_WELCOME_USER file line key value found=0
++++pid=62296 sub=2 remote_ssh_config_file
++++pid=62296 sub=2 [[ -n /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config ]]
++++pid=62296 sub=2 printf '%s/remote-ssh/config\n' /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config
+++pid=62295 sub=1 file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config
+++pid=62295 sub=1 [[ -r /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config ]]
+++pid=62295 sub=1 IFS=
+++pid=62295 sub=1 read -r line
++++pid=62299 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME=1
++++pid=62299 sub=2 local value=REMOTE_SSH_WELCOME=1
++++pid=62299 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62299 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62299 sub=2 printf '%s\n' REMOTE_SSH_WELCOME=1
+++pid=62295 sub=1 line=REMOTE_SSH_WELCOME=1
+++pid=62295 sub=1 case "$line" in
++++pid=62301 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME
++++pid=62301 sub=2 local value=REMOTE_SSH_WELCOME
++++pid=62301 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62301 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62301 sub=2 printf '%s\n' REMOTE_SSH_WELCOME
+++pid=62295 sub=1 case "$line" in
+++pid=62295 sub=1 key=REMOTE_SSH_WELCOME
+++pid=62295 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME
+++pid=62295 sub=1 local wanted=REMOTE_SSH_WELCOME key _default
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
++++pid=62303 sub=2 remote_ssh_config_entries
++++pid=62303 sub=2 cat
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME ]]
+++pid=62295 sub=1 return 0
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 continue
+++pid=62295 sub=1 IFS=
+++pid=62295 sub=1 read -r line
++++pid=62306 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER=1
++++pid=62306 sub=2 local value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62306 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62306 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62306 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER=1
+++pid=62295 sub=1 line=REMOTE_SSH_WELCOME_BANNER=1
+++pid=62295 sub=1 case "$line" in
++++pid=62308 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER
++++pid=62308 sub=2 local value=REMOTE_SSH_WELCOME_BANNER
++++pid=62308 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62308 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62308 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER
+++pid=62295 sub=1 case "$line" in
+++pid=62295 sub=1 key=REMOTE_SSH_WELCOME_BANNER
+++pid=62295 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_BANNER
+++pid=62295 sub=1 local wanted=REMOTE_SSH_WELCOME_BANNER key _default
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
++++pid=62311 sub=2 remote_ssh_config_entries
++++pid=62311 sub=2 cat
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62295 sub=1 return 0
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 continue
+++pid=62295 sub=1 IFS=
+++pid=62295 sub=1 read -r line
++++pid=62313 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR=1
++++pid=62313 sub=2 local value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62313 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62313 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62313 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR=1
+++pid=62295 sub=1 line=REMOTE_SSH_WELCOME_COLOR=1
+++pid=62295 sub=1 case "$line" in
++++pid=62316 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR
++++pid=62316 sub=2 local value=REMOTE_SSH_WELCOME_COLOR
++++pid=62316 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62316 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62316 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR
+++pid=62295 sub=1 case "$line" in
+++pid=62295 sub=1 key=REMOTE_SSH_WELCOME_COLOR
+++pid=62295 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_COLOR
+++pid=62295 sub=1 local wanted=REMOTE_SSH_WELCOME_COLOR key _default
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
++++pid=62318 sub=2 remote_ssh_config_entries
++++pid=62318 sub=2 cat
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62295 sub=1 return 0
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 continue
+++pid=62295 sub=1 IFS=
+++pid=62295 sub=1 read -r line
++++pid=62321 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62321 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62321 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62321 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62321 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62295 sub=1 line=REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62295 sub=1 case "$line" in
++++pid=62323 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG
++++pid=62323 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62323 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62323 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62323 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG
+++pid=62295 sub=1 case "$line" in
+++pid=62295 sub=1 key=REMOTE_SSH_WELCOME_DEBUG
+++pid=62295 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_DEBUG
+++pid=62295 sub=1 local wanted=REMOTE_SSH_WELCOME_DEBUG key _default
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
++++pid=62326 sub=2 remote_ssh_config_entries
++++pid=62326 sub=2 cat
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62295 sub=1 return 0
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 continue
+++pid=62295 sub=1 IFS=
+++pid=62295 sub=1 read -r line
++++pid=62328 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER=1
++++pid=62328 sub=2 local value=REMOTE_SSH_WELCOME_USER=1
++++pid=62328 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62328 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62328 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER=1
+++pid=62295 sub=1 line=REMOTE_SSH_WELCOME_USER=1
+++pid=62295 sub=1 case "$line" in
++++pid=62331 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER
++++pid=62331 sub=2 local value=REMOTE_SSH_WELCOME_USER
++++pid=62331 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62331 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62331 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER
+++pid=62295 sub=1 case "$line" in
+++pid=62295 sub=1 key=REMOTE_SSH_WELCOME_USER
+++pid=62295 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_USER
+++pid=62295 sub=1 local wanted=REMOTE_SSH_WELCOME_USER key _default
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
++++pid=62333 sub=2 remote_ssh_config_entries
++++pid=62333 sub=2 cat
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 return 0
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_USER ]]
++++pid=62336 sub=2 remote_ssh_config_trim 1
++++pid=62336 sub=2 local value=1
++++pid=62336 sub=2 value=1
++++pid=62336 sub=2 value=1
++++pid=62336 sub=2 printf '%s\n' 1
+++pid=62295 sub=1 value=1
++++pid=62338 sub=2 remote_ssh_config_unquote 1
++++pid=62338 sub=2 local value=1
++++pid=62338 sub=2 case "$value" in
++++pid=62338 sub=2 printf '%s\n' 1
+++pid=62295 sub=1 value=1
+++pid=62295 sub=1 found=1
+++pid=62295 sub=1 IFS=
+++pid=62295 sub=1 read -r line
++++pid=62341 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK=1
++++pid=62341 sub=2 local value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62341 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62341 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62341 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK=1
+++pid=62295 sub=1 line=REMOTE_SSH_UPDATE_CHECK=1
+++pid=62295 sub=1 case "$line" in
++++pid=62342 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK
++++pid=62342 sub=2 local value=REMOTE_SSH_UPDATE_CHECK
++++pid=62342 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62342 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62342 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK
+++pid=62295 sub=1 case "$line" in
+++pid=62295 sub=1 key=REMOTE_SSH_UPDATE_CHECK
+++pid=62295 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK
+++pid=62295 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK key _default
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
++++pid=62343 sub=2 remote_ssh_config_entries
++++pid=62343 sub=2 cat
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62295 sub=1 return 0
+++pid=62295 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 continue
+++pid=62295 sub=1 IFS=
+++pid=62295 sub=1 read -r line
++++pid=62348 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62348 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62348 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62348 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62348 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62295 sub=1 line=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62295 sub=1 case "$line" in
++++pid=62351 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62351 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62351 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62351 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62351 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62295 sub=1 case "$line" in
+++pid=62295 sub=1 key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62295 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62295 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK_INTERVAL key _default
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
++++pid=62352 sub=2 remote_ssh_config_entries
++++pid=62352 sub=2 cat
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62295 sub=1 return 0
+++pid=62295 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 continue
+++pid=62295 sub=1 IFS=
+++pid=62295 sub=1 read -r line
++++pid=62357 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62357 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62357 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62357 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62357 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62295 sub=1 line=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62295 sub=1 case "$line" in
++++pid=62359 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62359 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62359 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62359 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62359 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62295 sub=1 case "$line" in
+++pid=62295 sub=1 key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62295 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62295 sub=1 local wanted=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY key _default
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
++++pid=62360 sub=2 remote_ssh_config_entries
++++pid=62360 sub=2 cat
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62295 sub=1 return 0
+++pid=62295 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 continue
+++pid=62295 sub=1 IFS=
+++pid=62295 sub=1 read -r line
++++pid=62364 sub=2 remote_ssh_config_trim NO_COLOR=
++++pid=62364 sub=2 local value=NO_COLOR=
++++pid=62364 sub=2 value=NO_COLOR=
++++pid=62364 sub=2 value=NO_COLOR=
++++pid=62364 sub=2 printf '%s\n' NO_COLOR=
+++pid=62295 sub=1 line=NO_COLOR=
+++pid=62295 sub=1 case "$line" in
++++pid=62366 sub=2 remote_ssh_config_trim NO_COLOR
++++pid=62366 sub=2 local value=NO_COLOR
++++pid=62366 sub=2 value=NO_COLOR
++++pid=62366 sub=2 value=NO_COLOR
++++pid=62366 sub=2 printf '%s\n' NO_COLOR
+++pid=62295 sub=1 case "$line" in
+++pid=62295 sub=1 key=NO_COLOR
+++pid=62295 sub=1 remote_ssh_config_key_allowed NO_COLOR
+++pid=62295 sub=1 local wanted=NO_COLOR key _default
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
++++pid=62367 sub=2 remote_ssh_config_entries
++++pid=62367 sub=2 cat
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME == NO_COLOR ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == NO_COLOR ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == NO_COLOR ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == NO_COLOR ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_WELCOME_USER == NO_COLOR ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == NO_COLOR ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == NO_COLOR ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == NO_COLOR ]]
+++pid=62295 sub=1 IFS='|'
+++pid=62295 sub=1 read -r key _default
+++pid=62295 sub=1 [[ NO_COLOR == NO_COLOR ]]
+++pid=62295 sub=1 return 0
+++pid=62295 sub=1 [[ NO_COLOR == REMOTE_SSH_WELCOME_USER ]]
+++pid=62295 sub=1 continue
+++pid=62295 sub=1 IFS=
+++pid=62295 sub=1 read -r line
+++pid=62295 sub=1 [[ -n '' ]]
+++pid=62295 sub=1 (( found == 1 ))
+++pid=62295 sub=1 printf '%s\n' 1
+++pid=62295 sub=1 return 0
++pid=61958 sub=0 value=1
++pid=61958 sub=0 [[ -z '' ]]
++pid=61958 sub=0 export REMOTE_SSH_WELCOME_USER=1
++pid=61958 sub=0 REMOTE_SSH_WELCOME_USER=1
++pid=61958 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME_USER 1
++pid=61958 sub=0 local key=REMOTE_SSH_WELCOME_USER value=1 source_var loaded_var
+++pid=62372 sub=1 remote_ssh_config_source_var REMOTE_SSH_WELCOME_USER
++++pid=62373 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_USER
++++pid=62373 sub=2 local key=REMOTE_SSH_WELCOME_USER
++++pid=62373 sub=2 case "$key" in
++++pid=62373 sub=2 printf '%s\n' WELCOME_USER
+++pid=62372 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' WELCOME_USER
++pid=61958 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER
+++pid=62375 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_WELCOME_USER
++++pid=62377 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_USER
++++pid=62377 sub=2 local key=REMOTE_SSH_WELCOME_USER
++++pid=62377 sub=2 case "$key" in
++++pid=62377 sub=2 printf '%s\n' WELCOME_USER
+++pid=62375 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' WELCOME_USER
++pid=61958 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER=config
++pid=61958 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER=config
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER=1
++pid=61958 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER=1
++pid=61958 sub=0 IFS='|'
++pid=61958 sub=0 read -r key _default
+++pid=62380 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_UPDATE_CHECK
+++pid=62380 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK file line key value found=0
++++pid=62381 sub=2 remote_ssh_config_file
++++pid=62381 sub=2 [[ -n /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config ]]
++++pid=62381 sub=2 printf '%s/remote-ssh/config\n' /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config
+++pid=62380 sub=1 file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config
+++pid=62380 sub=1 [[ -r /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config ]]
+++pid=62380 sub=1 IFS=
+++pid=62380 sub=1 read -r line
++++pid=62382 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME=1
++++pid=62382 sub=2 local value=REMOTE_SSH_WELCOME=1
++++pid=62382 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62382 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62382 sub=2 printf '%s\n' REMOTE_SSH_WELCOME=1
+++pid=62380 sub=1 line=REMOTE_SSH_WELCOME=1
+++pid=62380 sub=1 case "$line" in
++++pid=62384 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME
++++pid=62384 sub=2 local value=REMOTE_SSH_WELCOME
++++pid=62384 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62384 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62384 sub=2 printf '%s\n' REMOTE_SSH_WELCOME
+++pid=62380 sub=1 case "$line" in
+++pid=62380 sub=1 key=REMOTE_SSH_WELCOME
+++pid=62380 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME
+++pid=62380 sub=1 local wanted=REMOTE_SSH_WELCOME key _default
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
++++pid=62386 sub=2 remote_ssh_config_entries
++++pid=62386 sub=2 cat
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME ]]
+++pid=62380 sub=1 return 0
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 continue
+++pid=62380 sub=1 IFS=
+++pid=62380 sub=1 read -r line
++++pid=62389 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER=1
++++pid=62389 sub=2 local value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62389 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62389 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62389 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER=1
+++pid=62380 sub=1 line=REMOTE_SSH_WELCOME_BANNER=1
+++pid=62380 sub=1 case "$line" in
++++pid=62392 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER
++++pid=62392 sub=2 local value=REMOTE_SSH_WELCOME_BANNER
++++pid=62392 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62392 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62392 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER
+++pid=62380 sub=1 case "$line" in
+++pid=62380 sub=1 key=REMOTE_SSH_WELCOME_BANNER
+++pid=62380 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_BANNER
+++pid=62380 sub=1 local wanted=REMOTE_SSH_WELCOME_BANNER key _default
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
++++pid=62394 sub=2 remote_ssh_config_entries
++++pid=62394 sub=2 cat
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62380 sub=1 return 0
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 continue
+++pid=62380 sub=1 IFS=
+++pid=62380 sub=1 read -r line
++++pid=62399 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR=1
++++pid=62399 sub=2 local value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62399 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62399 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62399 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR=1
+++pid=62380 sub=1 line=REMOTE_SSH_WELCOME_COLOR=1
+++pid=62380 sub=1 case "$line" in
++++pid=62401 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR
++++pid=62401 sub=2 local value=REMOTE_SSH_WELCOME_COLOR
++++pid=62401 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62401 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62401 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR
+++pid=62380 sub=1 case "$line" in
+++pid=62380 sub=1 key=REMOTE_SSH_WELCOME_COLOR
+++pid=62380 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_COLOR
+++pid=62380 sub=1 local wanted=REMOTE_SSH_WELCOME_COLOR key _default
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
++++pid=62403 sub=2 remote_ssh_config_entries
++++pid=62403 sub=2 cat
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62380 sub=1 return 0
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 continue
+++pid=62380 sub=1 IFS=
+++pid=62380 sub=1 read -r line
++++pid=62407 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62407 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62407 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62407 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62407 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62380 sub=1 line=REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62380 sub=1 case "$line" in
++++pid=62410 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG
++++pid=62410 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62410 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62410 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62410 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG
+++pid=62380 sub=1 case "$line" in
+++pid=62380 sub=1 key=REMOTE_SSH_WELCOME_DEBUG
+++pid=62380 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_DEBUG
+++pid=62380 sub=1 local wanted=REMOTE_SSH_WELCOME_DEBUG key _default
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
++++pid=62411 sub=2 remote_ssh_config_entries
++++pid=62411 sub=2 cat
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62380 sub=1 return 0
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 continue
+++pid=62380 sub=1 IFS=
+++pid=62380 sub=1 read -r line
++++pid=62414 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER=1
++++pid=62414 sub=2 local value=REMOTE_SSH_WELCOME_USER=1
++++pid=62414 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62414 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62414 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER=1
+++pid=62380 sub=1 line=REMOTE_SSH_WELCOME_USER=1
+++pid=62380 sub=1 case "$line" in
++++pid=62416 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER
++++pid=62416 sub=2 local value=REMOTE_SSH_WELCOME_USER
++++pid=62416 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62416 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62416 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER
+++pid=62380 sub=1 case "$line" in
+++pid=62380 sub=1 key=REMOTE_SSH_WELCOME_USER
+++pid=62380 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_USER
+++pid=62380 sub=1 local wanted=REMOTE_SSH_WELCOME_USER key _default
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
++++pid=62418 sub=2 remote_ssh_config_entries
++++pid=62418 sub=2 cat
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_USER ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_USER ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_USER ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62380 sub=1 return 0
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 continue
+++pid=62380 sub=1 IFS=
+++pid=62380 sub=1 read -r line
++++pid=62422 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK=1
++++pid=62422 sub=2 local value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62422 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62422 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62422 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK=1
+++pid=62380 sub=1 line=REMOTE_SSH_UPDATE_CHECK=1
+++pid=62380 sub=1 case "$line" in
++++pid=62425 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK
++++pid=62425 sub=2 local value=REMOTE_SSH_UPDATE_CHECK
++++pid=62425 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62425 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62425 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK
+++pid=62380 sub=1 case "$line" in
+++pid=62380 sub=1 key=REMOTE_SSH_UPDATE_CHECK
+++pid=62380 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK
+++pid=62380 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK key _default
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
++++pid=62428 sub=2 remote_ssh_config_entries
++++pid=62428 sub=2 cat
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 return 0
+++pid=62380 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK ]]
++++pid=62431 sub=2 remote_ssh_config_trim 1
++++pid=62431 sub=2 local value=1
++++pid=62431 sub=2 value=1
++++pid=62431 sub=2 value=1
++++pid=62431 sub=2 printf '%s\n' 1
+++pid=62380 sub=1 value=1
++++pid=62433 sub=2 remote_ssh_config_unquote 1
++++pid=62433 sub=2 local value=1
++++pid=62433 sub=2 case "$value" in
++++pid=62433 sub=2 printf '%s\n' 1
+++pid=62380 sub=1 value=1
+++pid=62380 sub=1 found=1
+++pid=62380 sub=1 IFS=
+++pid=62380 sub=1 read -r line
++++pid=62435 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62435 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62435 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62435 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62435 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62380 sub=1 line=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62380 sub=1 case "$line" in
++++pid=62438 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62438 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62438 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62438 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62438 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62380 sub=1 case "$line" in
+++pid=62380 sub=1 key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62380 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62380 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK_INTERVAL key _default
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
++++pid=62439 sub=2 remote_ssh_config_entries
++++pid=62439 sub=2 cat
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62380 sub=1 return 0
+++pid=62380 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 continue
+++pid=62380 sub=1 IFS=
+++pid=62380 sub=1 read -r line
++++pid=62443 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62443 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62443 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62443 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62443 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62380 sub=1 line=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62380 sub=1 case "$line" in
++++pid=62446 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62446 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62446 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62446 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62446 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62380 sub=1 case "$line" in
+++pid=62380 sub=1 key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62380 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62380 sub=1 local wanted=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY key _default
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
++++pid=62448 sub=2 remote_ssh_config_entries
++++pid=62448 sub=2 cat
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62380 sub=1 return 0
+++pid=62380 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 continue
+++pid=62380 sub=1 IFS=
+++pid=62380 sub=1 read -r line
++++pid=62457 sub=2 remote_ssh_config_trim NO_COLOR=
++++pid=62457 sub=2 local value=NO_COLOR=
++++pid=62457 sub=2 value=NO_COLOR=
++++pid=62457 sub=2 value=NO_COLOR=
++++pid=62457 sub=2 printf '%s\n' NO_COLOR=
+++pid=62380 sub=1 line=NO_COLOR=
+++pid=62380 sub=1 case "$line" in
++++pid=62462 sub=2 remote_ssh_config_trim NO_COLOR
++++pid=62462 sub=2 local value=NO_COLOR
++++pid=62462 sub=2 value=NO_COLOR
++++pid=62462 sub=2 value=NO_COLOR
++++pid=62462 sub=2 printf '%s\n' NO_COLOR
+++pid=62380 sub=1 case "$line" in
+++pid=62380 sub=1 key=NO_COLOR
+++pid=62380 sub=1 remote_ssh_config_key_allowed NO_COLOR
+++pid=62380 sub=1 local wanted=NO_COLOR key _default
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
++++pid=62468 sub=2 remote_ssh_config_entries
++++pid=62468 sub=2 cat
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME == NO_COLOR ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == NO_COLOR ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == NO_COLOR ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == NO_COLOR ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_WELCOME_USER == NO_COLOR ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == NO_COLOR ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == NO_COLOR ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == NO_COLOR ]]
+++pid=62380 sub=1 IFS='|'
+++pid=62380 sub=1 read -r key _default
+++pid=62380 sub=1 [[ NO_COLOR == NO_COLOR ]]
+++pid=62380 sub=1 return 0
+++pid=62380 sub=1 [[ NO_COLOR == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62380 sub=1 continue
+++pid=62380 sub=1 IFS=
+++pid=62380 sub=1 read -r line
+++pid=62380 sub=1 [[ -n '' ]]
+++pid=62380 sub=1 (( found == 1 ))
+++pid=62380 sub=1 printf '%s\n' 1
+++pid=62380 sub=1 return 0
++pid=61958 sub=0 value=1
++pid=61958 sub=0 [[ -z '' ]]
++pid=61958 sub=0 export REMOTE_SSH_UPDATE_CHECK=1
++pid=61958 sub=0 REMOTE_SSH_UPDATE_CHECK=1
++pid=61958 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_UPDATE_CHECK 1
++pid=61958 sub=0 local key=REMOTE_SSH_UPDATE_CHECK value=1 source_var loaded_var
+++pid=62471 sub=1 remote_ssh_config_source_var REMOTE_SSH_UPDATE_CHECK
++++pid=62473 sub=2 remote_ssh_config_marker_key REMOTE_SSH_UPDATE_CHECK
++++pid=62473 sub=2 local key=REMOTE_SSH_UPDATE_CHECK
++++pid=62473 sub=2 case "$key" in
++++pid=62473 sub=2 printf '%s\n' UPDATE_CHECK
+++pid=62471 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' UPDATE_CHECK
++pid=61958 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK
+++pid=62476 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_UPDATE_CHECK
++++pid=62477 sub=2 remote_ssh_config_marker_key REMOTE_SSH_UPDATE_CHECK
++++pid=62477 sub=2 local key=REMOTE_SSH_UPDATE_CHECK
++++pid=62477 sub=2 case "$key" in
++++pid=62477 sub=2 printf '%s\n' UPDATE_CHECK
+++pid=62476 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' UPDATE_CHECK
++pid=61958 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK=config
++pid=61958 sub=0 REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK=config
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK=1
++pid=61958 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK=1
++pid=61958 sub=0 IFS='|'
++pid=61958 sub=0 read -r key _default
+++pid=62480 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62480 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK_INTERVAL file line key value found=0
++++pid=62481 sub=2 remote_ssh_config_file
++++pid=62481 sub=2 [[ -n /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config ]]
++++pid=62481 sub=2 printf '%s/remote-ssh/config\n' /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config
+++pid=62480 sub=1 file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config
+++pid=62480 sub=1 [[ -r /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config ]]
+++pid=62480 sub=1 IFS=
+++pid=62480 sub=1 read -r line
++++pid=62484 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME=1
++++pid=62484 sub=2 local value=REMOTE_SSH_WELCOME=1
++++pid=62484 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62484 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62484 sub=2 printf '%s\n' REMOTE_SSH_WELCOME=1
+++pid=62480 sub=1 line=REMOTE_SSH_WELCOME=1
+++pid=62480 sub=1 case "$line" in
++++pid=62486 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME
++++pid=62486 sub=2 local value=REMOTE_SSH_WELCOME
++++pid=62486 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62486 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62486 sub=2 printf '%s\n' REMOTE_SSH_WELCOME
+++pid=62480 sub=1 case "$line" in
+++pid=62480 sub=1 key=REMOTE_SSH_WELCOME
+++pid=62480 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME
+++pid=62480 sub=1 local wanted=REMOTE_SSH_WELCOME key _default
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
++++pid=62488 sub=2 remote_ssh_config_entries
++++pid=62488 sub=2 cat
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME ]]
+++pid=62480 sub=1 return 0
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 continue
+++pid=62480 sub=1 IFS=
+++pid=62480 sub=1 read -r line
++++pid=62492 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER=1
++++pid=62492 sub=2 local value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62492 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62492 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62492 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER=1
+++pid=62480 sub=1 line=REMOTE_SSH_WELCOME_BANNER=1
+++pid=62480 sub=1 case "$line" in
++++pid=62494 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER
++++pid=62494 sub=2 local value=REMOTE_SSH_WELCOME_BANNER
++++pid=62494 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62494 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62494 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER
+++pid=62480 sub=1 case "$line" in
+++pid=62480 sub=1 key=REMOTE_SSH_WELCOME_BANNER
+++pid=62480 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_BANNER
+++pid=62480 sub=1 local wanted=REMOTE_SSH_WELCOME_BANNER key _default
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
++++pid=62496 sub=2 remote_ssh_config_entries
++++pid=62496 sub=2 cat
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62480 sub=1 return 0
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 continue
+++pid=62480 sub=1 IFS=
+++pid=62480 sub=1 read -r line
++++pid=62500 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR=1
++++pid=62500 sub=2 local value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62500 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62500 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62500 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR=1
+++pid=62480 sub=1 line=REMOTE_SSH_WELCOME_COLOR=1
+++pid=62480 sub=1 case "$line" in
++++pid=62507 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR
++++pid=62507 sub=2 local value=REMOTE_SSH_WELCOME_COLOR
++++pid=62507 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62507 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62507 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR
+++pid=62480 sub=1 case "$line" in
+++pid=62480 sub=1 key=REMOTE_SSH_WELCOME_COLOR
+++pid=62480 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_COLOR
+++pid=62480 sub=1 local wanted=REMOTE_SSH_WELCOME_COLOR key _default
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
++++pid=62510 sub=2 remote_ssh_config_entries
++++pid=62510 sub=2 cat
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62480 sub=1 return 0
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 continue
+++pid=62480 sub=1 IFS=
+++pid=62480 sub=1 read -r line
++++pid=62515 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62515 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62515 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62515 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62515 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62480 sub=1 line=REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62480 sub=1 case "$line" in
++++pid=62520 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG
++++pid=62520 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62520 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62520 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62520 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG
+++pid=62480 sub=1 case "$line" in
+++pid=62480 sub=1 key=REMOTE_SSH_WELCOME_DEBUG
+++pid=62480 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_DEBUG
+++pid=62480 sub=1 local wanted=REMOTE_SSH_WELCOME_DEBUG key _default
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
++++pid=62523 sub=2 remote_ssh_config_entries
++++pid=62523 sub=2 cat
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62480 sub=1 return 0
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 continue
+++pid=62480 sub=1 IFS=
+++pid=62480 sub=1 read -r line
++++pid=62526 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER=1
++++pid=62526 sub=2 local value=REMOTE_SSH_WELCOME_USER=1
++++pid=62526 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62526 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62526 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER=1
+++pid=62480 sub=1 line=REMOTE_SSH_WELCOME_USER=1
+++pid=62480 sub=1 case "$line" in
++++pid=62528 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER
++++pid=62528 sub=2 local value=REMOTE_SSH_WELCOME_USER
++++pid=62528 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62528 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62528 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER
+++pid=62480 sub=1 case "$line" in
+++pid=62480 sub=1 key=REMOTE_SSH_WELCOME_USER
+++pid=62480 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_USER
+++pid=62480 sub=1 local wanted=REMOTE_SSH_WELCOME_USER key _default
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
++++pid=62530 sub=2 remote_ssh_config_entries
++++pid=62530 sub=2 cat
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_USER ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_USER ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_USER ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62480 sub=1 return 0
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 continue
+++pid=62480 sub=1 IFS=
+++pid=62480 sub=1 read -r line
++++pid=62533 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK=1
++++pid=62533 sub=2 local value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62533 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62533 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62533 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK=1
+++pid=62480 sub=1 line=REMOTE_SSH_UPDATE_CHECK=1
+++pid=62480 sub=1 case "$line" in
++++pid=62535 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK
++++pid=62535 sub=2 local value=REMOTE_SSH_UPDATE_CHECK
++++pid=62535 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62535 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62535 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK
+++pid=62480 sub=1 case "$line" in
+++pid=62480 sub=1 key=REMOTE_SSH_UPDATE_CHECK
+++pid=62480 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK
+++pid=62480 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK key _default
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
++++pid=62539 sub=2 remote_ssh_config_entries
++++pid=62539 sub=2 cat
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62480 sub=1 return 0
+++pid=62480 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 continue
+++pid=62480 sub=1 IFS=
+++pid=62480 sub=1 read -r line
++++pid=62544 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62544 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62544 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62544 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62544 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62480 sub=1 line=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62480 sub=1 case "$line" in
++++pid=62547 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62547 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62547 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62547 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62547 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62480 sub=1 case "$line" in
+++pid=62480 sub=1 key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62480 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62480 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK_INTERVAL key _default
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
++++pid=62549 sub=2 remote_ssh_config_entries
++++pid=62549 sub=2 cat
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 return 0
+++pid=62480 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
++++pid=62553 sub=2 remote_ssh_config_trim 86400
++++pid=62553 sub=2 local value=86400
++++pid=62553 sub=2 value=86400
++++pid=62553 sub=2 value=86400
++++pid=62553 sub=2 printf '%s\n' 86400
+++pid=62480 sub=1 value=86400
++++pid=62556 sub=2 remote_ssh_config_unquote 86400
++++pid=62556 sub=2 local value=86400
++++pid=62556 sub=2 case "$value" in
++++pid=62556 sub=2 printf '%s\n' 86400
+++pid=62480 sub=1 value=86400
+++pid=62480 sub=1 found=1
+++pid=62480 sub=1 IFS=
+++pid=62480 sub=1 read -r line
++++pid=62559 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62559 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62559 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62559 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62559 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62480 sub=1 line=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62480 sub=1 case "$line" in
++++pid=62560 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62560 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62560 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62560 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62560 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62480 sub=1 case "$line" in
+++pid=62480 sub=1 key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62480 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62480 sub=1 local wanted=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY key _default
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
++++pid=62561 sub=2 remote_ssh_config_entries
++++pid=62561 sub=2 cat
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62480 sub=1 return 0
+++pid=62480 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 continue
+++pid=62480 sub=1 IFS=
+++pid=62480 sub=1 read -r line
++++pid=62567 sub=2 remote_ssh_config_trim NO_COLOR=
++++pid=62567 sub=2 local value=NO_COLOR=
++++pid=62567 sub=2 value=NO_COLOR=
++++pid=62567 sub=2 value=NO_COLOR=
++++pid=62567 sub=2 printf '%s\n' NO_COLOR=
+++pid=62480 sub=1 line=NO_COLOR=
+++pid=62480 sub=1 case "$line" in
++++pid=62571 sub=2 remote_ssh_config_trim NO_COLOR
++++pid=62571 sub=2 local value=NO_COLOR
++++pid=62571 sub=2 value=NO_COLOR
++++pid=62571 sub=2 value=NO_COLOR
++++pid=62571 sub=2 printf '%s\n' NO_COLOR
+++pid=62480 sub=1 case "$line" in
+++pid=62480 sub=1 key=NO_COLOR
+++pid=62480 sub=1 remote_ssh_config_key_allowed NO_COLOR
+++pid=62480 sub=1 local wanted=NO_COLOR key _default
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
++++pid=62572 sub=2 remote_ssh_config_entries
++++pid=62572 sub=2 cat
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME == NO_COLOR ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == NO_COLOR ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == NO_COLOR ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == NO_COLOR ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_WELCOME_USER == NO_COLOR ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == NO_COLOR ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == NO_COLOR ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == NO_COLOR ]]
+++pid=62480 sub=1 IFS='|'
+++pid=62480 sub=1 read -r key _default
+++pid=62480 sub=1 [[ NO_COLOR == NO_COLOR ]]
+++pid=62480 sub=1 return 0
+++pid=62480 sub=1 [[ NO_COLOR == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62480 sub=1 continue
+++pid=62480 sub=1 IFS=
+++pid=62480 sub=1 read -r line
+++pid=62480 sub=1 [[ -n '' ]]
+++pid=62480 sub=1 (( found == 1 ))
+++pid=62480 sub=1 printf '%s\n' 86400
+++pid=62480 sub=1 return 0
++pid=61958 sub=0 value=86400
++pid=61958 sub=0 [[ -z '' ]]
++pid=61958 sub=0 export REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++pid=61958 sub=0 REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++pid=61958 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_UPDATE_CHECK_INTERVAL 86400
++pid=61958 sub=0 local key=REMOTE_SSH_UPDATE_CHECK_INTERVAL value=86400 source_var loaded_var
+++pid=62577 sub=1 remote_ssh_config_source_var REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62578 sub=2 remote_ssh_config_marker_key REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62578 sub=2 local key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62578 sub=2 case "$key" in
++++pid=62578 sub=2 printf '%s\n' UPDATE_CHECK_INTERVAL
+++pid=62577 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' UPDATE_CHECK_INTERVAL
++pid=61958 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK_INTERVAL
+++pid=62580 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62582 sub=2 remote_ssh_config_marker_key REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62582 sub=2 local key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62582 sub=2 case "$key" in
++++pid=62582 sub=2 printf '%s\n' UPDATE_CHECK_INTERVAL
+++pid=62580 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' UPDATE_CHECK_INTERVAL
++pid=61958 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK_INTERVAL
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK_INTERVAL=config
++pid=61958 sub=0 REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK_INTERVAL=config
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK_INTERVAL=86400
++pid=61958 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK_INTERVAL=86400
++pid=61958 sub=0 IFS='|'
++pid=61958 sub=0 read -r key _default
+++pid=62588 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62588 sub=1 local wanted=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY file line key value found=0
++++pid=62594 sub=2 remote_ssh_config_file
++++pid=62594 sub=2 [[ -n /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config ]]
++++pid=62594 sub=2 printf '%s/remote-ssh/config\n' /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config
+++pid=62588 sub=1 file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config
+++pid=62588 sub=1 [[ -r /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config ]]
+++pid=62588 sub=1 IFS=
+++pid=62588 sub=1 read -r line
++++pid=62595 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME=1
++++pid=62595 sub=2 local value=REMOTE_SSH_WELCOME=1
++++pid=62595 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62595 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62595 sub=2 printf '%s\n' REMOTE_SSH_WELCOME=1
+++pid=62588 sub=1 line=REMOTE_SSH_WELCOME=1
+++pid=62588 sub=1 case "$line" in
++++pid=62597 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME
++++pid=62597 sub=2 local value=REMOTE_SSH_WELCOME
++++pid=62597 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62597 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62597 sub=2 printf '%s\n' REMOTE_SSH_WELCOME
+++pid=62588 sub=1 case "$line" in
+++pid=62588 sub=1 key=REMOTE_SSH_WELCOME
+++pid=62588 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME
+++pid=62588 sub=1 local wanted=REMOTE_SSH_WELCOME key _default
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
++++pid=62599 sub=2 remote_ssh_config_entries
++++pid=62599 sub=2 cat
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME ]]
+++pid=62588 sub=1 return 0
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 continue
+++pid=62588 sub=1 IFS=
+++pid=62588 sub=1 read -r line
++++pid=62605 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER=1
++++pid=62605 sub=2 local value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62605 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62605 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62605 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER=1
+++pid=62588 sub=1 line=REMOTE_SSH_WELCOME_BANNER=1
+++pid=62588 sub=1 case "$line" in
++++pid=62608 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER
++++pid=62608 sub=2 local value=REMOTE_SSH_WELCOME_BANNER
++++pid=62608 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62608 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62608 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER
+++pid=62588 sub=1 case "$line" in
+++pid=62588 sub=1 key=REMOTE_SSH_WELCOME_BANNER
+++pid=62588 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_BANNER
+++pid=62588 sub=1 local wanted=REMOTE_SSH_WELCOME_BANNER key _default
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
++++pid=62611 sub=2 remote_ssh_config_entries
++++pid=62611 sub=2 cat
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62588 sub=1 return 0
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 continue
+++pid=62588 sub=1 IFS=
+++pid=62588 sub=1 read -r line
++++pid=62614 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR=1
++++pid=62614 sub=2 local value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62614 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62614 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62614 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR=1
+++pid=62588 sub=1 line=REMOTE_SSH_WELCOME_COLOR=1
+++pid=62588 sub=1 case "$line" in
++++pid=62616 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR
++++pid=62616 sub=2 local value=REMOTE_SSH_WELCOME_COLOR
++++pid=62616 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62616 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62616 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR
+++pid=62588 sub=1 case "$line" in
+++pid=62588 sub=1 key=REMOTE_SSH_WELCOME_COLOR
+++pid=62588 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_COLOR
+++pid=62588 sub=1 local wanted=REMOTE_SSH_WELCOME_COLOR key _default
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
++++pid=62618 sub=2 remote_ssh_config_entries
++++pid=62618 sub=2 cat
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62588 sub=1 return 0
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 continue
+++pid=62588 sub=1 IFS=
+++pid=62588 sub=1 read -r line
++++pid=62621 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62621 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62621 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62621 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62621 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62588 sub=1 line=REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62588 sub=1 case "$line" in
++++pid=62622 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG
++++pid=62622 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62622 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62622 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62622 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG
+++pid=62588 sub=1 case "$line" in
+++pid=62588 sub=1 key=REMOTE_SSH_WELCOME_DEBUG
+++pid=62588 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_DEBUG
+++pid=62588 sub=1 local wanted=REMOTE_SSH_WELCOME_DEBUG key _default
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
++++pid=62625 sub=2 remote_ssh_config_entries
++++pid=62625 sub=2 cat
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62588 sub=1 return 0
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 continue
+++pid=62588 sub=1 IFS=
+++pid=62588 sub=1 read -r line
++++pid=62629 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER=1
++++pid=62629 sub=2 local value=REMOTE_SSH_WELCOME_USER=1
++++pid=62629 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62629 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62629 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER=1
+++pid=62588 sub=1 line=REMOTE_SSH_WELCOME_USER=1
+++pid=62588 sub=1 case "$line" in
++++pid=62631 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER
++++pid=62631 sub=2 local value=REMOTE_SSH_WELCOME_USER
++++pid=62631 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62631 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62631 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER
+++pid=62588 sub=1 case "$line" in
+++pid=62588 sub=1 key=REMOTE_SSH_WELCOME_USER
+++pid=62588 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_USER
+++pid=62588 sub=1 local wanted=REMOTE_SSH_WELCOME_USER key _default
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
++++pid=62632 sub=2 remote_ssh_config_entries
++++pid=62632 sub=2 cat
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_USER ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_USER ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_USER ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62588 sub=1 return 0
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 continue
+++pid=62588 sub=1 IFS=
+++pid=62588 sub=1 read -r line
++++pid=62635 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK=1
++++pid=62635 sub=2 local value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62635 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62635 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62635 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK=1
+++pid=62588 sub=1 line=REMOTE_SSH_UPDATE_CHECK=1
+++pid=62588 sub=1 case "$line" in
++++pid=62638 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK
++++pid=62638 sub=2 local value=REMOTE_SSH_UPDATE_CHECK
++++pid=62638 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62638 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62638 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK
+++pid=62588 sub=1 case "$line" in
+++pid=62588 sub=1 key=REMOTE_SSH_UPDATE_CHECK
+++pid=62588 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK
+++pid=62588 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK key _default
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
++++pid=62639 sub=2 remote_ssh_config_entries
++++pid=62639 sub=2 cat
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62588 sub=1 return 0
+++pid=62588 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 continue
+++pid=62588 sub=1 IFS=
+++pid=62588 sub=1 read -r line
++++pid=62642 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62642 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62642 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62642 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62642 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62588 sub=1 line=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62588 sub=1 case "$line" in
++++pid=62645 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62645 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62645 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62645 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62645 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62588 sub=1 case "$line" in
+++pid=62588 sub=1 key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62588 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62588 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK_INTERVAL key _default
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
++++pid=62646 sub=2 remote_ssh_config_entries
++++pid=62646 sub=2 cat
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62588 sub=1 return 0
+++pid=62588 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 continue
+++pid=62588 sub=1 IFS=
+++pid=62588 sub=1 read -r line
++++pid=62649 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62649 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62649 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62649 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62649 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62588 sub=1 line=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62588 sub=1 case "$line" in
++++pid=62651 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62651 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62651 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62651 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62651 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62588 sub=1 case "$line" in
+++pid=62588 sub=1 key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62588 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62588 sub=1 local wanted=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY key _default
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
++++pid=62653 sub=2 remote_ssh_config_entries
++++pid=62653 sub=2 cat
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 return 0
+++pid=62588 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
++++pid=62655 sub=2 remote_ssh_config_trim 1
++++pid=62655 sub=2 local value=1
++++pid=62655 sub=2 value=1
++++pid=62655 sub=2 value=1
++++pid=62655 sub=2 printf '%s\n' 1
+++pid=62588 sub=1 value=1
++++pid=62658 sub=2 remote_ssh_config_unquote 1
++++pid=62658 sub=2 local value=1
++++pid=62658 sub=2 case "$value" in
++++pid=62658 sub=2 printf '%s\n' 1
+++pid=62588 sub=1 value=1
+++pid=62588 sub=1 found=1
+++pid=62588 sub=1 IFS=
+++pid=62588 sub=1 read -r line
++++pid=62660 sub=2 remote_ssh_config_trim NO_COLOR=
++++pid=62660 sub=2 local value=NO_COLOR=
++++pid=62660 sub=2 value=NO_COLOR=
++++pid=62660 sub=2 value=NO_COLOR=
++++pid=62660 sub=2 printf '%s\n' NO_COLOR=
+++pid=62588 sub=1 line=NO_COLOR=
+++pid=62588 sub=1 case "$line" in
++++pid=62661 sub=2 remote_ssh_config_trim NO_COLOR
++++pid=62661 sub=2 local value=NO_COLOR
++++pid=62661 sub=2 value=NO_COLOR
++++pid=62661 sub=2 value=NO_COLOR
++++pid=62661 sub=2 printf '%s\n' NO_COLOR
+++pid=62588 sub=1 case "$line" in
+++pid=62588 sub=1 key=NO_COLOR
+++pid=62588 sub=1 remote_ssh_config_key_allowed NO_COLOR
+++pid=62588 sub=1 local wanted=NO_COLOR key _default
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
++++pid=62662 sub=2 remote_ssh_config_entries
++++pid=62662 sub=2 cat
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME == NO_COLOR ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == NO_COLOR ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == NO_COLOR ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == NO_COLOR ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_WELCOME_USER == NO_COLOR ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == NO_COLOR ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == NO_COLOR ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == NO_COLOR ]]
+++pid=62588 sub=1 IFS='|'
+++pid=62588 sub=1 read -r key _default
+++pid=62588 sub=1 [[ NO_COLOR == NO_COLOR ]]
+++pid=62588 sub=1 return 0
+++pid=62588 sub=1 [[ NO_COLOR == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62588 sub=1 continue
+++pid=62588 sub=1 IFS=
+++pid=62588 sub=1 read -r line
+++pid=62588 sub=1 [[ -n '' ]]
+++pid=62588 sub=1 (( found == 1 ))
+++pid=62588 sub=1 printf '%s\n' 1
+++pid=62588 sub=1 return 0
++pid=61958 sub=0 value=1
++pid=61958 sub=0 [[ -z '' ]]
++pid=61958 sub=0 export REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++pid=61958 sub=0 REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++pid=61958 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY 1
++pid=61958 sub=0 local key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY value=1 source_var loaded_var
+++pid=62667 sub=1 remote_ssh_config_source_var REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62668 sub=2 remote_ssh_config_marker_key REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62668 sub=2 local key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62668 sub=2 case "$key" in
++++pid=62668 sub=2 printf '%s\n' ENABLE_GIT_SESSION_IDENTITY
+++pid=62667 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' ENABLE_GIT_SESSION_IDENTITY
++pid=61958 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_ENABLE_GIT_SESSION_IDENTITY
+++pid=62670 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62673 sub=2 remote_ssh_config_marker_key REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62673 sub=2 local key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62673 sub=2 case "$key" in
++++pid=62673 sub=2 printf '%s\n' ENABLE_GIT_SESSION_IDENTITY
+++pid=62670 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' ENABLE_GIT_SESSION_IDENTITY
++pid=61958 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_ENABLE_GIT_SESSION_IDENTITY
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_SOURCE_ENABLE_GIT_SESSION_IDENTITY=config
++pid=61958 sub=0 REMOTE_SSH_CONFIG_SOURCE_ENABLE_GIT_SESSION_IDENTITY=config
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_ENABLE_GIT_SESSION_IDENTITY=1
++pid=61958 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_ENABLE_GIT_SESSION_IDENTITY=1
++pid=61958 sub=0 IFS='|'
++pid=61958 sub=0 read -r key _default
+++pid=62676 sub=1 remote_ssh_config_file_value_raw NO_COLOR
+++pid=62676 sub=1 local wanted=NO_COLOR file line key value found=0
++++pid=62677 sub=2 remote_ssh_config_file
++++pid=62677 sub=2 [[ -n /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config ]]
++++pid=62677 sub=2 printf '%s/remote-ssh/config\n' /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config
+++pid=62676 sub=1 file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config
+++pid=62676 sub=1 [[ -r /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-trace-t79lzq9z/env/before/home/.config/remote-ssh/config ]]
+++pid=62676 sub=1 IFS=
+++pid=62676 sub=1 read -r line
++++pid=62679 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME=1
++++pid=62679 sub=2 local value=REMOTE_SSH_WELCOME=1
++++pid=62679 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62679 sub=2 value=REMOTE_SSH_WELCOME=1
++++pid=62679 sub=2 printf '%s\n' REMOTE_SSH_WELCOME=1
+++pid=62676 sub=1 line=REMOTE_SSH_WELCOME=1
+++pid=62676 sub=1 case "$line" in
++++pid=62681 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME
++++pid=62681 sub=2 local value=REMOTE_SSH_WELCOME
++++pid=62681 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62681 sub=2 value=REMOTE_SSH_WELCOME
++++pid=62681 sub=2 printf '%s\n' REMOTE_SSH_WELCOME
+++pid=62676 sub=1 case "$line" in
+++pid=62676 sub=1 key=REMOTE_SSH_WELCOME
+++pid=62676 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME
+++pid=62676 sub=1 local wanted=REMOTE_SSH_WELCOME key _default
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
++++pid=62683 sub=2 remote_ssh_config_entries
++++pid=62683 sub=2 cat
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME ]]
+++pid=62676 sub=1 return 0
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME == NO_COLOR ]]
+++pid=62676 sub=1 continue
+++pid=62676 sub=1 IFS=
+++pid=62676 sub=1 read -r line
++++pid=62686 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER=1
++++pid=62686 sub=2 local value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62686 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62686 sub=2 value=REMOTE_SSH_WELCOME_BANNER=1
++++pid=62686 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER=1
+++pid=62676 sub=1 line=REMOTE_SSH_WELCOME_BANNER=1
+++pid=62676 sub=1 case "$line" in
++++pid=62688 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_BANNER
++++pid=62688 sub=2 local value=REMOTE_SSH_WELCOME_BANNER
++++pid=62688 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62688 sub=2 value=REMOTE_SSH_WELCOME_BANNER
++++pid=62688 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_BANNER
+++pid=62676 sub=1 case "$line" in
+++pid=62676 sub=1 key=REMOTE_SSH_WELCOME_BANNER
+++pid=62676 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_BANNER
+++pid=62676 sub=1 local wanted=REMOTE_SSH_WELCOME_BANNER key _default
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
++++pid=62690 sub=2 remote_ssh_config_entries
++++pid=62690 sub=2 cat
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_BANNER ]]
+++pid=62676 sub=1 return 0
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == NO_COLOR ]]
+++pid=62676 sub=1 continue
+++pid=62676 sub=1 IFS=
+++pid=62676 sub=1 read -r line
++++pid=62695 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR=1
++++pid=62695 sub=2 local value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62695 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62695 sub=2 value=REMOTE_SSH_WELCOME_COLOR=1
++++pid=62695 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR=1
+++pid=62676 sub=1 line=REMOTE_SSH_WELCOME_COLOR=1
+++pid=62676 sub=1 case "$line" in
++++pid=62696 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_COLOR
++++pid=62696 sub=2 local value=REMOTE_SSH_WELCOME_COLOR
++++pid=62696 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62696 sub=2 value=REMOTE_SSH_WELCOME_COLOR
++++pid=62696 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_COLOR
+++pid=62676 sub=1 case "$line" in
+++pid=62676 sub=1 key=REMOTE_SSH_WELCOME_COLOR
+++pid=62676 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_COLOR
+++pid=62676 sub=1 local wanted=REMOTE_SSH_WELCOME_COLOR key _default
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
++++pid=62698 sub=2 remote_ssh_config_entries
++++pid=62698 sub=2 cat
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_COLOR ]]
+++pid=62676 sub=1 return 0
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == NO_COLOR ]]
+++pid=62676 sub=1 continue
+++pid=62676 sub=1 IFS=
+++pid=62676 sub=1 read -r line
++++pid=62702 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62702 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62702 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62702 sub=2 value=REMOTE_SSH_WELCOME_DEBUG=0
++++pid=62702 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62676 sub=1 line=REMOTE_SSH_WELCOME_DEBUG=0
+++pid=62676 sub=1 case "$line" in
++++pid=62703 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_DEBUG
++++pid=62703 sub=2 local value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62703 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62703 sub=2 value=REMOTE_SSH_WELCOME_DEBUG
++++pid=62703 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_DEBUG
+++pid=62676 sub=1 case "$line" in
+++pid=62676 sub=1 key=REMOTE_SSH_WELCOME_DEBUG
+++pid=62676 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_DEBUG
+++pid=62676 sub=1 local wanted=REMOTE_SSH_WELCOME_DEBUG key _default
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
++++pid=62706 sub=2 remote_ssh_config_entries
++++pid=62706 sub=2 cat
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_DEBUG ]]
+++pid=62676 sub=1 return 0
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == NO_COLOR ]]
+++pid=62676 sub=1 continue
+++pid=62676 sub=1 IFS=
+++pid=62676 sub=1 read -r line
++++pid=62709 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER=1
++++pid=62709 sub=2 local value=REMOTE_SSH_WELCOME_USER=1
++++pid=62709 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62709 sub=2 value=REMOTE_SSH_WELCOME_USER=1
++++pid=62709 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER=1
+++pid=62676 sub=1 line=REMOTE_SSH_WELCOME_USER=1
+++pid=62676 sub=1 case "$line" in
++++pid=62710 sub=2 remote_ssh_config_trim REMOTE_SSH_WELCOME_USER
++++pid=62710 sub=2 local value=REMOTE_SSH_WELCOME_USER
++++pid=62710 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62710 sub=2 value=REMOTE_SSH_WELCOME_USER
++++pid=62710 sub=2 printf '%s\n' REMOTE_SSH_WELCOME_USER
+++pid=62676 sub=1 case "$line" in
+++pid=62676 sub=1 key=REMOTE_SSH_WELCOME_USER
+++pid=62676 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_WELCOME_USER
+++pid=62676 sub=1 local wanted=REMOTE_SSH_WELCOME_USER key _default
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
++++pid=62712 sub=2 remote_ssh_config_entries
++++pid=62712 sub=2 cat
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_WELCOME_USER ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_WELCOME_USER ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_WELCOME_USER ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_WELCOME_USER ]]
+++pid=62676 sub=1 return 0
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_USER == NO_COLOR ]]
+++pid=62676 sub=1 continue
+++pid=62676 sub=1 IFS=
+++pid=62676 sub=1 read -r line
++++pid=62716 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK=1
++++pid=62716 sub=2 local value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62716 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62716 sub=2 value=REMOTE_SSH_UPDATE_CHECK=1
++++pid=62716 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK=1
+++pid=62676 sub=1 line=REMOTE_SSH_UPDATE_CHECK=1
+++pid=62676 sub=1 case "$line" in
++++pid=62717 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK
++++pid=62717 sub=2 local value=REMOTE_SSH_UPDATE_CHECK
++++pid=62717 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62717 sub=2 value=REMOTE_SSH_UPDATE_CHECK
++++pid=62717 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK
+++pid=62676 sub=1 case "$line" in
+++pid=62676 sub=1 key=REMOTE_SSH_UPDATE_CHECK
+++pid=62676 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK
+++pid=62676 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK key _default
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
++++pid=62719 sub=2 remote_ssh_config_entries
++++pid=62719 sub=2 cat
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK ]]
+++pid=62676 sub=1 return 0
+++pid=62676 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == NO_COLOR ]]
+++pid=62676 sub=1 continue
+++pid=62676 sub=1 IFS=
+++pid=62676 sub=1 read -r line
++++pid=62723 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62723 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62723 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62723 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++++pid=62723 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62676 sub=1 line=REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
+++pid=62676 sub=1 case "$line" in
++++pid=62724 sub=2 remote_ssh_config_trim REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62724 sub=2 local value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62724 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62724 sub=2 value=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=62724 sub=2 printf '%s\n' REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62676 sub=1 case "$line" in
+++pid=62676 sub=1 key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62676 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_UPDATE_CHECK_INTERVAL
+++pid=62676 sub=1 local wanted=REMOTE_SSH_UPDATE_CHECK_INTERVAL key _default
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
++++pid=62727 sub=2 remote_ssh_config_entries
++++pid=62727 sub=2 cat
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_UPDATE_CHECK_INTERVAL ]]
+++pid=62676 sub=1 return 0
+++pid=62676 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == NO_COLOR ]]
+++pid=62676 sub=1 continue
+++pid=62676 sub=1 IFS=
+++pid=62676 sub=1 read -r line
++++pid=62730 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62730 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62730 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62730 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++++pid=62730 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62676 sub=1 line=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
+++pid=62676 sub=1 case "$line" in
++++pid=62732 sub=2 remote_ssh_config_trim REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62732 sub=2 local value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62732 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62732 sub=2 value=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=62732 sub=2 printf '%s\n' REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62676 sub=1 case "$line" in
+++pid=62676 sub=1 key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62676 sub=1 remote_ssh_config_key_allowed REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+++pid=62676 sub=1 local wanted=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY key _default
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
++++pid=62734 sub=2 remote_ssh_config_entries
++++pid=62734 sub=2 cat
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_USER == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY ]]
+++pid=62676 sub=1 return 0
+++pid=62676 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == NO_COLOR ]]
+++pid=62676 sub=1 continue
+++pid=62676 sub=1 IFS=
+++pid=62676 sub=1 read -r line
++++pid=62738 sub=2 remote_ssh_config_trim NO_COLOR=
++++pid=62738 sub=2 local value=NO_COLOR=
++++pid=62738 sub=2 value=NO_COLOR=
++++pid=62738 sub=2 value=NO_COLOR=
++++pid=62738 sub=2 printf '%s\n' NO_COLOR=
+++pid=62676 sub=1 line=NO_COLOR=
+++pid=62676 sub=1 case "$line" in
++++pid=62740 sub=2 remote_ssh_config_trim NO_COLOR
++++pid=62740 sub=2 local value=NO_COLOR
++++pid=62740 sub=2 value=NO_COLOR
++++pid=62740 sub=2 value=NO_COLOR
++++pid=62740 sub=2 printf '%s\n' NO_COLOR
+++pid=62676 sub=1 case "$line" in
+++pid=62676 sub=1 key=NO_COLOR
+++pid=62676 sub=1 remote_ssh_config_key_allowed NO_COLOR
+++pid=62676 sub=1 local wanted=NO_COLOR key _default
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
++++pid=62742 sub=2 remote_ssh_config_entries
++++pid=62742 sub=2 cat
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME == NO_COLOR ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_BANNER == NO_COLOR ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_COLOR == NO_COLOR ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_DEBUG == NO_COLOR ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_WELCOME_USER == NO_COLOR ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_UPDATE_CHECK == NO_COLOR ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_UPDATE_CHECK_INTERVAL == NO_COLOR ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY == NO_COLOR ]]
+++pid=62676 sub=1 IFS='|'
+++pid=62676 sub=1 read -r key _default
+++pid=62676 sub=1 [[ NO_COLOR == NO_COLOR ]]
+++pid=62676 sub=1 return 0
+++pid=62676 sub=1 [[ NO_COLOR == NO_COLOR ]]
++++pid=62746 sub=2 remote_ssh_config_trim ''
++++pid=62746 sub=2 local value=
++++pid=62746 sub=2 value=
++++pid=62746 sub=2 value=
++++pid=62746 sub=2 printf '%s\n' ''
+++pid=62676 sub=1 value=
++++pid=62748 sub=2 remote_ssh_config_unquote ''
++++pid=62748 sub=2 local value=
++++pid=62748 sub=2 case "$value" in
++++pid=62748 sub=2 printf '%s\n' ''
+++pid=62676 sub=1 value=
+++pid=62676 sub=1 found=1
+++pid=62676 sub=1 IFS=
+++pid=62676 sub=1 read -r line
+++pid=62676 sub=1 [[ -n '' ]]
+++pid=62676 sub=1 (( found == 1 ))
+++pid=62676 sub=1 printf '%s\n' ''
+++pid=62676 sub=1 return 0
++pid=61958 sub=0 value=
++pid=61958 sub=0 [[ -z '' ]]
++pid=61958 sub=0 export NO_COLOR=
++pid=61958 sub=0 NO_COLOR=
++pid=61958 sub=0 remote_ssh_config_mark_owned NO_COLOR ''
++pid=61958 sub=0 local key=NO_COLOR value= source_var loaded_var
+++pid=62750 sub=1 remote_ssh_config_source_var NO_COLOR
++++pid=62753 sub=2 remote_ssh_config_marker_key NO_COLOR
++++pid=62753 sub=2 local key=NO_COLOR
++++pid=62753 sub=2 case "$key" in
++++pid=62753 sub=2 printf '%s\n' NO_COLOR
+++pid=62750 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' NO_COLOR
++pid=61958 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_NO_COLOR
+++pid=62755 sub=1 remote_ssh_config_loaded_value_var NO_COLOR
++++pid=62757 sub=2 remote_ssh_config_marker_key NO_COLOR
++++pid=62757 sub=2 local key=NO_COLOR
++++pid=62757 sub=2 case "$key" in
++++pid=62757 sub=2 printf '%s\n' NO_COLOR
+++pid=62755 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' NO_COLOR
++pid=61958 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_NO_COLOR
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_SOURCE_NO_COLOR=config
++pid=61958 sub=0 REMOTE_SSH_CONFIG_SOURCE_NO_COLOR=config
++pid=61958 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_NO_COLOR=
++pid=61958 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_NO_COLOR=
++pid=61958 sub=0 IFS='|'
++pid=61958 sub=0 read -r key _default
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 1 == 1 ]]
++pid=61958 sub=0 [[ config == config ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 1 == 1 ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 1 == 1 ]]
++pid=61958 sub=0 [[ config == config ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 1 == 1 ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 1 == 1 ]]
++pid=61958 sub=0 [[ config == config ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 1 == 1 ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 0 == 0 ]]
++pid=61958 sub=0 [[ config == config ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 0 == 0 ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 1 == 1 ]]
++pid=61958 sub=0 [[ config == config ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 1 == 1 ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 1 == 1 ]]
++pid=61958 sub=0 [[ config == config ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 1 == 1 ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 86400 == 86400 ]]
++pid=61958 sub=0 [[ config == config ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 86400 == 86400 ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 1 == 1 ]]
++pid=61958 sub=0 [[ config == config ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ 1 == 1 ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ '' == '' ]]
++pid=61958 sub=0 [[ config == config ]]
++pid=61958 sub=0 [[ present == present ]]
++pid=61958 sub=0 [[ '' == '' ]]
++pid=61958 sub=0 set +x

@@ -1,0 +1,301 @@
++pid=21400 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-hyrfocjm/after/shell/config.lib.sh
++++pid=21402 sub=1 remote_ssh_config_lib_dir
++++pid=21402 sub=1 local script_path=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-hyrfocjm/after/shell/config.lib.sh
++++pid=21402 sub=1 case "$script_path" in
++++pid=21402 sub=1 script_path=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-hyrfocjm/after/shell
++++pid=21402 sub=1 cd -- /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-hyrfocjm/after/shell
++++pid=21402 sub=1 pwd
+++pid=21400 sub=0 REMOTE_SSH_CONFIG_LIB_DIR=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-hyrfocjm/after/shell/config
+++pid=21400 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-hyrfocjm/after/shell/config/entries.sh
+++pid=21400 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-hyrfocjm/after/shell/config/path.sh
+++pid=21400 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-hyrfocjm/after/shell/config/parse.sh
+++pid=21400 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-hyrfocjm/after/shell/config/markers.sh
+++pid=21400 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-hyrfocjm/after/shell/config/load.sh
+++pid=21400 sub=0 unset REMOTE_SSH_CONFIG_LIB_DIR
++pid=21400 sub=0 remote_ssh_config_load
++pid=21400 sub=0 __remote_ssh_config_snapshot_keys=()
++pid=21400 sub=0 __remote_ssh_config_snapshot_values=()
++pid=21400 sub=0 local -a __remote_ssh_config_snapshot_keys __remote_ssh_config_snapshot_values
++pid=21400 sub=0 __remote_ssh_config_snapshot_present=()
++pid=21400 sub=0 local -a __remote_ssh_config_snapshot_present
++pid=21400 sub=0 local __remote_ssh_config_snapshot_count=0 __remote_ssh_config_load_index=0
++pid=21400 sub=0 local __remote_ssh_config_load_key __remote_ssh_config_load_value __remote_ssh_config_load_status
++pid=21400 sub=0 remote_ssh_config_snapshot_init
++pid=21400 sub=0 local __remote_ssh_config_init_key __remote_ssh_config_init_default
++pid=21400 sub=0 local __remote_ssh_config_init_index=0
++pid=21400 sub=0 __remote_ssh_config_snapshot_keys=()
++pid=21400 sub=0 __remote_ssh_config_snapshot_values=()
++pid=21400 sub=0 __remote_ssh_config_snapshot_present=()
++pid=21400 sub=0 __remote_ssh_config_snapshot_count=0
++pid=21400 sub=0 IFS='|'
++pid=21400 sub=0 read -r __remote_ssh_config_init_key __remote_ssh_config_init_default
+++pid=21404 sub=1 remote_ssh_config_entries
+++pid=21404 sub=1 cat
++pid=21400 sub=0 __remote_ssh_config_snapshot_keys[__remote_ssh_config_init_index]=REMOTE_SSH_WELCOME
++pid=21400 sub=0 __remote_ssh_config_snapshot_values[__remote_ssh_config_init_index]=
++pid=21400 sub=0 __remote_ssh_config_snapshot_present[__remote_ssh_config_init_index]=0
++pid=21400 sub=0 __remote_ssh_config_init_index=1
++pid=21400 sub=0 IFS='|'
++pid=21400 sub=0 read -r __remote_ssh_config_init_key __remote_ssh_config_init_default
++pid=21400 sub=0 __remote_ssh_config_snapshot_keys[__remote_ssh_config_init_index]=REMOTE_SSH_WELCOME_BANNER
++pid=21400 sub=0 __remote_ssh_config_snapshot_values[__remote_ssh_config_init_index]=
++pid=21400 sub=0 __remote_ssh_config_snapshot_present[__remote_ssh_config_init_index]=0
++pid=21400 sub=0 __remote_ssh_config_init_index=2
++pid=21400 sub=0 IFS='|'
++pid=21400 sub=0 read -r __remote_ssh_config_init_key __remote_ssh_config_init_default
++pid=21400 sub=0 __remote_ssh_config_snapshot_keys[__remote_ssh_config_init_index]=REMOTE_SSH_WELCOME_COLOR
++pid=21400 sub=0 __remote_ssh_config_snapshot_values[__remote_ssh_config_init_index]=
++pid=21400 sub=0 __remote_ssh_config_snapshot_present[__remote_ssh_config_init_index]=0
++pid=21400 sub=0 __remote_ssh_config_init_index=3
++pid=21400 sub=0 IFS='|'
++pid=21400 sub=0 read -r __remote_ssh_config_init_key __remote_ssh_config_init_default
++pid=21400 sub=0 __remote_ssh_config_snapshot_keys[__remote_ssh_config_init_index]=REMOTE_SSH_WELCOME_DEBUG
++pid=21400 sub=0 __remote_ssh_config_snapshot_values[__remote_ssh_config_init_index]=
++pid=21400 sub=0 __remote_ssh_config_snapshot_present[__remote_ssh_config_init_index]=0
++pid=21400 sub=0 __remote_ssh_config_init_index=4
++pid=21400 sub=0 IFS='|'
++pid=21400 sub=0 read -r __remote_ssh_config_init_key __remote_ssh_config_init_default
++pid=21400 sub=0 __remote_ssh_config_snapshot_keys[__remote_ssh_config_init_index]=REMOTE_SSH_WELCOME_USER
++pid=21400 sub=0 __remote_ssh_config_snapshot_values[__remote_ssh_config_init_index]=
++pid=21400 sub=0 __remote_ssh_config_snapshot_present[__remote_ssh_config_init_index]=0
++pid=21400 sub=0 __remote_ssh_config_init_index=5
++pid=21400 sub=0 IFS='|'
++pid=21400 sub=0 read -r __remote_ssh_config_init_key __remote_ssh_config_init_default
++pid=21400 sub=0 __remote_ssh_config_snapshot_keys[__remote_ssh_config_init_index]=REMOTE_SSH_UPDATE_CHECK
++pid=21400 sub=0 __remote_ssh_config_snapshot_values[__remote_ssh_config_init_index]=
++pid=21400 sub=0 __remote_ssh_config_snapshot_present[__remote_ssh_config_init_index]=0
++pid=21400 sub=0 __remote_ssh_config_init_index=6
++pid=21400 sub=0 IFS='|'
++pid=21400 sub=0 read -r __remote_ssh_config_init_key __remote_ssh_config_init_default
++pid=21400 sub=0 __remote_ssh_config_snapshot_keys[__remote_ssh_config_init_index]=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++pid=21400 sub=0 __remote_ssh_config_snapshot_values[__remote_ssh_config_init_index]=
++pid=21400 sub=0 __remote_ssh_config_snapshot_present[__remote_ssh_config_init_index]=0
++pid=21400 sub=0 __remote_ssh_config_init_index=7
++pid=21400 sub=0 IFS='|'
++pid=21400 sub=0 read -r __remote_ssh_config_init_key __remote_ssh_config_init_default
++pid=21400 sub=0 __remote_ssh_config_snapshot_keys[__remote_ssh_config_init_index]=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++pid=21400 sub=0 __remote_ssh_config_snapshot_values[__remote_ssh_config_init_index]=
++pid=21400 sub=0 __remote_ssh_config_snapshot_present[__remote_ssh_config_init_index]=0
++pid=21400 sub=0 __remote_ssh_config_init_index=8
++pid=21400 sub=0 IFS='|'
++pid=21400 sub=0 read -r __remote_ssh_config_init_key __remote_ssh_config_init_default
++pid=21400 sub=0 __remote_ssh_config_snapshot_keys[__remote_ssh_config_init_index]=NO_COLOR
++pid=21400 sub=0 __remote_ssh_config_snapshot_values[__remote_ssh_config_init_index]=
++pid=21400 sub=0 __remote_ssh_config_snapshot_present[__remote_ssh_config_init_index]=0
++pid=21400 sub=0 __remote_ssh_config_init_index=9
++pid=21400 sub=0 IFS='|'
++pid=21400 sub=0 read -r __remote_ssh_config_init_key __remote_ssh_config_init_default
++pid=21400 sub=0 __remote_ssh_config_snapshot_count=9
++pid=21400 sub=0 return 0
++pid=21400 sub=0 remote_ssh_config_enabled
++pid=21400 sub=0 case "${REMOTE_SSH_CONFIG:-1}" in
++pid=21400 sub=0 return 0
++pid=21400 sub=0 remote_ssh_config_snapshot_read
++pid=21400 sub=0 local __remote_ssh_config_scan_file __remote_ssh_config_scan_line=
++pid=21400 sub=0 local __remote_ssh_config_scan_key __remote_ssh_config_scan_value
++pid=21400 sub=0 local __remote_ssh_config_scan_index
+++pid=21405 sub=1 remote_ssh_config_file
++pid=21400 sub=0 __remote_ssh_config_scan_file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-hyrfocjm/trace/after/home/.config/remote-ssh/config
++pid=21400 sub=0 [[ -r /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-hyrfocjm/trace/after/home/.config/remote-ssh/config ]]
++pid=21400 sub=0 :
++pid=21400 sub=0 return 0
++pid=21400 sub=0 (( __remote_ssh_config_load_index < __remote_ssh_config_snapshot_count ))
++pid=21400 sub=0 __remote_ssh_config_load_key=REMOTE_SSH_WELCOME
++pid=21400 sub=0 [[ 1 == 0 ]]
++pid=21400 sub=0 [[ -z '' ]]
++pid=21400 sub=0 __remote_ssh_config_load_value=1
++pid=21400 sub=0 export REMOTE_SSH_WELCOME=1
++pid=21400 sub=0 REMOTE_SSH_WELCOME=1
++pid=21400 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME 1
++pid=21400 sub=0 local __remote_ssh_config_mark_suffix=WELCOME
++pid=21400 sub=0 local __remote_ssh_config_mark_source_var __remote_ssh_config_mark_loaded_var
++pid=21400 sub=0 __remote_ssh_config_mark_source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME
++pid=21400 sub=0 __remote_ssh_config_mark_loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME=config
++pid=21400 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME=config
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME=1
++pid=21400 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME=1
++pid=21400 sub=0 __remote_ssh_config_load_index=1
++pid=21400 sub=0 (( __remote_ssh_config_load_index < __remote_ssh_config_snapshot_count ))
++pid=21400 sub=0 __remote_ssh_config_load_key=REMOTE_SSH_WELCOME_BANNER
++pid=21400 sub=0 [[ 1 == 0 ]]
++pid=21400 sub=0 [[ -z '' ]]
++pid=21400 sub=0 __remote_ssh_config_load_value=1
++pid=21400 sub=0 export REMOTE_SSH_WELCOME_BANNER=1
++pid=21400 sub=0 REMOTE_SSH_WELCOME_BANNER=1
++pid=21400 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME_BANNER 1
++pid=21400 sub=0 local __remote_ssh_config_mark_suffix=WELCOME_BANNER
++pid=21400 sub=0 local __remote_ssh_config_mark_source_var __remote_ssh_config_mark_loaded_var
++pid=21400 sub=0 __remote_ssh_config_mark_source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME_BANNER
++pid=21400 sub=0 __remote_ssh_config_mark_loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_BANNER
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME_BANNER=config
++pid=21400 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME_BANNER=config
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_BANNER=1
++pid=21400 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_BANNER=1
++pid=21400 sub=0 __remote_ssh_config_load_index=2
++pid=21400 sub=0 (( __remote_ssh_config_load_index < __remote_ssh_config_snapshot_count ))
++pid=21400 sub=0 __remote_ssh_config_load_key=REMOTE_SSH_WELCOME_COLOR
++pid=21400 sub=0 [[ 1 == 0 ]]
++pid=21400 sub=0 [[ -z '' ]]
++pid=21400 sub=0 __remote_ssh_config_load_value=1
++pid=21400 sub=0 export REMOTE_SSH_WELCOME_COLOR=1
++pid=21400 sub=0 REMOTE_SSH_WELCOME_COLOR=1
++pid=21400 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME_COLOR 1
++pid=21400 sub=0 local __remote_ssh_config_mark_suffix=WELCOME_COLOR
++pid=21400 sub=0 local __remote_ssh_config_mark_source_var __remote_ssh_config_mark_loaded_var
++pid=21400 sub=0 __remote_ssh_config_mark_source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME_COLOR
++pid=21400 sub=0 __remote_ssh_config_mark_loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_COLOR
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME_COLOR=config
++pid=21400 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME_COLOR=config
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_COLOR=1
++pid=21400 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_COLOR=1
++pid=21400 sub=0 __remote_ssh_config_load_index=3
++pid=21400 sub=0 (( __remote_ssh_config_load_index < __remote_ssh_config_snapshot_count ))
++pid=21400 sub=0 __remote_ssh_config_load_key=REMOTE_SSH_WELCOME_DEBUG
++pid=21400 sub=0 [[ 1 == 0 ]]
++pid=21400 sub=0 [[ -z '' ]]
++pid=21400 sub=0 __remote_ssh_config_load_value=0
++pid=21400 sub=0 export REMOTE_SSH_WELCOME_DEBUG=0
++pid=21400 sub=0 REMOTE_SSH_WELCOME_DEBUG=0
++pid=21400 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME_DEBUG 0
++pid=21400 sub=0 local __remote_ssh_config_mark_suffix=WELCOME_DEBUG
++pid=21400 sub=0 local __remote_ssh_config_mark_source_var __remote_ssh_config_mark_loaded_var
++pid=21400 sub=0 __remote_ssh_config_mark_source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME_DEBUG
++pid=21400 sub=0 __remote_ssh_config_mark_loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_DEBUG
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME_DEBUG=config
++pid=21400 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME_DEBUG=config
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_DEBUG=0
++pid=21400 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_DEBUG=0
++pid=21400 sub=0 __remote_ssh_config_load_index=4
++pid=21400 sub=0 (( __remote_ssh_config_load_index < __remote_ssh_config_snapshot_count ))
++pid=21400 sub=0 __remote_ssh_config_load_key=REMOTE_SSH_WELCOME_USER
++pid=21400 sub=0 [[ 1 == 0 ]]
++pid=21400 sub=0 [[ -z '' ]]
++pid=21400 sub=0 __remote_ssh_config_load_value=1
++pid=21400 sub=0 export REMOTE_SSH_WELCOME_USER=1
++pid=21400 sub=0 REMOTE_SSH_WELCOME_USER=1
++pid=21400 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME_USER 1
++pid=21400 sub=0 local __remote_ssh_config_mark_suffix=WELCOME_USER
++pid=21400 sub=0 local __remote_ssh_config_mark_source_var __remote_ssh_config_mark_loaded_var
++pid=21400 sub=0 __remote_ssh_config_mark_source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER
++pid=21400 sub=0 __remote_ssh_config_mark_loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER=config
++pid=21400 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER=config
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER=1
++pid=21400 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER=1
++pid=21400 sub=0 __remote_ssh_config_load_index=5
++pid=21400 sub=0 (( __remote_ssh_config_load_index < __remote_ssh_config_snapshot_count ))
++pid=21400 sub=0 __remote_ssh_config_load_key=REMOTE_SSH_UPDATE_CHECK
++pid=21400 sub=0 [[ 1 == 0 ]]
++pid=21400 sub=0 [[ -z '' ]]
++pid=21400 sub=0 __remote_ssh_config_load_value=1
++pid=21400 sub=0 export REMOTE_SSH_UPDATE_CHECK=1
++pid=21400 sub=0 REMOTE_SSH_UPDATE_CHECK=1
++pid=21400 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_UPDATE_CHECK 1
++pid=21400 sub=0 local __remote_ssh_config_mark_suffix=UPDATE_CHECK
++pid=21400 sub=0 local __remote_ssh_config_mark_source_var __remote_ssh_config_mark_loaded_var
++pid=21400 sub=0 __remote_ssh_config_mark_source_var=REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK
++pid=21400 sub=0 __remote_ssh_config_mark_loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK=config
++pid=21400 sub=0 REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK=config
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK=1
++pid=21400 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK=1
++pid=21400 sub=0 __remote_ssh_config_load_index=6
++pid=21400 sub=0 (( __remote_ssh_config_load_index < __remote_ssh_config_snapshot_count ))
++pid=21400 sub=0 __remote_ssh_config_load_key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++pid=21400 sub=0 [[ 1 == 0 ]]
++pid=21400 sub=0 [[ -z '' ]]
++pid=21400 sub=0 __remote_ssh_config_load_value=86400
++pid=21400 sub=0 export REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++pid=21400 sub=0 REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++pid=21400 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_UPDATE_CHECK_INTERVAL 86400
++pid=21400 sub=0 local __remote_ssh_config_mark_suffix=UPDATE_CHECK_INTERVAL
++pid=21400 sub=0 local __remote_ssh_config_mark_source_var __remote_ssh_config_mark_loaded_var
++pid=21400 sub=0 __remote_ssh_config_mark_source_var=REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK_INTERVAL
++pid=21400 sub=0 __remote_ssh_config_mark_loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK_INTERVAL
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK_INTERVAL=config
++pid=21400 sub=0 REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK_INTERVAL=config
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK_INTERVAL=86400
++pid=21400 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK_INTERVAL=86400
++pid=21400 sub=0 __remote_ssh_config_load_index=7
++pid=21400 sub=0 (( __remote_ssh_config_load_index < __remote_ssh_config_snapshot_count ))
++pid=21400 sub=0 __remote_ssh_config_load_key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++pid=21400 sub=0 [[ 1 == 0 ]]
++pid=21400 sub=0 [[ -z '' ]]
++pid=21400 sub=0 __remote_ssh_config_load_value=1
++pid=21400 sub=0 export REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++pid=21400 sub=0 REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++pid=21400 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY 1
++pid=21400 sub=0 local __remote_ssh_config_mark_suffix=ENABLE_GIT_SESSION_IDENTITY
++pid=21400 sub=0 local __remote_ssh_config_mark_source_var __remote_ssh_config_mark_loaded_var
++pid=21400 sub=0 __remote_ssh_config_mark_source_var=REMOTE_SSH_CONFIG_SOURCE_ENABLE_GIT_SESSION_IDENTITY
++pid=21400 sub=0 __remote_ssh_config_mark_loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_ENABLE_GIT_SESSION_IDENTITY
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_SOURCE_ENABLE_GIT_SESSION_IDENTITY=config
++pid=21400 sub=0 REMOTE_SSH_CONFIG_SOURCE_ENABLE_GIT_SESSION_IDENTITY=config
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_ENABLE_GIT_SESSION_IDENTITY=1
++pid=21400 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_ENABLE_GIT_SESSION_IDENTITY=1
++pid=21400 sub=0 __remote_ssh_config_load_index=8
++pid=21400 sub=0 (( __remote_ssh_config_load_index < __remote_ssh_config_snapshot_count ))
++pid=21400 sub=0 __remote_ssh_config_load_key=NO_COLOR
++pid=21400 sub=0 [[ 1 == 0 ]]
++pid=21400 sub=0 [[ -z '' ]]
++pid=21400 sub=0 __remote_ssh_config_load_value=
++pid=21400 sub=0 export NO_COLOR=
++pid=21400 sub=0 NO_COLOR=
++pid=21400 sub=0 remote_ssh_config_mark_owned NO_COLOR ''
++pid=21400 sub=0 local __remote_ssh_config_mark_suffix=NO_COLOR
++pid=21400 sub=0 local __remote_ssh_config_mark_source_var __remote_ssh_config_mark_loaded_var
++pid=21400 sub=0 __remote_ssh_config_mark_source_var=REMOTE_SSH_CONFIG_SOURCE_NO_COLOR
++pid=21400 sub=0 __remote_ssh_config_mark_loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_NO_COLOR
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_SOURCE_NO_COLOR=config
++pid=21400 sub=0 REMOTE_SSH_CONFIG_SOURCE_NO_COLOR=config
++pid=21400 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_NO_COLOR=
++pid=21400 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_NO_COLOR=
++pid=21400 sub=0 __remote_ssh_config_load_index=9
++pid=21400 sub=0 (( __remote_ssh_config_load_index < __remote_ssh_config_snapshot_count ))
++pid=21400 sub=0 return 0
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 1 == 1 ]]
++pid=21400 sub=0 [[ config == config ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 1 == 1 ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 1 == 1 ]]
++pid=21400 sub=0 [[ config == config ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 1 == 1 ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 1 == 1 ]]
++pid=21400 sub=0 [[ config == config ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 1 == 1 ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 0 == 0 ]]
++pid=21400 sub=0 [[ config == config ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 0 == 0 ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 1 == 1 ]]
++pid=21400 sub=0 [[ config == config ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 1 == 1 ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 1 == 1 ]]
++pid=21400 sub=0 [[ config == config ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 1 == 1 ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 86400 == 86400 ]]
++pid=21400 sub=0 [[ config == config ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 86400 == 86400 ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 1 == 1 ]]
++pid=21400 sub=0 [[ config == config ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ 1 == 1 ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ '' == '' ]]
++pid=21400 sub=0 [[ config == config ]]
++pid=21400 sub=0 [[ present == present ]]
++pid=21400 sub=0 [[ '' == '' ]]

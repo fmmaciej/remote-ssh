@@ -1,0 +1,31 @@
+Command: just smoke
+Working directory: /Users/fm/Programming/00_Other/remote-ssh
+Checkpoint: corrected repair R1
+Exit code: 0
+Runtime SHA-256: parse b478dca2f276abd625a721d0a839ada1b793c19764416cb452387ce39cb7465d; load bfee6c32ce4b94cb7526acd5926cf8df6e44fe60b5dc898d3e706d3d6d470dea; markers 7591de066e72d9674f32677f32258ddafca53d149d72a541a3760ba9099dd0af
+
+Captured command output:
+
+just -f dev/justfile smoke
+./smoke.sh
+[smoke] bash syntax
+[smoke] shellcheck
+[smoke] python checks
+All checks passed!
+Success: no issues found in 12 source files
+[smoke] ok
+just py-test
+UV_CACHE_DIR="${UV_CACHE_DIR:-${TMPDIR:-/tmp}/remote-ssh-uv-cache}" uv run pytest -q tests
+......ssssssssssss............sss...s................................... [  8%]
+..................................................ssssssssssss.......... [ 17%]
+........................................................................ [ 26%]
+.........................ss.ss......sssssssssss...........ssss....ss.... [ 35%]
+ss..ss.................s.s.s.s.......................................... [ 43%]
+........................................................................ [ 52%]
+........................................................................ [ 61%]
+........................................................................ [ 70%]
+........................................................................ [ 78%]
+........................................................................ [ 87%]
+........................................................................ [ 96%]
+..............................                                           [100%]
+765 passed, 57 skipped in 308.64s (0:05:08)

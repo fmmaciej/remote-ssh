@@ -1,0 +1,401 @@
+Corrected R1 regression against frozen Stage B/R0 runtime (not the partially repaired worktree).
+Source reconstruction: stage-b-loader-bash32.json runtime_files/source
+shell/config/parse.sh: 144974b02abba3ed2cabf50fd22474380fba862de0cefb09a99646bd5b2da9cf
+shell/config/load.sh: b34d057eb296bee51ff7d60f842a398182c52718a21e55243d60fedc09857bf3
+shell/config/markers.sh: 7591de066e72d9674f32677f32258ddafca53d149d72a541a3760ba9099dd0af
+Test source SHA256: 7d3bcaacbc8a038451b8e83baf5c5d2318c077762bbe69a6430240a967acbb47
+Command: ['/Users/fm/Programming/00_Other/remote-ssh/dev/.venv/bin/python', '-m', 'pytest', '-q', '-p', 'no:cacheprovider', '/private/tmp/config-loader-r1-corrected-red-iukp8_vx/dev/tests/test_config.py', '-k', 'catalog_failure or catalog_initialization']
+Exit: 1
+
+FF.FF.......F.                                                           [100%]
+=================================== FAILURES ===================================
+____ test_config_catalog_failure_status_and_state[/bin/bash-ordinary-fresh] ____
+
+repo_dir = PosixPath('/private/tmp/config-loader-r1-corrected-red-iukp8_vx')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1137/test_con...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1137/test_config_catalog_failure_st0/home/.local/state'})
+runtime_bash = '/bin/bash', scenario = 'fresh', strict = False
+
+    @pytest.mark.parametrize("scenario", ["fresh", "reload", "disabled"])
+    @pytest.mark.parametrize("strict", [False, True], ids=["ordinary", "strict"])
+    def test_config_catalog_failure_status_and_state(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        scenario: str,
+        strict: bool,
+    ) -> None:
+        env = config_environment(isolated_env, runtime_bash)
+        config = config_path(isolated_env)
+        config.write_text("REMOTE_SSH_WELCOME_USER=old\n")
+        version = run_cmd([runtime_bash, "-c", 'printf "%s" "$BASH_VERSINFO"'], env=env)
+        assert_ok(version)
+        fails_catalog = version.stdout == "3"
+        result = run_cmd(
+            [
+                runtime_bash,
+                "--noprofile",
+                "--norc",
+                "-c",
+                r"""
+                . "$1/shell/config.lib.sh"
+                if [[ "$3" != fresh ]]; then
+                  remote_ssh_config_load
+                fi
+                printf 'REMOTE_SSH_WELCOME_USER=new\n' >"$2"
+                if [[ "$3" == disabled ]]; then
+                  REMOTE_SSH_CONFIG=off
+                fi
+                trap 'status=$?; printf "exit=%s value=%s source=%s loaded=%s\n" \
+                  "$status" "${REMOTE_SSH_WELCOME_USER-unset}" \
+                  "${REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER-unset}" \
+                  "${REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER-unset}"' EXIT
+                set -o posix
+                if [[ "$4" == strict ]]; then
+                  set -euo pipefail
+                fi
+                # Standalone call: do not suppress errexit with if/! or an AND/OR list.
+                remote_ssh_config_load
+                load_status=$?
+                printf 'load=%s\nreached\n' "$load_status"
+                """,
+                "_",
+                repo_dir,
+                config,
+                scenario,
+                "strict" if strict else "ordinary",
+            ],
+            env=env,
+        )
+        failed_load = fails_catalog and scenario != "disabled"
+        expected_status = int(failed_load and strict)
+        if fails_catalog:
+            expected_state = (
+                "value=unset source=unset loaded=unset"
+                if scenario == "fresh"
+                else "value=old source=config loaded=old"
+            )
+        else:
+            expected_state = (
+                "value=unset source=unset loaded=unset"
+                if scenario == "disabled"
+                else "value=new source=config loaded=new"
+            )
+        expected_lines = [] if expected_status else [f"load={int(failed_load)}", "reached"]
+        expected_lines.append(f"exit={expected_status} {expected_state}")
+>       assert (result.returncode, result.stdout.splitlines()) == (expected_status, expected_lines), (
+            result.stderr
+        )
+E       AssertionError: /private/tmp/config-loader-r1-corrected-red-iukp8_vx/shell/config/parse.sh: line 30: <(remote_ssh_config_entries): No such file or directory
+E         
+E       assert (0, ['load=0'...oaded=unset']) == (0, ['load=1'...oaded=unset'])
+E         
+E         At index 1 diff: ['load=0', 'reached', 'exit=0 value=unset source=unset loaded=unset'] != ['load=1', 'reached', 'exit=0 value=unset source=unset loaded=unset']
+E         Use -v to get more diff
+
+dev/tests/test_config.py:377: AssertionError
+___ test_config_catalog_failure_status_and_state[/bin/bash-ordinary-reload] ____
+
+repo_dir = PosixPath('/private/tmp/config-loader-r1-corrected-red-iukp8_vx')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1137/test_con...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1137/test_config_catalog_failure_st1/home/.local/state'})
+runtime_bash = '/bin/bash', scenario = 'reload', strict = False
+
+    @pytest.mark.parametrize("scenario", ["fresh", "reload", "disabled"])
+    @pytest.mark.parametrize("strict", [False, True], ids=["ordinary", "strict"])
+    def test_config_catalog_failure_status_and_state(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        scenario: str,
+        strict: bool,
+    ) -> None:
+        env = config_environment(isolated_env, runtime_bash)
+        config = config_path(isolated_env)
+        config.write_text("REMOTE_SSH_WELCOME_USER=old\n")
+        version = run_cmd([runtime_bash, "-c", 'printf "%s" "$BASH_VERSINFO"'], env=env)
+        assert_ok(version)
+        fails_catalog = version.stdout == "3"
+        result = run_cmd(
+            [
+                runtime_bash,
+                "--noprofile",
+                "--norc",
+                "-c",
+                r"""
+                . "$1/shell/config.lib.sh"
+                if [[ "$3" != fresh ]]; then
+                  remote_ssh_config_load
+                fi
+                printf 'REMOTE_SSH_WELCOME_USER=new\n' >"$2"
+                if [[ "$3" == disabled ]]; then
+                  REMOTE_SSH_CONFIG=off
+                fi
+                trap 'status=$?; printf "exit=%s value=%s source=%s loaded=%s\n" \
+                  "$status" "${REMOTE_SSH_WELCOME_USER-unset}" \
+                  "${REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER-unset}" \
+                  "${REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER-unset}"' EXIT
+                set -o posix
+                if [[ "$4" == strict ]]; then
+                  set -euo pipefail
+                fi
+                # Standalone call: do not suppress errexit with if/! or an AND/OR list.
+                remote_ssh_config_load
+                load_status=$?
+                printf 'load=%s\nreached\n' "$load_status"
+                """,
+                "_",
+                repo_dir,
+                config,
+                scenario,
+                "strict" if strict else "ordinary",
+            ],
+            env=env,
+        )
+        failed_load = fails_catalog and scenario != "disabled"
+        expected_status = int(failed_load and strict)
+        if fails_catalog:
+            expected_state = (
+                "value=unset source=unset loaded=unset"
+                if scenario == "fresh"
+                else "value=old source=config loaded=old"
+            )
+        else:
+            expected_state = (
+                "value=unset source=unset loaded=unset"
+                if scenario == "disabled"
+                else "value=new source=config loaded=new"
+            )
+        expected_lines = [] if expected_status else [f"load={int(failed_load)}", "reached"]
+        expected_lines.append(f"exit={expected_status} {expected_state}")
+>       assert (result.returncode, result.stdout.splitlines()) == (expected_status, expected_lines), (
+            result.stderr
+        )
+E       AssertionError: /private/tmp/config-loader-r1-corrected-red-iukp8_vx/shell/config/parse.sh: line 30: <(remote_ssh_config_entries): No such file or directory
+E         
+E       assert (0, ['load=0'... loaded=old']) == (0, ['load=1'... loaded=old'])
+E         
+E         At index 1 diff: ['load=0', 'reached', 'exit=0 value=old source=config loaded=old'] != ['load=1', 'reached', 'exit=0 value=old source=config loaded=old']
+E         Use -v to get more diff
+
+dev/tests/test_config.py:377: AssertionError
+_____ test_config_catalog_failure_status_and_state[/bin/bash-strict-fresh] _____
+
+repo_dir = PosixPath('/private/tmp/config-loader-r1-corrected-red-iukp8_vx')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1137/test_con...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1137/test_config_catalog_failure_st3/home/.local/state'})
+runtime_bash = '/bin/bash', scenario = 'fresh', strict = True
+
+    @pytest.mark.parametrize("scenario", ["fresh", "reload", "disabled"])
+    @pytest.mark.parametrize("strict", [False, True], ids=["ordinary", "strict"])
+    def test_config_catalog_failure_status_and_state(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        scenario: str,
+        strict: bool,
+    ) -> None:
+        env = config_environment(isolated_env, runtime_bash)
+        config = config_path(isolated_env)
+        config.write_text("REMOTE_SSH_WELCOME_USER=old\n")
+        version = run_cmd([runtime_bash, "-c", 'printf "%s" "$BASH_VERSINFO"'], env=env)
+        assert_ok(version)
+        fails_catalog = version.stdout == "3"
+        result = run_cmd(
+            [
+                runtime_bash,
+                "--noprofile",
+                "--norc",
+                "-c",
+                r"""
+                . "$1/shell/config.lib.sh"
+                if [[ "$3" != fresh ]]; then
+                  remote_ssh_config_load
+                fi
+                printf 'REMOTE_SSH_WELCOME_USER=new\n' >"$2"
+                if [[ "$3" == disabled ]]; then
+                  REMOTE_SSH_CONFIG=off
+                fi
+                trap 'status=$?; printf "exit=%s value=%s source=%s loaded=%s\n" \
+                  "$status" "${REMOTE_SSH_WELCOME_USER-unset}" \
+                  "${REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER-unset}" \
+                  "${REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER-unset}"' EXIT
+                set -o posix
+                if [[ "$4" == strict ]]; then
+                  set -euo pipefail
+                fi
+                # Standalone call: do not suppress errexit with if/! or an AND/OR list.
+                remote_ssh_config_load
+                load_status=$?
+                printf 'load=%s\nreached\n' "$load_status"
+                """,
+                "_",
+                repo_dir,
+                config,
+                scenario,
+                "strict" if strict else "ordinary",
+            ],
+            env=env,
+        )
+        failed_load = fails_catalog and scenario != "disabled"
+        expected_status = int(failed_load and strict)
+        if fails_catalog:
+            expected_state = (
+                "value=unset source=unset loaded=unset"
+                if scenario == "fresh"
+                else "value=old source=config loaded=old"
+            )
+        else:
+            expected_state = (
+                "value=unset source=unset loaded=unset"
+                if scenario == "disabled"
+                else "value=new source=config loaded=new"
+            )
+        expected_lines = [] if expected_status else [f"load={int(failed_load)}", "reached"]
+        expected_lines.append(f"exit={expected_status} {expected_state}")
+>       assert (result.returncode, result.stdout.splitlines()) == (expected_status, expected_lines), (
+            result.stderr
+        )
+E       AssertionError: /private/tmp/config-loader-r1-corrected-red-iukp8_vx/shell/config/parse.sh: line 30: <(remote_ssh_config_entries): No such file or directory
+E         
+E       assert (0, ['load=0'...oaded=unset']) == (1, ['exit=1 ...oaded=unset'])
+E         
+E         At index 0 diff: 0 != 1
+E         Use -v to get more diff
+
+dev/tests/test_config.py:377: AssertionError
+____ test_config_catalog_failure_status_and_state[/bin/bash-strict-reload] _____
+
+repo_dir = PosixPath('/private/tmp/config-loader-r1-corrected-red-iukp8_vx')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1137/test_con...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1137/test_config_catalog_failure_st4/home/.local/state'})
+runtime_bash = '/bin/bash', scenario = 'reload', strict = True
+
+    @pytest.mark.parametrize("scenario", ["fresh", "reload", "disabled"])
+    @pytest.mark.parametrize("strict", [False, True], ids=["ordinary", "strict"])
+    def test_config_catalog_failure_status_and_state(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        scenario: str,
+        strict: bool,
+    ) -> None:
+        env = config_environment(isolated_env, runtime_bash)
+        config = config_path(isolated_env)
+        config.write_text("REMOTE_SSH_WELCOME_USER=old\n")
+        version = run_cmd([runtime_bash, "-c", 'printf "%s" "$BASH_VERSINFO"'], env=env)
+        assert_ok(version)
+        fails_catalog = version.stdout == "3"
+        result = run_cmd(
+            [
+                runtime_bash,
+                "--noprofile",
+                "--norc",
+                "-c",
+                r"""
+                . "$1/shell/config.lib.sh"
+                if [[ "$3" != fresh ]]; then
+                  remote_ssh_config_load
+                fi
+                printf 'REMOTE_SSH_WELCOME_USER=new\n' >"$2"
+                if [[ "$3" == disabled ]]; then
+                  REMOTE_SSH_CONFIG=off
+                fi
+                trap 'status=$?; printf "exit=%s value=%s source=%s loaded=%s\n" \
+                  "$status" "${REMOTE_SSH_WELCOME_USER-unset}" \
+                  "${REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER-unset}" \
+                  "${REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER-unset}"' EXIT
+                set -o posix
+                if [[ "$4" == strict ]]; then
+                  set -euo pipefail
+                fi
+                # Standalone call: do not suppress errexit with if/! or an AND/OR list.
+                remote_ssh_config_load
+                load_status=$?
+                printf 'load=%s\nreached\n' "$load_status"
+                """,
+                "_",
+                repo_dir,
+                config,
+                scenario,
+                "strict" if strict else "ordinary",
+            ],
+            env=env,
+        )
+        failed_load = fails_catalog and scenario != "disabled"
+        expected_status = int(failed_load and strict)
+        if fails_catalog:
+            expected_state = (
+                "value=unset source=unset loaded=unset"
+                if scenario == "fresh"
+                else "value=old source=config loaded=old"
+            )
+        else:
+            expected_state = (
+                "value=unset source=unset loaded=unset"
+                if scenario == "disabled"
+                else "value=new source=config loaded=new"
+            )
+        expected_lines = [] if expected_status else [f"load={int(failed_load)}", "reached"]
+        expected_lines.append(f"exit={expected_status} {expected_state}")
+>       assert (result.returncode, result.stdout.splitlines()) == (expected_status, expected_lines), (
+            result.stderr
+        )
+E       AssertionError: /private/tmp/config-loader-r1-corrected-red-iukp8_vx/shell/config/parse.sh: line 30: <(remote_ssh_config_entries): No such file or directory
+E         
+E       assert (0, ['load=0'... loaded=old']) == (1, ['exit=1 ... loaded=old'])
+E         
+E         At index 0 diff: 0 != 1
+E         Use -v to get more diff
+
+dev/tests/test_config.py:377: AssertionError
+_ test_config_raw_lookup_stops_after_catalog_initialization_failure[/bin/bash] _
+
+repo_dir = PosixPath('/private/tmp/config-loader-r1-corrected-red-iukp8_vx')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1137/test_con...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1137/test_config_raw_lookup_stops_a0/home/.local/state'})
+runtime_bash = '/bin/bash'
+
+    def test_config_raw_lookup_stops_after_catalog_initialization_failure(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str
+    ) -> None:
+        env = config_environment(isolated_env, runtime_bash)
+        config = config_path(isolated_env)
+        config.write_text("REMOTE_SSH_WELCOME_USER=new\n")
+        access_log = isolated_env.home / "path-accessed"
+        result = run_cmd(
+            [
+                runtime_bash,
+                "--noprofile",
+                "--norc",
+                "-c",
+                r"""
+                . "$1/shell/config.lib.sh"
+                config_file="$2"
+                access_log="$3"
+                remote_ssh_config_file() {
+                  printf 'resolved\n' >>"$access_log"
+                  printf '%s\n' "$config_file"
+                }
+                set -o posix
+                remote_ssh_config_file_value_raw REMOTE_SSH_WELCOME_USER
+                lookup_status=$?
+                printf 'lookup=%s bash=%s\n' "$lookup_status" "$BASH_VERSINFO"
+                """,
+                "_",
+                repo_dir,
+                config,
+                access_log,
+            ],
+            env=env,
+        )
+        assert_ok(result)
+        if result.stdout == "lookup=1 bash=3\n":
+>           assert not access_log.exists()
+E           AssertionError: assert not True
+E            +  where True = exists()
+E            +    where exists = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1137/test_config_raw_lookup_stops_a0/home/path-accessed').exists
+
+dev/tests/test_config.py:417: AssertionError
+=========================== short test summary info ============================
+FAILED dev/tests/test_config.py::test_config_catalog_failure_status_and_state[/bin/bash-ordinary-fresh]
+FAILED dev/tests/test_config.py::test_config_catalog_failure_status_and_state[/bin/bash-ordinary-reload]
+FAILED dev/tests/test_config.py::test_config_catalog_failure_status_and_state[/bin/bash-strict-fresh]
+FAILED dev/tests/test_config.py::test_config_catalog_failure_status_and_state[/bin/bash-strict-reload]
+FAILED dev/tests/test_config.py::test_config_raw_lookup_stops_after_catalog_initialization_failure[/bin/bash]
+5 failed, 9 passed, 34 deselected in 0.45s

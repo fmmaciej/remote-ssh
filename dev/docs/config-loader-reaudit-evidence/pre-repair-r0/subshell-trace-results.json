@@ -1,0 +1,27 @@
+{
+  "method": "Bash 5.3 xtrace to FD 9; stderr suppression does not hide child contexts",
+  "scope": "distinct Bash PIDs observed while sourcing config.lib.sh, loading nine keys, and checking values/markers; not a count of all kernel processes",
+  "fixture_sha256": "1a40e20fe72c1a202aa3d0a04ae4a7a5f2508e7a8b172fa99d94342a9ae6f444",
+  "variants": {
+    "before": {
+      "distinct_bash_pids": 318,
+      "max_subshell_depth": 2,
+      "traced_commands": 3597,
+      "runtime_sha256": {
+        "shell/config/parse.sh": "e7b6161fa9ae1bbd63021dea0b9b83f48044261ffdc903a2a2327f26589e1769",
+        "shell/config/load.sh": "7fbd2f3e189b40abe4c2532f773344fcd99a1d14db7325fc5ef45a9f7303fbb0",
+        "shell/config/markers.sh": "48bfeb1f3fe78248b2217022cdd7127d5b065e21b051c8622880fd0eb9f5a5d2"
+      }
+    },
+    "after": {
+      "distinct_bash_pids": 4,
+      "max_subshell_depth": 1,
+      "traced_commands": 577,
+      "runtime_sha256": {
+        "shell/config/parse.sh": "144974b02abba3ed2cabf50fd22474380fba862de0cefb09a99646bd5b2da9cf",
+        "shell/config/load.sh": "b34d057eb296bee51ff7d60f842a398182c52718a21e55243d60fedc09857bf3",
+        "shell/config/markers.sh": "7591de066e72d9674f32677f32258ddafca53d149d72a541a3760ba9099dd0af"
+      }
+    }
+  }
+}

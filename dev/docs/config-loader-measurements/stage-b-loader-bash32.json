@@ -1,0 +1,138 @@
+{
+  "checkpoint": "stage-b",
+  "mode": "loader",
+  "bash": "/bin/bash",
+  "bash_version": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+  "os": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.13.9 (main, Oct 14 2025, 21:10:40) [Clang 20.1.4 ]",
+  "timestamp_utc": "2026-10-27T21:52:14Z",
+  "repo": "/Users/fm/Programming/00_Other/remote-ssh",
+  "fixture_utf8": "REMOTE_SSH_WELCOME=1\nREMOTE_SSH_WELCOME_BANNER=1\nREMOTE_SSH_WELCOME_COLOR=1\nREMOTE_SSH_WELCOME_DEBUG=0\nREMOTE_SSH_WELCOME_USER=1\nREMOTE_SSH_UPDATE_CHECK=1\nREMOTE_SSH_UPDATE_CHECK_INTERVAL=86400\nREMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1\nNO_COLOR=\n",
+  "fixture_sha256": "1a40e20fe72c1a202aa3d0a04ae4a7a5f2508e7a8b172fa99d94342a9ae6f444",
+  "harness_sha256": "c055150fd19613d5f0ef5ae9ef9a4f50035b444b035af0e28929c83612c31714",
+  "runtime_files": {
+    "shell/config/parse.sh": {
+      "sha256": "144974b02abba3ed2cabf50fd22474380fba862de0cefb09a99646bd5b2da9cf",
+      "source": "# shellcheck shell=bash\n\nremote_ssh_config_trim() {\n  local value=\"$1\"\n\n  value=\"${value#\"${value%%[![:space:]]*}\"}\"\n  value=\"${value%\"${value##*[![:space:]]}\"}\"\n  printf '%s\\n' \"$value\"\n}\n\nremote_ssh_config_unquote() {\n  local value=\"$1\"\n\n  case \"$value\" in\n    \\\"*\\\")\n      value=\"${value#\\\"}\"\n      value=\"${value%\\\"}\"\n      ;;\n    \\'*\\')\n      value=\"${value#\\'}\"\n      value=\"${value%\\'}\"\n      ;;\n  esac\n  printf '%s\\n' \"$value\"\n}\n\n# Private output contract: callers declare the three indexed snapshot arrays\n# and count locally. These helpers intentionally update those dynamically scoped\n# locals; scratch names must not shadow any of the four output names.\nremote_ssh_config_snapshot_init() {\n  local __remote_ssh_config_init_key __remote_ssh_config_init_default\n  local __remote_ssh_config_init_index=0\n\n  __remote_ssh_config_snapshot_keys=()\n  __remote_ssh_config_snapshot_values=()\n  __remote_ssh_config_snapshot_present=()\n  __remote_ssh_config_snapshot_count=0\n  while IFS='|' read -r __remote_ssh_config_init_key __remote_ssh_config_init_default; do\n    __remote_ssh_config_snapshot_keys[__remote_ssh_config_init_index]=\"$__remote_ssh_config_init_key\"\n    __remote_ssh_config_snapshot_values[__remote_ssh_config_init_index]=''\n    __remote_ssh_config_snapshot_present[__remote_ssh_config_init_index]=0\n    __remote_ssh_config_init_index=$((__remote_ssh_config_init_index + 1))\n  done < <(remote_ssh_config_entries)\n  __remote_ssh_config_snapshot_count=\"$__remote_ssh_config_init_index\"\n  return 0\n}\n\nremote_ssh_config_snapshot_read() {\n  local __remote_ssh_config_scan_file __remote_ssh_config_scan_line=''\n  local __remote_ssh_config_scan_key __remote_ssh_config_scan_value\n  local __remote_ssh_config_scan_index\n\n  __remote_ssh_config_scan_file=\"$(remote_ssh_config_file 2>/dev/null)\" || return 0\n  [[ -r \"$__remote_ssh_config_scan_file\" ]] || return 0\n\n  # Guard open/read errors as absent entries, including strict-mode callers.\n  if {\n    while IFS= read -r __remote_ssh_config_scan_line || [[ -n \"$__remote_ssh_config_scan_line\" ]]; do\n      __remote_ssh_config_scan_line=\"${__remote_ssh_config_scan_line#\"${__remote_ssh_config_scan_line%%[![:space:]]*}\"}\"\n      __remote_ssh_config_scan_line=\"${__remote_ssh_config_scan_line%\"${__remote_ssh_config_scan_line##*[![:space:]]}\"}\"\n      case \"$__remote_ssh_config_scan_line\" in\n        '' | \\#*) continue ;;\n        *=*) ;;\n        *) continue ;;\n      esac\n\n      __remote_ssh_config_scan_key=\"${__remote_ssh_config_scan_line%%=*}\"\n      __remote_ssh_config_scan_key=\"${__remote_ssh_config_scan_key#\"${__remote_ssh_config_scan_key%%[![:space:]]*}\"}\"\n      __remote_ssh_config_scan_key=\"${__remote_ssh_config_scan_key%\"${__remote_ssh_config_scan_key##*[![:space:]]}\"}\"\n      __remote_ssh_config_scan_index=0\n      while ((__remote_ssh_config_scan_index < __remote_ssh_config_snapshot_count)); do\n        if [[ \"${__remote_ssh_config_snapshot_keys[__remote_ssh_config_scan_index]}\" == \"$__remote_ssh_config_scan_key\" ]]; then\n          __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_line#*=}\"\n          __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_value#\"${__remote_ssh_config_scan_value%%[![:space:]]*}\"}\"\n          __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_value%\"${__remote_ssh_config_scan_value##*[![:space:]]}\"}\"\n          case \"$__remote_ssh_config_scan_value\" in\n            \\\"*\\\")\n              __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_value#\\\"}\"\n              __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_value%\\\"}\"\n              ;;\n            \\'*\\')\n              __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_value#\\'}\"\n              __remote_ssh_config_scan_value=\"${__remote_ssh_config_scan_value%\\'}\"\n              ;;\n          esac\n          __remote_ssh_config_snapshot_values[__remote_ssh_config_scan_index]=\"$__remote_ssh_config_scan_value\"\n          __remote_ssh_config_snapshot_present[__remote_ssh_config_scan_index]=1\n          break\n        fi\n        __remote_ssh_config_scan_index=$((__remote_ssh_config_scan_index + 1))\n      done\n    done <\"$__remote_ssh_config_scan_file\"\n  } 2>/dev/null; then\n    :\n  fi\n  return 0\n}\n\nremote_ssh_config_file_value_raw() {\n  local -a __remote_ssh_config_snapshot_keys=() __remote_ssh_config_snapshot_values=()\n  local -a __remote_ssh_config_snapshot_present=()\n  local __remote_ssh_config_snapshot_count=0 __remote_ssh_config_lookup_index=0\n  local __remote_ssh_config_lookup_key=\"$1\"\n\n  remote_ssh_config_snapshot_init\n  remote_ssh_config_snapshot_read\n  while ((__remote_ssh_config_lookup_index < __remote_ssh_config_snapshot_count)); do\n    if [[ \"${__remote_ssh_config_snapshot_keys[__remote_ssh_config_lookup_index]}\" == \"$__remote_ssh_config_lookup_key\" &&\n      \"${__remote_ssh_config_snapshot_present[__remote_ssh_config_lookup_index]}\" == 1 ]]; then\n      printf '%s\\n' \"${__remote_ssh_config_snapshot_values[__remote_ssh_config_lookup_index]}\"\n      return 0\n    fi\n    __remote_ssh_config_lookup_index=$((__remote_ssh_config_lookup_index + 1))\n  done\n  return 1\n}\n\nremote_ssh_config_file_value() {\n  remote_ssh_config_enabled || return 1\n  remote_ssh_config_file_value_raw \"$@\"\n}\n"
+    },
+    "shell/config/load.sh": {
+      "sha256": "b34d057eb296bee51ff7d60f842a398182c52718a21e55243d60fedc09857bf3",
+      "source": "# shellcheck shell=bash\n\nremote_ssh_config_load() {\n  local -a __remote_ssh_config_snapshot_keys=() __remote_ssh_config_snapshot_values=()\n  local -a __remote_ssh_config_snapshot_present=()\n  local __remote_ssh_config_snapshot_count=0 __remote_ssh_config_load_index=0\n  local __remote_ssh_config_load_key __remote_ssh_config_load_value\n\n  remote_ssh_config_snapshot_init\n  if remote_ssh_config_enabled; then\n    remote_ssh_config_snapshot_read\n  fi\n\n  while ((__remote_ssh_config_load_index < __remote_ssh_config_snapshot_count)); do\n    __remote_ssh_config_load_key=\"${__remote_ssh_config_snapshot_keys[__remote_ssh_config_load_index]}\"\n    if [[ \"${__remote_ssh_config_snapshot_present[__remote_ssh_config_load_index]}\" == 0 ]]; then\n      if remote_ssh_config_value_is_owned \"$__remote_ssh_config_load_key\"; then\n        unset \"$__remote_ssh_config_load_key\"\n      fi\n      remote_ssh_config_clear_source \"$__remote_ssh_config_load_key\"\n    elif [[ -z \"${!__remote_ssh_config_load_key+x}\" ]] || remote_ssh_config_value_is_owned \"$__remote_ssh_config_load_key\"; then\n      __remote_ssh_config_load_value=\"${__remote_ssh_config_snapshot_values[__remote_ssh_config_load_index]}\"\n      export \"$__remote_ssh_config_load_key=$__remote_ssh_config_load_value\"\n      remote_ssh_config_mark_owned \"$__remote_ssh_config_load_key\" \"$__remote_ssh_config_load_value\"\n    else\n      remote_ssh_config_clear_source \"$__remote_ssh_config_load_key\"\n    fi\n    __remote_ssh_config_load_index=$((__remote_ssh_config_load_index + 1))\n  done\n  return 0\n}\n"
+    },
+    "shell/config/markers.sh": {
+      "sha256": "7591de066e72d9674f32677f32258ddafca53d149d72a541a3760ba9099dd0af",
+      "source": "# shellcheck shell=bash\n\nremote_ssh_config_marker_key() {\n  printf '%s\\n' \"${1#REMOTE_SSH_}\"\n}\n\nremote_ssh_config_source_var() {\n  printf 'REMOTE_SSH_CONFIG_SOURCE_%s\\n' \"${1#REMOTE_SSH_}\"\n}\n\nremote_ssh_config_loaded_value_var() {\n  printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\\n' \"${1#REMOTE_SSH_}\"\n}\n\nremote_ssh_config_mark_owned() {\n  local __remote_ssh_config_mark_suffix=\"${1#REMOTE_SSH_}\"\n  local __remote_ssh_config_mark_source_var __remote_ssh_config_mark_loaded_var\n\n  __remote_ssh_config_mark_source_var=\"REMOTE_SSH_CONFIG_SOURCE_$__remote_ssh_config_mark_suffix\"\n  __remote_ssh_config_mark_loaded_var=\"REMOTE_SSH_CONFIG_LOADED_VALUE_$__remote_ssh_config_mark_suffix\"\n  export \"$__remote_ssh_config_mark_source_var=config\"\n  export \"$__remote_ssh_config_mark_loaded_var=$2\"\n}\n\nremote_ssh_config_clear_source() {\n  local __remote_ssh_config_clear_suffix=\"${1#REMOTE_SSH_}\"\n  local __remote_ssh_config_clear_source_var __remote_ssh_config_clear_loaded_var\n\n  __remote_ssh_config_clear_source_var=\"REMOTE_SSH_CONFIG_SOURCE_$__remote_ssh_config_clear_suffix\"\n  __remote_ssh_config_clear_loaded_var=\"REMOTE_SSH_CONFIG_LOADED_VALUE_$__remote_ssh_config_clear_suffix\"\n  unset \"$__remote_ssh_config_clear_source_var\"\n  unset \"$__remote_ssh_config_clear_loaded_var\"\n}\n\nremote_ssh_config_source() {\n  local __remote_ssh_config_source_suffix=\"${1#REMOTE_SSH_}\" __remote_ssh_config_source_name\n\n  __remote_ssh_config_source_name=\"REMOTE_SSH_CONFIG_SOURCE_$__remote_ssh_config_source_suffix\"\n  printf '%s\\n' \"${!__remote_ssh_config_source_name:-}\"\n}\n\nremote_ssh_config_loaded_value() {\n  local __remote_ssh_config_loaded_suffix=\"${1#REMOTE_SSH_}\" __remote_ssh_config_loaded_name\n\n  __remote_ssh_config_loaded_name=\"REMOTE_SSH_CONFIG_LOADED_VALUE_$__remote_ssh_config_loaded_suffix\"\n  [[ -n \"${!__remote_ssh_config_loaded_name+x}\" ]] || return 1\n  printf '%s\\n' \"${!__remote_ssh_config_loaded_name}\"\n}\n\nremote_ssh_config_value_is_current_owned() {\n  local __remote_ssh_config_owned_key=\"$1\" __remote_ssh_config_owned_suffix=\"${1#REMOTE_SSH_}\"\n  local __remote_ssh_config_owned_source_var __remote_ssh_config_owned_loaded_var\n\n  [[ -n \"${!__remote_ssh_config_owned_key+x}\" ]] || return 1\n  __remote_ssh_config_owned_source_var=\"REMOTE_SSH_CONFIG_SOURCE_$__remote_ssh_config_owned_suffix\"\n  __remote_ssh_config_owned_loaded_var=\"REMOTE_SSH_CONFIG_LOADED_VALUE_$__remote_ssh_config_owned_suffix\"\n\n  [[ \"${!__remote_ssh_config_owned_source_var:-}\" == \"config\" ]] || return 1\n  [[ -n \"${!__remote_ssh_config_owned_loaded_var+x}\" ]] || return 1\n  [[ \"${!__remote_ssh_config_owned_key}\" == \"${!__remote_ssh_config_owned_loaded_var}\" ]]\n}\n\nremote_ssh_config_value_is_owned() {\n  remote_ssh_config_value_is_current_owned \"$1\"\n}\n"
+    }
+  },
+  "environment": {
+    "PATH": "<temporary bash shim>:/usr/bin:/bin",
+    "LC_ALL": "C",
+    "TERM": "xterm-256color",
+    "cleaned": "REMOTE_SSH_*, NO_COLOR, BASH_ENV, ENV, SHELLOPTS, BASHOPTS",
+    "loader_home": "isolated; fresh per case, reused across 1 warmup + 7 samples",
+    "pty_home": "isolated; fresh for every warmup and measured sample",
+    "scenario_overrides": {
+      "bash-baseline": {},
+      "remote-ssh-min": {
+        "REMOTE_SSH_WELCOME": "0",
+        "REMOTE_SSH_UPDATE_CHECK": "0"
+      },
+      "remote-ssh-welcome": {
+        "REMOTE_SSH_UPDATE_CHECK": "0",
+        "REMOTE_SSH_WELCOME_USER": "0"
+      }
+    },
+    "optional_tools": {
+      "starship": null,
+      "atuin": null,
+      "fzf": null,
+      "navi": null,
+      "eza": null,
+      "bat": null,
+      "git": "/usr/bin/git",
+      "python3": "/usr/bin/python3"
+    }
+  },
+  "sampling": {
+    "warmup": 1,
+    "measured": 7
+  },
+  "command": "docs/config-loader-measurements/measure.py stage-b --mode loader --bash /bin/bash",
+  "results": {
+    "baseline": {
+      "samples_ms": [
+        3.697958,
+        3.430958,
+        2.719959,
+        2.70425,
+        2.669625,
+        2.584209,
+        2.526708
+      ],
+      "median_ms": 2.70425,
+      "min_ms": 2.526708,
+      "max_ms": 3.697958,
+      "p95_ms": 3.697958
+    },
+    "disabled": {
+      "samples_ms": [
+        7.393125,
+        8.918042,
+        8.604416,
+        7.269083,
+        8.09875,
+        9.158375,
+        7.559
+      ],
+      "median_ms": 8.09875,
+      "min_ms": 7.269083,
+      "max_ms": 9.158375,
+      "p95_ms": 9.158375
+    },
+    "missing": {
+      "samples_ms": [
+        9.446167,
+        8.237,
+        8.458042,
+        8.176375,
+        8.258417,
+        8.32575,
+        8.033083
+      ],
+      "median_ms": 8.258417,
+      "min_ms": 8.033083,
+      "max_ms": 9.446167,
+      "p95_ms": 9.446167
+    },
+    "empty": {
+      "samples_ms": [
+        8.363792,
+        8.283625,
+        8.528541,
+        11.545833,
+        9.40625,
+        8.434667,
+        8.266708
+      ],
+      "median_ms": 8.434667,
+      "min_ms": 8.266708,
+      "max_ms": 11.545833,
+      "p95_ms": 11.545833
+    },
+    "ninekeys": {
+      "samples_ms": [
+        8.889208,
+        8.884292,
+        9.082917,
+        8.657417,
+        9.015416,
+        8.74675,
+        9.54775
+      ],
+      "median_ms": 8.889208,
+      "min_ms": 8.657417,
+      "max_ms": 9.54775,
+      "p95_ms": 9.54775
+    }
+  }
+}

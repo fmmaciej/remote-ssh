@@ -1,0 +1,138 @@
+{
+  "checkpoint": "baseline",
+  "mode": "loader",
+  "bash": "/bin/bash",
+  "bash_version": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+  "os": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.13.9 (main, Oct 14 2025, 21:10:40) [Clang 20.1.4 ]",
+  "timestamp_utc": "2026-10-27T21:47:59Z",
+  "repo": "/Users/fm/Programming/00_Other/remote-ssh",
+  "fixture_utf8": "REMOTE_SSH_WELCOME=1\nREMOTE_SSH_WELCOME_BANNER=1\nREMOTE_SSH_WELCOME_COLOR=1\nREMOTE_SSH_WELCOME_DEBUG=0\nREMOTE_SSH_WELCOME_USER=1\nREMOTE_SSH_UPDATE_CHECK=1\nREMOTE_SSH_UPDATE_CHECK_INTERVAL=86400\nREMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1\nNO_COLOR=\n",
+  "fixture_sha256": "1a40e20fe72c1a202aa3d0a04ae4a7a5f2508e7a8b172fa99d94342a9ae6f444",
+  "harness_sha256": "c055150fd19613d5f0ef5ae9ef9a4f50035b444b035af0e28929c83612c31714",
+  "runtime_files": {
+    "shell/config/parse.sh": {
+      "sha256": "e7b6161fa9ae1bbd63021dea0b9b83f48044261ffdc903a2a2327f26589e1769",
+      "source": "# shellcheck shell=bash\n\nremote_ssh_config_trim() {\n  local value=\"$1\"\n\n  value=\"${value#\"${value%%[![:space:]]*}\"}\"\n  value=\"${value%\"${value##*[![:space:]]}\"}\"\n  printf '%s\\n' \"$value\"\n}\n\nremote_ssh_config_unquote() {\n  local value=\"$1\"\n\n  case \"$value\" in\n    \\\"*\\\")\n      value=\"${value#\\\"}\"\n      value=\"${value%\\\"}\"\n      ;;\n    \\'*\\')\n      value=\"${value#\\'}\"\n      value=\"${value%\\'}\"\n      ;;\n  esac\n  printf '%s\\n' \"$value\"\n}\n\nremote_ssh_config_file_value_raw() {\n  local wanted=\"$1\" file line key value found=0\n\n  file=\"$(remote_ssh_config_file 2>/dev/null)\" || return 1\n  [[ -r \"$file\" ]] || return 1\n\n  while IFS= read -r line || [[ -n \"$line\" ]]; do\n    line=\"$(remote_ssh_config_trim \"$line\")\"\n    case \"$line\" in\n      '' | \\#*) continue ;;\n      *=*) ;;\n      *) continue ;;\n    esac\n\n    key=\"$(remote_ssh_config_trim \"${line%%=*}\")\"\n    remote_ssh_config_key_allowed \"$key\" || continue\n    [[ \"$key\" == \"$wanted\" ]] || continue\n\n    value=\"$(remote_ssh_config_trim \"${line#*=}\")\"\n    value=\"$(remote_ssh_config_unquote \"$value\")\"\n    found=1\n  done <\"$file\"\n\n  if ((found == 1)); then\n    printf '%s\\n' \"$value\"\n    return 0\n  fi\n\n  return 1\n}\n\nremote_ssh_config_file_value() {\n  remote_ssh_config_enabled || return 1\n  remote_ssh_config_file_value_raw \"$@\"\n}\n"
+    },
+    "shell/config/load.sh": {
+      "sha256": "7fbd2f3e189b40abe4c2532f773344fcd99a1d14db7325fc5ef45a9f7303fbb0",
+      "source": "# shellcheck shell=bash\n\nremote_ssh_config_load() {\n  local key _default value\n\n  if ! remote_ssh_config_enabled; then\n    while IFS='|' read -r key _default; do\n      if remote_ssh_config_value_is_owned \"$key\"; then\n        unset \"$key\"\n      fi\n      remote_ssh_config_clear_source \"$key\"\n    done < <(remote_ssh_config_entries)\n    return 0\n  fi\n\n  while IFS='|' read -r key _default; do\n    if ! value=\"$(remote_ssh_config_file_value_raw \"$key\" 2>/dev/null)\"; then\n      if remote_ssh_config_value_is_owned \"$key\"; then\n        unset \"$key\"\n      fi\n      remote_ssh_config_clear_source \"$key\"\n      continue\n    fi\n\n    if [[ -z \"${!key+x}\" ]] || remote_ssh_config_value_is_owned \"$key\"; then\n      export \"$key=$value\"\n      remote_ssh_config_mark_owned \"$key\" \"$value\"\n    else\n      remote_ssh_config_clear_source \"$key\"\n    fi\n  done < <(remote_ssh_config_entries)\n}\n"
+    },
+    "shell/config/markers.sh": {
+      "sha256": "48bfeb1f3fe78248b2217022cdd7127d5b065e21b051c8622880fd0eb9f5a5d2",
+      "source": "# shellcheck shell=bash\n\nremote_ssh_config_marker_key() {\n  local key=\"$1\"\n\n  case \"$key\" in\n    REMOTE_SSH_*) printf '%s\\n' \"${key#REMOTE_SSH_}\" ;;\n    *) printf '%s\\n' \"$key\" ;;\n  esac\n}\n\nremote_ssh_config_source_var() {\n  printf 'REMOTE_SSH_CONFIG_SOURCE_%s\\n' \"$(remote_ssh_config_marker_key \"$1\")\"\n}\n\nremote_ssh_config_loaded_value_var() {\n  printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\\n' \"$(remote_ssh_config_marker_key \"$1\")\"\n}\n\nremote_ssh_config_mark_owned() {\n  local key=\"$1\" value=\"$2\" source_var loaded_var\n\n  source_var=\"$(remote_ssh_config_source_var \"$key\")\"\n  loaded_var=\"$(remote_ssh_config_loaded_value_var \"$key\")\"\n  export \"$source_var=config\"\n  export \"$loaded_var=$value\"\n}\n\nremote_ssh_config_clear_source() {\n  local key=\"$1\" source_var loaded_var\n\n  source_var=\"$(remote_ssh_config_source_var \"$key\")\"\n  loaded_var=\"$(remote_ssh_config_loaded_value_var \"$key\")\"\n  unset \"$source_var\"\n  unset \"$loaded_var\"\n}\n\nremote_ssh_config_source() {\n  local key=\"$1\" source_var\n\n  source_var=\"$(remote_ssh_config_source_var \"$key\")\"\n  printf '%s\\n' \"${!source_var:-}\"\n}\n\nremote_ssh_config_loaded_value() {\n  local key=\"$1\" loaded_var\n\n  loaded_var=\"$(remote_ssh_config_loaded_value_var \"$key\")\"\n  [[ -n \"${!loaded_var+x}\" ]] || return 1\n  printf '%s\\n' \"${!loaded_var}\"\n}\n\nremote_ssh_config_value_is_current_owned() {\n  local key=\"$1\" source_var loaded_var\n\n  [[ -n \"${!key+x}\" ]] || return 1\n  source_var=\"$(remote_ssh_config_source_var \"$key\")\"\n  loaded_var=\"$(remote_ssh_config_loaded_value_var \"$key\")\"\n\n  [[ \"${!source_var:-}\" == \"config\" ]] || return 1\n  [[ -n \"${!loaded_var+x}\" ]] || return 1\n  [[ \"${!key}\" == \"${!loaded_var}\" ]]\n}\n\nremote_ssh_config_value_is_owned() {\n  remote_ssh_config_value_is_current_owned \"$1\"\n}\n"
+    }
+  },
+  "environment": {
+    "PATH": "<temporary bash shim>:/usr/bin:/bin",
+    "LC_ALL": "C",
+    "TERM": "xterm-256color",
+    "cleaned": "REMOTE_SSH_*, NO_COLOR, BASH_ENV, ENV, SHELLOPTS, BASHOPTS",
+    "loader_home": "isolated; fresh per case, reused across 1 warmup + 7 samples",
+    "pty_home": "isolated; fresh for every warmup and measured sample",
+    "scenario_overrides": {
+      "bash-baseline": {},
+      "remote-ssh-min": {
+        "REMOTE_SSH_WELCOME": "0",
+        "REMOTE_SSH_UPDATE_CHECK": "0"
+      },
+      "remote-ssh-welcome": {
+        "REMOTE_SSH_UPDATE_CHECK": "0",
+        "REMOTE_SSH_WELCOME_USER": "0"
+      }
+    },
+    "optional_tools": {
+      "starship": null,
+      "atuin": null,
+      "fzf": null,
+      "navi": null,
+      "eza": null,
+      "bat": null,
+      "git": "/usr/bin/git",
+      "python3": "/usr/bin/python3"
+    }
+  },
+  "sampling": {
+    "warmup": 1,
+    "measured": 7
+  },
+  "command": "docs/config-loader-measurements/measure.py baseline --mode loader --bash /bin/bash",
+  "results": {
+    "baseline": {
+      "samples_ms": [
+        2.848292,
+        3.175209,
+        2.705834,
+        2.682917,
+        2.604333,
+        2.596041,
+        2.663
+      ],
+      "median_ms": 2.682917,
+      "min_ms": 2.596041,
+      "max_ms": 3.175209,
+      "p95_ms": 3.175209
+    },
+    "disabled": {
+      "samples_ms": [
+        30.933042,
+        31.672,
+        34.262375,
+        31.588125,
+        31.345292,
+        30.642916,
+        32.048042
+      ],
+      "median_ms": 31.588125,
+      "min_ms": 30.642916,
+      "max_ms": 34.262375,
+      "p95_ms": 34.262375
+    },
+    "missing": {
+      "samples_ms": [
+        47.79975,
+        57.110125,
+        57.959875,
+        43.823208,
+        43.564958,
+        43.341,
+        52.0005
+      ],
+      "median_ms": 47.79975,
+      "min_ms": 43.341,
+      "max_ms": 57.959875,
+      "p95_ms": 57.959875
+    },
+    "empty": {
+      "samples_ms": [
+        47.781667,
+        43.616,
+        42.431208,
+        43.881709,
+        43.346584,
+        42.94125,
+        42.011875
+      ],
+      "median_ms": 43.346584,
+      "min_ms": 42.011875,
+      "max_ms": 47.781667,
+      "p95_ms": 47.781667
+    },
+    "ninekeys": {
+      "samples_ms": [
+        376.947041,
+        362.624666,
+        361.95775,
+        352.904708,
+        353.816041,
+        392.985333,
+        355.031083
+      ],
+      "median_ms": 361.95775,
+      "min_ms": 352.904708,
+      "max_ms": 392.985333,
+      "p95_ms": 392.985333
+    }
+  }
+}

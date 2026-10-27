@@ -1,0 +1,25 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=/private/tmp/config-reaudit-pytest-r1",
+    "dev/tests/test_config.py",
+    "dev/tests/test_welcome.py",
+    "dev/tests/test_guide.py",
+    "-k",
+    "config"
+  ],
+  "status": 0,
+  "stdout": "................................................................         [100%]\n64 passed, 38 deselected in 7.23s\n",
+  "stderr": "",
+  "source_sha256": {
+    "shell/config/parse.sh": "b478dca2f276abd625a721d0a839ada1b793c19764416cb452387ce39cb7465d",
+    "shell/config/load.sh": "bfee6c32ce4b94cb7526acd5926cf8df6e44fe60b5dc898d3e706d3d6d470dea",
+    "shell/config/markers.sh": "7591de066e72d9674f32677f32258ddafca53d149d72a541a3760ba9099dd0af",
+    "dev/tests/test_config.py": "7d3bcaacbc8a038451b8e83baf5c5d2318c077762bbe69a6430240a967acbb47"
+  }
+}

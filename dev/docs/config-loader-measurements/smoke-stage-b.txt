@@ -1,0 +1,18 @@
+Command: just smoke
+Working directory: /Users/fm/Programming/00_Other/remote-ssh
+Runtime checkpoint: Stage B (same SHA-256 as stage-b-*.json)
+Exit code: 0
+
+Captured output, with pytest progress dot lines omitted:
+
+just -f dev/justfile smoke
+./smoke.sh
+[smoke] bash syntax
+[smoke] shellcheck
+[smoke] python checks
+All checks passed!
+Success: no issues found in 12 source files
+[smoke] ok
+just py-test
+UV_CACHE_DIR="${UV_CACHE_DIR:-${TMPDIR:-/tmp}/remote-ssh-uv-cache}" uv run pytest -q tests
+751 passed, 57 skipped in 285.39s (0:04:45)

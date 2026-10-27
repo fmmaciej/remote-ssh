@@ -1,0 +1,399 @@
+{
+  "source_sha256": {
+    "shell/config/parse.sh": "b478dca2f276abd625a721d0a839ada1b793c19764416cb452387ce39cb7465d",
+    "shell/config/load.sh": "bfee6c32ce4b94cb7526acd5926cf8df6e44fe60b5dc898d3e706d3d6d470dea",
+    "shell/config/markers.sh": "7591de066e72d9674f32677f32258ddafca53d149d72a541a3760ba9099dd0af"
+  },
+  "records": [
+    {
+      "bash": "/bin/bash",
+      "strict": false,
+      "gate": "on",
+      "operation": "load",
+      "status": 0,
+      "stdout": "RETURN:7\nREACHED\nEXIT:0:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:7",
+        "REACHED",
+        "EXIT:0:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/bin/bash",
+      "strict": false,
+      "gate": "on",
+      "operation": "raw",
+      "status": 0,
+      "stdout": "RETURN:7\nREACHED\nEXIT:0:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:7",
+        "REACHED",
+        "EXIT:0:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/bin/bash",
+      "strict": false,
+      "gate": "on",
+      "operation": "gated",
+      "status": 0,
+      "stdout": "RETURN:7\nREACHED\nEXIT:0:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:7",
+        "REACHED",
+        "EXIT:0:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/bin/bash",
+      "strict": false,
+      "gate": "off",
+      "operation": "load",
+      "status": 0,
+      "stdout": "RETURN:0\nREACHED\nEXIT:0:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:0",
+        "REACHED",
+        "EXIT:0:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/bin/bash",
+      "strict": false,
+      "gate": "off",
+      "operation": "raw",
+      "status": 0,
+      "stdout": "RETURN:7\nREACHED\nEXIT:0:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:7",
+        "REACHED",
+        "EXIT:0:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/bin/bash",
+      "strict": false,
+      "gate": "off",
+      "operation": "gated",
+      "status": 0,
+      "stdout": "RETURN:1\nREACHED\nEXIT:0:old:config:old:0\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:1",
+        "REACHED",
+        "EXIT:0:old:config:old:0"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/bin/bash",
+      "strict": true,
+      "gate": "on",
+      "operation": "load",
+      "status": 7,
+      "stdout": "EXIT:7:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 7,
+      "expected_lines": [
+        "EXIT:7:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/bin/bash",
+      "strict": true,
+      "gate": "on",
+      "operation": "raw",
+      "status": 7,
+      "stdout": "EXIT:7:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 7,
+      "expected_lines": [
+        "EXIT:7:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/bin/bash",
+      "strict": true,
+      "gate": "on",
+      "operation": "gated",
+      "status": 7,
+      "stdout": "EXIT:7:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 7,
+      "expected_lines": [
+        "EXIT:7:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/bin/bash",
+      "strict": true,
+      "gate": "off",
+      "operation": "load",
+      "status": 0,
+      "stdout": "RETURN:0\nREACHED\nEXIT:0:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:0",
+        "REACHED",
+        "EXIT:0:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/bin/bash",
+      "strict": true,
+      "gate": "off",
+      "operation": "raw",
+      "status": 7,
+      "stdout": "EXIT:7:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 7,
+      "expected_lines": [
+        "EXIT:7:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/bin/bash",
+      "strict": true,
+      "gate": "off",
+      "operation": "gated",
+      "status": 1,
+      "stdout": "EXIT:1:old:config:old:0\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 1,
+      "expected_lines": [
+        "EXIT:1:old:config:old:0"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "strict": false,
+      "gate": "on",
+      "operation": "load",
+      "status": 0,
+      "stdout": "RETURN:7\nREACHED\nEXIT:0:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:7",
+        "REACHED",
+        "EXIT:0:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "strict": false,
+      "gate": "on",
+      "operation": "raw",
+      "status": 0,
+      "stdout": "RETURN:7\nREACHED\nEXIT:0:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:7",
+        "REACHED",
+        "EXIT:0:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "strict": false,
+      "gate": "on",
+      "operation": "gated",
+      "status": 0,
+      "stdout": "RETURN:7\nREACHED\nEXIT:0:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:7",
+        "REACHED",
+        "EXIT:0:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "strict": false,
+      "gate": "off",
+      "operation": "load",
+      "status": 0,
+      "stdout": "RETURN:0\nREACHED\nEXIT:0:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:0",
+        "REACHED",
+        "EXIT:0:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "strict": false,
+      "gate": "off",
+      "operation": "raw",
+      "status": 0,
+      "stdout": "RETURN:7\nREACHED\nEXIT:0:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:7",
+        "REACHED",
+        "EXIT:0:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "strict": false,
+      "gate": "off",
+      "operation": "gated",
+      "status": 0,
+      "stdout": "RETURN:1\nREACHED\nEXIT:0:old:config:old:0\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:1",
+        "REACHED",
+        "EXIT:0:old:config:old:0"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "strict": true,
+      "gate": "on",
+      "operation": "load",
+      "status": 7,
+      "stdout": "EXIT:7:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 7,
+      "expected_lines": [
+        "EXIT:7:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "strict": true,
+      "gate": "on",
+      "operation": "raw",
+      "status": 7,
+      "stdout": "EXIT:7:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 7,
+      "expected_lines": [
+        "EXIT:7:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "strict": true,
+      "gate": "on",
+      "operation": "gated",
+      "status": 7,
+      "stdout": "EXIT:7:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 7,
+      "expected_lines": [
+        "EXIT:7:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "strict": true,
+      "gate": "off",
+      "operation": "load",
+      "status": 0,
+      "stdout": "RETURN:0\nREACHED\nEXIT:0:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 0,
+      "expected_lines": [
+        "RETURN:0",
+        "REACHED",
+        "EXIT:0:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "strict": true,
+      "gate": "off",
+      "operation": "raw",
+      "status": 7,
+      "stdout": "EXIT:7:old:config:old:1\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 7,
+      "expected_lines": [
+        "EXIT:7:old:config:old:1"
+      ],
+      "passed": true
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "strict": true,
+      "gate": "off",
+      "operation": "gated",
+      "status": 1,
+      "stdout": "EXIT:1:old:config:old:0\n",
+      "stderr": "",
+      "path_resolved": false,
+      "expected_status": 1,
+      "expected_lines": [
+        "EXIT:1:old:config:old:0"
+      ],
+      "passed": true
+    }
+  ],
+  "passed": 24,
+  "total": 24
+}

@@ -1,0 +1,311 @@
++pid=19813 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-9qlkk4n_/before/shell/config.lib.sh
++++pid=19815 sub=1 remote_ssh_config_lib_dir
++++pid=19815 sub=1 local script_path=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-9qlkk4n_/before/shell/config.lib.sh
++++pid=19815 sub=1 case "$script_path" in
++++pid=19815 sub=1 script_path=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-9qlkk4n_/before/shell
++++pid=19815 sub=1 cd -- /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-9qlkk4n_/before/shell
++++pid=19815 sub=1 pwd
+++pid=19813 sub=0 REMOTE_SSH_CONFIG_LIB_DIR=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-9qlkk4n_/before/shell/config
+++pid=19813 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-9qlkk4n_/before/shell/config/entries.sh
+++pid=19813 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-9qlkk4n_/before/shell/config/path.sh
+++pid=19813 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-9qlkk4n_/before/shell/config/parse.sh
+++pid=19813 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-9qlkk4n_/before/shell/config/markers.sh
+++pid=19813 sub=0 . /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/config-independent-pairs-9qlkk4n_/before/shell/config/load.sh
+++pid=19813 sub=0 unset REMOTE_SSH_CONFIG_LIB_DIR
++pid=19813 sub=0 remote_ssh_config_load
++pid=19813 sub=0 local key _default value
++pid=19813 sub=0 remote_ssh_config_enabled
++pid=19813 sub=0 case "${REMOTE_SSH_CONFIG:-1}" in
++pid=19813 sub=0 return 0
++pid=19813 sub=0 IFS='|'
++pid=19813 sub=0 read -r key _default
+++pid=19817 sub=1 remote_ssh_config_entries
+++pid=19817 sub=1 cat
+++pid=19818 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_WELCOME
++pid=19813 sub=0 value=1
++pid=19813 sub=0 [[ -z '' ]]
++pid=19813 sub=0 export REMOTE_SSH_WELCOME=1
++pid=19813 sub=0 REMOTE_SSH_WELCOME=1
++pid=19813 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME 1
++pid=19813 sub=0 local key=REMOTE_SSH_WELCOME value=1 source_var loaded_var
+++pid=19849 sub=1 remote_ssh_config_source_var REMOTE_SSH_WELCOME
++++pid=19850 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME
++++pid=19850 sub=2 local key=REMOTE_SSH_WELCOME
++++pid=19850 sub=2 case "$key" in
++++pid=19850 sub=2 printf '%s\n' WELCOME
+++pid=19849 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' WELCOME
++pid=19813 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME
+++pid=19851 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_WELCOME
++++pid=19852 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME
++++pid=19852 sub=2 local key=REMOTE_SSH_WELCOME
++++pid=19852 sub=2 case "$key" in
++++pid=19852 sub=2 printf '%s\n' WELCOME
+++pid=19851 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' WELCOME
++pid=19813 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME=config
++pid=19813 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME=config
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME=1
++pid=19813 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME=1
++pid=19813 sub=0 IFS='|'
++pid=19813 sub=0 read -r key _default
+++pid=19853 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_WELCOME_BANNER
++pid=19813 sub=0 value=1
++pid=19813 sub=0 [[ -z '' ]]
++pid=19813 sub=0 export REMOTE_SSH_WELCOME_BANNER=1
++pid=19813 sub=0 REMOTE_SSH_WELCOME_BANNER=1
++pid=19813 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME_BANNER 1
++pid=19813 sub=0 local key=REMOTE_SSH_WELCOME_BANNER value=1 source_var loaded_var
+++pid=19884 sub=1 remote_ssh_config_source_var REMOTE_SSH_WELCOME_BANNER
++++pid=19885 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_BANNER
++++pid=19885 sub=2 local key=REMOTE_SSH_WELCOME_BANNER
++++pid=19885 sub=2 case "$key" in
++++pid=19885 sub=2 printf '%s\n' WELCOME_BANNER
+++pid=19884 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' WELCOME_BANNER
++pid=19813 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME_BANNER
+++pid=19886 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_WELCOME_BANNER
++++pid=19887 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_BANNER
++++pid=19887 sub=2 local key=REMOTE_SSH_WELCOME_BANNER
++++pid=19887 sub=2 case "$key" in
++++pid=19887 sub=2 printf '%s\n' WELCOME_BANNER
+++pid=19886 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' WELCOME_BANNER
++pid=19813 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_BANNER
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME_BANNER=config
++pid=19813 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME_BANNER=config
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_BANNER=1
++pid=19813 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_BANNER=1
++pid=19813 sub=0 IFS='|'
++pid=19813 sub=0 read -r key _default
+++pid=19888 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_WELCOME_COLOR
++pid=19813 sub=0 value=1
++pid=19813 sub=0 [[ -z '' ]]
++pid=19813 sub=0 export REMOTE_SSH_WELCOME_COLOR=1
++pid=19813 sub=0 REMOTE_SSH_WELCOME_COLOR=1
++pid=19813 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME_COLOR 1
++pid=19813 sub=0 local key=REMOTE_SSH_WELCOME_COLOR value=1 source_var loaded_var
+++pid=19919 sub=1 remote_ssh_config_source_var REMOTE_SSH_WELCOME_COLOR
++++pid=19920 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_COLOR
++++pid=19920 sub=2 local key=REMOTE_SSH_WELCOME_COLOR
++++pid=19920 sub=2 case "$key" in
++++pid=19920 sub=2 printf '%s\n' WELCOME_COLOR
+++pid=19919 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' WELCOME_COLOR
++pid=19813 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME_COLOR
+++pid=19921 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_WELCOME_COLOR
++++pid=19922 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_COLOR
++++pid=19922 sub=2 local key=REMOTE_SSH_WELCOME_COLOR
++++pid=19922 sub=2 case "$key" in
++++pid=19922 sub=2 printf '%s\n' WELCOME_COLOR
+++pid=19921 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' WELCOME_COLOR
++pid=19813 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_COLOR
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME_COLOR=config
++pid=19813 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME_COLOR=config
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_COLOR=1
++pid=19813 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_COLOR=1
++pid=19813 sub=0 IFS='|'
++pid=19813 sub=0 read -r key _default
+++pid=19923 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_WELCOME_DEBUG
++pid=19813 sub=0 value=0
++pid=19813 sub=0 [[ -z '' ]]
++pid=19813 sub=0 export REMOTE_SSH_WELCOME_DEBUG=0
++pid=19813 sub=0 REMOTE_SSH_WELCOME_DEBUG=0
++pid=19813 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME_DEBUG 0
++pid=19813 sub=0 local key=REMOTE_SSH_WELCOME_DEBUG value=0 source_var loaded_var
+++pid=19955 sub=1 remote_ssh_config_source_var REMOTE_SSH_WELCOME_DEBUG
++++pid=19956 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_DEBUG
++++pid=19956 sub=2 local key=REMOTE_SSH_WELCOME_DEBUG
++++pid=19956 sub=2 case "$key" in
++++pid=19956 sub=2 printf '%s\n' WELCOME_DEBUG
+++pid=19955 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' WELCOME_DEBUG
++pid=19813 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME_DEBUG
+++pid=19957 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_WELCOME_DEBUG
++++pid=19958 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_DEBUG
++++pid=19958 sub=2 local key=REMOTE_SSH_WELCOME_DEBUG
++++pid=19958 sub=2 case "$key" in
++++pid=19958 sub=2 printf '%s\n' WELCOME_DEBUG
+++pid=19957 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' WELCOME_DEBUG
++pid=19813 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_DEBUG
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME_DEBUG=config
++pid=19813 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME_DEBUG=config
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_DEBUG=0
++pid=19813 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_DEBUG=0
++pid=19813 sub=0 IFS='|'
++pid=19813 sub=0 read -r key _default
+++pid=19959 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_WELCOME_USER
++pid=19813 sub=0 value=1
++pid=19813 sub=0 [[ -z '' ]]
++pid=19813 sub=0 export REMOTE_SSH_WELCOME_USER=1
++pid=19813 sub=0 REMOTE_SSH_WELCOME_USER=1
++pid=19813 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_WELCOME_USER 1
++pid=19813 sub=0 local key=REMOTE_SSH_WELCOME_USER value=1 source_var loaded_var
+++pid=19998 sub=1 remote_ssh_config_source_var REMOTE_SSH_WELCOME_USER
++++pid=19999 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_USER
++++pid=19999 sub=2 local key=REMOTE_SSH_WELCOME_USER
++++pid=19999 sub=2 case "$key" in
++++pid=19999 sub=2 printf '%s\n' WELCOME_USER
+++pid=19998 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' WELCOME_USER
++pid=19813 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER
+++pid=20000 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_WELCOME_USER
++++pid=20001 sub=2 remote_ssh_config_marker_key REMOTE_SSH_WELCOME_USER
++++pid=20001 sub=2 local key=REMOTE_SSH_WELCOME_USER
++++pid=20001 sub=2 case "$key" in
++++pid=20001 sub=2 printf '%s\n' WELCOME_USER
+++pid=20000 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' WELCOME_USER
++pid=19813 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER=config
++pid=19813 sub=0 REMOTE_SSH_CONFIG_SOURCE_WELCOME_USER=config
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER=1
++pid=19813 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_WELCOME_USER=1
++pid=19813 sub=0 IFS='|'
++pid=19813 sub=0 read -r key _default
+++pid=20002 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_UPDATE_CHECK
++pid=19813 sub=0 value=1
++pid=19813 sub=0 [[ -z '' ]]
++pid=19813 sub=0 export REMOTE_SSH_UPDATE_CHECK=1
++pid=19813 sub=0 REMOTE_SSH_UPDATE_CHECK=1
++pid=19813 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_UPDATE_CHECK 1
++pid=19813 sub=0 local key=REMOTE_SSH_UPDATE_CHECK value=1 source_var loaded_var
+++pid=20038 sub=1 remote_ssh_config_source_var REMOTE_SSH_UPDATE_CHECK
++++pid=20039 sub=2 remote_ssh_config_marker_key REMOTE_SSH_UPDATE_CHECK
++++pid=20039 sub=2 local key=REMOTE_SSH_UPDATE_CHECK
++++pid=20039 sub=2 case "$key" in
++++pid=20039 sub=2 printf '%s\n' UPDATE_CHECK
+++pid=20038 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' UPDATE_CHECK
++pid=19813 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK
+++pid=20040 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_UPDATE_CHECK
++++pid=20041 sub=2 remote_ssh_config_marker_key REMOTE_SSH_UPDATE_CHECK
++++pid=20041 sub=2 local key=REMOTE_SSH_UPDATE_CHECK
++++pid=20041 sub=2 case "$key" in
++++pid=20041 sub=2 printf '%s\n' UPDATE_CHECK
+++pid=20040 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' UPDATE_CHECK
++pid=19813 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK=config
++pid=19813 sub=0 REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK=config
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK=1
++pid=19813 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK=1
++pid=19813 sub=0 IFS='|'
++pid=19813 sub=0 read -r key _default
+++pid=20042 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_UPDATE_CHECK_INTERVAL
++pid=19813 sub=0 value=86400
++pid=19813 sub=0 [[ -z '' ]]
++pid=19813 sub=0 export REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++pid=19813 sub=0 REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400
++pid=19813 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_UPDATE_CHECK_INTERVAL 86400
++pid=19813 sub=0 local key=REMOTE_SSH_UPDATE_CHECK_INTERVAL value=86400 source_var loaded_var
+++pid=20073 sub=1 remote_ssh_config_source_var REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=20074 sub=2 remote_ssh_config_marker_key REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=20074 sub=2 local key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=20074 sub=2 case "$key" in
++++pid=20074 sub=2 printf '%s\n' UPDATE_CHECK_INTERVAL
+++pid=20073 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' UPDATE_CHECK_INTERVAL
++pid=19813 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK_INTERVAL
+++pid=20075 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=20076 sub=2 remote_ssh_config_marker_key REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=20076 sub=2 local key=REMOTE_SSH_UPDATE_CHECK_INTERVAL
++++pid=20076 sub=2 case "$key" in
++++pid=20076 sub=2 printf '%s\n' UPDATE_CHECK_INTERVAL
+++pid=20075 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' UPDATE_CHECK_INTERVAL
++pid=19813 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK_INTERVAL
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK_INTERVAL=config
++pid=19813 sub=0 REMOTE_SSH_CONFIG_SOURCE_UPDATE_CHECK_INTERVAL=config
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK_INTERVAL=86400
++pid=19813 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_UPDATE_CHECK_INTERVAL=86400
++pid=19813 sub=0 IFS='|'
++pid=19813 sub=0 read -r key _default
+++pid=20077 sub=1 remote_ssh_config_file_value_raw REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++pid=19813 sub=0 value=1
++pid=19813 sub=0 [[ -z '' ]]
++pid=19813 sub=0 export REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++pid=19813 sub=0 REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY=1
++pid=19813 sub=0 remote_ssh_config_mark_owned REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY 1
++pid=19813 sub=0 local key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY value=1 source_var loaded_var
+++pid=20108 sub=1 remote_ssh_config_source_var REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=20109 sub=2 remote_ssh_config_marker_key REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=20109 sub=2 local key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=20109 sub=2 case "$key" in
++++pid=20109 sub=2 printf '%s\n' ENABLE_GIT_SESSION_IDENTITY
+++pid=20108 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' ENABLE_GIT_SESSION_IDENTITY
++pid=19813 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_ENABLE_GIT_SESSION_IDENTITY
+++pid=20110 sub=1 remote_ssh_config_loaded_value_var REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=20111 sub=2 remote_ssh_config_marker_key REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=20111 sub=2 local key=REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
++++pid=20111 sub=2 case "$key" in
++++pid=20111 sub=2 printf '%s\n' ENABLE_GIT_SESSION_IDENTITY
+++pid=20110 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' ENABLE_GIT_SESSION_IDENTITY
++pid=19813 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_ENABLE_GIT_SESSION_IDENTITY
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_SOURCE_ENABLE_GIT_SESSION_IDENTITY=config
++pid=19813 sub=0 REMOTE_SSH_CONFIG_SOURCE_ENABLE_GIT_SESSION_IDENTITY=config
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_ENABLE_GIT_SESSION_IDENTITY=1
++pid=19813 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_ENABLE_GIT_SESSION_IDENTITY=1
++pid=19813 sub=0 IFS='|'
++pid=19813 sub=0 read -r key _default
+++pid=20112 sub=1 remote_ssh_config_file_value_raw NO_COLOR
++pid=19813 sub=0 value=
++pid=19813 sub=0 [[ -z '' ]]
++pid=19813 sub=0 export NO_COLOR=
++pid=19813 sub=0 NO_COLOR=
++pid=19813 sub=0 remote_ssh_config_mark_owned NO_COLOR ''
++pid=19813 sub=0 local key=NO_COLOR value= source_var loaded_var
+++pid=20143 sub=1 remote_ssh_config_source_var NO_COLOR
++++pid=20144 sub=2 remote_ssh_config_marker_key NO_COLOR
++++pid=20144 sub=2 local key=NO_COLOR
++++pid=20144 sub=2 case "$key" in
++++pid=20144 sub=2 printf '%s\n' NO_COLOR
+++pid=20143 sub=1 printf 'REMOTE_SSH_CONFIG_SOURCE_%s\n' NO_COLOR
++pid=19813 sub=0 source_var=REMOTE_SSH_CONFIG_SOURCE_NO_COLOR
+++pid=20145 sub=1 remote_ssh_config_loaded_value_var NO_COLOR
++++pid=20146 sub=2 remote_ssh_config_marker_key NO_COLOR
++++pid=20146 sub=2 local key=NO_COLOR
++++pid=20146 sub=2 case "$key" in
++++pid=20146 sub=2 printf '%s\n' NO_COLOR
+++pid=20145 sub=1 printf 'REMOTE_SSH_CONFIG_LOADED_VALUE_%s\n' NO_COLOR
++pid=19813 sub=0 loaded_var=REMOTE_SSH_CONFIG_LOADED_VALUE_NO_COLOR
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_SOURCE_NO_COLOR=config
++pid=19813 sub=0 REMOTE_SSH_CONFIG_SOURCE_NO_COLOR=config
++pid=19813 sub=0 export REMOTE_SSH_CONFIG_LOADED_VALUE_NO_COLOR=
++pid=19813 sub=0 REMOTE_SSH_CONFIG_LOADED_VALUE_NO_COLOR=
++pid=19813 sub=0 IFS='|'
++pid=19813 sub=0 read -r key _default
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 1 == 1 ]]
++pid=19813 sub=0 [[ config == config ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 1 == 1 ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 1 == 1 ]]
++pid=19813 sub=0 [[ config == config ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 1 == 1 ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 1 == 1 ]]
++pid=19813 sub=0 [[ config == config ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 1 == 1 ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 0 == 0 ]]
++pid=19813 sub=0 [[ config == config ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 0 == 0 ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 1 == 1 ]]
++pid=19813 sub=0 [[ config == config ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 1 == 1 ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 1 == 1 ]]
++pid=19813 sub=0 [[ config == config ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 1 == 1 ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 86400 == 86400 ]]
++pid=19813 sub=0 [[ config == config ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 86400 == 86400 ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 1 == 1 ]]
++pid=19813 sub=0 [[ config == config ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ 1 == 1 ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ '' == '' ]]
++pid=19813 sub=0 [[ config == config ]]
++pid=19813 sub=0 [[ present == present ]]
++pid=19813 sub=0 [[ '' == '' ]]

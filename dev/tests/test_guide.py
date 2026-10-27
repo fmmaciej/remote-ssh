@@ -294,6 +294,69 @@ def test_remote_ssh_guide_config_uses_shared_config_entries(
         assert f"  {key}={default} [default]" in result.stdout
 
 
+def test_remote_ssh_guide_config_file_changes_and_empty_values(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    runtime_bash: str,
+) -> None:
+    (isolated_env.bin_dir / "bash").symlink_to(runtime_bash)
+    env = {
+        key: value
+        for key, value in isolated_env.env.items()
+        if not key.startswith("REMOTE_SSH_") and key != "NO_COLOR"
+    }
+    config = Path(env["XDG_CONFIG_HOME"]) / "remote-ssh" / "config"
+    config.parent.mkdir(parents=True)
+    config.write_text("REMOTE_SSH_WELCOME_BANNER=0\nREMOTE_SSH_WELCOME_USER=\n")
+    result = run_cmd(
+        [
+            runtime_bash,
+            "-c",
+            r"""
+            set -euo pipefail
+            . "$1/shell/config.lib.sh"
+            remote_ssh_config_load
+            "$1/bin/remote-ssh" guide config
+            printf '\n---changed---\n'
+            printf 'REMOTE_SSH_WELCOME_BANNER=1\nREMOTE_SSH_WELCOME_USER=\n' >"$2"
+            "$1/bin/remote-ssh" guide config
+            printf '\n---reloaded---\n'
+            remote_ssh_config_load
+            "$1/bin/remote-ssh" guide config
+            printf '\n---removed---\n'
+            rm "$2"
+            "$1/bin/remote-ssh" guide config
+            printf '\n---cleared---\n'
+            remote_ssh_config_load
+            "$1/bin/remote-ssh" guide config
+            printf '\n---delimiter---\n'
+            printf 'REMOTE_SSH_WELCOME_COLOR=left|right\n' >"$2"
+            "$1/bin/remote-ssh" guide config
+        """,
+            "_",
+            repo_dir,
+            config,
+        ],
+        env=env,
+    )
+    assert_ok(result)
+    initial, rest = result.stdout.split("---changed---")
+    changed, rest = rest.split("---reloaded---")
+    reloaded, rest = rest.split("---removed---")
+    removed, rest = rest.split("---cleared---")
+    cleared, delimiter = rest.split("---delimiter---")
+    assert "  REMOTE_SSH_WELCOME_USER= [config]" in initial
+    assert "  REMOTE_SSH_WELCOME_BANNER=0 [config]" in initial
+    assert "  REMOTE_SSH_WELCOME_USER= [config]" in changed
+    assert "  REMOTE_SSH_WELCOME_BANNER=0 [env]" in changed
+    assert "  REMOTE_SSH_WELCOME_BANNER=1 [config]" in reloaded
+    assert "  REMOTE_SSH_WELCOME_BANNER=1 [env]" in removed
+    assert "  REMOTE_SSH_WELCOME_USER= [env]" in removed
+    assert "  REMOTE_SSH_WELCOME_USER=1 [default]" in cleared
+    # Preserve the guide's existing delimiter display protocol in this refactor.
+    assert "  REMOTE_SSH_WELCOME_COLOR=left [right|config]" in delimiter
+
+
 def test_remote_ssh_guide_supports_scripts_section(
     repo_dir: Path,
     isolated_env: IsolatedEnv,

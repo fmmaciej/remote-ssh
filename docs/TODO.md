@@ -28,7 +28,9 @@
     deliberate design decision.
 
 - Harden archive extraction before unpacking external release assets.
-  - Current risk: `tar`/`unzip` extraction trusts archive paths.
+  - Proposal, not scheduled: [archive extraction](../dev/docs/archive-extraction-plan.md).
+  - Current risk: single-binary `tar`/`unzip` extraction trusts archive paths;
+    bundle mode already has separate validation.
   - Reject absolute paths, `..` traversal, and unsafe symlink entries before
     extraction.
   - Keep the implementation Bash-friendly and compatible with the minimal

@@ -33,6 +33,8 @@ just fmt
   remote-ssh shell startup cost.
 - [Audit Fix Plan](docs/audit-fix-plan.md): correctness fixes and regression
   coverage in delivery order.
+- [Archive Extraction Plan](docs/archive-extraction-plan.md): validation,
+  isolated extraction, and installer failure regressions; not scheduled.
 - [Deferred Shell Simplification](todo-bench.md): startup measurements and
   simplification ideas to revisit after the correctness fixes.
 

@@ -54,45 +54,119 @@ remote_ssh_welcome_cleanup_issues() {
 
 remote_ssh_welcome_run_module() {
   (
-    local module="$1" line out_file status=0
+    local __rs_wr_module="$1" __rs_wr_renderer="${2:-}"
+    local __rs_wr_line __rs_wr_out_file __rs_wr_status=0
 
-    out_file="$(mktemp "${TMPDIR:-/tmp}/remote-ssh-welcome-module.XXXXXX" 2>/dev/null)" || return 0
-    trap 'remote_ssh_welcome_remove_temp_file "$out_file"' EXIT
+    __rs_wr_out_file="$(mktemp "${TMPDIR:-/tmp}/remote-ssh-welcome-module.XXXXXX" 2>/dev/null)" || return 0
+    trap 'remote_ssh_welcome_remove_temp_file "$__rs_wr_out_file"' EXIT
 
     set +e
 
     if remote_ssh_welcome_debug_enabled; then
-      "$module" >"$out_file" </dev/null
-      status=$?
+      if [[ -n "$__rs_wr_renderer" ]]; then
+        (remote_ssh_welcome_bundled_render "$__rs_wr_renderer") >"$__rs_wr_out_file" </dev/null
+      else
+        "$__rs_wr_module" >"$__rs_wr_out_file" </dev/null
+      fi
+      __rs_wr_status=$?
     else
-      "$module" >"$out_file" 2>/dev/null </dev/null
-      status=$?
+      if [[ -n "$__rs_wr_renderer" ]]; then
+        (remote_ssh_welcome_bundled_render "$__rs_wr_renderer") >"$__rs_wr_out_file" 2>/dev/null </dev/null
+      else
+        "$__rs_wr_module" >"$__rs_wr_out_file" 2>/dev/null </dev/null
+      fi
+      __rs_wr_status=$?
     fi
 
-    while IFS= read -r line || [[ -n "$line" ]]; do
-      remote_ssh_welcome_print_line "$line"
-    done <"$out_file"
+    while IFS= read -r __rs_wr_line || [[ -n "$__rs_wr_line" ]]; do
+      remote_ssh_welcome_print_line "$__rs_wr_line"
+    done <"$__rs_wr_out_file"
 
-    if ((status != 0)) && remote_ssh_welcome_debug_enabled; then
-      printf 'remote-ssh welcome: module failed: %s (exit %s)\n' "$module" "$status" >&2
+    if ((__rs_wr_status != 0)) && remote_ssh_welcome_debug_enabled; then
+      printf 'remote-ssh welcome: module failed: %s (exit %s)\n' "$__rs_wr_module" "$__rs_wr_status" >&2
     fi
 
-    return "$status"
+    return "$__rs_wr_status"
   )
 }
 
-remote_ssh_welcome_run_dir() {
-  local dir="$1" module restore_nullglob
+# Both the ordinary user path and bundled fallback retain the old launch scope:
+# exported BASHOPTS sees nullglob on; run_module disables errexit before exec.
+remote_ssh_welcome_run_external_paths() {
+  local __rs_wr_path __rs_wr_had_nullglob=0
 
-  [[ -d "$dir" ]] || return 0
-
-  restore_nullglob="$(shopt -p nullglob || true)"
+  if shopt -q nullglob; then __rs_wr_had_nullglob=1; fi
   shopt -s nullglob
-  for module in "$dir"/*; do
-    [[ -f "$module" && -x "$module" ]] || continue
-    remote_ssh_welcome_run_module "$module" || true
+  for __rs_wr_path in "$@"; do
+    [[ -f "$__rs_wr_path" && -x "$__rs_wr_path" ]] || continue
+    remote_ssh_welcome_run_module "$__rs_wr_path" || true
   done
-  eval "$restore_nullglob"
+  if ((__rs_wr_had_nullglob == 0)); then shopt -u nullglob; fi
+  return 0
+}
+
+remote_ssh_welcome_run_dir() {
+  local __rs_wr_dir="$1" __rs_wr_path __rs_wr_count=0
+  local -a __rs_wr_paths=()
+
+  [[ -d "$__rs_wr_dir" ]] || return 0
+  for __rs_wr_path in "$__rs_wr_dir"/*; do
+    [[ -f "$__rs_wr_path" && -x "$__rs_wr_path" ]] || continue
+    __rs_wr_paths[__rs_wr_count]="$__rs_wr_path"
+    __rs_wr_count=$((__rs_wr_count + 1))
+  done
+  ((__rs_wr_count > 0)) || return 0
+  remote_ssh_welcome_run_external_paths "${__rs_wr_paths[@]}"
+}
+
+remote_ssh_welcome_run_bundled() {
+  local __rs_wr_dir="$1" __rs_wr_path __rs_wr_count=0 __rs_wr_qualified=1
+  local __rs_wr_loaded_dir __rs_wr_selected_dir __rs_wr_worker __rs_wr_worker_status
+  local -a __rs_wr_paths=()
+
+  [[ -d "$__rs_wr_dir" ]] || return 0
+  # Filtering the unmatched literal glob gives the same empty-directory result
+  # without changing caller options during discovery.
+  for __rs_wr_path in "$__rs_wr_dir"/*; do
+    [[ -f "$__rs_wr_path" && -x "$__rs_wr_path" ]] || continue
+    __rs_wr_paths[__rs_wr_count]="$__rs_wr_path"
+    __rs_wr_count=$((__rs_wr_count + 1))
+    remote_ssh_welcome_bundled_renderer "$__rs_wr_dir" "$__rs_wr_path" >/dev/null || __rs_wr_qualified=0
+  done
+  ((__rs_wr_count > 0)) || return 0
+
+  __rs_wr_loaded_dir="$(remote_ssh_welcome_bundled_shell_dir 2>/dev/null)" || __rs_wr_qualified=0
+  __rs_wr_selected_dir="$(builtin cd -P -- "$__rs_wr_dir/.." 2>/dev/null && builtin pwd -P)" || __rs_wr_qualified=0
+  [ "$__rs_wr_loaded_dir" = "$__rs_wr_selected_dir" ] || __rs_wr_qualified=0
+  __rs_wr_worker="$__rs_wr_loaded_dir/welcome/bundled-runner.sh"
+  [[ -f "$__rs_wr_worker" && -x "$__rs_wr_worker" ]] || __rs_wr_qualified=0
+  [[ -z "${BASH_ENV:-}" ]] || __rs_wr_qualified=0
+  remote_ssh_welcome_bundled_options_unexported || __rs_wr_qualified=0
+
+  if ((__rs_wr_qualified == 0)); then
+    remote_ssh_welcome_run_external_paths "${__rs_wr_paths[@]}"
+    return 0
+  fi
+
+  if remote_ssh_welcome_debug_enabled; then
+    if "$__rs_wr_worker" -- "${__rs_wr_paths[@]}"; then
+      __rs_wr_worker_status=0
+    else
+      __rs_wr_worker_status=$?
+    fi
+  elif "$__rs_wr_worker" -- "${__rs_wr_paths[@]}" 2>/dev/null; then
+    __rs_wr_worker_status=0
+  else
+    __rs_wr_worker_status=$?
+  fi
+
+  if ((__rs_wr_worker_status == 125)); then
+    # Only worker preflight may return 125, before any renderer has started.
+    remote_ssh_welcome_run_external_paths "${__rs_wr_paths[@]}"
+  elif ((__rs_wr_worker_status != 0)) && remote_ssh_welcome_debug_enabled; then
+    printf 'remote-ssh welcome: bundled worker failed (exit %s)\n' "$__rs_wr_worker_status" >&2
+  fi
+  return 0
 }
 
 remote_ssh_welcome_user_dir() {
@@ -169,7 +243,7 @@ remote_ssh_welcome_run() {
     bundled_dir="$(remote_ssh_welcome_bundled_dir)"
     user_dir="$(remote_ssh_welcome_user_dir 2>/dev/null || true)"
 
-    remote_ssh_welcome_run_dir "$bundled_dir"
+    remote_ssh_welcome_run_bundled "$bundled_dir"
     if remote_ssh_welcome_user_enabled && [[ -n "$user_dir" ]]; then
       remote_ssh_welcome_run_dir "$user_dir"
     fi

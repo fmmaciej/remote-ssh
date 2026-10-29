@@ -44,6 +44,18 @@ modules live in:
 shell/welcome.d
 ```
 
+The three bundled executables share renderers in the welcome library.
+For the standard files, one fresh Bash worker loads that library once and
+captures each renderer separately before displaying it. Each executable also
+remains directly runnable. The panel still reads the same current status data
+and keeps its full content and order.
+
+The runner uses the existing external execution path for the whole bundled
+group if it finds an extra, modified, or symlinked executable, selects a different
+library tree, cannot use the worker, or inherits a nonempty `BASH_ENV` or exported
+`SHELLOPTS`/`BASHOPTS`. This keeps local replacements and shell startup hooks
+working through their own executable files.
+
 User-local executable modules are loaded after bundled modules from:
 
 ```text
@@ -56,7 +68,12 @@ welcome lines. Copy it to the user-local directory with a numbered name such as
 noninteractive.
 
 User-local modules should stay fast, local-only, and noninteractive; they run
-during shell startup.
+during shell startup. They always run as external executables with their own
+shebang, including files whose names match bundled modules. Each receives empty
+stdin; its completed stdout is replayed before the next module starts. Stderr is
+hidden unless welcome debug mode is enabled, and a failed module does not stop
+later modules. Their shell state cannot change another module or the calling
+shell. Module output has no special issue-message syntax.
 
 ## Toggles
 

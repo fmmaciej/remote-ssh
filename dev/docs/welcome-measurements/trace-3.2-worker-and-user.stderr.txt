@@ -1,0 +1,849 @@
++ remote_ssh_welcome_bundled_worker_main -- /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh
++ local __rs_worker_shell_dir __rs_worker_dir __rs_worker_path __rs_worker_renderer
++ local __rs_worker_selected_dir __rs_worker_function __rs_worker_count=0 __rs_worker_index
++ __rs_worker_paths=()
++ __rs_worker_renderers=()
++ local -a __rs_worker_paths __rs_worker_renderers
+++ builtin cd -P -- /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/..
+++ builtin pwd -P
++ __rs_worker_shell_dir=/private/tmp/remote-ssh-welcome-candidate-r0/shell
++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.lib.sh
++++ remote_ssh_welcome_loader_dir
++++ local script_path=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.lib.sh
++++ case "$script_path" in
++++ script_path=/private/tmp/remote-ssh-welcome-candidate-r0/shell
++++ cd -- /private/tmp/remote-ssh-welcome-candidate-r0/shell
++++ pwd
+++ REMOTE_SSH_WELCOME_LOADER_DIR=/private/tmp/remote-ssh-welcome-candidate-r0/shell
+++ REMOTE_SSH_WELCOME_MODULE_DIR=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome
+++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/update-check.lib.sh
+++++ remote_ssh_update_check_lib_dir
+++++ local script_path=/private/tmp/remote-ssh-welcome-candidate-r0/shell/update-check.lib.sh
+++++ case "$script_path" in
+++++ script_path=/private/tmp/remote-ssh-welcome-candidate-r0/shell
+++++ cd -- /private/tmp/remote-ssh-welcome-candidate-r0/shell
+++++ pwd
++++ REMOTE_SSH_UPDATE_CHECK_LIB_DIR=/private/tmp/remote-ssh-welcome-candidate-r0/shell/update-check
++++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/update-check/toggle.sh
++++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/update-check/state.sh
++++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/update-check/time.sh
++++ unset REMOTE_SSH_UPDATE_CHECK_LIB_DIR
+++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/base.sh
+++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/toggles.sh
+++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/issues.sh
+++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/banner.sh
+++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/host.sh
+++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/update.sh
+++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/commands.sh
+++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/hw.sh
+++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/sw.sh
+++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/bundled.sh
+++ . /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/runner.sh
+++ unset REMOTE_SSH_WELCOME_MODULE_DIR
+++ unset REMOTE_SSH_WELCOME_LOADER_DIR
++ for __rs_worker_function in remote_ssh_welcome_bundled_renderer remote_ssh_welcome_bundled_render remote_ssh_welcome_run_module remote_ssh_welcome_render_remote_ssh remote_ssh_welcome_render_hw remote_ssh_welcome_render_sw
++ declare -F remote_ssh_welcome_bundled_renderer
++ for __rs_worker_function in remote_ssh_welcome_bundled_renderer remote_ssh_welcome_bundled_render remote_ssh_welcome_run_module remote_ssh_welcome_render_remote_ssh remote_ssh_welcome_render_hw remote_ssh_welcome_render_sw
++ declare -F remote_ssh_welcome_bundled_render
++ for __rs_worker_function in remote_ssh_welcome_bundled_renderer remote_ssh_welcome_bundled_render remote_ssh_welcome_run_module remote_ssh_welcome_render_remote_ssh remote_ssh_welcome_render_hw remote_ssh_welcome_render_sw
++ declare -F remote_ssh_welcome_run_module
++ for __rs_worker_function in remote_ssh_welcome_bundled_renderer remote_ssh_welcome_bundled_render remote_ssh_welcome_run_module remote_ssh_welcome_render_remote_ssh remote_ssh_welcome_render_hw remote_ssh_welcome_render_sw
++ declare -F remote_ssh_welcome_render_remote_ssh
++ for __rs_worker_function in remote_ssh_welcome_bundled_renderer remote_ssh_welcome_bundled_render remote_ssh_welcome_run_module remote_ssh_welcome_render_remote_ssh remote_ssh_welcome_render_hw remote_ssh_welcome_render_sw
++ declare -F remote_ssh_welcome_render_hw
++ for __rs_worker_function in remote_ssh_welcome_bundled_renderer remote_ssh_welcome_bundled_render remote_ssh_welcome_run_module remote_ssh_welcome_render_remote_ssh remote_ssh_welcome_render_hw remote_ssh_welcome_render_sw
++ declare -F remote_ssh_welcome_render_sw
++ [[ -- == -- ]]
++ shift
++ (( 3 > 0 ))
++ __rs_worker_dir=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d
+++ builtin cd -P -- /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/..
+++ builtin pwd -P
++ __rs_worker_selected_dir=/private/tmp/remote-ssh-welcome-candidate-r0/shell
++ '[' /private/tmp/remote-ssh-welcome-candidate-r0/shell = /private/tmp/remote-ssh-welcome-candidate-r0/shell ']'
++ for __rs_worker_path in '"$@"'
+++ remote_ssh_welcome_bundled_renderer /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh
+++ local __rs_wb_dir=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d __rs_wb_path=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh __rs_wb_renderer
+++ local __rs_wb_expected __rs_wb_actual= __rs_wb_limit
+++ local '__rs_wb_prologue=#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$SCRIPT_DIR/../welcome.lib.sh"
+
+'
+++ builtin test /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh = /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh
+++ __rs_wb_renderer=remote_ssh_welcome_render_remote_ssh
+++ [[ -f /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh ]]
+++ [[ -x /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh ]]
+++ [[ ! -L /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh ]]
+++ __rs_wb_expected='#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$SCRIPT_DIR/../welcome.lib.sh"
+
+remote_ssh_welcome_render_remote_ssh
+'
+++ __rs_wb_limit=189
+++ LC_ALL=C
+++ IFS=
+++ builtin read -r -d '' -n 189 __rs_wb_actual
+++ builtin test '#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$SCRIPT_DIR/../welcome.lib.sh"
+
+remote_ssh_welcome_render_remote_ssh
+' = '#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$SCRIPT_DIR/../welcome.lib.sh"
+
+remote_ssh_welcome_render_remote_ssh
+'
+++ printf '%s\n' remote_ssh_welcome_render_remote_ssh
++ __rs_worker_renderer=remote_ssh_welcome_render_remote_ssh
++ __rs_worker_paths[__rs_worker_count]=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh
++ __rs_worker_renderers[__rs_worker_count]=remote_ssh_welcome_render_remote_ssh
++ __rs_worker_count=1
++ for __rs_worker_path in '"$@"'
+++ remote_ssh_welcome_bundled_renderer /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh
+++ local __rs_wb_dir=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d __rs_wb_path=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh __rs_wb_renderer
+++ local __rs_wb_expected __rs_wb_actual= __rs_wb_limit
+++ local '__rs_wb_prologue=#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$SCRIPT_DIR/../welcome.lib.sh"
+
+'
+++ builtin test /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh = /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh
+++ builtin test /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh = /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh
+++ __rs_wb_renderer=remote_ssh_welcome_render_hw
+++ [[ -f /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh ]]
+++ [[ -x /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh ]]
+++ [[ ! -L /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh ]]
+++ __rs_wb_expected='#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$SCRIPT_DIR/../welcome.lib.sh"
+
+remote_ssh_welcome_render_hw
+'
+++ __rs_wb_limit=181
+++ LC_ALL=C
+++ IFS=
+++ builtin read -r -d '' -n 181 __rs_wb_actual
+++ builtin test '#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$SCRIPT_DIR/../welcome.lib.sh"
+
+remote_ssh_welcome_render_hw
+' = '#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$SCRIPT_DIR/../welcome.lib.sh"
+
+remote_ssh_welcome_render_hw
+'
+++ printf '%s\n' remote_ssh_welcome_render_hw
++ __rs_worker_renderer=remote_ssh_welcome_render_hw
++ __rs_worker_paths[__rs_worker_count]=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh
++ __rs_worker_renderers[__rs_worker_count]=remote_ssh_welcome_render_hw
++ __rs_worker_count=2
++ for __rs_worker_path in '"$@"'
+++ remote_ssh_welcome_bundled_renderer /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh
+++ local __rs_wb_dir=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d __rs_wb_path=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh __rs_wb_renderer
+++ local __rs_wb_expected __rs_wb_actual= __rs_wb_limit
+++ local '__rs_wb_prologue=#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$SCRIPT_DIR/../welcome.lib.sh"
+
+'
+++ builtin test /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh = /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh
+++ builtin test /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh = /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh
+++ builtin test /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh = /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh
+++ __rs_wb_renderer=remote_ssh_welcome_render_sw
+++ [[ -f /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh ]]
+++ [[ -x /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh ]]
+++ [[ ! -L /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh ]]
+++ __rs_wb_expected='#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$SCRIPT_DIR/../welcome.lib.sh"
+
+remote_ssh_welcome_render_sw
+'
+++ __rs_wb_limit=181
+++ LC_ALL=C
+++ IFS=
+++ builtin read -r -d '' -n 181 __rs_wb_actual
+++ builtin test '#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$SCRIPT_DIR/../welcome.lib.sh"
+
+remote_ssh_welcome_render_sw
+' = '#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$SCRIPT_DIR/../welcome.lib.sh"
+
+remote_ssh_welcome_render_sw
+'
+++ printf '%s\n' remote_ssh_welcome_render_sw
++ __rs_worker_renderer=remote_ssh_welcome_render_sw
++ __rs_worker_paths[__rs_worker_count]=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh
++ __rs_worker_renderers[__rs_worker_count]=remote_ssh_welcome_render_sw
++ __rs_worker_count=3
++ (( __rs_worker_index=0 ))
++ (( __rs_worker_index<__rs_worker_count ))
++ remote_ssh_welcome_run_module /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh remote_ssh_welcome_render_remote_ssh
++ local __rs_wr_module=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh __rs_wr_renderer=remote_ssh_welcome_render_remote_ssh
++ local __rs_wr_line __rs_wr_out_file __rs_wr_status=0
+++ mktemp /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.XXXXXX
++ __rs_wr_out_file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.js68tv
++ trap 'remote_ssh_welcome_remove_temp_file "$__rs_wr_out_file"' EXIT
++ set +e
++ remote_ssh_welcome_debug_enabled
++ remote_ssh_welcome_bool_disabled 1
++ case "${1:-}" in
++ return 1
++ [[ -n 1 ]]
++ [[ -n remote_ssh_welcome_render_remote_ssh ]]
++ remote_ssh_welcome_bundled_render remote_ssh_welcome_render_remote_ssh
++ case "$1" in
++ remote_ssh_welcome_render_remote_ssh
++ remote_ssh_welcome_print_banner
++ local columns
++ remote_ssh_welcome_banner_enabled
++ remote_ssh_welcome_bool_disabled 1
++ case "${1:-}" in
++ return 1
++ case "${COLUMNS:-80}" in
++ columns=100
++ (( columns >= 72 ))
++ remote_ssh_welcome_print_full_banner
++ remote_ssh_welcome_color_enabled
++ [[ -z '' ]]
++ remote_ssh_welcome_bool_disabled 0
++ case "${1:-}" in
++ return 0
++ cat
++ remote_ssh_welcome_color_enabled
++ [[ -z '' ]]
++ remote_ssh_welcome_bool_disabled 0
++ case "${1:-}" in
++ return 0
++ printf 'Remote-SSH\n\n'
++ remote_ssh_welcome_print_host
++ local host ip
+++ hostname -s
++ host=fixture-host
+++ remote_ssh_welcome_host_ip
+++ remote_ssh_welcome_host_ip_from_hostname
+++ local output ip
++++ hostname -I
+++ output=192.0.2.4
+++ for ip in '$output'
+++ case "$ip" in
+++ printf '%s\n' 192.0.2.4
+++ return 0
++ ip=192.0.2.4
++ printf 'host:    %s / %s\n' fixture-host 192.0.2.4
++ remote_ssh_welcome_print_update
++ local cache_file status checked_at_text label cache_readable=0
++ remote_ssh_update_check_enabled
++ case "${REMOTE_SSH_UPDATE_CHECK:-1}" in
++ return 0
+++ remote_ssh_update_check_cache_file
++ cache_file=/private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.local/state/remote-ssh/update-check
++ [[ -n /private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.local/state/remote-ssh/update-check ]]
++ [[ -r /private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.local/state/remote-ssh/update-check ]]
++ cache_readable=1
+++ remote_ssh_update_check_cache_get /private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.local/state/remote-ssh/update-check status
++ status=current
+++ remote_ssh_update_check_cache_get /private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.local/state/remote-ssh/update-check checked_at_text
++ checked_at_text='welcome fixture'
++ case "$status" in
++ label=current
++ checked_at_text='welcome fixture'
++ printf 'update:  %s (checked: %s)\n' current 'welcome fixture'
++ remote_ssh_welcome_load_commands
++ local repo_dir
++ repo_dir=/private/tmp/remote-ssh-welcome-candidate-r0
++ REMOTE_ENV_DIR=/private/tmp/remote-ssh-welcome-candidate-r0
++ export REMOTE_ENV_DIR
++ . /private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/status.lib.sh
++ remote_ssh_welcome_print_tools
++ local tool checked=0 ok=0
++ declare -F read_expected_tools_for_current_platform
++ declare -F remote_ssh_tool_status_load
++ read_expected_tools_for_current_platform
++ local tool
++ configured=()
++ local -a configured
++ REMOTE_SSH_EXPECTED_TOOLS=()
++ REMOTE_SSH_UNSUPPORTED_TOOLS=()
++ REMOTE_SSH_UNKNOWN_TOOLS=()
++ expected_tools_exists
+++ expected_tools_file
+++ local config_home
+++ config_home=/private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.config
+++ printf '%s/remote-ssh/expected-tools\n' /private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.config
++ [[ -f /private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.config/remote-ssh/expected-tools ]]
++ IFS=
++ read -r tool
+++ read_expected_tools
+++ local file line tool
++++ expected_tools_file
++++ local config_home
++++ config_home=/private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.config
++++ printf '%s/remote-ssh/expected-tools\n' /private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.config
+++ file=/private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.config/remote-ssh/expected-tools
+++ [[ -r /private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.config/remote-ssh/expected-tools ]]
+++ IFS=
+++ read -r line
++++ trim_tool_line rg
++++ local line=rg
++++ line=rg
++++ line=rg
++++ line=rg
++++ printf '%s\n' rg
+++ tool=rg
+++ [[ -n rg ]]
+++ printf '%s\n' rg
+++ IFS=
+++ read -r line
++ [[ -n rg ]]
++ configured+=("$tool")
++ IFS=
++ read -r tool
++++ trim_tool_line fd
++++ local line=fd
++++ line=fd
++++ line=fd
++++ line=fd
++++ printf '%s\n' fd
+++ tool=fd
+++ [[ -n fd ]]
+++ printf '%s\n' fd
+++ IFS=
+++ read -r line
+++ [[ -n '' ]]
++ [[ -n fd ]]
++ configured+=("$tool")
++ IFS=
++ read -r tool
++ filter_tools_for_current_platform rg fd
++ local platform raw_os raw_arch libc tool
++ REMOTE_SSH_SUPPORTED_TOOLS=()
++ REMOTE_SSH_UNSUPPORTED_TOOLS=()
++ REMOTE_SSH_UNKNOWN_TOOLS=()
+++ default_platform
+++ local plat raw_os raw_arch libc
++++ detect_platform
++++ local raw_arch raw_os
+++++ uname -m
++++ raw_arch=arm64
+++++ uname -s
+++++ tr '[:upper:]' '[:lower:]'
++++ raw_os=darwin
+++++ normalize_raw_arch arm64
+++++ case "$1" in
+++++ echo aarch64
++++ raw_arch=aarch64
++++ printf '%s|%s\n' darwin aarch64
+++ plat='darwin|aarch64'
+++ IFS='|'
+++ read -r raw_os raw_arch
++++ detect_libc darwin
++++ local raw_os=darwin
++++ [[ darwin == \l\i\n\u\x ]]
++++ echo any
++++ return 0
+++ libc=any
+++ printf '%s:%s:%s\n' darwin aarch64 any
++ platform=darwin:aarch64:any
++ IFS=:
++ read -r raw_os raw_arch libc
++ for tool in '"$@"'
++ known_tool rg
++ local tool=rg
++ [[ -f /private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs/rg.sh ]]
++ default_tool_supported_on_platform rg darwin aarch64 any
++ local tool=rg raw_os=darwin raw_arch=aarch64 libc=any
++ local def_dir=/private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs
++ load_defs /private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs rg
++ local def_dir=/private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs tool=rg
++ local def_file=/private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs/rg.sh
++ [[ -f /private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs/rg.sh ]]
++ unset TOOL_NAME GH_REPO RELEASE_TAG VERSION BINARY_NAME ASSETS CHECKSUMS BINARY_ALIASES
++ unset INSTALL_LAYOUT BINARY_PATH BUNDLE_ROOTS
++ . /private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs/rg.sh
+++ TOOL_NAME=rg
+++ GH_REPO=BurntSushi/ripgrep
+++ RELEASE_TAG=15.1.0
+++ VERSION=15.1.0
+++ BINARY_NAME=rg
+++ ASSETS=("darwin:aarch64:any|ripgrep-15.1.0-aarch64-apple-darwin.tar.gz" "darwin:x86_64:any|ripgrep-15.1.0-x86_64-apple-darwin.tar.gz" "linux:x86_64:musl|ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz" "linux:aarch64:gnu|ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz")
+++ CHECKSUMS=("ripgrep-15.1.0-aarch64-apple-darwin.tar.gz|378e973289176ca0c6054054ee7f631a065874a352bf43f0fa60ef079b6ba715" "ripgrep-15.1.0-x86_64-apple-darwin.tar.gz|64811cb24e77cac3057d6c40b63ac9becf9082eedd54ca411b475b755d334882" "ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz|1c9297be4a084eea7ecaedf93eb03d058d6faae29bbc57ecdaf5063921491599" "ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz|2b661c6ef508e902f388e9098d9c4c5aca72c87b55922d94abdba830b4dc885e")
++ : rg
++ : BurntSushi/ripgrep
++ : 15.1.0
++ : 15.1.0
++ : 'darwin:aarch64:any|ripgrep-15.1.0-aarch64-apple-darwin.tar.gz'
++ BINARY_NAME=rg
++ INSTALL_LAYOUT=binary
++ BINARY_PATH=rg
++ case "$INSTALL_LAYOUT" in
++ remote_ssh_relative_path_valid rg
++ case "$1" in
++ case "/$1/" in
++ declare -p BINARY_ALIASES
++ BINARY_ALIASES=()
++ declare -p CHECKSUMS
++ declare -p BUNDLE_ROOTS
++ BUNDLE_ROOTS=()
++ select_asset darwin aarch64 any 'darwin:aarch64:any|ripgrep-15.1.0-aarch64-apple-darwin.tar.gz' 'darwin:x86_64:any|ripgrep-15.1.0-x86_64-apple-darwin.tar.gz' 'linux:x86_64:musl|ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz' 'linux:aarch64:gnu|ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz'
++ local raw_os=darwin raw_arch=aarch64 libc=any
++ shift 3
++ wanted=()
++ local -a wanted
++ local key rec candidate
++ case "${raw_os}:${libc}" in
++ wanted=("darwin:${raw_arch}:any")
++ for candidate in '${wanted[@]+"${wanted[@]}"}'
++ for rec in '"$@"'
++ key=darwin:aarch64:any
++ [[ darwin:aarch64:any == \d\a\r\w\i\n\:\a\a\r\c\h\6\4\:\a\n\y ]]
++ echo ripgrep-15.1.0-aarch64-apple-darwin.tar.gz
++ return 0
++ REMOTE_SSH_SUPPORTED_TOOLS+=("$tool")
++ for tool in '"$@"'
++ known_tool fd
++ local tool=fd
++ [[ -f /private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs/fd.sh ]]
++ default_tool_supported_on_platform fd darwin aarch64 any
++ local tool=fd raw_os=darwin raw_arch=aarch64 libc=any
++ local def_dir=/private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs
++ load_defs /private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs fd
++ local def_dir=/private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs tool=fd
++ local def_file=/private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs/fd.sh
++ [[ -f /private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs/fd.sh ]]
++ unset TOOL_NAME GH_REPO RELEASE_TAG VERSION BINARY_NAME ASSETS CHECKSUMS BINARY_ALIASES
++ unset INSTALL_LAYOUT BINARY_PATH BUNDLE_ROOTS
++ . /private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs/fd.sh
+++ TOOL_NAME=fd
+++ GH_REPO=sharkdp/fd
+++ RELEASE_TAG=v10.3.0
+++ VERSION=10.3.0
+++ BINARY_NAME=fd
+++ ASSETS=("darwin:aarch64:any|fd-v10.3.0-aarch64-apple-darwin.tar.gz" "darwin:x86_64:any|fd-v10.3.0-x86_64-apple-darwin.tar.gz" "linux:aarch64:musl|fd-v10.3.0-aarch64-unknown-linux-musl.tar.gz" "linux:x86_64:musl|fd-v10.3.0-x86_64-unknown-linux-musl.tar.gz" "linux:aarch64:gnu|fd-v10.3.0-aarch64-unknown-linux-gnu.tar.gz" "linux:x86_64:gnu|fd-v10.3.0-x86_64-unknown-linux-gnu.tar.gz")
++ : fd
++ : sharkdp/fd
++ : v10.3.0
++ : 10.3.0
++ : 'darwin:aarch64:any|fd-v10.3.0-aarch64-apple-darwin.tar.gz'
++ BINARY_NAME=fd
++ INSTALL_LAYOUT=binary
++ BINARY_PATH=fd
++ case "$INSTALL_LAYOUT" in
++ remote_ssh_relative_path_valid fd
++ case "$1" in
++ case "/$1/" in
++ declare -p BINARY_ALIASES
++ BINARY_ALIASES=()
++ declare -p CHECKSUMS
++ CHECKSUMS=()
++ declare -p BUNDLE_ROOTS
++ BUNDLE_ROOTS=()
++ select_asset darwin aarch64 any 'darwin:aarch64:any|fd-v10.3.0-aarch64-apple-darwin.tar.gz' 'darwin:x86_64:any|fd-v10.3.0-x86_64-apple-darwin.tar.gz' 'linux:aarch64:musl|fd-v10.3.0-aarch64-unknown-linux-musl.tar.gz' 'linux:x86_64:musl|fd-v10.3.0-x86_64-unknown-linux-musl.tar.gz' 'linux:aarch64:gnu|fd-v10.3.0-aarch64-unknown-linux-gnu.tar.gz' 'linux:x86_64:gnu|fd-v10.3.0-x86_64-unknown-linux-gnu.tar.gz'
++ local raw_os=darwin raw_arch=aarch64 libc=any
++ shift 3
++ wanted=()
++ local -a wanted
++ local key rec candidate
++ case "${raw_os}:${libc}" in
++ wanted=("darwin:${raw_arch}:any")
++ for candidate in '${wanted[@]+"${wanted[@]}"}'
++ for rec in '"$@"'
++ key=darwin:aarch64:any
++ [[ darwin:aarch64:any == \d\a\r\w\i\n\:\a\a\r\c\h\6\4\:\a\n\y ]]
++ echo fd-v10.3.0-aarch64-apple-darwin.tar.gz
++ return 0
++ REMOTE_SSH_SUPPORTED_TOOLS+=("$tool")
++ REMOTE_SSH_EXPECTED_TOOLS=(${REMOTE_SSH_SUPPORTED_TOOLS[@]+"${REMOTE_SSH_SUPPORTED_TOOLS[@]}"})
++ return 0
++ checked=2
++ for tool in '"${REMOTE_SSH_EXPECTED_TOOLS[@]}"'
++ remote_ssh_tool_status_load rg /private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs
++ [[ 0 -eq 0 ]]
++ ok=1
++ for tool in '"${REMOTE_SSH_EXPECTED_TOOLS[@]}"'
++ remote_ssh_tool_status_load fd /private/tmp/remote-ssh-welcome-candidate-r0/tools/lib/../../tools/defs
++ [[ 0 -eq 0 ]]
++ ok=2
++ printf 'tools:   %s checked / %s ok\n' 2 2
++ (( checked == 0 || ok < checked || 0 > 0 ))
++ remote_ssh_welcome_print_scripts
++ local checked=0 ok=0
++ local name _kind requirements _purpose _example entrypoint backend _docs _use_when
++ IFS='|'
++ read -r name _kind requirements _purpose _example entrypoint backend _docs _use_when
+++ remote_ssh_cmd_scripts_entries
+++ cat
++ [[ -n bssh ]]
++ checked=1
++ remote_ssh_welcome_path_ok shell/rc.d/26-bssh.sh
++ local rel_path=shell/rc.d/26-bssh.sh
++ [[ -n shell/rc.d/26-bssh.sh ]]
++ [[ -e /private/tmp/remote-ssh-welcome-candidate-r0/shell/rc.d/26-bssh.sh ]]
++ remote_ssh_welcome_path_ok shell/rc.d/26-bssh.sh
++ local rel_path=shell/rc.d/26-bssh.sh
++ [[ -n shell/rc.d/26-bssh.sh ]]
++ [[ -e /private/tmp/remote-ssh-welcome-candidate-r0/shell/rc.d/26-bssh.sh ]]
++ remote_ssh_welcome_requirement_ok bssh
++ local reqs=bssh req
++ [[ -n bssh ]]
++ IFS=
++ read -r req
+++ printf '%s\n' bssh
+++ tr , '\n'
+++ remote_ssh_welcome_trim bssh
+++ local value=bssh
+++ value=bssh
+++ value=bssh
+++ printf '%s\n' bssh
++ req=bssh
++ [[ -n bssh ]]
++ command -v bssh
++ IFS=
++ read -r req
++ ok=1
++ IFS='|'
++ read -r name _kind requirements _purpose _example entrypoint backend _docs _use_when
++ [[ -n bssh-ip ]]
++ checked=2
++ remote_ssh_welcome_path_ok shell/rc.d/26-bssh.sh
++ local rel_path=shell/rc.d/26-bssh.sh
++ [[ -n shell/rc.d/26-bssh.sh ]]
++ [[ -e /private/tmp/remote-ssh-welcome-candidate-r0/shell/rc.d/26-bssh.sh ]]
++ remote_ssh_welcome_path_ok shell/rc.d/26-bssh.sh
++ local rel_path=shell/rc.d/26-bssh.sh
++ [[ -n shell/rc.d/26-bssh.sh ]]
++ [[ -e /private/tmp/remote-ssh-welcome-candidate-r0/shell/rc.d/26-bssh.sh ]]
++ remote_ssh_welcome_requirement_ok 'ssh, awk'
++ local 'reqs=ssh, awk' req
++ [[ -n ssh, awk ]]
++ IFS=
++ read -r req
+++ printf '%s\n' 'ssh, awk'
+++ tr , '\n'
+++ remote_ssh_welcome_trim ssh
+++ local value=ssh
+++ value=ssh
+++ value=ssh
+++ printf '%s\n' ssh
++ req=ssh
++ [[ -n ssh ]]
++ command -v ssh
++ IFS=
++ read -r req
+++ remote_ssh_welcome_trim ' awk'
+++ local 'value= awk'
+++ value=awk
+++ value=awk
+++ printf '%s\n' awk
++ req=awk
++ [[ -n awk ]]
++ command -v awk
++ IFS=
++ read -r req
++ ok=2
++ IFS='|'
++ read -r name _kind requirements _purpose _example entrypoint backend _docs _use_when
++ [[ -n ssh-find ]]
++ checked=3
++ remote_ssh_welcome_path_ok bin/ssh-find
++ local rel_path=bin/ssh-find
++ [[ -n bin/ssh-find ]]
++ [[ -e /private/tmp/remote-ssh-welcome-candidate-r0/bin/ssh-find ]]
++ remote_ssh_welcome_path_ok scripts/ssh_find.py
++ local rel_path=scripts/ssh_find.py
++ [[ -n scripts/ssh_find.py ]]
++ [[ -e /private/tmp/remote-ssh-welcome-candidate-r0/scripts/ssh_find.py ]]
++ remote_ssh_welcome_requirement_ok 'python3, ssh, fzf'
++ local 'reqs=python3, ssh, fzf' req
++ [[ -n python3, ssh, fzf ]]
++ IFS=
++ read -r req
+++ printf '%s\n' 'python3, ssh, fzf'
+++ tr , '\n'
+++ remote_ssh_welcome_trim python3
+++ local value=python3
+++ value=python3
+++ value=python3
+++ printf '%s\n' python3
++ req=python3
++ [[ -n python3 ]]
++ command -v python3
++ IFS=
++ read -r req
+++ remote_ssh_welcome_trim ' ssh'
+++ local 'value= ssh'
+++ value=ssh
+++ value=ssh
+++ printf '%s\n' ssh
++ req=ssh
++ [[ -n ssh ]]
++ command -v ssh
++ IFS=
++ read -r req
+++ remote_ssh_welcome_trim ' fzf'
+++ local 'value= fzf'
+++ value=fzf
+++ value=fzf
+++ printf '%s\n' fzf
++ req=fzf
++ [[ -n fzf ]]
++ command -v fzf
++ IFS=
++ read -r req
++ ok=3
++ IFS='|'
++ read -r name _kind requirements _purpose _example entrypoint backend _docs _use_when
++ [[ -n ssh-pick ]]
++ checked=4
++ remote_ssh_welcome_path_ok shell/rc.d/30-ssh-pick.sh
++ local rel_path=shell/rc.d/30-ssh-pick.sh
++ [[ -n shell/rc.d/30-ssh-pick.sh ]]
++ [[ -e /private/tmp/remote-ssh-welcome-candidate-r0/shell/rc.d/30-ssh-pick.sh ]]
++ remote_ssh_welcome_path_ok bin/ssh-find
++ local rel_path=bin/ssh-find
++ [[ -n bin/ssh-find ]]
++ [[ -e /private/tmp/remote-ssh-welcome-candidate-r0/bin/ssh-find ]]
++ remote_ssh_welcome_requirement_ok ssh
++ local reqs=ssh req
++ [[ -n ssh ]]
++ IFS=
++ read -r req
+++ printf '%s\n' ssh
+++ tr , '\n'
+++ remote_ssh_welcome_trim ssh
+++ local value=ssh
+++ value=ssh
+++ value=ssh
+++ printf '%s\n' ssh
++ req=ssh
++ [[ -n ssh ]]
++ command -v ssh
++ IFS=
++ read -r req
++ ok=4
++ IFS='|'
++ read -r name _kind requirements _purpose _example entrypoint backend _docs _use_when
++ printf 'scripts: %s checked / %s ok\n' 4 4
++ (( checked == 0 || ok < checked ))
++ __rs_wr_status=0
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line ' ____  _____ __  __  ___ _____ _____      ____ ____  _   _'
++ printf '%s\n' ' ____  _____ __  __  ___ _____ _____      ____ ____  _   _'
++ printf '%s\n' ' ____  _____ __  __  ___ _____ _____      ____ ____  _   _'
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line '|  _ \| ____|  \/  |/ _ \_   _| ____|    / ___/ ___|| | | |'
++ printf '%s\n' '|  _ \| ____|  \/  |/ _ \_   _| ____|    / ___/ ___|| | | |'
++ printf '%s\n' '|  _ \| ____|  \/  |/ _ \_   _| ____|    / ___/ ___|| | | |'
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line '| |_) |  _| | |\/| | | | || | |  _| _____\___ \___ \| |_| |'
++ printf '%s\n' '| |_) |  _| | |\/| | | | || | |  _| _____\___ \___ \| |_| |'
++ printf '%s\n' '| |_) |  _| | |\/| | | | || | |  _| _____\___ \___ \| |_| |'
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line '|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |'
++ printf '%s\n' '|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |'
++ printf '%s\n' '|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |'
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line '|_| \_\_____|_|  |_|\___/ |_| |_____|    |____/____/|_| |_|'
++ printf '%s\n' '|_| \_\_____|_|  |_|\___/ |_| |_____|    |____/____/|_| |_|'
++ printf '%s\n' '|_| \_\_____|_|  |_|\___/ |_| |_____|    |____/____/|_| |_|'
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line ''
++ printf '%s\n' ''
++ printf '%s\n' ''
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line Remote-SSH
++ printf '%s\n' Remote-SSH
++ printf '%s\n' Remote-SSH
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line ''
++ printf '%s\n' ''
++ printf '%s\n' ''
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line 'host:    fixture-host / 192.0.2.4'
++ printf '%s\n' 'host:    fixture-host / 192.0.2.4'
++ printf '%s\n' 'host:    fixture-host / 192.0.2.4'
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line 'update:  current (checked: welcome fixture)'
++ printf '%s\n' 'update:  current (checked: welcome fixture)'
++ printf '%s\n' 'update:  current (checked: welcome fixture)'
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line 'tools:   2 checked / 2 ok'
++ printf '%s\n' 'tools:   2 checked / 2 ok'
++ printf '%s\n' 'tools:   2 checked / 2 ok'
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line 'scripts: 4 checked / 4 ok'
++ printf '%s\n' 'scripts: 4 checked / 4 ok'
++ printf '%s\n' 'scripts: 4 checked / 4 ok'
++ IFS=
++ read -r __rs_wr_line
++ [[ -n '' ]]
++ (( __rs_wr_status != 0 ))
++ return 0
+++ remote_ssh_welcome_remove_temp_file /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.js68tv
+++ local file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.js68tv
+++ [[ -n /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.js68tv ]]
+++ rm -f /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.js68tv
++ (( __rs_worker_index++ ))
++ (( __rs_worker_index<__rs_worker_count ))
++ remote_ssh_welcome_run_module /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh remote_ssh_welcome_render_hw
++ local __rs_wr_module=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh __rs_wr_renderer=remote_ssh_welcome_render_hw
++ local __rs_wr_line __rs_wr_out_file __rs_wr_status=0
+++ mktemp /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.XXXXXX
++ __rs_wr_out_file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.fJXKA5
++ trap 'remote_ssh_welcome_remove_temp_file "$__rs_wr_out_file"' EXIT
++ set +e
++ remote_ssh_welcome_debug_enabled
++ remote_ssh_welcome_bool_disabled 1
++ case "${1:-}" in
++ return 1
++ [[ -n 1 ]]
++ [[ -n remote_ssh_welcome_render_hw ]]
++ remote_ssh_welcome_bundled_render remote_ssh_welcome_render_hw
++ case "$1" in
++ remote_ssh_welcome_render_hw
++ remote_ssh_welcome_print_hw
++ local cpu ram
+++ remote_ssh_welcome_cpu_count
+++ local count
+++ [[ -r /proc/cpuinfo ]]
+++ command -v sysctl
++++ sysctl -n hw.ncpu
+++ count=8
+++ [[ 8 =~ ^[0-9]+$ ]]
+++ [[ 8 -gt 0 ]]
+++ printf '%s\n' 8
+++ return 0
++ cpu=8
+++ remote_ssh_welcome_ram_gib
+++ local key value _unit bytes gib
+++ [[ -r /proc/meminfo ]]
+++ command -v sysctl
++++ sysctl -n hw.memsize
+++ bytes=17179869184
+++ [[ 17179869184 =~ ^[0-9]+$ ]]
+++ [[ 17179869184 -gt 0 ]]
+++ gib=16
+++ (( gib > 0 ))
+++ printf '%s GiB\n' 16
+++ return 0
++ ram='16 GiB'
++ printf 'hw:      %s cpu / %s ram\n' 8 '16 GiB'
++ __rs_wr_status=0
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line 'hw:      8 cpu / 16 GiB ram'
++ printf '%s\n' 'hw:      8 cpu / 16 GiB ram'
++ printf '%s\n' 'hw:      8 cpu / 16 GiB ram'
++ IFS=
++ read -r __rs_wr_line
++ [[ -n '' ]]
++ (( __rs_wr_status != 0 ))
++ return 0
+++ remote_ssh_welcome_remove_temp_file /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.fJXKA5
+++ local file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.fJXKA5
+++ [[ -n /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.fJXKA5 ]]
+++ rm -f /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.fJXKA5
++ (( __rs_worker_index++ ))
++ (( __rs_worker_index<__rs_worker_count ))
++ remote_ssh_welcome_run_module /private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh remote_ssh_welcome_render_sw
++ local __rs_wr_module=/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh __rs_wr_renderer=remote_ssh_welcome_render_sw
++ local __rs_wr_line __rs_wr_out_file __rs_wr_status=0
+++ mktemp /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.XXXXXX
++ __rs_wr_out_file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.vsJgVn
++ trap 'remote_ssh_welcome_remove_temp_file "$__rs_wr_out_file"' EXIT
++ set +e
++ remote_ssh_welcome_debug_enabled
++ remote_ssh_welcome_bool_disabled 1
++ case "${1:-}" in
++ return 1
++ [[ -n 1 ]]
++ [[ -n remote_ssh_welcome_render_sw ]]
++ remote_ssh_welcome_bundled_render remote_ssh_welcome_render_sw
++ case "$1" in
++ remote_ssh_welcome_render_sw
++ remote_ssh_welcome_print_sw
++ local agent_status git_status issue
+++ remote_ssh_welcome_ssh_agent_status
+++ local output status
+++ [[ -z /private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/agent.sock ]]
+++ command -v ssh-add
++++ ssh-add -l
+++ output='256 fixture key'
+++ status=0
+++ [[ 0 -eq 0 ]]
+++ printf 'ok\n'
++ agent_status=ok
+++ remote_ssh_welcome_git_user_config_status
+++ local repo_dir user_config name email
+++ case "${REMOTE_SSH_GIT_SESSION_IDENTITY_STATUS:-}" in
+++ printf '%s\n' ok
+++ return 0
++ git_status=ok
++ printf 'sw:      ssh-agent %s / git config %s\n' ok ok
++ case "$git_status" in
++ issue=
++ [[ -n '' ]]
++ return 0
++ __rs_wr_status=0
++ IFS=
++ read -r __rs_wr_line
++ remote_ssh_welcome_print_line 'sw:      ssh-agent ok / git config ok'
++ printf '%s\n' 'sw:      ssh-agent ok / git config ok'
++ printf '%s\n' 'sw:      ssh-agent ok / git config ok'
++ IFS=
++ read -r __rs_wr_line
++ [[ -n '' ]]
++ (( __rs_wr_status != 0 ))
++ return 0
+++ remote_ssh_welcome_remove_temp_file /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.vsJgVn
+++ local file=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.vsJgVn
+++ [[ -n /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.vsJgVn ]]
+++ rm -f /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-welcome-module.vsJgVn
++ (( __rs_worker_index++ ))
++ (( __rs_worker_index<__rs_worker_count ))
++ return 0
++ printf 'user-external\n'

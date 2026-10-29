@@ -1,0 +1,14 @@
+{
+  "command": [
+    "just",
+    "smoke"
+  ],
+  "start_new_session": true,
+  "stdin": "/dev/null",
+  "returncode": 0,
+  "elapsed_seconds": 313.9640686661005,
+  "raw_log": "r1-detached-smoke.log",
+  "raw_log_sha256": "8d62489bc65b1e9e804bf2e967cb329aa58401e6258c7537b351cd07cfabb199",
+  "driver_sha256": "51bea9f9efe8d3ab11ea37044d27de474e3e77a03206a563e15759681d22958d",
+  "runtime_test_freeze_sha256": "e8d4efe1ed2676f30bf6d4af7cb41ac65c97a36591f27dcaf14562a16f5b484e"
+}

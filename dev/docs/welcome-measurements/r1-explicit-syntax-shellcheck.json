@@ -1,0 +1,116 @@
+{
+  "syntax": [
+    {
+      "bash": "/bin/bash",
+      "source": "shell/welcome.lib.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/bin/bash",
+      "source": "shell/welcome/runner.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/bin/bash",
+      "source": "shell/welcome/bundled.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/bin/bash",
+      "source": "shell/welcome/bundled-runner.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/bin/bash",
+      "source": "shell/welcome.d/00-remote-ssh.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/bin/bash",
+      "source": "shell/welcome.d/10-hw.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/bin/bash",
+      "source": "shell/welcome.d/20-sw.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "source": "shell/welcome.lib.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "source": "shell/welcome/runner.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "source": "shell/welcome/bundled.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "source": "shell/welcome/bundled-runner.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "source": "shell/welcome.d/00-remote-ssh.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "source": "shell/welcome.d/10-hw.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "bash": "/opt/homebrew/bin/bash",
+      "source": "shell/welcome.d/20-sw.sh",
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "shellcheck": {
+    "paths": [
+      "shell/welcome.lib.sh",
+      "shell/welcome/runner.sh",
+      "shell/welcome/bundled.sh",
+      "shell/welcome/bundled-runner.sh",
+      "shell/welcome.d/00-remote-ssh.sh",
+      "shell/welcome.d/10-hw.sh",
+      "shell/welcome.d/20-sw.sh"
+    ],
+    "status": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+}

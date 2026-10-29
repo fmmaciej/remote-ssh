@@ -1,0 +1,89 @@
+{
+  "runtime_fingerprint": "f9fc66f5936a0aec6f31a46e60bfba272c9cae9702310cde414cbb95659d723b",
+  "records": [
+    {
+      "bash": "3.2",
+      "route": "worker-and-user",
+      "args": [
+        "/bin/bash",
+        "-c",
+        ". \"$1/shell/welcome.lib.sh\"; remote_ssh_welcome_run; printf \"%s\\n\" \"$2\"",
+        "_",
+        "/private/tmp/remote-ssh-welcome-candidate-r0",
+        "__WELCOME_FIRST_COMMAND_READY__"
+      ],
+      "executions": [
+        "/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/bundled-runner.sh",
+        "/private/tmp/remote-ssh-welcome-measurements/trace-3.2-worker-and-user/home/.config/remote-ssh/welcome.d/50-trace-user.sh"
+      ],
+      "returncode": 0,
+      "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\nuser-external\n__WELCOME_FIRST_COMMAND_READY__\n",
+      "stderr_path": "trace-3.2-worker-and-user.stderr.txt",
+      "method": "env-Bash probe logs executable script then execs the selected real Bash with -x; ordinary timed samples use a direct bash symlink instead"
+    },
+    {
+      "bash": "3.2",
+      "route": "external-and-user",
+      "args": [
+        "/bin/bash",
+        "-c",
+        ". \"$1/shell/welcome.lib.sh\"; export BASH_ENV=/dev/null; remote_ssh_welcome_run; printf \"%s\\n\" \"$2\"",
+        "_",
+        "/private/tmp/remote-ssh-welcome-candidate-r0",
+        "__WELCOME_FIRST_COMMAND_READY__"
+      ],
+      "executions": [
+        "/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh",
+        "/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh",
+        "/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh",
+        "/private/tmp/remote-ssh-welcome-measurements/trace-3.2-external-and-user/home/.config/remote-ssh/welcome.d/50-trace-user.sh"
+      ],
+      "returncode": 0,
+      "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\nuser-external\n__WELCOME_FIRST_COMMAND_READY__\n",
+      "stderr_path": "trace-3.2-external-and-user.stderr.txt",
+      "method": "env-Bash probe logs executable script then execs the selected real Bash with -x; ordinary timed samples use a direct bash symlink instead"
+    },
+    {
+      "bash": "5.3",
+      "route": "worker-and-user",
+      "args": [
+        "/opt/homebrew/bin/bash",
+        "-c",
+        ". \"$1/shell/welcome.lib.sh\"; remote_ssh_welcome_run; printf \"%s\\n\" \"$2\"",
+        "_",
+        "/private/tmp/remote-ssh-welcome-candidate-r0",
+        "__WELCOME_FIRST_COMMAND_READY__"
+      ],
+      "executions": [
+        "/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome/bundled-runner.sh",
+        "/private/tmp/remote-ssh-welcome-measurements/trace-5.3-worker-and-user/home/.config/remote-ssh/welcome.d/50-trace-user.sh"
+      ],
+      "returncode": 0,
+      "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\nuser-external\n__WELCOME_FIRST_COMMAND_READY__\n",
+      "stderr_path": "trace-5.3-worker-and-user.stderr.txt",
+      "method": "env-Bash probe logs executable script then execs the selected real Bash with -x; ordinary timed samples use a direct bash symlink instead"
+    },
+    {
+      "bash": "5.3",
+      "route": "external-and-user",
+      "args": [
+        "/opt/homebrew/bin/bash",
+        "-c",
+        ". \"$1/shell/welcome.lib.sh\"; export BASH_ENV=/dev/null; remote_ssh_welcome_run; printf \"%s\\n\" \"$2\"",
+        "_",
+        "/private/tmp/remote-ssh-welcome-candidate-r0",
+        "__WELCOME_FIRST_COMMAND_READY__"
+      ],
+      "executions": [
+        "/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/00-remote-ssh.sh",
+        "/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/10-hw.sh",
+        "/private/tmp/remote-ssh-welcome-candidate-r0/shell/welcome.d/20-sw.sh",
+        "/private/tmp/remote-ssh-welcome-measurements/trace-5.3-external-and-user/home/.config/remote-ssh/welcome.d/50-trace-user.sh"
+      ],
+      "returncode": 0,
+      "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\nuser-external\n__WELCOME_FIRST_COMMAND_READY__\n",
+      "stderr_path": "trace-5.3-external-and-user.stderr.txt",
+      "method": "env-Bash probe logs executable script then execs the selected real Bash with -x; ordinary timed samples use a direct bash symlink instead"
+    }
+  ]
+}

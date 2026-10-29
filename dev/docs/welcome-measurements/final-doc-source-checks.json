@@ -1,0 +1,293 @@
+{
+  "status": "PASS",
+  "tracked_git_diff_check": 0,
+  "source_whitespace_including_new_untracked_files": [
+    "dev/docs/bench-shell.md",
+    "dev/docs/welcome-implementation-record.md",
+    "dev/docs/welcome-measurements/README.md",
+    "dev/docs/welcome-measurements/compatibility.py",
+    "dev/docs/welcome-measurements/diagnose-r1.py",
+    "dev/docs/welcome-measurements/frozen_bench/bench/__init__.py",
+    "dev/docs/welcome-measurements/frozen_bench/bench/model.py",
+    "dev/docs/welcome-measurements/frozen_bench/bench/pty_runner.py",
+    "dev/docs/welcome-measurements/frozen_bench/bench/references.py",
+    "dev/docs/welcome-measurements/frozen_bench/bench/report.py",
+    "dev/docs/welcome-measurements/frozen_bench/bench/scenarios.py",
+    "dev/docs/welcome-measurements/frozen_bench/bench/shell_startup.py",
+    "dev/docs/welcome-measurements/frozen_bench/bench/stats.py",
+    "dev/docs/welcome-measurements/harness.py",
+    "dev/docs/welcome-measurements/materialize-r1.py",
+    "dev/docs/welcome-measurements/r1-trace/frozen_bench/bench/__init__.py",
+    "dev/docs/welcome-measurements/r1-trace/frozen_bench/bench/model.py",
+    "dev/docs/welcome-measurements/r1-trace/frozen_bench/bench/pty_runner.py",
+    "dev/docs/welcome-measurements/r1-trace/frozen_bench/bench/references.py",
+    "dev/docs/welcome-measurements/r1-trace/frozen_bench/bench/report.py",
+    "dev/docs/welcome-measurements/r1-trace/frozen_bench/bench/scenarios.py",
+    "dev/docs/welcome-measurements/r1-trace/frozen_bench/bench/shell_startup.py",
+    "dev/docs/welcome-measurements/r1-trace/frozen_bench/bench/stats.py",
+    "dev/docs/welcome-measurements/r1-trace/harness.py",
+    "dev/docs/welcome-measurements/r1-trace/trace.py",
+    "dev/docs/welcome-measurements/run-verified-checks.py",
+    "dev/docs/welcome-measurements/trace.py",
+    "dev/docs/welcome-measurements/verify-r1.py",
+    "dev/tests/conftest.py",
+    "dev/tests/test_welcome.py",
+    "dev/tests/test_welcome_bundled.py",
+    "docs/shell/welcome.md",
+    "shell/welcome.d/00-remote-ssh.sh",
+    "shell/welcome.d/10-hw.sh",
+    "shell/welcome.d/20-sw.sh",
+    "shell/welcome.lib.sh",
+    "shell/welcome/bundled-runner.sh",
+    "shell/welcome/bundled.sh",
+    "shell/welcome/runner.sh"
+  ],
+  "raw_data_note": "raw transcript/text/JSONL payloads are preserved byte-for-byte and excluded from source-whitespace normalization",
+  "local_markdown_links": [
+    {
+      "source": "docs/shell/welcome.md",
+      "target": "../shell.md",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/bench-shell.md",
+      "target": "../README.md",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/bench-shell.md",
+      "target": "welcome-implementation-record.md",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/bench-shell.md",
+      "target": "config-loader-implementation-record.md",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/bench-shell.md",
+      "target": "config-loader-reaudit-performance.md",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "../README.md",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-implementation-plan.md",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-plan-audit.md",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/README.md",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/focused-root-unsandboxed.log",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/candidate-r0-frozen.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/execution-trace.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/trace-review.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/paired-r0-attempt-1.jsonl",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/paired-r0-attempt-1.log",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-repair-plan.md",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-w1-red.log",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-w1-green.log",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/materialize-r1.py",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/candidate-r1-frozen.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-complete-runtime.patch",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-runtime-tests-final-freeze.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-former-failure-diagnostic.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-rejected-r0-accounting.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-trace/execution-trace.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-trace/trace-review.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-explicit-syntax-shellcheck.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-implementation-audit.md#r1-recheck-before-timings",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/smoke-r0-auxiliary-interrupted.log",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/smoke-r1-inherited-tty-attempt.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/run-verified-checks.py",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-detached-smoke.log",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-detached-smoke.metadata.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/paired-r1.jsonl",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/paired-r1.metadata.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/paired-r1.log",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/paired-r1-summary.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-checkpoint-before-timings.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/r1-checkpoint-after-timings.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-implementation-record.md",
+      "target": "welcome-measurements/root-final-source-check.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-measurements/README.md",
+      "target": "../welcome-implementation-record.md",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-measurements/README.md",
+      "target": "paired-r1.jsonl",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-measurements/README.md",
+      "target": "paired-r1.metadata.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-measurements/README.md",
+      "target": "paired-r1.log",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-measurements/README.md",
+      "target": "paired-r1-summary.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-measurements/README.md",
+      "target": "../welcome-implementation-record.md",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-measurements/README.md",
+      "target": "r1-detached-smoke.log",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-measurements/README.md",
+      "target": "r1-detached-smoke.metadata.json",
+      "exists": true
+    },
+    {
+      "source": "dev/docs/welcome-measurements/README.md",
+      "target": "root-final-source-check.json",
+      "exists": true
+    }
+  ]
+}

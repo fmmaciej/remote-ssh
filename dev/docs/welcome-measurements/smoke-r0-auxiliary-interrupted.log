@@ -1,0 +1,30 @@
+Auxiliary run only: runtime changed to R1 while this command was running.
+Not a final verification result. Root interrupted the stuck pytest with SIGINT.
+
+just -f dev/justfile smoke
+./smoke.sh
+[smoke] bash syntax
+[smoke] shellcheck
+[smoke] python checks
+All checks passed!
+Success: no issues found in 12 source files
+[smoke] ok
+just py-test
+UV_CACHE_DIR="${UV_CACHE_DIR:-${TMPDIR:-/tmp}/remote-ssh-uv-cache}" uv run pytest -q tests
+......ssssssssssss............sss...s................................... [  7%]
+..................................................ssssssssssss.......... [ 15%]
+........................................................................ [ 23%]
+.........................ss.ss......sssssssssss...........ssss....ss.... [ 31%]
+ss..ss.................s.s.s.s.......................................... [ 39%]
+........................................................................ [ 47%]
+........................................................................ [ 55%]
+................................................................
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/Users/fm/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2139: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+511 passed, 57 skipped in 2412.21s (0:40:12)
+error: recipe `py-test` failed on line 33 with exit code 2
+error: recipe `smoke` failed on line 46 with exit code 2
+error: recipe `smoke` failed on line 27 with exit code 2
+
+exit_code: 2

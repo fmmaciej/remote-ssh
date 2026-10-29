@@ -37,6 +37,9 @@ just fmt
   [initial implementation audit](docs/config-loader-implementation-audit.md),
   [fresh behavior re-audit](docs/config-loader-independent-reaudit.md), and
   [independent performance verification](docs/config-loader-reaudit-performance.md).
+- [Welcome Optimization](docs/welcome-implementation-record.md): implementation
+  and measurements following the [accepted plan](docs/welcome-implementation-plan.md),
+  with the [independent implementation audit](docs/welcome-implementation-audit.md).
 - [Audit Fix Plan](docs/audit-fix-plan.md): correctness fixes and regression
   coverage in delivery order.
 - [Archive Extraction Plan](docs/archive-extraction-plan.md): validation,

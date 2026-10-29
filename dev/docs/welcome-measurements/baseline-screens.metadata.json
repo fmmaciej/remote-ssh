@@ -1,0 +1,814 @@
+{
+  "baseline_sha": "39226a2d9074acf08279e7c3edde6a51cc2a629c",
+  "baseline": {
+    "aggregate": "366a4aaab30a5bc7864c91680e953f9509aaafc31b0f8bab5fb037dff825c066",
+    "files": [
+      {
+        "path": "shell/aliases.sh",
+        "mode": "0o644",
+        "sha256": "7d0a4fa5f4a5864431fe3b4b05302c4db6ddd15a64dda5ef2ae37cc2ae00dc90"
+      },
+      {
+        "path": "shell/config/entries.sh",
+        "mode": "0o644",
+        "sha256": "f25851e2c72a2cdb78c75c1ee98902c40f1855ad5939dd26c21ba564691ffb90"
+      },
+      {
+        "path": "shell/config/load.sh",
+        "mode": "0o644",
+        "sha256": "bfee6c32ce4b94cb7526acd5926cf8df6e44fe60b5dc898d3e706d3d6d470dea"
+      },
+      {
+        "path": "shell/config/markers.sh",
+        "mode": "0o644",
+        "sha256": "7591de066e72d9674f32677f32258ddafca53d149d72a541a3760ba9099dd0af"
+      },
+      {
+        "path": "shell/config/parse.sh",
+        "mode": "0o644",
+        "sha256": "b478dca2f276abd625a721d0a839ada1b793c19764416cb452387ce39cb7465d"
+      },
+      {
+        "path": "shell/config/path.sh",
+        "mode": "0o644",
+        "sha256": "3121f255d6188c5f7c02ed2a48678a1578da07f3a0163ec05d3715d7f4259fdb"
+      },
+      {
+        "path": "shell/config.lib.sh",
+        "mode": "0o644",
+        "sha256": "cf808a3dfad415a841420379b9bed55151106fa18fd3014f92133e256284c0eb"
+      },
+      {
+        "path": "shell/env.sh",
+        "mode": "0o644",
+        "sha256": "f3b9659e4ec72b985bde69b5b11af6fde2c73c76e97c447ecc3796739034fe0a"
+      },
+      {
+        "path": "shell/rc.d/04-update-check.sh",
+        "mode": "0o644",
+        "sha256": "259d37cba91d602f04d39f5dab9dbc8068060745ffb43788a5c85c3c6fdbd5f1"
+      },
+      {
+        "path": "shell/rc.d/05-bash-preexec.sh",
+        "mode": "0o644",
+        "sha256": "57721b26a49d052851ea26320603558609c095424b198e567498ffabb90d19fa"
+      },
+      {
+        "path": "shell/rc.d/06-bash-history.sh",
+        "mode": "0o644",
+        "sha256": "b8877f2d0fef51c5444b01f47115c2c7bbf11663b565d7ef5dd04ab2a34f08fb"
+      },
+      {
+        "path": "shell/rc.d/07-git-session-identity.sh",
+        "mode": "0o644",
+        "sha256": "57414146be410f70d8c9b9029fe5cf18707f747d649cf51c90d19e3c870386a9"
+      },
+      {
+        "path": "shell/rc.d/08-welcome.sh",
+        "mode": "0o644",
+        "sha256": "bb6de534d8d321a5530793fd036e37980c72177f9c58975aabc877fe2b4743f6"
+      },
+      {
+        "path": "shell/rc.d/10-editor-pager.sh",
+        "mode": "0o644",
+        "sha256": "a6943cc8ad2549fe0714a1d7637f1219b662fcfe7fc407d8fa476c0150031c0d"
+      },
+      {
+        "path": "shell/rc.d/11-line-editing.sh",
+        "mode": "0o644",
+        "sha256": "cbb1d9f1df4fcd9f7bf1619177c6a69bbb1f56697b3223d30218c49f9d2fce83"
+      },
+      {
+        "path": "shell/rc.d/20-fzf.sh",
+        "mode": "0o644",
+        "sha256": "d5eed8aa4d2b76dcf4813b8ccd28340f18f078cac075efb4db45948076a9a33b"
+      },
+      {
+        "path": "shell/rc.d/21-yazi.sh",
+        "mode": "0o644",
+        "sha256": "638815f422def6cc433cf3ff4c50930980f510930d0249b5acbd7e8a9c534801"
+      },
+      {
+        "path": "shell/rc.d/21-zoxide.sh",
+        "mode": "0o644",
+        "sha256": "25516c6bec4a6f9410b87ce3db0b5da9fbbbc632fb82ead70df8ef31e8853a62"
+      },
+      {
+        "path": "shell/rc.d/22-starship.sh",
+        "mode": "0o644",
+        "sha256": "f6c613f5399fe7f4b895b1377fc5ab4f3474ae608d3b448cb36fb21069b37b6b"
+      },
+      {
+        "path": "shell/rc.d/23-atuin.sh",
+        "mode": "0o644",
+        "sha256": "9375f9a451468a42b09cb1292f825a02fb3beb23b30ffe74d107f86af2c34579"
+      },
+      {
+        "path": "shell/rc.d/24-navi.sh",
+        "mode": "0o644",
+        "sha256": "f18d14b8a1123ad5d74ec3bc5c37b03e571c87f18b3a877f3d1df36e50bce5b4"
+      },
+      {
+        "path": "shell/rc.d/25-log.sh",
+        "mode": "0o644",
+        "sha256": "b149b7e1f777be5f2f90a98d7a8c5846a13d4b6f2f2bd51171922a22ac436cea"
+      },
+      {
+        "path": "shell/rc.d/26-bssh.sh",
+        "mode": "0o644",
+        "sha256": "9b183c1d0cd0e96295b4ff4eb36c600839b1707e9805e061db38a2257f1a5a7f"
+      },
+      {
+        "path": "shell/rc.d/30-ssh-pick.sh",
+        "mode": "0o644",
+        "sha256": "4b9e7e37dbc3c68c875a0dbf8d712139391642697ff0a8193f7c415f8e0c6cc7"
+      },
+      {
+        "path": "shell/rc.d/README.md",
+        "mode": "0o644",
+        "sha256": "c420bfb1d44b9c8d4b537d7656cedb50e85107ac722d701fe45df04ba9193e52"
+      },
+      {
+        "path": "shell/rc.d/host.d/.gitkeep",
+        "mode": "0o644",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "shell/rc.d/host.d/example-host.sh.example",
+        "mode": "0o644",
+        "sha256": "fedfd64e4ebcc36e1784413b7dbaa24356fbf325e6a1304fb19163a6797546b9"
+      },
+      {
+        "path": "shell/rc.d/os.d/.gitkeep",
+        "mode": "0o644",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "shell/rc.d/os.d/darwin.sh.example",
+        "mode": "0o644",
+        "sha256": "d1d95483d8975030a0d13743d33a75b81d7029df5def793a1c399ec1858fbdf2"
+      },
+      {
+        "path": "shell/rc.d/os.d/linux.sh.example",
+        "mode": "0o644",
+        "sha256": "34586b1d4aba06d14ac5d3b34de6286198490689a20fad4b12d67225e11f0373"
+      },
+      {
+        "path": "shell/rc.sh",
+        "mode": "0o755",
+        "sha256": "15f9b253713eb31ac858329198e5128858b34e1c0a1063d1c34c8ac9d0ca6e67"
+      },
+      {
+        "path": "shell/update-check/state.sh",
+        "mode": "0o644",
+        "sha256": "e234bc38297c1eed76dd9fad020cbfbcc3f621e354cb6720819d2c7f3979f702"
+      },
+      {
+        "path": "shell/update-check/time.sh",
+        "mode": "0o644",
+        "sha256": "344a5c91521057bbc54e832c63279be36a5a4332c1495ddb8f9481d065d17390"
+      },
+      {
+        "path": "shell/update-check/toggle.sh",
+        "mode": "0o644",
+        "sha256": "fbed680d84ce8ad21507cfce8a71fd6625bc914029eddace3339b14d189df508"
+      },
+      {
+        "path": "shell/update-check.lib.sh",
+        "mode": "0o644",
+        "sha256": "e53e9c2292838f9b6fdfa6300dd1b6a21fe0934c583619b2a76102c37526e136"
+      },
+      {
+        "path": "shell/welcome/banner.sh",
+        "mode": "0o644",
+        "sha256": "a14828318cc030f2f2a07d0fd1d952fe80654039ce7f94a2ab22ccfa790e5f23"
+      },
+      {
+        "path": "shell/welcome/base.sh",
+        "mode": "0o644",
+        "sha256": "017eec394eaa12441aab6cdbe3fa40d7e9a5d314f5babceab7e50c9c67fe6163"
+      },
+      {
+        "path": "shell/welcome/commands.sh",
+        "mode": "0o644",
+        "sha256": "dabc9a1a9bf47beb771621f608657e2d528c36e569ebaa3ddbf97d5995fdd811"
+      },
+      {
+        "path": "shell/welcome/host.sh",
+        "mode": "0o644",
+        "sha256": "dbfac20893287d7791f8b2b84e26396c10621ec006e94123a11c07794383d2a6"
+      },
+      {
+        "path": "shell/welcome/hw.sh",
+        "mode": "0o644",
+        "sha256": "c9a17dfb77d7c2d6dd65d7ba1bbee589fdd6ce438b0dc911deaa57c260cd5659"
+      },
+      {
+        "path": "shell/welcome/issues.sh",
+        "mode": "0o644",
+        "sha256": "bc1aba65014ddd6f700f0a655c15261f7b298125a3cb4f95802f8dc6dbf56b52"
+      },
+      {
+        "path": "shell/welcome/runner.sh",
+        "mode": "0o644",
+        "sha256": "ed4c08ffc3d2b544a0e15ba4ac7b4c8423352a69d7592a17076544119e08034f"
+      },
+      {
+        "path": "shell/welcome/sw.sh",
+        "mode": "0o644",
+        "sha256": "694a3783def6c640eacf787e54f7972ee3a8ff6e24cd8d0d7fc6e0c4a69e39c6"
+      },
+      {
+        "path": "shell/welcome/toggles.sh",
+        "mode": "0o644",
+        "sha256": "9121ac0490097395aaa945eaff109e1b487a9154c5ebfd0f7627b20373b37568"
+      },
+      {
+        "path": "shell/welcome/update.sh",
+        "mode": "0o644",
+        "sha256": "183ea4c2c07210b65fbcbcce48533b7396bb97db4eac221e110ea3c033a711b6"
+      },
+      {
+        "path": "shell/welcome.d/00-remote-ssh.sh",
+        "mode": "0o755",
+        "sha256": "ac660d2e02c438f45a7823e948eb9e2de54075eaf81062cef8b2f5310e0704bb"
+      },
+      {
+        "path": "shell/welcome.d/10-hw.sh",
+        "mode": "0o755",
+        "sha256": "fa5f5a9cbaf520c5d4df1ac72500add5d199d17b5ccc699180d7cdaedb8fc0c5"
+      },
+      {
+        "path": "shell/welcome.d/20-sw.sh",
+        "mode": "0o755",
+        "sha256": "b0716e2483b5101e0f4c57c12b9bf467ce9b74503e6a986fcebf0248060ba9d5"
+      },
+      {
+        "path": "shell/welcome.d/user-module.sh.example",
+        "mode": "0o644",
+        "sha256": "e501c143d9e9ea3168852b0a09a6433b62b67808f9c71d64a281d6823b7ef753"
+      },
+      {
+        "path": "shell/welcome.lib.sh",
+        "mode": "0o644",
+        "sha256": "4cee5c2cdad7201a36c133ae7683334bc54bf4c1d0fd7068ad831df4036985e8"
+      },
+      {
+        "path": "lib/guards.sh",
+        "mode": "0o644",
+        "sha256": "bcff8e0102c94b21120278e9350f1e7e67fdab1fdd573693b119c1b09b2c6069"
+      },
+      {
+        "path": "lib/helpers.sh",
+        "mode": "0o644",
+        "sha256": "0a6a3bbc9a876882846fc8ec0f34550d46a046ad4fa10d115f0810210d3550cd"
+      },
+      {
+        "path": "lib/log.sh",
+        "mode": "0o644",
+        "sha256": "9df67678e83e733017f8b7edd6c9a6f5e0d9e46d66d697164997a75932b3c2a2"
+      },
+      {
+        "path": "tools/defs/atuin.sh",
+        "mode": "0o644",
+        "sha256": "abeaf6ed9e53bb6d9be5e56d4caea7f6d148ef23f702f7f051497ab7f05786b2"
+      },
+      {
+        "path": "tools/defs/bat.sh",
+        "mode": "0o644",
+        "sha256": "71873e44ffe17bb81ef4e93386949336669770b6643998e12d2de16abe99f422"
+      },
+      {
+        "path": "tools/defs/bottom.sh",
+        "mode": "0o644",
+        "sha256": "b5b7a9a254422b1931e423262460c97bd56d589b36b376e5c277ab0b521f7e59"
+      },
+      {
+        "path": "tools/defs/bssh.sh",
+        "mode": "0o644",
+        "sha256": "9e4f0c231d9cb27b755d0b8a6fc23f4e74822162b810d174e7397f4fe51239ed"
+      },
+      {
+        "path": "tools/defs/dust.sh",
+        "mode": "0o644",
+        "sha256": "1d6c1021462298b3f62dd7b3277f30f84cf6993736f77f3c9e3c007dc7bd65a2"
+      },
+      {
+        "path": "tools/defs/eza.sh",
+        "mode": "0o644",
+        "sha256": "8c4285b40682d6973e29cb0492ea80d0376eb37e6e6d1dd9e2b59e3bd5fc56a5"
+      },
+      {
+        "path": "tools/defs/fd.sh",
+        "mode": "0o644",
+        "sha256": "a205a86c5f191387e9d04fe3def5febf814a90ba54c627817c2d21dd3590b128"
+      },
+      {
+        "path": "tools/defs/fzf.sh",
+        "mode": "0o644",
+        "sha256": "e86c88ed7ed3507d0bd42ad38f7d08b0ea1c6475f3ff0e59ad156ccefed3ce7b"
+      },
+      {
+        "path": "tools/defs/navi.sh",
+        "mode": "0o644",
+        "sha256": "8bd87d7f987890dd5598111f02f17bcf98ffdfe6663cb7454ac9d1e4ba082bfd"
+      },
+      {
+        "path": "tools/defs/nu.sh",
+        "mode": "0o644",
+        "sha256": "814e52a2df4eaac4962dd0219a819f6e93644071db14298d71b09ae96ea576a7"
+      },
+      {
+        "path": "tools/defs/nvim.sh",
+        "mode": "0o644",
+        "sha256": "a8d8cde6f86efe7abdb469067896e78e1cf85d70aa61580fac5810693fcf29e5"
+      },
+      {
+        "path": "tools/defs/procs.sh",
+        "mode": "0o644",
+        "sha256": "7d98c082ac77f3942c82e23fff89796c1af0cd9b25c436fe3c44bc6d2996e0b4"
+      },
+      {
+        "path": "tools/defs/rg.sh",
+        "mode": "0o644",
+        "sha256": "a19b3d31a82035bcce909033ceb1a548226aa8d650b345f8dd00579a80591686"
+      },
+      {
+        "path": "tools/defs/sd.sh",
+        "mode": "0o644",
+        "sha256": "7a6f3cbca16b740f203208d56aad2520e8735b2e2e10a08c1eede594ceba3701"
+      },
+      {
+        "path": "tools/defs/starship.sh",
+        "mode": "0o644",
+        "sha256": "fe190dd4885f861dc1a14a6e1102dcf315ae3ef89979e63f53c91d80e94744c7"
+      },
+      {
+        "path": "tools/defs/tspin.sh",
+        "mode": "0o644",
+        "sha256": "eb3600ea62c760419553be86524d6ba5dacf1de09989b948a27b7cffd23d433d"
+      },
+      {
+        "path": "tools/defs/vector.sh",
+        "mode": "0o644",
+        "sha256": "854752ed59bac98529bc2f750da59f04fa4cc557520ea310e824c6d4f13eb0bc"
+      },
+      {
+        "path": "tools/defs/yazi.sh",
+        "mode": "0o644",
+        "sha256": "42bd385e4c2647a3114fd9a576834fd2cef8cfa98c49913940c4eee516c66aa1"
+      },
+      {
+        "path": "tools/defs/zellij.sh",
+        "mode": "0o644",
+        "sha256": "ddb3e96ad2c3238c85ef563afb1c3f2987b7b4b669e8ec9f834a691c7ef3923a"
+      },
+      {
+        "path": "tools/defs/zoxide.sh",
+        "mode": "0o644",
+        "sha256": "129995cd3c28e7c7d7a03165b640ea0bae6d153542309bfe432e2249a3dc01c3"
+      },
+      {
+        "path": "tools/generate-def.sh",
+        "mode": "0o755",
+        "sha256": "da6a03ad1c5061d1a7480eacd21f75c92dfbd808fc640e31729b1ff227c63294"
+      },
+      {
+        "path": "tools/install-tool.sh",
+        "mode": "0o755",
+        "sha256": "c8d19aaac648a2d7e9b1453e6cd1828b2af12004b4950e950471ce1433cda689"
+      },
+      {
+        "path": "tools/lib/commands/check.sh",
+        "mode": "0o644",
+        "sha256": "3dbc9cd2e24e85f2900d48fde2bb8c9671b10b88b6958e295c3a1ad7652d5f76"
+      },
+      {
+        "path": "tools/lib/commands/doctor.sh",
+        "mode": "0o644",
+        "sha256": "fffa50af96edb168075415a206f618574f033dbc6ae00d39c66e98752eda396a"
+      },
+      {
+        "path": "tools/lib/commands/git/common.sh",
+        "mode": "0o644",
+        "sha256": "6c7d462ed6ae87194c267a3e3c8f7a78297f64b3262a99f5d7e95453ddde753a"
+      },
+      {
+        "path": "tools/lib/commands/git/setup.sh",
+        "mode": "0o644",
+        "sha256": "4cd684cad3df7a575e1c0501c173edeadae160d3f65f75b82af8318154bb1156"
+      },
+      {
+        "path": "tools/lib/commands/git/status/model.sh",
+        "mode": "0o644",
+        "sha256": "c91f67ff2e7e5aaf814e1a0c0ce03d82b9aee47253944fa1294382e1fd207a25"
+      },
+      {
+        "path": "tools/lib/commands/git/status/render.sh",
+        "mode": "0o644",
+        "sha256": "ecec6e70bf84b4567d177cc47f401e87eafc52fc19687ac5e198603447630754"
+      },
+      {
+        "path": "tools/lib/commands/git/status.sh",
+        "mode": "0o644",
+        "sha256": "f20483444c2b2a7ac85f6462a3aa0e34949d6449c71762eab1c39a91d81d9af7"
+      },
+      {
+        "path": "tools/lib/commands/git.sh",
+        "mode": "0o644",
+        "sha256": "dc53ab065c433b5dd1ad77162f309aa17d8e3ed19be91084aa636d58fe9fa25d"
+      },
+      {
+        "path": "tools/lib/commands/guide/common.sh",
+        "mode": "0o644",
+        "sha256": "7e7ae023f964febaf32a4da8574ab7795e5b16d6adb3a6bf79ad582e3ce803fa"
+      },
+      {
+        "path": "tools/lib/commands/guide/sections.sh",
+        "mode": "0o644",
+        "sha256": "b4e02928b7739cb1ad08742b4a35e7a870a7664775c0772d9e2181cc72c24b1a"
+      },
+      {
+        "path": "tools/lib/commands/guide/shell_snapshot.sh",
+        "mode": "0o644",
+        "sha256": "f09ae8e929ed21dc9e03c72ac097135454f6e7baff6019a770ec7510ec84fff6"
+      },
+      {
+        "path": "tools/lib/commands/guide/tools.sh",
+        "mode": "0o644",
+        "sha256": "dfa9d5a9bf5697e523490d37990db4c26a4495a8d24bc96d33028a42effa1794"
+      },
+      {
+        "path": "tools/lib/commands/guide.sh",
+        "mode": "0o644",
+        "sha256": "5364898d038234a512a790205f7dbfe7eb81e04ad8f550821df134c46123d325"
+      },
+      {
+        "path": "tools/lib/commands/help.sh",
+        "mode": "0o644",
+        "sha256": "bd5e5a5d3861967a19c84b799964fa34f6e9869ded4166d28db56831582fd994"
+      },
+      {
+        "path": "tools/lib/commands/install.sh",
+        "mode": "0o644",
+        "sha256": "cd288d9eb454a0a71b7a614e398a266d43d6d4ae5e8b1698d21c689f08dd583a"
+      },
+      {
+        "path": "tools/lib/commands/prune.sh",
+        "mode": "0o644",
+        "sha256": "9ac5ac98ea378dd4407ffa3c53e01930d1afe0b786c52032eb5394443a526028"
+      },
+      {
+        "path": "tools/lib/commands/scripts.sh",
+        "mode": "0o644",
+        "sha256": "4f04b236a8b51ea68000de99cf0c8ae6fcf9da921242b404a5d0512cb7792cc2"
+      },
+      {
+        "path": "tools/lib/commands/setup.sh",
+        "mode": "0o644",
+        "sha256": "535fe284a8555a1e7a11a56071126ecd4aff4939c25364667d24f725dc2d77dc"
+      },
+      {
+        "path": "tools/lib/commands/ssh/common.sh",
+        "mode": "0o644",
+        "sha256": "76c594973fda4b51e336acce36fae25a779ddac3ff4927da056bdcc465786f0d"
+      },
+      {
+        "path": "tools/lib/commands/ssh/setup.sh",
+        "mode": "0o644",
+        "sha256": "2259562286620d92f0f8d40490509ddb28e4c9b6ab08a828a5d3d25bae9686b8"
+      },
+      {
+        "path": "tools/lib/commands/ssh/status/agent.sh",
+        "mode": "0o644",
+        "sha256": "4a97250bf673e9fa518f2b88301d9fb8969881143fcd8505ceeef80e23069512"
+      },
+      {
+        "path": "tools/lib/commands/ssh/status.sh",
+        "mode": "0o644",
+        "sha256": "194c1860c48b77bda594d1264e9e50cc8cee5add607fdceac81d132fc68103be"
+      },
+      {
+        "path": "tools/lib/commands/ssh.sh",
+        "mode": "0o644",
+        "sha256": "36e1060fff093ad8398354ad924c747211e5dffda69896ddccb13bcdbf1a78ed"
+      },
+      {
+        "path": "tools/lib/commands/tool.sh",
+        "mode": "0o644",
+        "sha256": "e45060fd47a1ef6e80d6dc9dff68781c732d9c30ce7d2e483b435ad121ece2fe"
+      },
+      {
+        "path": "tools/lib/commands/tool_status.sh",
+        "mode": "0o644",
+        "sha256": "b92403e4d944ecc1ecf088cc482b715c0323cafa813191681c4a0e0fda8d0c2c"
+      },
+      {
+        "path": "tools/lib/commands/uninstall.sh",
+        "mode": "0o644",
+        "sha256": "e2fcc2ccc8ef46705cb675d1d3b4a9c833e23f6190c9fe2f6f6a031dd54266a5"
+      },
+      {
+        "path": "tools/lib/commands/update/check.sh",
+        "mode": "0o644",
+        "sha256": "fa06da8b6cd404105de00da6ff71e5193efdf1b68eb37cf97ded3e26a3c5e6a0"
+      },
+      {
+        "path": "tools/lib/commands/update.sh",
+        "mode": "0o644",
+        "sha256": "ff61c0cbc538ac096dc54f6232ef9251e6b9c9a03b0c011274a3a3078a532366"
+      },
+      {
+        "path": "tools/lib/commands.lib.sh",
+        "mode": "0o644",
+        "sha256": "3ec9cc6e2e43748c9d622dddfa008008fd332d4893a1ad628eb8de676f2bcf8b"
+      },
+      {
+        "path": "tools/lib/common/extract.sh",
+        "mode": "0o644",
+        "sha256": "f63988b2147753a2e715c6f9c57e5af2734ed0cbea2ae4b3af30773539772b52"
+      },
+      {
+        "path": "tools/lib/common/github.sh",
+        "mode": "0o644",
+        "sha256": "5a1fb8aa501165d659199a0d8486406e89c754c3033d3872d4ff8e472d378886"
+      },
+      {
+        "path": "tools/lib/common/platform.sh",
+        "mode": "0o644",
+        "sha256": "d66494f2202d323f3157ececc98947bda715db453585dfcbc5a48d17d439f5c2"
+      },
+      {
+        "path": "tools/lib/common/release.sh",
+        "mode": "0o644",
+        "sha256": "ad0f3c8b34ebd963293e503035aa0f9e84c471772066da87948ab7c08b7e97b0"
+      },
+      {
+        "path": "tools/lib/common/requirements.sh",
+        "mode": "0o644",
+        "sha256": "e5d3ccfe3d050e7fc1ca149adce9f53644bcd5b674e1488b834db0cbe512b848"
+      },
+      {
+        "path": "tools/lib/common.lib.sh",
+        "mode": "0o644",
+        "sha256": "55969631b5439fb556ce3da0afb5210179beb6041372eba4c66001a914075ba6"
+      },
+      {
+        "path": "tools/lib/env.sh",
+        "mode": "0o644",
+        "sha256": "7ddecbe08f02b057d808d17dc2a030ed42ea7649034416ed4ab3ca68969b32a4"
+      },
+      {
+        "path": "tools/lib/generate-def/assets.sh",
+        "mode": "0o644",
+        "sha256": "f2a3dc4fdc47d55f3808c52261f1f78e05feb58e8e8b1f3c66e8123d9e02e9a2"
+      },
+      {
+        "path": "tools/lib/generate-def/checksums.sh",
+        "mode": "0o644",
+        "sha256": "ed31f42b7063a738f45da46555ff374bb1de9101d8e537e74f4e0d3fc8837a5f"
+      },
+      {
+        "path": "tools/lib/generate-def/detect.sh",
+        "mode": "0o644",
+        "sha256": "a8351dc72652d1649393f925843e51b7f534046b7e0c5cb3846fa62046bc0be8"
+      },
+      {
+        "path": "tools/lib/generate-def/names.sh",
+        "mode": "0o644",
+        "sha256": "c6948a60787036d28c331b31e073a9a52fc959a943188fc301d35d70088bd244"
+      },
+      {
+        "path": "tools/lib/generate-def/render.sh",
+        "mode": "0o644",
+        "sha256": "f2316058d0e957ef22c8338b7aa55291d58d15c88dc1acc277bbedd8c5967353"
+      },
+      {
+        "path": "tools/lib/generate-def.lib.sh",
+        "mode": "0o644",
+        "sha256": "7bc04a674596ca53290dddb232fb5d363b7cfb2fbd80aa4ffedadd14507fa548"
+      },
+      {
+        "path": "tools/lib/install/defaults.sh",
+        "mode": "0o644",
+        "sha256": "205ce0574bb04ca827534cf55b8d65e25f3816d66d845604a321fb5a0ca4796c"
+      },
+      {
+        "path": "tools/lib/install/dirs.sh",
+        "mode": "0o644",
+        "sha256": "7513ec8c3c5d3a0406dd6f768e78a32c86c90c83e2f5fd09ffe2a689267573a1"
+      },
+      {
+        "path": "tools/lib/install/expected_tools.sh",
+        "mode": "0o644",
+        "sha256": "9d82382fbeb498c0ac678b82215640f767ffb30565deb811ce2521791b9579f1"
+      },
+      {
+        "path": "tools/lib/install/install.sh",
+        "mode": "0o644",
+        "sha256": "7eac7e1b0f001336011496305493590d9e9d0c29c8c2cf489dc0db8fc8776119"
+      },
+      {
+        "path": "tools/lib/install/post_install.sh",
+        "mode": "0o644",
+        "sha256": "d68c74a64e99b9df465b5ebe04d1726aba517ef4816eb26764345783233dc76c"
+      },
+      {
+        "path": "tools/lib/install/requirements.sh",
+        "mode": "0o644",
+        "sha256": "bf420a5c644ce2250cf9c1385d97d2bf2704dd69a4ec07cab603371a2f725f16"
+      },
+      {
+        "path": "tools/lib/install/tool_inventory.sh",
+        "mode": "0o644",
+        "sha256": "5847a8a4f54b5e2c45feff4903a240c3063c0b67556e8a557127252c6204bb71"
+      },
+      {
+        "path": "tools/lib/install/tool_sets.sh",
+        "mode": "0o644",
+        "sha256": "d3956a82fa8b4595b1d313d2258cf55041e54c5a04c794f2c9783be1f6d740ab"
+      },
+      {
+        "path": "tools/lib/install-tool/assets.sh",
+        "mode": "0o644",
+        "sha256": "08e6d553f28e7bcb6c6244ca253bcef8827d2fed60cd597b55259f8df338f552"
+      },
+      {
+        "path": "tools/lib/install-tool/defs.sh",
+        "mode": "0o644",
+        "sha256": "082047dae7eac9e2806be6ddf754061ef437ef52a8cb148e0c136c0e3b068625"
+      },
+      {
+        "path": "tools/lib/install-tool/download.sh",
+        "mode": "0o644",
+        "sha256": "5fee71fd214279c702b6f60cbce5a5856dc2d2cda7e130802b803ccae8058f8f"
+      },
+      {
+        "path": "tools/lib/install-tool/install.sh",
+        "mode": "0o644",
+        "sha256": "7ea58af36445e128062ba64162922e32f60f6b27cb6910e4c9c990350aba6c34"
+      },
+      {
+        "path": "tools/lib/install-tool/main.sh",
+        "mode": "0o644",
+        "sha256": "6ba7717be5d5e34ac38e5cc51eea95d44234e6bd45eed8b845c3cdaab71de5e8"
+      },
+      {
+        "path": "tools/lib/install-tool.lib.sh",
+        "mode": "0o644",
+        "sha256": "b3a00e36acf1dda200a4fcad2e6c5efb846a9310dde97bab18041ce41a38a3f7"
+      },
+      {
+        "path": "tools/lib/install.lib.sh",
+        "mode": "0o644",
+        "sha256": "2aa0862b13f00cdb84a7183a86dbd99463f9d649adbedcb08683bdde3c68b40e"
+      },
+      {
+        "path": "tools/lib/status.lib.sh",
+        "mode": "0o644",
+        "sha256": "df65395a136e3edb9eff80e9c767602b2182f4d94e85c562f4514b0d6cf193f6"
+      },
+      {
+        "path": "tools/vendors/bash-preexec.sh",
+        "mode": "0o644",
+        "sha256": "48cec2856dc0342f7518ed1583158ec11c2c9d9ede64c6fce59c2c7ab983feee"
+      },
+      {
+        "path": "bin/remote-ssh",
+        "mode": "0o755",
+        "sha256": "cce7aaf10c8538f290ff9918a2435078e2748036ac8e9f1a2b505e377df7206d"
+      },
+      {
+        "path": "bin/ssh-find",
+        "mode": "0o755",
+        "sha256": "12ce093c3a71f7e365a1e2186fa7647c77028c739970df3ef7aa078d0be07c2e"
+      },
+      {
+        "path": "dots/atuin/config.toml",
+        "mode": "0o644",
+        "sha256": "b3e9afedddb86be42946523128ac5017caea1288032c334c9da8fee345b75cde"
+      },
+      {
+        "path": "dots/git/config.base",
+        "mode": "0o644",
+        "sha256": "5028ddcdbe621200c3b010fd6eb8c5b81cd8f0f5c6fd1f068b1534bcb0505a38"
+      },
+      {
+        "path": "dots/git/user.local.example",
+        "mode": "0o644",
+        "sha256": "cf2a2a3a678c24ade81f94ddc4dfaacaf4052e8c3abd07b757ee60cd4da4ba1e"
+      },
+      {
+        "path": "dots/navi/cheats/bottom.cheat",
+        "mode": "0o644",
+        "sha256": "e24c5b1fa167004ab916b2816e13e7b47793dbc21c19c851a1ae2e0d98b35e81"
+      },
+      {
+        "path": "dots/navi/cheats/docker.cheat",
+        "mode": "0o644",
+        "sha256": "67b657a67863a440bdb59e38c98d409c15b683e99e966f0a2b23473bb525cf16"
+      },
+      {
+        "path": "dots/navi/cheats/dust.cheat",
+        "mode": "0o644",
+        "sha256": "d9b1079524ab59df5e96fc1c902249954687e4370acf99be4480c1844745c22e"
+      },
+      {
+        "path": "dots/navi/cheats/kubernetes.cheat",
+        "mode": "0o644",
+        "sha256": "a359a3f4486e18c18f141d57ef9a7cb68cecd18e307c52c008f91a76aad8f27e"
+      },
+      {
+        "path": "dots/navi/cheats/procs.cheat",
+        "mode": "0o644",
+        "sha256": "ab39d54f51398b6a1167e2c57f314e980f162e4b4a71aeb11be9418576af7c81"
+      },
+      {
+        "path": "dots/navi/cheats/remote-ssh.cheat",
+        "mode": "0o644",
+        "sha256": "9a33b02566e733bc2fd2492d39eb28db564c3e892e8630517847f30ef695aa95"
+      },
+      {
+        "path": "dots/navi/cheats/sd.cheat",
+        "mode": "0o644",
+        "sha256": "9932442ca684a1547f070037a943f11f5a50ea9d7c2c5d95235c2ef5e8822cc7"
+      },
+      {
+        "path": "dots/navi/cheats/tailspin.cheat",
+        "mode": "0o644",
+        "sha256": "0d73c263a56d5cdba1d0e395ff9cc5f1384a26731336eafbc299f7f8317f9f71"
+      },
+      {
+        "path": "dots/navi/cheats/vector.cheat",
+        "mode": "0o644",
+        "sha256": "8b700662a50e0e477ab1918496be3b50294e206a54987dc553048cf5c8702143"
+      },
+      {
+        "path": "dots/navi/cheats/zellij.cheat",
+        "mode": "0o644",
+        "sha256": "fa500969ebab43df18f5be112336b0deb471054edf9e47d6c37cd2927a114b58"
+      },
+      {
+        "path": "dots/ssh/config.example",
+        "mode": "0o644",
+        "sha256": "70bf71e4e0b8071688f56a3c9dd4d74cc19017eefb6339b38d003ef66f5999f9"
+      },
+      {
+        "path": "dots/starship.toml",
+        "mode": "0o644",
+        "sha256": "b858b08414c51526e8c751c1976149737d0ce59339071e418decbb0a728ffb37"
+      },
+      {
+        "path": "dots/tmux.conf",
+        "mode": "0o644",
+        "sha256": "fdfad6d19162c8cb1de51c0d6043a3175789516f1ba290b9cd35a96f2f9a9928"
+      },
+      {
+        "path": "dots/vimrc",
+        "mode": "0o644",
+        "sha256": "f4442479f8cef83d652c0d55aed820976ed79a41fc3961041553cb03c0c51333"
+      },
+      {
+        "path": "scripts/ssh_find.py",
+        "mode": "0o755",
+        "sha256": "33559804a1456ae68cd367436e6c11a6f0c5a3138ab0e6d75eebea265abb71d0"
+      },
+      {
+        "path": "scripts/ssh_hosts.py",
+        "mode": "0o755",
+        "sha256": "25893dde801c21be8d66e823f5945f857e136e212af2e2a8b5d8682240839f7d"
+      }
+    ]
+  },
+  "candidate": null,
+  "os": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "architecture": "arm64",
+  "python": "3.13.9 (main, Oct 14 2025, 21:10:40) [Clang 20.1.4 ]",
+  "bash": {
+    "3.2": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+    "5.3": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)"
+  },
+  "harness_sha256": "6eb6f64632245bf51aefcff098ab6f47f007f549bf6b5f8b12c3cf64cf5e3aff",
+  "fixtures_sha256": "93ea13874f28c0f49b9a78360f26002bf8dd7cdce60162245e50d49f5c6c6f71",
+  "frozen_bench": {
+    "frozen_bench/bench/__init__.py": "a7a35c8b6ed729ea228af16d519396c2da4946032a43bbdff02e364a84dd0e46",
+    "frozen_bench/bench/model.py": "70340f1b206bb666b3b6a05fc48c93207dd69fef284e32ab1aedd177f62994d6",
+    "frozen_bench/bench/pty_runner.py": "928df6ff0cc2686f255f3fe0edefc7e9cb060c842b294a7366ac8a4e265a741d",
+    "frozen_bench/bench/references.py": "cff1c3d0c2ef00815652a5cdff9a7981c186a54289a87f9079c9cf36c5eb96be",
+    "frozen_bench/bench/report.py": "327e5e071373037991c959342198c67b30e775e725819d9a016e6c11a70cf1f4",
+    "frozen_bench/bench/scenarios.py": "0300eccf8c6456eb1c865870b7ed767f724b9ce4f436b68529fc17da241b48e2",
+    "frozen_bench/bench/shell_startup.py": "8e97479b35970db73d1833a14ca3968b062f0982ed12ef74d9896209ca543de7",
+    "frozen_bench/bench/stats.py": "aadea308ac60ddcc121ce875ab8266681cfee6e8849292580b4d3316f96c97a2"
+  },
+  "sampling": {
+    "warmups": 3,
+    "samples": 20,
+    "order": "alternating pairs",
+    "home": "fresh per sample",
+    "cwd": "/private/tmp/remote-ssh-welcome-measurements/cwd",
+    "BASH_ENV": "unset",
+    "SHELLOPTS_BASHOPTS": "unexported",
+    "terminal": "100 columns x 40 rows",
+    "network": "fresh fixed cache; git shim refuses fetch/ls-remote"
+  }
+}

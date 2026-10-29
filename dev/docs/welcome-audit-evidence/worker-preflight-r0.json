@@ -1,0 +1,26 @@
+{
+  "candidate": "/private/tmp/remote-ssh-welcome-candidate-r0",
+  "fault": "remove shell/welcome/hw.sh from disposable copy",
+  "removed_sha256": "c9a17dfb77d7c2d6dd65d7ba1bbee589fdd6ce438b0dc911deaa57c260cd5659",
+  "records": [
+    {
+      "bash": "/bin/bash",
+      "returncode": 0,
+      "stdout": "host:    MacBook-Pro-Maciej / unknown\nupdate:  disabled\ntools:   0 checked / 0 ok\nscripts: 4 checked / 2 ok\nsw:      ssh-agent unavailable / git config ok\n",
+      "stderr": "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-preflight-audit-j1w1e0bz/runtime/shell/welcome.lib.sh: line 26: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-preflight-audit-j1w1e0bz/runtime/shell/welcome/hw.sh: No such file or directory\n",
+      "expected_preflight_status": 125,
+      "expected_stdout": "",
+      "preflight_contract_passes": false
+    },
+    {
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "returncode": 0,
+      "stdout": "host:    MacBook-Pro-Maciej / unknown\nupdate:  disabled\ntools:   0 checked / 0 ok\nscripts: 4 checked / 2 ok\nsw:      ssh-agent unavailable / git config ok\n",
+      "stderr": "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-preflight-audit-j1w1e0bz/runtime/shell/welcome.lib.sh: line 26: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-preflight-audit-j1w1e0bz/runtime/shell/welcome/hw.sh: No such file or directory\n",
+      "expected_preflight_status": 125,
+      "expected_stdout": "",
+      "preflight_contract_passes": false
+    }
+  ],
+  "status": "FAIL"
+}

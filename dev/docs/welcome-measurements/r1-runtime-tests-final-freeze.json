@@ -1,0 +1,56 @@
+{
+  "runtime_aggregate": "0703139284173f0358ac13431875f23b7035fbfcb1b83b104fdada6ba1c9e58b",
+  "runtime_and_test_source": [
+    {
+      "path": "shell/welcome.lib.sh",
+      "sha256": "45ef112946af4d75f91949cfa58301947a14dd7d39083476afa7b2607c287961",
+      "mode": "0o644"
+    },
+    {
+      "path": "shell/welcome/runner.sh",
+      "sha256": "8d840f54c9f2ee502e2e19b43cae1c8487b1b6412ac1b6ef093df50516d18c5a",
+      "mode": "0o644"
+    },
+    {
+      "path": "shell/welcome/bundled.sh",
+      "sha256": "da269d5e8798d9512f4e6a9ab39395030c758e136ef43433fe735ae6dc99825f",
+      "mode": "0o644"
+    },
+    {
+      "path": "shell/welcome/bundled-runner.sh",
+      "sha256": "bb870d5ea1479b1d6d14ede338a404e0bb775c800cb3e6ee673d2028a547fcc0",
+      "mode": "0o755"
+    },
+    {
+      "path": "shell/welcome.d/00-remote-ssh.sh",
+      "sha256": "1c29dec35d67e356f5381e6c0c5d6edb0d3e965f716edf535774cf90e974b294",
+      "mode": "0o755"
+    },
+    {
+      "path": "shell/welcome.d/10-hw.sh",
+      "sha256": "6be028fe2e833e1035a0a671f81774bcb66bbd5ab1f29710b0bae24781aa6caa",
+      "mode": "0o755"
+    },
+    {
+      "path": "shell/welcome.d/20-sw.sh",
+      "sha256": "b84d5d697c5eadc0003f248871c340b9445141d9524690e9666b72102fbb0b89",
+      "mode": "0o755"
+    },
+    {
+      "path": "dev/tests/test_welcome.py",
+      "mode": "0o644",
+      "sha256": "a6ce0e4b7420985793b7ec0c28301ea1c581d1434d81a281a7fd6f083c2c382b"
+    },
+    {
+      "path": "dev/tests/test_welcome_bundled.py",
+      "mode": "0o644",
+      "sha256": "2f9abbe199b85a8097fe1da6ff6bde61c16cd4b038891aa327b6132f933eb4b5"
+    },
+    {
+      "path": "dev/tests/conftest.py",
+      "mode": "0o644",
+      "sha256": "71baee3c64e71b46998da0b0a37db0e9c2ac3acd290f6ac41c1e9c466f6dabb0"
+    }
+  ],
+  "freeze_scope": "no runtime/test edits until R1 checks, timings and audit complete"
+}

@@ -2,6 +2,12 @@
 
 Back: [Developer tooling](../README.md)
 
+The 2026-10-28 bundled welcome optimization has its own
+[execution record](welcome-implementation-record.md), with the pinned baseline,
+frozen populated screen fixtures, detached welcome and full PTY comparisons,
+complete successful transcripts, source fingerprints, and independent audit.
+Its measurements leave this benchmark's scenarios and public CLI unchanged.
+
 The 2026-10-27 config-loader optimization has a separate
 [execution record](config-loader-implementation-record.md), including its frozen
 measurement source, fixture, baseline/Stage A/Stage B raw results, and correctness

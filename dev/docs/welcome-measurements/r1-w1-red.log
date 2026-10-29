@@ -1,0 +1,370 @@
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+_ test_worker_incomplete_required_library_stops_before_any_display[/bin/bash-hardware-file] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_wor...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_incomplete_require0/home/.local/state'})
+runtime_bash = '/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_incomplete_require0')
+omission = 'hardware-file'
+
+    @pytest.mark.parametrize("omission", ["hardware-file", "low-level-function"])
+    def test_worker_incomplete_required_library_stops_before_any_display(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        tmp_path: Path,
+        omission: str,
+    ) -> None:
+        tree, env, _ = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        hardware = tree / "shell" / "welcome" / "hw.sh"
+        if omission == "hardware-file":
+            hardware.unlink()
+        else:
+            hardware.write_text(hardware.read_text() + "\nunset -f remote_ssh_welcome_cpu_count\n")
+        worker = tree / "shell" / "welcome" / "bundled-runner.sh"
+        # An inherited renderer must not conceal a missing provider source file.
+        result = subprocess.run(
+            [
+                runtime_bash,
+                "-c",
+                'remote_ssh_welcome_print_hw() { printf "inherited-hardware\\n"; }; '
+                'export -f remote_ssh_welcome_print_hw; exec "$@"',
+                "_",
+                str(worker),
+                "--",
+                *(str(tree / "shell" / "welcome.d" / name) for name in WRAPPERS),
+            ],
+            env=env,
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            text=True,
+            start_new_session=True,
+            check=False,
+        )
+>       assert result.returncode == 125, {
+            "returncode": result.returncode,
+            "stdout": result.stdout,
+            "stderr": result.stderr,
+        }
+E       AssertionError: {'returncode': 0, 'stderr': '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_wo...ncomplete_require0/runtime/shell/welcome/hw.sh: No such file or directory
+E         ', 'stdout': 'remote
+E         hardware
+E         software
+E         '}
+E       assert 0 == 125
+E        +  where 0 = CompletedProcess(args=['/bin/bash', '-c', 'remote_ssh_welcome_print_hw() { printf "inherited-hardware\\n"; }; export -...n/T/pytest-of-fm/pytest-1168/test_worker_incomplete_require0/runtime/shell/welcome/hw.sh: No such file or directory\n').returncode
+
+dev/tests/test_welcome_bundled.py:452: AssertionError
+_ test_worker_incomplete_required_library_stops_before_any_display[/bin/bash-low-level-function] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_wor...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_incomplete_require1/home/.local/state'})
+runtime_bash = '/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_incomplete_require1')
+omission = 'low-level-function'
+
+    @pytest.mark.parametrize("omission", ["hardware-file", "low-level-function"])
+    def test_worker_incomplete_required_library_stops_before_any_display(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        tmp_path: Path,
+        omission: str,
+    ) -> None:
+        tree, env, _ = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        hardware = tree / "shell" / "welcome" / "hw.sh"
+        if omission == "hardware-file":
+            hardware.unlink()
+        else:
+            hardware.write_text(hardware.read_text() + "\nunset -f remote_ssh_welcome_cpu_count\n")
+        worker = tree / "shell" / "welcome" / "bundled-runner.sh"
+        # An inherited renderer must not conceal a missing provider source file.
+        result = subprocess.run(
+            [
+                runtime_bash,
+                "-c",
+                'remote_ssh_welcome_print_hw() { printf "inherited-hardware\\n"; }; '
+                'export -f remote_ssh_welcome_print_hw; exec "$@"',
+                "_",
+                str(worker),
+                "--",
+                *(str(tree / "shell" / "welcome.d" / name) for name in WRAPPERS),
+            ],
+            env=env,
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            text=True,
+            start_new_session=True,
+            check=False,
+        )
+>       assert result.returncode == 125, {
+            "returncode": result.returncode,
+            "stdout": result.stdout,
+            "stderr": result.stderr,
+        }
+E       AssertionError: {'returncode': 0, 'stderr': '', 'stdout': 'remote
+E         hardware
+E         software
+E         '}
+E       assert 0 == 125
+E        +  where 0 = CompletedProcess(args=['/bin/bash', '-c', 'remote_ssh_welcome_print_hw() { printf "inherited-hardware\\n"; }; export -...incomplete_require1/runtime/shell/welcome.d/20-sw.sh'], returncode=0, stdout='remote\nhardware\nsoftware\n', stderr='').returncode
+
+dev/tests/test_welcome_bundled.py:452: AssertionError
+_ test_worker_incomplete_required_library_stops_before_any_display[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-hardware-file] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_wor...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_incomplete_require2/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_incomplete_require2')
+omission = 'hardware-file'
+
+    @pytest.mark.parametrize("omission", ["hardware-file", "low-level-function"])
+    def test_worker_incomplete_required_library_stops_before_any_display(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        tmp_path: Path,
+        omission: str,
+    ) -> None:
+        tree, env, _ = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        hardware = tree / "shell" / "welcome" / "hw.sh"
+        if omission == "hardware-file":
+            hardware.unlink()
+        else:
+            hardware.write_text(hardware.read_text() + "\nunset -f remote_ssh_welcome_cpu_count\n")
+        worker = tree / "shell" / "welcome" / "bundled-runner.sh"
+        # An inherited renderer must not conceal a missing provider source file.
+        result = subprocess.run(
+            [
+                runtime_bash,
+                "-c",
+                'remote_ssh_welcome_print_hw() { printf "inherited-hardware\\n"; }; '
+                'export -f remote_ssh_welcome_print_hw; exec "$@"',
+                "_",
+                str(worker),
+                "--",
+                *(str(tree / "shell" / "welcome.d" / name) for name in WRAPPERS),
+            ],
+            env=env,
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            text=True,
+            start_new_session=True,
+            check=False,
+        )
+>       assert result.returncode == 125, {
+            "returncode": result.returncode,
+            "stdout": result.stdout,
+            "stderr": result.stderr,
+        }
+E       AssertionError: {'returncode': 0, 'stderr': '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_wo...ncomplete_require2/runtime/shell/welcome/hw.sh: No such file or directory
+E         ', 'stdout': 'remote
+E         hardware
+E         software
+E         '}
+E       assert 0 == 125
+E        +  where 0 = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '-c', 'remote_ssh_welcome_print_hw() { printf "inh...n/T/pytest-of-fm/pytest-1168/test_worker_incomplete_require2/runtime/shell/welcome/hw.sh: No such file or directory\n').returncode
+
+dev/tests/test_welcome_bundled.py:452: AssertionError
+_ test_worker_incomplete_required_library_stops_before_any_display[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-low-level-function] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_wor...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_incomplete_require3/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_incomplete_require3')
+omission = 'low-level-function'
+
+    @pytest.mark.parametrize("omission", ["hardware-file", "low-level-function"])
+    def test_worker_incomplete_required_library_stops_before_any_display(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        tmp_path: Path,
+        omission: str,
+    ) -> None:
+        tree, env, _ = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        hardware = tree / "shell" / "welcome" / "hw.sh"
+        if omission == "hardware-file":
+            hardware.unlink()
+        else:
+            hardware.write_text(hardware.read_text() + "\nunset -f remote_ssh_welcome_cpu_count\n")
+        worker = tree / "shell" / "welcome" / "bundled-runner.sh"
+        # An inherited renderer must not conceal a missing provider source file.
+        result = subprocess.run(
+            [
+                runtime_bash,
+                "-c",
+                'remote_ssh_welcome_print_hw() { printf "inherited-hardware\\n"; }; '
+                'export -f remote_ssh_welcome_print_hw; exec "$@"',
+                "_",
+                str(worker),
+                "--",
+                *(str(tree / "shell" / "welcome.d" / name) for name in WRAPPERS),
+            ],
+            env=env,
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            text=True,
+            start_new_session=True,
+            check=False,
+        )
+>       assert result.returncode == 125, {
+            "returncode": result.returncode,
+            "stdout": result.stdout,
+            "stderr": result.stderr,
+        }
+E       AssertionError: {'returncode': 0, 'stderr': '', 'stdout': 'remote
+E         hardware
+E         software
+E         '}
+E       assert 0 == 125
+E        +  where 0 = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '-c', 'remote_ssh_welcome_print_hw() { printf "inh...incomplete_require3/runtime/shell/welcome.d/20-sw.sh'], returncode=0, stdout='remote\nhardware\nsoftware\n', stderr='').returncode
+
+dev/tests/test_welcome_bundled.py:452: AssertionError
+_ test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller[/bin/bash-False] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_wor...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_only_missing_helpe0/home/.local/state'})
+runtime_bash = '/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_only_missing_helpe0')
+debug = False
+
+    @pytest.mark.parametrize("debug", [False, True])
+    def test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        tmp_path: Path,
+        debug: bool,
+    ) -> None:
+        tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        library = tree / "shell" / "welcome.lib.sh"
+        library.write_text(
+            library.read_text()
+            + '\nif [[ "${0##*/}" == bundled-runner.sh ]]; then unset -f remote_ssh_welcome_cpu_count; fi\n'
+        )
+        user = Path(env["XDG_CONFIG_HOME"]) / "remote-ssh" / "welcome.d"
+        write_executable(user / "50-user", "#!/bin/sh\nprintf 'user-after-fallback\\n'\n")
+        result = _run(tree, env | {"REMOTE_SSH_WELCOME_DEBUG": "1" if debug else "0"}, runtime_bash)
+        assert_ok(result)
+        assert result.stdout == "remote\nhardware\nsoftware\nuser-after-fallback\nCALLER-NEXT\n"
+>       assert _log(log) == ["_", "bundled-runner.sh", *WRAPPERS]
+E       AssertionError: assert ['_', 'bundled-runner.sh'] == ['_', 'bundle...', '20-sw.sh']
+E         
+E         Right contains 3 more items, first extra item: '00-remote-ssh.sh'
+E         Use -v to get more diff
+
+dev/tests/test_welcome_bundled.py:479: AssertionError
+_ test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller[/bin/bash-True] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_wor...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_only_missing_helpe1/home/.local/state'})
+runtime_bash = '/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_only_missing_helpe1')
+debug = True
+
+    @pytest.mark.parametrize("debug", [False, True])
+    def test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        tmp_path: Path,
+        debug: bool,
+    ) -> None:
+        tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        library = tree / "shell" / "welcome.lib.sh"
+        library.write_text(
+            library.read_text()
+            + '\nif [[ "${0##*/}" == bundled-runner.sh ]]; then unset -f remote_ssh_welcome_cpu_count; fi\n'
+        )
+        user = Path(env["XDG_CONFIG_HOME"]) / "remote-ssh" / "welcome.d"
+        write_executable(user / "50-user", "#!/bin/sh\nprintf 'user-after-fallback\\n'\n")
+        result = _run(tree, env | {"REMOTE_SSH_WELCOME_DEBUG": "1" if debug else "0"}, runtime_bash)
+        assert_ok(result)
+        assert result.stdout == "remote\nhardware\nsoftware\nuser-after-fallback\nCALLER-NEXT\n"
+>       assert _log(log) == ["_", "bundled-runner.sh", *WRAPPERS]
+E       AssertionError: assert ['_', 'bundled-runner.sh'] == ['_', 'bundle...', '20-sw.sh']
+E         
+E         Right contains 3 more items, first extra item: '00-remote-ssh.sh'
+E         Use -v to get more diff
+
+dev/tests/test_welcome_bundled.py:479: AssertionError
+_ test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_wor...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_only_missing_helpe2/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_only_missing_helpe2')
+debug = False
+
+    @pytest.mark.parametrize("debug", [False, True])
+    def test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        tmp_path: Path,
+        debug: bool,
+    ) -> None:
+        tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        library = tree / "shell" / "welcome.lib.sh"
+        library.write_text(
+            library.read_text()
+            + '\nif [[ "${0##*/}" == bundled-runner.sh ]]; then unset -f remote_ssh_welcome_cpu_count; fi\n'
+        )
+        user = Path(env["XDG_CONFIG_HOME"]) / "remote-ssh" / "welcome.d"
+        write_executable(user / "50-user", "#!/bin/sh\nprintf 'user-after-fallback\\n'\n")
+        result = _run(tree, env | {"REMOTE_SSH_WELCOME_DEBUG": "1" if debug else "0"}, runtime_bash)
+        assert_ok(result)
+        assert result.stdout == "remote\nhardware\nsoftware\nuser-after-fallback\nCALLER-NEXT\n"
+>       assert _log(log) == ["_", "bundled-runner.sh", *WRAPPERS]
+E       AssertionError: assert ['_', 'bundled-runner.sh'] == ['_', 'bundle...', '20-sw.sh']
+E         
+E         Right contains 3 more items, first extra item: '00-remote-ssh.sh'
+E         Use -v to get more diff
+
+dev/tests/test_welcome_bundled.py:479: AssertionError
+_ test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_wor...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_only_missing_helpe3/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1168/test_worker_only_missing_helpe3')
+debug = True
+
+    @pytest.mark.parametrize("debug", [False, True])
+    def test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        tmp_path: Path,
+        debug: bool,
+    ) -> None:
+        tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        library = tree / "shell" / "welcome.lib.sh"
+        library.write_text(
+            library.read_text()
+            + '\nif [[ "${0##*/}" == bundled-runner.sh ]]; then unset -f remote_ssh_welcome_cpu_count; fi\n'
+        )
+        user = Path(env["XDG_CONFIG_HOME"]) / "remote-ssh" / "welcome.d"
+        write_executable(user / "50-user", "#!/bin/sh\nprintf 'user-after-fallback\\n'\n")
+        result = _run(tree, env | {"REMOTE_SSH_WELCOME_DEBUG": "1" if debug else "0"}, runtime_bash)
+        assert_ok(result)
+        assert result.stdout == "remote\nhardware\nsoftware\nuser-after-fallback\nCALLER-NEXT\n"
+>       assert _log(log) == ["_", "bundled-runner.sh", *WRAPPERS]
+E       AssertionError: assert ['_', 'bundled-runner.sh'] == ['_', 'bundle...', '20-sw.sh']
+E         
+E         Right contains 3 more items, first extra item: '00-remote-ssh.sh'
+E         Use -v to get more diff
+
+dev/tests/test_welcome_bundled.py:479: AssertionError
+=========================== short test summary info ============================
+FAILED dev/tests/test_welcome_bundled.py::test_worker_incomplete_required_library_stops_before_any_display[/bin/bash-hardware-file]
+FAILED dev/tests/test_welcome_bundled.py::test_worker_incomplete_required_library_stops_before_any_display[/bin/bash-low-level-function]
+FAILED dev/tests/test_welcome_bundled.py::test_worker_incomplete_required_library_stops_before_any_display[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-hardware-file]
+FAILED dev/tests/test_welcome_bundled.py::test_worker_incomplete_required_library_stops_before_any_display[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-low-level-function]
+FAILED dev/tests/test_welcome_bundled.py::test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller[/bin/bash-False]
+FAILED dev/tests/test_welcome_bundled.py::test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller[/bin/bash-True]
+FAILED dev/tests/test_welcome_bundled.py::test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False]
+FAILED dev/tests/test_welcome_bundled.py::test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True]
+8 failed, 90 deselected in 0.85s

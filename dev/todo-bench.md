@@ -1,15 +1,23 @@
 # Shell Startup Benchmark TODO
 
-Status: config loader optimization implemented and independently reviewed.
+Status: config loader and bundled welcome optimizations implemented and
+independently reviewed.
 Other shell startup simplification remains deferred.
 
-The completed follow-up is documented in the
+The completed config-loader follow-up is documented in the
 [implementation record](docs/config-loader-implementation-record.md), following
 the [accepted plan](docs/config-loader-implementation-plan.md) and an independent
 [implementation audit](docs/config-loader-implementation-audit.md). A fresh
 [behavior re-audit](docs/config-loader-independent-reaudit.md) and
 [paired performance verification](docs/config-loader-reaudit-performance.md)
 confirm the size of the measured saving; the fresh audit accepted repair R1.
+
+The welcome optimization follows its [accepted plan](docs/welcome-implementation-plan.md).
+Its [implementation record](docs/welcome-implementation-record.md) retains the
+full panel, compatibility checks, and two paired performance batches on Bash 3.2
+and 5.3. The independent [implementation audit](docs/welcome-implementation-audit.md)
+accepted R1 after repairing worker preflight and measurement snapshot preparation.
+
 The earlier
 [audit fixes](docs/audit-fix-plan.md) remain a separate correctness workstream.
 
@@ -48,10 +56,11 @@ loader scans the config file again for every key and creates many subprocesses.
    subprocesses. Allowed keys, literal values, environment precedence, reload
    behavior, and child-process provenance are preserved. See the
    [implementation and measurements](docs/config-loader-implementation-record.md).
-2. Reduce work performed by welcome. Consider a short login summary and move
-   detailed tool, hardware, and integration inspection to `remote-ssh doctor`.
-   First try rendering bundled modules in the current process; preserve
-   isolation for user modules.
+2. Completed: render the three standard welcome modules in one fresh Bash
+   worker that loads the library once. The full status panel, separate renderer
+   captures, external user modules, standalone wrappers, and conservative
+   external fallback are preserved. See the
+   [implementation and measurements](docs/welcome-implementation-record.md).
 3. Review the startup load graph and repeated source guards. Consolidate tiny
    private modules where it improves readability, and avoid external `basename`
    calls just to construct guard messages. Keep public command facades.

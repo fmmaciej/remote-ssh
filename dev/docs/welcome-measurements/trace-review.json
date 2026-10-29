@@ -1,0 +1,24 @@
+[
+  {
+    "bash": "3.2",
+    "counts": {
+      "welcome_library_loads": 1,
+      "module_captures": 3,
+      "renderer_dispatches": 3,
+      "module_cleanup_calls": 3
+    },
+    "raw_trace": "trace-3.2-worker-and-user.stderr.txt",
+    "sha256": "38c521f1cc6ff0542d46a3fd242e135f48c79c7197db34738feeb8f00bb1ba9d"
+  },
+  {
+    "bash": "5.3",
+    "counts": {
+      "welcome_library_loads": 1,
+      "module_captures": 3,
+      "renderer_dispatches": 3,
+      "module_cleanup_calls": 3
+    },
+    "raw_trace": "trace-5.3-worker-and-user.stderr.txt",
+    "sha256": "d0da1a367c4b2d4a526665c45c385445d4146059b14fb97af2b2d39acb43fde3"
+  }
+]

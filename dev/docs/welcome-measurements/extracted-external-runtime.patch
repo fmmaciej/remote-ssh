@@ -1,0 +1,53 @@
+diff --git a/shell/welcome.d/00-remote-ssh.sh b/shell/welcome.d/00-remote-ssh.sh
+index 7f3c2f2..ebf98e3 100755
+--- a/shell/welcome.d/00-remote-ssh.sh
++++ b/shell/welcome.d/00-remote-ssh.sh
+@@ -4,15 +4,4 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ # shellcheck source=/dev/null
+ . "$SCRIPT_DIR/../welcome.lib.sh"
+ 
+-remote_ssh_welcome_print_banner
+-remote_ssh_welcome_print_host
+-remote_ssh_welcome_print_update
+-
+-if remote_ssh_welcome_load_commands; then
+-  remote_ssh_welcome_print_tools
+-  remote_ssh_welcome_print_scripts
+-else
+-  printf 'tools:   0 checked / 0 ok\n'
+-  printf 'scripts: 0 checked / 0 ok\n'
+-  remote_ssh_welcome_issue doctor
+-fi
++remote_ssh_welcome_render_remote_ssh
+diff --git a/shell/welcome.d/10-hw.sh b/shell/welcome.d/10-hw.sh
+index 3592b7b..b92cbda 100755
+--- a/shell/welcome.d/10-hw.sh
++++ b/shell/welcome.d/10-hw.sh
+@@ -4,4 +4,4 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ # shellcheck source=/dev/null
+ . "$SCRIPT_DIR/../welcome.lib.sh"
+ 
+-remote_ssh_welcome_print_hw
++remote_ssh_welcome_render_hw
+diff --git a/shell/welcome.d/20-sw.sh b/shell/welcome.d/20-sw.sh
+index 7ebc6d8..d77aeac 100755
+--- a/shell/welcome.d/20-sw.sh
++++ b/shell/welcome.d/20-sw.sh
+@@ -4,4 +4,4 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ # shellcheck source=/dev/null
+ . "$SCRIPT_DIR/../welcome.lib.sh"
+ 
+-remote_ssh_welcome_print_sw
++remote_ssh_welcome_render_sw
+diff --git a/shell/welcome.lib.sh b/shell/welcome.lib.sh
+index 3b988ec..e146b19 100644
+--- a/shell/welcome.lib.sh
++++ b/shell/welcome.lib.sh
+@@ -25,6 +25,7 @@ REMOTE_SSH_WELCOME_MODULE_DIR="$REMOTE_SSH_WELCOME_LOADER_DIR/welcome"
+ . "$REMOTE_SSH_WELCOME_MODULE_DIR/commands.sh"
+ . "$REMOTE_SSH_WELCOME_MODULE_DIR/hw.sh"
+ . "$REMOTE_SSH_WELCOME_MODULE_DIR/sw.sh"
++. "$REMOTE_SSH_WELCOME_MODULE_DIR/bundled.sh"
+ . "$REMOTE_SSH_WELCOME_MODULE_DIR/runner.sh"
+ 
+ unset REMOTE_SSH_WELCOME_MODULE_DIR

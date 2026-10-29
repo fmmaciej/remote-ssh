@@ -1,0 +1,22 @@
+batch=1 bash=3.2 fixture=healthy workload=isolated
+batch=1 bash=3.2 fixture=healthy workload=pty
+batch=1 bash=3.2 fixture=actionable workload=isolated
+batch=1 bash=3.2 fixture=actionable workload=pty
+batch=1 bash=5.3 fixture=healthy workload=isolated
+batch=1 bash=5.3 fixture=healthy workload=pty
+batch=1 bash=5.3 fixture=actionable workload=isolated
+batch=1 bash=5.3 fixture=actionable workload=pty
+batch=1 bash=3.2 fixture=healthy workload=bash-baseline
+batch=1 bash=3.2 fixture=healthy workload=remote-ssh-min
+batch=1 bash=5.3 fixture=healthy workload=bash-baseline
+batch=1 bash=5.3 fixture=healthy workload=remote-ssh-min
+batch=2 bash=3.2 fixture=healthy workload=isolated
+batch=2 bash=3.2 fixture=healthy workload=pty
+batch=2 bash=3.2 fixture=actionable workload=isolated
+batch=2 bash=3.2 fixture=actionable workload=pty
+batch=2 bash=5.3 fixture=healthy workload=isolated
+batch=2 bash=5.3 fixture=healthy workload=pty
+batch=2 bash=5.3 fixture=actionable workload=isolated
+batch=2 bash=5.3 fixture=actionable workload=pty
+
+exit_code: 0

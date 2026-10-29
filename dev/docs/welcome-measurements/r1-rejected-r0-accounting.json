@@ -1,0 +1,43 @@
+{
+  "attempt": "R0 first outside-sandbox paired run",
+  "accepted_for_performance": false,
+  "successful_retained_records": 139,
+  "rejected_sample": {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "workload": "pty",
+    "version": "candidate",
+    "batch": 1,
+    "warmup": true,
+    "index": -3,
+    "ready_ms": null,
+    "total_ms": null,
+    "timing_availability": "unavailable: frozen sample() asserted before returning/writing its record",
+    "screen_log": "paired-r0-attempt-1.log",
+    "previous_checks_passed": [
+      "returncode=0",
+      "timeout=false",
+      "ready marker present",
+      "output below 128 KiB"
+    ]
+  },
+  "preserved_artifact_sha256": {
+    "candidate-r0-frozen.json": "a2f06b8422f8ab2e2f47032766d308b9dff6201dc225eb3c903de2f50e280712",
+    "candidate-r0-runtime.patch": "09943f43a5f2365f3c67c45e42c7cf4198d9b61a405e63cdf60fff869c62d592",
+    "paired-r0-attempt-1.jsonl": "c743de027400c5753f187420c626f54e4f53d7c5eb8b7e645a7189eda361e4ff",
+    "paired-r0-attempt-1.metadata.json": "ce15373b6df13f4d5d31713c094552a6f6751d79c44e95fc24c40394ab2a87a8",
+    "paired-r0-attempt-1.log": "d01526d49b60ac427da110153ee6f0c226c36422044546594f6ce29087d26424",
+    "execution-trace.json": "594df7c18aea438b30f6176ce0d0dbdfbced77d5a47a1d855d2a3f65f4ae9f16",
+    "trace-review.json": "095db467d54c73994cfe51a0163ca681457942721654358b998659687697469b",
+    "trace.py": "9feb481789e180899a545a98b133e06165f19c2cb16088103b0b79d69d90b1ac",
+    "focused-root-unsandboxed.log": "2cda0032b83b2d5495ab63048184ff0f6e1d64a461ae0af0589619b6f8071c3b",
+    "trace-3.2-external-and-user.stderr.txt": "c893a8642e402d3901a0b132e16523e2461c297a8c54103d650e716d20889495",
+    "trace-5.3-worker-and-user.stdout.txt": "82237a206d1444ede023f887330d9ff8fecdddd8341b7431adc55aca5764cd09",
+    "trace-3.2-worker-and-user.stdout.txt": "82237a206d1444ede023f887330d9ff8fecdddd8341b7431adc55aca5764cd09",
+    "trace-5.3-external-and-user.stdout.txt": "82237a206d1444ede023f887330d9ff8fecdddd8341b7431adc55aca5764cd09",
+    "trace-3.2-external-and-user.stdout.txt": "82237a206d1444ede023f887330d9ff8fecdddd8341b7431adc55aca5764cd09",
+    "trace-5.3-external-and-user.stderr.txt": "c74c0286681789186c34133153e031222a68012ddb81930abeeb183499873190",
+    "trace-5.3-worker-and-user.stderr.txt": "d0da1a367c4b2d4a526665c45c385445d4146059b14fb97af2b2d39acb43fde3",
+    "trace-3.2-worker-and-user.stderr.txt": "38c521f1cc6ff0542d46a3fd242e135f48c79c7197db34738feeb8f00bb1ba9d"
+  }
+}

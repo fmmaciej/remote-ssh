@@ -1,0 +1,114 @@
+{
+  "status": "PASS",
+  "candidate": "/private/tmp/remote-ssh-welcome-candidate-r1",
+  "records": [
+    {
+      "bash": "/bin/bash",
+      "debug": "0",
+      "runs": {
+        "external-reference": {
+          "returncode": 0,
+          "stdout": "host:    audit-host / 203.0.113.9\nupdate:  disabled\ntools:   0 checked / 0 ok\nscripts: 4 checked / 2 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent unavailable / git config ok\nactual-non-Bash-user\n\nnext:    remote-ssh doctor\nCALLER-NEXT\n",
+          "stderr": "",
+          "executions": [
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/00-remote-ssh.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/10-hw.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/20-sw.sh"
+          ]
+        },
+        "worker-preflight-fallback": {
+          "returncode": 0,
+          "stdout": "host:    audit-host / 203.0.113.9\nupdate:  disabled\ntools:   0 checked / 0 ok\nscripts: 4 checked / 2 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent unavailable / git config ok\nactual-non-Bash-user\n\nnext:    remote-ssh doctor\nCALLER-NEXT\n",
+          "stderr": "",
+          "executions": [
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome/bundled-runner.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/00-remote-ssh.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/10-hw.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/20-sw.sh"
+          ]
+        }
+      }
+    },
+    {
+      "bash": "/bin/bash",
+      "debug": "1",
+      "runs": {
+        "external-reference": {
+          "returncode": 0,
+          "stdout": "host:    audit-host / 203.0.113.9\nupdate:  disabled\ntools:   0 checked / 0 ok\nscripts: 4 checked / 2 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent unavailable / git config ok\nactual-non-Bash-user\n\nnext:    remote-ssh doctor\nCALLER-NEXT\n",
+          "stderr": "",
+          "executions": [
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/00-remote-ssh.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/10-hw.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/20-sw.sh"
+          ]
+        },
+        "worker-preflight-fallback": {
+          "returncode": 0,
+          "stdout": "host:    audit-host / 203.0.113.9\nupdate:  disabled\ntools:   0 checked / 0 ok\nscripts: 4 checked / 2 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent unavailable / git config ok\nactual-non-Bash-user\n\nnext:    remote-ssh doctor\nCALLER-NEXT\n",
+          "stderr": "remote-ssh welcome: required function unavailable: remote_ssh_welcome_cpu_count\n",
+          "executions": [
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome/bundled-runner.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/00-remote-ssh.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/10-hw.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/20-sw.sh"
+          ]
+        }
+      }
+    },
+    {
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "debug": "0",
+      "runs": {
+        "external-reference": {
+          "returncode": 0,
+          "stdout": "host:    audit-host / 203.0.113.9\nupdate:  disabled\ntools:   0 checked / 0 ok\nscripts: 4 checked / 2 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent unavailable / git config ok\nactual-non-Bash-user\n\nnext:    remote-ssh doctor\nCALLER-NEXT\n",
+          "stderr": "",
+          "executions": [
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/00-remote-ssh.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/10-hw.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/20-sw.sh"
+          ]
+        },
+        "worker-preflight-fallback": {
+          "returncode": 0,
+          "stdout": "host:    audit-host / 203.0.113.9\nupdate:  disabled\ntools:   0 checked / 0 ok\nscripts: 4 checked / 2 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent unavailable / git config ok\nactual-non-Bash-user\n\nnext:    remote-ssh doctor\nCALLER-NEXT\n",
+          "stderr": "",
+          "executions": [
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome/bundled-runner.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/00-remote-ssh.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/10-hw.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/20-sw.sh"
+          ]
+        }
+      }
+    },
+    {
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "debug": "1",
+      "runs": {
+        "external-reference": {
+          "returncode": 0,
+          "stdout": "host:    audit-host / 203.0.113.9\nupdate:  disabled\ntools:   0 checked / 0 ok\nscripts: 4 checked / 2 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent unavailable / git config ok\nactual-non-Bash-user\n\nnext:    remote-ssh doctor\nCALLER-NEXT\n",
+          "stderr": "",
+          "executions": [
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/00-remote-ssh.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/10-hw.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/20-sw.sh"
+          ]
+        },
+        "worker-preflight-fallback": {
+          "returncode": 0,
+          "stdout": "host:    audit-host / 203.0.113.9\nupdate:  disabled\ntools:   0 checked / 0 ok\nscripts: 4 checked / 2 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent unavailable / git config ok\nactual-non-Bash-user\n\nnext:    remote-ssh doctor\nCALLER-NEXT\n",
+          "stderr": "remote-ssh welcome: required function unavailable: remote_ssh_welcome_cpu_count\n",
+          "executions": [
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome/bundled-runner.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/00-remote-ssh.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/10-hw.sh",
+            "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-parent-audit-w1eqyant/runtime/shell/welcome.d/20-sw.sh"
+          ]
+        }
+      }
+    }
+  ]
+}

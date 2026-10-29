@@ -1,0 +1,20 @@
+Command: dev/.venv/bin/python -m pytest -q dev/tests/test_welcome.py dev/tests/test_welcome_bundled.py
+Execution context: require_escalated; tests need real /dev/tty access blocked by the sandbox.
+Exit code: 0
+Source SHA-256 after this run (implementer held edits):
+{
+  "shell/welcome.lib.sh": "45ef112946af4d75f91949cfa58301947a14dd7d39083476afa7b2607c287961",
+  "shell/welcome/runner.sh": "8d840f54c9f2ee502e2e19b43cae1c8487b1b6412ac1b6ef093df50516d18c5a",
+  "shell/welcome/bundled.sh": "da269d5e8798d9512f4e6a9ab39395030c758e136ef43433fe735ae6dc99825f",
+  "shell/welcome/bundled-runner.sh": "0a092c7eeb58ff83c167cab54244d832a0f818cc17249d59c6d445c93f612896",
+  "shell/welcome.d/00-remote-ssh.sh": "1c29dec35d67e356f5381e6c0c5d6edb0d3e965f716edf535774cf90e974b294",
+  "shell/welcome.d/10-hw.sh": "6be028fe2e833e1035a0a671f81774bcb66bbd5ab1f29710b0bae24781aa6caa",
+  "shell/welcome.d/20-sw.sh": "b84d5d697c5eadc0003f248871c340b9445141d9524690e9666b72102fbb0b89",
+  "dev/tests/test_welcome_bundled.py": "a059828e4b531171dd6abdb193c35a03438e0349c7d17188f2d53d3a65349cb4"
+}
+
+Captured output:
+
+........................................................................ [ 57%]
+.............s........................................                   [100%]
+125 passed, 1 skipped in 11.18s

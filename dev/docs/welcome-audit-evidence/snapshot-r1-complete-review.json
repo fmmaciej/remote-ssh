@@ -1,0 +1,3720 @@
+{
+  "baseline_path": "/private/tmp/remote-ssh-welcome-baseline-r1",
+  "candidate_path": "/private/tmp/remote-ssh-welcome-candidate-r1",
+  "scope": "complete tree",
+  "baseline": {
+    "aggregate": "516c3df7508b44a98ea514e2d6dab626d44507e5e8f5b1b03eca855923ac1b60",
+    "files": {
+      ".gitignore": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c41d4c0bf68d696461f30d049c18dde3bb110b4cb1f5d1bb71d7eda0fe4a84a0"
+      },
+      ".vscode": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      ".vscode/settings.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fccc7fbdea382b60c6f16d33c278c86b15c2d92afb25b834bc5afd5f401945a2"
+      },
+      "AGENTS.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "eba14edb912f881b94f39608ce0973ba98c4817516a6cd7d612cb09403b0eb65"
+      },
+      "LICENSE": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "caf8f4e97ccd72602f81fb20ce07a51b2703c2377cd517766f32e7f2800668a0"
+      },
+      "README.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "eea7e4bcab5d387b047b528a2576d9115a7a2cce3b18f7aac168b128ee48d97c"
+      },
+      "bin": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "bin/remote-ssh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "cce7aaf10c8538f290ff9918a2435078e2748036ac8e9f1a2b505e377df7206d"
+      },
+      "bin/ssh-find": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "12ce093c3a71f7e365a1e2186fa7647c77028c739970df3ef7aa078d0be07c2e"
+      },
+      "dev": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/.env.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4233721d5ceec98260bcd0c2d552bfa77407522c3b1f7fa6285c9a41fed3cd58"
+      },
+      "dev/.gitignore": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "48cab9e7387167676e7ca4d86b5f38f27af29f7b9db48f9c2c835b6a2ffdd891"
+      },
+      "dev/.pre-commit-config.yaml": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "49fb3c1fb09b36dc05d63a3b8811aab3fabb2c54e08c98de3c428a6cdf73c7c3"
+      },
+      "dev/.python-version": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "02e735b3dfe1c32833eb550b7ff8ffa17f5f2bc3fa1e7bae61a8f5a3883ce398"
+      },
+      "dev/README.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "25f5f7b9976931831d2b3160137f241a3cb5838e6f7a1486a1d8fda4969c8ab5"
+      },
+      "dev/__pycache__": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/__pycache__/check_assets_live.cpython-313.pyc": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "239b26aafe81eb98d426c45ada48c76ecf0ad051387cd5004e554436fbe35a7b"
+      },
+      "dev/bench": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/bench/__init__.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a7a35c8b6ed729ea228af16d519396c2da4946032a43bbdff02e364a84dd0e46"
+      },
+      "dev/bench/model.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "70340f1b206bb666b3b6a05fc48c93207dd69fef284e32ab1aedd177f62994d6"
+      },
+      "dev/bench/pty_runner.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "928df6ff0cc2686f255f3fe0edefc7e9cb060c842b294a7366ac8a4e265a741d"
+      },
+      "dev/bench/references.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "cff1c3d0c2ef00815652a5cdff9a7981c186a54289a87f9079c9cf36c5eb96be"
+      },
+      "dev/bench/report.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "327e5e071373037991c959342198c67b30e775e725819d9a016e6c11a70cf1f4"
+      },
+      "dev/bench/scenarios.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "0300eccf8c6456eb1c865870b7ed767f724b9ce4f436b68529fc17da241b48e2"
+      },
+      "dev/bench/shell_startup.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8e97479b35970db73d1833a14ca3968b062f0982ed12ef74d9896209ca543de7"
+      },
+      "dev/bench/stats.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "aadea308ac60ddcc121ce875ab8266681cfee6e8849292580b4d3316f96c97a2"
+      },
+      "dev/bench_shell_startup.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ed0458c3dcc9aa2159a560e8a29936adb21dbd22043535cf5bb59834b3a0d429"
+      },
+      "dev/check_assets_live.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "41a01adee10555af4fb58e639fc9302231d3eac9a2ca35e325e41d517f741053"
+      },
+      "dev/config": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/config/shell_startup_references.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2372cd0947db855cee49dc8728308e19f8bd0386ba24f08aa4b3512ac2bbce55"
+      },
+      "dev/docs": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/docs/archive-extraction-plan.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c0df585a930ad6b3a2cffd3b6edb2b555160d61ff951adf4b76b7772dca3113b"
+      },
+      "dev/docs/audit-fix-plan.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "87c5cd925a820eac680c4cd5954fd9e617bf4a752c3e97a0dbe5858cb677c97d"
+      },
+      "dev/docs/bench-shell.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "921983d93954edf55a1e947c1269eeb3b4495d78eb4ddd15de6c388f0f520627"
+      },
+      "dev/docs/checks.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "dbb867e9a442515f1da5215f2112a6be19083c9249148410a09ddd2540f96709"
+      },
+      "dev/docs/commands.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4a01eb71fd069e8a7c119e63e65606e28b19405b443a71c67a81666144e552b9"
+      },
+      "dev/docs/config-loader-implementation-audit.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a81db3ac505f8b6e51cc90b921e6184ec45a16f9fa139df33e6815102b44ae22"
+      },
+      "dev/docs/config-loader-implementation-plan.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "44975f1df1ad3d3a7c2671c2ac1c3c95d288daeb1e3e9fa4b6260d13deb8f5f2"
+      },
+      "dev/docs/config-loader-implementation-record.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d8b9140d75137e72cb9e4cc9cca441292eecee1a328eca8fd37c1f7b6f85f01d"
+      },
+      "dev/docs/config-loader-independent-reaudit.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "35f01b95802222bece292b429139690a20d2d240b10ba1c5933b5a5bcf42ee89"
+      },
+      "dev/docs/config-loader-measurements": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/docs/config-loader-measurements/baseline-loader-bash32.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a689d8b88e8d3d1380496d6ca2eb9a1ffbf6ecc80863a22df54c0af966e9d392"
+      },
+      "dev/docs/config-loader-measurements/baseline-loader-bash53.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7c75dab3f73bac38e372ca34372f61716e4b9c36541188e43acf677a14ca5bf8"
+      },
+      "dev/docs/config-loader-measurements/baseline-pty-bash32.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d661711580f082d3210c46463f4541785d90072aa0ccd359b6064278b0a30c41"
+      },
+      "dev/docs/config-loader-measurements/baseline-pty-bash53.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "455d55422105ccecde758a88dd21764495a636542a030967ead892d549b63d3d"
+      },
+      "dev/docs/config-loader-measurements/measure.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c055150fd19613d5f0ef5ae9ef9a4f50035b444b035af0e28929c83612c31714"
+      },
+      "dev/docs/config-loader-measurements/ninekeys.conf": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1a40e20fe72c1a202aa3d0a04ae4a7a5f2508e7a8b172fa99d94342a9ae6f444"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-checkpoint.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "606142c6073aa90275db08a192c0b70ba806162bacf4d43c0781ea885829bb00"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-corrected-focused.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9243e311a41f2289b535fbb9ae3f9e8e5d7945634d0f2522e3e9902ae78174fb"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-corrected-green.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e4d2896a9ad7d4c8a9a0351340e8c6c30fefdbba150b741923197a20f693522a"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-corrected-red.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c3778f150a0fce269650f78700c2acc437041bee4b121dd162d251fde6cc367b"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-corrected-runtime.diff": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e1d705129da86afa81765e794e05a77fc498e2c735f8035fdd3e69b25effcc5d"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-focused.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "79ff22e16ae51e1cf0a2c9cd045d7a335ac9b0608ad24ef3a22c3f2365fbef67"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-green.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d6940d9ad8f9a0464c4d9157fee315a7f78f3558507f96a699fa18c6104e8f9f"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-red.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "abc58f74bbe6641ce7e7ab7cb41aff4bd8c0d6825eac75c4afbfe69bcb6df84b"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-runtime.diff": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fde2cf35fbf173f6cb3ff65d24f0ac41bd352a43c544936dd1cc350fa1b14bd5"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-smoke.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a70bb48be488a4a8ed3d26588db1246cdebdba7b14aa9ba918e04fdf86845be2"
+      },
+      "dev/docs/config-loader-measurements/smoke-stage-b.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "131df49e3706a175b4722b11fb3a9a062a8f38dcd8cf941dcbe06d0d22c1025a"
+      },
+      "dev/docs/config-loader-measurements/stage-a-loader-bash32.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "96badeba103effda4e82f9c76733f345691c1b93b916cca9b62a027eeb77befc"
+      },
+      "dev/docs/config-loader-measurements/stage-a-loader-bash53.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "efc6fc5b1b3c234168715f643829fd70a509a41a5c378b956bf83b6ccc8d88f3"
+      },
+      "dev/docs/config-loader-measurements/stage-a-pty-bash32.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "380a62367178fe43e38776b14d44f4823bc2d87625e035979b8ac2658114be57"
+      },
+      "dev/docs/config-loader-measurements/stage-a-pty-bash53.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "42b3ec11e0a816e3f7a389d911fe27b0e4be8a7e80043aa6e7bdd4cc064370d9"
+      },
+      "dev/docs/config-loader-measurements/stage-b-loader-bash32.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fd227a8cb626ccee4c7711680081fcbbd20c1fb10d9a1372ce7fe8822f2924de"
+      },
+      "dev/docs/config-loader-measurements/stage-b-loader-bash53.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "60fdf66dfde588f2bef9f7c357f368c19bf986e459bdc02b73c4162fddc98eec"
+      },
+      "dev/docs/config-loader-measurements/stage-b-pty-bash32.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "642a0553f1475f0fd0f4672517cdeffc0aa9266462e01ac77f78b265b26f69dc"
+      },
+      "dev/docs/config-loader-measurements/stage-b-pty-bash53.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "36cd3b20f19df49809604f7bdf7c0fb1e3e7215194eba3619f56dad2a8f88aaf"
+      },
+      "dev/docs/config-loader-plan-audit.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "49b596720fbd3b9a4d65480f89eda0f411916509f6ba64c0a0aadaea15ef0fc5"
+      },
+      "dev/docs/config-loader-reaudit-evidence": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/behavior_probe.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8e09f498fa9247bb50693d5db5278c3b6af827413052d6c6855856396e72a5d3"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/failure-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fe99165fac61b009ecea47ed1e9bd08e75808bdf184cb3ad716101ca122b55f6"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/failure-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "06137f2ffc4e25a12646e7b0ae41ebaa8e2be4227add7f430e8c163374707681"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/initialization-fault-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e284d6c389bca35bb51964ec787a0e0cdd9bfa86d9849bae81d5fdcb2f8c27d1"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/initialization_fault_probe.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "12f17d928c93d6abea5c5c591553352f105e81ad37b69427ae49f35e8ad65057"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/integration-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "6d19470a544b229cfee047bdca889fd1a93de564333655d54eca02169b3c5130"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/integration-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2c3299b1aca6043a05166fffddfe591d3aa9a0db2f9e06ba8bc069cb79203dfd"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/lifecycle-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ebc4303d06583127d4b15da4c1d323755abb37d632129d8d4d3913c80b0792b9"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/lifecycle-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "3bd17d632656bd31887494f825d48e6ac373f6fee5b07739d1b1cc1cc3862c88"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/parser-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "58910a323a63ff252763dc68eb108d5d99bd5725f5376589ea0de7acb4f8884b"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/parser-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "846948c21480a7a17216f262296d7abdfcf3ec49c18c130e7000ece3d33a79ac"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/posix-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bad1c85887a4639b3c949499067d088901c34654e9b9b4dd48d7e8508163dd56"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/posix-gate-R0-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "aca490d049c423835dc0dd6a6c9429322b3a26c7966252ae5f56f92168007385"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/posix-gate-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e1238d58c0ca663236aaf50e6fb6d2c39261f72be55a8aa3e8bce1d01340639c"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/posix-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7ff72b114fae9ae1892415edc692e118cc24dadb1ad36dd5e20561992433c397"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/pytest-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4d7cfcbfeeda0dca06229554870e40403ddeef24e47ab52437e5d188000c4d21"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/pytest-results.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e07f20b6bc9326b52f1e4a79230a98beac5e86a651278f9d9d8fb1e2a56adc5b"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/source-snapshots.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "84b69eac1508d3fdeefd9df2e714135e0c9488eb91dc421f48e16ed4f0667fdf"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/strict-rc-trace-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "085301cbae7ea2fe813fc91f85837996453e8c3ad1365b69a6907c4230e13c53"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/strict_rc_probe.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7503fe968bf48e9cbd5f17903084d2a7bd54f68b1df1e8314d1cf24c9f5b422b"
+      },
+      "dev/docs/config-loader-reaudit-evidence/paired-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "27733bcc7f1182c17fcede2fc956d90ec0a96729a1d6dde855d9087a03abd790"
+      },
+      "dev/docs/config-loader-reaudit-evidence/paired_measure.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1d5d0ab8dba782873a2e641bd4f8bbba1b5f651e6af06840a2017d92bda007b2"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/paired-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c66c139c158b7a3d9e391caa630fc6fe567f70965321b61507da79dac68cbdeb"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/paired_measure.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1d5d0ab8dba782873a2e641bd4f8bbba1b5f651e6af06840a2017d92bda007b2"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/subshell-trace-after.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "07edaa283b37e1b078aca4d076c4d390fcfb4e8d62d69b2d0a1e44a86865418d"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/subshell-trace-before.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "896aaac37c9ac1a6b0cea909272edfcb9a95e8baf22c4199ae2072e45a3a0cda"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/subshell-trace-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ca536bcf0166b30071560e6149ccad8bf4cd5f5a9d5c213fb957d3252b0b89c1"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/subshell_trace.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fbee28ddbc09c220affee8df79fb263d085082ee296ce765b495e653a51a3ba1"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/trace-after.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "76309d8037de58cc795fe27502943b6eef7af26d0479997247e9b49918cbbd56"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/trace-before.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a475a01568f617fd6d0af9c0a5995e37df8ab168f47e974b0bb1fb1a039e5a68"
+      },
+      "dev/docs/config-loader-reaudit-evidence/subshell-trace-after.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "56aaacdf17983b653cbe855e8308b72c5e35b56e4604e448535bb47285bff976"
+      },
+      "dev/docs/config-loader-reaudit-evidence/subshell-trace-before.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "90c385eb7089f66b49babb3faf14bf439e8a34f758853cb75188a620ea93545e"
+      },
+      "dev/docs/config-loader-reaudit-evidence/subshell-trace-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4595b3635cf2210ee7b8caef1eed2f2a4312baf4748117452d3b991801a5eb18"
+      },
+      "dev/docs/config-loader-reaudit-evidence/subshell_trace.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fbee28ddbc09c220affee8df79fb263d085082ee296ce765b495e653a51a3ba1"
+      },
+      "dev/docs/config-loader-reaudit-evidence/trace-after.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "24175b68884ecbd2434e053de545fb7bf8bc4ca3f5fbc78c58867f0eb375190f"
+      },
+      "dev/docs/config-loader-reaudit-evidence/trace-before.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1db5d883144623c335759bf74a4c507683b8b44b724850fe6a6ac16129044da9"
+      },
+      "dev/docs/config-loader-reaudit-performance.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1ed36fa78ba46c78c892bb2a9bf3cad78933f01b98136c1f77d15a423f12e463"
+      },
+      "dev/docs/config-loader-repair-plan.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2b7da8af33ec4aa257b8f26358467ff7d1ab1d223f9517b65de75839083c039a"
+      },
+      "dev/docs/live-assets.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fa4ea4b930c8bfe69ed5e34b610bb637263402772f2f0e936675fe2712a9b95c"
+      },
+      "dev/docs/refactor-audit-plan.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c87f3b5495ff11d2c0415a0fa3ef3757efa489d22294cc9185a31dbafbef5e6b"
+      },
+      "dev/docs/refactor-audit-stage-0.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5b30217dd767903a16d30a9f1d3ff41d3a2df8c06f872620c08279c56e8a0e09"
+      },
+      "dev/docs/refactor-audit-stage-1.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "28e9cfd7bbe1b14c72c05b2f9d945d8d38ee3cc61472a4d1da0b46bb5c1eb973"
+      },
+      "dev/docs/refactor-audit-stage-2.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a2f947a07a347403fd129d42d545a7ffddf1aa0586729342de61b142bdd383e7"
+      },
+      "dev/docs/refactor-audit-stage-3.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fb4ba7b5133acdfa5467b2ca2d5456f9f8de684d25dc50d975c902f557c2241f"
+      },
+      "dev/docs/refactor-audit-stage-4.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "84fa5db25904f1bc8eaf6ab68f9afad5455497752137361d30518d4052f4db08"
+      },
+      "dev/docs/start.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4df344e0ae8c0d31d12d81e7e9eb58175186c66fde797aa42c5ebcdbc285b5a0"
+      },
+      "dev/justfile": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b677dde129a827cdc74d432b6cc7f3fbb4950bbd246eb74dd5939b5f0a84a4bb"
+      },
+      "dev/lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "54a5129a6cbff754363340c1e73df0e785042ddd2a9fe18c98de41347b235a13"
+      },
+      "dev/pyproject.toml": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "0c2f927f0239b32cef7d893f321ef876082db4f3dcffec9fbeb778d4f636ca5b"
+      },
+      "dev/smoke.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "bd73b6f26f6600154833a99b8de639a20847085c3bd8a9454067cad23c8209c1"
+      },
+      "dev/tests": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/tests/conftest.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "71baee3c64e71b46998da0b0a37db0e9c2ac3acd290f6ac41c1e9c466f6dabb0"
+      },
+      "dev/tests/fixtures": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/tests/fixtures/atuin": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/tests/fixtures/atuin/README.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "99adaae3b468143cffb0e7d3fd84c4ef1d6863dc44d4e4aa4d1d51e294228284"
+      },
+      "dev/tests/fixtures/atuin/v18.14.1": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/tests/fixtures/atuin/v18.14.1/LICENSE": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f87d1042ef858e746db8429f69a0cdd9dc73a28595dc738e5cbeb97ad8586d64"
+      },
+      "dev/tests/fixtures/atuin/v18.14.1/atuin.bash": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "60dde7dd731f9963b19f313c9b44870b1b0a6836c38bf22e96134251cc834d5a"
+      },
+      "dev/tests/pty_shell.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e1c125a1d6aa7876035cf886065fe6cb914202a078aab9591ec845c6fd787a44"
+      },
+      "dev/tests/test_atuin_lifecycle.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f6f7236f424805a83c76d14a8e8e284b188e4f2503b2ab7249126dc092cca825"
+      },
+      "dev/tests/test_atuin_ownership.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1522fcaf08b6a7c0f70709023598cdb84aad57e6bfdfa5222ecbb9af561665a2"
+      },
+      "dev/tests/test_atuin_prompt.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "46055ab18d2fb15ddebcc0651c93fd565185ee4900d2c348b7d15a3b70755fe8"
+      },
+      "dev/tests/test_bench_shell_startup.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "27bdd341f774246e60be2e08d843f580570c21e4ff50c5c32fa084a9e409f0b7"
+      },
+      "dev/tests/test_check.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "54bf315d01c7ad5cb78f9e7d40314fc068399a0f7389454bb6ee5aa7689dfb34"
+      },
+      "dev/tests/test_check_assets_live.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5fb04f99350f1a7a2738f76891dd78af66aaab830b3bf839223fd61704dcf6b9"
+      },
+      "dev/tests/test_config.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7d3bcaacbc8a038451b8e83baf5c5d2318c077762bbe69a6430240a967acbb47"
+      },
+      "dev/tests/test_doctor.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7c89c6a4a266a31b9a2c2c8b40f38092e47d2f96ba0a6ab7b727e6b152ff5cb0"
+      },
+      "dev/tests/test_entrypoint.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "6ffcd9ba4cfd10bbaa9c831e58fe298d0debe695854e5cc2281e8b1dd347c5a6"
+      },
+      "dev/tests/test_generate_def.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "636b13e7dd4b0fa561b0417a8642b22b77ef9d358995eca7b80ab62d4ddec618"
+      },
+      "dev/tests/test_git_session_identity.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "be3f4a358b0d3d79e798c20271567f44223e230136b41d7e3fd4a43ce8e6c888"
+      },
+      "dev/tests/test_git_setup.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2d2a8c883c3f587e9d2f74a013e42727d198bcbc2e9394d602c8ef59988bc13f"
+      },
+      "dev/tests/test_git_status.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e605e1da6c011a1f5447598d4c8a410a2d981765c36bbec8a611e62b177abbf5"
+      },
+      "dev/tests/test_guide.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d1fe47c4973a78812aa4f6ff56558d33311216dc171bea58a88664fcdf6e83d2"
+      },
+      "dev/tests/test_history_backend.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4b969f2e82cf93af7b8c523de79e2b347df86b8c92a84d9d5b3860e794fd54db"
+      },
+      "dev/tests/test_install_binary.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a8f345b01fcf2382e7eeba5332c6444db7d8dee783148414d9f1e168c4bae292"
+      },
+      "dev/tests/test_install_bundle.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "764c3728be19eaa6d5e4deabed794ab73ebf91309b70abfad5df292ca2cf6f34"
+      },
+      "dev/tests/test_install_expected_tools.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f7114430cc0898b02cbba2dbce72040b6811b283d24ed69f32734026bf904142"
+      },
+      "dev/tests/test_install_failures.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "04720e59af43f174c3bee157bd5cb50485435fe7fefac91249dce29ad969797d"
+      },
+      "dev/tests/test_install_tool_core.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "383c956dc975a9363db48935103d01453ad5e1938528059acdd6ec8a74b4a76a"
+      },
+      "dev/tests/test_post_install.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5d191f7357619b0ae8ff9bda286d7e326088a2f07b98b61779d7e3ed2dc1fa42"
+      },
+      "dev/tests/test_prune.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "135a3af9bc89ba81549b7b86ced984348f76b508cc2fecee0fc3eb37a3b9d249"
+      },
+      "dev/tests/test_rc_flow.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8c8c4a1736348b4570e6d6a730a88c90e7d919e570f4c11c509c2041dc76f04b"
+      },
+      "dev/tests/test_release_ownership.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "849c51bff9fee0ee66f6519ed3eafbba52a012f1e9774ca22067f03ff28d38cb"
+      },
+      "dev/tests/test_runme.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "87b1e56de1938ce6ab9a96c337b68ad714666c020d3150dfd7b9204910a2da6e"
+      },
+      "dev/tests/test_scripts_command.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "09d370b453b91ea42c987497d100b2f919b65e4de4088cbd31b4b3a4ce15b363"
+      },
+      "dev/tests/test_shell_helpers.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8e418564f2a7b3eb95442cc96f4ff3ab7d9538694040e158a73d6d8f77aa067d"
+      },
+      "dev/tests/test_ssh_command.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8db60e3d5965cb020236276891f1adb4d5ffd321c6795ff7829d11fc4e2f4e9d"
+      },
+      "dev/tests/test_ssh_helpers.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "23d309cc674b37cdbebeed604f117bdd4052d5efb5c01cb9b82dd53aab55af3a"
+      },
+      "dev/tests/test_ssh_pick_records.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7fefba567bb3f4592556d9adfd3ba1f5ab48b1756b5f6bb92b6df3489f4adae9"
+      },
+      "dev/tests/test_tmux.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "538f62299d82344878ebea46b3621f636f6f20e4d34970fc951b9dfa4a1106d4"
+      },
+      "dev/tests/test_tool_assets.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b0a514fe7a0beaa01fcab13ae33f2e3607bd39bdd205c581f57f3fc7360af0cf"
+      },
+      "dev/tests/test_tool_init_shell.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "327157c1eeefdbe2c2feca0a0d1a4baac9438bf22a13d751ca4fdfd036fe931f"
+      },
+      "dev/tests/test_uninstall.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "89e56e19ada8007b261b8bb6410e5aa67881f966e4fd1f8ca0399f5f25f47bb4"
+      },
+      "dev/tests/test_update.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "0553665ac19496452aee445e521f55d01750002912654841089eddb51148b8b2"
+      },
+      "dev/tests/test_welcome.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a6ce0e4b7420985793b7ec0c28301ea1c581d1434d81a281a7fd6f083c2c382b"
+      },
+      "dev/todo-bench.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "29879ce5f9587240d854195316ec1b3dca3f1466c7be600002254dd9bc4cd0bc"
+      },
+      "dev/uv.lock": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8491b967cb962c9716f6de776723f71e86b3f8b3d2b2b7ddb943786cd7bceee4"
+      },
+      "docs": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "docs/TODO.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d56e8791ebd114403e72f3690843734195da71b04dd2ca9a4cf09f06d898cf50"
+      },
+      "docs/install.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8d1d66b61c48ee47506f6d0c6b7f28bd767820736b94bdf4823428b1b82683f8"
+      },
+      "docs/post-install.d": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "docs/post-install.d/00-interactive.in": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "112994a4715c4b35153b846634ab3a66b75499c25edb04ec3fd12d91f600dacd"
+      },
+      "docs/post-install.d/10-ssh-config.in": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b7551ee234b97b51c3976cd8af455e744f3f7da08d1a0cd7f866ec1db800bc99"
+      },
+      "docs/post-install.d/20-vscode-terminal.in": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fbe3076de352811341e523c8234da37b4aff94027241cfa89a548ad8edd9bbaa"
+      },
+      "docs/post-install.d/30-git-setup.in": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "30acf9783d1823055523e9305bf1503adf436fef6e069bbbefe4f3c07393cd3b"
+      },
+      "docs/scripts.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5d305bb28eabd7814773676573a94cb3a5b1736fdb2d119d76161b55ee9684a5"
+      },
+      "docs/shell": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "docs/shell/config.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c4a71f7596c285f43938db735344f83e1cdc75967863f0e5be44648b1a16ca3b"
+      },
+      "docs/shell/helpers.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2175c8eecbea33c510fd276915999a79d239864f081f48a239b1ce9f8d87b773"
+      },
+      "docs/shell/hooks.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "59c8f3ea5708aeab3a6729e6a0dec1f02653322cd43e0cc4d195e5f110fe94b5"
+      },
+      "docs/shell/start.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7cbed9014d2f91e680b9a8b31b1e9079934b37ef7aefe1386bbbf40d57475ca3"
+      },
+      "docs/shell/welcome.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1775b3f47ea32cf3a1a8445c18afdbb11971ee8755ae677cf491a122dbd2253c"
+      },
+      "docs/shell.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f1ca24232ba9e267853ff0a66dfecf4e1e63c619b0c9078e13df6873fcd9ad6e"
+      },
+      "docs/tools.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5009f4557ed0bdaa53906a608f208563aed384e2aab216b0085a18b864717da1"
+      },
+      "dots": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dots/atuin": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dots/atuin/config.toml": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b3e9afedddb86be42946523128ac5017caea1288032c334c9da8fee345b75cde"
+      },
+      "dots/git": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dots/git/config.base": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5028ddcdbe621200c3b010fd6eb8c5b81cd8f0f5c6fd1f068b1534bcb0505a38"
+      },
+      "dots/git/user.local.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "cf2a2a3a678c24ade81f94ddc4dfaacaf4052e8c3abd07b757ee60cd4da4ba1e"
+      },
+      "dots/navi": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dots/navi/cheats": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dots/navi/cheats/bottom.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e24c5b1fa167004ab916b2816e13e7b47793dbc21c19c851a1ae2e0d98b35e81"
+      },
+      "dots/navi/cheats/docker.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "67b657a67863a440bdb59e38c98d409c15b683e99e966f0a2b23473bb525cf16"
+      },
+      "dots/navi/cheats/dust.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d9b1079524ab59df5e96fc1c902249954687e4370acf99be4480c1844745c22e"
+      },
+      "dots/navi/cheats/kubernetes.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a359a3f4486e18c18f141d57ef9a7cb68cecd18e307c52c008f91a76aad8f27e"
+      },
+      "dots/navi/cheats/procs.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ab39d54f51398b6a1167e2c57f314e980f162e4b4a71aeb11be9418576af7c81"
+      },
+      "dots/navi/cheats/remote-ssh.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9a33b02566e733bc2fd2492d39eb28db564c3e892e8630517847f30ef695aa95"
+      },
+      "dots/navi/cheats/sd.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9932442ca684a1547f070037a943f11f5a50ea9d7c2c5d95235c2ef5e8822cc7"
+      },
+      "dots/navi/cheats/tailspin.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "0d73c263a56d5cdba1d0e395ff9cc5f1384a26731336eafbc299f7f8317f9f71"
+      },
+      "dots/navi/cheats/vector.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8b700662a50e0e477ab1918496be3b50294e206a54987dc553048cf5c8702143"
+      },
+      "dots/navi/cheats/zellij.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fa500969ebab43df18f5be112336b0deb471054edf9e47d6c37cd2927a114b58"
+      },
+      "dots/ssh": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dots/ssh/config.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "70bf71e4e0b8071688f56a3c9dd4d74cc19017eefb6339b38d003ef66f5999f9"
+      },
+      "dots/starship.toml": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b858b08414c51526e8c751c1976149737d0ce59339071e418decbb0a728ffb37"
+      },
+      "dots/tmux.conf": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fdfad6d19162c8cb1de51c0d6043a3175789516f1ba290b9cd35a96f2f9a9928"
+      },
+      "dots/vimrc": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f4442479f8cef83d652c0d55aed820976ed79a41fc3961041553cb03c0c51333"
+      },
+      "justfile": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "eedd6711f2beee2b3ccd7b59baa359b4c38473907503a83ed993bc62c86860b6"
+      },
+      "lib": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "lib/guards.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bcff8e0102c94b21120278e9350f1e7e67fdab1fdd573693b119c1b09b2c6069"
+      },
+      "lib/helpers.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "0a6a3bbc9a876882846fc8ec0f34550d46a046ad4fa10d115f0810210d3550cd"
+      },
+      "lib/log.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9df67678e83e733017f8b7edd6c9a6f5e0d9e46d66d697164997a75932b3c2a2"
+      },
+      "runme.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "8ffb6fb5a12552e4f079efcefc93c5007eb8afaefec24ef898b7bc808f6e8b4b"
+      },
+      "scripts": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "scripts/ssh_find.py": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "33559804a1456ae68cd367436e6c11a6f0c5a3138ab0e6d75eebea265abb71d0"
+      },
+      "scripts/ssh_hosts.py": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "25893dde801c21be8d66e823f5945f857e136e212af2e2a8b5d8682240839f7d"
+      },
+      "shell": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/aliases.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7d0a4fa5f4a5864431fe3b4b05302c4db6ddd15a64dda5ef2ae37cc2ae00dc90"
+      },
+      "shell/config": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/config/entries.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f25851e2c72a2cdb78c75c1ee98902c40f1855ad5939dd26c21ba564691ffb90"
+      },
+      "shell/config/load.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bfee6c32ce4b94cb7526acd5926cf8df6e44fe60b5dc898d3e706d3d6d470dea"
+      },
+      "shell/config/markers.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7591de066e72d9674f32677f32258ddafca53d149d72a541a3760ba9099dd0af"
+      },
+      "shell/config/parse.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b478dca2f276abd625a721d0a839ada1b793c19764416cb452387ce39cb7465d"
+      },
+      "shell/config/path.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "3121f255d6188c5f7c02ed2a48678a1578da07f3a0163ec05d3715d7f4259fdb"
+      },
+      "shell/config.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "cf808a3dfad415a841420379b9bed55151106fa18fd3014f92133e256284c0eb"
+      },
+      "shell/env.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f3b9659e4ec72b985bde69b5b11af6fde2c73c76e97c447ecc3796739034fe0a"
+      },
+      "shell/rc.d": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/rc.d/04-update-check.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "259d37cba91d602f04d39f5dab9dbc8068060745ffb43788a5c85c3c6fdbd5f1"
+      },
+      "shell/rc.d/05-bash-preexec.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "57721b26a49d052851ea26320603558609c095424b198e567498ffabb90d19fa"
+      },
+      "shell/rc.d/06-bash-history.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b8877f2d0fef51c5444b01f47115c2c7bbf11663b565d7ef5dd04ab2a34f08fb"
+      },
+      "shell/rc.d/07-git-session-identity.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "57414146be410f70d8c9b9029fe5cf18707f747d649cf51c90d19e3c870386a9"
+      },
+      "shell/rc.d/08-welcome.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bb6de534d8d321a5530793fd036e37980c72177f9c58975aabc877fe2b4743f6"
+      },
+      "shell/rc.d/10-editor-pager.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a6943cc8ad2549fe0714a1d7637f1219b662fcfe7fc407d8fa476c0150031c0d"
+      },
+      "shell/rc.d/11-line-editing.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "cbb1d9f1df4fcd9f7bf1619177c6a69bbb1f56697b3223d30218c49f9d2fce83"
+      },
+      "shell/rc.d/20-fzf.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d5eed8aa4d2b76dcf4813b8ccd28340f18f078cac075efb4db45948076a9a33b"
+      },
+      "shell/rc.d/21-yazi.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "638815f422def6cc433cf3ff4c50930980f510930d0249b5acbd7e8a9c534801"
+      },
+      "shell/rc.d/21-zoxide.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "25516c6bec4a6f9410b87ce3db0b5da9fbbbc632fb82ead70df8ef31e8853a62"
+      },
+      "shell/rc.d/22-starship.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f6c613f5399fe7f4b895b1377fc5ab4f3474ae608d3b448cb36fb21069b37b6b"
+      },
+      "shell/rc.d/23-atuin.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9375f9a451468a42b09cb1292f825a02fb3beb23b30ffe74d107f86af2c34579"
+      },
+      "shell/rc.d/24-navi.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f18d14b8a1123ad5d74ec3bc5c37b03e571c87f18b3a877f3d1df36e50bce5b4"
+      },
+      "shell/rc.d/25-log.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b149b7e1f777be5f2f90a98d7a8c5846a13d4b6f2f2bd51171922a22ac436cea"
+      },
+      "shell/rc.d/26-bssh.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9b183c1d0cd0e96295b4ff4eb36c600839b1707e9805e061db38a2257f1a5a7f"
+      },
+      "shell/rc.d/30-ssh-pick.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4b9e7e37dbc3c68c875a0dbf8d712139391642697ff0a8193f7c415f8e0c6cc7"
+      },
+      "shell/rc.d/README.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c420bfb1d44b9c8d4b537d7656cedb50e85107ac722d701fe45df04ba9193e52"
+      },
+      "shell/rc.d/host.d": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/rc.d/host.d/.gitkeep": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "shell/rc.d/host.d/example-host.sh.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fedfd64e4ebcc36e1784413b7dbaa24356fbf325e6a1304fb19163a6797546b9"
+      },
+      "shell/rc.d/os.d": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/rc.d/os.d/.gitkeep": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "shell/rc.d/os.d/darwin.sh.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d1d95483d8975030a0d13743d33a75b81d7029df5def793a1c399ec1858fbdf2"
+      },
+      "shell/rc.d/os.d/linux.sh.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "34586b1d4aba06d14ac5d3b34de6286198490689a20fad4b12d67225e11f0373"
+      },
+      "shell/rc.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "15f9b253713eb31ac858329198e5128858b34e1c0a1063d1c34c8ac9d0ca6e67"
+      },
+      "shell/update-check": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/update-check/state.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e234bc38297c1eed76dd9fad020cbfbcc3f621e354cb6720819d2c7f3979f702"
+      },
+      "shell/update-check/time.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "344a5c91521057bbc54e832c63279be36a5a4332c1495ddb8f9481d065d17390"
+      },
+      "shell/update-check/toggle.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fbed680d84ce8ad21507cfce8a71fd6625bc914029eddace3339b14d189df508"
+      },
+      "shell/update-check.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e53e9c2292838f9b6fdfa6300dd1b6a21fe0934c583619b2a76102c37526e136"
+      },
+      "shell/welcome": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/welcome/banner.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a14828318cc030f2f2a07d0fd1d952fe80654039ce7f94a2ab22ccfa790e5f23"
+      },
+      "shell/welcome/base.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "017eec394eaa12441aab6cdbe3fa40d7e9a5d314f5babceab7e50c9c67fe6163"
+      },
+      "shell/welcome/commands.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "dabc9a1a9bf47beb771621f608657e2d528c36e569ebaa3ddbf97d5995fdd811"
+      },
+      "shell/welcome/host.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "dbfac20893287d7791f8b2b84e26396c10621ec006e94123a11c07794383d2a6"
+      },
+      "shell/welcome/hw.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c9a17dfb77d7c2d6dd65d7ba1bbee589fdd6ce438b0dc911deaa57c260cd5659"
+      },
+      "shell/welcome/issues.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bc1aba65014ddd6f700f0a655c15261f7b298125a3cb4f95802f8dc6dbf56b52"
+      },
+      "shell/welcome/runner.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ed4c08ffc3d2b544a0e15ba4ac7b4c8423352a69d7592a17076544119e08034f"
+      },
+      "shell/welcome/sw.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "694a3783def6c640eacf787e54f7972ee3a8ff6e24cd8d0d7fc6e0c4a69e39c6"
+      },
+      "shell/welcome/toggles.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9121ac0490097395aaa945eaff109e1b487a9154c5ebfd0f7627b20373b37568"
+      },
+      "shell/welcome/update.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "183ea4c2c07210b65fbcbcce48533b7396bb97db4eac221e110ea3c033a711b6"
+      },
+      "shell/welcome.d": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/welcome.d/00-remote-ssh.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "ac660d2e02c438f45a7823e948eb9e2de54075eaf81062cef8b2f5310e0704bb"
+      },
+      "shell/welcome.d/10-hw.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "fa5f5a9cbaf520c5d4df1ac72500add5d199d17b5ccc699180d7cdaedb8fc0c5"
+      },
+      "shell/welcome.d/20-sw.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "b0716e2483b5101e0f4c57c12b9bf467ce9b74503e6a986fcebf0248060ba9d5"
+      },
+      "shell/welcome.d/user-module.sh.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e501c143d9e9ea3168852b0a09a6433b62b67808f9c71d64a281d6823b7ef753"
+      },
+      "shell/welcome.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4cee5c2cdad7201a36c133ae7683334bc54bf4c1d0fd7068ad831df4036985e8"
+      },
+      "tools": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/defs": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/defs/atuin.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "abeaf6ed9e53bb6d9be5e56d4caea7f6d148ef23f702f7f051497ab7f05786b2"
+      },
+      "tools/defs/bat.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "71873e44ffe17bb81ef4e93386949336669770b6643998e12d2de16abe99f422"
+      },
+      "tools/defs/bottom.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b5b7a9a254422b1931e423262460c97bd56d589b36b376e5c277ab0b521f7e59"
+      },
+      "tools/defs/bssh.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9e4f0c231d9cb27b755d0b8a6fc23f4e74822162b810d174e7397f4fe51239ed"
+      },
+      "tools/defs/dust.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1d6c1021462298b3f62dd7b3277f30f84cf6993736f77f3c9e3c007dc7bd65a2"
+      },
+      "tools/defs/eza.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8c4285b40682d6973e29cb0492ea80d0376eb37e6e6d1dd9e2b59e3bd5fc56a5"
+      },
+      "tools/defs/fd.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a205a86c5f191387e9d04fe3def5febf814a90ba54c627817c2d21dd3590b128"
+      },
+      "tools/defs/fzf.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e86c88ed7ed3507d0bd42ad38f7d08b0ea1c6475f3ff0e59ad156ccefed3ce7b"
+      },
+      "tools/defs/navi.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8bd87d7f987890dd5598111f02f17bcf98ffdfe6663cb7454ac9d1e4ba082bfd"
+      },
+      "tools/defs/nu.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "814e52a2df4eaac4962dd0219a819f6e93644071db14298d71b09ae96ea576a7"
+      },
+      "tools/defs/nvim.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a8d8cde6f86efe7abdb469067896e78e1cf85d70aa61580fac5810693fcf29e5"
+      },
+      "tools/defs/procs.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7d98c082ac77f3942c82e23fff89796c1af0cd9b25c436fe3c44bc6d2996e0b4"
+      },
+      "tools/defs/rg.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a19b3d31a82035bcce909033ceb1a548226aa8d650b345f8dd00579a80591686"
+      },
+      "tools/defs/sd.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7a6f3cbca16b740f203208d56aad2520e8735b2e2e10a08c1eede594ceba3701"
+      },
+      "tools/defs/starship.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fe190dd4885f861dc1a14a6e1102dcf315ae3ef89979e63f53c91d80e94744c7"
+      },
+      "tools/defs/tspin.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "eb3600ea62c760419553be86524d6ba5dacf1de09989b948a27b7cffd23d433d"
+      },
+      "tools/defs/vector.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "854752ed59bac98529bc2f750da59f04fa4cc557520ea310e824c6d4f13eb0bc"
+      },
+      "tools/defs/yazi.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "42bd385e4c2647a3114fd9a576834fd2cef8cfa98c49913940c4eee516c66aa1"
+      },
+      "tools/defs/zellij.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ddb3e96ad2c3238c85ef563afb1c3f2987b7b4b669e8ec9f834a691c7ef3923a"
+      },
+      "tools/defs/zoxide.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "129995cd3c28e7c7d7a03165b640ea0bae6d153542309bfe432e2249a3dc01c3"
+      },
+      "tools/generate-def.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "da6a03ad1c5061d1a7480eacd21f75c92dfbd808fc640e31729b1ff227c63294"
+      },
+      "tools/install-tool.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "c8d19aaac648a2d7e9b1453e6cd1828b2af12004b4950e950471ce1433cda689"
+      },
+      "tools/lib": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/check.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "3dbc9cd2e24e85f2900d48fde2bb8c9671b10b88b6958e295c3a1ad7652d5f76"
+      },
+      "tools/lib/commands/doctor.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fffa50af96edb168075415a206f618574f033dbc6ae00d39c66e98752eda396a"
+      },
+      "tools/lib/commands/git": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/git/common.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "6c7d462ed6ae87194c267a3e3c8f7a78297f64b3262a99f5d7e95453ddde753a"
+      },
+      "tools/lib/commands/git/setup.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4cd684cad3df7a575e1c0501c173edeadae160d3f65f75b82af8318154bb1156"
+      },
+      "tools/lib/commands/git/status": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/git/status/model.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c91f67ff2e7e5aaf814e1a0c0ce03d82b9aee47253944fa1294382e1fd207a25"
+      },
+      "tools/lib/commands/git/status/render.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ecec6e70bf84b4567d177cc47f401e87eafc52fc19687ac5e198603447630754"
+      },
+      "tools/lib/commands/git/status.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f20483444c2b2a7ac85f6462a3aa0e34949d6449c71762eab1c39a91d81d9af7"
+      },
+      "tools/lib/commands/git.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "dc53ab065c433b5dd1ad77162f309aa17d8e3ed19be91084aa636d58fe9fa25d"
+      },
+      "tools/lib/commands/guide": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/guide/common.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7e7ae023f964febaf32a4da8574ab7795e5b16d6adb3a6bf79ad582e3ce803fa"
+      },
+      "tools/lib/commands/guide/sections.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b4e02928b7739cb1ad08742b4a35e7a870a7664775c0772d9e2181cc72c24b1a"
+      },
+      "tools/lib/commands/guide/shell_snapshot.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f09ae8e929ed21dc9e03c72ac097135454f6e7baff6019a770ec7510ec84fff6"
+      },
+      "tools/lib/commands/guide/tools.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "dfa9d5a9bf5697e523490d37990db4c26a4495a8d24bc96d33028a42effa1794"
+      },
+      "tools/lib/commands/guide.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5364898d038234a512a790205f7dbfe7eb81e04ad8f550821df134c46123d325"
+      },
+      "tools/lib/commands/help.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bd5e5a5d3861967a19c84b799964fa34f6e9869ded4166d28db56831582fd994"
+      },
+      "tools/lib/commands/install.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "cd288d9eb454a0a71b7a614e398a266d43d6d4ae5e8b1698d21c689f08dd583a"
+      },
+      "tools/lib/commands/prune.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9ac5ac98ea378dd4407ffa3c53e01930d1afe0b786c52032eb5394443a526028"
+      },
+      "tools/lib/commands/scripts.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4f04b236a8b51ea68000de99cf0c8ae6fcf9da921242b404a5d0512cb7792cc2"
+      },
+      "tools/lib/commands/setup.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "535fe284a8555a1e7a11a56071126ecd4aff4939c25364667d24f725dc2d77dc"
+      },
+      "tools/lib/commands/ssh": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/ssh/common.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "76c594973fda4b51e336acce36fae25a779ddac3ff4927da056bdcc465786f0d"
+      },
+      "tools/lib/commands/ssh/setup.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2259562286620d92f0f8d40490509ddb28e4c9b6ab08a828a5d3d25bae9686b8"
+      },
+      "tools/lib/commands/ssh/status": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/ssh/status/agent.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4a97250bf673e9fa518f2b88301d9fb8969881143fcd8505ceeef80e23069512"
+      },
+      "tools/lib/commands/ssh/status.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "194c1860c48b77bda594d1264e9e50cc8cee5add607fdceac81d132fc68103be"
+      },
+      "tools/lib/commands/ssh.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "36e1060fff093ad8398354ad924c747211e5dffda69896ddccb13bcdbf1a78ed"
+      },
+      "tools/lib/commands/tool.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e45060fd47a1ef6e80d6dc9dff68781c732d9c30ce7d2e483b435ad121ece2fe"
+      },
+      "tools/lib/commands/tool_status.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b92403e4d944ecc1ecf088cc482b715c0323cafa813191681c4a0e0fda8d0c2c"
+      },
+      "tools/lib/commands/uninstall.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e2fcc2ccc8ef46705cb675d1d3b4a9c833e23f6190c9fe2f6f6a031dd54266a5"
+      },
+      "tools/lib/commands/update": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/update/check.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fa06da8b6cd404105de00da6ff71e5193efdf1b68eb37cf97ded3e26a3c5e6a0"
+      },
+      "tools/lib/commands/update.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ff61c0cbc538ac096dc54f6232ef9251e6b9c9a03b0c011274a3a3078a532366"
+      },
+      "tools/lib/commands.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "3ec9cc6e2e43748c9d622dddfa008008fd332d4893a1ad628eb8de676f2bcf8b"
+      },
+      "tools/lib/common": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/common/extract.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f63988b2147753a2e715c6f9c57e5af2734ed0cbea2ae4b3af30773539772b52"
+      },
+      "tools/lib/common/github.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5a1fb8aa501165d659199a0d8486406e89c754c3033d3872d4ff8e472d378886"
+      },
+      "tools/lib/common/platform.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d66494f2202d323f3157ececc98947bda715db453585dfcbc5a48d17d439f5c2"
+      },
+      "tools/lib/common/release.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ad0f3c8b34ebd963293e503035aa0f9e84c471772066da87948ab7c08b7e97b0"
+      },
+      "tools/lib/common/requirements.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e5d3ccfe3d050e7fc1ca149adce9f53644bcd5b674e1488b834db0cbe512b848"
+      },
+      "tools/lib/common.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "55969631b5439fb556ce3da0afb5210179beb6041372eba4c66001a914075ba6"
+      },
+      "tools/lib/env.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7ddecbe08f02b057d808d17dc2a030ed42ea7649034416ed4ab3ca68969b32a4"
+      },
+      "tools/lib/generate-def": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/generate-def/assets.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f2a3dc4fdc47d55f3808c52261f1f78e05feb58e8e8b1f3c66e8123d9e02e9a2"
+      },
+      "tools/lib/generate-def/checksums.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ed31f42b7063a738f45da46555ff374bb1de9101d8e537e74f4e0d3fc8837a5f"
+      },
+      "tools/lib/generate-def/detect.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a8351dc72652d1649393f925843e51b7f534046b7e0c5cb3846fa62046bc0be8"
+      },
+      "tools/lib/generate-def/names.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c6948a60787036d28c331b31e073a9a52fc959a943188fc301d35d70088bd244"
+      },
+      "tools/lib/generate-def/render.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f2316058d0e957ef22c8338b7aa55291d58d15c88dc1acc277bbedd8c5967353"
+      },
+      "tools/lib/generate-def.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7bc04a674596ca53290dddb232fb5d363b7cfb2fbd80aa4ffedadd14507fa548"
+      },
+      "tools/lib/install": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/install/defaults.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "205ce0574bb04ca827534cf55b8d65e25f3816d66d845604a321fb5a0ca4796c"
+      },
+      "tools/lib/install/dirs.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7513ec8c3c5d3a0406dd6f768e78a32c86c90c83e2f5fd09ffe2a689267573a1"
+      },
+      "tools/lib/install/expected_tools.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9d82382fbeb498c0ac678b82215640f767ffb30565deb811ce2521791b9579f1"
+      },
+      "tools/lib/install/install.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7eac7e1b0f001336011496305493590d9e9d0c29c8c2cf489dc0db8fc8776119"
+      },
+      "tools/lib/install/post_install.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d68c74a64e99b9df465b5ebe04d1726aba517ef4816eb26764345783233dc76c"
+      },
+      "tools/lib/install/requirements.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bf420a5c644ce2250cf9c1385d97d2bf2704dd69a4ec07cab603371a2f725f16"
+      },
+      "tools/lib/install/tool_inventory.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5847a8a4f54b5e2c45feff4903a240c3063c0b67556e8a557127252c6204bb71"
+      },
+      "tools/lib/install/tool_sets.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d3956a82fa8b4595b1d313d2258cf55041e54c5a04c794f2c9783be1f6d740ab"
+      },
+      "tools/lib/install-tool": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/install-tool/assets.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "08e6d553f28e7bcb6c6244ca253bcef8827d2fed60cd597b55259f8df338f552"
+      },
+      "tools/lib/install-tool/defs.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "082047dae7eac9e2806be6ddf754061ef437ef52a8cb148e0c136c0e3b068625"
+      },
+      "tools/lib/install-tool/download.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5fee71fd214279c702b6f60cbce5a5856dc2d2cda7e130802b803ccae8058f8f"
+      },
+      "tools/lib/install-tool/install.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7ea58af36445e128062ba64162922e32f60f6b27cb6910e4c9c990350aba6c34"
+      },
+      "tools/lib/install-tool/main.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "6ba7717be5d5e34ac38e5cc51eea95d44234e6bd45eed8b845c3cdaab71de5e8"
+      },
+      "tools/lib/install-tool.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b3a00e36acf1dda200a4fcad2e6c5efb846a9310dde97bab18041ce41a38a3f7"
+      },
+      "tools/lib/install.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2aa0862b13f00cdb84a7183a86dbd99463f9d649adbedcb08683bdde3c68b40e"
+      },
+      "tools/lib/status.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "df65395a136e3edb9eff80e9c767602b2182f4d94e85c562f4514b0d6cf193f6"
+      },
+      "tools/vendors": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/vendors/bash-preexec.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "48cec2856dc0342f7518ed1583158ec11c2c9d9ede64c6fce59c2c7ab983feee"
+      }
+    }
+  },
+  "candidate": {
+    "aggregate": "8abd89d5ead014c665902e1655b7c3a71ae3bdbcc8e4fd11ff85a6961eea5656",
+    "files": {
+      ".gitignore": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c41d4c0bf68d696461f30d049c18dde3bb110b4cb1f5d1bb71d7eda0fe4a84a0"
+      },
+      ".vscode": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      ".vscode/settings.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fccc7fbdea382b60c6f16d33c278c86b15c2d92afb25b834bc5afd5f401945a2"
+      },
+      "AGENTS.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "eba14edb912f881b94f39608ce0973ba98c4817516a6cd7d612cb09403b0eb65"
+      },
+      "LICENSE": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "caf8f4e97ccd72602f81fb20ce07a51b2703c2377cd517766f32e7f2800668a0"
+      },
+      "README.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "eea7e4bcab5d387b047b528a2576d9115a7a2cce3b18f7aac168b128ee48d97c"
+      },
+      "bin": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "bin/remote-ssh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "cce7aaf10c8538f290ff9918a2435078e2748036ac8e9f1a2b505e377df7206d"
+      },
+      "bin/ssh-find": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "12ce093c3a71f7e365a1e2186fa7647c77028c739970df3ef7aa078d0be07c2e"
+      },
+      "dev": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/.env.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4233721d5ceec98260bcd0c2d552bfa77407522c3b1f7fa6285c9a41fed3cd58"
+      },
+      "dev/.gitignore": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "48cab9e7387167676e7ca4d86b5f38f27af29f7b9db48f9c2c835b6a2ffdd891"
+      },
+      "dev/.pre-commit-config.yaml": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "49fb3c1fb09b36dc05d63a3b8811aab3fabb2c54e08c98de3c428a6cdf73c7c3"
+      },
+      "dev/.python-version": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "02e735b3dfe1c32833eb550b7ff8ffa17f5f2bc3fa1e7bae61a8f5a3883ce398"
+      },
+      "dev/README.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "25f5f7b9976931831d2b3160137f241a3cb5838e6f7a1486a1d8fda4969c8ab5"
+      },
+      "dev/__pycache__": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/__pycache__/check_assets_live.cpython-313.pyc": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "239b26aafe81eb98d426c45ada48c76ecf0ad051387cd5004e554436fbe35a7b"
+      },
+      "dev/bench": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/bench/__init__.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a7a35c8b6ed729ea228af16d519396c2da4946032a43bbdff02e364a84dd0e46"
+      },
+      "dev/bench/model.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "70340f1b206bb666b3b6a05fc48c93207dd69fef284e32ab1aedd177f62994d6"
+      },
+      "dev/bench/pty_runner.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "928df6ff0cc2686f255f3fe0edefc7e9cb060c842b294a7366ac8a4e265a741d"
+      },
+      "dev/bench/references.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "cff1c3d0c2ef00815652a5cdff9a7981c186a54289a87f9079c9cf36c5eb96be"
+      },
+      "dev/bench/report.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "327e5e071373037991c959342198c67b30e775e725819d9a016e6c11a70cf1f4"
+      },
+      "dev/bench/scenarios.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "0300eccf8c6456eb1c865870b7ed767f724b9ce4f436b68529fc17da241b48e2"
+      },
+      "dev/bench/shell_startup.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8e97479b35970db73d1833a14ca3968b062f0982ed12ef74d9896209ca543de7"
+      },
+      "dev/bench/stats.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "aadea308ac60ddcc121ce875ab8266681cfee6e8849292580b4d3316f96c97a2"
+      },
+      "dev/bench_shell_startup.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ed0458c3dcc9aa2159a560e8a29936adb21dbd22043535cf5bb59834b3a0d429"
+      },
+      "dev/check_assets_live.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "41a01adee10555af4fb58e639fc9302231d3eac9a2ca35e325e41d517f741053"
+      },
+      "dev/config": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/config/shell_startup_references.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2372cd0947db855cee49dc8728308e19f8bd0386ba24f08aa4b3512ac2bbce55"
+      },
+      "dev/docs": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/docs/archive-extraction-plan.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c0df585a930ad6b3a2cffd3b6edb2b555160d61ff951adf4b76b7772dca3113b"
+      },
+      "dev/docs/audit-fix-plan.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "87c5cd925a820eac680c4cd5954fd9e617bf4a752c3e97a0dbe5858cb677c97d"
+      },
+      "dev/docs/bench-shell.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "921983d93954edf55a1e947c1269eeb3b4495d78eb4ddd15de6c388f0f520627"
+      },
+      "dev/docs/checks.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "dbb867e9a442515f1da5215f2112a6be19083c9249148410a09ddd2540f96709"
+      },
+      "dev/docs/commands.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4a01eb71fd069e8a7c119e63e65606e28b19405b443a71c67a81666144e552b9"
+      },
+      "dev/docs/config-loader-implementation-audit.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a81db3ac505f8b6e51cc90b921e6184ec45a16f9fa139df33e6815102b44ae22"
+      },
+      "dev/docs/config-loader-implementation-plan.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "44975f1df1ad3d3a7c2671c2ac1c3c95d288daeb1e3e9fa4b6260d13deb8f5f2"
+      },
+      "dev/docs/config-loader-implementation-record.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d8b9140d75137e72cb9e4cc9cca441292eecee1a328eca8fd37c1f7b6f85f01d"
+      },
+      "dev/docs/config-loader-independent-reaudit.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "35f01b95802222bece292b429139690a20d2d240b10ba1c5933b5a5bcf42ee89"
+      },
+      "dev/docs/config-loader-measurements": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/docs/config-loader-measurements/baseline-loader-bash32.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a689d8b88e8d3d1380496d6ca2eb9a1ffbf6ecc80863a22df54c0af966e9d392"
+      },
+      "dev/docs/config-loader-measurements/baseline-loader-bash53.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7c75dab3f73bac38e372ca34372f61716e4b9c36541188e43acf677a14ca5bf8"
+      },
+      "dev/docs/config-loader-measurements/baseline-pty-bash32.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d661711580f082d3210c46463f4541785d90072aa0ccd359b6064278b0a30c41"
+      },
+      "dev/docs/config-loader-measurements/baseline-pty-bash53.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "455d55422105ccecde758a88dd21764495a636542a030967ead892d549b63d3d"
+      },
+      "dev/docs/config-loader-measurements/measure.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c055150fd19613d5f0ef5ae9ef9a4f50035b444b035af0e28929c83612c31714"
+      },
+      "dev/docs/config-loader-measurements/ninekeys.conf": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1a40e20fe72c1a202aa3d0a04ae4a7a5f2508e7a8b172fa99d94342a9ae6f444"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-checkpoint.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "606142c6073aa90275db08a192c0b70ba806162bacf4d43c0781ea885829bb00"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-corrected-focused.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9243e311a41f2289b535fbb9ae3f9e8e5d7945634d0f2522e3e9902ae78174fb"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-corrected-green.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e4d2896a9ad7d4c8a9a0351340e8c6c30fefdbba150b741923197a20f693522a"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-corrected-red.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c3778f150a0fce269650f78700c2acc437041bee4b121dd162d251fde6cc367b"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-corrected-runtime.diff": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e1d705129da86afa81765e794e05a77fc498e2c735f8035fdd3e69b25effcc5d"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-focused.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "79ff22e16ae51e1cf0a2c9cd045d7a335ac9b0608ad24ef3a22c3f2365fbef67"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-green.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d6940d9ad8f9a0464c4d9157fee315a7f78f3558507f96a699fa18c6104e8f9f"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-red.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "abc58f74bbe6641ce7e7ab7cb41aff4bd8c0d6825eac75c4afbfe69bcb6df84b"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-runtime.diff": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fde2cf35fbf173f6cb3ff65d24f0ac41bd352a43c544936dd1cc350fa1b14bd5"
+      },
+      "dev/docs/config-loader-measurements/repair-r1-smoke.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a70bb48be488a4a8ed3d26588db1246cdebdba7b14aa9ba918e04fdf86845be2"
+      },
+      "dev/docs/config-loader-measurements/smoke-stage-b.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "131df49e3706a175b4722b11fb3a9a062a8f38dcd8cf941dcbe06d0d22c1025a"
+      },
+      "dev/docs/config-loader-measurements/stage-a-loader-bash32.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "96badeba103effda4e82f9c76733f345691c1b93b916cca9b62a027eeb77befc"
+      },
+      "dev/docs/config-loader-measurements/stage-a-loader-bash53.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "efc6fc5b1b3c234168715f643829fd70a509a41a5c378b956bf83b6ccc8d88f3"
+      },
+      "dev/docs/config-loader-measurements/stage-a-pty-bash32.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "380a62367178fe43e38776b14d44f4823bc2d87625e035979b8ac2658114be57"
+      },
+      "dev/docs/config-loader-measurements/stage-a-pty-bash53.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "42b3ec11e0a816e3f7a389d911fe27b0e4be8a7e80043aa6e7bdd4cc064370d9"
+      },
+      "dev/docs/config-loader-measurements/stage-b-loader-bash32.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fd227a8cb626ccee4c7711680081fcbbd20c1fb10d9a1372ce7fe8822f2924de"
+      },
+      "dev/docs/config-loader-measurements/stage-b-loader-bash53.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "60fdf66dfde588f2bef9f7c357f368c19bf986e459bdc02b73c4162fddc98eec"
+      },
+      "dev/docs/config-loader-measurements/stage-b-pty-bash32.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "642a0553f1475f0fd0f4672517cdeffc0aa9266462e01ac77f78b265b26f69dc"
+      },
+      "dev/docs/config-loader-measurements/stage-b-pty-bash53.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "36cd3b20f19df49809604f7bdf7c0fb1e3e7215194eba3619f56dad2a8f88aaf"
+      },
+      "dev/docs/config-loader-plan-audit.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "49b596720fbd3b9a4d65480f89eda0f411916509f6ba64c0a0aadaea15ef0fc5"
+      },
+      "dev/docs/config-loader-reaudit-evidence": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/behavior_probe.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8e09f498fa9247bb50693d5db5278c3b6af827413052d6c6855856396e72a5d3"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/failure-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fe99165fac61b009ecea47ed1e9bd08e75808bdf184cb3ad716101ca122b55f6"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/failure-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "06137f2ffc4e25a12646e7b0ae41ebaa8e2be4227add7f430e8c163374707681"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/initialization-fault-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e284d6c389bca35bb51964ec787a0e0cdd9bfa86d9849bae81d5fdcb2f8c27d1"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/initialization_fault_probe.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "12f17d928c93d6abea5c5c591553352f105e81ad37b69427ae49f35e8ad65057"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/integration-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "6d19470a544b229cfee047bdca889fd1a93de564333655d54eca02169b3c5130"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/integration-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2c3299b1aca6043a05166fffddfe591d3aa9a0db2f9e06ba8bc069cb79203dfd"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/lifecycle-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ebc4303d06583127d4b15da4c1d323755abb37d632129d8d4d3913c80b0792b9"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/lifecycle-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "3bd17d632656bd31887494f825d48e6ac373f6fee5b07739d1b1cc1cc3862c88"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/parser-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "58910a323a63ff252763dc68eb108d5d99bd5725f5376589ea0de7acb4f8884b"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/parser-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "846948c21480a7a17216f262296d7abdfcf3ec49c18c130e7000ece3d33a79ac"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/posix-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bad1c85887a4639b3c949499067d088901c34654e9b9b4dd48d7e8508163dd56"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/posix-gate-R0-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "aca490d049c423835dc0dd6a6c9429322b3a26c7966252ae5f56f92168007385"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/posix-gate-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e1238d58c0ca663236aaf50e6fb6d2c39261f72be55a8aa3e8bce1d01340639c"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/posix-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7ff72b114fae9ae1892415edc692e118cc24dadb1ad36dd5e20561992433c397"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/pytest-R1-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4d7cfcbfeeda0dca06229554870e40403ddeef24e47ab52437e5d188000c4d21"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/pytest-results.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e07f20b6bc9326b52f1e4a79230a98beac5e86a651278f9d9d8fb1e2a56adc5b"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/source-snapshots.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "84b69eac1508d3fdeefd9df2e714135e0c9488eb91dc421f48e16ed4f0667fdf"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/strict-rc-trace-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "085301cbae7ea2fe813fc91f85837996453e8c3ad1365b69a6907c4230e13c53"
+      },
+      "dev/docs/config-loader-reaudit-evidence/behavior-independent/strict_rc_probe.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7503fe968bf48e9cbd5f17903084d2a7bd54f68b1df1e8314d1cf24c9f5b422b"
+      },
+      "dev/docs/config-loader-reaudit-evidence/paired-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "27733bcc7f1182c17fcede2fc956d90ec0a96729a1d6dde855d9087a03abd790"
+      },
+      "dev/docs/config-loader-reaudit-evidence/paired_measure.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1d5d0ab8dba782873a2e641bd4f8bbba1b5f651e6af06840a2017d92bda007b2"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/paired-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c66c139c158b7a3d9e391caa630fc6fe567f70965321b61507da79dac68cbdeb"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/paired_measure.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1d5d0ab8dba782873a2e641bd4f8bbba1b5f651e6af06840a2017d92bda007b2"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/subshell-trace-after.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "07edaa283b37e1b078aca4d076c4d390fcfb4e8d62d69b2d0a1e44a86865418d"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/subshell-trace-before.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "896aaac37c9ac1a6b0cea909272edfcb9a95e8baf22c4199ae2072e45a3a0cda"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/subshell-trace-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ca536bcf0166b30071560e6149ccad8bf4cd5f5a9d5c213fb957d3252b0b89c1"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/subshell_trace.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fbee28ddbc09c220affee8df79fb263d085082ee296ce765b495e653a51a3ba1"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/trace-after.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "76309d8037de58cc795fe27502943b6eef7af26d0479997247e9b49918cbbd56"
+      },
+      "dev/docs/config-loader-reaudit-evidence/pre-repair-r0/trace-before.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a475a01568f617fd6d0af9c0a5995e37df8ab168f47e974b0bb1fb1a039e5a68"
+      },
+      "dev/docs/config-loader-reaudit-evidence/subshell-trace-after.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "56aaacdf17983b653cbe855e8308b72c5e35b56e4604e448535bb47285bff976"
+      },
+      "dev/docs/config-loader-reaudit-evidence/subshell-trace-before.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "90c385eb7089f66b49babb3faf14bf439e8a34f758853cb75188a620ea93545e"
+      },
+      "dev/docs/config-loader-reaudit-evidence/subshell-trace-results.json": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4595b3635cf2210ee7b8caef1eed2f2a4312baf4748117452d3b991801a5eb18"
+      },
+      "dev/docs/config-loader-reaudit-evidence/subshell_trace.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fbee28ddbc09c220affee8df79fb263d085082ee296ce765b495e653a51a3ba1"
+      },
+      "dev/docs/config-loader-reaudit-evidence/trace-after.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "24175b68884ecbd2434e053de545fb7bf8bc4ca3f5fbc78c58867f0eb375190f"
+      },
+      "dev/docs/config-loader-reaudit-evidence/trace-before.txt": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1db5d883144623c335759bf74a4c507683b8b44b724850fe6a6ac16129044da9"
+      },
+      "dev/docs/config-loader-reaudit-performance.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1ed36fa78ba46c78c892bb2a9bf3cad78933f01b98136c1f77d15a423f12e463"
+      },
+      "dev/docs/config-loader-repair-plan.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2b7da8af33ec4aa257b8f26358467ff7d1ab1d223f9517b65de75839083c039a"
+      },
+      "dev/docs/live-assets.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fa4ea4b930c8bfe69ed5e34b610bb637263402772f2f0e936675fe2712a9b95c"
+      },
+      "dev/docs/refactor-audit-plan.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c87f3b5495ff11d2c0415a0fa3ef3757efa489d22294cc9185a31dbafbef5e6b"
+      },
+      "dev/docs/refactor-audit-stage-0.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5b30217dd767903a16d30a9f1d3ff41d3a2df8c06f872620c08279c56e8a0e09"
+      },
+      "dev/docs/refactor-audit-stage-1.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "28e9cfd7bbe1b14c72c05b2f9d945d8d38ee3cc61472a4d1da0b46bb5c1eb973"
+      },
+      "dev/docs/refactor-audit-stage-2.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a2f947a07a347403fd129d42d545a7ffddf1aa0586729342de61b142bdd383e7"
+      },
+      "dev/docs/refactor-audit-stage-3.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fb4ba7b5133acdfa5467b2ca2d5456f9f8de684d25dc50d975c902f557c2241f"
+      },
+      "dev/docs/refactor-audit-stage-4.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "84fa5db25904f1bc8eaf6ab68f9afad5455497752137361d30518d4052f4db08"
+      },
+      "dev/docs/start.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4df344e0ae8c0d31d12d81e7e9eb58175186c66fde797aa42c5ebcdbc285b5a0"
+      },
+      "dev/justfile": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b677dde129a827cdc74d432b6cc7f3fbb4950bbd246eb74dd5939b5f0a84a4bb"
+      },
+      "dev/lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "54a5129a6cbff754363340c1e73df0e785042ddd2a9fe18c98de41347b235a13"
+      },
+      "dev/pyproject.toml": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "0c2f927f0239b32cef7d893f321ef876082db4f3dcffec9fbeb778d4f636ca5b"
+      },
+      "dev/smoke.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "bd73b6f26f6600154833a99b8de639a20847085c3bd8a9454067cad23c8209c1"
+      },
+      "dev/tests": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/tests/conftest.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "71baee3c64e71b46998da0b0a37db0e9c2ac3acd290f6ac41c1e9c466f6dabb0"
+      },
+      "dev/tests/fixtures": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/tests/fixtures/atuin": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/tests/fixtures/atuin/README.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "99adaae3b468143cffb0e7d3fd84c4ef1d6863dc44d4e4aa4d1d51e294228284"
+      },
+      "dev/tests/fixtures/atuin/v18.14.1": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dev/tests/fixtures/atuin/v18.14.1/LICENSE": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f87d1042ef858e746db8429f69a0cdd9dc73a28595dc738e5cbeb97ad8586d64"
+      },
+      "dev/tests/fixtures/atuin/v18.14.1/atuin.bash": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "60dde7dd731f9963b19f313c9b44870b1b0a6836c38bf22e96134251cc834d5a"
+      },
+      "dev/tests/pty_shell.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e1c125a1d6aa7876035cf886065fe6cb914202a078aab9591ec845c6fd787a44"
+      },
+      "dev/tests/test_atuin_lifecycle.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f6f7236f424805a83c76d14a8e8e284b188e4f2503b2ab7249126dc092cca825"
+      },
+      "dev/tests/test_atuin_ownership.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1522fcaf08b6a7c0f70709023598cdb84aad57e6bfdfa5222ecbb9af561665a2"
+      },
+      "dev/tests/test_atuin_prompt.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "46055ab18d2fb15ddebcc0651c93fd565185ee4900d2c348b7d15a3b70755fe8"
+      },
+      "dev/tests/test_bench_shell_startup.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "27bdd341f774246e60be2e08d843f580570c21e4ff50c5c32fa084a9e409f0b7"
+      },
+      "dev/tests/test_check.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "54bf315d01c7ad5cb78f9e7d40314fc068399a0f7389454bb6ee5aa7689dfb34"
+      },
+      "dev/tests/test_check_assets_live.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5fb04f99350f1a7a2738f76891dd78af66aaab830b3bf839223fd61704dcf6b9"
+      },
+      "dev/tests/test_config.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7d3bcaacbc8a038451b8e83baf5c5d2318c077762bbe69a6430240a967acbb47"
+      },
+      "dev/tests/test_doctor.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7c89c6a4a266a31b9a2c2c8b40f38092e47d2f96ba0a6ab7b727e6b152ff5cb0"
+      },
+      "dev/tests/test_entrypoint.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "6ffcd9ba4cfd10bbaa9c831e58fe298d0debe695854e5cc2281e8b1dd347c5a6"
+      },
+      "dev/tests/test_generate_def.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "636b13e7dd4b0fa561b0417a8642b22b77ef9d358995eca7b80ab62d4ddec618"
+      },
+      "dev/tests/test_git_session_identity.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "be3f4a358b0d3d79e798c20271567f44223e230136b41d7e3fd4a43ce8e6c888"
+      },
+      "dev/tests/test_git_setup.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2d2a8c883c3f587e9d2f74a013e42727d198bcbc2e9394d602c8ef59988bc13f"
+      },
+      "dev/tests/test_git_status.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e605e1da6c011a1f5447598d4c8a410a2d981765c36bbec8a611e62b177abbf5"
+      },
+      "dev/tests/test_guide.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d1fe47c4973a78812aa4f6ff56558d33311216dc171bea58a88664fcdf6e83d2"
+      },
+      "dev/tests/test_history_backend.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4b969f2e82cf93af7b8c523de79e2b347df86b8c92a84d9d5b3860e794fd54db"
+      },
+      "dev/tests/test_install_binary.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a8f345b01fcf2382e7eeba5332c6444db7d8dee783148414d9f1e168c4bae292"
+      },
+      "dev/tests/test_install_bundle.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "764c3728be19eaa6d5e4deabed794ab73ebf91309b70abfad5df292ca2cf6f34"
+      },
+      "dev/tests/test_install_expected_tools.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f7114430cc0898b02cbba2dbce72040b6811b283d24ed69f32734026bf904142"
+      },
+      "dev/tests/test_install_failures.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "04720e59af43f174c3bee157bd5cb50485435fe7fefac91249dce29ad969797d"
+      },
+      "dev/tests/test_install_tool_core.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "383c956dc975a9363db48935103d01453ad5e1938528059acdd6ec8a74b4a76a"
+      },
+      "dev/tests/test_post_install.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5d191f7357619b0ae8ff9bda286d7e326088a2f07b98b61779d7e3ed2dc1fa42"
+      },
+      "dev/tests/test_prune.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "135a3af9bc89ba81549b7b86ced984348f76b508cc2fecee0fc3eb37a3b9d249"
+      },
+      "dev/tests/test_rc_flow.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8c8c4a1736348b4570e6d6a730a88c90e7d919e570f4c11c509c2041dc76f04b"
+      },
+      "dev/tests/test_release_ownership.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "849c51bff9fee0ee66f6519ed3eafbba52a012f1e9774ca22067f03ff28d38cb"
+      },
+      "dev/tests/test_runme.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "87b1e56de1938ce6ab9a96c337b68ad714666c020d3150dfd7b9204910a2da6e"
+      },
+      "dev/tests/test_scripts_command.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "09d370b453b91ea42c987497d100b2f919b65e4de4088cbd31b4b3a4ce15b363"
+      },
+      "dev/tests/test_shell_helpers.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8e418564f2a7b3eb95442cc96f4ff3ab7d9538694040e158a73d6d8f77aa067d"
+      },
+      "dev/tests/test_ssh_command.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8db60e3d5965cb020236276891f1adb4d5ffd321c6795ff7829d11fc4e2f4e9d"
+      },
+      "dev/tests/test_ssh_helpers.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "23d309cc674b37cdbebeed604f117bdd4052d5efb5c01cb9b82dd53aab55af3a"
+      },
+      "dev/tests/test_ssh_pick_records.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7fefba567bb3f4592556d9adfd3ba1f5ab48b1756b5f6bb92b6df3489f4adae9"
+      },
+      "dev/tests/test_tmux.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "538f62299d82344878ebea46b3621f636f6f20e4d34970fc951b9dfa4a1106d4"
+      },
+      "dev/tests/test_tool_assets.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b0a514fe7a0beaa01fcab13ae33f2e3607bd39bdd205c581f57f3fc7360af0cf"
+      },
+      "dev/tests/test_tool_init_shell.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "327157c1eeefdbe2c2feca0a0d1a4baac9438bf22a13d751ca4fdfd036fe931f"
+      },
+      "dev/tests/test_uninstall.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "89e56e19ada8007b261b8bb6410e5aa67881f966e4fd1f8ca0399f5f25f47bb4"
+      },
+      "dev/tests/test_update.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "0553665ac19496452aee445e521f55d01750002912654841089eddb51148b8b2"
+      },
+      "dev/tests/test_welcome.py": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a6ce0e4b7420985793b7ec0c28301ea1c581d1434d81a281a7fd6f083c2c382b"
+      },
+      "dev/todo-bench.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "29879ce5f9587240d854195316ec1b3dca3f1466c7be600002254dd9bc4cd0bc"
+      },
+      "dev/uv.lock": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8491b967cb962c9716f6de776723f71e86b3f8b3d2b2b7ddb943786cd7bceee4"
+      },
+      "docs": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "docs/TODO.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d56e8791ebd114403e72f3690843734195da71b04dd2ca9a4cf09f06d898cf50"
+      },
+      "docs/install.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8d1d66b61c48ee47506f6d0c6b7f28bd767820736b94bdf4823428b1b82683f8"
+      },
+      "docs/post-install.d": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "docs/post-install.d/00-interactive.in": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "112994a4715c4b35153b846634ab3a66b75499c25edb04ec3fd12d91f600dacd"
+      },
+      "docs/post-install.d/10-ssh-config.in": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b7551ee234b97b51c3976cd8af455e744f3f7da08d1a0cd7f866ec1db800bc99"
+      },
+      "docs/post-install.d/20-vscode-terminal.in": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fbe3076de352811341e523c8234da37b4aff94027241cfa89a548ad8edd9bbaa"
+      },
+      "docs/post-install.d/30-git-setup.in": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "30acf9783d1823055523e9305bf1503adf436fef6e069bbbefe4f3c07393cd3b"
+      },
+      "docs/scripts.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5d305bb28eabd7814773676573a94cb3a5b1736fdb2d119d76161b55ee9684a5"
+      },
+      "docs/shell": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "docs/shell/config.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c4a71f7596c285f43938db735344f83e1cdc75967863f0e5be44648b1a16ca3b"
+      },
+      "docs/shell/helpers.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2175c8eecbea33c510fd276915999a79d239864f081f48a239b1ce9f8d87b773"
+      },
+      "docs/shell/hooks.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "59c8f3ea5708aeab3a6729e6a0dec1f02653322cd43e0cc4d195e5f110fe94b5"
+      },
+      "docs/shell/start.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7cbed9014d2f91e680b9a8b31b1e9079934b37ef7aefe1386bbbf40d57475ca3"
+      },
+      "docs/shell/welcome.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1775b3f47ea32cf3a1a8445c18afdbb11971ee8755ae677cf491a122dbd2253c"
+      },
+      "docs/shell.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f1ca24232ba9e267853ff0a66dfecf4e1e63c619b0c9078e13df6873fcd9ad6e"
+      },
+      "docs/tools.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5009f4557ed0bdaa53906a608f208563aed384e2aab216b0085a18b864717da1"
+      },
+      "dots": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dots/atuin": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dots/atuin/config.toml": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b3e9afedddb86be42946523128ac5017caea1288032c334c9da8fee345b75cde"
+      },
+      "dots/git": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dots/git/config.base": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5028ddcdbe621200c3b010fd6eb8c5b81cd8f0f5c6fd1f068b1534bcb0505a38"
+      },
+      "dots/git/user.local.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "cf2a2a3a678c24ade81f94ddc4dfaacaf4052e8c3abd07b757ee60cd4da4ba1e"
+      },
+      "dots/navi": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dots/navi/cheats": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dots/navi/cheats/bottom.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e24c5b1fa167004ab916b2816e13e7b47793dbc21c19c851a1ae2e0d98b35e81"
+      },
+      "dots/navi/cheats/docker.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "67b657a67863a440bdb59e38c98d409c15b683e99e966f0a2b23473bb525cf16"
+      },
+      "dots/navi/cheats/dust.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d9b1079524ab59df5e96fc1c902249954687e4370acf99be4480c1844745c22e"
+      },
+      "dots/navi/cheats/kubernetes.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a359a3f4486e18c18f141d57ef9a7cb68cecd18e307c52c008f91a76aad8f27e"
+      },
+      "dots/navi/cheats/procs.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ab39d54f51398b6a1167e2c57f314e980f162e4b4a71aeb11be9418576af7c81"
+      },
+      "dots/navi/cheats/remote-ssh.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9a33b02566e733bc2fd2492d39eb28db564c3e892e8630517847f30ef695aa95"
+      },
+      "dots/navi/cheats/sd.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9932442ca684a1547f070037a943f11f5a50ea9d7c2c5d95235c2ef5e8822cc7"
+      },
+      "dots/navi/cheats/tailspin.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "0d73c263a56d5cdba1d0e395ff9cc5f1384a26731336eafbc299f7f8317f9f71"
+      },
+      "dots/navi/cheats/vector.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8b700662a50e0e477ab1918496be3b50294e206a54987dc553048cf5c8702143"
+      },
+      "dots/navi/cheats/zellij.cheat": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fa500969ebab43df18f5be112336b0deb471054edf9e47d6c37cd2927a114b58"
+      },
+      "dots/ssh": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "dots/ssh/config.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "70bf71e4e0b8071688f56a3c9dd4d74cc19017eefb6339b38d003ef66f5999f9"
+      },
+      "dots/starship.toml": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b858b08414c51526e8c751c1976149737d0ce59339071e418decbb0a728ffb37"
+      },
+      "dots/tmux.conf": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fdfad6d19162c8cb1de51c0d6043a3175789516f1ba290b9cd35a96f2f9a9928"
+      },
+      "dots/vimrc": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f4442479f8cef83d652c0d55aed820976ed79a41fc3961041553cb03c0c51333"
+      },
+      "justfile": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "eedd6711f2beee2b3ccd7b59baa359b4c38473907503a83ed993bc62c86860b6"
+      },
+      "lib": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "lib/guards.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bcff8e0102c94b21120278e9350f1e7e67fdab1fdd573693b119c1b09b2c6069"
+      },
+      "lib/helpers.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "0a6a3bbc9a876882846fc8ec0f34550d46a046ad4fa10d115f0810210d3550cd"
+      },
+      "lib/log.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9df67678e83e733017f8b7edd6c9a6f5e0d9e46d66d697164997a75932b3c2a2"
+      },
+      "runme.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "8ffb6fb5a12552e4f079efcefc93c5007eb8afaefec24ef898b7bc808f6e8b4b"
+      },
+      "scripts": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "scripts/ssh_find.py": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "33559804a1456ae68cd367436e6c11a6f0c5a3138ab0e6d75eebea265abb71d0"
+      },
+      "scripts/ssh_hosts.py": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "25893dde801c21be8d66e823f5945f857e136e212af2e2a8b5d8682240839f7d"
+      },
+      "shell": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/aliases.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7d0a4fa5f4a5864431fe3b4b05302c4db6ddd15a64dda5ef2ae37cc2ae00dc90"
+      },
+      "shell/config": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/config/entries.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f25851e2c72a2cdb78c75c1ee98902c40f1855ad5939dd26c21ba564691ffb90"
+      },
+      "shell/config/load.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bfee6c32ce4b94cb7526acd5926cf8df6e44fe60b5dc898d3e706d3d6d470dea"
+      },
+      "shell/config/markers.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7591de066e72d9674f32677f32258ddafca53d149d72a541a3760ba9099dd0af"
+      },
+      "shell/config/parse.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b478dca2f276abd625a721d0a839ada1b793c19764416cb452387ce39cb7465d"
+      },
+      "shell/config/path.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "3121f255d6188c5f7c02ed2a48678a1578da07f3a0163ec05d3715d7f4259fdb"
+      },
+      "shell/config.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "cf808a3dfad415a841420379b9bed55151106fa18fd3014f92133e256284c0eb"
+      },
+      "shell/env.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f3b9659e4ec72b985bde69b5b11af6fde2c73c76e97c447ecc3796739034fe0a"
+      },
+      "shell/rc.d": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/rc.d/04-update-check.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "259d37cba91d602f04d39f5dab9dbc8068060745ffb43788a5c85c3c6fdbd5f1"
+      },
+      "shell/rc.d/05-bash-preexec.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "57721b26a49d052851ea26320603558609c095424b198e567498ffabb90d19fa"
+      },
+      "shell/rc.d/06-bash-history.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b8877f2d0fef51c5444b01f47115c2c7bbf11663b565d7ef5dd04ab2a34f08fb"
+      },
+      "shell/rc.d/07-git-session-identity.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "57414146be410f70d8c9b9029fe5cf18707f747d649cf51c90d19e3c870386a9"
+      },
+      "shell/rc.d/08-welcome.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bb6de534d8d321a5530793fd036e37980c72177f9c58975aabc877fe2b4743f6"
+      },
+      "shell/rc.d/10-editor-pager.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a6943cc8ad2549fe0714a1d7637f1219b662fcfe7fc407d8fa476c0150031c0d"
+      },
+      "shell/rc.d/11-line-editing.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "cbb1d9f1df4fcd9f7bf1619177c6a69bbb1f56697b3223d30218c49f9d2fce83"
+      },
+      "shell/rc.d/20-fzf.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d5eed8aa4d2b76dcf4813b8ccd28340f18f078cac075efb4db45948076a9a33b"
+      },
+      "shell/rc.d/21-yazi.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "638815f422def6cc433cf3ff4c50930980f510930d0249b5acbd7e8a9c534801"
+      },
+      "shell/rc.d/21-zoxide.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "25516c6bec4a6f9410b87ce3db0b5da9fbbbc632fb82ead70df8ef31e8853a62"
+      },
+      "shell/rc.d/22-starship.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f6c613f5399fe7f4b895b1377fc5ab4f3474ae608d3b448cb36fb21069b37b6b"
+      },
+      "shell/rc.d/23-atuin.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9375f9a451468a42b09cb1292f825a02fb3beb23b30ffe74d107f86af2c34579"
+      },
+      "shell/rc.d/24-navi.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f18d14b8a1123ad5d74ec3bc5c37b03e571c87f18b3a877f3d1df36e50bce5b4"
+      },
+      "shell/rc.d/25-log.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b149b7e1f777be5f2f90a98d7a8c5846a13d4b6f2f2bd51171922a22ac436cea"
+      },
+      "shell/rc.d/26-bssh.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9b183c1d0cd0e96295b4ff4eb36c600839b1707e9805e061db38a2257f1a5a7f"
+      },
+      "shell/rc.d/30-ssh-pick.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4b9e7e37dbc3c68c875a0dbf8d712139391642697ff0a8193f7c415f8e0c6cc7"
+      },
+      "shell/rc.d/README.md": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c420bfb1d44b9c8d4b537d7656cedb50e85107ac722d701fe45df04ba9193e52"
+      },
+      "shell/rc.d/host.d": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/rc.d/host.d/.gitkeep": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "shell/rc.d/host.d/example-host.sh.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fedfd64e4ebcc36e1784413b7dbaa24356fbf325e6a1304fb19163a6797546b9"
+      },
+      "shell/rc.d/os.d": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/rc.d/os.d/.gitkeep": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "shell/rc.d/os.d/darwin.sh.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d1d95483d8975030a0d13743d33a75b81d7029df5def793a1c399ec1858fbdf2"
+      },
+      "shell/rc.d/os.d/linux.sh.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "34586b1d4aba06d14ac5d3b34de6286198490689a20fad4b12d67225e11f0373"
+      },
+      "shell/rc.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "15f9b253713eb31ac858329198e5128858b34e1c0a1063d1c34c8ac9d0ca6e67"
+      },
+      "shell/update-check": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/update-check/state.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e234bc38297c1eed76dd9fad020cbfbcc3f621e354cb6720819d2c7f3979f702"
+      },
+      "shell/update-check/time.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "344a5c91521057bbc54e832c63279be36a5a4332c1495ddb8f9481d065d17390"
+      },
+      "shell/update-check/toggle.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fbed680d84ce8ad21507cfce8a71fd6625bc914029eddace3339b14d189df508"
+      },
+      "shell/update-check.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e53e9c2292838f9b6fdfa6300dd1b6a21fe0934c583619b2a76102c37526e136"
+      },
+      "shell/welcome": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/welcome/banner.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a14828318cc030f2f2a07d0fd1d952fe80654039ce7f94a2ab22ccfa790e5f23"
+      },
+      "shell/welcome/base.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "017eec394eaa12441aab6cdbe3fa40d7e9a5d314f5babceab7e50c9c67fe6163"
+      },
+      "shell/welcome/bundled-runner.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "bb870d5ea1479b1d6d14ede338a404e0bb775c800cb3e6ee673d2028a547fcc0"
+      },
+      "shell/welcome/bundled.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "da269d5e8798d9512f4e6a9ab39395030c758e136ef43433fe735ae6dc99825f"
+      },
+      "shell/welcome/commands.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "dabc9a1a9bf47beb771621f608657e2d528c36e569ebaa3ddbf97d5995fdd811"
+      },
+      "shell/welcome/host.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "dbfac20893287d7791f8b2b84e26396c10621ec006e94123a11c07794383d2a6"
+      },
+      "shell/welcome/hw.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c9a17dfb77d7c2d6dd65d7ba1bbee589fdd6ce438b0dc911deaa57c260cd5659"
+      },
+      "shell/welcome/issues.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bc1aba65014ddd6f700f0a655c15261f7b298125a3cb4f95802f8dc6dbf56b52"
+      },
+      "shell/welcome/runner.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8d840f54c9f2ee502e2e19b43cae1c8487b1b6412ac1b6ef093df50516d18c5a"
+      },
+      "shell/welcome/sw.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "694a3783def6c640eacf787e54f7972ee3a8ff6e24cd8d0d7fc6e0c4a69e39c6"
+      },
+      "shell/welcome/toggles.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9121ac0490097395aaa945eaff109e1b487a9154c5ebfd0f7627b20373b37568"
+      },
+      "shell/welcome/update.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "183ea4c2c07210b65fbcbcce48533b7396bb97db4eac221e110ea3c033a711b6"
+      },
+      "shell/welcome.d": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "shell/welcome.d/00-remote-ssh.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "1c29dec35d67e356f5381e6c0c5d6edb0d3e965f716edf535774cf90e974b294"
+      },
+      "shell/welcome.d/10-hw.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "6be028fe2e833e1035a0a671f81774bcb66bbd5ab1f29710b0bae24781aa6caa"
+      },
+      "shell/welcome.d/20-sw.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "b84d5d697c5eadc0003f248871c340b9445141d9524690e9666b72102fbb0b89"
+      },
+      "shell/welcome.d/user-module.sh.example": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e501c143d9e9ea3168852b0a09a6433b62b67808f9c71d64a281d6823b7ef753"
+      },
+      "shell/welcome.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "45ef112946af4d75f91949cfa58301947a14dd7d39083476afa7b2607c287961"
+      },
+      "tools": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/defs": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/defs/atuin.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "abeaf6ed9e53bb6d9be5e56d4caea7f6d148ef23f702f7f051497ab7f05786b2"
+      },
+      "tools/defs/bat.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "71873e44ffe17bb81ef4e93386949336669770b6643998e12d2de16abe99f422"
+      },
+      "tools/defs/bottom.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b5b7a9a254422b1931e423262460c97bd56d589b36b376e5c277ab0b521f7e59"
+      },
+      "tools/defs/bssh.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9e4f0c231d9cb27b755d0b8a6fc23f4e74822162b810d174e7397f4fe51239ed"
+      },
+      "tools/defs/dust.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "1d6c1021462298b3f62dd7b3277f30f84cf6993736f77f3c9e3c007dc7bd65a2"
+      },
+      "tools/defs/eza.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8c4285b40682d6973e29cb0492ea80d0376eb37e6e6d1dd9e2b59e3bd5fc56a5"
+      },
+      "tools/defs/fd.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a205a86c5f191387e9d04fe3def5febf814a90ba54c627817c2d21dd3590b128"
+      },
+      "tools/defs/fzf.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e86c88ed7ed3507d0bd42ad38f7d08b0ea1c6475f3ff0e59ad156ccefed3ce7b"
+      },
+      "tools/defs/navi.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8bd87d7f987890dd5598111f02f17bcf98ffdfe6663cb7454ac9d1e4ba082bfd"
+      },
+      "tools/defs/nu.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "814e52a2df4eaac4962dd0219a819f6e93644071db14298d71b09ae96ea576a7"
+      },
+      "tools/defs/nvim.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a8d8cde6f86efe7abdb469067896e78e1cf85d70aa61580fac5810693fcf29e5"
+      },
+      "tools/defs/procs.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7d98c082ac77f3942c82e23fff89796c1af0cd9b25c436fe3c44bc6d2996e0b4"
+      },
+      "tools/defs/rg.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a19b3d31a82035bcce909033ceb1a548226aa8d650b345f8dd00579a80591686"
+      },
+      "tools/defs/sd.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7a6f3cbca16b740f203208d56aad2520e8735b2e2e10a08c1eede594ceba3701"
+      },
+      "tools/defs/starship.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fe190dd4885f861dc1a14a6e1102dcf315ae3ef89979e63f53c91d80e94744c7"
+      },
+      "tools/defs/tspin.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "eb3600ea62c760419553be86524d6ba5dacf1de09989b948a27b7cffd23d433d"
+      },
+      "tools/defs/vector.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "854752ed59bac98529bc2f750da59f04fa4cc557520ea310e824c6d4f13eb0bc"
+      },
+      "tools/defs/yazi.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "42bd385e4c2647a3114fd9a576834fd2cef8cfa98c49913940c4eee516c66aa1"
+      },
+      "tools/defs/zellij.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ddb3e96ad2c3238c85ef563afb1c3f2987b7b4b669e8ec9f834a691c7ef3923a"
+      },
+      "tools/defs/zoxide.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "129995cd3c28e7c7d7a03165b640ea0bae6d153542309bfe432e2249a3dc01c3"
+      },
+      "tools/generate-def.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "da6a03ad1c5061d1a7480eacd21f75c92dfbd808fc640e31729b1ff227c63294"
+      },
+      "tools/install-tool.sh": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "c8d19aaac648a2d7e9b1453e6cd1828b2af12004b4950e950471ce1433cda689"
+      },
+      "tools/lib": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/check.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "3dbc9cd2e24e85f2900d48fde2bb8c9671b10b88b6958e295c3a1ad7652d5f76"
+      },
+      "tools/lib/commands/doctor.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fffa50af96edb168075415a206f618574f033dbc6ae00d39c66e98752eda396a"
+      },
+      "tools/lib/commands/git": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/git/common.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "6c7d462ed6ae87194c267a3e3c8f7a78297f64b3262a99f5d7e95453ddde753a"
+      },
+      "tools/lib/commands/git/setup.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4cd684cad3df7a575e1c0501c173edeadae160d3f65f75b82af8318154bb1156"
+      },
+      "tools/lib/commands/git/status": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/git/status/model.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c91f67ff2e7e5aaf814e1a0c0ce03d82b9aee47253944fa1294382e1fd207a25"
+      },
+      "tools/lib/commands/git/status/render.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ecec6e70bf84b4567d177cc47f401e87eafc52fc19687ac5e198603447630754"
+      },
+      "tools/lib/commands/git/status.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f20483444c2b2a7ac85f6462a3aa0e34949d6449c71762eab1c39a91d81d9af7"
+      },
+      "tools/lib/commands/git.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "dc53ab065c433b5dd1ad77162f309aa17d8e3ed19be91084aa636d58fe9fa25d"
+      },
+      "tools/lib/commands/guide": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/guide/common.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7e7ae023f964febaf32a4da8574ab7795e5b16d6adb3a6bf79ad582e3ce803fa"
+      },
+      "tools/lib/commands/guide/sections.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b4e02928b7739cb1ad08742b4a35e7a870a7664775c0772d9e2181cc72c24b1a"
+      },
+      "tools/lib/commands/guide/shell_snapshot.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f09ae8e929ed21dc9e03c72ac097135454f6e7baff6019a770ec7510ec84fff6"
+      },
+      "tools/lib/commands/guide/tools.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "dfa9d5a9bf5697e523490d37990db4c26a4495a8d24bc96d33028a42effa1794"
+      },
+      "tools/lib/commands/guide.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5364898d038234a512a790205f7dbfe7eb81e04ad8f550821df134c46123d325"
+      },
+      "tools/lib/commands/help.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bd5e5a5d3861967a19c84b799964fa34f6e9869ded4166d28db56831582fd994"
+      },
+      "tools/lib/commands/install.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "cd288d9eb454a0a71b7a614e398a266d43d6d4ae5e8b1698d21c689f08dd583a"
+      },
+      "tools/lib/commands/prune.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9ac5ac98ea378dd4407ffa3c53e01930d1afe0b786c52032eb5394443a526028"
+      },
+      "tools/lib/commands/scripts.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4f04b236a8b51ea68000de99cf0c8ae6fcf9da921242b404a5d0512cb7792cc2"
+      },
+      "tools/lib/commands/setup.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "535fe284a8555a1e7a11a56071126ecd4aff4939c25364667d24f725dc2d77dc"
+      },
+      "tools/lib/commands/ssh": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/ssh/common.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "76c594973fda4b51e336acce36fae25a779ddac3ff4927da056bdcc465786f0d"
+      },
+      "tools/lib/commands/ssh/setup.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2259562286620d92f0f8d40490509ddb28e4c9b6ab08a828a5d3d25bae9686b8"
+      },
+      "tools/lib/commands/ssh/status": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/ssh/status/agent.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4a97250bf673e9fa518f2b88301d9fb8969881143fcd8505ceeef80e23069512"
+      },
+      "tools/lib/commands/ssh/status.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "194c1860c48b77bda594d1264e9e50cc8cee5add607fdceac81d132fc68103be"
+      },
+      "tools/lib/commands/ssh.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "36e1060fff093ad8398354ad924c747211e5dffda69896ddccb13bcdbf1a78ed"
+      },
+      "tools/lib/commands/tool.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e45060fd47a1ef6e80d6dc9dff68781c732d9c30ce7d2e483b435ad121ece2fe"
+      },
+      "tools/lib/commands/tool_status.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b92403e4d944ecc1ecf088cc482b715c0323cafa813191681c4a0e0fda8d0c2c"
+      },
+      "tools/lib/commands/uninstall.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e2fcc2ccc8ef46705cb675d1d3b4a9c833e23f6190c9fe2f6f6a031dd54266a5"
+      },
+      "tools/lib/commands/update": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/commands/update/check.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "fa06da8b6cd404105de00da6ff71e5193efdf1b68eb37cf97ded3e26a3c5e6a0"
+      },
+      "tools/lib/commands/update.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ff61c0cbc538ac096dc54f6232ef9251e6b9c9a03b0c011274a3a3078a532366"
+      },
+      "tools/lib/commands.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "3ec9cc6e2e43748c9d622dddfa008008fd332d4893a1ad628eb8de676f2bcf8b"
+      },
+      "tools/lib/common": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/common/extract.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f63988b2147753a2e715c6f9c57e5af2734ed0cbea2ae4b3af30773539772b52"
+      },
+      "tools/lib/common/github.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5a1fb8aa501165d659199a0d8486406e89c754c3033d3872d4ff8e472d378886"
+      },
+      "tools/lib/common/platform.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d66494f2202d323f3157ececc98947bda715db453585dfcbc5a48d17d439f5c2"
+      },
+      "tools/lib/common/release.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ad0f3c8b34ebd963293e503035aa0f9e84c471772066da87948ab7c08b7e97b0"
+      },
+      "tools/lib/common/requirements.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "e5d3ccfe3d050e7fc1ca149adce9f53644bcd5b674e1488b834db0cbe512b848"
+      },
+      "tools/lib/common.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "55969631b5439fb556ce3da0afb5210179beb6041372eba4c66001a914075ba6"
+      },
+      "tools/lib/env.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7ddecbe08f02b057d808d17dc2a030ed42ea7649034416ed4ab3ca68969b32a4"
+      },
+      "tools/lib/generate-def": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/generate-def/assets.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f2a3dc4fdc47d55f3808c52261f1f78e05feb58e8e8b1f3c66e8123d9e02e9a2"
+      },
+      "tools/lib/generate-def/checksums.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ed31f42b7063a738f45da46555ff374bb1de9101d8e537e74f4e0d3fc8837a5f"
+      },
+      "tools/lib/generate-def/detect.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "a8351dc72652d1649393f925843e51b7f534046b7e0c5cb3846fa62046bc0be8"
+      },
+      "tools/lib/generate-def/names.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "c6948a60787036d28c331b31e073a9a52fc959a943188fc301d35d70088bd244"
+      },
+      "tools/lib/generate-def/render.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "f2316058d0e957ef22c8338b7aa55291d58d15c88dc1acc277bbedd8c5967353"
+      },
+      "tools/lib/generate-def.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7bc04a674596ca53290dddb232fb5d363b7cfb2fbd80aa4ffedadd14507fa548"
+      },
+      "tools/lib/install": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/install/defaults.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "205ce0574bb04ca827534cf55b8d65e25f3816d66d845604a321fb5a0ca4796c"
+      },
+      "tools/lib/install/dirs.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7513ec8c3c5d3a0406dd6f768e78a32c86c90c83e2f5fd09ffe2a689267573a1"
+      },
+      "tools/lib/install/expected_tools.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "9d82382fbeb498c0ac678b82215640f767ffb30565deb811ce2521791b9579f1"
+      },
+      "tools/lib/install/install.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7eac7e1b0f001336011496305493590d9e9d0c29c8c2cf489dc0db8fc8776119"
+      },
+      "tools/lib/install/post_install.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d68c74a64e99b9df465b5ebe04d1726aba517ef4816eb26764345783233dc76c"
+      },
+      "tools/lib/install/requirements.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "bf420a5c644ce2250cf9c1385d97d2bf2704dd69a4ec07cab603371a2f725f16"
+      },
+      "tools/lib/install/tool_inventory.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5847a8a4f54b5e2c45feff4903a240c3063c0b67556e8a557127252c6204bb71"
+      },
+      "tools/lib/install/tool_sets.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "d3956a82fa8b4595b1d313d2258cf55041e54c5a04c794f2c9783be1f6d740ab"
+      },
+      "tools/lib/install-tool": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/lib/install-tool/assets.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "08e6d553f28e7bcb6c6244ca253bcef8827d2fed60cd597b55259f8df338f552"
+      },
+      "tools/lib/install-tool/defs.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "082047dae7eac9e2806be6ddf754061ef437ef52a8cb148e0c136c0e3b068625"
+      },
+      "tools/lib/install-tool/download.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "5fee71fd214279c702b6f60cbce5a5856dc2d2cda7e130802b803ccae8058f8f"
+      },
+      "tools/lib/install-tool/install.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7ea58af36445e128062ba64162922e32f60f6b27cb6910e4c9c990350aba6c34"
+      },
+      "tools/lib/install-tool/main.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "6ba7717be5d5e34ac38e5cc51eea95d44234e6bd45eed8b845c3cdaab71de5e8"
+      },
+      "tools/lib/install-tool.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b3a00e36acf1dda200a4fcad2e6c5efb846a9310dde97bab18041ce41a38a3f7"
+      },
+      "tools/lib/install.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "2aa0862b13f00cdb84a7183a86dbd99463f9d649adbedcb08683bdde3c68b40e"
+      },
+      "tools/lib/status.lib.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "df65395a136e3edb9eff80e9c767602b2182f4d94e85c562f4514b0d6cf193f6"
+      },
+      "tools/vendors": {
+        "type": "directory",
+        "mode": "0o755"
+      },
+      "tools/vendors/bash-preexec.sh": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "48cec2856dc0342f7518ed1583158ec11c2c9d9ede64c6fce59c2c7ab983feee"
+      }
+    }
+  },
+  "differences": [
+    {
+      "path": "shell/welcome.d/00-remote-ssh.sh",
+      "authorized_path": true,
+      "baseline": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "ac660d2e02c438f45a7823e948eb9e2de54075eaf81062cef8b2f5310e0704bb"
+      },
+      "candidate": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "1c29dec35d67e356f5381e6c0c5d6edb0d3e965f716edf535774cf90e974b294"
+      }
+    },
+    {
+      "path": "shell/welcome.d/10-hw.sh",
+      "authorized_path": true,
+      "baseline": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "fa5f5a9cbaf520c5d4df1ac72500add5d199d17b5ccc699180d7cdaedb8fc0c5"
+      },
+      "candidate": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "6be028fe2e833e1035a0a671f81774bcb66bbd5ab1f29710b0bae24781aa6caa"
+      }
+    },
+    {
+      "path": "shell/welcome.d/20-sw.sh",
+      "authorized_path": true,
+      "baseline": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "b0716e2483b5101e0f4c57c12b9bf467ce9b74503e6a986fcebf0248060ba9d5"
+      },
+      "candidate": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "b84d5d697c5eadc0003f248871c340b9445141d9524690e9666b72102fbb0b89"
+      }
+    },
+    {
+      "path": "shell/welcome.lib.sh",
+      "authorized_path": true,
+      "baseline": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "4cee5c2cdad7201a36c133ae7683334bc54bf4c1d0fd7068ad831df4036985e8"
+      },
+      "candidate": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "45ef112946af4d75f91949cfa58301947a14dd7d39083476afa7b2607c287961"
+      }
+    },
+    {
+      "path": "shell/welcome/bundled-runner.sh",
+      "authorized_path": true,
+      "baseline": null,
+      "candidate": {
+        "type": "file",
+        "mode": "0o755",
+        "sha256": "bb870d5ea1479b1d6d14ede338a404e0bb775c800cb3e6ee673d2028a547fcc0"
+      }
+    },
+    {
+      "path": "shell/welcome/bundled.sh",
+      "authorized_path": true,
+      "baseline": null,
+      "candidate": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "da269d5e8798d9512f4e6a9ab39395030c758e136ef43433fe735ae6dc99825f"
+      }
+    },
+    {
+      "path": "shell/welcome/runner.sh",
+      "authorized_path": true,
+      "baseline": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "ed4c08ffc3d2b544a0e15ba4ac7b4c8423352a69d7592a17076544119e08034f"
+      },
+      "candidate": {
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "8d840f54c9f2ee502e2e19b43cae1c8487b1b6412ac1b6ef093df50516d18c5a"
+      }
+    }
+  ],
+  "unauthorized_differences": []
+}

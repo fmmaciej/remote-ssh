@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "phase": "pre-timing",
+  "checked_at": "2026-10-28T09:34:53.453744+00:00",
+  "candidate_runtime_aggregate": "0703139284173f0358ac13431875f23b7035fbfcb1b83b104fdada6ba1c9e58b",
+  "baseline_runtime_aggregate": "366a4aaab30a5bc7864c91680e953f9509aaafc31b0f8bab5fb037dff825c066",
+  "fresh_pinned_archive_sha256": "287c7b392a74409d333cc26c3d1e987ef7d6039858a47c62a5b1a71d68c87050",
+  "complete_physical_trees_match_frozen_manifests": true,
+  "reviewed_working_runtime_and_test_hashes_modes_match": true,
+  "fixed_harness_fixture_bench_12_screens_match_original": true,
+  "R0_rejected_artifacts_retained_unchanged": true
+}

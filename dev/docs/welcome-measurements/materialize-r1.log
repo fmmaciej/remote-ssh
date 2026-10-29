@@ -1,0 +1,4 @@
+R0 gate RED: unauthorized private config and Atuin definition mode
+R1 gate GREEN: exactly seven authorized source/mode differences
+R1 candidate runtime aggregate: 0703139284173f0358ac13431875f23b7035fbfcb1b83b104fdada6ba1c9e58b
+Frozen timed harness, fixtures, benchmark sources and 12 screens: unchanged

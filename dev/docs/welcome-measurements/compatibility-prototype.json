@@ -1,0 +1,650 @@
+[
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "ordinary",
+    "setup": "",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "strict",
+    "setup": "set -euo pipefail",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "private_banner",
+    "setup": "REMOTE_SSH_WELCOME_BANNER=0",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "exported_banner",
+    "setup": "export REMOTE_SSH_WELCOME_BANNER=0",
+    "returncode": 0,
+    "stdout": "host:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "private_columns",
+    "setup": "export -n COLUMNS; COLUMNS=30",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "exported_columns",
+    "setup": "export COLUMNS=30",
+    "returncode": 0,
+    "stdout": "R-S\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "narrow_columns",
+    "setup": "export COLUMNS=60",
+    "returncode": 0,
+    "stdout": "R-SSH\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "color",
+    "setup": "export REMOTE_SSH_WELCOME_COLOR=1",
+    "returncode": 0,
+    "stdout": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\n\u001b[0mRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "private_no_color",
+    "setup": "export REMOTE_SSH_WELCOME_COLOR=1; NO_COLOR=1",
+    "returncode": 0,
+    "stdout": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\n\u001b[0mRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "exported_no_color",
+    "setup": "export REMOTE_SSH_WELCOME_COLOR=1; export NO_COLOR=1",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "private_provider",
+    "setup": "hostname() { printf 'private-provider\\n'; }; REMOTE_SSH_STATUS_LIB_LOADED=1",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "exported_provider",
+    "setup": "hostname() { printf 'exported-provider\\n'; }; export -f hostname",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    exported-provider / exported-provider\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "empty_bash_env",
+    "setup": "export BASH_ENV=",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "nonempty_bash_env",
+    "setup": "export BASH_ENV=\"$3\"",
+    "returncode": 0,
+    "stdout": "HOOK:bash\n ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nHOOK:bash\nhw:      8 cpu / 16 GiB ram\nHOOK:bash\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "exported_shellopts",
+    "setup": "set -e; shopt -u nullglob; export SHELLOPTS",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "exported_bashopts",
+    "setup": "set -e; shopt -u nullglob; if ((BASH_VERSINFO[0] > 3)); then export BASHOPTS; fi",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "caller_state",
+    "setup": "IFS=:; trap ':' USR1; private=preserved; shopt -s nocasematch",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "healthy",
+    "case": "debug",
+    "setup": "export REMOTE_SSH_WELCOME_DEBUG=1",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "ordinary",
+    "setup": "",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "strict",
+    "setup": "set -euo pipefail",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": "<RUNTIME>/shell/welcome/runner.sh: line 25: REMOTE_SSH_WELCOME_ISSUES[@]: unbound variable\n"
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "private_banner",
+    "setup": "REMOTE_SSH_WELCOME_BANNER=0",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "exported_banner",
+    "setup": "export REMOTE_SSH_WELCOME_BANNER=0",
+    "returncode": 0,
+    "stdout": "host:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "private_columns",
+    "setup": "export -n COLUMNS; COLUMNS=30",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "exported_columns",
+    "setup": "export COLUMNS=30",
+    "returncode": 0,
+    "stdout": "R-S\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "narrow_columns",
+    "setup": "export COLUMNS=60",
+    "returncode": 0,
+    "stdout": "R-SSH\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "color",
+    "setup": "export REMOTE_SSH_WELCOME_COLOR=1",
+    "returncode": 0,
+    "stdout": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\n\u001b[0mRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "private_no_color",
+    "setup": "export REMOTE_SSH_WELCOME_COLOR=1; NO_COLOR=1",
+    "returncode": 0,
+    "stdout": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\n\u001b[0mRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "exported_no_color",
+    "setup": "export REMOTE_SSH_WELCOME_COLOR=1; export NO_COLOR=1",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "private_provider",
+    "setup": "hostname() { printf 'private-provider\\n'; }; REMOTE_SSH_STATUS_LIB_LOADED=1",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "exported_provider",
+    "setup": "hostname() { printf 'exported-provider\\n'; }; export -f hostname",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    exported-provider / exported-provider\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "empty_bash_env",
+    "setup": "export BASH_ENV=",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "nonempty_bash_env",
+    "setup": "export BASH_ENV=\"$3\"",
+    "returncode": 0,
+    "stdout": "HOOK:bash\n ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nHOOK:bash\nhw:      8 cpu / 16 GiB ram\nHOOK:bash\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "exported_shellopts",
+    "setup": "set -e; shopt -u nullglob; export SHELLOPTS",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "exported_bashopts",
+    "setup": "set -e; shopt -u nullglob; if ((BASH_VERSINFO[0] > 3)); then export BASHOPTS; fi",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "caller_state",
+    "setup": "IFS=:; trap ':' USR1; private=preserved; shopt -s nocasematch",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "3.2",
+    "fixture": "actionable",
+    "case": "debug",
+    "setup": "export REMOTE_SSH_WELCOME_DEBUG=1",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "ordinary",
+    "setup": "",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "strict",
+    "setup": "set -euo pipefail",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "private_banner",
+    "setup": "REMOTE_SSH_WELCOME_BANNER=0",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "exported_banner",
+    "setup": "export REMOTE_SSH_WELCOME_BANNER=0",
+    "returncode": 0,
+    "stdout": "host:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "private_columns",
+    "setup": "export -n COLUMNS; COLUMNS=30",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "exported_columns",
+    "setup": "export COLUMNS=30",
+    "returncode": 0,
+    "stdout": "R-S\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "narrow_columns",
+    "setup": "export COLUMNS=60",
+    "returncode": 0,
+    "stdout": "R-SSH\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "color",
+    "setup": "export REMOTE_SSH_WELCOME_COLOR=1",
+    "returncode": 0,
+    "stdout": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\n\u001b[0mRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "private_no_color",
+    "setup": "export REMOTE_SSH_WELCOME_COLOR=1; NO_COLOR=1",
+    "returncode": 0,
+    "stdout": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\n\u001b[0mRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "exported_no_color",
+    "setup": "export REMOTE_SSH_WELCOME_COLOR=1; export NO_COLOR=1",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "private_provider",
+    "setup": "hostname() { printf 'private-provider\\n'; }; REMOTE_SSH_STATUS_LIB_LOADED=1",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "exported_provider",
+    "setup": "hostname() { printf 'exported-provider\\n'; }; export -f hostname",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    exported-provider / exported-provider\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "empty_bash_env",
+    "setup": "export BASH_ENV=",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "nonempty_bash_env",
+    "setup": "export BASH_ENV=\"$3\"",
+    "returncode": 0,
+    "stdout": "HOOK:00-remote-ssh.sh\n ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nHOOK:10-hw.sh\nhw:      8 cpu / 16 GiB ram\nHOOK:20-sw.sh\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "exported_shellopts",
+    "setup": "set -e; shopt -u nullglob; export SHELLOPTS",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "exported_bashopts",
+    "setup": "set -e; shopt -u nullglob; if ((BASH_VERSINFO[0] > 3)); then export BASHOPTS; fi",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "caller_state",
+    "setup": "IFS=:; trap ':' USR1; private=preserved; shopt -s nocasematch",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "healthy",
+    "case": "debug",
+    "setup": "export REMOTE_SSH_WELCOME_DEBUG=1",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  current (checked: welcome fixture)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config ok\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "ordinary",
+    "setup": "",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "strict",
+    "setup": "set -euo pipefail",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "private_banner",
+    "setup": "REMOTE_SSH_WELCOME_BANNER=0",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "exported_banner",
+    "setup": "export REMOTE_SSH_WELCOME_BANNER=0",
+    "returncode": 0,
+    "stdout": "host:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "private_columns",
+    "setup": "export -n COLUMNS; COLUMNS=30",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "exported_columns",
+    "setup": "export COLUMNS=30",
+    "returncode": 0,
+    "stdout": "R-S\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "narrow_columns",
+    "setup": "export COLUMNS=60",
+    "returncode": 0,
+    "stdout": "R-SSH\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "color",
+    "setup": "export REMOTE_SSH_WELCOME_COLOR=1",
+    "returncode": 0,
+    "stdout": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\n\u001b[0mRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\n\u001b[31mnext:    remote-ssh doctor\u001b[0m\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "private_no_color",
+    "setup": "export REMOTE_SSH_WELCOME_COLOR=1; NO_COLOR=1",
+    "returncode": 0,
+    "stdout": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\n\u001b[0mRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "exported_no_color",
+    "setup": "export REMOTE_SSH_WELCOME_COLOR=1; export NO_COLOR=1",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "private_provider",
+    "setup": "hostname() { printf 'private-provider\\n'; }; REMOTE_SSH_STATUS_LIB_LOADED=1",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "exported_provider",
+    "setup": "hostname() { printf 'exported-provider\\n'; }; export -f hostname",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    exported-provider / exported-provider\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "empty_bash_env",
+    "setup": "export BASH_ENV=",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "nonempty_bash_env",
+    "setup": "export BASH_ENV=\"$3\"",
+    "returncode": 0,
+    "stdout": "HOOK:00-remote-ssh.sh\n ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nHOOK:10-hw.sh\nhw:      8 cpu / 16 GiB ram\nHOOK:20-sw.sh\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "exported_shellopts",
+    "setup": "set -e; shopt -u nullglob; export SHELLOPTS",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "exported_bashopts",
+    "setup": "set -e; shopt -u nullglob; if ((BASH_VERSINFO[0] > 3)); then export BASHOPTS; fi",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "caller_state",
+    "setup": "IFS=:; trap ':' USR1; private=preserved; shopt -s nocasematch",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  },
+  {
+    "bash": "5.3",
+    "fixture": "actionable",
+    "case": "debug",
+    "setup": "export REMOTE_SSH_WELCOME_DEBUG=1",
+    "returncode": 0,
+    "stdout": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\nRemote-SSH\n\nhost:    fixture-host / 192.0.2.4\nupdate:  available (checked: welcome fixture)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      8 cpu / 16 GiB ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n__WELCOME_FIRST_COMMAND_READY__\n",
+    "stderr": ""
+  }
+]

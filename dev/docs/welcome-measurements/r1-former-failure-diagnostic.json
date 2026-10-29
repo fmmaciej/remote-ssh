@@ -1,0 +1,38 @@
+[
+  {
+    "ready_ms": 297.163333,
+    "total_ms": 297.68675,
+    "returncode": 0,
+    "timed_out": false,
+    "output_tail": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\nRemote-SSH\r\n\r\nhost:    fixture-host / 192.0.2.4\r\nupdate:  available (checked: welcome fixture)\r\ntools:   2 checked / 1 ok\r\nscripts: 4 checked / 3 ok\r\nhw:      8 cpu / 16 GiB ram\r\nsw:      ssh-agent ok / git config missing\r\n\r\nnext:    remote-ssh doctor\r\n\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h__WELCOME_FIRST_COMMAND_READY__\r\n\u001b[?1034h",
+    "stderr": "",
+    "output_sha256": "d437766aee26bae2e1e7c8cc69104c4c8c7e16c9d60922df881af6e6c14491ac",
+    "output_bytes": 688,
+    "complete_output_asserted": true,
+    "workload": "pty",
+    "bash": "3.2",
+    "fixture": "actionable",
+    "sample_id": "diagnostic-r1-baseline-3.2-actionable-pty",
+    "version": "baseline",
+    "purpose": "former rejected cell diagnostic; excluded from principal samples",
+    "runtime_fingerprint": "366a4aaab30a5bc7864c91680e953f9509aaafc31b0f8bab5fb037dff825c066"
+  },
+  {
+    "ready_ms": 287.744958,
+    "total_ms": 288.248708,
+    "returncode": 0,
+    "timed_out": false,
+    "output_tail": " ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\nRemote-SSH\r\n\r\nhost:    fixture-host / 192.0.2.4\r\nupdate:  available (checked: welcome fixture)\r\ntools:   2 checked / 1 ok\r\nscripts: 4 checked / 3 ok\r\nhw:      8 cpu / 16 GiB ram\r\nsw:      ssh-agent ok / git config missing\r\n\r\nnext:    remote-ssh doctor\r\n\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h\u001b[?1034h__WELCOME_FIRST_COMMAND_READY__\r\n\u001b[?1034h",
+    "stderr": "",
+    "output_sha256": "d437766aee26bae2e1e7c8cc69104c4c8c7e16c9d60922df881af6e6c14491ac",
+    "output_bytes": 688,
+    "complete_output_asserted": true,
+    "workload": "pty",
+    "bash": "3.2",
+    "fixture": "actionable",
+    "sample_id": "diagnostic-r1-candidate-3.2-actionable-pty",
+    "version": "candidate",
+    "purpose": "former rejected cell diagnostic; excluded from principal samples",
+    "runtime_fingerprint": "0703139284173f0358ac13431875f23b7035fbfcb1b83b104fdada6ba1c9e58b"
+  }
+]

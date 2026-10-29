@@ -1,0 +1,17 @@
+{
+  "checked_paths": [
+    "shell/welcome.lib.sh",
+    "shell/welcome/runner.sh",
+    "shell/welcome/bundled.sh",
+    "shell/welcome/bundled-runner.sh",
+    "shell/welcome.d/00-remote-ssh.sh",
+    "shell/welcome.d/10-hw.sh",
+    "shell/welcome.d/20-sw.sh",
+    "dev/tests/test_welcome.py",
+    "dev/tests/test_welcome_bundled.py",
+    "dev/tests/conftest.py"
+  ],
+  "runtime_and_tests": "all 10 source hashes and modes match final R1 freeze",
+  "smoke_log_and_driver": "hashes match; exact just smoke command; exit 0; 862 passed, 58 skipped",
+  "head": "39226a2d9074acf08279e7c3edde6a51cc2a629c"
+}

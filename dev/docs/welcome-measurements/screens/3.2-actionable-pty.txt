@@ -1,0 +1,18 @@
+ ____  _____ __  __  ___ _____ _____      ____ ____  _   _
+|  _ \| ____|  \/  |/ _ \_   _| ____|    / ___/ ___|| | | |
+| |_) |  _| | |\/| | | | || | |  _| _____\___ \___ \| |_| |
+|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |
+|_| \_\_____|_|  |_|\___/ |_| |_____|    |____/____/|_| |_|
+
+Remote-SSH
+
+host:    fixture-host / 192.0.2.4
+update:  available (checked: welcome fixture)
+tools:   2 checked / 1 ok
+scripts: 4 checked / 3 ok
+hw:      8 cpu / 16 GiB ram
+sw:      ssh-agent ok / git config missing
+
+next:    remote-ssh doctor
+[?1034h[?1034h[?1034h[?1034h[?1034h[?1034h[?1034h[?1034h[?1034h[?1034h[?1034h__WELCOME_FIRST_COMMAND_READY__
+[?1034h

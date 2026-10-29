@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "baseline": "39226a2d9074acf08279e7c3edde6a51cc2a629c",
+  "tree": "/private/tmp/remote-ssh-welcome-candidate-r1",
+  "source_sha256": "4c3356df2cff5b25b411bf3c47386c365d0622aa36f931bde37fc7852a166214",
+  "records": [
+    {
+      "bash": "/bin/bash",
+      "debug": "0",
+      "returncode": 0,
+      "terminal": "eof\r\n \\hello\rX\r\n\r\nlast\r\nsibling\r\ninput-ready\r\nkept\r\n",
+      "stdout": "caller=kept\n",
+      "stderr": "",
+      "input_sent_after_panel": true
+    },
+    {
+      "bash": "/bin/bash",
+      "debug": "1",
+      "returncode": 0,
+      "terminal": "eof\r\n \\hello\rX\r\n\r\nlast\r\nsibling\r\ninput-ready\r\nkept\r\n",
+      "stdout": "caller=kept\n",
+      "stderr": "module-stderr\nremote-ssh welcome: module failed: /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-pty-audit-v32x5uki/bash-0-1/shell/welcome.d/00-module (exit 7)\n",
+      "input_sent_after_panel": true
+    },
+    {
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "debug": "0",
+      "returncode": 0,
+      "terminal": "eof\r\n \\hello\rX\r\n\r\nlast\r\nsibling\r\ninput-ready\r\nkept\r\n",
+      "stdout": "caller=kept\n",
+      "stderr": "",
+      "input_sent_after_panel": true
+    },
+    {
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "debug": "1",
+      "returncode": 0,
+      "terminal": "eof\r\n \\hello\rX\r\n\r\nlast\r\nsibling\r\ninput-ready\r\nkept\r\n",
+      "stdout": "caller=kept\n",
+      "stderr": "module-stderr\nremote-ssh welcome: module failed: /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-pty-audit-v32x5uki/bash-1-1/shell/welcome.d/00-module (exit 7)\n",
+      "input_sent_after_panel": true
+    }
+  ]
+}

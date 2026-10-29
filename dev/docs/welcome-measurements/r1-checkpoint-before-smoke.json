@@ -1,0 +1,11 @@
+{
+  "phase": "before-smoke",
+  "checked_at": "2026-10-28T09:45:30.041269+00:00",
+  "baseline_aggregate": "366a4aaab30a5bc7864c91680e953f9509aaafc31b0f8bab5fb037dff825c066",
+  "candidate_aggregate": "0703139284173f0358ac13431875f23b7035fbfcb1b83b104fdada6ba1c9e58b",
+  "source_modes_and_full_tree_manifests": "unchanged",
+  "reviewed_working_seven_paths": "unchanged",
+  "frozen_harness_fixtures_bench_and_12_screens": "unchanged",
+  "preserved_R0_artifacts": "unchanged",
+  "r1_trace_inputs": "byte-identical; driver changes only candidate path"
+}

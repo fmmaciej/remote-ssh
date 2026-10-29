@@ -1,0 +1,231 @@
+.................................................s..F................... [ 80%]
+........FF.....F.F                                                       [100%]
+=================================== FAILURES ===================================
+___ test_bundled_nonempty_bash_env_retains_once_per_module_hooks[/bin/bash] ____
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_bun...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_bundled_nonempty_bash_env0/home/.local/state'})
+runtime_bash = '/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_bundled_nonempty_bash_env0')
+
+    def test_bundled_nonempty_bash_env_retains_once_per_module_hooks(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, tmp_path: Path
+    ) -> None:
+        tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        hook = tmp_path / "hook"
+        hook.write_text('printf "hook:%s\\n" "${0##*/}"\n')
+        result = _run(tree, env | {"HOOK": str(hook)}, runtime_bash, setup='export BASH_ENV="$HOOK"')
+        assert_ok(result)
+>       assert (
+            result.stdout
+            == "hook:00-remote-ssh.sh\nremote\nhook:10-hw.sh\nhardware\nhook:20-sw.sh\nsoftware\nCALLER-NEXT\n"
+        )
+E       AssertionError: assert 'hook:bash\nr...CALLER-NEXT\n' == 'hook:00-remo...CALLER-NEXT\n'
+E         
+E         - hook:00-remote-ssh.sh
+E         + hook:bash
+E           remote
+E         - hook:10-hw.sh
+E         + hook:bash
+E           hardware...
+E         
+E         ...Full output truncated (4 lines hidden), use '-vv' to show
+
+dev/tests/test_welcome_bundled.py:318: AssertionError
+__ test_user_reserved_basename_and_canonical_bytes_remain_external[/bin/bash] __
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_use...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_user_reserved_basename_an0/home/.local/state'})
+runtime_bash = '/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_user_reserved_basename_an0')
+
+    def test_user_reserved_basename_and_canonical_bytes_remain_external(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, tmp_path: Path
+    ) -> None:
+        tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        user = Path(env["XDG_CONFIG_HOME"]) / "remote-ssh" / "welcome.d"
+        user.mkdir(parents=True)
+        shutil.copy2(tree / "shell" / "welcome.d" / "10-hw.sh", user / "10-hw.sh")
+        (user.parent / "welcome.lib.sh").write_text(
+            'remote_ssh_welcome_render_hw() { printf "canonical-user-external\\n"; }\n'
+        )
+        write_executable(
+            user / "00-remote-ssh.sh",
+            '#!/bin/sh\nif [ -n "$BASH_VERSION" ]; then printf "WRONGLY-SOURCED\\n"; else printf "non-bash-user\\n"; fi\n',
+        )
+        result = _run(tree, env, runtime_bash)
+        assert_ok(result)
+>       assert (
+            result.stdout
+            == "remote\nhardware\nsoftware\nnon-bash-user\ncanonical-user-external\nCALLER-NEXT\n"
+        )
+E       AssertionError: assert 'remote\nhard...CALLER-NEXT\n' == 'remote\nhard...CALLER-NEXT\n'
+E         
+E           remote
+E           hardware
+E           software
+E         - non-bash-user
+E         + WRONGLY-SOURCED
+E           canonical-user-external
+E           CALLER-NEXT
+
+dev/tests/test_welcome_bundled.py:480: AssertionError
+_ test_user_reserved_basename_and_canonical_bytes_remain_external[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_use...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_user_reserved_basename_an1/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_user_reserved_basename_an1')
+
+    def test_user_reserved_basename_and_canonical_bytes_remain_external(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, tmp_path: Path
+    ) -> None:
+        tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        user = Path(env["XDG_CONFIG_HOME"]) / "remote-ssh" / "welcome.d"
+        user.mkdir(parents=True)
+        shutil.copy2(tree / "shell" / "welcome.d" / "10-hw.sh", user / "10-hw.sh")
+        (user.parent / "welcome.lib.sh").write_text(
+            'remote_ssh_welcome_render_hw() { printf "canonical-user-external\\n"; }\n'
+        )
+        write_executable(
+            user / "00-remote-ssh.sh",
+            '#!/bin/sh\nif [ -n "$BASH_VERSION" ]; then printf "WRONGLY-SOURCED\\n"; else printf "non-bash-user\\n"; fi\n',
+        )
+        result = _run(tree, env, runtime_bash)
+        assert_ok(result)
+>       assert (
+            result.stdout
+            == "remote\nhardware\nsoftware\nnon-bash-user\ncanonical-user-external\nCALLER-NEXT\n"
+        )
+E       AssertionError: assert 'remote\nhard...CALLER-NEXT\n' == 'remote\nhard...CALLER-NEXT\n'
+E         
+E           remote
+E           hardware
+E           software
+E         - non-bash-user
+E         + WRONGLY-SOURCED
+E           canonical-user-external
+E           CALLER-NEXT
+
+dev/tests/test_welcome_bundled.py:480: AssertionError
+_ test_bundled_and_external_replay_preserve_text_and_terminal_transport[/bin/bash-True] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_bun...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_bundled_and_external_repl1/home/.local/state'})
+runtime_bash = '/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_bundled_and_external_repl1')
+controlling_terminal = True
+
+    @pytest.mark.parametrize("controlling_terminal", [False, True])
+    def test_bundled_and_external_replay_preserve_text_and_terminal_transport(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        tmp_path: Path,
+        controlling_terminal: bool,
+    ) -> None:
+        tree, env, _ = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        bundled = tree / "shell" / "welcome" / "bundled.sh"
+        bundled.write_text(
+            bundled.read_text()
+            + r"""
+    remote_ssh_welcome_render_remote_ssh() { :; }
+    remote_ssh_welcome_render_hw() { printf '\n  spaces \\ slash\nCR\rtext\nno-final-LF'; }
+    remote_ssh_welcome_render_sw() { printf 'last\n'; }
+    """
+        )
+        expected = "\n  spaces \\ slash\nCR\rtext\nno-final-LF\nlast\n"
+        redirected = tmp_path / "redirected"
+        env["OUTPUT_FILE"] = str(redirected)
+        command = 'remote_ssh_welcome_run_bundled "$REMOTE_SHELL_DIR/welcome.d" >"$OUTPUT_FILE"'
+        if controlling_terminal:
+            sample = run_pty_sample(
+                [
+                    runtime_bash,
+                    "-c",
+                    '. "$1/shell/welcome.lib.sh"; ' + command + '; printf "READY-TRANSPORT\\n"',
+                    "_",
+                    str(tree),
+                ],
+                env,
+                tmp_path,
+                "READY-TRANSPORT",
+                10,
+            )
+            assert sample.returncode == 0 and not sample.timed_out
+>           assert sample.output_tail == expected.replace("\n", "\r\n") + "READY-TRANSPORT\r\n"
+E           AssertionError: assert 'READY-TRANSPORT\r\n' == '\r\n  spaces...TRANSPORT\r\n'
+E             
+E             - 
+E             -   spaces \ slash
+E             - CR
+E             - text
+E             - no-final-LF
+E             - last
+E               READY-TRANSPORT
+
+dev/tests/test_welcome_bundled.py:593: AssertionError
+_ test_bundled_and_external_replay_preserve_text_and_terminal_transport[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_bun...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_bundled_and_external_repl3/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1161/test_bundled_and_external_repl3')
+controlling_terminal = True
+
+    @pytest.mark.parametrize("controlling_terminal", [False, True])
+    def test_bundled_and_external_replay_preserve_text_and_terminal_transport(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        tmp_path: Path,
+        controlling_terminal: bool,
+    ) -> None:
+        tree, env, _ = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        bundled = tree / "shell" / "welcome" / "bundled.sh"
+        bundled.write_text(
+            bundled.read_text()
+            + r"""
+    remote_ssh_welcome_render_remote_ssh() { :; }
+    remote_ssh_welcome_render_hw() { printf '\n  spaces \\ slash\nCR\rtext\nno-final-LF'; }
+    remote_ssh_welcome_render_sw() { printf 'last\n'; }
+    """
+        )
+        expected = "\n  spaces \\ slash\nCR\rtext\nno-final-LF\nlast\n"
+        redirected = tmp_path / "redirected"
+        env["OUTPUT_FILE"] = str(redirected)
+        command = 'remote_ssh_welcome_run_bundled "$REMOTE_SHELL_DIR/welcome.d" >"$OUTPUT_FILE"'
+        if controlling_terminal:
+            sample = run_pty_sample(
+                [
+                    runtime_bash,
+                    "-c",
+                    '. "$1/shell/welcome.lib.sh"; ' + command + '; printf "READY-TRANSPORT\\n"',
+                    "_",
+                    str(tree),
+                ],
+                env,
+                tmp_path,
+                "READY-TRANSPORT",
+                10,
+            )
+            assert sample.returncode == 0 and not sample.timed_out
+>           assert sample.output_tail == expected.replace("\n", "\r\n") + "READY-TRANSPORT\r\n"
+E           AssertionError: assert 'READY-TRANSPORT\r\n' == '\r\n  spaces...TRANSPORT\r\n'
+E             
+E             - 
+E             -   spaces \ slash
+E             - CR
+E             - text
+E             - no-final-LF
+E             - last
+E               READY-TRANSPORT
+
+dev/tests/test_welcome_bundled.py:593: AssertionError
+=========================== short test summary info ============================
+FAILED dev/tests/test_welcome_bundled.py::test_bundled_nonempty_bash_env_retains_once_per_module_hooks[/bin/bash]
+FAILED dev/tests/test_welcome_bundled.py::test_user_reserved_basename_and_canonical_bytes_remain_external[/bin/bash]
+FAILED dev/tests/test_welcome_bundled.py::test_user_reserved_basename_and_canonical_bytes_remain_external[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]
+FAILED dev/tests/test_welcome_bundled.py::test_bundled_and_external_replay_preserve_text_and_terminal_transport[/bin/bash-True]
+FAILED dev/tests/test_welcome_bundled.py::test_bundled_and_external_replay_preserve_text_and_terminal_transport[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True]
+5 failed, 84 passed, 1 skipped in 10.35s

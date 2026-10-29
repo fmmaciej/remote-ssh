@@ -1,0 +1,20 @@
+batch=1 bash=3.2 fixture=healthy workload=isolated
+batch=1 bash=3.2 fixture=healthy workload=pty
+batch=1 bash=3.2 fixture=actionable workload=isolated
+batch=1 bash=3.2 fixture=actionable workload=pty
+Traceback (most recent call last):
+  File "/Users/fm/Programming/00_Other/remote-ssh/dev/docs/welcome-measurements/harness.py", line 383, in <module>
+    main()
+    ~~~~^^
+  File "/Users/fm/Programming/00_Other/remote-ssh/dev/docs/welcome-measurements/harness.py", line 362, in main
+    record = sample(
+        repo,
+    ...<4 lines>...
+        freeze=args.mode == "freeze",
+    )
+  File "/Users/fm/Programming/00_Other/remote-ssh/dev/docs/welcome-measurements/harness.py", line 220, in sample
+    assert expected in normalized, (expected, output)
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('sw:      ssh-agent ok / git config missing', ' ____  _____ __  __  ___ _____ _____      ____ ____  _   _\r\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\r\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\r\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\r\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\r\n\r\nRemote-SSH\r\n\r\nhost:    fixture-host / 192.0.2.4\r\nupdate:  available (checked: welcome fixture)\r\ntools:   2 checked / 1 ok\r\nscripts: 4 checked / 3 ok\r\nhw:      8 cpu / 16 GiB ram\r\nsw:      ssh-agent ok / git config invalid\r\n\r\nnext:    remote-ssh doctor\r\n\x1b[?1034h\x1b[?1034h\x1b[?1034h\x1b[?1034h\x1b[?1034h\x1b[?1034h\x1b[?1034h\x1b[?1034h\x1b[?1034h\x1b[?1034h\x1b[?1034h__WELCOME_FIRST_COMMAND_READY__\r\n\x1b[?1034h')
+
+exit_code: 1

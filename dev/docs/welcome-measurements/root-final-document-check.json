@@ -1,0 +1,7 @@
+{
+  "markdown_files": 10,
+  "checked_local_file_links": 138,
+  "broken_local_file_links": [],
+  "changed_and_untracked_source_whitespace": [],
+  "note": "Markdown hard breaks with exactly two trailing spaces are intentional; raw evidence bytes are excluded from whitespace normalization."
+}

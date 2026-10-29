@@ -1,0 +1,285 @@
+{
+  "baseline": "39226a2d9074acf08279e7c3edde6a51cc2a629c",
+  "tree": "/private/tmp/remote-ssh-welcome-candidate-r1",
+  "probe_sha256": "477abeb5ade09db0a4094855c8024a74932057548faf405a47c143c47b936a62",
+  "records": [
+    {
+      "name": "populated-healthy",
+      "bash": "/bin/bash",
+      "version": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+      "script": ". \"$1/shell/welcome.lib.sh\"; remote_ssh_welcome_run",
+      "returncode": 0,
+      "stdout": "host:    audit-host / 203.0.113.9\nupdate:  current (checked: 2026-10-28 audit)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      10 cpu / unknown ram\nsw:      ssh-agent ok / git config ok\n",
+      "stderr": "",
+      "stdout_sha256": "b0e665559cd4b5cb49380f07b85e15b32511e3a7b599d0d3f075f53fb1a56692",
+      "checks": [
+        "actual populated providers",
+        "no next",
+        "quiet stderr"
+      ]
+    },
+    {
+      "name": "populated-actionable",
+      "bash": "/bin/bash",
+      "version": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+      "script": ". \"$1/shell/welcome.lib.sh\"; remote_ssh_welcome_run",
+      "returncode": 0,
+      "stdout": "host:    audit-host / 203.0.113.9\nupdate:  available (checked: 2026-10-28 audit)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      10 cpu / unknown ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n",
+      "stderr": "",
+      "stdout_sha256": "3f65d6e6978aa8550bee25461ee09e35322f9046ab1b73f2b815c1ad844fda0d",
+      "checks": [
+        "actual missing-tool/requirement/update/Git issues",
+        "one final doctor"
+      ]
+    },
+    {
+      "name": "populated-actionable-strict",
+      "bash": "/bin/bash",
+      "version": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+      "script": "set -euo pipefail; . \"$1/shell/welcome.lib.sh\"; remote_ssh_welcome_run",
+      "returncode": 0,
+      "stdout": "host:    audit-host / 203.0.113.9\nupdate:  available (checked: 2026-10-28 audit)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      10 cpu / unknown ram\nsw:      ssh-agent ok / git config missing\n",
+      "stderr": "/private/tmp/remote-ssh-welcome-candidate-r1/shell/welcome/runner.sh: line 25: REMOTE_SSH_WELCOME_ISSUES[@]: unbound variable\n",
+      "stdout_sha256": "d696a2d84cdab6cc5de9c836cc632510e7da90e1ff9f9e5dfc53a02ca6164c63",
+      "checks": [
+        "known baseline Bash 3.2 nounset issue-array limitation",
+        "outer returncode remains zero"
+      ]
+    },
+    {
+      "name": "external-replay-failure-cleanup",
+      "bash": "/bin/bash",
+      "version": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+      "script": "set -eo pipefail\n. \"$1/shell/welcome.lib.sh\"\nREMOTE_SSH_WELCOME_ISSUES=(inherited)\nremote_ssh_welcome_run\nread -r untouched\nprintf 'after=%s\\n' \"$untouched\"\nprintf 'file=%s array=%s\\n' \"${REMOTE_SSH_WELCOME_ISSUES_FILE-unset}\" \"${REMOTE_SSH_WELCOME_ISSUES-unset}\"\n",
+      "returncode": 0,
+      "stdout": "eof\n \\hello\rX\n\nlast\nsibling\n\nnext:    remote-ssh update\nafter=untouched\nfile=unset array=unset\n",
+      "stderr": "",
+      "stdout_sha256": "29d66c2382385dee2817eedbcb2202764268b0acea39c7bb4b76bc92bb478f2e",
+      "checks": [
+        "stdin EOF and caller input retained",
+        "exact CR/backslash/blank/no-LF replay",
+        "failure continuation",
+        "deduplicated issues",
+        "cleanup",
+        "inherited file untouched"
+      ]
+    },
+    {
+      "name": "external-debug",
+      "bash": "/bin/bash",
+      "version": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+      "script": "set -eo pipefail\n. \"$1/shell/welcome.lib.sh\"\nREMOTE_SSH_WELCOME_ISSUES=(inherited)\nremote_ssh_welcome_run\nread -r untouched\nprintf 'after=%s\\n' \"$untouched\"\nprintf 'file=%s array=%s\\n' \"${REMOTE_SSH_WELCOME_ISSUES_FILE-unset}\" \"${REMOTE_SSH_WELCOME_ISSUES-unset}\"\n",
+      "returncode": 0,
+      "stdout": "eof\n \\hello\rX\n\nlast\nsibling\n\nnext:    remote-ssh update\nafter=untouched\nfile=unset array=unset\n",
+      "stderr": "module-stderr\nremote-ssh welcome: module failed: /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-independent-audit-dwpo_loc/bash32/custom-shell/welcome.d/00-replay (exit 7)\nremote-ssh welcome: ignoring unknown issue: mystery\n",
+      "stdout_sha256": "29d66c2382385dee2817eedbcb2202764268b0acea39c7bb4b76bc92bb478f2e",
+      "checks": [
+        "debug stderr",
+        "failure diagnostic",
+        "unknown issue diagnostic"
+      ]
+    },
+    {
+      "name": "external-replay-failure-cleanup-strict-noissues",
+      "bash": "/bin/bash",
+      "version": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+      "script": "set -euo pipefail\n. \"$1/shell/welcome.lib.sh\"\nREMOTE_SSH_WELCOME_ISSUES=(inherited)\nremote_ssh_welcome_run\nread -r untouched\nprintf 'after=%s\\n' \"$untouched\"\nprintf 'file=%s array=%s\\n' \"${REMOTE_SSH_WELCOME_ISSUES_FILE-unset}\" \"${REMOTE_SSH_WELCOME_ISSUES-unset}\"\n",
+      "returncode": 0,
+      "stdout": "eof\n \\hello\rX\n\nlast\nsibling\nafter=untouched\nfile=unset array=unset\n",
+      "stderr": "",
+      "stdout_sha256": "4408dcf8883f7e5b841c4e68a160fb2f79f2edf6860f44ee0f249260079e19df",
+      "checks": [
+        "direct strict call",
+        "exact stdout and caller input",
+        "failure continuation"
+      ]
+    },
+    {
+      "name": "exported-SHELLOPTS-scope",
+      "bash": "/bin/bash",
+      "version": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+      "script": "set -e\nshopt -u nullglob\n. \"$1/shell/welcome.lib.sh\"\nexport SHELLOPTS\nremote_ssh_welcome_run\ncase $- in *e*) e=on;; *) e=off;; esac\nif shopt -q nullglob; then n=on; else n=off; fi\nprintf 'caller e=%s n=%s\\n' \"$e\" \"$n\"\ndeclare -p SHELLOPTS\n",
+      "returncode": 0,
+      "stdout": "module e=off n=off\ncaller e=on n=off\ndeclare -rx SHELLOPTS=\"braceexpand:errexit:hashall:interactive-comments\"\n",
+      "stderr": "",
+      "stdout_sha256": "725644838b9a2e44cd50523c4115e730a3a1ffbb0729634b15e2eb2fafe7c7da",
+      "checks": [
+        "external capture set +e",
+        "caller errexit/nullglob retained",
+        "export attribute retained"
+      ]
+    },
+    {
+      "name": "private-inbound-state",
+      "bash": "/bin/bash",
+      "version": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+      "script": ". \"$1/shell/welcome.lib.sh\"\nREMOTE_SSH_WELCOME_BANNER=0\nNO_COLOR=1\nCOLUMNS=20\nREMOTE_SSH_STATUS_LIB_LOADED=1\nhostname() { printf 'PRIVATE\\n'; }\nremote_ssh_welcome_run\n",
+      "returncode": 0,
+      "stdout": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\n\u001b[0mRemote-SSH\n\nhost:    audit-host / 203.0.113.9\nupdate:  available (checked: 2026-10-28 audit)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      10 cpu / unknown ram\nsw:      ssh-agent ok / git config ok\n\nnext:    remote-ssh doctor\n",
+      "stderr": "",
+      "stdout_sha256": "1791988e79caf56c6c5976692ff30860fea520246bec59c288925d71eeffd102",
+      "checks": [
+        "fresh executable hides nonexported banner/color/columns/provider/status flag"
+      ]
+    },
+    {
+      "name": "nonempty-BASH_ENV",
+      "bash": "/bin/bash",
+      "version": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+      "script": ". \"$1/shell/welcome.lib.sh\"; export BASH_ENV=\"/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-independent-audit-dwpo_loc/bash32/startup-hook\"; remote_ssh_welcome_run",
+      "returncode": 0,
+      "stdout": "host:    audit-host / 203.0.113.9\nupdate:  available (checked: 2026-10-28 audit)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      10 cpu / unknown ram\nsw:      ssh-agent ok / git config ok\n\nnext:    remote-ssh doctor\n",
+      "stderr": "",
+      "stdout_sha256": "5c702882cf6e0e3c7572c46a24d8d83cb3570e407d4be448572371e493cb2114",
+      "checks": [
+        "once-per-bundled-executable startup hook (three)"
+      ]
+    },
+    {
+      "name": "populated-healthy",
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+      "script": ". \"$1/shell/welcome.lib.sh\"; remote_ssh_welcome_run",
+      "returncode": 0,
+      "stdout": "host:    audit-host / 203.0.113.9\nupdate:  current (checked: 2026-10-28 audit)\ntools:   2 checked / 2 ok\nscripts: 4 checked / 4 ok\nhw:      10 cpu / unknown ram\nsw:      ssh-agent ok / git config ok\n",
+      "stderr": "",
+      "stdout_sha256": "b0e665559cd4b5cb49380f07b85e15b32511e3a7b599d0d3f075f53fb1a56692",
+      "checks": [
+        "actual populated providers",
+        "no next",
+        "quiet stderr"
+      ]
+    },
+    {
+      "name": "populated-actionable",
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+      "script": ". \"$1/shell/welcome.lib.sh\"; remote_ssh_welcome_run",
+      "returncode": 0,
+      "stdout": "host:    audit-host / 203.0.113.9\nupdate:  available (checked: 2026-10-28 audit)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      10 cpu / unknown ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n",
+      "stderr": "",
+      "stdout_sha256": "3f65d6e6978aa8550bee25461ee09e35322f9046ab1b73f2b815c1ad844fda0d",
+      "checks": [
+        "actual missing-tool/requirement/update/Git issues",
+        "one final doctor"
+      ]
+    },
+    {
+      "name": "populated-actionable-strict",
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+      "script": "set -euo pipefail; . \"$1/shell/welcome.lib.sh\"; remote_ssh_welcome_run",
+      "returncode": 0,
+      "stdout": "host:    audit-host / 203.0.113.9\nupdate:  available (checked: 2026-10-28 audit)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      10 cpu / unknown ram\nsw:      ssh-agent ok / git config missing\n\nnext:    remote-ssh doctor\n",
+      "stderr": "",
+      "stdout_sha256": "3f65d6e6978aa8550bee25461ee09e35322f9046ab1b73f2b815c1ad844fda0d",
+      "checks": [
+        "direct strict call matches ordinary populated output"
+      ]
+    },
+    {
+      "name": "external-replay-failure-cleanup",
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+      "script": "set -eo pipefail\n. \"$1/shell/welcome.lib.sh\"\nREMOTE_SSH_WELCOME_ISSUES=(inherited)\nremote_ssh_welcome_run\nread -r untouched\nprintf 'after=%s\\n' \"$untouched\"\nprintf 'file=%s array=%s\\n' \"${REMOTE_SSH_WELCOME_ISSUES_FILE-unset}\" \"${REMOTE_SSH_WELCOME_ISSUES-unset}\"\n",
+      "returncode": 0,
+      "stdout": "eof\n \\hello\rX\n\nlast\nsibling\n\nnext:    remote-ssh update\nafter=untouched\nfile=unset array=unset\n",
+      "stderr": "",
+      "stdout_sha256": "29d66c2382385dee2817eedbcb2202764268b0acea39c7bb4b76bc92bb478f2e",
+      "checks": [
+        "stdin EOF and caller input retained",
+        "exact CR/backslash/blank/no-LF replay",
+        "failure continuation",
+        "deduplicated issues",
+        "cleanup",
+        "inherited file untouched"
+      ]
+    },
+    {
+      "name": "external-debug",
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+      "script": "set -eo pipefail\n. \"$1/shell/welcome.lib.sh\"\nREMOTE_SSH_WELCOME_ISSUES=(inherited)\nremote_ssh_welcome_run\nread -r untouched\nprintf 'after=%s\\n' \"$untouched\"\nprintf 'file=%s array=%s\\n' \"${REMOTE_SSH_WELCOME_ISSUES_FILE-unset}\" \"${REMOTE_SSH_WELCOME_ISSUES-unset}\"\n",
+      "returncode": 0,
+      "stdout": "eof\n \\hello\rX\n\nlast\nsibling\n\nnext:    remote-ssh update\nafter=untouched\nfile=unset array=unset\n",
+      "stderr": "module-stderr\nremote-ssh welcome: module failed: /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-independent-audit-dwpo_loc/bash53/custom-shell/welcome.d/00-replay (exit 7)\nremote-ssh welcome: ignoring unknown issue: mystery\n",
+      "stdout_sha256": "29d66c2382385dee2817eedbcb2202764268b0acea39c7bb4b76bc92bb478f2e",
+      "checks": [
+        "debug stderr",
+        "failure diagnostic",
+        "unknown issue diagnostic"
+      ]
+    },
+    {
+      "name": "external-replay-failure-cleanup-strict-noissues",
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+      "script": "set -euo pipefail\n. \"$1/shell/welcome.lib.sh\"\nREMOTE_SSH_WELCOME_ISSUES=(inherited)\nremote_ssh_welcome_run\nread -r untouched\nprintf 'after=%s\\n' \"$untouched\"\nprintf 'file=%s array=%s\\n' \"${REMOTE_SSH_WELCOME_ISSUES_FILE-unset}\" \"${REMOTE_SSH_WELCOME_ISSUES-unset}\"\n",
+      "returncode": 0,
+      "stdout": "eof\n \\hello\rX\n\nlast\nsibling\nafter=untouched\nfile=unset array=unset\n",
+      "stderr": "",
+      "stdout_sha256": "4408dcf8883f7e5b841c4e68a160fb2f79f2edf6860f44ee0f249260079e19df",
+      "checks": [
+        "direct strict call",
+        "exact stdout and caller input",
+        "failure continuation"
+      ]
+    },
+    {
+      "name": "exported-SHELLOPTS-scope",
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+      "script": "set -e\nshopt -u nullglob\n. \"$1/shell/welcome.lib.sh\"\nexport SHELLOPTS\nremote_ssh_welcome_run\ncase $- in *e*) e=on;; *) e=off;; esac\nif shopt -q nullglob; then n=on; else n=off; fi\nprintf 'caller e=%s n=%s\\n' \"$e\" \"$n\"\ndeclare -p SHELLOPTS\n",
+      "returncode": 0,
+      "stdout": "module e=off n=off\ncaller e=on n=off\ndeclare -rx SHELLOPTS=\"braceexpand:errexit:hashall:interactive-comments\"\n",
+      "stderr": "",
+      "stdout_sha256": "725644838b9a2e44cd50523c4115e730a3a1ffbb0729634b15e2eb2fafe7c7da",
+      "checks": [
+        "external capture set +e",
+        "caller errexit/nullglob retained",
+        "export attribute retained"
+      ]
+    },
+    {
+      "name": "exported-BASHOPTS-scope",
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+      "script": "set -e\nshopt -u nullglob\n. \"$1/shell/welcome.lib.sh\"\nexport SHELLOPTS BASHOPTS\nremote_ssh_welcome_run\ncase $- in *e*) e=on;; *) e=off;; esac\nif shopt -q nullglob; then n=on; else n=off; fi\nprintf 'caller e=%s n=%s\\n' \"$e\" \"$n\"\ndeclare -p SHELLOPTS\n",
+      "returncode": 0,
+      "stdout": "module e=off n=on\ncaller e=on n=off\ndeclare -rx SHELLOPTS=\"braceexpand:errexit:hashall:interactive-comments\"\n",
+      "stderr": "",
+      "stdout_sha256": "f56ad109a8b46e8c8fb11643830968c8980fb7b2e01724ec0d868cae51684eab",
+      "checks": [
+        "external original nullglob-on scope",
+        "caller options retained"
+      ]
+    },
+    {
+      "name": "private-inbound-state",
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+      "script": ". \"$1/shell/welcome.lib.sh\"\nREMOTE_SSH_WELCOME_BANNER=0\nNO_COLOR=1\nCOLUMNS=20\nREMOTE_SSH_STATUS_LIB_LOADED=1\nhostname() { printf 'PRIVATE\\n'; }\nremote_ssh_welcome_run\n",
+      "returncode": 0,
+      "stdout": "\u001b[32m ____  _____ __  __  ___ _____ _____      ____ ____  _   _\n|  _ \\| ____|  \\/  |/ _ \\_   _| ____|    / ___/ ___|| | | |\n| |_) |  _| | |\\/| | | | || | |  _| _____\\___ \\___ \\| |_| |\n|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |\n|_| \\_\\_____|_|  |_|\\___/ |_| |_____|    |____/____/|_| |_|\n\n\u001b[0mRemote-SSH\n\nhost:    audit-host / 203.0.113.9\nupdate:  available (checked: 2026-10-28 audit)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      10 cpu / unknown ram\nsw:      ssh-agent ok / git config ok\n\nnext:    remote-ssh doctor\n",
+      "stderr": "",
+      "stdout_sha256": "1791988e79caf56c6c5976692ff30860fea520246bec59c288925d71eeffd102",
+      "checks": [
+        "fresh executable hides nonexported banner/color/columns/provider/status flag"
+      ]
+    },
+    {
+      "name": "nonempty-BASH_ENV",
+      "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+      "script": ". \"$1/shell/welcome.lib.sh\"; export BASH_ENV=\"/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/welcome-independent-audit-dwpo_loc/bash53/startup-hook\"; remote_ssh_welcome_run",
+      "returncode": 0,
+      "stdout": "host:    audit-host / 203.0.113.9\nupdate:  available (checked: 2026-10-28 audit)\ntools:   2 checked / 1 ok\nscripts: 4 checked / 3 ok\nhw:      10 cpu / unknown ram\nsw:      ssh-agent ok / git config ok\n\nnext:    remote-ssh doctor\n",
+      "stderr": "",
+      "stdout_sha256": "5c702882cf6e0e3c7572c46a24d8d83cb3570e407d4be448572371e493cb2114",
+      "checks": [
+        "once-per-bundled-executable startup hook (three)"
+      ]
+    }
+  ],
+  "status": "PASS"
+}

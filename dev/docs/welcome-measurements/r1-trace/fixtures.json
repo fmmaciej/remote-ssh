@@ -1,0 +1,21 @@
+{
+  "cache_timestamp": 1793174945,
+  "cache": {
+    "healthy": "checked_at=1793174945\nchecked_at_text=welcome fixture\nstatus=current\nrepo=\nbranch=\nupstream=\nlocal_head=\nremote_head=\nmessage=offline fixed cache\n",
+    "actionable": "checked_at=1793174945\nchecked_at_text=welcome fixture\nstatus=update-available\nrepo=\nbranch=\nupstream=\nlocal_head=\nremote_head=\nmessage=offline fixed cache\n"
+  },
+  "config": "REMOTE_SSH_WELCOME_COLOR=0\n",
+  "expected_tools": "rg\nfd\n",
+  "tools": {
+    "rg": "15.1.0",
+    "fd": "10.3.0"
+  },
+  "probes": {
+    "hostname": "#!/bin/sh\ncase \"$1\" in -I) printf \"192.0.2.4\\n\" ;; *) printf \"fixture-host\\n\" ;; esac\n",
+    "sysctl": "#!/bin/sh\ncase \"$2\" in hw.ncpu) printf \"8\\n\" ;; hw.memsize) printf \"17179869184\\n\" ;; *) exit 1 ;; esac\n",
+    "ssh-add": "#!/bin/sh\nprintf \"256 fixture key\\n\"\n",
+    "python3": "#!/bin/sh\nexit 0\n",
+    "fzf": "#!/bin/sh\nexit 0\n",
+    "git": "#!/bin/sh\ncase \"$*\" in *fetch*|*ls-remote*|*pull*) printf \"NETWORK FORBIDDEN\\n\" >&2; exit 99 ;; esac\nexec /usr/bin/git \"$@\"\n"
+  }
+}

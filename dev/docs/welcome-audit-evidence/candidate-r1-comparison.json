@@ -1,0 +1,135 @@
+[
+  {
+    "name": "populated-healthy",
+    "bash": "/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "populated-actionable",
+    "bash": "/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "populated-actionable-strict",
+    "bash": "/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": false
+  },
+  {
+    "name": "external-replay-failure-cleanup",
+    "bash": "/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "external-debug",
+    "bash": "/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": false
+  },
+  {
+    "name": "external-replay-failure-cleanup-strict-noissues",
+    "bash": "/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "exported-SHELLOPTS-scope",
+    "bash": "/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "private-inbound-state",
+    "bash": "/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "nonempty-BASH_ENV",
+    "bash": "/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "populated-healthy",
+    "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "populated-actionable",
+    "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "populated-actionable-strict",
+    "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "external-replay-failure-cleanup",
+    "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "external-debug",
+    "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": false
+  },
+  {
+    "name": "external-replay-failure-cleanup-strict-noissues",
+    "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "exported-SHELLOPTS-scope",
+    "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "exported-BASHOPTS-scope",
+    "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "private-inbound-state",
+    "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  },
+  {
+    "name": "nonempty-BASH_ENV",
+    "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+    "stdout_equal": true,
+    "returncode_equal": true,
+    "stderr_equal": true
+  }
+]

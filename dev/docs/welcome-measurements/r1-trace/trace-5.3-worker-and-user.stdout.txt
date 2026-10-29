@@ -1,0 +1,16 @@
+ ____  _____ __  __  ___ _____ _____      ____ ____  _   _
+|  _ \| ____|  \/  |/ _ \_   _| ____|    / ___/ ___|| | | |
+| |_) |  _| | |\/| | | | || | |  _| _____\___ \___ \| |_| |
+|  _ <| |___| |  | | |_| || | | |__|_____|___) |__) |  _  |
+|_| \_\_____|_|  |_|\___/ |_| |_____|    |____/____/|_| |_|
+
+Remote-SSH
+
+host:    fixture-host / 192.0.2.4
+update:  current (checked: welcome fixture)
+tools:   2 checked / 2 ok
+scripts: 4 checked / 4 ok
+hw:      8 cpu / 16 GiB ram
+sw:      ssh-agent ok / git config ok
+user-external
+__WELCOME_FIRST_COMMAND_READY__

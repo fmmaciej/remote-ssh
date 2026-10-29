@@ -33,10 +33,12 @@ install_render_post_install() {
     printf '%s' "$1" | sed -e 's/[\/&|\\]/\\&/g'
   }
 
-  local interactive_command
+  local interactive_command shell_command
+  printf -v shell_command '%q shell' "$install_dir/bin/remote-ssh"
   printf -v interactive_command 'bash --rcfile %q -i' "$install_dir/shell/rc.sh"
 
   sed \
+    -e "s|@SHELL_COMMAND@|$(_sed_escape "$shell_command")|g" \
     -e "s|@INTERACTIVE_COMMAND@|$(_sed_escape "$interactive_command")|g" \
     -e "s|@INSTALL_DIR@|$(_sed_escape "$install_dir")|g" \
     -e "s|@HOSTNAME@|$(_sed_escape "${hostname:-<hostname>}")|g" \
@@ -67,7 +69,7 @@ install_print_post_install() {
   printf '\nInstalled CLI: %s/remote-ssh\n' "$bin_dir"
   printf 'Post-install setup:\n  run: %q guide post-install\n' "$bin_dir/remote-ssh"
   printf 'Start a local remote-ssh shell (also works from Zsh):\n'
-  printf '  bash --rcfile %q -i\n' "$install_dir/shell/rc.sh"
+  printf '  %q shell\n' "$bin_dir/remote-ssh"
   if ! install_post_install_bin_in_path "$bin_dir"; then
     printf 'To use remote-ssh by name in this terminal:\n'
     # Keep PATH literal so the printed command expands it in the user's shell.

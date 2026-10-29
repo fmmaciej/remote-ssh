@@ -79,12 +79,19 @@ does not edit shell startup files.
 SSH is optional. To start the environment locally from this checkout:
 
 ```bash
-bash --rcfile "$PWD/shell/rc.sh" -i
+./bin/remote-ssh shell
 ```
 
-After installing with `runme.sh`, use
-`bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i` instead.
-This also works from Zsh; do not source `shell/rc.sh` directly in Zsh.
+After installation, use `remote-ssh shell` when the installed bin directory is
+in PATH, or use the full command path printed in the footer. Both commands also
+work from Zsh and start a new interactive Bash in your current directory. Use
+`exit` to return to the calling shell; its directory and environment stay intact.
+A nested session returns one level at a time.
+
+The equivalent manual fallback after a default `runme.sh` installation is
+`bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i`. For another
+checkout location, replace the rcfile path. Do not source `shell/rc.sh` directly
+in Zsh.
 
 `INSTALL_BIN_DIR=/custom/bin ./bin/remote-ssh install --yes fd` selects another
 command/tool destination. A relative destination is relative to the install

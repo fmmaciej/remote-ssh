@@ -114,7 +114,9 @@ def cli_install(repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str) ->
 def footer_commands(output: str) -> tuple[str, str, str | None]:
     lines = output.splitlines()
     guide = next(line.strip().removeprefix("run: ") for line in lines if "  run: " in line)
-    start = next(line.strip() for line in lines if "  bash --rcfile " in line)
+    start = next(
+        line.strip() for line in lines if line.startswith("  ") and line.rstrip().endswith(" shell")
+    )
     export = next((line.strip() for line in lines if "  export PATH=" in line), None)
     return guide, start, export
 
@@ -438,7 +440,27 @@ def test_install_respects_effective_checkout_override(cli_install: CliInstall) -
     result = c.run("install", "--yes", "demo")
     assert_ok(result)
     assert c.command.readlink() == override / "bin/remote-ssh"
-    assert str(override).replace(" ", "\\ ") in result.stdout
+    _, start, _ = footer_commands(result.stdout)
+    assert shlex.split(start) == [str(c.command), "shell"]
+    env = c.env | {
+        "REMOTE_SSH_WELCOME": "0",
+        "REMOTE_SSH_ENABLE_ATUIN": "0",
+        "REMOTE_SSH_ENABLE_ATUIN_AUTO_IMPORT": "0",
+        "XDG_CACHE_HOME": str(c.home / ".cache"),
+    }
+    activation = subprocess.run(
+        [c.bash, "--noprofile", "--norc", "-c", start],
+        env=env,
+        cwd=c.home,
+        input='printf "EFFECTIVE:%s\\n" "$REMOTE_ENV_DIR"\nexit\n',
+        text=True,
+        capture_output=True,
+        timeout=20,
+        check=False,
+    )
+    assert_ok(activation)
+    assert f"EFFECTIVE:{override}\n" in activation.stdout
+    assert c.command.readlink() == override / "bin/remote-ssh"
     assert_ok(c.shell([c.command, "--help"]))
 
 

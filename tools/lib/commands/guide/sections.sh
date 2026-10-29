@@ -9,6 +9,7 @@ remote_ssh_cmd_guide_print_commands() {
   cat <<'EOF'
 Commands
   remote-ssh --help           Show concise CLI usage
+  remote-ssh shell            Start an interactive remote-ssh Bash
   remote-ssh setup            Configure bundled SSH and Git defaults
   remote-ssh install [tool]   Install expected or selected remote-ssh tools
   remote-ssh install --profile <name>

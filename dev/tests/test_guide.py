@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import subprocess
 from pathlib import Path
 
 from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd, run_remote_ssh
@@ -11,10 +12,13 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert_ok(result)
     assert "remote-ssh guide" in result.stdout
     assert "Commands" in result.stdout
+    assert "remote-ssh shell            Start an interactive remote-ssh Bash" in result.stdout
     assert "  remote-ssh guide [section]  Show this configuration guide" in result.stdout
     assert "  remote-ssh uninstall [tool ...]" in result.stdout
     assert "  remote-ssh setup            Configure bundled SSH and Git defaults" in result.stdout
-    assert "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
+    assert (
+        "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
+    )
     assert (
         "  remote-ssh git status       Check Git identity, session override, and origin"
         in result.stdout
@@ -113,9 +117,7 @@ def test_remote_ssh_guide_supports_config_section(
     config = Path(isolated_env.env["XDG_CONFIG_HOME"]) / "remote-ssh" / "config"
     config.parent.mkdir(parents=True, exist_ok=True)
     config.write_text(
-        "REMOTE_SSH_WELCOME_BANNER=0\n"
-        "REMOTE_SSH_WELCOME_USER=1\n"
-        "REMOTE_SSH_WELCOME_USER=0\n",
+        "REMOTE_SSH_WELCOME_BANNER=0\nREMOTE_SSH_WELCOME_USER=1\nREMOTE_SSH_WELCOME_USER=0\n",
         encoding="utf-8",
     )
 
@@ -503,3 +505,22 @@ def test_remote_ssh_guide_supports_post_install_section(
     assert "Commands" not in output
     assert "@INSTALL_DIR@" not in output
     assert "@INTERACTIVE_COMMAND@" not in output
+    assert "@SHELL_COMMAND@" not in output
+    primary = next(line.strip() for line in output.splitlines() if line.endswith(" shell"))
+    # Capture the rendered command as shell syntax, including its executable token.
+    captured_primary = subprocess.run(
+        [
+            "bash",
+            "--noprofile",
+            "--norc",
+            "-c",
+            r"""capture() { printf '%s\0' "$@"; }; capture """ + primary,
+        ],
+        env=capture_env,
+        text=True,
+        capture_output=True,
+        timeout=20,
+        check=False,
+    )
+    assert_ok(captured_primary)
+    assert captured_primary.stdout == str(repo_dir / "bin/remote-ssh") + "\0shell\0"

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import shlex
 import shutil
+import subprocess
 import textwrap
 from pathlib import Path
 
@@ -30,7 +30,7 @@ def test_post_install_prints_short_guide_hint(
     assert "Post-install setup:" in output
     assert "export PATH=" in output
     assert ':"$PATH"' in output
-    assert "bash --rcfile /opt/remote-ssh/shell/rc.sh -i" in output
+    assert f"{isolated_env.home}/.local/bin/remote-ssh shell" in output
     assert f"{isolated_env.home}/.local/bin/remote-ssh guide post-install" in output
     assert "startup files were not modified" in output
     assert len(output.splitlines()) <= 10
@@ -95,7 +95,15 @@ def test_footer_and_guide_commands_execute_without_path(
     repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
 ) -> None:
     c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
-    c.env["REMOTE_SSH_WELCOME"] = "0"
+    c.env.update(
+        {
+            "REMOTE_SSH_WELCOME": "0",
+            "REMOTE_SSH_ENABLE_ATUIN": "0",
+            "REMOTE_SSH_ENABLE_ATUIN_AUTO_IMPORT": "0",
+            "XDG_CACHE_HOME": str(c.home / ".cache"),
+            "ZDOTDIR": str(c.home),
+        }
+    )
     if path_present == "alias":
         alias = c.home / "directory alias"
         alias.symlink_to(c.bin, target_is_directory=True)
@@ -115,24 +123,37 @@ def test_footer_and_guide_commands_execute_without_path(
     interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
     if shutil.which("zsh"):
         interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+    expected = c.expected.read_bytes()
+    link = (c.command.lstat().st_ino, c.command.readlink())
+    startup = {p: p.read_bytes() for p in c.home.glob(".*") if p.is_file()}
     for shell in interpreters:
         rendered = c.shell([*shell, guide])
         assert_ok(rendered)
         assert "Interactive usage" in rendered.stdout
         assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+        assert "@SHELL_COMMAND@" not in rendered.stdout
         interactive = next(
             line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line
         )
-        for command in (start, interactive):
-            activation = c.shell(
-                [
-                    *shell,
-                    command
-                    + " -c "
-                    + shlex.quote(
-                        'test -n "$REMOTE_ENV_DIR" && alias rhelp >/dev/null && printf activation-ok'
-                    ),
-                ]
+        primary = next(
+            line.strip() for line in rendered.stdout.splitlines() if line.endswith(" shell")
+        )
+        for command, path in ((start, c.command), (primary, c.root / "bin/remote-ssh")):
+            captured = c.shell(
+                [*shell, r"""capture() { printf '%s\0' "$@"; }; capture """ + command]
+            )
+            assert_ok(captured)
+            assert captured.stdout == str(path) + "\0shell\0"
+        for command in (start, primary, interactive):
+            activation = subprocess.run(
+                [*shell, command],
+                input='test -n "$REMOTE_ENV_DIR" && alias rhelp >/dev/null && printf "activation-ok\\n"\nexit\n',
+                env=c.env,
+                cwd=c.home,
+                text=True,
+                capture_output=True,
+                timeout=20,
+                check=False,
             )
             assert_ok(activation)
             assert "activation-ok" in activation.stdout
@@ -140,4 +161,7 @@ def test_footer_and_guide_commands_execute_without_path(
             lookup = c.shell([*shell, export + "\ncommand -v remote-ssh"])
             assert_ok(lookup)
             assert lookup.stdout.strip() == str(c.command)
+    assert c.expected.read_bytes() == expected
+    assert (c.command.lstat().st_ino, c.command.readlink()) == link
+    assert all(p.read_bytes() == before for p, before in startup.items())
     assert not c.network.exists()

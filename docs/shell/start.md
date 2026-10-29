@@ -5,11 +5,25 @@ Back: [Shell Runtime](../shell.md)
 After installation, start a shell with the remote-ssh environment:
 
 ```bash
+remote-ssh shell
+```
+
+Before installation, use `./bin/remote-ssh shell` from the checkout. After
+installation, ensure the installed bin directory is in PATH, or use the full
+command path printed in the install footer. This starts a new interactive Bash
+and preserves your current directory. Use `exit` to return to the calling shell;
+child directory and environment changes do not change that parent. Nested
+`remote-ssh shell` calls return one level at a time. Startup files and the
+default shell are unchanged.
+
+The equivalent manual fallback is:
+
+```bash
 bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i
 ```
 
 `shell/rc.sh` is Bash-first and must be loaded by Bash. Do not source it from
-Zsh; use the `bash --rcfile ... -i` form above instead.
+Zsh; use `remote-ssh shell` or the manual Bash launch instead.
 
 The post-install output points to the full setup guide:
 

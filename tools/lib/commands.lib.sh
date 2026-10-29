@@ -32,3 +32,4 @@ remote_ssh_cmd_require_install_libs() {
 . "$TOOLS_COMMANDS_DIR/scripts.sh"
 . "$TOOLS_COMMANDS_DIR/guide.sh"
 . "$TOOLS_COMMANDS_DIR/help.sh"
+. "$TOOLS_COMMANDS_DIR/shell.sh"

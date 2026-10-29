@@ -18,6 +18,12 @@ from conftest import (
     "args,code",
     [
         (["install", "--help"], 0),
+        ([], 0),
+        (["-h"], 0),
+        (["--help"], 0),
+        (["help"], 0),
+        (["shell", "-h"], 0),
+        (["shell", "--help"], 0),
         (["tool", "list"], 0),
         (["check", "rg"], 0),
         (["check", "--strict", "rg"], 1),
@@ -49,6 +55,7 @@ def test_remote_ssh_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStat
     assert "uninstall [--yes] [tool ...]" in result.stdout
     assert "tool list" in result.stdout
     assert "scripts --list" in result.stdout
+    assert "shell                     Start an interactive remote-ssh Bash" in result.stdout
 
     result = run_remote_ssh(repo_dir, ["help"], env=tool_env.env)
     assert_ok(result)
@@ -81,6 +88,7 @@ def test_remote_ssh_guide_renders_commands_section(repo_dir: Path, tool_env: Too
     assert "remote-ssh ssh status       Check SSH config, host, agent, and auth" in result.stdout
     assert "remote-ssh update check     Check whether upstream has changed" in result.stdout
     assert "remote-ssh scripts --list   List bundled helper scripts" in result.stdout
+    assert "remote-ssh shell            Start an interactive remote-ssh Bash" in result.stdout
 
 
 def test_remote_ssh_git_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStateEnv) -> None:

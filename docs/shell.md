@@ -4,11 +4,23 @@ Remote-ssh shells are Bash-first runtime environments for SSH sessions. Start
 one with:
 
 ```bash
+remote-ssh shell
+```
+
+From a checkout before installation, use `./bin/remote-ssh shell`. The command
+preserves your current directory and starts a new interactive Bash; use `exit`
+to return to the calling shell. Installation never edits startup files or changes
+the default shell. The installed command requires its bin directory in PATH;
+the install footer prints a full-path command that works without a PATH change.
+
+The equivalent manual fallback is:
+
+```bash
 bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i
 ```
 
-Do not source `shell/rc.sh` from Zsh; use the `bash --rcfile ... -i` form
-instead.
+Do not source `shell/rc.sh` from Zsh; use `remote-ssh shell` or the manual Bash
+launch instead.
 
 ## Sections
 

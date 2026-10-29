@@ -41,6 +41,7 @@ remote_ssh_usage() {
 Usage: remote-ssh <command> [args]
 
 Commands:
+  shell                     Start an interactive remote-ssh Bash
   setup                     Configure bundled SSH and Git defaults
   install [tool ...]        Install expected or selected remote-ssh tools
   install --profile <name>  Install mini, quick, or full profile
@@ -71,6 +72,7 @@ main() {
 
   case "$command" in
     ''|-h|--help) remote_ssh_usage ;;
+    shell) shift; remote_ssh_cmd_shell_main "$repo_dir" "$@" ;;
     setup) shift; remote_ssh_cmd_setup_main "$@" ;;
     install) shift; remote_ssh_cmd_install_main "$repo_dir" "$@" ;;
     uninstall) shift; remote_ssh_cmd_uninstall_main "$@" ;;

@@ -50,6 +50,7 @@ be required on remote hosts.
 - `remote-ssh` is the main entrypoint:
 
   ```bash
+  remote-ssh shell
   remote-ssh install [tool ...]
   remote-ssh install --full [--yes]
   remote-ssh tool install <tool ...>
@@ -73,7 +74,8 @@ be required on remote hosts.
   `INSTALL_BIN_DIR` as a direct absolute symlink to this checkout's
   `bin/remote-ssh`. Ordinary terminals can use it when that directory is in PATH.
   The environment and other checkout helpers require explicit
-  `bash --rcfile <checkout>/shell/rc.sh -i` activation. Installation never edits
+  `remote-ssh shell` activation (or the manual
+  `bash --rcfile <checkout>/shell/rc.sh -i` fallback). Installation never edits
   user startup files or changes the default shell.
 - Do not reintroduce a root `install.sh` wrapper. Local installs should use
   `./bin/remote-ssh install ...`; `runme.sh` delegates to that command after

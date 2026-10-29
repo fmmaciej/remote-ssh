@@ -59,6 +59,55 @@ From a checked-out repository:
 ./bin/remote-ssh install --profile quick --yes
 ```
 
+The installer links only the management CLI from checkout helpers; prompt,
+aliases and other checkout helpers require the explicit Bash session below.
+It does not change your default shell or edit startup files.
+
+The installer also links the `remote-ssh` command into `~/.local/bin` (or
+`INSTALL_BIN_DIR` when overridden). To use it in your current terminal:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+remote-ssh guide post-install
+```
+
+Add the export to your shell startup file, such as `~/.zshrc` for Zsh or
+`~/.bashrc` for interactive Bash, to keep the command available in new terminals.
+The installer prints the export using the actual installation directory and
+does not edit shell startup files.
+
+SSH is optional. To start the environment locally from this checkout:
+
+```bash
+bash --rcfile "$PWD/shell/rc.sh" -i
+```
+
+After installing with `runme.sh`, use
+`bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i` instead.
+This also works from Zsh; do not source `shell/rc.sh` directly in Zsh.
+
+`INSTALL_BIN_DIR=/custom/bin ./bin/remote-ssh install --yes fd` selects another
+command/tool destination. A relative destination is relative to the install
+caller's working directory. The footer prints full-path commands which work
+without a PATH change; it prints a PATH export only when the effective directory
+is absent from the install process's PATH. Configure that directory for future
+terminals too. An earlier PATH entry can shadow `remote-ssh`.
+
+The CLI is a symlink to the installing checkout's executable, not a standalone
+copy. Keep that checkout in place: moving/deleting it can break the link; updates
+in the same checkout update the command. Reinstallation reuses only the exact
+direct canonical link. An existing file, directory, hard link, broken link,
+link to another checkout, or relative/chained equivalent link causes an early
+failure without replacement. Inspect and move/remove the entry deliberately,
+or select another `INSTALL_BIN_DIR`. Changing destinations leaves older links
+alone; installation does not migrate them.
+
+`remote-ssh uninstall` removes managed tools and retains the management CLI,
+checkout and SSH/Git configuration. `remote-ssh prune`, including `--apply`,
+only handles eligible inactive tool release directories. Full manual removal
+also requires inspecting the management symlink and removing it only if it
+still points to the checkout being removed.
+
 Install profiles are platform-filtered:
 
 ```text

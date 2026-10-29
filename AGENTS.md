@@ -69,6 +69,12 @@ be required on remote hosts.
   Longer shell configuration guidance belongs in `remote-ssh guide`. Tool
   reports live under `remote-ssh check`; do not reintroduce a separate check
   entrypoint.
+- Installation publishes only the management CLI from checkout helpers into
+  `INSTALL_BIN_DIR` as a direct absolute symlink to this checkout's
+  `bin/remote-ssh`. Ordinary terminals can use it when that directory is in PATH.
+  The environment and other checkout helpers require explicit
+  `bash --rcfile <checkout>/shell/rc.sh -i` activation. Installation never edits
+  user startup files or changes the default shell.
 - Do not reintroduce a root `install.sh` wrapper. Local installs should use
   `./bin/remote-ssh install ...`; `runme.sh` delegates to that command after
   cloning or updating the repo.

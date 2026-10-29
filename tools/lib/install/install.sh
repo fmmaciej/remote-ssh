@@ -68,8 +68,10 @@ install_tool() {
 install_tools() {
   local -a tools=("$@")
 
-  mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR"
+  mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR" || return 1
 
   local t
-  for t in ${tools[@]+"${tools[@]}"}; do install_tool "$t"; done
+  for t in ${tools[@]+"${tools[@]}"}; do
+    install_tool "$t" || return 1
+  done
 }

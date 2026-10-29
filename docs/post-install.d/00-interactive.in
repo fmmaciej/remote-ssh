@@ -2,10 +2,26 @@
 Interactive usage
 ======================================================================
 
-To start an interactive shell using the remote-ssh environment:
+To start an interactive shell locally or on an SSH host using the
+remote-ssh environment:
 
-  bash --rcfile "@INSTALL_DIR@/shell/rc.sh"
+  @INTERACTIVE_COMMAND@
 
 remote-ssh's shell environment is Bash-first. Do not source shell/rc.sh from
 Zsh; start Bash with --rcfile as shown above.
 
+
+Installation exposes only the management CLI and selected tool binaries in
+INSTALL_BIN_DIR. Prompt, aliases and checkout helpers activate only in this
+explicit Bash session. Startup files and the default shell are not changed.
+
+The management link points to this checkout. Moving or deleting the checkout
+can break it; updating this checkout updates the command. Reinstalls reuse only
+the direct canonical link. Conflicting entries, including other checkouts or
+relative/chained equivalent links, are preserved: inspect and move or remove
+one deliberately, or choose another INSTALL_BIN_DIR.
+
+Uninstall and prune retain the management link and checkout. For full manual
+removal, inspect the link and remove it only if it still points to the checkout
+being removed. Configure INSTALL_BIN_DIR in PATH for ordinary/new terminals;
+an earlier PATH entry may shadow the command. The installer edits no profiles.

@@ -2,8 +2,27 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-script_repo_dir="$(cd "$SCRIPT_DIR/.." && pwd)"
+script_path="${BASH_SOURCE[0]}"
+link_depth=0
+while [[ -L "$script_path" ]]; do
+  if ((link_depth >= 40)); then
+    printf 'remote-ssh: cannot resolve CLI source (symlink depth exceeds 40): %s\n' "$script_path" >&2
+    exit 1
+  fi
+  SCRIPT_DIR="$(cd -- "$(dirname -- "$script_path")" && pwd -P)" || exit 1
+  script_path="$(readlink "$script_path")" || {
+    printf 'remote-ssh: cannot read CLI symlink.\n' >&2
+    exit 1
+  }
+  [[ "$script_path" == /* ]] || script_path="$SCRIPT_DIR/$script_path"
+  link_depth=$((link_depth + 1))
+done
+if [[ ! -f "$script_path" ]]; then
+  printf 'remote-ssh: cannot resolve CLI source: %s\n' "$script_path" >&2
+  exit 1
+fi
+SCRIPT_DIR="$(cd -- "$(dirname -- "$script_path")" && pwd -P)" || exit 1
+script_repo_dir="$(cd "$SCRIPT_DIR/.." && pwd -P)" || exit 1
 requested_repo_dir="${REMOTE_ENV_DIR:-}"
 repo_dir="${requested_repo_dir:-$script_repo_dir}"
 lib_repo_dir="$repo_dir"

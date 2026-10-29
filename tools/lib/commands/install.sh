@@ -166,6 +166,8 @@ remote_ssh_cmd_install_main() {
     return 1
   }
 
+  install_cli_preflight || return 1
+
   remote_ssh_cmd_install_print_list "Selected tools (${source_label}):" ${tools[@]+"${tools[@]}"}
   if ((${#skipped[@]} > 0)); then
     printf '\n'
@@ -176,15 +178,17 @@ remote_ssh_cmd_install_main() {
     remote_ssh_cmd_install_confirm "$source_label" || return 1
   fi
 
-  install_tools ${tools[@]+"${tools[@]}"}
+  install_cli_publish || return 1
+  install_tools ${tools[@]+"${tools[@]}"} || return 1
 
   log_info "Configuring environment..."
-  install_shell_dir
-  install_bin_dir
+  install_shell_dir || return 1
+  install_bin_dir || return 1
   install_dots_dir
-  write_expected_tools ${tools[@]+"${tools[@]}"}
+  write_expected_tools ${tools[@]+"${tools[@]}"} || return 1
 
   log_info "Done."
   printf 'Expected tools saved: %s\n' "$(expected_tools_file)"
+  repo_dir="${INSTALL_CLI_SOURCE%/bin/remote-ssh}"
   install_print_post_install "$repo_dir"
 }

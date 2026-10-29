@@ -1,0 +1,14 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "dev/tests/test_guide.py::test_remote_ssh_guide_supports_post_install_section"
+  ],
+  "cwd": "/Users/fm/Programming/00_Other/remote-ssh",
+  "started": "2026-10-28T17:24:45.659345+00:00",
+  "finished": "2026-10-28T17:24:50.052071+00:00",
+  "exit": 0,
+  "sources_unchanged": true
+}

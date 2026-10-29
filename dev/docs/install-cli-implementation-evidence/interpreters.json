@@ -1,0 +1,54 @@
+[
+  {
+    "command": [
+      "/bin/bash",
+      "--version"
+    ],
+    "exit": 0,
+    "output": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)\nCopyright (C) 2007 Free Software Foundation, Inc.\n"
+  },
+  {
+    "command": [
+      "/usr/bin/env",
+      "bash",
+      "-c",
+      "printf \"BASH_VERSION=%s\\nBASH=%s\\n\" \"$BASH_VERSION\" \"$BASH\""
+    ],
+    "binding": {
+      "PATH": "/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/tmpoizdhwc8:/usr/bin:/bin",
+      "bash_symlink": "/bin/bash"
+    },
+    "exit": 0,
+    "output": "BASH_VERSION=3.2.57(1)-release\nBASH=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/tmpoizdhwc8/bash\n"
+  },
+  {
+    "command": [
+      "/opt/homebrew/bin/bash",
+      "--version"
+    ],
+    "exit": 0,
+    "output": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)\nCopyright (C) 2025 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\nThis is free software; you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n"
+  },
+  {
+    "command": [
+      "/usr/bin/env",
+      "bash",
+      "-c",
+      "printf \"BASH_VERSION=%s\\nBASH=%s\\n\" \"$BASH_VERSION\" \"$BASH\""
+    ],
+    "binding": {
+      "PATH": "/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/tmphcorlo94:/usr/bin:/bin",
+      "bash_symlink": "/opt/homebrew/bin/bash"
+    },
+    "exit": 0,
+    "output": "BASH_VERSION=5.3.20(1)-release\nBASH=/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/tmphcorlo94/bash\n"
+  },
+  {
+    "command": [
+      "/bin/zsh",
+      "--version"
+    ],
+    "exit": 0,
+    "output": "zsh 5.9 (arm64-apple-darwin26.0)\n"
+  }
+]

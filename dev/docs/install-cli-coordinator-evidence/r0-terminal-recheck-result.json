@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Users/fm/Programming/00_Other/remote-ssh/dev/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "dev/tests/test_tmux.py::test_tmux_checkout_paths_reload_and_confirmed_restart",
+    "dev/tests/test_welcome_bundled.py::test_bundled_and_external_replay_preserve_text_and_terminal_transport"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 2.3206875829491764,
+  "outside_sandbox": true,
+  "start_new_session": true
+}

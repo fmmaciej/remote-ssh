@@ -1,0 +1,233 @@
+just -f dev/justfile smoke
+./smoke.sh
+[smoke] bash syntax
+[smoke] shellcheck
+[smoke] python checks
+All checks passed!
+Success: no issues found in 12 source files
+[smoke] ok
+just py-test
+UV_CACHE_DIR="${UV_CACHE_DIR:-${TMPDIR:-/tmp}/remote-ssh-uv-cache}" uv run pytest -q tests
+......ssssssssssss............sss...s................................... [  7%]
+..................................................ssssssssssss.......... [ 14%]
+........................................................................ [ 21%]
+.........................ss.ss......sssssssssss...........ssss....ss.... [ 29%]
+ss..ss.................s.s.s.s.......................................... [ 36%]
+........................................................................ [ 43%]
+...............................................................F........ [ 51%]
+........................................................................ [ 58%]
+........................................................................ [ 65%]
+........................................................................ [ 73%]
+........................................................................ [ 80%]
+.................F...................................................... [ 87%]
+........................................................................ [ 94%]
+.s.............................................F.F                       [100%]
+=================================== FAILURES ===================================
+_____________ test_remote_ssh_guide_supports_post_install_section ______________
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1191/test_rem...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1191/test_remote_ssh_guide_supports7/home/.local/state'})
+
+    def test_remote_ssh_guide_supports_post_install_section(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+    ) -> None:
+        result = run_remote_ssh(repo_dir, ["guide", "post-install"], env=isolated_env.env)
+    
+        assert_ok(result)
+        output = result.stdout
+        assert "Interactive usage" in output
+        assert "SSH configuration" in output
+        assert "VS Code Remote-SSH terminal profile" in output
+        assert "Optional Git and SSH setup" in output
+>       assert f'bash --rcfile "{repo_dir}/shell/rc.sh"' in output
+E       assert 'bash --rcfile "/Users/fm/Programming/00_Other/remote-ssh/shell/rc.sh"' in '======================================================================\nInteractive usage\n==========================...l`, then point repository\nremotes at the alias:\n\n  git remote set-url origin git@github.com-myuser:OWNER/REPO.git\n'
+
+tests/test_guide.py:481: AssertionError
+____________ test_tmux_checkout_paths_reload_and_confirmed_restart _____________
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1191/test_tmu...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1191/test_tmux_checkout_paths_reloa0/home/.local/state'})
+
+    def test_tmux_checkout_paths_reload_and_confirmed_restart(
+        repo_dir: Path, isolated_env: IsolatedEnv
+    ) -> None:
+        tmux = shutil.which("tmux")
+        if tmux is None:
+            pytest.skip("tmux is optional")
+        # A short socket path also works on systems with a small Unix socket limit.
+        with tempfile.TemporaryDirectory(prefix="remote-ssh-tmux-", dir="/tmp") as temporary:
+            root = Path(temporary)
+            checkout = root / "checkout with spaces and 'quote"
+            (checkout / "dots").mkdir(parents=True)
+            (checkout / "shell").mkdir()
+            config = checkout / "dots/tmux.conf"
+            shutil.copy2(repo_dir / "dots/tmux.conf", config)
+            marker = root / "started"
+            (checkout / "shell/rc.sh").write_text('printf started >"$AUDIT_ROOT_MARKER"\nPS1=""\n')
+            env = isolated_env.env | {"TERM": "xterm-256color", "AUDIT_ROOT_MARKER": str(marker)}
+            command = [tmux, "-S", str(root / "socket")]
+    
+            def call(*args: str) -> str:
+                result = run_cmd([*command, *args], env=env)
+                assert_ok(result)
+                return result.stdout.strip()
+    
+            def wait_until(predicate: Callable[[], bool]) -> None:
+                deadline = time.monotonic() + 5
+                while time.monotonic() < deadline:
+                    if predicate():
+                        return
+                    time.sleep(0.02)
+                raise AssertionError("tmux did not reach the expected state")
+    
+            master, slave = pty.openpty()
+            client = None
+            try:
+>               call("-f", str(config), "new-session", "-d", "-s", "audit")
+
+tests/test_tmux.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_tmux.py:37: in call
+    assert_ok(result)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/opt/homebrew/bin/tmux', '-S', '/tmp/remote-ssh-tmux-ozm_qrww/socket', '-f', "/tmp/remote-ssh-...t'], returncode=1, stdout='', stderr='error creating /tmp/remote-ssh-tmux-ozm_qrww/socket (Operation not permitted)\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         error creating /tmp/remote-ssh-tmux-ozm_qrww/socket (Operation not permitted)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/opt/homebrew/bin/tmux', '-S', '/tmp/remote-ssh-tmux-ozm_qrww/socket', '-f', "/tmp/remote-ssh-...t'], returncode=1, stdout='', stderr='error creating /tmp/remote-ssh-tmux-ozm_qrww/socket (Operation not permitted)\n').returncode
+
+tests/conftest.py:196: AssertionError
+_ test_bundled_and_external_replay_preserve_text_and_terminal_transport[/bin/bash-True] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1191/test_bun...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1191/test_bundled_and_external_repl1/home/.local/state'})
+runtime_bash = '/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1191/test_bundled_and_external_repl1')
+controlling_terminal = True
+
+    @pytest.mark.parametrize("controlling_terminal", [False, True])
+    def test_bundled_and_external_replay_preserve_text_and_terminal_transport(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        tmp_path: Path,
+        controlling_terminal: bool,
+    ) -> None:
+        tree, env, _ = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        bundled = tree / "shell" / "welcome" / "bundled.sh"
+        bundled.write_text(
+            bundled.read_text()
+            + r"""
+    remote_ssh_welcome_render_remote_ssh() { :; }
+    remote_ssh_welcome_render_hw() { printf '\n  spaces \\ slash\nCR\rtext\nno-final-LF'; }
+    remote_ssh_welcome_render_sw() { printf 'last\n'; }
+    """
+        )
+        expected = "\n  spaces \\ slash\nCR\rtext\nno-final-LF\nlast\n"
+        redirected = tmp_path / "redirected"
+        env["OUTPUT_FILE"] = str(redirected)
+        command = 'remote_ssh_welcome_run_bundled "$REMOTE_SHELL_DIR/welcome.d" >"$OUTPUT_FILE"'
+        if controlling_terminal:
+            sample = run_pty_sample(
+                [
+                    runtime_bash,
+                    "-c",
+                    '. "$1/shell/welcome.lib.sh"; ' + command + '; printf "READY-TRANSPORT\\n"',
+                    "_",
+                    str(tree),
+                ],
+                env,
+                tmp_path,
+                "READY-TRANSPORT",
+                10,
+            )
+            assert sample.returncode == 0 and not sample.timed_out
+>           assert sample.output_tail == expected.replace("\n", "\r\n") + "READY-TRANSPORT\r\n"
+E           AssertionError: assert 'READY-TRANSPORT\r\n' == '\r\n  spaces...TRANSPORT\r\n'
+E             
+E             - 
+E             -   spaces \ slash
+E             - CR
+E             - text
+E             - no-final-LF
+E             - last
+E               READY-TRANSPORT
+
+tests/test_welcome_bundled.py:667: AssertionError
+_ test_bundled_and_external_replay_preserve_text_and_terminal_transport[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1191/test_bun...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1191/test_bundled_and_external_repl3/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+tmp_path = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1191/test_bundled_and_external_repl3')
+controlling_terminal = True
+
+    @pytest.mark.parametrize("controlling_terminal", [False, True])
+    def test_bundled_and_external_replay_preserve_text_and_terminal_transport(
+        repo_dir: Path,
+        isolated_env: IsolatedEnv,
+        runtime_bash: str,
+        tmp_path: Path,
+        controlling_terminal: bool,
+    ) -> None:
+        tree, env, _ = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
+        bundled = tree / "shell" / "welcome" / "bundled.sh"
+        bundled.write_text(
+            bundled.read_text()
+            + r"""
+    remote_ssh_welcome_render_remote_ssh() { :; }
+    remote_ssh_welcome_render_hw() { printf '\n  spaces \\ slash\nCR\rtext\nno-final-LF'; }
+    remote_ssh_welcome_render_sw() { printf 'last\n'; }
+    """
+        )
+        expected = "\n  spaces \\ slash\nCR\rtext\nno-final-LF\nlast\n"
+        redirected = tmp_path / "redirected"
+        env["OUTPUT_FILE"] = str(redirected)
+        command = 'remote_ssh_welcome_run_bundled "$REMOTE_SHELL_DIR/welcome.d" >"$OUTPUT_FILE"'
+        if controlling_terminal:
+            sample = run_pty_sample(
+                [
+                    runtime_bash,
+                    "-c",
+                    '. "$1/shell/welcome.lib.sh"; ' + command + '; printf "READY-TRANSPORT\\n"',
+                    "_",
+                    str(tree),
+                ],
+                env,
+                tmp_path,
+                "READY-TRANSPORT",
+                10,
+            )
+            assert sample.returncode == 0 and not sample.timed_out
+>           assert sample.output_tail == expected.replace("\n", "\r\n") + "READY-TRANSPORT\r\n"
+E           AssertionError: assert 'READY-TRANSPORT\r\n' == '\r\n  spaces...TRANSPORT\r\n'
+E             
+E             - 
+E             -   spaces \ slash
+E             - CR
+E             - text
+E             - no-final-LF
+E             - last
+E               READY-TRANSPORT
+
+tests/test_welcome_bundled.py:667: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_guide.py::test_remote_ssh_guide_supports_post_install_section
+FAILED tests/test_tmux.py::test_tmux_checkout_paths_reload_and_confirmed_restart
+FAILED tests/test_welcome_bundled.py::test_bundled_and_external_replay_preserve_text_and_terminal_transport[/bin/bash-True]
+FAILED tests/test_welcome_bundled.py::test_bundled_and_external_replay_preserve_text_and_terminal_transport[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True]
+4 failed, 924 passed, 58 skipped in 351.19s (0:05:51)
+error: recipe `py-test` failed on line 33 with exit code 1
+error: recipe `smoke` failed on line 46 with exit code 1
+error: recipe `smoke` failed on line 27 with exit code 1

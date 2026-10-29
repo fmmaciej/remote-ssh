@@ -1,0 +1,410 @@
+..............................................FFFFFF..............       [100%]
+=================================== FAILURES ===================================
+_____ test_footer_and_guide_commands_execute_without_path[/bin/bash-False] _____
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1187/test_foo...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1187/test_footer_and_guide_commands0/home/.local/state'})
+runtime_bash = '/bin/bash', path_present = False
+
+    @pytest.mark.parametrize("path_present", [False, True, "alias"])
+    def test_footer_and_guide_commands_execute_without_path(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+    ) -> None:
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env["REMOTE_SSH_WELCOME"] = "0"
+        if path_present == "alias":
+            alias = c.home / "directory alias"
+            alias.symlink_to(c.bin, target_is_directory=True)
+            c.env["PATH"] = f"{alias}:{c.env['PATH']}"
+        elif path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        else:
+            # A prefix/substring match is not a directory match.
+            c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        guide, start, export = footer_commands(result.stdout)
+        assert (export is None) == bool(path_present)
+        if export:
+            assert ':"$PATH"' in export
+            assert c.env["PATH"] not in export
+        interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+        if shutil.which("zsh"):
+            interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+        for shell in interpreters:
+            rendered = c.shell([*shell, guide])
+            assert_ok(rendered)
+            assert "Interactive usage" in rendered.stdout
+            assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+            interactive = next(line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line)
+            for command in (start, interactive):
+                activation = c.shell([
+                    *shell,
+                    command + " -c " + shlex.quote(
+                        'test -n "$REMOTE_ENV_DIR" && alias cheats >/dev/null && printf activation-ok'
+                    ),
+                ])
+>               assert_ok(activation)
+
+dev/tests/test_post_install.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/bin/bash', '--noprofile', '--norc', '-c', 'bash --rcfile /private/var/folders/kb/jknm5gs15vg1...ivation-ok\''], returncode=1, stdout='', stderr='bash: no job control in this shell\nbash: alias: cheats: not found\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         bash: no job control in this shell
+E         bash: alias: cheats: not found
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/bin/bash', '--noprofile', '--norc', '-c', 'bash --rcfile /private/var/folders/kb/jknm5gs15vg1...ivation-ok\''], returncode=1, stdout='', stderr='bash: no job control in this shell\nbash: alias: cheats: not found\n').returncode
+
+dev/tests/conftest.py:196: AssertionError
+_____ test_footer_and_guide_commands_execute_without_path[/bin/bash-True] ______
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1187/test_foo...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1187/test_footer_and_guide_commands1/home/.local/state'})
+runtime_bash = '/bin/bash', path_present = True
+
+    @pytest.mark.parametrize("path_present", [False, True, "alias"])
+    def test_footer_and_guide_commands_execute_without_path(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+    ) -> None:
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env["REMOTE_SSH_WELCOME"] = "0"
+        if path_present == "alias":
+            alias = c.home / "directory alias"
+            alias.symlink_to(c.bin, target_is_directory=True)
+            c.env["PATH"] = f"{alias}:{c.env['PATH']}"
+        elif path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        else:
+            # A prefix/substring match is not a directory match.
+            c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        guide, start, export = footer_commands(result.stdout)
+        assert (export is None) == bool(path_present)
+        if export:
+            assert ':"$PATH"' in export
+            assert c.env["PATH"] not in export
+        interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+        if shutil.which("zsh"):
+            interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+        for shell in interpreters:
+            rendered = c.shell([*shell, guide])
+            assert_ok(rendered)
+            assert "Interactive usage" in rendered.stdout
+            assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+            interactive = next(line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line)
+            for command in (start, interactive):
+                activation = c.shell([
+                    *shell,
+                    command + " -c " + shlex.quote(
+                        'test -n "$REMOTE_ENV_DIR" && alias cheats >/dev/null && printf activation-ok'
+                    ),
+                ])
+>               assert_ok(activation)
+
+dev/tests/test_post_install.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/bin/bash', '--noprofile', '--norc', '-c', 'bash --rcfile /private/var/folders/kb/jknm5gs15vg1...ivation-ok\''], returncode=1, stdout='', stderr='bash: no job control in this shell\nbash: alias: cheats: not found\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         bash: no job control in this shell
+E         bash: alias: cheats: not found
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/bin/bash', '--noprofile', '--norc', '-c', 'bash --rcfile /private/var/folders/kb/jknm5gs15vg1...ivation-ok\''], returncode=1, stdout='', stderr='bash: no job control in this shell\nbash: alias: cheats: not found\n').returncode
+
+dev/tests/conftest.py:196: AssertionError
+_____ test_footer_and_guide_commands_execute_without_path[/bin/bash-alias] _____
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1187/test_foo...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1187/test_footer_and_guide_commands2/home/.local/state'})
+runtime_bash = '/bin/bash', path_present = 'alias'
+
+    @pytest.mark.parametrize("path_present", [False, True, "alias"])
+    def test_footer_and_guide_commands_execute_without_path(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+    ) -> None:
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env["REMOTE_SSH_WELCOME"] = "0"
+        if path_present == "alias":
+            alias = c.home / "directory alias"
+            alias.symlink_to(c.bin, target_is_directory=True)
+            c.env["PATH"] = f"{alias}:{c.env['PATH']}"
+        elif path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        else:
+            # A prefix/substring match is not a directory match.
+            c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        guide, start, export = footer_commands(result.stdout)
+        assert (export is None) == bool(path_present)
+        if export:
+            assert ':"$PATH"' in export
+            assert c.env["PATH"] not in export
+        interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+        if shutil.which("zsh"):
+            interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+        for shell in interpreters:
+            rendered = c.shell([*shell, guide])
+            assert_ok(rendered)
+            assert "Interactive usage" in rendered.stdout
+            assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+            interactive = next(line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line)
+            for command in (start, interactive):
+                activation = c.shell([
+                    *shell,
+                    command + " -c " + shlex.quote(
+                        'test -n "$REMOTE_ENV_DIR" && alias cheats >/dev/null && printf activation-ok'
+                    ),
+                ])
+>               assert_ok(activation)
+
+dev/tests/test_post_install.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/bin/bash', '--noprofile', '--norc', '-c', 'bash --rcfile /private/var/folders/kb/jknm5gs15vg1...ivation-ok\''], returncode=1, stdout='', stderr='bash: no job control in this shell\nbash: alias: cheats: not found\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         bash: no job control in this shell
+E         bash: alias: cheats: not found
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/bin/bash', '--noprofile', '--norc', '-c', 'bash --rcfile /private/var/folders/kb/jknm5gs15vg1...ivation-ok\''], returncode=1, stdout='', stderr='bash: no job control in this shell\nbash: alias: cheats: not found\n').returncode
+
+dev/tests/conftest.py:196: AssertionError
+_ test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1187/test_foo...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1187/test_footer_and_guide_commands3/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', path_present = False
+
+    @pytest.mark.parametrize("path_present", [False, True, "alias"])
+    def test_footer_and_guide_commands_execute_without_path(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+    ) -> None:
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env["REMOTE_SSH_WELCOME"] = "0"
+        if path_present == "alias":
+            alias = c.home / "directory alias"
+            alias.symlink_to(c.bin, target_is_directory=True)
+            c.env["PATH"] = f"{alias}:{c.env['PATH']}"
+        elif path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        else:
+            # A prefix/substring match is not a directory match.
+            c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        guide, start, export = footer_commands(result.stdout)
+        assert (export is None) == bool(path_present)
+        if export:
+            assert ':"$PATH"' in export
+            assert c.env["PATH"] not in export
+        interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+        if shutil.which("zsh"):
+            interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+        for shell in interpreters:
+            rendered = c.shell([*shell, guide])
+            assert_ok(rendered)
+            assert "Interactive usage" in rendered.stdout
+            assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+            interactive = next(line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line)
+            for command in (start, interactive):
+                activation = c.shell([
+                    *shell,
+                    command + " -c " + shlex.quote(
+                        'test -n "$REMOTE_ENV_DIR" && alias cheats >/dev/null && printf activation-ok'
+                    ),
+                ])
+>               assert_ok(activation)
+
+dev/tests/test_post_install.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-c', 'bash --rcfile /pri...s group (67840): Inappropriate ioctl for device\nbash: no job control in this shell\nbash: alias: cheats: not found\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         bash: cannot set terminal process group (67840): Inappropriate ioctl for device
+E         bash: no job control in this shell
+E         bash: alias: cheats: not found
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-c', 'bash --rcfile /pri...s group (67840): Inappropriate ioctl for device\nbash: no job control in this shell\nbash: alias: cheats: not found\n').returncode
+
+dev/tests/conftest.py:196: AssertionError
+_ test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1187/test_foo...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1187/test_footer_and_guide_commands4/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', path_present = True
+
+    @pytest.mark.parametrize("path_present", [False, True, "alias"])
+    def test_footer_and_guide_commands_execute_without_path(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+    ) -> None:
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env["REMOTE_SSH_WELCOME"] = "0"
+        if path_present == "alias":
+            alias = c.home / "directory alias"
+            alias.symlink_to(c.bin, target_is_directory=True)
+            c.env["PATH"] = f"{alias}:{c.env['PATH']}"
+        elif path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        else:
+            # A prefix/substring match is not a directory match.
+            c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        guide, start, export = footer_commands(result.stdout)
+        assert (export is None) == bool(path_present)
+        if export:
+            assert ':"$PATH"' in export
+            assert c.env["PATH"] not in export
+        interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+        if shutil.which("zsh"):
+            interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+        for shell in interpreters:
+            rendered = c.shell([*shell, guide])
+            assert_ok(rendered)
+            assert "Interactive usage" in rendered.stdout
+            assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+            interactive = next(line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line)
+            for command in (start, interactive):
+                activation = c.shell([
+                    *shell,
+                    command + " -c " + shlex.quote(
+                        'test -n "$REMOTE_ENV_DIR" && alias cheats >/dev/null && printf activation-ok'
+                    ),
+                ])
+>               assert_ok(activation)
+
+dev/tests/test_post_install.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-c', 'bash --rcfile /pri...s group (67840): Inappropriate ioctl for device\nbash: no job control in this shell\nbash: alias: cheats: not found\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         bash: cannot set terminal process group (67840): Inappropriate ioctl for device
+E         bash: no job control in this shell
+E         bash: alias: cheats: not found
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-c', 'bash --rcfile /pri...s group (67840): Inappropriate ioctl for device\nbash: no job control in this shell\nbash: alias: cheats: not found\n').returncode
+
+dev/tests/conftest.py:196: AssertionError
+_ test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-alias] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1187/test_foo...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1187/test_footer_and_guide_commands5/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+path_present = 'alias'
+
+    @pytest.mark.parametrize("path_present", [False, True, "alias"])
+    def test_footer_and_guide_commands_execute_without_path(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+    ) -> None:
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env["REMOTE_SSH_WELCOME"] = "0"
+        if path_present == "alias":
+            alias = c.home / "directory alias"
+            alias.symlink_to(c.bin, target_is_directory=True)
+            c.env["PATH"] = f"{alias}:{c.env['PATH']}"
+        elif path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        else:
+            # A prefix/substring match is not a directory match.
+            c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        guide, start, export = footer_commands(result.stdout)
+        assert (export is None) == bool(path_present)
+        if export:
+            assert ':"$PATH"' in export
+            assert c.env["PATH"] not in export
+        interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+        if shutil.which("zsh"):
+            interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+        for shell in interpreters:
+            rendered = c.shell([*shell, guide])
+            assert_ok(rendered)
+            assert "Interactive usage" in rendered.stdout
+            assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+            interactive = next(line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line)
+            for command in (start, interactive):
+                activation = c.shell([
+                    *shell,
+                    command + " -c " + shlex.quote(
+                        'test -n "$REMOTE_ENV_DIR" && alias cheats >/dev/null && printf activation-ok'
+                    ),
+                ])
+>               assert_ok(activation)
+
+dev/tests/test_post_install.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-c', 'bash --rcfile /pri...s group (67840): Inappropriate ioctl for device\nbash: no job control in this shell\nbash: alias: cheats: not found\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         bash: cannot set terminal process group (67840): Inappropriate ioctl for device
+E         bash: no job control in this shell
+E         bash: alias: cheats: not found
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-c', 'bash --rcfile /pri...s group (67840): Inappropriate ioctl for device\nbash: no job control in this shell\nbash: alias: cheats: not found\n').returncode
+
+dev/tests/conftest.py:196: AssertionError
+=========================== short test summary info ============================
+FAILED dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/bin/bash-False]
+FAILED dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/bin/bash-True]
+FAILED dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/bin/bash-alias]
+FAILED dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False]
+FAILED dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True]
+FAILED dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-alias]
+6 failed, 60 passed in 40.31s

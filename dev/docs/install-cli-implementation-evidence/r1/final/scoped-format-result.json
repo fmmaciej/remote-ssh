@@ -1,0 +1,14 @@
+{
+  "command": [
+    "dev/.venv/bin/ruff",
+    "format",
+    "--check",
+    "--stdin-filename",
+    "dev/tests/test_guide.py",
+    "-"
+  ],
+  "stdin": "repaired-case.py",
+  "stdin_sha256": "5046cb8747fe54c7d35c78760bae57261782b8ec6f4443d4ecd247c3f193e89d",
+  "scope": "Only the authorized final function; pre-existing formatter differences elsewhere remain unchanged.",
+  "exit": 0
+}

@@ -1,0 +1,970 @@
+diff --git a/AGENTS.md b/AGENTS.md
+index c2ed7ef..49ddbd3 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -69,6 +69,12 @@ be required on remote hosts.
+   Longer shell configuration guidance belongs in `remote-ssh guide`. Tool
+   reports live under `remote-ssh check`; do not reintroduce a separate check
+   entrypoint.
++- Installation publishes only the management CLI from checkout helpers into
++  `INSTALL_BIN_DIR` as a direct absolute symlink to this checkout's
++  `bin/remote-ssh`. Ordinary terminals can use it when that directory is in PATH.
++  The environment and other checkout helpers require explicit
++  `bash --rcfile <checkout>/shell/rc.sh -i` activation. Installation never edits
++  user startup files or changes the default shell.
+ - Do not reintroduce a root `install.sh` wrapper. Local installs should use
+   `./bin/remote-ssh install ...`; `runme.sh` delegates to that command after
+   cloning or updating the repo.
+diff --git a/bin/remote-ssh b/bin/remote-ssh
+index 9603af3..57a8f94 100755
+--- a/bin/remote-ssh
++++ b/bin/remote-ssh
+@@ -2,8 +2,27 @@
+ 
+ set -euo pipefail
+ 
+-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+-script_repo_dir="$(cd "$SCRIPT_DIR/.." && pwd)"
++script_path="${BASH_SOURCE[0]}"
++link_depth=0
++while [[ -L "$script_path" ]]; do
++  if ((link_depth >= 40)); then
++    printf 'remote-ssh: cannot resolve CLI source (symlink depth exceeds 40): %s\n' "$script_path" >&2
++    exit 1
++  fi
++  SCRIPT_DIR="$(cd -- "$(dirname -- "$script_path")" && pwd -P)" || exit 1
++  script_path="$(readlink "$script_path")" || {
++    printf 'remote-ssh: cannot read CLI symlink.\n' >&2
++    exit 1
++  }
++  [[ "$script_path" == /* ]] || script_path="$SCRIPT_DIR/$script_path"
++  link_depth=$((link_depth + 1))
++done
++if [[ ! -f "$script_path" ]]; then
++  printf 'remote-ssh: cannot resolve CLI source: %s\n' "$script_path" >&2
++  exit 1
++fi
++SCRIPT_DIR="$(cd -- "$(dirname -- "$script_path")" && pwd -P)" || exit 1
++script_repo_dir="$(cd "$SCRIPT_DIR/.." && pwd -P)" || exit 1
+ requested_repo_dir="${REMOTE_ENV_DIR:-}"
+ repo_dir="${requested_repo_dir:-$script_repo_dir}"
+ lib_repo_dir="$repo_dir"
+diff --git a/dev/tests/test_post_install.py b/dev/tests/test_post_install.py
+index 6cdbc91..3afc1b9 100644
+--- a/dev/tests/test_post_install.py
++++ b/dev/tests/test_post_install.py
+@@ -1,9 +1,13 @@
+ from __future__ import annotations
+ 
++import shlex
++import shutil
+ import textwrap
+ from pathlib import Path
+ 
++import pytest
+ from conftest import IsolatedEnv, assert_ok, run_cmd, write_executable
++from test_install_cli import footer_commands, prepare_cli_install
+ 
+ 
+ def test_post_install_prints_short_guide_hint(
+@@ -24,8 +28,12 @@ def test_post_install_prints_short_guide_hint(
+     output = result.stdout
+ 
+     assert "Post-install setup:" in output
+-    assert "  run: remote-ssh guide post-install" in output
+-    assert "  includes SSH, VS Code Remote-SSH, Git, and interactive shell setup" in output
++    assert "export PATH=" in output
++    assert ':"$PATH"' in output
++    assert "bash --rcfile /opt/remote-ssh/shell/rc.sh -i" in output
++    assert f"{isolated_env.home}/.local/bin/remote-ssh guide post-install" in output
++    assert "startup files were not modified" in output
++    assert len(output.splitlines()) <= 10
+     assert "Interactive usage" not in output
+     assert "SSH configuration" not in output
+     assert "VS Code Remote-SSH terminal profile" not in output
+@@ -67,8 +75,10 @@ def test_post_install_renderer_renders_split_templates_in_order(
+ 
+     assert output.index("Interactive usage") < output.index("SSH configuration")
+     assert output.index("SSH configuration") < output.index("VS Code Remote-SSH terminal profile")
+-    assert output.index("VS Code Remote-SSH terminal profile") < output.index("Optional Git and SSH setup")
+-    assert 'bash --rcfile "/opt/remote-ssh/shell/rc.sh"' in output
++    assert output.index("VS Code Remote-SSH terminal profile") < output.index(
++        "Optional Git and SSH setup"
++    )
++    assert "bash --rcfile /opt/remote-ssh/shell/rc.sh -i" in output
+     assert "Host test-host.example" in output
+     assert "HostName 203.0.113.10" in output
+     assert "User shared-user" in output
+@@ -78,3 +88,56 @@ def test_post_install_renderer_renders_split_templates_in_order(
+     assert "@HOSTNAME@" not in output
+     assert "@IP_ADDRESS@" not in output
+     assert "@WHO_AM_I@" not in output
++
++
++@pytest.mark.parametrize("path_present", [False, True, "alias"])
++def test_footer_and_guide_commands_execute_without_path(
++    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
++) -> None:
++    c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
++    c.env["REMOTE_SSH_WELCOME"] = "0"
++    if path_present == "alias":
++        alias = c.home / "directory alias"
++        alias.symlink_to(c.bin, target_is_directory=True)
++        c.env["PATH"] = f"{alias}:{c.env['PATH']}"
++    elif path_present:
++        c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
++    else:
++        # A prefix/substring match is not a directory match.
++        c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
++    result = c.run("install", "--yes", "demo")
++    assert_ok(result)
++    guide, start, export = footer_commands(result.stdout)
++    assert (export is None) == bool(path_present)
++    if export:
++        assert ':"$PATH"' in export
++        assert c.env["PATH"] not in export
++    interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
++    if shutil.which("zsh"):
++        interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
++    for shell in interpreters:
++        rendered = c.shell([*shell, guide])
++        assert_ok(rendered)
++        assert "Interactive usage" in rendered.stdout
++        assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
++        interactive = next(
++            line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line
++        )
++        for command in (start, interactive):
++            activation = c.shell(
++                [
++                    *shell,
++                    command
++                    + " -c "
++                    + shlex.quote(
++                        'test -n "$REMOTE_ENV_DIR" && alias rhelp >/dev/null && printf activation-ok'
++                    ),
++                ]
++            )
++            assert_ok(activation)
++            assert "activation-ok" in activation.stdout
++        if export:
++            lookup = c.shell([*shell, export + "\ncommand -v remote-ssh"])
++            assert_ok(lookup)
++            assert lookup.stdout.strip() == str(c.command)
++    assert not c.network.exists()
+diff --git a/dev/tests/test_runme.py b/dev/tests/test_runme.py
+index 62b4a30..f59ed0f 100644
+--- a/dev/tests/test_runme.py
++++ b/dev/tests/test_runme.py
+@@ -8,8 +8,10 @@ from conftest import (
+     assert_ok,
+     prepare_runme_checkout,
+     run_cmd,
++    write_executable,
+     write_fake_runme_git,
+ )
++from test_install_cli import footer_commands, prepare_cli_install
+ 
+ 
+ def runme_install_dir(env: IsolatedEnv) -> Path:
+@@ -167,3 +169,77 @@ def test_runme_stops_before_install_after_git_failure(
+     assert not args_file.exists()
+     if step == "FETCH":
+         assert "reset" not in log.read_text()
++
++
++@pytest.mark.parametrize("path_present", [False, True])
++def test_runme_real_install_then_fresh_ordinary_shell(
++    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool
++) -> None:
++    # The older fixtures intentionally test forwarding only. This fixture keeps
++    # the real dispatcher, install facade, tools and rcfile, replacing Git
++    # transport with a local copy and leaving observable fail-fast network stubs.
++    c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
++    c.env.pop("INSTALL_BIN_DIR")
++    c.bin = c.home / ".local/bin"
++    c.bin.mkdir(parents=True)
++    (c.bin / "demo").symlink_to(c.home / "opt/demo-1/demo")
++    c.env["CANDIDATE_TREE"] = str(c.root)
++    c.env["GIT_LOG"] = str(c.home / "git.log")
++    if path_present:
++        c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
++    write_executable(
++        c.transport / "git",
++        """#!/bin/sh
++printf '%s\n' "$*" >> "$GIT_LOG"
++if [ "$1" = clone ]; then
++  /bin/cp -R "$CANDIDATE_TREE" "$5" || exit $?
++  /bin/mkdir "$5/.git"
++  exit $?
++fi
++if [ "$1" = -C ]; then shift 2; fi
++case "$1" in
++rev-parse) printf 'origin/main\n';;
++fetch|reset|ls-files) :;;
++*) exit 98;;
++esac
++""",
++    )
++    startup = {p: p.read_bytes() for p in c.home.glob(".*") if p.is_file()}
++    for iteration in range(2):
++        result = c.shell([runtime_bash, repo_dir / "runme.sh", "--yes", "demo"])
++        assert_ok(result)
++        installed_tree = c.home / ".local/share/remote-ssh"
++        assert c.command.readlink() == installed_tree / "bin/remote-ssh"
++        assert c.expected.read_text().splitlines()[-1] == "demo"
++        assert c.command.is_symlink()
++        assert set(p.name for p in c.bin.iterdir()) == {"demo", "remote-ssh"}
++        guide, _, export = footer_commands(result.stdout)
++        ordinary = """
++set -e
++[[ -z ${REMOTE_ENV_DIR+x} && -z ${REMOTE_SHELL_DIR+x} && -z ${PS1+x} ]]
++! alias cheats >/dev/null 2>&1
++! alias rhelp >/dev/null 2>&1
++! declare -F log >/dev/null
++! command -v ssh-find >/dev/null
++! command -v logrun >/dev/null
++"""
++        if path_present:
++            ordinary += "command -v remote-ssh\nremote-ssh --help\nremote-ssh guide post-install\n"
++            assert export is None
++        else:
++            assert export is not None
++            ordinary += "! command -v remote-ssh >/dev/null\n" + guide + "\n"
++            ordinary += export + "\ncommand -v remote-ssh\nremote-ssh --help\n"
++        fresh = c.shell([runtime_bash, "--noprofile", "--norc", "-c", ordinary])
++        assert_ok(fresh)
++        assert "Usage: remote-ssh" in fresh.stdout
++        assert "Interactive usage" in fresh.stdout
++        assert str(c.command) in fresh.stdout
++        assert not c.network.exists()
++        assert all(p.read_bytes() == before for p, before in startup.items())
++        git_log = (c.home / "git.log").read_text()
++        if iteration:
++            assert "fetch origin main" in git_log
++            assert "reset --hard origin/main" in git_log
++        else:
++            assert "clone --depth 1" in git_log
+diff --git a/docs/install.md b/docs/install.md
+index 7a8e5b3..ba6f5f6 100644
+--- a/docs/install.md
++++ b/docs/install.md
+@@ -59,6 +59,55 @@ From a checked-out repository:
+ ./bin/remote-ssh install --profile quick --yes
+ ```
+ 
++The installer links only the management CLI from checkout helpers; prompt,
++aliases and other checkout helpers require the explicit Bash session below.
++It does not change your default shell or edit startup files.
++
++The installer also links the `remote-ssh` command into `~/.local/bin` (or
++`INSTALL_BIN_DIR` when overridden). To use it in your current terminal:
++
++```bash
++export PATH="$HOME/.local/bin:$PATH"
++remote-ssh guide post-install
++```
++
++Add the export to your shell startup file, such as `~/.zshrc` for Zsh or
++`~/.bashrc` for interactive Bash, to keep the command available in new terminals.
++The installer prints the export using the actual installation directory and
++does not edit shell startup files.
++
++SSH is optional. To start the environment locally from this checkout:
++
++```bash
++bash --rcfile "$PWD/shell/rc.sh" -i
++```
++
++After installing with `runme.sh`, use
++`bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i` instead.
++This also works from Zsh; do not source `shell/rc.sh` directly in Zsh.
++
++`INSTALL_BIN_DIR=/custom/bin ./bin/remote-ssh install --yes fd` selects another
++command/tool destination. A relative destination is relative to the install
++caller's working directory. The footer prints full-path commands which work
++without a PATH change; it prints a PATH export only when the effective directory
++is absent from the install process's PATH. Configure that directory for future
++terminals too. An earlier PATH entry can shadow `remote-ssh`.
++
++The CLI is a symlink to the installing checkout's executable, not a standalone
++copy. Keep that checkout in place: moving/deleting it can break the link; updates
++in the same checkout update the command. Reinstallation reuses only the exact
++direct canonical link. An existing file, directory, hard link, broken link,
++link to another checkout, or relative/chained equivalent link causes an early
++failure without replacement. Inspect and move/remove the entry deliberately,
++or select another `INSTALL_BIN_DIR`. Changing destinations leaves older links
++alone; installation does not migrate them.
++
++`remote-ssh uninstall` removes managed tools and retains the management CLI,
++checkout and SSH/Git configuration. `remote-ssh prune`, including `--apply`,
++only handles eligible inactive tool release directories. Full manual removal
++also requires inspecting the management symlink and removing it only if it
++still points to the checkout being removed.
++
+ Install profiles are platform-filtered:
+ 
+ ```text
+diff --git a/docs/post-install.d/00-interactive.in b/docs/post-install.d/00-interactive.in
+index 41ae963..5f8f549 100644
+--- a/docs/post-install.d/00-interactive.in
++++ b/docs/post-install.d/00-interactive.in
+@@ -2,10 +2,26 @@
+ Interactive usage
+ ======================================================================
+ 
+-To start an interactive shell using the remote-ssh environment:
++To start an interactive shell locally or on an SSH host using the
++remote-ssh environment:
+ 
+-  bash --rcfile "@INSTALL_DIR@/shell/rc.sh"
++  @INTERACTIVE_COMMAND@
+ 
+ remote-ssh's shell environment is Bash-first. Do not source shell/rc.sh from
+ Zsh; start Bash with --rcfile as shown above.
+ 
++
++Installation exposes only the management CLI and selected tool binaries in
++INSTALL_BIN_DIR. Prompt, aliases and checkout helpers activate only in this
++explicit Bash session. Startup files and the default shell are not changed.
++
++The management link points to this checkout. Moving or deleting the checkout
++can break it; updating this checkout updates the command. Reinstalls reuse only
++the direct canonical link. Conflicting entries, including other checkouts or
++relative/chained equivalent links, are preserved: inspect and move or remove
++one deliberately, or choose another INSTALL_BIN_DIR.
++
++Uninstall and prune retain the management link and checkout. For full manual
++removal, inspect the link and remove it only if it still points to the checkout
++being removed. Configure INSTALL_BIN_DIR in PATH for ordinary/new terminals;
++an earlier PATH entry may shadow the command. The installer edits no profiles.
+diff --git a/tools/lib/commands/install.sh b/tools/lib/commands/install.sh
+index 8b084e2..d1242ab 100644
+--- a/tools/lib/commands/install.sh
++++ b/tools/lib/commands/install.sh
+@@ -166,6 +166,8 @@ remote_ssh_cmd_install_main() {
+     return 1
+   }
+ 
++  install_cli_preflight || return 1
++
+   remote_ssh_cmd_install_print_list "Selected tools (${source_label}):" ${tools[@]+"${tools[@]}"}
+   if ((${#skipped[@]} > 0)); then
+     printf '\n'
+@@ -176,15 +178,17 @@ remote_ssh_cmd_install_main() {
+     remote_ssh_cmd_install_confirm "$source_label" || return 1
+   fi
+ 
+-  install_tools ${tools[@]+"${tools[@]}"}
++  install_cli_publish || return 1
++  install_tools ${tools[@]+"${tools[@]}"} || return 1
+ 
+   log_info "Configuring environment..."
+-  install_shell_dir
+-  install_bin_dir
++  install_shell_dir || return 1
++  install_bin_dir || return 1
+   install_dots_dir
+-  write_expected_tools ${tools[@]+"${tools[@]}"}
++  write_expected_tools ${tools[@]+"${tools[@]}"} || return 1
+ 
+   log_info "Done."
+   printf 'Expected tools saved: %s\n' "$(expected_tools_file)"
++  repo_dir="${INSTALL_CLI_SOURCE%/bin/remote-ssh}"
+   install_print_post_install "$repo_dir"
+ }
+diff --git a/tools/lib/install/dirs.sh b/tools/lib/install/dirs.sh
+index b9470b0..4a19546 100644
+--- a/tools/lib/install/dirs.sh
++++ b/tools/lib/install/dirs.sh
+@@ -10,10 +10,58 @@ install_shell_dir() {
+   # [ -d "$SHELL_DIR" ] && find "$SHELL_DIR" -maxdepth 1 -type f -name '*.sh' -exec chmod +x {} +
+ }
+ 
++# Ownership deliberately accepts only our literal canonical target. Bootstrap
++# resolution is more permissive so users can invoke the CLI through other links.
++install_cli_check_destination() {
++  local command_path="$INSTALL_BIN_DIR/remote-ssh"
++  if [[ -e "$command_path" || -L "$command_path" ]]; then
++    if [[ ! -L "$command_path" ]] || [[ "$(readlink "$command_path")" != "$INSTALL_CLI_SOURCE" ]]; then
++      printf 'Cannot install remote-ssh: refusing to replace %s\nExpected source: %s\nNo replacement was made. Inspect and move or remove the existing entry deliberately, or select a different INSTALL_BIN_DIR.\n' \
++        "$command_path" "$INSTALL_CLI_SOURCE" >&2
++      return 1
++    fi
++  fi
++}
++
++# No mkdir, chmod, config write or tool installation is allowed in preflight.
++install_cli_preflight() {
++  INSTALL_CLI_SOURCE="$(cd -- "$BIN_DIR" && pwd -P)/remote-ssh" || return 1
++  if [[ ! -f "$INSTALL_CLI_SOURCE" ]] || [[ ! -x "$INSTALL_CLI_SOURCE" && ! -O "$INSTALL_CLI_SOURCE" ]]; then
++    printf 'Cannot prepare remote-ssh executable: %s\n' "$INSTALL_CLI_SOURCE" >&2
++    return 1
++  fi
++  case "$INSTALL_BIN_DIR" in
++    /*) ;;
++    *) INSTALL_BIN_DIR="$PWD/$INSTALL_BIN_DIR" ;;
++  esac
++  export INSTALL_BIN_DIR
++  install_cli_check_destination
++}
++
++install_cli_publish() {
++  mkdir -p "$INSTALL_BIN_DIR" || return 1
++  # Canonicalize after creation; the preflight absolute path preserves the
++  # caller's relative override even if another helper changes directories.
++  INSTALL_BIN_DIR="$(cd -- "$INSTALL_BIN_DIR" && pwd -P)" || return 1
++  export INSTALL_BIN_DIR
++  install_cli_check_destination || return 1
++  chmod +x "$INSTALL_CLI_SOURCE" || return 1
++  if [[ ! -L "$INSTALL_BIN_DIR/remote-ssh" ]]; then
++    # Directory operand prevents a newly occupied final directory from getting
++    # a nested link. Never overwrite an existing entry, even after the recheck.
++    ln -s "$INSTALL_CLI_SOURCE" "$INSTALL_BIN_DIR/" || {
++      install_cli_check_destination || return 1
++      printf 'Cannot publish remote-ssh: %s -> %s\n' "$INSTALL_BIN_DIR/remote-ssh" "$INSTALL_CLI_SOURCE" >&2
++      return 1
++    }
++  fi
++  [[ -L "$INSTALL_BIN_DIR/remote-ssh" ]] &&
++    [[ "$(readlink "$INSTALL_BIN_DIR/remote-ssh")" == "$INSTALL_CLI_SOURCE" ]] || return 1
++}
++
+ install_bin_dir() {
+   log_info "  bin/..."
+-
+-  [[ -d $BIN_DIR ]] && find "$BIN_DIR" -maxdepth 1 -type f -exec chmod +x {} +
++  [[ ! -d $BIN_DIR ]] || find "$BIN_DIR" -maxdepth 1 -type f -exec chmod +x {} +
+ }
+ 
+ install_dots_dir() {
+diff --git a/tools/lib/install/install.sh b/tools/lib/install/install.sh
+index dfdfc16..5822985 100644
+--- a/tools/lib/install/install.sh
++++ b/tools/lib/install/install.sh
+@@ -68,8 +68,10 @@ install_tool() {
+ install_tools() {
+   local -a tools=("$@")
+ 
+-  mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR"
++  mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR" || return 1
+ 
+   local t
+-  for t in ${tools[@]+"${tools[@]}"}; do install_tool "$t"; done
++  for t in ${tools[@]+"${tools[@]}"}; do
++    install_tool "$t" || return 1
++  done
+ }
+diff --git a/tools/lib/install/post_install.sh b/tools/lib/install/post_install.sh
+index 1fffb18..c52b7d4 100644
+--- a/tools/lib/install/post_install.sh
++++ b/tools/lib/install/post_install.sh
+@@ -33,7 +33,11 @@ install_render_post_install() {
+     printf '%s' "$1" | sed -e 's/[\/&|\\]/\\&/g'
+   }
+ 
++  local interactive_command
++  printf -v interactive_command 'bash --rcfile %q -i' "$install_dir/shell/rc.sh"
++
+   sed \
++    -e "s|@INTERACTIVE_COMMAND@|$(_sed_escape "$interactive_command")|g" \
+     -e "s|@INSTALL_DIR@|$(_sed_escape "$install_dir")|g" \
+     -e "s|@HOSTNAME@|$(_sed_escape "${hostname:-<hostname>}")|g" \
+     -e "s|@IP_ADDRESS@|$(_sed_escape "${ip:-<ip-address>}")|g" \
+@@ -41,10 +45,34 @@ install_render_post_install() {
+     ${templates[@]+"${templates[@]}"}
+ }
+ 
++install_post_install_bin_in_path() {
++  local bin_dir="$1" entry path_rest="${PATH}:" canonical
++  canonical="$(cd -- "$bin_dir" 2>/dev/null && pwd -P)" || canonical="$bin_dir"
++  while [[ "$path_rest" == *:* ]]; do
++    entry="${path_rest%%:*}"
++    path_rest="${path_rest#*:}"
++    [[ -n "$entry" ]] || entry=.
++    if [[ "$entry" == "$bin_dir" ]] ||
++      [[ "$(cd -- "$entry" 2>/dev/null && pwd -P)" == "$canonical" ]]; then
++      return 0
++    fi
++  done
++  return 1
++}
++
+ install_print_post_install() {
+-  cat <<'EOF'
+-Post-install setup:
+-  run: remote-ssh guide post-install
+-  includes SSH, VS Code Remote-SSH, Git, and interactive shell setup
+-EOF
++  local install_dir="${1:?install_dir required}"
++  local bin_dir="${INSTALL_BIN_DIR:-$HOME/.local/bin}"
++
++  printf '\nInstalled CLI: %s/remote-ssh\n' "$bin_dir"
++  printf 'Post-install setup:\n  run: %q guide post-install\n' "$bin_dir/remote-ssh"
++  printf 'Start a local remote-ssh shell (also works from Zsh):\n'
++  printf '  bash --rcfile %q -i\n' "$install_dir/shell/rc.sh"
++  if ! install_post_install_bin_in_path "$bin_dir"; then
++    printf 'To use remote-ssh by name in this terminal:\n'
++    # Keep PATH literal so the printed command expands it in the user's shell.
++    # shellcheck disable=SC2016
++    printf '  export PATH=%q:"$PATH"\n' "$bin_dir"
++    printf 'Configure this directory in PATH for new terminals too; startup files were not modified.\n'
++  fi
+ }
+diff --git a/dev/tests/test_install_cli.py b/dev/tests/test_install_cli.py
+new file mode 100644
+index 0000000..badeaf7
+--- /dev/null
++++ b/dev/tests/test_install_cli.py
+@@ -0,0 +1,451 @@
++from __future__ import annotations
++
++import os
++import shlex
++import shutil
++import subprocess
++from dataclasses import dataclass
++from pathlib import Path
++
++import pytest
++from conftest import IsolatedEnv, assert_failed, assert_ok, mark_managed_release, write_executable
++
++
++@dataclass
++class CliInstall:
++    root: Path
++    env: dict[str, str]
++    home: Path
++    bin: Path
++    transport: Path
++    bash: str
++
++    @property
++    def command(self) -> Path:
++        return self.bin / "remote-ssh"
++
++    @property
++    def expected(self) -> Path:
++        return Path(self.env["XDG_CONFIG_HOME"]) / "remote-ssh/expected-tools"
++
++    @property
++    def network(self) -> Path:
++        return self.home / "network.log"
++
++    def run(self, *args: str, cwd: Path | None = None) -> subprocess.CompletedProcess[str]:
++        return self.shell([self.bash, self.root / "bin/remote-ssh", *args], cwd=cwd)
++
++    def shell(
++        self, args: list[str | Path], *, cwd: Path | None = None
++    ) -> subprocess.CompletedProcess[str]:
++        return subprocess.run(
++            [str(a) for a in args],
++            env=self.env,
++            cwd=cwd or self.home,
++            text=True,
++            capture_output=True,
++            timeout=20,
++            check=False,
++        )
++
++
++def prepare_cli_install(repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str) -> CliInstall:
++    """Real runtime tree; only network/transport boundaries are replaced."""
++    root = isolated_env.home / "repo space ' $ ; &"
++    root.mkdir()
++    for name in ("bin", "lib", "shell", "dots", "tools", "docs"):
++        shutil.copytree(repo_dir / name, root / name)
++    shutil.copy2(repo_dir / "runme.sh", root / "runme.sh")
++    shutil.rmtree(root / "tools/defs")
++    (root / "tools/defs").mkdir()
++    for tool in ("demo", "second", "third"):
++        (root / f"tools/defs/{tool}.sh").write_text(
++            f"TOOL_NAME={tool}\nGH_REPO=owner/{tool}\nRELEASE_TAG=v1\nVERSION=1\n"
++            f'BINARY_NAME={tool}\nASSETS=("linux:x86_64:any|{tool}")\n'
++        )
++    install_bin = isolated_env.home / "local bin ' $ ; &"
++    install_bin.mkdir()
++    prefix = isolated_env.home / "opt"
++    binary = prefix / "demo-1/demo"
++    write_executable(binary, "#!/bin/sh\nprintf demo\n")
++    mark_managed_release(binary.parent, "demo", "1", executable="demo")
++    (install_bin / "demo").symlink_to(binary)
++    (isolated_env.bin_dir / "bash").symlink_to(runtime_bash)
++    write_executable(
++        isolated_env.bin_dir / "uname",
++        "#!/bin/sh\ncase $1 in -s) echo Linux;; *) echo x86_64;; esac\n",
++    )
++    for network in ("curl", "wget", "git"):
++        write_executable(
++            isolated_env.bin_dir / network,
++            f'#!/bin/sh\nprintf "%s\\n" "{network} $*" >> "$HOME/network.log"\nexit 99\n',
++        )
++    env = isolated_env.env.copy()
++    for key in list(env):
++        if key.startswith(("REMOTE_", "BASH_FUNC_")) or key in (
++            "BASH_ENV",
++            "ENV",
++            "CDPATH",
++            "SHELLOPTS",
++            "BASHOPTS",
++            "ZDOTDIR",
++            "FORCE",
++            "INSTALL_LAYOUT",
++            "TOOLS_DIR",
++            "REPO_DIR",
++            "SSH_CONNECTION",
++            "SSH_CLIENT",
++        ):
++            env.pop(key, None)
++    env.update({"INSTALL_BIN_DIR": str(install_bin), "INSTALL_PREFIX": str(prefix)})
++    for startup in (".bashrc", ".bash_profile", ".profile", ".zshrc", ".zshenv"):
++        (isolated_env.home / startup).write_text("# untouched user startup\n")
++    # Disable optional shell integrations, including the network-capable update hook.
++    env["REMOTE_SSH_UPDATE_CHECK"] = "0"
++    env["REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY"] = "0"
++    return CliInstall(root, env, isolated_env.home, install_bin, isolated_env.bin_dir, runtime_bash)
++
++
++@pytest.fixture
++def cli_install(repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str) -> CliInstall:
++    return prepare_cli_install(repo_dir, isolated_env, runtime_bash)
++
++
++def footer_commands(output: str) -> tuple[str, str, str | None]:
++    lines = output.splitlines()
++    guide = next(line.strip().removeprefix("run: ") for line in lines if "  run: " in line)
++    start = next(line.strip() for line in lines if "  bash --rcfile " in line)
++    export = next((line.strip() for line in lines if "  export PATH=" in line), None)
++    return guide, start, export
++
++
++@pytest.mark.parametrize("destination", ["custom", "default", "relative"])
++def test_install_ownership_reinstall_and_destination(
++    cli_install: CliInstall, destination: str
++) -> None:
++    c = cli_install
++    if destination == "default":
++        c.env.pop("INSTALL_BIN_DIR")
++        c.bin = c.home / ".local/bin"
++        c.bin.mkdir(parents=True)
++        (c.bin / "demo").symlink_to(c.home / "opt/demo-1/demo")
++    elif destination == "relative":
++        c.env["INSTALL_BIN_DIR"] = os.path.relpath(c.bin, c.home)
++    for _ in range(2):
++        result = c.run("install", "--yes", "demo")
++        assert_ok(result)
++        assert c.command.readlink() == c.root / "bin/remote-ssh"
++        assert set(p.name for p in c.bin.iterdir()) == {"demo", "remote-ssh"}
++        assert c.expected.read_text().splitlines()[-1] == "demo"
++        assert not c.network.exists()
++    before = c.command.lstat()
++    assert_ok(c.run("install"))  # Saved set needs no new confirmation.
++    assert c.command.lstat().st_ino == before.st_ino
++    other = c.home / "new bin"
++    other.mkdir()
++    (other / "demo").symlink_to(c.home / "opt/demo-1/demo")
++    c.env["INSTALL_BIN_DIR"] = str(other)
++    assert_ok(c.run("install", "--yes", "demo"))
++    assert (other / "remote-ssh").readlink() == c.root / "bin/remote-ssh"
++    assert c.command.readlink() == c.root / "bin/remote-ssh"
++
++
++@pytest.mark.parametrize(
++    "existing",
++    [
++        "file",
++        "directory",
++        "hardlink",
++        "broken",
++        "foreign",
++        "relative",
++        "chain",
++        "spelling",
++        "checkout",
++    ],
++)
++def test_collision_is_nonmutating_before_confirmation(
++    cli_install: CliInstall, existing: str
++) -> None:
++    c = cli_install
++    source = c.root / "bin/remote-ssh"
++    if existing == "file":
++        c.command.write_text("keep me\n")
++    elif existing == "directory":
++        c.command.mkdir()
++    elif existing == "hardlink":
++        os.link(source, c.command)
++    elif existing == "broken":
++        c.command.symlink_to("missing")
++    elif existing == "foreign":
++        c.command.symlink_to("/bin/sh")
++    elif existing == "relative":
++        c.command.symlink_to(os.path.relpath(source, c.bin))
++    elif existing == "chain":
++        (c.bin / "indirect").symlink_to(source)
++        c.command.symlink_to(c.bin / "indirect")
++    elif existing == "spelling":
++        c.command.symlink_to(str(c.root / "bin") + "/../bin/remote-ssh")
++    else:
++        other = c.home / "other checkout"
++        shutil.copytree(c.root, other)
++        c.command.symlink_to(other / "bin/remote-ssh")
++    link = c.command.readlink() if c.command.is_symlink() else None
++    inode = c.command.lstat().st_ino
++    source.chmod(0o644)  # Preflight must not prepare the checkout on collision.
++    result = c.run("install", "second")
++    assert_failed(result)
++    assert "refusing to replace" in result.stderr
++    assert str(c.command) in result.stderr
++    assert str(source) in result.stderr
++    assert "No replacement was made" in result.stderr
++    assert "requires confirmation" not in result.stderr
++    assert not c.expected.exists()
++    assert not c.network.exists()
++    assert source.stat().st_mode & 0o111 == 0
++    assert c.command.lstat().st_ino == inode
++    if link is not None:
++        assert c.command.readlink() == link
++    if existing == "directory":
++        assert list(c.command.iterdir()) == []
++
++
++@pytest.mark.parametrize("args", [("--bad",), ("--yes", "unknown"), ("demo",)])
++def test_invalid_input_and_declined_confirmation_do_not_publish(
++    cli_install: CliInstall, args: tuple[str, ...]
++) -> None:
++    c = cli_install
++    assert_failed(c.run("install", *args))
++    assert not c.command.exists()
++    assert not c.expected.exists()
++    assert not c.network.exists()
++
++
++def test_absent_bin_and_failure_after_publication(cli_install: CliInstall) -> None:
++    c = cli_install
++    c.bin = c.home / "absent/deep/bin"
++    c.env["INSTALL_BIN_DIR"] = str(c.bin)
++    result = c.run("install", "--yes", "second")
++    assert_failed(result)
++    assert c.command.readlink() == c.root / "bin/remote-ssh"
++    assert not c.expected.exists()
++    assert "Done." not in result.stdout
++    assert "Installed CLI:" not in result.stdout
++    assert c.network.read_text().startswith("curl ")
++    assert_ok(c.shell([c.command, "--help"]))
++
++
++@pytest.mark.parametrize("occupied", ["file", "directory", "symlink"])
++def test_publication_rechecks_and_never_nests(cli_install: CliInstall, occupied: str) -> None:
++    c = cli_install
++    # A controlled ln boundary occupies the final entry after the last ownership
++    # check, proving the real ln directory operand never descends into it.
++    write_executable(
++        c.transport / "ln",
++        """#!/bin/sh
++case "$OCCUPIED" in
++file) printf keep > "$INSTALL_BIN_DIR/remote-ssh";;
++directory) mkdir "$INSTALL_BIN_DIR/remote-ssh";;
++symlink) ln_target="$HOME/foreign"; mkdir "$ln_target"; /bin/ln -s "$ln_target" "$INSTALL_BIN_DIR/remote-ssh";;
++esac
++exec /bin/ln "$@"
++""",
++    )
++    c.env["OCCUPIED"] = occupied
++    result = c.run("install", "--yes", "second")
++    assert_failed(result)
++    assert not c.network.exists()
++    assert not c.expected.exists()
++    assert not (c.command / "remote-ssh").exists()
++    if occupied == "file":
++        assert c.command.read_text() == "keep"
++    elif occupied == "symlink":
++        assert c.command.readlink() == c.home / "foreign"
++    else:
++        assert list(c.command.iterdir()) == []
++
++
++def test_publication_recheck_before_ln(cli_install: CliInstall) -> None:
++    c = cli_install
++    write_executable(
++        c.transport / "mkdir",
++        """#!/bin/sh
++/bin/mkdir "$@" || exit $?
++case "$*" in *"local bin"*) printf occupied > "$INSTALL_BIN_DIR/remote-ssh";; esac
++""",
++    )
++    result = c.run("install", "--yes", "second")
++    assert_failed(result)
++    assert "refusing to replace" in result.stderr
++    assert c.command.read_text() == "occupied"
++    assert not c.network.exists()
++
++
++def test_bootstrap_links_override_and_doctor(cli_install: CliInstall) -> None:
++    c = cli_install
++    assert_ok(c.run("install", "--yes", "demo"))
++    relative = c.bin / "relative"
++    relative.symlink_to("remote-ssh")
++    chain = c.home / "chain"
++    chain.symlink_to(os.path.relpath(relative, c.home))
++    for command in (c.root / "bin/remote-ssh", c.command, relative, chain):
++        for args in (("--help",), ("guide", "post-install")):
++            result = c.shell([command, *args], cwd=c.home.parent)
++            assert_ok(result)
++            assert "Usage: remote-ssh" in result.stdout or "Interactive usage" in result.stdout
++    override = c.home / "override"
++    shutil.copytree(c.root, override)
++    c.env["REMOTE_ENV_DIR"] = str(override)
++    assert str(override) in c.shell([c.command, "guide", "paths"]).stdout
++    c.env["REMOTE_ENV_DIR"] = str(c.home / "missing checkout")
++    doctor = c.shell([c.command, "doctor"])
++    assert "missing checkout" in doctor.stdout
++    assert "No such file" not in doctor.stderr
++    c.env.pop("REMOTE_ENV_DIR")
++    # More than 40 acyclic links bypass kernel execution depth by explicitly
++    # reading them as a Bash script. The script's own bound is the assertion.
++    previous = c.command
++    for index in range(42):
++        link = c.home / f"deep-{index}"
++        link.symlink_to(previous)
++        previous = link
++    # BASH_SOURCE can be supplied by sourcing the real dispatcher from a wrapper
++    # after replacing only its initial path expression in the disposable copy.
++    bootstrap = (
++        (c.root / "bin/remote-ssh")
++        .read_text()
++        .replace('script_path="${BASH_SOURCE[0]}"', f"script_path={shlex.quote(str(previous))}", 1)
++    )
++    wrapper = c.home / "bootstrap-depth"
++    wrapper.write_text(bootstrap)
++    result = c.shell([c.bash, wrapper, "--help"])
++    assert_failed(result)
++    assert "symlink depth exceeds 40" in result.stderr
++    previous.unlink()
++    previous.symlink_to("missing")
++    wrapper.write_text(bootstrap)
++    result = c.shell([c.bash, wrapper, "--help"])
++    assert_failed(result)
++    assert "cannot resolve CLI source" in result.stderr
++
++
++def test_lifecycle_preserves_cli_and_user_paths(cli_install: CliInstall) -> None:
++    c = cli_install
++    assert_ok(c.run("install", "--yes", "demo"))
++    startup = {p: p.read_bytes() for p in c.home.glob(".*") if p.is_file()}
++    foreign = c.home / "opt/foreign-1"
++    foreign.mkdir()
++    assert_ok(c.shell([c.command, "uninstall", "--yes", "demo"]))
++    assert not (c.bin / "demo").exists()
++    assert not (c.home / "opt/demo-1").exists()
++    stale = c.home / "opt/demo-0"
++    write_executable(stale / "demo", "#!/bin/sh\nexit 0\n")
++    mark_managed_release(stale, "demo", "0", executable="demo")
++    assert "candidate:" in c.shell([c.command, "prune"]).stdout
++    assert stale.exists()
++    assert_ok(c.shell([c.command, "prune", "--apply"]))
++    assert not stale.exists()
++    assert c.command.is_symlink() and c.root.is_dir() and foreign.is_dir()
++    assert_ok(c.shell([c.command, "--help"]))
++    assert all(p.read_bytes() == before for p, before in startup.items())
++    assert not c.network.exists()
++
++
++@pytest.mark.parametrize("failure", ["demo", "second", "prefix"])
++def test_tool_batch_failure_stops_without_completion(cli_install: CliInstall, failure: str) -> None:
++    c = cli_install
++    (c.bin / "demo").unlink()
++    c.expected.parent.mkdir(parents=True)
++    c.expected.write_text("# user sentinel\ndemo\n")
++    c.env["FAIL_TOOL"] = failure
++    write_executable(
++        c.root / "tools/install-tool.sh",
++        """#!/usr/bin/env bash
++printf '%s\n' "$1" >> "$HOME/attempts"
++[[ "$1" != "$FAIL_TOOL" ]] || exit 23
++mkdir -p "$INSTALL_PREFIX/$1-1" || exit 1
++printf '#!/bin/sh\nexit 0\n' > "$INSTALL_PREFIX/$1-1/$1"
++chmod +x "$INSTALL_PREFIX/$1-1/$1"
++ln -s "$INSTALL_PREFIX/$1-1/$1" "$INSTALL_BIN_DIR/$1"
++""",
++    )
++    rcfile = c.root / "shell/rc.sh"
++    rcfile.chmod(0o644)
++    helper = c.root / "bin/ssh-find"
++    helper.chmod(0o644)
++    if failure == "prefix":
++        invalid = c.home / "prefix-file"
++        invalid.write_text("keep")
++        c.env["INSTALL_PREFIX"] = str(invalid)
++    # Exercise the facade in a conditional context too: explicit propagation
++    # must work when Bash disables errexit for all nested function calls.
++    script = """
++. "$1/tools/lib/env.sh"
++. "$TOOLS_LIB_DIR/commands.lib.sh"
++if remote_ssh_cmd_install_main "$1" --yes demo second third; then exit 0; else exit 17; fi
++"""
++    result = c.shell([c.bash, "-c", script, "bash", c.root])
++    assert result.returncode == 17
++    attempts = c.home / "attempts"
++    if failure == "prefix":
++        assert not attempts.exists()
++    else:
++        assert attempts.read_text().splitlines() == (
++            ["demo"] if failure == "demo" else ["demo", "second"]
++        )
++    if failure == "second":
++        assert (c.bin / "demo").is_symlink()
++        assert (c.home / "opt/demo-1/demo").is_file()
++    assert c.expected.read_text() == "# user sentinel\ndemo\n"
++    assert "Configuring environment" not in result.stdout
++    assert rcfile.stat().st_mode & 0o111 == 0
++    assert helper.stat().st_mode & 0o111 == 0
++    assert "Done." not in result.stdout and "Installed CLI:" not in result.stdout
++    assert c.command.is_symlink()
++    assert_ok(c.shell([c.command, "--help"]))
++    assert not c.network.exists()
++
++
++def test_absent_destination_success_uses_real_tool_installer(cli_install: CliInstall) -> None:
++    c = cli_install
++    c.bin = c.home / "new/deep/bin"
++    c.env["INSTALL_BIN_DIR"] = str(c.bin)
++    # Supply a tiny raw fixture at the download boundary; all extraction,
++    # staging, ownership records and tool symlink publication remain real.
++    write_executable(
++        c.transport / "curl",
++        """#!/bin/sh
++printf '%s\n' "$*" >> "$HOME/fixture-downloads"
++[ "$1" = -fsSLo ] || exit 98
++printf '#!/bin/sh\nprintf fixture-tool\n' > "$2"
++""",
++    )
++    result = c.run("install", "--yes", "second")
++    assert_ok(result)
++    assert c.command.readlink() == c.root / "bin/remote-ssh"
++    assert (c.bin / "second").is_symlink()
++    assert (c.home / "opt/second-1/.remote-ssh-release").is_file()
++    assert (c.home / "fixture-downloads").read_text().count("https://") == 1
++    assert not c.network.exists()
++    assert set(p.name for p in c.bin.iterdir()) == {"remote-ssh", "second"}
++
++
++def test_install_respects_effective_checkout_override(cli_install: CliInstall) -> None:
++    c = cli_install
++    override = c.home / "effective checkout"
++    shutil.copytree(c.root, override)
++    c.env["REMOTE_ENV_DIR"] = str(override)
++    result = c.run("install", "--yes", "demo")
++    assert_ok(result)
++    assert c.command.readlink() == override / "bin/remote-ssh"
++    assert str(override).replace(" ", "\\ ") in result.stdout
++    assert_ok(c.shell([c.command, "--help"]))
++
++
++def test_env_bash_children_use_selected_runtime(cli_install: CliInstall) -> None:
++    c = cli_install
++    parent = c.shell([c.bash, "-c", 'printf "%s" "$BASH_VERSION"'])
++    child = c.shell(["/usr/bin/env", "bash", "-c", 'printf "%s" "$BASH_VERSION"'])
++    assert_ok(parent)
++    assert_ok(child)
++    assert child.stdout == parent.stdout

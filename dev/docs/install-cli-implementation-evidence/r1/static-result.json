@@ -1,0 +1,27 @@
+[
+  {
+    "command": [
+      "dev/.venv/bin/ruff",
+      "check",
+      "dev/tests/test_guide.py"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "dev/.venv/bin/ruff",
+      "format",
+      "--check",
+      "dev/tests/test_guide.py"
+    ],
+    "exit": 1
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit": 0
+  }
+]

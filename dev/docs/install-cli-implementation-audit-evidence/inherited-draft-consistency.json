@@ -1,0 +1,13 @@
+{
+  "archived_diff_reconstructed_paths": {
+    "bin/remote-ssh": "308de9f934c1fe9a370d8c6dfd07bef00c81344e8a9beea5d557772e5fa871b7",
+    "dev/tests/test_post_install.py": "ad079037ae5e024929860f666fa43010e36b69cf178d07b89c2bd8d9eda99ee4",
+    "docs/install.md": "fa656276d03914312a55901679d422a07a099f1dcd17ac6f35fa4ead958e2601",
+    "docs/post-install.d/00-interactive.in": "82f661d54686066f14d597eca36b4333c68a7cc3daa310b9370142190401be00",
+    "tools/lib/commands/install.sh": "3d2800d22541aff0ca74539e025140cfdd2ed75639bab2e7de07565faa748e1e",
+    "tools/lib/install/dirs.sh": "d58d9dfa3b2cfff3fa532da261605fda6746747b488e2cbbcfb3a672a0207664",
+    "tools/lib/install/post_install.sh": "18b2a92132d0681d49e4675e84a683ca020cab94127e8993f035112ed4eb4039"
+  },
+  "archived_untracked_test_sha256": "b44618d6cf817b438f034b237b9b5b1968e3b445a1aee46eabce20db15b0abe3",
+  "matches_recorded_baseline": true
+}

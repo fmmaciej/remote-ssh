@@ -1,0 +1,146 @@
+diff --git a/bin/remote-ssh b/bin/remote-ssh
+index 9603af3..3a67c8d 100755
+--- a/bin/remote-ssh
++++ b/bin/remote-ssh
+@@ -2,7 +2,13 @@
+ 
+ set -euo pipefail
+ 
+-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
++script_path="${BASH_SOURCE[0]}"
++while [[ -L "$script_path" ]]; do
++  SCRIPT_DIR="$(cd -- "$(dirname -- "$script_path")" && pwd)"
++  script_path="$(readlink "$script_path")"
++  [[ "$script_path" == /* ]] || script_path="$SCRIPT_DIR/$script_path"
++done
++SCRIPT_DIR="$(cd -- "$(dirname -- "$script_path")" && pwd)"
+ script_repo_dir="$(cd "$SCRIPT_DIR/.." && pwd)"
+ requested_repo_dir="${REMOTE_ENV_DIR:-}"
+ repo_dir="${requested_repo_dir:-$script_repo_dir}"
+diff --git a/dev/tests/test_post_install.py b/dev/tests/test_post_install.py
+index 6cdbc91..486eecb 100644
+--- a/dev/tests/test_post_install.py
++++ b/dev/tests/test_post_install.py
+@@ -24,6 +24,9 @@ def test_post_install_prints_short_guide_hint(
+     output = result.stdout
+ 
+     assert "Post-install setup:" in output
++    assert "export PATH=" in output
++    assert ':"$PATH"' in output
++    assert "bash --rcfile /opt/remote-ssh/shell/rc.sh -i" in output
+     assert "  run: remote-ssh guide post-install" in output
+     assert "  includes SSH, VS Code Remote-SSH, Git, and interactive shell setup" in output
+     assert "Interactive usage" not in output
+diff --git a/docs/install.md b/docs/install.md
+index 7a8e5b3..caaebd4 100644
+--- a/docs/install.md
++++ b/docs/install.md
+@@ -59,6 +59,29 @@ From a checked-out repository:
+ ./bin/remote-ssh install --profile quick --yes
+ ```
+ 
++The installer also links the `remote-ssh` command into `~/.local/bin` (or
++`INSTALL_BIN_DIR` when overridden). To use it in your current terminal:
++
++```bash
++export PATH="$HOME/.local/bin:$PATH"
++remote-ssh guide post-install
++```
++
++Add the export to your shell startup file, such as `~/.zshrc` for Zsh or
++`~/.bashrc` for interactive Bash, to keep the command available in new terminals.
++The installer prints the export using the actual installation directory and
++does not edit shell startup files.
++
++SSH is optional. To start the environment locally from this checkout:
++
++```bash
++bash --rcfile "$PWD/shell/rc.sh" -i
++```
++
++After installing with `runme.sh`, use
++`bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i` instead.
++This also works from Zsh; do not source `shell/rc.sh` directly in Zsh.
++
+ Install profiles are platform-filtered:
+ 
+ ```text
+diff --git a/docs/post-install.d/00-interactive.in b/docs/post-install.d/00-interactive.in
+index 41ae963..86e5e24 100644
+--- a/docs/post-install.d/00-interactive.in
++++ b/docs/post-install.d/00-interactive.in
+@@ -2,9 +2,10 @@
+ Interactive usage
+ ======================================================================
+ 
+-To start an interactive shell using the remote-ssh environment:
++To start an interactive shell locally or on an SSH host using the
++remote-ssh environment:
+ 
+-  bash --rcfile "@INSTALL_DIR@/shell/rc.sh"
++  bash --rcfile "@INSTALL_DIR@/shell/rc.sh" -i
+ 
+ remote-ssh's shell environment is Bash-first. Do not source shell/rc.sh from
+ Zsh; start Bash with --rcfile as shown above.
+diff --git a/tools/lib/commands/install.sh b/tools/lib/commands/install.sh
+index 8b084e2..a0fc6b8 100644
+--- a/tools/lib/commands/install.sh
++++ b/tools/lib/commands/install.sh
+@@ -180,7 +180,7 @@ remote_ssh_cmd_install_main() {
+ 
+   log_info "Configuring environment..."
+   install_shell_dir
+-  install_bin_dir
++  install_bin_dir || return 1
+   install_dots_dir
+   write_expected_tools ${tools[@]+"${tools[@]}"}
+ 
+diff --git a/tools/lib/install/dirs.sh b/tools/lib/install/dirs.sh
+index b9470b0..7229c7d 100644
+--- a/tools/lib/install/dirs.sh
++++ b/tools/lib/install/dirs.sh
+@@ -13,7 +13,22 @@ install_shell_dir() {
+ install_bin_dir() {
+   log_info "  bin/..."
+ 
+-  [[ -d $BIN_DIR ]] && find "$BIN_DIR" -maxdepth 1 -type f -exec chmod +x {} +
++  local command_path="$INSTALL_BIN_DIR/remote-ssh"
++  local command_source
++  command_source="$(cd -- "$BIN_DIR" && pwd)/remote-ssh" || return 1
++
++  if [[ -e "$command_path" || -L "$command_path" ]]; then
++    if [[ ! -L "$command_path" ]] || [[ "$(readlink "$command_path")" != "$command_source" ]]; then
++      printf 'Cannot install remote-ssh: refusing to replace %s\n' "$command_path" >&2
++      return 1
++    fi
++  fi
++
++  find "$BIN_DIR" -maxdepth 1 -type f -exec chmod +x {} + || return 1
++  mkdir -p "$INSTALL_BIN_DIR" || return 1
++  if [[ ! -L "$command_path" ]]; then
++    ln -s "$command_source" "$command_path"
++  fi
+ }
+ 
+ install_dots_dir() {
+diff --git a/tools/lib/install/post_install.sh b/tools/lib/install/post_install.sh
+index 1fffb18..2fc9c93 100644
+--- a/tools/lib/install/post_install.sh
++++ b/tools/lib/install/post_install.sh
+@@ -42,6 +42,16 @@ install_render_post_install() {
+ }
+ 
+ install_print_post_install() {
++  local install_dir="${1:?install_dir required}"
++  local bin_dir="${INSTALL_BIN_DIR:-$HOME/.local/bin}"
++
++  printf '\nUse remote-ssh in this terminal:\n'
++  # Keep PATH literal so the printed command expands it in the user's shell.
++  # shellcheck disable=SC2016
++  printf '  export PATH=%q:"$PATH"\n' "$bin_dir"
++  printf 'For future terminals, add this export to your shell startup file.\n\n'
++  printf 'Start a local remote-ssh shell (also works from Zsh):\n'
++  printf '  bash --rcfile %q -i\n\n' "$install_dir/shell/rc.sh"
+   cat <<'EOF'
+ Post-install setup:
+   run: remote-ssh guide post-install

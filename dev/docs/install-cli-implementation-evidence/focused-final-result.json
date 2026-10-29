@@ -1,0 +1,24 @@
+{
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "dev",
+    "pytest",
+    "-vv",
+    "dev/tests/test_install_cli.py",
+    "dev/tests/test_post_install.py",
+    "dev/tests/test_runme.py",
+    "dev/tests/test_install_expected_tools.py"
+  ],
+  "cwd": "/Users/fm/Programming/00_Other/remote-ssh",
+  "environment": {
+    "UV_CACHE_DIR": "/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-uv-cache",
+    "UV_OFFLINE": "1"
+  },
+  "started": "2026-10-28T15:22:56.303770+00:00",
+  "finished": "2026-10-28T15:23:42.426524+00:00",
+  "exit": 0,
+  "log": "focused-final.log",
+  "source_hashes": "final-source-hashes.json"
+}

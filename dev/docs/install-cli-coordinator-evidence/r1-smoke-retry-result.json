@@ -1,0 +1,56 @@
+{
+  "command": [
+    "just",
+    "smoke"
+  ],
+  "exit_code": 0,
+  "timed_out": false,
+  "timeout_seconds": 900,
+  "elapsed_seconds": 344.3760757080745,
+  "outside_sandbox": true,
+  "start_new_session": true,
+  "stdin": "DEVNULL",
+  "environment_overrides": {
+    "UV_OFFLINE": "1",
+    "PYTHONUNBUFFERED": "1"
+  },
+  "environment_removed": [
+    "PYTEST_ADDOPTS",
+    "BASH_ENV",
+    "ENV",
+    "REMOTE_ENV_DIR"
+  ],
+  "launcher_python": "/Users/fm/Programming/00_Other/remote-ssh/dev/.venv/bin/python",
+  "source_manifest": "dev/docs/install-cli-implementation-evidence/r1/final/source-hashes.json",
+  "source_hashes_before": {
+    "AGENTS.md": "3e3604e3372c88ab25fa5dea30827297044dc95cccc0cdf81497ee59599f2733",
+    "bin/remote-ssh": "7d50575adc99e0e508bc46b7a0c010c2b453d5c2ac0942218c02e2c2edc70cc4",
+    "tools/lib/commands/install.sh": "e48b1da0f9c1cbe0abcd0b4c704a2fdc61ea414d3b110c9579f507dedde888e9",
+    "tools/lib/install/dirs.sh": "fab2aa99ed10c1a8cd12256cb03ef051898d63af91b16b0815deb9bfea93ec96",
+    "tools/lib/install/install.sh": "4d49d6d1793484fa59a651ab69b9b352fe491a5e285f761c369c70fce97bf623",
+    "tools/lib/install/post_install.sh": "b9e661e80828df77c4e6c47268ca8fec6ec5638d360d261c2a5304552b7a242b",
+    "docs/post-install.d/00-interactive.in": "8abb943bc7936a008f3fb7ee47d549540312e02c6a87ebad468a9ba3c3e4c0fd",
+    "docs/install.md": "e212610d1bc0628bc8a59e1f3adb3d65fce73f2e3e4578d8e9af97a01bcb8513",
+    "dev/tests/test_install_cli.py": "b423dc09c3c8b8c93ced9557ac5d919c1b222d49027fb47be4579ec7cb344c08",
+    "dev/tests/test_post_install.py": "cf60a4b1ec3faf03444ca954f9e4adf3c60822e408ea916f8f7c27e34e8772b9",
+    "dev/tests/test_runme.py": "41d68304363d08bb5fa4f713450e23c61553fc850e943a42805b0eefd0b9346a",
+    "dev/tests/conftest.py": "71baee3c64e71b46998da0b0a37db0e9c2ac3acd290f6ac41c1e9c466f6dabb0",
+    "dev/tests/test_guide.py": "8030eaed285b05fc2e4c8833b3573df4f21b3ac75b356d24381c4fb4e609b2d8"
+  },
+  "source_hashes_after": {
+    "AGENTS.md": "3e3604e3372c88ab25fa5dea30827297044dc95cccc0cdf81497ee59599f2733",
+    "bin/remote-ssh": "7d50575adc99e0e508bc46b7a0c010c2b453d5c2ac0942218c02e2c2edc70cc4",
+    "tools/lib/commands/install.sh": "e48b1da0f9c1cbe0abcd0b4c704a2fdc61ea414d3b110c9579f507dedde888e9",
+    "tools/lib/install/dirs.sh": "fab2aa99ed10c1a8cd12256cb03ef051898d63af91b16b0815deb9bfea93ec96",
+    "tools/lib/install/install.sh": "4d49d6d1793484fa59a651ab69b9b352fe491a5e285f761c369c70fce97bf623",
+    "tools/lib/install/post_install.sh": "b9e661e80828df77c4e6c47268ca8fec6ec5638d360d261c2a5304552b7a242b",
+    "docs/post-install.d/00-interactive.in": "8abb943bc7936a008f3fb7ee47d549540312e02c6a87ebad468a9ba3c3e4c0fd",
+    "docs/install.md": "e212610d1bc0628bc8a59e1f3adb3d65fce73f2e3e4578d8e9af97a01bcb8513",
+    "dev/tests/test_install_cli.py": "b423dc09c3c8b8c93ced9557ac5d919c1b222d49027fb47be4579ec7cb344c08",
+    "dev/tests/test_post_install.py": "cf60a4b1ec3faf03444ca954f9e4adf3c60822e408ea916f8f7c27e34e8772b9",
+    "dev/tests/test_runme.py": "41d68304363d08bb5fa4f713450e23c61553fc850e943a42805b0eefd0b9346a",
+    "dev/tests/conftest.py": "71baee3c64e71b46998da0b0a37db0e9c2ac3acd290f6ac41c1e9c466f6dabb0",
+    "dev/tests/test_guide.py": "8030eaed285b05fc2e4c8833b3573df4f21b3ac75b356d24381c4fb4e609b2d8"
+  },
+  "hashes_match": true
+}

@@ -1,0 +1,15 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.9, pytest-9.0.3, pluggy-1.6.0 -- /Users/fm/Programming/00_Other/remote-ssh/dev/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/fm/Programming/00_Other/remote-ssh/dev
+configfile: pyproject.toml
+collecting ... collected 6 items
+
+dev/tests/test_atuin_lifecycle.py::test_upstream_atuin_full_rc_lifecycle[/bin/bash-none] PASSED
+dev/tests/test_atuin_lifecycle.py::test_upstream_atuin_full_rc_lifecycle[/bin/bash-alias] PASSED
+dev/tests/test_atuin_lifecycle.py::test_upstream_atuin_full_rc_lifecycle[/bin/bash-function] PASSED
+dev/tests/test_atuin_lifecycle.py::test_upstream_atuin_full_rc_lifecycle[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-none] PASSED
+dev/tests/test_atuin_lifecycle.py::test_upstream_atuin_full_rc_lifecycle[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-alias] PASSED
+dev/tests/test_atuin_lifecycle.py::test_upstream_atuin_full_rc_lifecycle[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-function] PASSED
+
+============================== 6 passed in 11.87s ==============================

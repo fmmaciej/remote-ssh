@@ -1,0 +1,9 @@
+{
+  "outcome": "timeout1200_not_a_pass",
+  "frozen_sources": 13,
+  "source_mismatches": [],
+  "protected_files": 178,
+  "protected_mismatches": [],
+  "timeout_metadata_sha256": "eefcdf1700cc6b5754267d27e3a0b519847b24435a41e1e7b6798ffed680f813",
+  "partial_log_sha256": "e1f6db51fa632bca4bca58da709686078f927a866306686ce73a062b7dd800da"
+}

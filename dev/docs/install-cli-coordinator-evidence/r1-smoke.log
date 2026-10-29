@@ -1,0 +1,12 @@
+just -f dev/justfile smoke
+./smoke.sh
+[smoke] bash syntax
+[smoke] shellcheck
+[smoke] python checks
+All checks passed!
+Success: no issues found in 12 source files
+[smoke] ok
+just py-test
+UV_CACHE_DIR="${UV_CACHE_DIR:-${TMPDIR:-/tmp}/remote-ssh-uv-cache}" uv run pytest -q tests
+error: recipe `py-test` failed on line 33 with exit code 143
+error: recipe `smoke` failed on line 46 with exit code 143

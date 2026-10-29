@@ -1,0 +1,13 @@
+{
+  "command": [
+    "dev/.venv/bin/ruff",
+    "format",
+    "--diff",
+    "--stdin-filename",
+    "dev/tests/test_guide.py",
+    "-"
+  ],
+  "stdin": "../test_guide.before.py",
+  "stdin_sha256": "d1fe47c4973a78812aa4f6ff56558d33311216dc171bea58a88664fcdf6e83d2",
+  "exit": 1
+}

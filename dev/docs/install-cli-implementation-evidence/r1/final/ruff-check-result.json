@@ -1,0 +1,12 @@
+{
+  "command": [
+    "dev/.venv/bin/ruff",
+    "check",
+    "dev/tests/test_guide.py"
+  ],
+  "cwd": "/Users/fm/Programming/00_Other/remote-ssh",
+  "started": "2026-10-28T17:27:16.739874+00:00",
+  "finished": "2026-10-28T17:27:16.819815+00:00",
+  "exit": 0,
+  "sources_unchanged": true
+}

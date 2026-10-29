@@ -1,0 +1,5 @@
+$ ['uv', 'run', '--project', 'dev', 'ruff', 'check', 'dev/tests/test_install_cli.py', 'dev/tests/test_post_install.py', 'dev/tests/test_runme.py']
+All checks passed!
+$ ['uv', 'run', '--project', 'dev', 'ruff', 'format', '--check', 'dev/tests/test_install_cli.py', 'dev/tests/test_post_install.py', 'dev/tests/test_runme.py']
+3 files already formatted
+$ ['git', 'diff', '--check']

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "just",
+    "smoke"
+  ],
+  "cwd": "/Users/fm/Programming/00_Other/remote-ssh",
+  "environment": {
+    "UV_CACHE_DIR": "/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T//remote-ssh-uv-cache",
+    "UV_OFFLINE": "1"
+  },
+  "started": "2026-10-28T15:24:12.113210+00:00",
+  "finished": "2026-10-28T15:30:06.890099+00:00",
+  "exit": 1,
+  "log": "smoke-final.log",
+  "source_hashes": "final-source-hashes.json",
+  "sources_unchanged": true
+}

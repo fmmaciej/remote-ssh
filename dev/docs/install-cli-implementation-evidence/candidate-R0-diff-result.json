@@ -1,0 +1,30 @@
+{
+  "tracked_diff_command": [
+    "git",
+    "diff",
+    "--",
+    "AGENTS.md",
+    "bin/remote-ssh",
+    "tools/lib/commands/install.sh",
+    "tools/lib/install/dirs.sh",
+    "tools/lib/install/install.sh",
+    "tools/lib/install/post_install.sh",
+    "docs/post-install.d/00-interactive.in",
+    "docs/install.md",
+    "dev/tests/test_install_cli.py",
+    "dev/tests/test_post_install.py",
+    "dev/tests/test_runme.py",
+    "dev/tests/conftest.py"
+  ],
+  "tracked_diff_exit": 0,
+  "untracked_diff_command": [
+    "git",
+    "diff",
+    "--no-index",
+    "--",
+    "/dev/null",
+    "dev/tests/test_install_cli.py"
+  ],
+  "untracked_diff_exit": 1,
+  "note": "git diff --no-index exit 1 means differences found, not an execution failure."
+}

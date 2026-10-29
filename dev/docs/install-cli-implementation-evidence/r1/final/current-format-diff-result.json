@@ -1,0 +1,10 @@
+{
+  "command": [
+    "dev/.venv/bin/ruff",
+    "format",
+    "--diff",
+    "dev/tests/test_guide.py"
+  ],
+  "exit": 1,
+  "note": "Only two pre-existing out-of-scope hunks; the repaired function is scoped-format clean."
+}

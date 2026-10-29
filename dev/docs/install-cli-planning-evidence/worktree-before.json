@@ -1,0 +1,36 @@
+{
+  "head": "39226a2d9074acf08279e7c3edde6a51cc2a629c",
+  "candidate_paths": [
+    "bin/remote-ssh",
+    "tools/lib/commands/install.sh",
+    "tools/lib/install/dirs.sh",
+    "tools/lib/install/post_install.sh",
+    "docs/install.md",
+    "docs/post-install.d/00-interactive.in",
+    "dev/tests/test_post_install.py",
+    "dev/tests/test_install_cli.py"
+  ],
+  "sha256": {
+    "bin/remote-ssh": "308de9f934c1fe9a370d8c6dfd07bef00c81344e8a9beea5d557772e5fa871b7",
+    "dev/README.md": "23fcb83f60320700e66a6fe6e588e736b3e1bd69589d8652d8e1abeb023da3ff",
+    "dev/docs/bench-shell.md": "8ab2fe765182d201d05b9ed38ca070559db304d4417af87ca5c5b0b870e726e1",
+    "dev/tests/test_install_cli.py": "b44618d6cf817b438f034b237b9b5b1968e3b445a1aee46eabce20db15b0abe3",
+    "dev/tests/test_post_install.py": "ad079037ae5e024929860f666fa43010e36b69cf178d07b89c2bd8d9eda99ee4",
+    "dev/tests/test_welcome_bundled.py": "2f9abbe199b85a8097fe1da6ff6bde61c16cd4b038891aa327b6132f933eb4b5",
+    "dev/todo-bench.md": "6e026bcb411194a154956bffd2cd7c23df03f707d81beee22a36b63b77fc333f",
+    "docs/install.md": "fa656276d03914312a55901679d422a07a099f1dcd17ac6f35fa4ead958e2601",
+    "docs/post-install.d/00-interactive.in": "82f661d54686066f14d597eca36b4333c68a7cc3daa310b9370142190401be00",
+    "docs/shell/welcome.md": "df45d7c2d8b2a087c459a7e8b39b00475714b42612b4ba7571f4f75904db23a6",
+    "shell/welcome.d/00-remote-ssh.sh": "1c29dec35d67e356f5381e6c0c5d6edb0d3e965f716edf535774cf90e974b294",
+    "shell/welcome.d/10-hw.sh": "6be028fe2e833e1035a0a671f81774bcb66bbd5ab1f29710b0bae24781aa6caa",
+    "shell/welcome.d/20-sw.sh": "b84d5d697c5eadc0003f248871c340b9445141d9524690e9666b72102fbb0b89",
+    "shell/welcome.lib.sh": "45ef112946af4d75f91949cfa58301947a14dd7d39083476afa7b2607c287961",
+    "shell/welcome/bundled-runner.sh": "bb870d5ea1479b1d6d14ede338a404e0bb775c800cb3e6ee673d2028a547fcc0",
+    "shell/welcome/bundled.sh": "da269d5e8798d9512f4e6a9ab39395030c758e136ef43433fe735ae6dc99825f",
+    "shell/welcome/runner.sh": "8d840f54c9f2ee502e2e19b43cae1c8487b1b6412ac1b6ef093df50516d18c5a",
+    "tools/lib/commands/install.sh": "3d2800d22541aff0ca74539e025140cfdd2ed75639bab2e7de07565faa748e1e",
+    "tools/lib/install/dirs.sh": "d58d9dfa3b2cfff3fa532da261605fda6746747b488e2cbbcfb3a672a0207664",
+    "tools/lib/install/post_install.sh": "18b2a92132d0681d49e4675e84a683ca020cab94127e8993f035112ed4eb4039"
+  },
+  "note": "Pre-existing worktree at start of independent install-CLI planning. Candidate edits are unapproved; unrelated welcome work must be preserved."
+}

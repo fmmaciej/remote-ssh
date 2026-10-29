@@ -1,0 +1,14 @@
+{
+  "frozen_r0": {
+    "count": 12,
+    "mismatches": []
+  },
+  "protected": {
+    "count": 178,
+    "mismatches": []
+  },
+  "coordinator_checkpoint": {
+    "count": 3,
+    "mismatches": []
+  }
+}

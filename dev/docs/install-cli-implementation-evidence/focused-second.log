@@ -1,0 +1,648 @@
+............................................FFFFFF..FFFFFF.............. [ 81%]
+................                                                         [100%]
+=================================== FAILURES ===================================
+_______ test_tool_batch_failure_stops_without_completion[/bin/bash-demo] _______
+
+cli_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool...s/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_0/bin'), bash='/bin/bash')
+failure = 'demo'
+
+    @pytest.mark.parametrize("failure", ["demo", "second", "prefix"])
+    def test_tool_batch_failure_stops_without_completion(cli_install: CliInstall, failure: str) -> None:
+        c = cli_install
+        (c.bin / "demo").unlink()
+        c.expected.parent.mkdir(parents=True)
+        c.expected.write_text("# user sentinel\ndemo\n")
+        c.env["FAIL_TOOL"] = failure
+        write_executable(
+            c.root / "tools/install-tool.sh",
+            """#!/usr/bin/env bash
+    printf '%s\n' "$1" >> "$HOME/attempts"
+    [[ "$1" != "$FAIL_TOOL" ]] || exit 23
+    mkdir -p "$INSTALL_PREFIX/$1-1" || exit 1
+    printf '#!/bin/sh\nexit 0\n' > "$INSTALL_PREFIX/$1-1/$1"
+    chmod +x "$INSTALL_PREFIX/$1-1/$1"
+    ln -s "$INSTALL_PREFIX/$1-1/$1" "$INSTALL_BIN_DIR/$1"
+    """,
+        )
+        rcfile = c.root / "shell/rc.sh"
+        rcfile.chmod(0o644)
+        helper = c.root / "bin/sshf"
+>       helper.chmod(0o644)
+
+dev/tests/test_install_cli.py:374: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_0/home/repo space ' $ ; &/bin/sshf")
+mode = 420
+
+    def chmod(self, mode, *, follow_symlinks=True):
+        """
+        Change the permissions of the path, like os.chmod().
+        """
+>       os.chmod(self, mode, follow_symlinks=follow_symlinks)
+E       FileNotFoundError: [Errno 2] No such file or directory: "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_0/home/repo space ' $ ; &/bin/sshf"
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/pathlib/_local.py:738: FileNotFoundError
+______ test_tool_batch_failure_stops_without_completion[/bin/bash-second] ______
+
+cli_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool...s/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_1/bin'), bash='/bin/bash')
+failure = 'second'
+
+    @pytest.mark.parametrize("failure", ["demo", "second", "prefix"])
+    def test_tool_batch_failure_stops_without_completion(cli_install: CliInstall, failure: str) -> None:
+        c = cli_install
+        (c.bin / "demo").unlink()
+        c.expected.parent.mkdir(parents=True)
+        c.expected.write_text("# user sentinel\ndemo\n")
+        c.env["FAIL_TOOL"] = failure
+        write_executable(
+            c.root / "tools/install-tool.sh",
+            """#!/usr/bin/env bash
+    printf '%s\n' "$1" >> "$HOME/attempts"
+    [[ "$1" != "$FAIL_TOOL" ]] || exit 23
+    mkdir -p "$INSTALL_PREFIX/$1-1" || exit 1
+    printf '#!/bin/sh\nexit 0\n' > "$INSTALL_PREFIX/$1-1/$1"
+    chmod +x "$INSTALL_PREFIX/$1-1/$1"
+    ln -s "$INSTALL_PREFIX/$1-1/$1" "$INSTALL_BIN_DIR/$1"
+    """,
+        )
+        rcfile = c.root / "shell/rc.sh"
+        rcfile.chmod(0o644)
+        helper = c.root / "bin/sshf"
+>       helper.chmod(0o644)
+
+dev/tests/test_install_cli.py:374: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_1/home/repo space ' $ ; &/bin/sshf")
+mode = 420
+
+    def chmod(self, mode, *, follow_symlinks=True):
+        """
+        Change the permissions of the path, like os.chmod().
+        """
+>       os.chmod(self, mode, follow_symlinks=follow_symlinks)
+E       FileNotFoundError: [Errno 2] No such file or directory: "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_1/home/repo space ' $ ; &/bin/sshf"
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/pathlib/_local.py:738: FileNotFoundError
+______ test_tool_batch_failure_stops_without_completion[/bin/bash-prefix] ______
+
+cli_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool...s/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_2/bin'), bash='/bin/bash')
+failure = 'prefix'
+
+    @pytest.mark.parametrize("failure", ["demo", "second", "prefix"])
+    def test_tool_batch_failure_stops_without_completion(cli_install: CliInstall, failure: str) -> None:
+        c = cli_install
+        (c.bin / "demo").unlink()
+        c.expected.parent.mkdir(parents=True)
+        c.expected.write_text("# user sentinel\ndemo\n")
+        c.env["FAIL_TOOL"] = failure
+        write_executable(
+            c.root / "tools/install-tool.sh",
+            """#!/usr/bin/env bash
+    printf '%s\n' "$1" >> "$HOME/attempts"
+    [[ "$1" != "$FAIL_TOOL" ]] || exit 23
+    mkdir -p "$INSTALL_PREFIX/$1-1" || exit 1
+    printf '#!/bin/sh\nexit 0\n' > "$INSTALL_PREFIX/$1-1/$1"
+    chmod +x "$INSTALL_PREFIX/$1-1/$1"
+    ln -s "$INSTALL_PREFIX/$1-1/$1" "$INSTALL_BIN_DIR/$1"
+    """,
+        )
+        rcfile = c.root / "shell/rc.sh"
+        rcfile.chmod(0o644)
+        helper = c.root / "bin/sshf"
+>       helper.chmod(0o644)
+
+dev/tests/test_install_cli.py:374: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_2/home/repo space ' $ ; &/bin/sshf")
+mode = 420
+
+    def chmod(self, mode, *, follow_symlinks=True):
+        """
+        Change the permissions of the path, like os.chmod().
+        """
+>       os.chmod(self, mode, follow_symlinks=follow_symlinks)
+E       FileNotFoundError: [Errno 2] No such file or directory: "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_2/home/repo space ' $ ; &/bin/sshf"
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/pathlib/_local.py:738: FileNotFoundError
+_ test_tool_batch_failure_stops_without_completion[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-demo] _
+
+cli_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool...0gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_3/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+failure = 'demo'
+
+    @pytest.mark.parametrize("failure", ["demo", "second", "prefix"])
+    def test_tool_batch_failure_stops_without_completion(cli_install: CliInstall, failure: str) -> None:
+        c = cli_install
+        (c.bin / "demo").unlink()
+        c.expected.parent.mkdir(parents=True)
+        c.expected.write_text("# user sentinel\ndemo\n")
+        c.env["FAIL_TOOL"] = failure
+        write_executable(
+            c.root / "tools/install-tool.sh",
+            """#!/usr/bin/env bash
+    printf '%s\n' "$1" >> "$HOME/attempts"
+    [[ "$1" != "$FAIL_TOOL" ]] || exit 23
+    mkdir -p "$INSTALL_PREFIX/$1-1" || exit 1
+    printf '#!/bin/sh\nexit 0\n' > "$INSTALL_PREFIX/$1-1/$1"
+    chmod +x "$INSTALL_PREFIX/$1-1/$1"
+    ln -s "$INSTALL_PREFIX/$1-1/$1" "$INSTALL_BIN_DIR/$1"
+    """,
+        )
+        rcfile = c.root / "shell/rc.sh"
+        rcfile.chmod(0o644)
+        helper = c.root / "bin/sshf"
+>       helper.chmod(0o644)
+
+dev/tests/test_install_cli.py:374: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_3/home/repo space ' $ ; &/bin/sshf")
+mode = 420
+
+    def chmod(self, mode, *, follow_symlinks=True):
+        """
+        Change the permissions of the path, like os.chmod().
+        """
+>       os.chmod(self, mode, follow_symlinks=follow_symlinks)
+E       FileNotFoundError: [Errno 2] No such file or directory: "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_3/home/repo space ' $ ; &/bin/sshf"
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/pathlib/_local.py:738: FileNotFoundError
+_ test_tool_batch_failure_stops_without_completion[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-second] _
+
+cli_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool...0gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_4/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+failure = 'second'
+
+    @pytest.mark.parametrize("failure", ["demo", "second", "prefix"])
+    def test_tool_batch_failure_stops_without_completion(cli_install: CliInstall, failure: str) -> None:
+        c = cli_install
+        (c.bin / "demo").unlink()
+        c.expected.parent.mkdir(parents=True)
+        c.expected.write_text("# user sentinel\ndemo\n")
+        c.env["FAIL_TOOL"] = failure
+        write_executable(
+            c.root / "tools/install-tool.sh",
+            """#!/usr/bin/env bash
+    printf '%s\n' "$1" >> "$HOME/attempts"
+    [[ "$1" != "$FAIL_TOOL" ]] || exit 23
+    mkdir -p "$INSTALL_PREFIX/$1-1" || exit 1
+    printf '#!/bin/sh\nexit 0\n' > "$INSTALL_PREFIX/$1-1/$1"
+    chmod +x "$INSTALL_PREFIX/$1-1/$1"
+    ln -s "$INSTALL_PREFIX/$1-1/$1" "$INSTALL_BIN_DIR/$1"
+    """,
+        )
+        rcfile = c.root / "shell/rc.sh"
+        rcfile.chmod(0o644)
+        helper = c.root / "bin/sshf"
+>       helper.chmod(0o644)
+
+dev/tests/test_install_cli.py:374: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_4/home/repo space ' $ ; &/bin/sshf")
+mode = 420
+
+    def chmod(self, mode, *, follow_symlinks=True):
+        """
+        Change the permissions of the path, like os.chmod().
+        """
+>       os.chmod(self, mode, follow_symlinks=follow_symlinks)
+E       FileNotFoundError: [Errno 2] No such file or directory: "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_4/home/repo space ' $ ; &/bin/sshf"
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/pathlib/_local.py:738: FileNotFoundError
+_ test_tool_batch_failure_stops_without_completion[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-prefix] _
+
+cli_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool...0gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_5/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+failure = 'prefix'
+
+    @pytest.mark.parametrize("failure", ["demo", "second", "prefix"])
+    def test_tool_batch_failure_stops_without_completion(cli_install: CliInstall, failure: str) -> None:
+        c = cli_install
+        (c.bin / "demo").unlink()
+        c.expected.parent.mkdir(parents=True)
+        c.expected.write_text("# user sentinel\ndemo\n")
+        c.env["FAIL_TOOL"] = failure
+        write_executable(
+            c.root / "tools/install-tool.sh",
+            """#!/usr/bin/env bash
+    printf '%s\n' "$1" >> "$HOME/attempts"
+    [[ "$1" != "$FAIL_TOOL" ]] || exit 23
+    mkdir -p "$INSTALL_PREFIX/$1-1" || exit 1
+    printf '#!/bin/sh\nexit 0\n' > "$INSTALL_PREFIX/$1-1/$1"
+    chmod +x "$INSTALL_PREFIX/$1-1/$1"
+    ln -s "$INSTALL_PREFIX/$1-1/$1" "$INSTALL_BIN_DIR/$1"
+    """,
+        )
+        rcfile = c.root / "shell/rc.sh"
+        rcfile.chmod(0o644)
+        helper = c.root / "bin/sshf"
+>       helper.chmod(0o644)
+
+dev/tests/test_install_cli.py:374: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_5/home/repo space ' $ ; &/bin/sshf")
+mode = 420
+
+    def chmod(self, mode, *, follow_symlinks=True):
+        """
+        Change the permissions of the path, like os.chmod().
+        """
+>       os.chmod(self, mode, follow_symlinks=follow_symlinks)
+E       FileNotFoundError: [Errno 2] No such file or directory: "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_tool_batch_failure_stops_5/home/repo space ' $ ; &/bin/sshf"
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/pathlib/_local.py:738: FileNotFoundError
+_____ test_footer_and_guide_commands_execute_without_path[/bin/bash-False] _____
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_foo...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands0/home/.local/state'})
+runtime_bash = '/bin/bash', path_present = False
+
+    @pytest.mark.parametrize("path_present", [False, True, "alias"])
+    def test_footer_and_guide_commands_execute_without_path(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+    ) -> None:
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env["REMOTE_SSH_WELCOME"] = "0"
+        if path_present == "alias":
+            alias = c.home / "directory alias"
+            alias.symlink_to(c.bin, target_is_directory=True)
+            c.env["PATH"] = f"{alias}:{c.env['PATH']}"
+        elif path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        else:
+            # A prefix/substring match is not a directory match.
+            c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        guide, start, export = footer_commands(result.stdout)
+        assert (export is None) == bool(path_present)
+        if export:
+            assert ':"$PATH"' in export
+            assert c.env["PATH"] not in export
+        interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+        if shutil.which("zsh"):
+            interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+        for shell in interpreters:
+            rendered = c.shell([*shell, guide])
+            assert_ok(rendered)
+            assert "Interactive usage" in rendered.stdout
+            assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+            interactive = next(
+                line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line
+            )
+            for command in (start, interactive):
+                activation = c.shell(
+                    [
+                        *shell,
+                        command
+                        + " -c "
+                        + shlex.quote(
+                            'test -n "$REMOTE_ENV_DIR" && alias rhelp >/dev/null && printf activation-ok'
+                        ),
+                    ]
+                )
+                assert_ok(activation)
+                assert "activation-ok" in activation.stdout
+            if export:
+                lookup = c.shell([*shell, export + "\ncommand -v remote-ssh"])
+                assert_ok(lookup)
+                assert lookup.stdout.strip() == str(c.command)
+>       assert not c.network.exists()
+E       assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands0/home/network.log').exists
+E        +      where PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands0/home/network.log') = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_foot...s/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands0/bin'), bash='/bin/bash').network
+
+dev/tests/test_post_install.py:143: AssertionError
+_____ test_footer_and_guide_commands_execute_without_path[/bin/bash-True] ______
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_foo...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands1/home/.local/state'})
+runtime_bash = '/bin/bash', path_present = True
+
+    @pytest.mark.parametrize("path_present", [False, True, "alias"])
+    def test_footer_and_guide_commands_execute_without_path(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+    ) -> None:
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env["REMOTE_SSH_WELCOME"] = "0"
+        if path_present == "alias":
+            alias = c.home / "directory alias"
+            alias.symlink_to(c.bin, target_is_directory=True)
+            c.env["PATH"] = f"{alias}:{c.env['PATH']}"
+        elif path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        else:
+            # A prefix/substring match is not a directory match.
+            c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        guide, start, export = footer_commands(result.stdout)
+        assert (export is None) == bool(path_present)
+        if export:
+            assert ':"$PATH"' in export
+            assert c.env["PATH"] not in export
+        interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+        if shutil.which("zsh"):
+            interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+        for shell in interpreters:
+            rendered = c.shell([*shell, guide])
+            assert_ok(rendered)
+            assert "Interactive usage" in rendered.stdout
+            assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+            interactive = next(
+                line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line
+            )
+            for command in (start, interactive):
+                activation = c.shell(
+                    [
+                        *shell,
+                        command
+                        + " -c "
+                        + shlex.quote(
+                            'test -n "$REMOTE_ENV_DIR" && alias rhelp >/dev/null && printf activation-ok'
+                        ),
+                    ]
+                )
+                assert_ok(activation)
+                assert "activation-ok" in activation.stdout
+            if export:
+                lookup = c.shell([*shell, export + "\ncommand -v remote-ssh"])
+                assert_ok(lookup)
+                assert lookup.stdout.strip() == str(c.command)
+>       assert not c.network.exists()
+E       assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands1/home/network.log').exists
+E        +      where PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands1/home/network.log') = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_foot...s/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands1/bin'), bash='/bin/bash').network
+
+dev/tests/test_post_install.py:143: AssertionError
+_____ test_footer_and_guide_commands_execute_without_path[/bin/bash-alias] _____
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_foo...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands2/home/.local/state'})
+runtime_bash = '/bin/bash', path_present = 'alias'
+
+    @pytest.mark.parametrize("path_present", [False, True, "alias"])
+    def test_footer_and_guide_commands_execute_without_path(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+    ) -> None:
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env["REMOTE_SSH_WELCOME"] = "0"
+        if path_present == "alias":
+            alias = c.home / "directory alias"
+            alias.symlink_to(c.bin, target_is_directory=True)
+            c.env["PATH"] = f"{alias}:{c.env['PATH']}"
+        elif path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        else:
+            # A prefix/substring match is not a directory match.
+            c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        guide, start, export = footer_commands(result.stdout)
+        assert (export is None) == bool(path_present)
+        if export:
+            assert ':"$PATH"' in export
+            assert c.env["PATH"] not in export
+        interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+        if shutil.which("zsh"):
+            interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+        for shell in interpreters:
+            rendered = c.shell([*shell, guide])
+            assert_ok(rendered)
+            assert "Interactive usage" in rendered.stdout
+            assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+            interactive = next(
+                line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line
+            )
+            for command in (start, interactive):
+                activation = c.shell(
+                    [
+                        *shell,
+                        command
+                        + " -c "
+                        + shlex.quote(
+                            'test -n "$REMOTE_ENV_DIR" && alias rhelp >/dev/null && printf activation-ok'
+                        ),
+                    ]
+                )
+                assert_ok(activation)
+                assert "activation-ok" in activation.stdout
+            if export:
+                lookup = c.shell([*shell, export + "\ncommand -v remote-ssh"])
+                assert_ok(lookup)
+                assert lookup.stdout.strip() == str(c.command)
+>       assert not c.network.exists()
+E       assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands2/home/network.log').exists
+E        +      where PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands2/home/network.log') = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_foot...s/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands2/bin'), bash='/bin/bash').network
+
+dev/tests/test_post_install.py:143: AssertionError
+_ test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_foo...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands3/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', path_present = False
+
+    @pytest.mark.parametrize("path_present", [False, True, "alias"])
+    def test_footer_and_guide_commands_execute_without_path(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+    ) -> None:
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env["REMOTE_SSH_WELCOME"] = "0"
+        if path_present == "alias":
+            alias = c.home / "directory alias"
+            alias.symlink_to(c.bin, target_is_directory=True)
+            c.env["PATH"] = f"{alias}:{c.env['PATH']}"
+        elif path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        else:
+            # A prefix/substring match is not a directory match.
+            c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        guide, start, export = footer_commands(result.stdout)
+        assert (export is None) == bool(path_present)
+        if export:
+            assert ':"$PATH"' in export
+            assert c.env["PATH"] not in export
+        interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+        if shutil.which("zsh"):
+            interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+        for shell in interpreters:
+            rendered = c.shell([*shell, guide])
+            assert_ok(rendered)
+            assert "Interactive usage" in rendered.stdout
+            assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+            interactive = next(
+                line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line
+            )
+            for command in (start, interactive):
+                activation = c.shell(
+                    [
+                        *shell,
+                        command
+                        + " -c "
+                        + shlex.quote(
+                            'test -n "$REMOTE_ENV_DIR" && alias rhelp >/dev/null && printf activation-ok'
+                        ),
+                    ]
+                )
+                assert_ok(activation)
+                assert "activation-ok" in activation.stdout
+            if export:
+                lookup = c.shell([*shell, export + "\ncommand -v remote-ssh"])
+                assert_ok(lookup)
+                assert lookup.stdout.strip() == str(c.command)
+>       assert not c.network.exists()
+E       assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands3/home/network.log').exists
+E        +      where PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands3/home/network.log') = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_foot...0gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands3/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash').network
+
+dev/tests/test_post_install.py:143: AssertionError
+_ test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_foo...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands4/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', path_present = True
+
+    @pytest.mark.parametrize("path_present", [False, True, "alias"])
+    def test_footer_and_guide_commands_execute_without_path(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+    ) -> None:
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env["REMOTE_SSH_WELCOME"] = "0"
+        if path_present == "alias":
+            alias = c.home / "directory alias"
+            alias.symlink_to(c.bin, target_is_directory=True)
+            c.env["PATH"] = f"{alias}:{c.env['PATH']}"
+        elif path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        else:
+            # A prefix/substring match is not a directory match.
+            c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        guide, start, export = footer_commands(result.stdout)
+        assert (export is None) == bool(path_present)
+        if export:
+            assert ':"$PATH"' in export
+            assert c.env["PATH"] not in export
+        interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+        if shutil.which("zsh"):
+            interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+        for shell in interpreters:
+            rendered = c.shell([*shell, guide])
+            assert_ok(rendered)
+            assert "Interactive usage" in rendered.stdout
+            assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+            interactive = next(
+                line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line
+            )
+            for command in (start, interactive):
+                activation = c.shell(
+                    [
+                        *shell,
+                        command
+                        + " -c "
+                        + shlex.quote(
+                            'test -n "$REMOTE_ENV_DIR" && alias rhelp >/dev/null && printf activation-ok'
+                        ),
+                    ]
+                )
+                assert_ok(activation)
+                assert "activation-ok" in activation.stdout
+            if export:
+                lookup = c.shell([*shell, export + "\ncommand -v remote-ssh"])
+                assert_ok(lookup)
+                assert lookup.stdout.strip() == str(c.command)
+>       assert not c.network.exists()
+E       assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands4/home/network.log').exists
+E        +      where PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands4/home/network.log') = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_foot...0gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands4/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash').network
+
+dev/tests/test_post_install.py:143: AssertionError
+_ test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-alias] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_foo...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands5/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+path_present = 'alias'
+
+    @pytest.mark.parametrize("path_present", [False, True, "alias"])
+    def test_footer_and_guide_commands_execute_without_path(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+    ) -> None:
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env["REMOTE_SSH_WELCOME"] = "0"
+        if path_present == "alias":
+            alias = c.home / "directory alias"
+            alias.symlink_to(c.bin, target_is_directory=True)
+            c.env["PATH"] = f"{alias}:{c.env['PATH']}"
+        elif path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        else:
+            # A prefix/substring match is not a directory match.
+            c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        guide, start, export = footer_commands(result.stdout)
+        assert (export is None) == bool(path_present)
+        if export:
+            assert ':"$PATH"' in export
+            assert c.env["PATH"] not in export
+        interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+        if shutil.which("zsh"):
+            interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
+        for shell in interpreters:
+            rendered = c.shell([*shell, guide])
+            assert_ok(rendered)
+            assert "Interactive usage" in rendered.stdout
+            assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
+            interactive = next(
+                line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line
+            )
+            for command in (start, interactive):
+                activation = c.shell(
+                    [
+                        *shell,
+                        command
+                        + " -c "
+                        + shlex.quote(
+                            'test -n "$REMOTE_ENV_DIR" && alias rhelp >/dev/null && printf activation-ok'
+                        ),
+                    ]
+                )
+                assert_ok(activation)
+                assert "activation-ok" in activation.stdout
+            if export:
+                lookup = c.shell([*shell, export + "\ncommand -v remote-ssh"])
+                assert_ok(lookup)
+                assert lookup.stdout.strip() == str(c.command)
+>       assert not c.network.exists()
+E       assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands5/home/network.log').exists
+E        +      where PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands5/home/network.log') = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-1188/test_foot...0gn/T/pytest-of-fm/pytest-1188/test_footer_and_guide_commands5/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash').network
+
+dev/tests/test_post_install.py:143: AssertionError
+=========================== short test summary info ============================
+FAILED dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/bin/bash-demo]
+FAILED dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/bin/bash-second]
+FAILED dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/bin/bash-prefix]
+FAILED dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-demo]
+FAILED dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-second]
+FAILED dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-prefix]
+FAILED dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/bin/bash-False]
+FAILED dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/bin/bash-True]
+FAILED dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/bin/bash-alias]
+FAILED dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False]
+FAILED dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True]
+FAILED dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-alias]
+12 failed, 76 passed in 37.10s

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "dev/tests/test_guide.py",
+    "dev/tests/test_post_install.py"
+  ],
+  "cwd": "/Users/fm/Programming/00_Other/remote-ssh",
+  "started": "2026-10-28T17:27:01.022724+00:00",
+  "finished": "2026-10-28T17:27:16.723898+00:00",
+  "exit": 0,
+  "sources_unchanged": true
+}

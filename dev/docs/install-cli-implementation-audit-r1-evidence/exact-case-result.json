@@ -1,0 +1,17 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "dev/tests/test_guide.py::test_remote_ssh_guide_supports_post_install_section"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 0.5505142081528902,
+  "removed": [
+    "PYTEST_ADDOPTS",
+    "BASH_ENV",
+    "ENV",
+    "REMOTE_ENV_DIR"
+  ]
+}

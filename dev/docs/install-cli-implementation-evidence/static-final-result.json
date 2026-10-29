@@ -1,0 +1,39 @@
+[
+  {
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "dev",
+      "ruff",
+      "check",
+      "dev/tests/test_install_cli.py",
+      "dev/tests/test_post_install.py",
+      "dev/tests/test_runme.py"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "dev",
+      "ruff",
+      "format",
+      "--check",
+      "dev/tests/test_install_cli.py",
+      "dev/tests/test_post_install.py",
+      "dev/tests/test_runme.py"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit": 0
+  }
+]

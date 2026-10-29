@@ -1,0 +1,13 @@
+{
+  "command": [
+    "just",
+    "smoke"
+  ],
+  "outcome": "timeout",
+  "timeout_seconds": 1200,
+  "coordinator_session_exit_code": 1,
+  "outside_sandbox": true,
+  "start_new_session": true,
+  "log": "r1-smoke.log",
+  "note": "subprocess.run raised TimeoutExpired before normal metadata was written; this attempt is not a passing smoke result"
+}

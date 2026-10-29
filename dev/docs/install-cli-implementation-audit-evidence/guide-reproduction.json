@@ -1,0 +1,18 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "dev/tests/test_guide.py::test_remote_ssh_guide_supports_post_install_section"
+  ],
+  "exit": 1,
+  "summary": "1 failed in 0.29s",
+  "location": "dev/tests/test_guide.py:481",
+  "assertion": "expected literal double-quoted simple rcfile argument; renderer emits shell-safe unquoted simple path using %q",
+  "fingerprints": {
+    "dev/tests/test_guide.py": "d1fe47c4973a78812aa4f6ff56558d33311216dc171bea58a88664fcdf6e83d2",
+    "tools/lib/install/post_install.sh": "b9e661e80828df77c4e6c47268ca8fec6ec5638d360d261c2a5304552b7a242b",
+    "docs/post-install.d/00-interactive.in": "8abb943bc7936a008f3fb7ee47d549540312e02c6a87ebad468a9ba3c3e4c0fd"
+  }
+}

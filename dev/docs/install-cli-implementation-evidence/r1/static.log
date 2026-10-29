@@ -1,0 +1,6 @@
+$ ['dev/.venv/bin/ruff', 'check', 'dev/tests/test_guide.py']
+All checks passed!
+$ ['dev/.venv/bin/ruff', 'format', '--check', 'dev/tests/test_guide.py']
+Would reformat: dev/tests/test_guide.py
+1 file would be reformatted
+$ ['git', 'diff', '--check']

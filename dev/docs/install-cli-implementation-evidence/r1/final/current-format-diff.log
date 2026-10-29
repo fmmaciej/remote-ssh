@@ -1,0 +1,27 @@
+--- dev/tests/test_guide.py
++++ dev/tests/test_guide.py
+@@ -14,8 +14,10 @@
+     assert "  remote-ssh guide [section]  Show this configuration guide" in result.stdout
+     assert "  remote-ssh uninstall [tool ...]" in result.stdout
+     assert "  remote-ssh setup            Configure bundled SSH and Git defaults" in result.stdout
+-    assert "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
+     assert (
++        "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
++    )
++    assert (
+         "  remote-ssh git status       Check Git identity, session override, and origin"
+         in result.stdout
+     )
+@@ -113,9 +115,7 @@
+     config = Path(isolated_env.env["XDG_CONFIG_HOME"]) / "remote-ssh" / "config"
+     config.parent.mkdir(parents=True, exist_ok=True)
+     config.write_text(
+-        "REMOTE_SSH_WELCOME_BANNER=0\n"
+-        "REMOTE_SSH_WELCOME_USER=1\n"
+-        "REMOTE_SSH_WELCOME_USER=0\n",
++        "REMOTE_SSH_WELCOME_BANNER=0\nREMOTE_SSH_WELCOME_USER=1\nREMOTE_SSH_WELCOME_USER=0\n",
+         encoding="utf-8",
+     )
+ 
+
+1 file would be reformatted

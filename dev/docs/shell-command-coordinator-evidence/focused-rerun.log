@@ -1,0 +1,1118 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.9, pytest-9.0.3, pluggy-1.6.0 -- /Users/fm/Programming/00_Other/remote-ssh/dev/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/fm/Programming/00_Other/remote-ssh/dev
+configfile: pyproject.toml
+collecting ... collected 185 items
+
+dev/tests/test_shell_command.py::test_dispatch_exact_argv_cwd_and_status[/bin/bash] PASSED [  0%]
+dev/tests/test_shell_command.py::test_dispatch_exact_argv_cwd_and_status[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [  1%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args0] PASSED [  1%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args1] PASSED [  2%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args2] PASSED [  2%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args3] PASSED [  3%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args4] PASSED [  3%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args5] PASSED [  4%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args6] PASSED [  4%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args7] PASSED [  5%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args8] PASSED [  5%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args9] PASSED [  6%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args10] PASSED [  7%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args11] PASSED [  7%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args12] PASSED [  8%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args13] PASSED [  8%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args14] PASSED [  9%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args0] PASSED [  9%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args1] PASSED [ 10%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args2] PASSED [ 10%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args3] PASSED [ 11%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args4] PASSED [ 11%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args5] PASSED [ 12%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args6] PASSED [ 12%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args7] PASSED [ 13%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args8] PASSED [ 14%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args9] PASSED [ 14%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args10] PASSED [ 15%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args11] PASSED [ 15%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args12] PASSED [ 16%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args13] PASSED [ 16%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args14] PASSED [ 17%]
+dev/tests/test_shell_command.py::test_installed_no_tty_matches_manual_and_bare_path[/bin/bash-0] PASSED [ 17%]
+dev/tests/test_shell_command.py::test_installed_no_tty_matches_manual_and_bare_path[/bin/bash-23] PASSED [ 18%]
+dev/tests/test_shell_command.py::test_installed_no_tty_matches_manual_and_bare_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-0] PASSED [ 18%]
+dev/tests/test_shell_command.py::test_installed_no_tty_matches_manual_and_bare_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-23] PASSED [ 19%]
+dev/tests/test_shell_command.py::test_effective_checkout_override[/bin/bash] PASSED [ 20%]
+dev/tests/test_shell_command.py::test_effective_checkout_override[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 20%]
+dev/tests/test_shell_command.py::test_preflight_failures[/bin/bash-missing] PASSED [ 21%]
+dev/tests/test_shell_command.py::test_preflight_failures[/bin/bash-directory] PASSED [ 21%]
+dev/tests/test_shell_command.py::test_preflight_failures[/bin/bash-unreadable] PASSED [ 22%]
+dev/tests/test_shell_command.py::test_preflight_failures[/bin/bash-bash] PASSED [ 22%]
+dev/tests/test_shell_command.py::test_preflight_failures[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-missing] PASSED [ 23%]
+dev/tests/test_shell_command.py::test_preflight_failures[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-directory] PASSED [ 23%]
+dev/tests/test_shell_command.py::test_preflight_failures[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-unreadable] PASSED [ 24%]
+dev/tests/test_shell_command.py::test_preflight_failures[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-bash] PASSED [ 24%]
+dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/bin/bash-bash] FAILED [ 25%]
+dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/bin/bash-zsh] FAILED [ 25%]
+dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-bash] FAILED [ 26%]
+dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-zsh] FAILED [ 27%]
+dev/tests/test_shell_command.py::test_pty_cleanup_covers_job_control_groups[/bin/bash] FAILED [ 27%]
+dev/tests/test_shell_command.py::test_pty_cleanup_covers_job_control_groups[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] FAILED [ 28%]
+dev/tests/test_shell_command.py::test_exec_pid_and_native_signal[/bin/bash] PASSED [ 28%]
+dev/tests/test_shell_command.py::test_exec_pid_and_native_signal[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 29%]
+dev/tests/test_shell_command.py::test_preinstall_guide_is_copyable_in_bash_and_zsh[/bin/bash] PASSED [ 29%]
+dev/tests/test_shell_command.py::test_preinstall_guide_is_copyable_in_bash_and_zsh[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 30%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args0-0] PASSED [ 30%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args1-0] PASSED [ 31%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args2-0] PASSED [ 31%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args3-0] PASSED [ 32%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args4-0] PASSED [ 32%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args5-0] PASSED [ 33%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args6-0] PASSED [ 34%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args7-0] PASSED [ 34%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args8-0] PASSED [ 35%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args9-1] PASSED [ 35%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args10-0] PASSED [ 36%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args11-0] PASSED [ 36%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args0-0] PASSED [ 37%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args1-0] PASSED [ 37%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args2-0] PASSED [ 38%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args3-0] PASSED [ 38%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args4-0] PASSED [ 39%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args5-0] PASSED [ 40%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args6-0] PASSED [ 40%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args7-0] PASSED [ 41%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args8-0] PASSED [ 41%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args9-1] PASSED [ 42%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args10-0] PASSED [ 42%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args11-0] PASSED [ 43%]
+dev/tests/test_entrypoint.py::test_remote_ssh_usage_and_unknown_command PASSED [ 43%]
+dev/tests/test_entrypoint.py::test_remote_ssh_guide_renders_commands_section PASSED [ 44%]
+dev/tests/test_entrypoint.py::test_remote_ssh_git_usage_and_unknown_command PASSED [ 44%]
+dev/tests/test_entrypoint.py::test_remote_ssh_check_delegates_to_check_command PASSED [ 45%]
+dev/tests/test_entrypoint.py::test_remote_ssh_tool_list_reports_tool_sets PASSED [ 45%]
+dev/tests/test_install_cli.py::test_install_ownership_reinstall_and_destination[/bin/bash-custom] PASSED [ 46%]
+dev/tests/test_install_cli.py::test_install_ownership_reinstall_and_destination[/bin/bash-default] PASSED [ 47%]
+dev/tests/test_install_cli.py::test_install_ownership_reinstall_and_destination[/bin/bash-relative] PASSED [ 47%]
+dev/tests/test_install_cli.py::test_install_ownership_reinstall_and_destination[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-custom] PASSED [ 48%]
+dev/tests/test_install_cli.py::test_install_ownership_reinstall_and_destination[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-default] PASSED [ 48%]
+dev/tests/test_install_cli.py::test_install_ownership_reinstall_and_destination[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-relative] PASSED [ 49%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-file] PASSED [ 49%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-directory] PASSED [ 50%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-hardlink] PASSED [ 50%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-broken] PASSED [ 51%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-foreign] PASSED [ 51%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-relative] PASSED [ 52%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-chain] PASSED [ 52%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-spelling] PASSED [ 53%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-checkout] PASSED [ 54%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-file] PASSED [ 54%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-directory] PASSED [ 55%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-hardlink] PASSED [ 55%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-broken] PASSED [ 56%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-foreign] PASSED [ 56%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-relative] PASSED [ 57%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-chain] PASSED [ 57%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-spelling] PASSED [ 58%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-checkout] PASSED [ 58%]
+dev/tests/test_install_cli.py::test_invalid_input_and_declined_confirmation_do_not_publish[/bin/bash-args0] PASSED [ 59%]
+dev/tests/test_install_cli.py::test_invalid_input_and_declined_confirmation_do_not_publish[/bin/bash-args1] PASSED [ 60%]
+dev/tests/test_install_cli.py::test_invalid_input_and_declined_confirmation_do_not_publish[/bin/bash-args2] PASSED [ 60%]
+dev/tests/test_install_cli.py::test_invalid_input_and_declined_confirmation_do_not_publish[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args0] PASSED [ 61%]
+dev/tests/test_install_cli.py::test_invalid_input_and_declined_confirmation_do_not_publish[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args1] PASSED [ 61%]
+dev/tests/test_install_cli.py::test_invalid_input_and_declined_confirmation_do_not_publish[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args2] PASSED [ 62%]
+dev/tests/test_install_cli.py::test_absent_bin_and_failure_after_publication[/bin/bash] PASSED [ 62%]
+dev/tests/test_install_cli.py::test_absent_bin_and_failure_after_publication[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 63%]
+dev/tests/test_install_cli.py::test_publication_rechecks_and_never_nests[/bin/bash-file] PASSED [ 63%]
+dev/tests/test_install_cli.py::test_publication_rechecks_and_never_nests[/bin/bash-directory] PASSED [ 64%]
+dev/tests/test_install_cli.py::test_publication_rechecks_and_never_nests[/bin/bash-symlink] PASSED [ 64%]
+dev/tests/test_install_cli.py::test_publication_rechecks_and_never_nests[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-file] PASSED [ 65%]
+dev/tests/test_install_cli.py::test_publication_rechecks_and_never_nests[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-directory] PASSED [ 65%]
+dev/tests/test_install_cli.py::test_publication_rechecks_and_never_nests[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-symlink] PASSED [ 66%]
+dev/tests/test_install_cli.py::test_publication_recheck_before_ln[/bin/bash] PASSED [ 67%]
+dev/tests/test_install_cli.py::test_publication_recheck_before_ln[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 67%]
+dev/tests/test_install_cli.py::test_bootstrap_links_override_and_doctor[/bin/bash] PASSED [ 68%]
+dev/tests/test_install_cli.py::test_bootstrap_links_override_and_doctor[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 68%]
+dev/tests/test_install_cli.py::test_lifecycle_preserves_cli_and_user_paths[/bin/bash] PASSED [ 69%]
+dev/tests/test_install_cli.py::test_lifecycle_preserves_cli_and_user_paths[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 69%]
+dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/bin/bash-demo] PASSED [ 70%]
+dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/bin/bash-second] PASSED [ 70%]
+dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/bin/bash-prefix] PASSED [ 71%]
+dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-demo] PASSED [ 71%]
+dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-second] PASSED [ 72%]
+dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-prefix] PASSED [ 72%]
+dev/tests/test_install_cli.py::test_absent_destination_success_uses_real_tool_installer[/bin/bash] PASSED [ 73%]
+dev/tests/test_install_cli.py::test_absent_destination_success_uses_real_tool_installer[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 74%]
+dev/tests/test_install_cli.py::test_install_respects_effective_checkout_override[/bin/bash] PASSED [ 74%]
+dev/tests/test_install_cli.py::test_install_respects_effective_checkout_override[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 75%]
+dev/tests/test_install_cli.py::test_env_bash_children_use_selected_runtime[/bin/bash] PASSED [ 75%]
+dev/tests/test_install_cli.py::test_env_bash_children_use_selected_runtime[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 76%]
+dev/tests/test_post_install.py::test_post_install_prints_short_guide_hint PASSED [ 76%]
+dev/tests/test_post_install.py::test_post_install_renderer_renders_split_templates_in_order PASSED [ 77%]
+dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/bin/bash-False] PASSED [ 77%]
+dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/bin/bash-True] PASSED [ 78%]
+dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/bin/bash-alias] PASSED [ 78%]
+dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False] PASSED [ 79%]
+dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True] PASSED [ 80%]
+dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-alias] PASSED [ 80%]
+dev/tests/test_guide.py::test_remote_ssh_guide_lists_core_entries PASSED [ 81%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_aliases_section PASSED [ 81%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_functions_section PASSED [ 82%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_git_section PASSED [ 82%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_tools_section PASSED [ 83%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_config_section PASSED [ 83%]
+dev/tests/test_guide.py::test_remote_ssh_guide_config_ignores_legacy_and_stale_source_markers PASSED [ 84%]
+dev/tests/test_guide.py::test_remote_ssh_guide_config_preserves_rc_config_provenance PASSED [ 84%]
+dev/tests/test_guide.py::test_remote_ssh_guide_config_uses_shared_config_entries PASSED [ 85%]
+dev/tests/test_guide.py::test_remote_ssh_guide_config_file_changes_and_empty_values[/bin/bash] PASSED [ 85%]
+dev/tests/test_guide.py::test_remote_ssh_guide_config_file_changes_and_empty_values[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 86%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_scripts_section PASSED [ 87%]
+dev/tests/test_guide.py::test_remote_ssh_guide_scripts_supports_single_helper PASSED [ 87%]
+dev/tests/test_guide.py::test_remote_ssh_guide_scripts_supports_ssh_find_helper PASSED [ 88%]
+dev/tests/test_guide.py::test_remote_ssh_guide_scripts_supports_bssh_ip_helper PASSED [ 88%]
+dev/tests/test_guide.py::test_remote_ssh_guide_scripts_rejects_unknown_helper PASSED [ 89%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_starship_section PASSED [ 89%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_post_install_section PASSED [ 90%]
+dev/tests/test_runme.py::test_runme_uses_default_tool_selection PASSED   [ 90%]
+dev/tests/test_runme.py::test_runme_uses_argument_tool_selection PASSED  [ 91%]
+dev/tests/test_runme.py::test_runme_forwards_yes_verbatim PASSED         [ 91%]
+dev/tests/test_runme.py::test_runme_forwards_yes_to_argument_tool_selection PASSED [ 92%]
+dev/tests/test_runme.py::test_runme_forwards_full_install PASSED         [ 92%]
+dev/tests/test_runme.py::test_runme_forwards_profile_install PASSED      [ 93%]
+dev/tests/test_runme.py::test_runme_updates_existing_checkout_by_default PASSED [ 94%]
+dev/tests/test_runme.py::test_runme_checks_out_requested_ref PASSED      [ 94%]
+dev/tests/test_runme.py::test_runme_stops_before_install_after_git_failure[FETCH] PASSED [ 95%]
+dev/tests/test_runme.py::test_runme_stops_before_install_after_git_failure[RESET] PASSED [ 95%]
+dev/tests/test_runme.py::test_runme_real_install_then_fresh_ordinary_shell[/bin/bash-False] PASSED [ 96%]
+dev/tests/test_runme.py::test_runme_real_install_then_fresh_ordinary_shell[/bin/bash-True] PASSED [ 96%]
+dev/tests/test_runme.py::test_runme_real_install_then_fresh_ordinary_shell[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False] PASSED [ 97%]
+dev/tests/test_runme.py::test_runme_real_install_then_fresh_ordinary_shell[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True] PASSED [ 97%]
+dev/tests/test_rc_flow.py::test_rc_loads_os_and_host_overrides PASSED    [ 98%]
+dev/tests/test_rc_flow.py::test_update_check_rc_skips_noninteractive_shells PASSED [ 98%]
+dev/tests/test_rc_flow.py::test_update_check_rc_refreshes_cache_silently PASSED [ 99%]
+dev/tests/test_rc_flow.py::test_rc_fails_clearly_when_sourced_from_zsh PASSED [100%]
+
+=================================== FAILURES ===================================
+_____________ test_pty_parent_return_nested_ctrl_c[/bin/bash-bash] _____________
+
+self = <test_shell_command.Terminal object at 0x10738b230>
+
+    def close(self) -> None:
+        inspection_error = None
+        try:
+            try:
+                self.owned.update(descendant_depths(self.process.pid))
+                for sig in (signal.SIGTERM, signal.SIGKILL):
+                    self.owned.update(descendant_depths(self.process.pid))
+                    # Deepest first: waiting shells can reap their children before
+                    # they themselves are terminated, despite distinct job groups.
+                    for pid in sorted(self.owned, key=self.owned.get, reverse=True):
+                        try:
+                            os.kill(pid, sig)
+                        except ProcessLookupError:
+                            continue
+                        deadline = time.monotonic() + 0.5
+                        while alive(pid) and time.monotonic() < deadline:
+                            time.sleep(0.02)
+            except (OSError, subprocess.SubprocessError) as exc:
+                inspection_error = exc
+            finally:
+                # Always reap our direct child and close descriptors, including
+                # when the process inventory becomes unavailable during cleanup.
+                if self.process.poll() is None:
+                    self.process.terminate()
+                try:
+>                   self.process.wait(timeout=2)
+
+dev/tests/test_shell_command.py:403: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/bin/bash', '--noprofile', '--norc', '-i']>
+timeout = 2
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/bin/bash', '--noprofile', '--norc', '-i']' timed out after 2 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+
+During handling of the above exception, another exception occurred:
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-2/test_pty_par...ders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-2/test_pty_parent_return_nested_0/bin'), bash='/bin/bash')
+caller = 'bash'
+
+    @pytest.mark.parametrize("caller", ["bash", "zsh"])
+    def test_pty_parent_return_nested_ctrl_c(shell_install: CliInstall, caller: str) -> None:
+        c = shell_install
+        snapshot = install(c)
+        if caller == "zsh":
+            zsh = shutil.which("zsh")
+            assert zsh, "The required available Zsh caller must be verified"
+            args = [zsh, "-f", "-i"]
+        else:
+            args = [c.bash, "--noprofile", "--norc", "-i"]
+        terminal = Terminal(args, c)
+        try:
+            baseline = terminal.command(
+                'printf "PARENT:%s:%s:%s\\n" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "alias rhelp >/dev/null 2>&1 && printf 'LEAKED-%s' ALIAS; "
+                "typeset -f log >/dev/null && printf 'LEAKED-%s' FUNCTION; command -v ssh-find || :"
+            )
+            assert f"PARENT:{c.home}:unset:unset" in baseline
+            assert str(c.root / "bin") not in baseline
+            assert "LEAKED-ALIAS" not in baseline
+            assert "LEAKED-FUNCTION" not in baseline
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            active = terminal.command(activation(c, c.root, c.home).strip())
+            assert "ACTIVATED:" in active, active
+            # Ctrl-C at the child's ready prompt must leave an ordinary usable shell.
+            terminal.send("\x03")
+            terminal.until("PTY-READY> ")
+            assert "AFTER-INT" in terminal.command("printf 'AFTER-%s\\n' INT")
+            terminal.command('export CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"')
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            inner = terminal.command('printf "INNER:%s:%s\\n" "$$" "$CHILD_ONLY"')
+            assert ":outer" in inner
+            terminal.send("export CHILD_ONLY=inner; exit 23\n")
+            returned = terminal.command('printf "NESTED-RETURN:%s:%s\\n" "$?" "$CHILD_ONLY"')
+            assert "NESTED-RETURN:23:outer" in returned
+            terminal.send("cd /; export CHILD_ONLY=changed; exit 23\n")
+            returned = terminal.command(
+                'printf "RETURN:%s:%s:%s:%s\\n" "$?" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "alias rhelp >/dev/null 2>&1 && printf 'LEAKED-%s' ALIAS; "
+                "typeset -f log >/dev/null && printf 'LEAKED-%s' FUNCTION; command -v ssh-find || :"
+            )
+            assert f"RETURN:23:{c.home}:unset:unset" in returned, returned
+            assert str(c.root / "bin") not in returned
+            assert "LEAKED-ALIAS" not in returned
+            assert "LEAKED-FUNCTION" not in returned
+            terminal.send("exit\n")
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:464: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:406: in close
+    self.process.wait(timeout=2)
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/bin/bash', '--noprofile', '--norc', '-i']>
+timeout = 2
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/bin/bash', '--noprofile', '--norc', '-i']' timed out after 2 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+_____________ test_pty_parent_return_nested_ctrl_c[/bin/bash-zsh] ______________
+
+self = <test_shell_command.Terminal object at 0x1073ff390>
+
+    def close(self) -> None:
+        inspection_error = None
+        try:
+            try:
+                self.owned.update(descendant_depths(self.process.pid))
+                for sig in (signal.SIGTERM, signal.SIGKILL):
+                    self.owned.update(descendant_depths(self.process.pid))
+                    # Deepest first: waiting shells can reap their children before
+                    # they themselves are terminated, despite distinct job groups.
+                    for pid in sorted(self.owned, key=self.owned.get, reverse=True):
+                        try:
+                            os.kill(pid, sig)
+                        except ProcessLookupError:
+                            continue
+                        deadline = time.monotonic() + 0.5
+                        while alive(pid) and time.monotonic() < deadline:
+                            time.sleep(0.02)
+            except (OSError, subprocess.SubprocessError) as exc:
+                inspection_error = exc
+            finally:
+                # Always reap our direct child and close descriptors, including
+                # when the process inventory becomes unavailable during cleanup.
+                if self.process.poll() is None:
+                    self.process.terminate()
+                try:
+>                   self.process.wait(timeout=2)
+
+dev/tests/test_shell_command.py:403: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/bin/zsh', '-f', '-i']>, timeout = 2
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/bin/zsh', '-f', '-i']' timed out after 2 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+
+During handling of the above exception, another exception occurred:
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-2/test_pty_par...ders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-2/test_pty_parent_return_nested_1/bin'), bash='/bin/bash')
+caller = 'zsh'
+
+    @pytest.mark.parametrize("caller", ["bash", "zsh"])
+    def test_pty_parent_return_nested_ctrl_c(shell_install: CliInstall, caller: str) -> None:
+        c = shell_install
+        snapshot = install(c)
+        if caller == "zsh":
+            zsh = shutil.which("zsh")
+            assert zsh, "The required available Zsh caller must be verified"
+            args = [zsh, "-f", "-i"]
+        else:
+            args = [c.bash, "--noprofile", "--norc", "-i"]
+        terminal = Terminal(args, c)
+        try:
+            baseline = terminal.command(
+                'printf "PARENT:%s:%s:%s\\n" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "alias rhelp >/dev/null 2>&1 && printf 'LEAKED-%s' ALIAS; "
+                "typeset -f log >/dev/null && printf 'LEAKED-%s' FUNCTION; command -v ssh-find || :"
+            )
+            assert f"PARENT:{c.home}:unset:unset" in baseline
+            assert str(c.root / "bin") not in baseline
+            assert "LEAKED-ALIAS" not in baseline
+            assert "LEAKED-FUNCTION" not in baseline
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            active = terminal.command(activation(c, c.root, c.home).strip())
+            assert "ACTIVATED:" in active, active
+            # Ctrl-C at the child's ready prompt must leave an ordinary usable shell.
+            terminal.send("\x03")
+            terminal.until("PTY-READY> ")
+            assert "AFTER-INT" in terminal.command("printf 'AFTER-%s\\n' INT")
+            terminal.command('export CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"')
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            inner = terminal.command('printf "INNER:%s:%s\\n" "$$" "$CHILD_ONLY"')
+            assert ":outer" in inner
+            terminal.send("export CHILD_ONLY=inner; exit 23\n")
+            returned = terminal.command('printf "NESTED-RETURN:%s:%s\\n" "$?" "$CHILD_ONLY"')
+            assert "NESTED-RETURN:23:outer" in returned
+            terminal.send("cd /; export CHILD_ONLY=changed; exit 23\n")
+            returned = terminal.command(
+                'printf "RETURN:%s:%s:%s:%s\\n" "$?" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "alias rhelp >/dev/null 2>&1 && printf 'LEAKED-%s' ALIAS; "
+                "typeset -f log >/dev/null && printf 'LEAKED-%s' FUNCTION; command -v ssh-find || :"
+            )
+            assert f"RETURN:23:{c.home}:unset:unset" in returned, returned
+            assert str(c.root / "bin") not in returned
+            assert "LEAKED-ALIAS" not in returned
+            assert "LEAKED-FUNCTION" not in returned
+            terminal.send("exit\n")
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:464: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:406: in close
+    self.process.wait(timeout=2)
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/bin/zsh', '-f', '-i']>, timeout = 2
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/bin/zsh', '-f', '-i']' timed out after 2 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+_ test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-bash] _
+
+self = <test_shell_command.Terminal object at 0x1077c0a50>
+
+    def close(self) -> None:
+        inspection_error = None
+        try:
+            try:
+                self.owned.update(descendant_depths(self.process.pid))
+                for sig in (signal.SIGTERM, signal.SIGKILL):
+                    self.owned.update(descendant_depths(self.process.pid))
+                    # Deepest first: waiting shells can reap their children before
+                    # they themselves are terminated, despite distinct job groups.
+                    for pid in sorted(self.owned, key=self.owned.get, reverse=True):
+                        try:
+                            os.kill(pid, sig)
+                        except ProcessLookupError:
+                            continue
+                        deadline = time.monotonic() + 0.5
+                        while alive(pid) and time.monotonic() < deadline:
+                            time.sleep(0.02)
+            except (OSError, subprocess.SubprocessError) as exc:
+                inspection_error = exc
+            finally:
+                # Always reap our direct child and close descriptors, including
+                # when the process inventory becomes unavailable during cleanup.
+                if self.process.poll() is None:
+                    self.process.terminate()
+                try:
+>                   self.process.wait(timeout=2)
+
+dev/tests/test_shell_command.py:403: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/opt/homebrew/Cellar/bash/5.3.20/bin/bash',...>
+timeout = 2
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-i']' timed out after 2 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+
+During handling of the above exception, another exception occurred:
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-2/test_pty_par...0000gn/T/pytest-of-fm/pytest-2/test_pty_parent_return_nested_2/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+caller = 'bash'
+
+    @pytest.mark.parametrize("caller", ["bash", "zsh"])
+    def test_pty_parent_return_nested_ctrl_c(shell_install: CliInstall, caller: str) -> None:
+        c = shell_install
+        snapshot = install(c)
+        if caller == "zsh":
+            zsh = shutil.which("zsh")
+            assert zsh, "The required available Zsh caller must be verified"
+            args = [zsh, "-f", "-i"]
+        else:
+            args = [c.bash, "--noprofile", "--norc", "-i"]
+        terminal = Terminal(args, c)
+        try:
+            baseline = terminal.command(
+                'printf "PARENT:%s:%s:%s\\n" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "alias rhelp >/dev/null 2>&1 && printf 'LEAKED-%s' ALIAS; "
+                "typeset -f log >/dev/null && printf 'LEAKED-%s' FUNCTION; command -v ssh-find || :"
+            )
+            assert f"PARENT:{c.home}:unset:unset" in baseline
+            assert str(c.root / "bin") not in baseline
+            assert "LEAKED-ALIAS" not in baseline
+            assert "LEAKED-FUNCTION" not in baseline
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            active = terminal.command(activation(c, c.root, c.home).strip())
+            assert "ACTIVATED:" in active, active
+            # Ctrl-C at the child's ready prompt must leave an ordinary usable shell.
+            terminal.send("\x03")
+            terminal.until("PTY-READY> ")
+            assert "AFTER-INT" in terminal.command("printf 'AFTER-%s\\n' INT")
+            terminal.command('export CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"')
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            inner = terminal.command('printf "INNER:%s:%s\\n" "$$" "$CHILD_ONLY"')
+            assert ":outer" in inner
+            terminal.send("export CHILD_ONLY=inner; exit 23\n")
+            returned = terminal.command('printf "NESTED-RETURN:%s:%s\\n" "$?" "$CHILD_ONLY"')
+            assert "NESTED-RETURN:23:outer" in returned
+            terminal.send("cd /; export CHILD_ONLY=changed; exit 23\n")
+            returned = terminal.command(
+                'printf "RETURN:%s:%s:%s:%s\\n" "$?" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "alias rhelp >/dev/null 2>&1 && printf 'LEAKED-%s' ALIAS; "
+                "typeset -f log >/dev/null && printf 'LEAKED-%s' FUNCTION; command -v ssh-find || :"
+            )
+            assert f"RETURN:23:{c.home}:unset:unset" in returned, returned
+            assert str(c.root / "bin") not in returned
+            assert "LEAKED-ALIAS" not in returned
+            assert "LEAKED-FUNCTION" not in returned
+            terminal.send("exit\n")
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:464: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:406: in close
+    self.process.wait(timeout=2)
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/opt/homebrew/Cellar/bash/5.3.20/bin/bash',...>
+timeout = 2
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-i']' timed out after 2 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+_ test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-zsh] _
+
+self = <test_shell_command.Terminal object at 0x10737fe10>
+
+    def close(self) -> None:
+        inspection_error = None
+        try:
+            try:
+                self.owned.update(descendant_depths(self.process.pid))
+                for sig in (signal.SIGTERM, signal.SIGKILL):
+                    self.owned.update(descendant_depths(self.process.pid))
+                    # Deepest first: waiting shells can reap their children before
+                    # they themselves are terminated, despite distinct job groups.
+                    for pid in sorted(self.owned, key=self.owned.get, reverse=True):
+                        try:
+                            os.kill(pid, sig)
+                        except ProcessLookupError:
+                            continue
+                        deadline = time.monotonic() + 0.5
+                        while alive(pid) and time.monotonic() < deadline:
+                            time.sleep(0.02)
+            except (OSError, subprocess.SubprocessError) as exc:
+                inspection_error = exc
+            finally:
+                # Always reap our direct child and close descriptors, including
+                # when the process inventory becomes unavailable during cleanup.
+                if self.process.poll() is None:
+                    self.process.terminate()
+                try:
+>                   self.process.wait(timeout=2)
+
+dev/tests/test_shell_command.py:403: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/bin/zsh', '-f', '-i']>, timeout = 2
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/bin/zsh', '-f', '-i']' timed out after 2 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+
+During handling of the above exception, another exception occurred:
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-2/test_pty_par...0000gn/T/pytest-of-fm/pytest-2/test_pty_parent_return_nested_3/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+caller = 'zsh'
+
+    @pytest.mark.parametrize("caller", ["bash", "zsh"])
+    def test_pty_parent_return_nested_ctrl_c(shell_install: CliInstall, caller: str) -> None:
+        c = shell_install
+        snapshot = install(c)
+        if caller == "zsh":
+            zsh = shutil.which("zsh")
+            assert zsh, "The required available Zsh caller must be verified"
+            args = [zsh, "-f", "-i"]
+        else:
+            args = [c.bash, "--noprofile", "--norc", "-i"]
+        terminal = Terminal(args, c)
+        try:
+            baseline = terminal.command(
+                'printf "PARENT:%s:%s:%s\\n" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "alias rhelp >/dev/null 2>&1 && printf 'LEAKED-%s' ALIAS; "
+                "typeset -f log >/dev/null && printf 'LEAKED-%s' FUNCTION; command -v ssh-find || :"
+            )
+            assert f"PARENT:{c.home}:unset:unset" in baseline
+            assert str(c.root / "bin") not in baseline
+            assert "LEAKED-ALIAS" not in baseline
+            assert "LEAKED-FUNCTION" not in baseline
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            active = terminal.command(activation(c, c.root, c.home).strip())
+            assert "ACTIVATED:" in active, active
+            # Ctrl-C at the child's ready prompt must leave an ordinary usable shell.
+            terminal.send("\x03")
+            terminal.until("PTY-READY> ")
+            assert "AFTER-INT" in terminal.command("printf 'AFTER-%s\\n' INT")
+            terminal.command('export CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"')
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            inner = terminal.command('printf "INNER:%s:%s\\n" "$$" "$CHILD_ONLY"')
+            assert ":outer" in inner
+            terminal.send("export CHILD_ONLY=inner; exit 23\n")
+            returned = terminal.command('printf "NESTED-RETURN:%s:%s\\n" "$?" "$CHILD_ONLY"')
+            assert "NESTED-RETURN:23:outer" in returned
+            terminal.send("cd /; export CHILD_ONLY=changed; exit 23\n")
+            returned = terminal.command(
+                'printf "RETURN:%s:%s:%s:%s\\n" "$?" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "alias rhelp >/dev/null 2>&1 && printf 'LEAKED-%s' ALIAS; "
+                "typeset -f log >/dev/null && printf 'LEAKED-%s' FUNCTION; command -v ssh-find || :"
+            )
+            assert f"RETURN:23:{c.home}:unset:unset" in returned, returned
+            assert str(c.root / "bin") not in returned
+            assert "LEAKED-ALIAS" not in returned
+            assert "LEAKED-FUNCTION" not in returned
+            terminal.send("exit\n")
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:464: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:406: in close
+    self.process.wait(timeout=2)
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/bin/zsh', '-f', '-i']>, timeout = 2
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/bin/zsh', '-f', '-i']' timed out after 2 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+____________ test_pty_cleanup_covers_job_control_groups[/bin/bash] _____________
+
+self = <test_shell_command.Terminal object at 0x1078e82b0>
+
+    def close(self) -> None:
+        inspection_error = None
+        try:
+            try:
+                self.owned.update(descendant_depths(self.process.pid))
+                for sig in (signal.SIGTERM, signal.SIGKILL):
+                    self.owned.update(descendant_depths(self.process.pid))
+                    # Deepest first: waiting shells can reap their children before
+                    # they themselves are terminated, despite distinct job groups.
+                    for pid in sorted(self.owned, key=self.owned.get, reverse=True):
+                        try:
+                            os.kill(pid, sig)
+                        except ProcessLookupError:
+                            continue
+                        deadline = time.monotonic() + 0.5
+                        while alive(pid) and time.monotonic() < deadline:
+                            time.sleep(0.02)
+            except (OSError, subprocess.SubprocessError) as exc:
+                inspection_error = exc
+            finally:
+                # Always reap our direct child and close descriptors, including
+                # when the process inventory becomes unavailable during cleanup.
+                if self.process.poll() is None:
+                    self.process.terminate()
+                try:
+>                   self.process.wait(timeout=2)
+
+dev/tests/test_shell_command.py:403: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/bin/bash', '--noprofile', '--norc', '-i']>
+timeout = 2
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/bin/bash', '--noprofile', '--norc', '-i']' timed out after 2 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+
+During handling of the above exception, another exception occurred:
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-2/test_pty_cle...ders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-2/test_pty_cleanup_covers_job_co0/bin'), bash='/bin/bash')
+
+    def test_pty_cleanup_covers_job_control_groups(shell_install: CliInstall) -> None:
+        c = shell_install
+        install(c)
+        terminal = Terminal([c.bash, "--noprofile", "--norc", "-i"], c)
+        owned: set[int] = set()
+        try:
+            terminal.command("printf 'PARENT-READY\\n'")
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            terminal.command("printf 'CHILD-READY\\n'")
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            terminal.command("printf 'NESTED-READY\\n'")
+            owned = descendants(terminal.process.pid)
+            assert len(owned) >= 2
+            groups = {os.getpgid(pid) for pid in owned | {terminal.process.pid}}
+            assert len(groups) >= 3, groups
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:484: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:406: in close
+    self.process.wait(timeout=2)
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/bin/bash', '--noprofile', '--norc', '-i']>
+timeout = 2
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/bin/bash', '--noprofile', '--norc', '-i']' timed out after 2 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+_ test_pty_cleanup_covers_job_control_groups[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] _
+
+self = <test_shell_command.Terminal object at 0x1074eccb0>
+
+    def close(self) -> None:
+        inspection_error = None
+        try:
+            try:
+                self.owned.update(descendant_depths(self.process.pid))
+                for sig in (signal.SIGTERM, signal.SIGKILL):
+                    self.owned.update(descendant_depths(self.process.pid))
+                    # Deepest first: waiting shells can reap their children before
+                    # they themselves are terminated, despite distinct job groups.
+                    for pid in sorted(self.owned, key=self.owned.get, reverse=True):
+                        try:
+                            os.kill(pid, sig)
+                        except ProcessLookupError:
+                            continue
+                        deadline = time.monotonic() + 0.5
+                        while alive(pid) and time.monotonic() < deadline:
+                            time.sleep(0.02)
+            except (OSError, subprocess.SubprocessError) as exc:
+                inspection_error = exc
+            finally:
+                # Always reap our direct child and close descriptors, including
+                # when the process inventory becomes unavailable during cleanup.
+                if self.process.poll() is None:
+                    self.process.terminate()
+                try:
+>                   self.process.wait(timeout=2)
+
+dev/tests/test_shell_command.py:403: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/opt/homebrew/Cellar/bash/5.3.20/bin/bash',...>
+timeout = 2
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-i']' timed out after 2 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+
+During handling of the above exception, another exception occurred:
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-2/test_pty_cle...0000gn/T/pytest-of-fm/pytest-2/test_pty_cleanup_covers_job_co1/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+
+    def test_pty_cleanup_covers_job_control_groups(shell_install: CliInstall) -> None:
+        c = shell_install
+        install(c)
+        terminal = Terminal([c.bash, "--noprofile", "--norc", "-i"], c)
+        owned: set[int] = set()
+        try:
+            terminal.command("printf 'PARENT-READY\\n'")
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            terminal.command("printf 'CHILD-READY\\n'")
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            terminal.command("printf 'NESTED-READY\\n'")
+            owned = descendants(terminal.process.pid)
+            assert len(owned) >= 2
+            groups = {os.getpgid(pid) for pid in owned | {terminal.process.pid}}
+            assert len(groups) >= 3, groups
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:484: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:406: in close
+    self.process.wait(timeout=2)
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/opt/homebrew/Cellar/bash/5.3.20/bin/bash',...>
+timeout = 2
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-i']' timed out after 2 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+=========================== short test summary info ============================
+FAILED dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/bin/bash-bash] - subprocess.TimeoutExpired: Command '['/bin/bash', '--noprofile', '--norc', '-i']' timed out after 2 seconds
+FAILED dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/bin/bash-zsh] - subprocess.TimeoutExpired: Command '['/bin/zsh', '-f', '-i']' timed out after 2 seconds
+FAILED dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-bash] - subprocess.TimeoutExpired: Command '['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-i']' timed out after 2 seconds
+FAILED dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-zsh] - subprocess.TimeoutExpired: Command '['/bin/zsh', '-f', '-i']' timed out after 2 seconds
+FAILED dev/tests/test_shell_command.py::test_pty_cleanup_covers_job_control_groups[/bin/bash] - subprocess.TimeoutExpired: Command '['/bin/bash', '--noprofile', '--norc', '-i']' timed out after 2 seconds
+FAILED dev/tests/test_shell_command.py::test_pty_cleanup_covers_job_control_groups[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] - subprocess.TimeoutExpired: Command '['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-i']' timed out after 2 seconds
+================== 6 failed, 179 passed in 107.79s (0:01:47) ===================

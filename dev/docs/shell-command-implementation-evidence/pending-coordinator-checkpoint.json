@@ -1,0 +1,29 @@
+{
+  "protected_count": 264,
+  "protected_mismatches": [],
+  "source_count": 15,
+  "source_matches_latest_frozen_candidate": true,
+  "sha256": {
+    "tools/lib/commands/shell.sh": "7af7725bec7cedb70f5aeba8a2459880ae41a2083b5ca9cdd2acb962e1e0f218",
+    "tools/lib/commands.lib.sh": "bf99ba5d6f8fe318336d127413cdc611f5322b51195a1ace5d8b3a0b6fde9c6d",
+    "bin/remote-ssh": "2228e9bcba5e7bb02e656f35f28ea03d2bae917db00994a291a51b47e02700bb",
+    "tools/lib/commands/guide/sections.sh": "b9fc95eecc0256f57c715c5ec6dcebf9b913a2874db2c5b88c57ae02a8dd777d",
+    "tools/lib/install/post_install.sh": "6bc464abbf6008e102232c01db634a21092f3f867fef81a8b01c69b7e8472f9c",
+    "docs/post-install.d/00-interactive.in": "27ad640a61d673e9142400f936102b17fb1347c2c81d99522bb942954446f0e0",
+    "docs/shell.md": "5ccdad02ede702f38bfcef66428d72d2d792d30591245e1ca8f93e283e2b0ba0",
+    "docs/shell/start.md": "7c9f82cdaf98aac080bedab2c24449bc704e8af018b904b9251b56467a6cd30a",
+    "docs/install.md": "5d79bc6457d772bc74c0c0e54935b144d1afdcc82e601fdf19117c489840feb7",
+    "AGENTS.md": "236bae3833036c7dfc685dbc1ddcf8311a27f55759bfdf22c664e37c79959b60",
+    "dev/tests/test_shell_command.py": "627102ee7e0cdbb1eb1f5c265365b79953ca2e19e8a12480ad55f50cd89b7cfb",
+    "dev/tests/test_entrypoint.py": "8e2104dc39060489ccfb12830224e3ff67c50a35275f064680710d7ae2165388",
+    "dev/tests/test_install_cli.py": "8fbc07adefca97ac4862052cbffa8941701fa87bd046d0bdb80c4b3465198c71",
+    "dev/tests/test_post_install.py": "16ebb60061d65853fadd5d21fa532b2727c326c9832093ce109dd9e89523f619",
+    "dev/tests/test_guide.py": "c420e62952a7a4fff4163d9c46bfc9b3e10b90b38f480c23167844a5610ca144"
+  },
+  "verification_pending": [
+    "outside focused on final-master-close candidate",
+    "full unfiltered just smoke on same candidate",
+    "fresh independent implementation audit"
+  ],
+  "coordinator_status": "errored: Selected model is at capacity. Please try a different model."
+}

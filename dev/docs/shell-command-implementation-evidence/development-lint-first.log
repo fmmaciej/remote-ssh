@@ -1,0 +1,52 @@
+invalid-syntax: Expected a newline after line continuation character
+   --> dev/tests/test_guide.py:511:72
+    |
+509 |     # Replace only the executable token; keep the rendered command's argument syntax.
+510 |     captured_primary = run_cmd(
+511 |         ["bash", "--noprofile", "--norc", "-c", 'capture() { printf '%s\\0' "$@"; }; capture ' + primary],
+    |                                                                        ^
+512 |         env=capture_env,
+513 |     )
+    |
+
+invalid-syntax: Expected a newline after line continuation character
+   --> dev/tests/test_guide.py:511:73
+    |
+509 |     # Replace only the executable token; keep the rendered command's argument syntax.
+510 |     captured_primary = run_cmd(
+511 |         ["bash", "--noprofile", "--norc", "-c", 'capture() { printf '%s\\0' "$@"; }; capture ' + primary],
+    |                                                                         ^
+512 |         env=capture_env,
+513 |     )
+    |
+
+invalid-syntax: Expected `,`, found string
+   --> dev/tests/test_guide.py:511:75
+    |
+509 |     # Replace only the executable token; keep the rendered command's argument syntax.
+510 |     captured_primary = run_cmd(
+511 |         ["bash", "--noprofile", "--norc", "-c", 'capture() { printf '%s\\0' "$@"; }; capture ' + primary],
+    |                                                                           ^^^^^^^^^^^^^^^^^^^^
+512 |         env=capture_env,
+513 |     )
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> dev/tests/test_post_install.py:1:1
+   |
+ 1 | / from __future__ import annotations
+ 2 | |
+ 3 | | import subprocess
+ 4 | | import shutil
+ 5 | | import textwrap
+ 6 | | from pathlib import Path
+ 7 | |
+ 8 | | import pytest
+ 9 | | from conftest import IsolatedEnv, assert_ok, run_cmd, write_executable
+10 | | from test_install_cli import footer_commands, prepare_cli_install
+   | |_________________________________________________________________^
+   |
+help: Organize imports
+
+Found 4 errors.
+[*] 1 fixable with the `--fix` option.

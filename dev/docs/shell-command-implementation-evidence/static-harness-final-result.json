@@ -1,0 +1,39 @@
+[
+  {
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "dev",
+      "ruff",
+      "format",
+      "--check",
+      "dev/tests/test_shell_command.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.028507166000053985
+  },
+  {
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "dev",
+      "ruff",
+      "check",
+      "--no-fix",
+      "dev/tests/test_shell_command.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.04252470799997354
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "seconds": 0.03008799999997791
+  }
+]

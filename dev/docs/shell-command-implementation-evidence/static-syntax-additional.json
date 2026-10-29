@@ -1,0 +1,82 @@
+[
+  {
+    "command": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/commands.lib.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/bin/bash",
+      "-n",
+      "bin/remote-ssh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/commands/guide/sections.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/install/post_install.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/commands.lib.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "bin/remote-ssh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/commands/guide/sections.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/install/post_install.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

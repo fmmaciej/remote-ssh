@@ -1,0 +1,85 @@
+[
+  {
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "dev",
+      "ruff",
+      "format",
+      "--check",
+      "dev/tests/test_shell_command.py",
+      "dev/tests/test_entrypoint.py",
+      "dev/tests/test_install_cli.py",
+      "dev/tests/test_post_install.py",
+      "dev/tests/test_guide.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.0734255419999954
+  },
+  {
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "dev",
+      "ruff",
+      "check",
+      "--no-fix",
+      "dev/tests/test_shell_command.py",
+      "dev/tests/test_entrypoint.py",
+      "dev/tests/test_install_cli.py",
+      "dev/tests/test_post_install.py",
+      "dev/tests/test_guide.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.03730262500016579
+  },
+  {
+    "command": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/commands/shell.sh",
+      "tools/lib/commands.lib.sh",
+      "bin/remote-ssh",
+      "tools/lib/commands/guide/sections.sh",
+      "tools/lib/install/post_install.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 0.0038158330000896967
+  },
+  {
+    "command": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/commands/shell.sh",
+      "tools/lib/commands.lib.sh",
+      "bin/remote-ssh",
+      "tools/lib/commands/guide/sections.sh",
+      "tools/lib/install/post_install.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 0.008438916999921275
+  },
+  {
+    "command": [
+      "shellcheck",
+      "tools/lib/commands/shell.sh",
+      "tools/lib/commands.lib.sh",
+      "bin/remote-ssh",
+      "tools/lib/commands/guide/sections.sh",
+      "tools/lib/install/post_install.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 0.25950616700015416
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "seconds": 0.023912041999892608
+  }
+]

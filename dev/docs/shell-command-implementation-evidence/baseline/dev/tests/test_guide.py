@@ -1,0 +1,505 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd, run_remote_ssh
+
+
+def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+    result = run_remote_ssh(repo_dir, ["guide"], env=isolated_env.env)
+
+    assert_ok(result)
+    assert "remote-ssh guide" in result.stdout
+    assert "Commands" in result.stdout
+    assert "  remote-ssh guide [section]  Show this configuration guide" in result.stdout
+    assert "  remote-ssh uninstall [tool ...]" in result.stdout
+    assert "  remote-ssh setup            Configure bundled SSH and Git defaults" in result.stdout
+    assert "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
+    assert (
+        "  remote-ssh git status       Check Git identity, session override, and origin"
+        in result.stdout
+    )
+    assert "  remote-ssh ssh setup        Add remote-ssh SSH config include" in result.stdout
+    assert "  remote-ssh ssh status       Check SSH config, host, agent, and auth" in result.stdout
+    assert "  remote-ssh scripts --list   List bundled helper scripts" in result.stdout
+    assert "  remote-ssh guide config     Show runtime config sources and values" in result.stdout
+    assert "  bssh                        Run bssh with the shared SSH config" in result.stdout
+    assert "  bssh-ip                     Print resolved SSH host address" in result.stdout
+    assert "  ssh-find                    Find an SSH host by name/IP with fzf" in result.stdout
+    assert "  ssh-pick                    Pick an SSH host by name/IP and connect" in result.stdout
+    assert "  remote-ssh guide starship   Explain prompt and Git status symbols" in result.stdout
+    assert "  remote-ssh guide post-install" in result.stdout
+    assert "  alias rhelp='remote-ssh guide'" in result.stdout
+    assert "  log" in result.stdout
+    assert "  logrun" in result.stdout
+    assert "  remote_atuin_debug" in result.stdout
+    assert "Git and SSH flow" in result.stdout
+    assert "Tools" in result.stdout
+    assert "Scripts" in result.stdout
+    assert "remote-ssh Starship prompt" in result.stdout
+    assert f"    {repo_dir}/dots/git/user.local" in result.stdout
+    assert "    git remote set-url origin git@github.com-myuser:OWNER/REPO.git" in result.stdout
+
+
+def test_remote_ssh_guide_supports_aliases_section(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "aliases"], env=isolated_env.env)
+
+    assert_ok(result)
+    assert "Aliases" in result.stdout
+    assert "  alias rcrc='source \"$REMOTE_SHELL_DIR/rc.sh\"'" in result.stdout
+    assert "  alias rhelp='remote-ssh guide'" in result.stdout
+    assert "Commands" not in result.stdout
+
+
+def test_remote_ssh_guide_supports_functions_section(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "functions"], env=isolated_env.env)
+
+    assert_ok(result)
+    assert "Functions" in result.stdout
+    assert "  log" in result.stdout
+    assert "  logrun" in result.stdout
+    assert "  bssh" in result.stdout
+    assert "  bssh-ip" in result.stdout
+    assert "  ssh-pick" in result.stdout
+    assert "  remote_atuin_debug" in result.stdout
+    assert "Commands" not in result.stdout
+
+
+def test_remote_ssh_guide_supports_git_section(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "git"], env=isolated_env.env)
+
+    assert_ok(result)
+    assert "Git and SSH flow" in result.stdout
+    assert "    remote-ssh setup" in result.stdout
+    assert "    remote-ssh ssh setup" in result.stdout
+    assert "    remote-ssh git setup" in result.stdout
+    assert f"    {repo_dir}/dots/git/user.local" in result.stdout
+    assert "    remote-ssh ssh status github.com-myuser" in result.stdout
+    assert "    remote-ssh git status" in result.stdout
+    assert "    remote-ssh git status github.com-myuser" not in result.stdout
+    assert f"    {repo_dir}/dots/ssh/config.local" in result.stdout
+    assert "Commands" not in result.stdout
+
+
+def test_remote_ssh_guide_supports_tools_section(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "tools"], env=isolated_env.env)
+
+    assert_ok(result)
+    assert "Tools" in result.stdout
+    assert "  install      remote-ssh install" in result.stdout
+    assert "  install quick remote-ssh install --profile quick" in result.stdout
+    assert "Install profiles" in result.stdout
+    assert "  mini  remote-ssh install --profile mini" in result.stdout
+    assert "  quick remote-ssh install --profile quick" in result.stdout
+    assert "  full  remote-ssh install --profile full" in result.stdout
+    assert "Default tools on this platform" in result.stdout
+    assert "  rg" in result.stdout
+    assert "Commands" not in result.stdout
+
+
+def test_remote_ssh_guide_supports_config_section(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    config = Path(isolated_env.env["XDG_CONFIG_HOME"]) / "remote-ssh" / "config"
+    config.parent.mkdir(parents=True, exist_ok=True)
+    config.write_text(
+        "REMOTE_SSH_WELCOME_BANNER=0\n"
+        "REMOTE_SSH_WELCOME_USER=1\n"
+        "REMOTE_SSH_WELCOME_USER=0\n",
+        encoding="utf-8",
+    )
+
+    result = run_remote_ssh(
+        repo_dir,
+        ["guide", "config"],
+        env=isolated_env.env | {"REMOTE_SSH_WELCOME_COLOR": "0"},
+    )
+
+    assert_ok(result)
+    output = result.stdout
+    assert "Runtime config" in output
+    assert f"  file:    {config}" in output
+    assert "  loading: enabled" in output
+    assert "  REMOTE_SSH_WELCOME_BANNER=0 [config]" in output
+    assert "  REMOTE_SSH_WELCOME_COLOR=0 [env]" in output
+    assert "  REMOTE_SSH_WELCOME_USER=0 [config]" in output
+    assert "  REMOTE_SSH_UPDATE_CHECK_INTERVAL=86400 [default]" in output
+    assert "Commands" not in output
+
+    disabled = run_remote_ssh(
+        repo_dir,
+        ["guide", "config"],
+        env=isolated_env.env | {"REMOTE_SSH_CONFIG": "0"},
+    )
+
+    assert_ok(disabled)
+    assert "  loading: disabled" in disabled.stdout
+    assert "  REMOTE_SSH_WELCOME_BANNER=1 [default]" in disabled.stdout
+
+
+def test_remote_ssh_guide_config_ignores_legacy_and_stale_source_markers(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    config = Path(isolated_env.env["XDG_CONFIG_HOME"]) / "remote-ssh" / "config"
+    config.parent.mkdir(parents=True, exist_ok=True)
+    config.write_text("REMOTE_SSH_WELCOME_USER=0\n", encoding="utf-8")
+
+    disabled = run_remote_ssh(
+        repo_dir,
+        ["guide", "config"],
+        env=isolated_env.env
+        | {
+            "REMOTE_SSH_CONFIG": "0",
+            "REMOTE_SSH_WELCOME_USER": "0",
+            "REMOTE_SSH_CONFIG_SOURCE_REMOTE_SSH_WELCOME_USER": "config",
+        },
+    )
+
+    assert_ok(disabled)
+    assert "  loading: disabled" in disabled.stdout
+    assert "  REMOTE_SSH_WELCOME_USER=0 [env]" in disabled.stdout
+
+    override = run_remote_ssh(
+        repo_dir,
+        ["guide", "config"],
+        env=isolated_env.env
+        | {
+            "REMOTE_SSH_WELCOME_USER": "1",
+            "REMOTE_SSH_CONFIG_SOURCE_REMOTE_SSH_WELCOME_USER": "config",
+        },
+    )
+
+    assert_ok(override)
+    assert "  REMOTE_SSH_WELCOME_USER=1 [env]" in override.stdout
+
+    post_load_override = run_cmd(
+        [
+            "bash",
+            "--rcfile",
+            repo_dir / "shell" / "rc.sh",
+            "-i",
+            "-c",
+            'export REMOTE_SSH_WELCOME_USER=1; . "$REMOTE_SHELL_DIR/rc.sh"; remote-ssh guide config',
+        ],
+        env=isolated_env.env | {"REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0"},
+    )
+
+    assert_ok(post_load_override)
+    assert "  REMOTE_SSH_WELCOME_USER=1 [env]" in post_load_override.stdout
+
+    disabled_after_load = run_cmd(
+        [
+            "bash",
+            "--rcfile",
+            repo_dir / "shell" / "rc.sh",
+            "-i",
+            "-c",
+            'export REMOTE_SSH_CONFIG=0; . "$REMOTE_SHELL_DIR/rc.sh"; remote-ssh guide config',
+        ],
+        env=isolated_env.env | {"REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0"},
+    )
+
+    assert_ok(disabled_after_load)
+    assert "  loading: disabled" in disabled_after_load.stdout
+    assert "  REMOTE_SSH_WELCOME_USER=1 [default]" in disabled_after_load.stdout
+    assert "  REMOTE_SSH_WELCOME_USER=1 [config]" not in disabled_after_load.stdout
+
+
+def test_remote_ssh_guide_config_preserves_rc_config_provenance(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    config = Path(isolated_env.env["XDG_CONFIG_HOME"]) / "remote-ssh" / "config"
+    config.parent.mkdir(parents=True, exist_ok=True)
+    config.write_text(
+        "REMOTE_SSH_WELCOME_BANNER=0\nREMOTE_SSH_WELCOME_USER=0\n",
+        encoding="utf-8",
+    )
+
+    result = run_cmd(
+        [
+            "bash",
+            "--rcfile",
+            repo_dir / "shell" / "rc.sh",
+            "-i",
+            "-c",
+            "remote-ssh guide config",
+        ],
+        env=isolated_env.env | {"REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0"},
+    )
+
+    assert_ok(result)
+    assert "  REMOTE_SSH_WELCOME_BANNER=0 [config]" in result.stdout
+    assert "  REMOTE_SSH_WELCOME_USER=0 [config]" in result.stdout
+    assert "  REMOTE_SSH_WELCOME=0 [env]" in result.stdout
+
+    override = run_cmd(
+        [
+            "bash",
+            "--rcfile",
+            repo_dir / "shell" / "rc.sh",
+            "-i",
+            "-c",
+            "remote-ssh guide config",
+        ],
+        env=isolated_env.env
+        | {
+            "REMOTE_SSH_WELCOME": "0",
+            "REMOTE_SSH_UPDATE_CHECK": "0",
+            "REMOTE_SSH_WELCOME_USER": "1",
+        },
+    )
+
+    assert_ok(override)
+    assert "  REMOTE_SSH_WELCOME_USER=1 [env]" in override.stdout
+
+
+def test_remote_ssh_guide_config_uses_shared_config_entries(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    env = {
+        key: value
+        for key, value in isolated_env.env.items()
+        if not key.startswith("REMOTE_SSH_") and key != "NO_COLOR"
+    }
+    entries = run_cmd(
+        [
+            "bash",
+            "-c",
+            '. "$1/shell/config.lib.sh"; remote_ssh_config_entries',
+            "_",
+            repo_dir,
+        ],
+        env=env,
+    )
+    assert_ok(entries)
+
+    result = run_remote_ssh(repo_dir, ["guide", "config"], env=env | {"REMOTE_SSH_CONFIG": "0"})
+    assert_ok(result)
+
+    for line in entries.stdout.splitlines():
+        key, default = line.split("|", 1)
+        assert f"  {key}={default} [default]" in result.stdout
+
+
+def test_remote_ssh_guide_config_file_changes_and_empty_values(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    runtime_bash: str,
+) -> None:
+    (isolated_env.bin_dir / "bash").symlink_to(runtime_bash)
+    env = {
+        key: value
+        for key, value in isolated_env.env.items()
+        if not key.startswith("REMOTE_SSH_") and key != "NO_COLOR"
+    }
+    config = Path(env["XDG_CONFIG_HOME"]) / "remote-ssh" / "config"
+    config.parent.mkdir(parents=True)
+    config.write_text("REMOTE_SSH_WELCOME_BANNER=0\nREMOTE_SSH_WELCOME_USER=\n")
+    result = run_cmd(
+        [
+            runtime_bash,
+            "-c",
+            r"""
+            set -euo pipefail
+            . "$1/shell/config.lib.sh"
+            remote_ssh_config_load
+            "$1/bin/remote-ssh" guide config
+            printf '\n---changed---\n'
+            printf 'REMOTE_SSH_WELCOME_BANNER=1\nREMOTE_SSH_WELCOME_USER=\n' >"$2"
+            "$1/bin/remote-ssh" guide config
+            printf '\n---reloaded---\n'
+            remote_ssh_config_load
+            "$1/bin/remote-ssh" guide config
+            printf '\n---removed---\n'
+            rm "$2"
+            "$1/bin/remote-ssh" guide config
+            printf '\n---cleared---\n'
+            remote_ssh_config_load
+            "$1/bin/remote-ssh" guide config
+            printf '\n---delimiter---\n'
+            printf 'REMOTE_SSH_WELCOME_COLOR=left|right\n' >"$2"
+            "$1/bin/remote-ssh" guide config
+        """,
+            "_",
+            repo_dir,
+            config,
+        ],
+        env=env,
+    )
+    assert_ok(result)
+    initial, rest = result.stdout.split("---changed---")
+    changed, rest = rest.split("---reloaded---")
+    reloaded, rest = rest.split("---removed---")
+    removed, rest = rest.split("---cleared---")
+    cleared, delimiter = rest.split("---delimiter---")
+    assert "  REMOTE_SSH_WELCOME_USER= [config]" in initial
+    assert "  REMOTE_SSH_WELCOME_BANNER=0 [config]" in initial
+    assert "  REMOTE_SSH_WELCOME_USER= [config]" in changed
+    assert "  REMOTE_SSH_WELCOME_BANNER=0 [env]" in changed
+    assert "  REMOTE_SSH_WELCOME_BANNER=1 [config]" in reloaded
+    assert "  REMOTE_SSH_WELCOME_BANNER=1 [env]" in removed
+    assert "  REMOTE_SSH_WELCOME_USER= [env]" in removed
+    assert "  REMOTE_SSH_WELCOME_USER=1 [default]" in cleared
+    # Preserve the guide's existing delimiter display protocol in this refactor.
+    assert "  REMOTE_SSH_WELCOME_COLOR=left [right|config]" in delimiter
+
+
+def test_remote_ssh_guide_supports_scripts_section(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "scripts"], env=isolated_env.env)
+
+    assert_ok(result)
+    output = result.stdout
+    assert "Scripts" in output
+    assert "bssh" in output
+    assert "bssh-ip" in output
+    assert "ssh-find" in output
+    assert "ssh-pick" in output
+    assert "Requires: bssh" in output
+    assert "Commands" not in output
+    assert "Tools" not in output
+
+
+def test_remote_ssh_guide_scripts_supports_single_helper(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "scripts", "ssh-pick"], env=isolated_env.env)
+
+    assert_ok(result)
+    output = result.stdout
+    assert "Scripts" in output
+    assert "ssh-pick" in output
+    assert "ssh-pick [--query QUERY] [remote-command...]" in output
+    assert "Entry point: shell/rc.d/30-ssh-pick.sh" in output
+    assert "Docs: docs/shell/helpers.md#ssh-pick" in output
+    assert "sshf" not in output
+
+
+def test_remote_ssh_guide_scripts_supports_ssh_find_helper(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "scripts", "ssh-find"], env=isolated_env.env)
+
+    assert_ok(result)
+    output = result.stdout
+    assert "Scripts" in output
+    assert "ssh-find" in output
+    assert "ssh-find [query]" in output
+    assert "Requires: python3, ssh, fzf" in output
+    assert "Entry point: bin/ssh-find" in output
+    assert "Backend: scripts/ssh_find.py" in output
+    assert "Docs: docs/shell/helpers.md#ssh-find" in output
+    assert "ssh-pick [--query QUERY]" not in output
+
+
+def test_remote_ssh_guide_scripts_supports_bssh_ip_helper(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "scripts", "bssh-ip"], env=isolated_env.env)
+
+    assert_ok(result)
+    output = result.stdout
+    assert "Scripts" in output
+    assert "bssh-ip" in output
+    assert "bssh-ip <host>" in output
+    assert "Requires: ssh, awk" in output
+    assert "Entry point: shell/rc.d/26-bssh.sh" in output
+    assert "Docs: docs/shell/helpers.md#bssh" in output
+    assert "ssh-pick" not in output
+
+
+def test_remote_ssh_guide_scripts_rejects_unknown_helper(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "scripts", "sshf"], env=isolated_env.env)
+
+    assert_failed(result)
+    assert "Unknown remote-ssh script helper: sshf" in result.stderr
+    assert "Usage:" in result.stderr
+    assert "remote-ssh guide scripts [helper]" in result.stderr
+
+
+def test_remote_ssh_guide_supports_starship_section(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    env = isolated_env.env | {
+        "HOME": "/tmp/starship-guide-test",
+        "REMOTE_DOTS_DIR": "/opt/remote-ssh/dots",
+    }
+    result = run_remote_ssh(repo_dir, ["guide", "starship"], env=env)
+
+    assert_ok(result)
+    lines = set(result.stdout.splitlines())
+    for expected in (
+        "remote-ssh Starship prompt",
+        "  git::<branch>          Current branch",
+        "  [!]                    Merge conflict",
+        "  [+]                    Staged changes",
+        "  [~]                    Modified tracked files",
+        "  [?]                    Untracked files",
+        "  [$]                    Stashed changes",
+        "  [<>A/B]                Local branch has A ahead and B behind commits",
+        "  /opt/remote-ssh/dots/starship.toml",
+        "  starship explain",
+    ):
+        assert expected in lines
+    assert "Commands" not in result.stdout
+
+
+def test_remote_ssh_guide_supports_post_install_section(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+) -> None:
+    result = run_remote_ssh(repo_dir, ["guide", "post-install"], env=isolated_env.env)
+
+    assert_ok(result)
+    output = result.stdout
+    assert "Interactive usage" in output
+    assert "SSH configuration" in output
+    assert "VS Code Remote-SSH terminal profile" in output
+    assert "Optional Git and SSH setup" in output
+    commands = [
+        line.strip() for line in output.splitlines() if line.strip().startswith("bash --rcfile ")
+    ]
+    assert len(commands) == 1
+    capture_env = {
+        key: value for key, value in isolated_env.env.items() if key not in ("BASH_ENV", "ENV")
+    }
+    captured = run_cmd(
+        [
+            "bash",
+            "--noprofile",
+            "--norc",
+            "-c",
+            r"""bash() { printf '%s\0' "$@"; }
+"""
+            + commands[0],
+        ],
+        env=capture_env,
+    )
+    assert_ok(captured)
+    assert captured.stdout == "--rcfile\0" + str(repo_dir / "shell/rc.sh") + "\0-i\0"
+    assert '"terminal.integrated.defaultProfile.linux": "bash + remote-ssh"' in output
+    assert "Commands" not in output
+    assert "@INSTALL_DIR@" not in output
+    assert "@INTERACTIVE_COMMAND@" not in output

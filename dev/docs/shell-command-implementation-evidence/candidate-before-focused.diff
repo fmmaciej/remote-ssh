@@ -1,0 +1,984 @@
+--- baseline/tools/lib/commands/shell.sh
++++ candidate/tools/lib/commands/shell.sh
+@@ -0,0 +1,39 @@
++# shellcheck shell=bash
++
++ensure_this_file_sourced
++
++remote_ssh_cmd_shell_usage() {
++  cat <<'USAGE'
++Usage: remote-ssh shell
++
++Start an interactive Bash with the remote-ssh environment.
++Use exit to return to the calling shell.
++USAGE
++}
++
++remote_ssh_cmd_shell_main() {
++  local repo_dir="$1"
++  shift
++
++  if (($# > 0)); then
++    if (($# == 1)) && [[ "$1" == '-h' || "$1" == '--help' ]]; then
++      remote_ssh_cmd_shell_usage
++      return 0
++    fi
++    printf 'remote-ssh shell: does not accept arguments.\n' >&2
++    remote_ssh_cmd_shell_usage >&2
++    return 1
++  fi
++
++  local rcfile="$repo_dir/shell/rc.sh" child_bash
++  if [[ ! -f "$rcfile" || ! -r "$rcfile" ]]; then
++    printf 'remote-ssh shell: rcfile is not a readable regular file: %s\n' "$rcfile" >&2
++    return 1
++  fi
++  if ! child_bash="$(type -P bash)"; then
++    printf 'remote-ssh shell: cannot find an executable Bash in PATH.\n' >&2
++    return 127
++  fi
++
++  exec "$child_bash" --rcfile "$rcfile" -i
++}
+--- baseline/tools/lib/commands.lib.sh
++++ candidate/tools/lib/commands.lib.sh
+@@ -32,3 +32,4 @@
+ . "$TOOLS_COMMANDS_DIR/scripts.sh"
+ . "$TOOLS_COMMANDS_DIR/guide.sh"
+ . "$TOOLS_COMMANDS_DIR/help.sh"
++. "$TOOLS_COMMANDS_DIR/shell.sh"
+--- baseline/bin/remote-ssh
++++ candidate/bin/remote-ssh
+@@ -41,6 +41,7 @@
+ Usage: remote-ssh <command> [args]
+ 
+ Commands:
++  shell                     Start an interactive remote-ssh Bash
+   setup                     Configure bundled SSH and Git defaults
+   install [tool ...]        Install expected or selected remote-ssh tools
+   install --profile <name>  Install mini, quick, or full profile
+@@ -71,6 +72,7 @@
+ 
+   case "$command" in
+     ''|-h|--help) remote_ssh_usage ;;
++    shell) shift; remote_ssh_cmd_shell_main "$repo_dir" "$@" ;;
+     setup) shift; remote_ssh_cmd_setup_main "$@" ;;
+     install) shift; remote_ssh_cmd_install_main "$repo_dir" "$@" ;;
+     uninstall) shift; remote_ssh_cmd_uninstall_main "$@" ;;
+--- baseline/tools/lib/commands/guide/sections.sh
++++ candidate/tools/lib/commands/guide/sections.sh
+@@ -9,6 +9,7 @@
+   cat <<'EOF'
+ Commands
+   remote-ssh --help           Show concise CLI usage
++  remote-ssh shell            Start an interactive remote-ssh Bash
+   remote-ssh setup            Configure bundled SSH and Git defaults
+   remote-ssh install [tool]   Install expected or selected remote-ssh tools
+   remote-ssh install --profile <name>
+--- baseline/tools/lib/install/post_install.sh
++++ candidate/tools/lib/install/post_install.sh
+@@ -33,10 +33,12 @@
+     printf '%s' "$1" | sed -e 's/[\/&|\\]/\\&/g'
+   }
+ 
+-  local interactive_command
++  local interactive_command shell_command
++  printf -v shell_command '%q shell' "$install_dir/bin/remote-ssh"
+   printf -v interactive_command 'bash --rcfile %q -i' "$install_dir/shell/rc.sh"
+ 
+   sed \
++    -e "s|@SHELL_COMMAND@|$(_sed_escape "$shell_command")|g" \
+     -e "s|@INTERACTIVE_COMMAND@|$(_sed_escape "$interactive_command")|g" \
+     -e "s|@INSTALL_DIR@|$(_sed_escape "$install_dir")|g" \
+     -e "s|@HOSTNAME@|$(_sed_escape "${hostname:-<hostname>}")|g" \
+@@ -67,7 +69,7 @@
+   printf '\nInstalled CLI: %s/remote-ssh\n' "$bin_dir"
+   printf 'Post-install setup:\n  run: %q guide post-install\n' "$bin_dir/remote-ssh"
+   printf 'Start a local remote-ssh shell (also works from Zsh):\n'
+-  printf '  bash --rcfile %q -i\n' "$install_dir/shell/rc.sh"
++  printf '  %q shell\n' "$bin_dir/remote-ssh"
+   if ! install_post_install_bin_in_path "$bin_dir"; then
+     printf 'To use remote-ssh by name in this terminal:\n'
+     # Keep PATH literal so the printed command expands it in the user's shell.
+--- baseline/docs/post-install.d/00-interactive.in
++++ candidate/docs/post-install.d/00-interactive.in
+@@ -5,10 +5,15 @@
+ To start an interactive shell locally or on an SSH host using the
+ remote-ssh environment:
+ 
++  @SHELL_COMMAND@
++
++The current directory is preserved. Use exit to return to the calling shell.
++The equivalent manual Bash launch is also available as a fallback:
++
+   @INTERACTIVE_COMMAND@
+ 
+ remote-ssh's shell environment is Bash-first. Do not source shell/rc.sh from
+-Zsh; start Bash with --rcfile as shown above.
++Zsh; use the shell command or manual Bash launch shown above.
+ 
+ 
+ Installation exposes only the management CLI and selected tool binaries in
+--- baseline/docs/shell.md
++++ candidate/docs/shell.md
+@@ -4,11 +4,23 @@
+ one with:
+ 
+ ```bash
++remote-ssh shell
++```
++
++From a checkout before installation, use `./bin/remote-ssh shell`. The command
++preserves your current directory and starts a new interactive Bash; use `exit`
++to return to the calling shell. Installation never edits startup files or changes
++the default shell. The installed command requires its bin directory in PATH;
++the install footer prints a full-path command that works without a PATH change.
++
++The equivalent manual fallback is:
++
++```bash
+ bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i
+ ```
+ 
+-Do not source `shell/rc.sh` from Zsh; use the `bash --rcfile ... -i` form
+-instead.
++Do not source `shell/rc.sh` from Zsh; use `remote-ssh shell` or the manual Bash
++launch instead.
+ 
+ ## Sections
+ 
+--- baseline/docs/shell/start.md
++++ candidate/docs/shell/start.md
+@@ -5,11 +5,25 @@
+ After installation, start a shell with the remote-ssh environment:
+ 
+ ```bash
++remote-ssh shell
++```
++
++Before installation, use `./bin/remote-ssh shell` from the checkout. After
++installation, ensure the installed bin directory is in PATH, or use the full
++command path printed in the install footer. This starts a new interactive Bash
++and preserves your current directory. Use `exit` to return to the calling shell;
++child directory and environment changes do not change that parent. Nested
++`remote-ssh shell` calls return one level at a time. Startup files and the
++default shell are unchanged.
++
++The equivalent manual fallback is:
++
++```bash
+ bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i
+ ```
+ 
+ `shell/rc.sh` is Bash-first and must be loaded by Bash. Do not source it from
+-Zsh; use the `bash --rcfile ... -i` form above instead.
++Zsh; use `remote-ssh shell` or the manual Bash launch instead.
+ 
+ The post-install output points to the full setup guide:
+ 
+--- baseline/docs/install.md
++++ candidate/docs/install.md
+@@ -79,12 +79,19 @@
+ SSH is optional. To start the environment locally from this checkout:
+ 
+ ```bash
+-bash --rcfile "$PWD/shell/rc.sh" -i
+-```
+-
+-After installing with `runme.sh`, use
+-`bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i` instead.
+-This also works from Zsh; do not source `shell/rc.sh` directly in Zsh.
++./bin/remote-ssh shell
++```
++
++After installation, use `remote-ssh shell` when the installed bin directory is
++in PATH, or use the full command path printed in the footer. Both commands also
++work from Zsh and start a new interactive Bash in your current directory. Use
++`exit` to return to the calling shell; its directory and environment stay intact.
++A nested session returns one level at a time.
++
++The equivalent manual fallback after a default `runme.sh` installation is
++`bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i`. For another
++checkout location, replace the rcfile path. Do not source `shell/rc.sh` directly
++in Zsh.
+ 
+ `INSTALL_BIN_DIR=/custom/bin ./bin/remote-ssh install --yes fd` selects another
+ command/tool destination. A relative destination is relative to the install
+--- baseline/AGENTS.md
++++ candidate/AGENTS.md
+@@ -50,6 +50,7 @@
+ - `remote-ssh` is the main entrypoint:
+ 
+   ```bash
++  remote-ssh shell
+   remote-ssh install [tool ...]
+   remote-ssh install --full [--yes]
+   remote-ssh tool install <tool ...>
+@@ -73,7 +74,8 @@
+   `INSTALL_BIN_DIR` as a direct absolute symlink to this checkout's
+   `bin/remote-ssh`. Ordinary terminals can use it when that directory is in PATH.
+   The environment and other checkout helpers require explicit
+-  `bash --rcfile <checkout>/shell/rc.sh -i` activation. Installation never edits
++  `remote-ssh shell` activation (or the manual
++  `bash --rcfile <checkout>/shell/rc.sh -i` fallback). Installation never edits
+   user startup files or changes the default shell.
+ - Do not reintroduce a root `install.sh` wrapper. Local installs should use
+   `./bin/remote-ssh install ...`; `runme.sh` delegates to that command after
+--- baseline/dev/tests/test_shell_command.py
++++ candidate/dev/tests/test_shell_command.py
+@@ -0,0 +1,531 @@
++from __future__ import annotations
++
++import errno
++import fcntl
++import os
++import pty
++import select
++import shlex
++import shutil
++import signal
++import subprocess
++import termios
++import time
++import uuid
++from collections.abc import Iterator
++from pathlib import Path
++
++import pytest
++from conftest import IsolatedEnv, assert_ok, write_executable
++from test_install_cli import CliInstall, prepare_cli_install
++
++
++@pytest.fixture
++def shell_install(
++    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str
++) -> Iterator[CliInstall]:
++    c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
++    for key in list(c.env):
++        if key.startswith(("TOOLS_", "REMOTE_", "BASH_FUNC_")) or key in (
++            "BASH_ENV",
++            "ENV",
++            "SHELLOPTS",
++            "BASHOPTS",
++            "CDPATH",
++            "ZDOTDIR",
++            "LIB_DIR",
++            "BIN_DIR",
++            "DOTS_DIR",
++            "SHELL_DIR",
++            "SCRIPT_DIR",
++            "REPO_DIR",
++        ):
++            c.env.pop(key, None)
++    # The installer fixture removes inherited REMOTE_*, exported functions and
++    # interpreter/startup overrides. Keep this module's optional integrations off.
++    c.env.update(
++        {
++            "XDG_CACHE_HOME": str(c.home / ".cache"),
++            "ZDOTDIR": str(c.home),
++            "REMOTE_SSH_WELCOME": "0",
++            "REMOTE_SSH_UPDATE_CHECK": "0",
++            "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY": "0",
++            "REMOTE_SSH_ENABLE_ATUIN": "0",
++            "REMOTE_SSH_ENABLE_ATUIN_AUTO_IMPORT": "0",
++            "TERM": "dumb",
++            "PS1": "test> ",
++            "PROMPT": "test> ",
++        }
++    )
++    startup = {p: p.read_bytes() for p in c.home.glob(".*") if p.is_file()}
++    yield c
++    assert not c.network.exists(), c.network.read_text() if c.network.exists() else ""
++    assert {p: p.read_bytes() for p in startup} == startup
++
++
++def run(
++    c: CliInstall,
++    args: list[str | Path],
++    *,
++    input: str = "",
++    env: dict[str, str] | None = None,
++    cwd: Path | None = None,
++) -> subprocess.CompletedProcess[str]:
++    with subprocess.Popen(
++        [str(a) for a in args],
++        env=env or c.env,
++        cwd=cwd or c.home,
++        stdin=subprocess.PIPE,
++        stdout=subprocess.PIPE,
++        stderr=subprocess.PIPE,
++        text=True,
++        start_new_session=True,
++    ) as process:
++        try:
++            stdout, stderr = process.communicate(input, timeout=20)
++        except subprocess.TimeoutExpired:
++            os.killpg(process.pid, signal.SIGKILL)
++            stdout, stderr = process.communicate(timeout=5)
++            pytest.fail(f"Timed out: {args!r}\n{stdout}\n{stderr}")
++        return subprocess.CompletedProcess(args, process.returncode, stdout, stderr)
++
++
++def install(c: CliInstall) -> tuple[int, Path, bytes]:
++    assert_ok(c.run("install", "--yes", "demo"))
++    return c.command.lstat().st_ino, c.command.readlink(), c.expected.read_bytes()
++
++
++def unchanged(c: CliInstall, snapshot: tuple[int, Path, bytes]) -> None:
++    assert (c.command.lstat().st_ino, c.command.readlink(), c.expected.read_bytes()) == snapshot
++
++
++def activation(c: CliInstall, root: Path, cwd: Path) -> str:
++    return (
++        "case $- in *i*) ;; *) exit 81;; esac; "
++        f'test "$PWD" = {shlex.quote(str(cwd))} || exit 82; '
++        f'test "$REMOTE_ENV_DIR" = {shlex.quote(str(root))} || exit 83; '
++        f'case "$PATH" in {shlex.quote(str(root / "bin"))}:*) ;; *) exit 84;; esac; '
++        "alias rhelp >/dev/null || exit 85; "
++        "declare -F log >/dev/null || exit 86; "
++        'printf "ACTIVATED:%s:%s\\n" "$BASH_VERSION" "$PWD"\n'
++    )
++
++
++def test_dispatch_exact_argv_cwd_and_status(shell_install: CliInstall) -> None:
++    c = shell_install
++    capture = c.home / "argv"
++    (c.transport / "bash").unlink()
++    write_executable(
++        c.transport / "bash",
++        '#!/bin/sh\nprintf "%s\\0" "$@" > "$CAPTURE"\npwd > "$CAPTURE.cwd"\nexit 23\n',
++    )
++    rc = c.root / "shell/rc.sh"
++    rc.write_text('printf loaded > "$HOME/rc-loaded"\n')
++    other = c.home / "unrelated cwd"
++    other.mkdir()
++    result = run(
++        c,
++        [c.bash, c.root / "bin/remote-ssh", "shell"],
++        env=c.env | {"CAPTURE": str(capture)},
++        cwd=other,
++    )
++    assert result.returncode == 23, result.stderr
++    assert capture.read_bytes().split(b"\0") == [b"--rcfile", os.fsencode(rc), b"-i", b""]
++    assert Path(str(capture) + ".cwd").read_text().strip() == str(other)
++    assert not (c.home / "rc-loaded").exists()
++
++
++@pytest.mark.parametrize(
++    "args",
++    [
++        [],
++        ["-h"],
++        ["--help"],
++        ["help"],
++        ["shell", "-h"],
++        ["shell", "--help"],
++        ["shell", "help"],
++        ["shell", "--"],
++        ["shell", "-c"],
++        ["shell", "-l"],
++        ["shell", "--rcfile"],
++        ["shell", "position"],
++        ["shell", "--help", "extra"],
++        ["shell", "-h", "extra"],
++        ["shell", "-c", "exit 0"],
++    ],
++)
++def test_help_and_argument_boundary(shell_install: CliInstall, args: list[str]) -> None:
++    c = shell_install
++    (c.transport / "bash").unlink()
++    write_executable(c.transport / "bash", '#!/bin/sh\ntouch "$HOME/launched"\nexit 98\n')
++    rc = c.root / "shell/rc.sh"
++    rc.write_text('touch "$HOME/rc-loaded"\n')
++    result = run(c, [c.bash, c.root / "bin/remote-ssh", *args])
++    invalid = args[:1] == ["shell"] and args[1:] not in (["-h"], ["--help"])
++    assert result.returncode == int(invalid), result.stdout + result.stderr
++    output = result.stderr if invalid else result.stdout
++    assert "Usage: remote-ssh" in output
++    if args[:1] == ["shell"]:
++        assert "Usage: remote-ssh shell" in output
++        assert "exit" in output
++    if invalid:
++        assert "does not accept arguments" in output
++    assert not (c.home / "launched").exists()
++    assert not (c.home / "rc-loaded").exists()
++    # Help and argument parsing must still win when both preflights would fail.
++    rc.unlink()
++    (c.transport / "bash").unlink()
++    restricted = c.home / "restricted"
++    restricted.mkdir()
++    for tool in ("dirname", "cat"):
++        (restricted / tool).symlink_to(shutil.which(tool) or f"/usr/bin/{tool}")
++    again = run(
++        c, [c.bash, c.root / "bin/remote-ssh", *args], env=c.env | {"PATH": str(restricted)}
++    )
++    assert again.returncode == int(invalid), again.stdout + again.stderr
++    assert "rcfile is not" not in again.stderr
++    assert "cannot find" not in again.stderr
++
++
++@pytest.mark.parametrize("status", [0, 23])
++def test_installed_no_tty_matches_manual_and_bare_path(
++    shell_install: CliInstall, status: int
++) -> None:
++    c = shell_install
++    snapshot = install(c)
++    cwd = c.home / "other dir"
++    cwd.mkdir()
++    body = activation(c, c.root, cwd) + f"exit {status}\n"
++    direct = run(c, [c.command, "shell"], input=body, cwd=cwd)
++    manual = run(c, [c.bash, "--rcfile", c.root / "shell/rc.sh", "-i"], input=body, cwd=cwd)
++    assert direct.returncode == manual.returncode == status, direct.stdout + direct.stderr
++    assert "ACTIVATED:" in direct.stdout
++    version = run(c, [c.bash, "--noprofile", "--norc", "-c", 'printf "%s" "$BASH_VERSION"'])
++    assert_ok(version)
++    assert f"ACTIVATED:{version.stdout}:" in direct.stdout
++    assert direct.stdout == manual.stdout
++    bare = run(
++        c,
++        [c.bash, "--noprofile", "--norc", "-c", "remote-ssh shell"],
++        env=c.env | {"PATH": f"{c.bin}:{c.env['PATH']}"},
++        input=body,
++        cwd=cwd,
++    )
++    assert bare.returncode == status, bare.stdout + bare.stderr
++    assert bare.stdout == direct.stdout
++    unchanged(c, snapshot)
++
++
++def test_effective_checkout_override(shell_install: CliInstall) -> None:
++    c = shell_install
++    snapshot = install(c)
++    other = c.home / 'other checkout " $ ; &'
++    shutil.copytree(c.root, other)
++    with (other / "shell/rc.sh").open("a") as stream:
++        stream.write('\nprintf "OVERRIDE-RC\\n"\n')
++    result = run(
++        c,
++        [c.command, "shell"],
++        env=c.env | {"REMOTE_ENV_DIR": str(other)},
++        input=activation(c, other, c.home) + "exit\n",
++    )
++    assert_ok(result)
++    assert "OVERRIDE-RC" in result.stdout
++    assert "ACTIVATED:" in result.stdout
++    original = run(c, [c.command, "shell"], input=activation(c, c.root, c.home) + "exit\n")
++    assert_ok(original)
++    assert "OVERRIDE-RC" not in original.stdout
++    unchanged(c, snapshot)
++
++
++@pytest.mark.parametrize("kind", ["missing", "directory", "unreadable", "bash"])
++def test_preflight_failures(shell_install: CliInstall, kind: str) -> None:
++    c = shell_install
++    rc = c.root / "shell/rc.sh"
++    rc.write_text('touch "$HOME/rc-loaded"\n')
++    env = c.env
++    if kind == "missing":
++        rc.unlink()
++    elif kind == "directory":
++        rc.unlink()
++        rc.mkdir()
++    elif kind == "unreadable":
++        assert os.geteuid() != 0, "Unreadability must be verified as an ordinary user"
++        rc.chmod(0)
++        assert not os.access(rc, os.R_OK), "chmod did not make the file unreadable"
++    else:
++        restricted = c.home / "restricted"
++        restricted.mkdir()
++        (restricted / "dirname").symlink_to(shutil.which("dirname") or "/usr/bin/dirname")
++        env = c.env | {"PATH": str(restricted)}
++    try:
++        result = run(c, [c.bash, c.root / "bin/remote-ssh", "shell"], env=env)
++        assert result.returncode == (127 if kind == "bash" else 1), result.stderr
++        assert "remote-ssh shell:" in result.stderr
++        assert ("Bash in PATH" if kind == "bash" else str(rc)) in result.stderr
++        assert not (c.home / "rc-loaded").exists()
++    finally:
++        if kind == "unreadable":
++            rc.chmod(0o644)
++
++
++def descendant_depths(parent: int) -> dict[int, int]:
++    result = subprocess.run(
++        ["/bin/ps", "-axo", "pid=,ppid="], capture_output=True, text=True, timeout=5, check=True
++    )
++    rows = [tuple(map(int, line.split())) for line in result.stdout.splitlines()]
++    found = {parent: 0}
++    while True:
++        added = {pid: found[ppid] + 1 for pid, ppid in rows if ppid in found and pid not in found}
++        if not added:
++            return {pid: depth for pid, depth in found.items() if pid != parent}
++        found.update(added)
++
++
++def descendants(parent: int) -> set[int]:
++    return set(descendant_depths(parent))
++
++
++def alive(pid: int) -> bool:
++    try:
++        os.kill(pid, 0)
++    except ProcessLookupError:
++        return False
++    return True
++
++
++class Terminal:
++    """Task-local controlling PTY, with bounded reads and descendant cleanup.
++
++    Snapshot the descendant tree before terminating its root: job-control shells
++    may have different process groups. Kill/reap descendants before their parent,
++    retaining known PIDs across cleanup snapshots. No runtime handler is needed.
++    """
++
++    def __init__(self, args: list[str | Path], c: CliInstall):
++        # Fail before spawning any shell if cleanup cannot inspect its tree.
++        descendants(os.getpid())
++        self.master, slave = pty.openpty()
++        attrs = termios.tcgetattr(slave)
++        attrs[3] &= ~termios.ECHO
++        termios.tcsetattr(slave, termios.TCSANOW, attrs)
++        self.output = b""
++        self.offset = 0
++        self.owned: dict[int, int] = {}
++
++        def controlling_terminal() -> None:
++            fcntl.ioctl(0, termios.TIOCSCTTY, 0)
++
++        try:
++            self.process = subprocess.Popen(
++                [str(a) for a in args],
++                env=c.env,
++                cwd=c.home,
++                stdin=slave,
++                stdout=slave,
++                stderr=slave,
++                start_new_session=True,
++                preexec_fn=controlling_terminal,
++            )
++        except BaseException:
++            os.close(self.master)
++            raise
++        finally:
++            os.close(slave)
++
++    def send(self, text: str) -> None:
++        os.write(self.master, text.encode())
++
++    def until(self, expected: str, timeout: float = 15) -> str:
++        deadline = time.monotonic() + timeout
++        needle = expected.encode()
++        while needle not in self.output[self.offset :]:
++            assert time.monotonic() < deadline, self.output.decode(errors="replace")
++            ready, _, _ = select.select(
++                [self.master], [], [], min(0.1, max(0, deadline - time.monotonic()))
++            )
++            if not ready:
++                continue
++            try:
++                data = os.read(self.master, 65536)
++            except OSError as exc:
++                if exc.errno == errno.EIO:
++                    data = b""
++                else:
++                    raise
++            assert data, self.output.decode(errors="replace")
++            self.output += data
++        end = self.output.index(needle, self.offset) + len(needle)
++        result = self.output[self.offset : end].decode(errors="replace")
++        self.offset = end
++        return result
++
++    def command(self, command: str) -> str:
++        token = uuid.uuid4().hex
++        marker = "DONE-" + token
++        # Readline/ZLE may re-enable terminal echo. Never place the complete
++        # executed marker in input; an echoed command cannot satisfy readiness.
++        self.send(
++            command
++            + "; PS1='PTY-READY> '; PROMPT=$PS1; "
++            + f"printf '\\n%s%s\\n' DONE-{token[:16]} {token[16:]}\n"
++        )
++        result = self.until("\r\n" + marker + "\r\n")
++        # Wait past execution to the next prompt before sending terminal Ctrl-C.
++        return result + self.until("PTY-READY> ")
++
++    def close(self) -> None:
++        inspection_error = None
++        try:
++            try:
++                self.owned.update(descendant_depths(self.process.pid))
++                for sig in (signal.SIGTERM, signal.SIGKILL):
++                    self.owned.update(descendant_depths(self.process.pid))
++                    # Deepest first: waiting shells can reap their children before
++                    # they themselves are terminated, despite distinct job groups.
++                    for pid in sorted(self.owned, key=self.owned.get, reverse=True):
++                        try:
++                            os.kill(pid, sig)
++                        except ProcessLookupError:
++                            continue
++                        deadline = time.monotonic() + 0.5
++                        while alive(pid) and time.monotonic() < deadline:
++                            time.sleep(0.02)
++            except (OSError, subprocess.SubprocessError) as exc:
++                inspection_error = exc
++            finally:
++                # Always reap our direct child and close descriptors, including
++                # when the process inventory becomes unavailable during cleanup.
++                if self.process.poll() is None:
++                    try:
++                        os.killpg(self.process.pid, signal.SIGTERM)
++                    except ProcessLookupError:
++                        pass
++                try:
++                    self.process.wait(timeout=2)
++                except subprocess.TimeoutExpired:
++                    os.killpg(self.process.pid, signal.SIGKILL)
++                    self.process.wait(timeout=2)
++        finally:
++            os.close(self.master)
++        deadline = time.monotonic() + 2
++        while any(alive(pid) for pid in self.owned) and time.monotonic() < deadline:
++            time.sleep(0.02)
++        assert not [pid for pid in self.owned if alive(pid)], self.output.decode(errors="replace")
++        if inspection_error is not None:
++            raise inspection_error
++
++
++@pytest.mark.parametrize("caller", ["bash", "zsh"])
++def test_pty_parent_return_nested_ctrl_c(shell_install: CliInstall, caller: str) -> None:
++    c = shell_install
++    snapshot = install(c)
++    if caller == "zsh":
++        zsh = shutil.which("zsh")
++        assert zsh, "The required available Zsh caller must be verified"
++        args = [zsh, "-f", "-i"]
++    else:
++        args = [c.bash, "--noprofile", "--norc", "-i"]
++    terminal = Terminal(args, c)
++    try:
++        baseline = terminal.command(
++            'printf "PARENT:%s:%s:%s\\n" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
++            "alias rhelp >/dev/null 2>&1 && printf LEAKED-ALIAS; "
++            "typeset -f log >/dev/null && printf LEAKED-FUNCTION; command -v ssh-find || :"
++        )
++        assert f"PARENT:{c.home}:unset:unset" in baseline
++        assert str(c.root / "bin") not in baseline
++        assert "LEAKED-" not in baseline
++        terminal.send(shlex.quote(str(c.command)) + " shell\n")
++        active = terminal.command(activation(c, c.root, c.home).strip())
++        assert "ACTIVATED:" in active, active
++        # Ctrl-C at the child's ready prompt must leave an ordinary usable shell.
++        terminal.send("\x03")
++        terminal.until("PTY-READY> ")
++        assert "AFTER-INT" in terminal.command("printf 'AFTER-%s\\n' INT")
++        terminal.command('export CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"')
++        terminal.send(shlex.quote(str(c.command)) + " shell\n")
++        inner = terminal.command('printf "INNER:%s:%s\\n" "$$" "$CHILD_ONLY"')
++        assert ":outer" in inner
++        terminal.send("export CHILD_ONLY=inner; exit 23\n")
++        returned = terminal.command('printf "NESTED-RETURN:%s:%s\\n" "$?" "$CHILD_ONLY"')
++        assert "NESTED-RETURN:23:outer" in returned
++        terminal.send("cd /; export CHILD_ONLY=changed; exit 23\n")
++        returned = terminal.command(
++            'printf "RETURN:%s:%s:%s:%s\\n" "$?" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
++            "alias rhelp >/dev/null 2>&1 && printf LEAKED-ALIAS; "
++            "typeset -f log >/dev/null && printf LEAKED-FUNCTION; command -v ssh-find || :"
++        )
++        assert f"RETURN:23:{c.home}:unset:unset" in returned, returned
++        assert str(c.root / "bin") not in returned
++        assert "LEAKED-" not in returned
++        terminal.send("exit\n")
++        terminal.process.wait(timeout=5)
++    finally:
++        terminal.close()
++    unchanged(c, snapshot)
++
++
++def test_pty_cleanup_covers_job_control_groups(shell_install: CliInstall) -> None:
++    c = shell_install
++    install(c)
++    terminal = Terminal([c.bash, "--noprofile", "--norc", "-i"], c)
++    owned: set[int] = set()
++    try:
++        terminal.command("printf 'PARENT-READY\\n'")
++        terminal.send(shlex.quote(str(c.command)) + " shell\n")
++        terminal.command("printf 'CHILD-READY\\n'")
++        terminal.send(shlex.quote(str(c.command)) + " shell\n")
++        terminal.command("printf 'NESTED-READY\\n'")
++        owned = descendants(terminal.process.pid)
++        assert len(owned) >= 2
++        groups = {os.getpgid(pid) for pid in owned | {terminal.process.pid}}
++        assert len(groups) >= 3, groups
++    finally:
++        terminal.close()
++    assert not any(alive(pid) for pid in owned)
++
++
++def test_exec_pid_and_native_signal(shell_install: CliInstall) -> None:
++    c = shell_install
++    snapshot = install(c)
++    terminal = Terminal([c.command, "shell"], c)
++    try:
++        result = terminal.command('printf "EXEC-PID:%s\\n" "$$"')
++        assert f"EXEC-PID:{terminal.process.pid}\r\n" in result
++        os.kill(terminal.process.pid, signal.SIGKILL)
++        assert terminal.process.wait(timeout=5) == -signal.SIGKILL
++    finally:
++        terminal.close()
++    unchanged(c, snapshot)
++
++
++def test_preinstall_guide_is_copyable_in_bash_and_zsh(shell_install: CliInstall) -> None:
++    c = shell_install
++    assert not c.command.exists()
++    rendered = c.run("guide", "post-install")
++    assert_ok(rendered)
++    assert "@SHELL_COMMAND@" not in rendered.stdout
++    assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
++    primary = next(line.strip() for line in rendered.stdout.splitlines() if line.endswith(" shell"))
++    fallback = next(
++        line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line
++    )
++    callers = [[c.bash, "--noprofile", "--norc", "-c"]]
++    zsh = shutil.which("zsh")
++    assert zsh, "The available Zsh caller must be exercised"
++    callers.append([zsh, "-f", "-c"])
++    for caller in callers:
++        capture = run(c, [*caller, "capture() { printf '%s\\0' \"$@\"; }; capture " + primary])
++        assert_ok(capture)
++        assert capture.stdout == str(c.root / "bin/remote-ssh") + "\0shell\0"
++        manual = run(c, [*caller, "bash() { printf '%s\\0' \"$@\"; }; " + fallback])
++        assert_ok(manual)
++        assert manual.stdout == "--rcfile\0" + str(c.root / "shell/rc.sh") + "\0-i\0"
++        for command in (primary, fallback):
++            result = run(c, [*caller, command], input=activation(c, c.root, c.home) + "exit\n")
++            assert_ok(result)
++            assert "ACTIVATED:" in result.stdout
++        assert not c.command.exists()
++        assert not c.expected.exists()
+--- baseline/dev/tests/test_entrypoint.py
++++ candidate/dev/tests/test_entrypoint.py
+@@ -18,6 +18,12 @@
+     "args,code",
+     [
+         (["install", "--help"], 0),
++        ([], 0),
++        (["-h"], 0),
++        (["--help"], 0),
++        (["help"], 0),
++        (["shell", "-h"], 0),
++        (["shell", "--help"], 0),
+         (["tool", "list"], 0),
+         (["check", "rg"], 0),
+         (["check", "--strict", "rg"], 1),
+@@ -49,6 +55,7 @@
+     assert "uninstall [--yes] [tool ...]" in result.stdout
+     assert "tool list" in result.stdout
+     assert "scripts --list" in result.stdout
++    assert "shell                     Start an interactive remote-ssh Bash" in result.stdout
+ 
+     result = run_remote_ssh(repo_dir, ["help"], env=tool_env.env)
+     assert_ok(result)
+@@ -81,6 +88,7 @@
+     assert "remote-ssh ssh status       Check SSH config, host, agent, and auth" in result.stdout
+     assert "remote-ssh update check     Check whether upstream has changed" in result.stdout
+     assert "remote-ssh scripts --list   List bundled helper scripts" in result.stdout
++    assert "remote-ssh shell            Start an interactive remote-ssh Bash" in result.stdout
+ 
+ 
+ def test_remote_ssh_git_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStateEnv) -> None:
+--- baseline/dev/tests/test_install_cli.py
++++ candidate/dev/tests/test_install_cli.py
+@@ -114,7 +114,9 @@
+ def footer_commands(output: str) -> tuple[str, str, str | None]:
+     lines = output.splitlines()
+     guide = next(line.strip().removeprefix("run: ") for line in lines if "  run: " in line)
+-    start = next(line.strip() for line in lines if "  bash --rcfile " in line)
++    start = next(
++        line.strip() for line in lines if line.startswith("  ") and line.rstrip().endswith(" shell")
++    )
+     export = next((line.strip() for line in lines if "  export PATH=" in line), None)
+     return guide, start, export
+ 
+@@ -438,7 +440,27 @@
+     result = c.run("install", "--yes", "demo")
+     assert_ok(result)
+     assert c.command.readlink() == override / "bin/remote-ssh"
+-    assert str(override).replace(" ", "\\ ") in result.stdout
++    _, start, _ = footer_commands(result.stdout)
++    assert shlex.split(start) == [str(c.command), "shell"]
++    env = c.env | {
++        "REMOTE_SSH_WELCOME": "0",
++        "REMOTE_SSH_ENABLE_ATUIN": "0",
++        "REMOTE_SSH_ENABLE_ATUIN_AUTO_IMPORT": "0",
++        "XDG_CACHE_HOME": str(c.home / ".cache"),
++    }
++    activation = subprocess.run(
++        [c.bash, "--noprofile", "--norc", "-c", start],
++        env=env,
++        cwd=c.home,
++        input='printf "EFFECTIVE:%s\\n" "$REMOTE_ENV_DIR"\nexit\n',
++        text=True,
++        capture_output=True,
++        timeout=20,
++        check=False,
++    )
++    assert_ok(activation)
++    assert f"EFFECTIVE:{override}\n" in activation.stdout
++    assert c.command.readlink() == override / "bin/remote-ssh"
+     assert_ok(c.shell([c.command, "--help"]))
+ 
+ 
+--- baseline/dev/tests/test_post_install.py
++++ candidate/dev/tests/test_post_install.py
+@@ -1,7 +1,7 @@
+ from __future__ import annotations
+ 
+-import shlex
+ import shutil
++import subprocess
+ import textwrap
+ from pathlib import Path
+ 
+@@ -30,7 +30,7 @@
+     assert "Post-install setup:" in output
+     assert "export PATH=" in output
+     assert ':"$PATH"' in output
+-    assert "bash --rcfile /opt/remote-ssh/shell/rc.sh -i" in output
++    assert f"{isolated_env.home}/.local/bin/remote-ssh shell" in output
+     assert f"{isolated_env.home}/.local/bin/remote-ssh guide post-install" in output
+     assert "startup files were not modified" in output
+     assert len(output.splitlines()) <= 10
+@@ -95,7 +95,15 @@
+     repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
+ ) -> None:
+     c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+-    c.env["REMOTE_SSH_WELCOME"] = "0"
++    c.env.update(
++        {
++            "REMOTE_SSH_WELCOME": "0",
++            "REMOTE_SSH_ENABLE_ATUIN": "0",
++            "REMOTE_SSH_ENABLE_ATUIN_AUTO_IMPORT": "0",
++            "XDG_CACHE_HOME": str(c.home / ".cache"),
++            "ZDOTDIR": str(c.home),
++        }
++    )
+     if path_present == "alias":
+         alias = c.home / "directory alias"
+         alias.symlink_to(c.bin, target_is_directory=True)
+@@ -115,24 +123,37 @@
+     interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
+     if shutil.which("zsh"):
+         interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
++    expected = c.expected.read_bytes()
++    link = (c.command.lstat().st_ino, c.command.readlink())
++    startup = {p: p.read_bytes() for p in c.home.glob(".*") if p.is_file()}
+     for shell in interpreters:
+         rendered = c.shell([*shell, guide])
+         assert_ok(rendered)
+         assert "Interactive usage" in rendered.stdout
+         assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
++        assert "@SHELL_COMMAND@" not in rendered.stdout
+         interactive = next(
+             line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line
+         )
+-        for command in (start, interactive):
+-            activation = c.shell(
+-                [
+-                    *shell,
+-                    command
+-                    + " -c "
+-                    + shlex.quote(
+-                        'test -n "$REMOTE_ENV_DIR" && alias rhelp >/dev/null && printf activation-ok'
+-                    ),
+-                ]
++        primary = next(
++            line.strip() for line in rendered.stdout.splitlines() if line.endswith(" shell")
++        )
++        for command, path in ((start, c.command), (primary, c.root / "bin/remote-ssh")):
++            captured = c.shell(
++                [*shell, r"""capture() { printf '%s\0' "$@"; }; capture """ + command]
++            )
++            assert_ok(captured)
++            assert captured.stdout == str(path) + "\0shell\0"
++        for command in (start, primary, interactive):
++            activation = subprocess.run(
++                [*shell, command],
++                input='test -n "$REMOTE_ENV_DIR" && alias rhelp >/dev/null && printf "activation-ok\\n"\nexit\n',
++                env=c.env,
++                cwd=c.home,
++                text=True,
++                capture_output=True,
++                timeout=20,
++                check=False,
+             )
+             assert_ok(activation)
+             assert "activation-ok" in activation.stdout
+@@ -140,4 +161,7 @@
+             lookup = c.shell([*shell, export + "\ncommand -v remote-ssh"])
+             assert_ok(lookup)
+             assert lookup.stdout.strip() == str(c.command)
++    assert c.expected.read_bytes() == expected
++    assert (c.command.lstat().st_ino, c.command.readlink()) == link
++    assert all(p.read_bytes() == before for p, before in startup.items())
+     assert not c.network.exists()
+--- baseline/dev/tests/test_guide.py
++++ candidate/dev/tests/test_guide.py
+@@ -1,5 +1,6 @@
+ from __future__ import annotations
+ 
++import subprocess
+ from pathlib import Path
+ 
+ from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd, run_remote_ssh
+@@ -11,10 +12,13 @@
+     assert_ok(result)
+     assert "remote-ssh guide" in result.stdout
+     assert "Commands" in result.stdout
++    assert "remote-ssh shell            Start an interactive remote-ssh Bash" in result.stdout
+     assert "  remote-ssh guide [section]  Show this configuration guide" in result.stdout
+     assert "  remote-ssh uninstall [tool ...]" in result.stdout
+     assert "  remote-ssh setup            Configure bundled SSH and Git defaults" in result.stdout
+-    assert "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
++    assert (
++        "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
++    )
+     assert (
+         "  remote-ssh git status       Check Git identity, session override, and origin"
+         in result.stdout
+@@ -113,9 +117,7 @@
+     config = Path(isolated_env.env["XDG_CONFIG_HOME"]) / "remote-ssh" / "config"
+     config.parent.mkdir(parents=True, exist_ok=True)
+     config.write_text(
+-        "REMOTE_SSH_WELCOME_BANNER=0\n"
+-        "REMOTE_SSH_WELCOME_USER=1\n"
+-        "REMOTE_SSH_WELCOME_USER=0\n",
++        "REMOTE_SSH_WELCOME_BANNER=0\nREMOTE_SSH_WELCOME_USER=1\nREMOTE_SSH_WELCOME_USER=0\n",
+         encoding="utf-8",
+     )
+ 
+@@ -503,3 +505,22 @@
+     assert "Commands" not in output
+     assert "@INSTALL_DIR@" not in output
+     assert "@INTERACTIVE_COMMAND@" not in output
++    assert "@SHELL_COMMAND@" not in output
++    primary = next(line.strip() for line in output.splitlines() if line.endswith(" shell"))
++    # Capture the rendered command as shell syntax, including its executable token.
++    captured_primary = subprocess.run(
++        [
++            "bash",
++            "--noprofile",
++            "--norc",
++            "-c",
++            r"""capture() { printf '%s\0' "$@"; }; capture """ + primary,
++        ],
++        env=capture_env,
++        text=True,
++        capture_output=True,
++        timeout=20,
++        check=False,
++    )
++    assert_ok(captured_primary)
++    assert captured_primary.stdout == str(repo_dir / "bin/remote-ssh") + "\0shell\0"

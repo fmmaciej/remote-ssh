@@ -1,0 +1,869 @@
+diff --git a/AGENTS.md b/AGENTS.md
+index c2ed7ef..49ddbd3 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -69,6 +69,12 @@ be required on remote hosts.
+   Longer shell configuration guidance belongs in `remote-ssh guide`. Tool
+   reports live under `remote-ssh check`; do not reintroduce a separate check
+   entrypoint.
++- Installation publishes only the management CLI from checkout helpers into
++  `INSTALL_BIN_DIR` as a direct absolute symlink to this checkout's
++  `bin/remote-ssh`. Ordinary terminals can use it when that directory is in PATH.
++  The environment and other checkout helpers require explicit
++  `bash --rcfile <checkout>/shell/rc.sh -i` activation. Installation never edits
++  user startup files or changes the default shell.
+ - Do not reintroduce a root `install.sh` wrapper. Local installs should use
+   `./bin/remote-ssh install ...`; `runme.sh` delegates to that command after
+   cloning or updating the repo.
+diff --git a/bin/remote-ssh b/bin/remote-ssh
+index 9603af3..57a8f94 100755
+--- a/bin/remote-ssh
++++ b/bin/remote-ssh
+@@ -2,8 +2,27 @@
+ 
+ set -euo pipefail
+ 
+-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+-script_repo_dir="$(cd "$SCRIPT_DIR/.." && pwd)"
++script_path="${BASH_SOURCE[0]}"
++link_depth=0
++while [[ -L "$script_path" ]]; do
++  if ((link_depth >= 40)); then
++    printf 'remote-ssh: cannot resolve CLI source (symlink depth exceeds 40): %s\n' "$script_path" >&2
++    exit 1
++  fi
++  SCRIPT_DIR="$(cd -- "$(dirname -- "$script_path")" && pwd -P)" || exit 1
++  script_path="$(readlink "$script_path")" || {
++    printf 'remote-ssh: cannot read CLI symlink.\n' >&2
++    exit 1
++  }
++  [[ "$script_path" == /* ]] || script_path="$SCRIPT_DIR/$script_path"
++  link_depth=$((link_depth + 1))
++done
++if [[ ! -f "$script_path" ]]; then
++  printf 'remote-ssh: cannot resolve CLI source: %s\n' "$script_path" >&2
++  exit 1
++fi
++SCRIPT_DIR="$(cd -- "$(dirname -- "$script_path")" && pwd -P)" || exit 1
++script_repo_dir="$(cd "$SCRIPT_DIR/.." && pwd -P)" || exit 1
+ requested_repo_dir="${REMOTE_ENV_DIR:-}"
+ repo_dir="${requested_repo_dir:-$script_repo_dir}"
+ lib_repo_dir="$repo_dir"
+diff --git a/dev/README.md b/dev/README.md
+index ef97880..7baec40 100644
+--- a/dev/README.md
++++ b/dev/README.md
+@@ -37,6 +37,9 @@ just fmt
+   [initial implementation audit](docs/config-loader-implementation-audit.md),
+   [fresh behavior re-audit](docs/config-loader-independent-reaudit.md), and
+   [independent performance verification](docs/config-loader-reaudit-performance.md).
++- [Welcome Optimization](docs/welcome-implementation-record.md): implementation
++  and measurements following the [accepted plan](docs/welcome-implementation-plan.md),
++  with the [independent implementation audit](docs/welcome-implementation-audit.md).
+ - [Audit Fix Plan](docs/audit-fix-plan.md): correctness fixes and regression
+   coverage in delivery order.
+ - [Archive Extraction Plan](docs/archive-extraction-plan.md): validation,
+diff --git a/dev/docs/bench-shell.md b/dev/docs/bench-shell.md
+index c9daa6c..45001fc 100644
+--- a/dev/docs/bench-shell.md
++++ b/dev/docs/bench-shell.md
+@@ -2,6 +2,12 @@
+ 
+ Back: [Developer tooling](../README.md)
+ 
++The 2026-10-28 bundled welcome optimization has its own
++[execution record](welcome-implementation-record.md), with the pinned baseline,
++frozen populated screen fixtures, detached welcome and full PTY comparisons,
++complete successful transcripts, source fingerprints, and independent audit.
++Its measurements leave this benchmark's scenarios and public CLI unchanged.
++
+ The 2026-10-27 config-loader optimization has a separate
+ [execution record](config-loader-implementation-record.md), including its frozen
+ measurement source, fixture, baseline/Stage A/Stage B raw results, and correctness
+diff --git a/dev/tests/test_guide.py b/dev/tests/test_guide.py
+index dabe60f..7e1040a 100644
+--- a/dev/tests/test_guide.py
++++ b/dev/tests/test_guide.py
+@@ -478,7 +478,28 @@ def test_remote_ssh_guide_supports_post_install_section(
+     assert "SSH configuration" in output
+     assert "VS Code Remote-SSH terminal profile" in output
+     assert "Optional Git and SSH setup" in output
+-    assert f'bash --rcfile "{repo_dir}/shell/rc.sh"' in output
++    commands = [
++        line.strip() for line in output.splitlines() if line.strip().startswith("bash --rcfile ")
++    ]
++    assert len(commands) == 1
++    capture_env = {
++        key: value for key, value in isolated_env.env.items() if key not in ("BASH_ENV", "ENV")
++    }
++    captured = run_cmd(
++        [
++            "bash",
++            "--noprofile",
++            "--norc",
++            "-c",
++            r"""bash() { printf '%s\0' "$@"; }
++"""
++            + commands[0],
++        ],
++        env=capture_env,
++    )
++    assert_ok(captured)
++    assert captured.stdout == "--rcfile\0" + str(repo_dir / "shell/rc.sh") + "\0-i\0"
+     assert '"terminal.integrated.defaultProfile.linux": "bash + remote-ssh"' in output
+     assert "Commands" not in output
+     assert "@INSTALL_DIR@" not in output
++    assert "@INTERACTIVE_COMMAND@" not in output
+diff --git a/dev/tests/test_post_install.py b/dev/tests/test_post_install.py
+index 6cdbc91..3afc1b9 100644
+--- a/dev/tests/test_post_install.py
++++ b/dev/tests/test_post_install.py
+@@ -1,9 +1,13 @@
+ from __future__ import annotations
+ 
++import shlex
++import shutil
+ import textwrap
+ from pathlib import Path
+ 
++import pytest
+ from conftest import IsolatedEnv, assert_ok, run_cmd, write_executable
++from test_install_cli import footer_commands, prepare_cli_install
+ 
+ 
+ def test_post_install_prints_short_guide_hint(
+@@ -24,8 +28,12 @@ def test_post_install_prints_short_guide_hint(
+     output = result.stdout
+ 
+     assert "Post-install setup:" in output
+-    assert "  run: remote-ssh guide post-install" in output
+-    assert "  includes SSH, VS Code Remote-SSH, Git, and interactive shell setup" in output
++    assert "export PATH=" in output
++    assert ':"$PATH"' in output
++    assert "bash --rcfile /opt/remote-ssh/shell/rc.sh -i" in output
++    assert f"{isolated_env.home}/.local/bin/remote-ssh guide post-install" in output
++    assert "startup files were not modified" in output
++    assert len(output.splitlines()) <= 10
+     assert "Interactive usage" not in output
+     assert "SSH configuration" not in output
+     assert "VS Code Remote-SSH terminal profile" not in output
+@@ -67,8 +75,10 @@ def test_post_install_renderer_renders_split_templates_in_order(
+ 
+     assert output.index("Interactive usage") < output.index("SSH configuration")
+     assert output.index("SSH configuration") < output.index("VS Code Remote-SSH terminal profile")
+-    assert output.index("VS Code Remote-SSH terminal profile") < output.index("Optional Git and SSH setup")
+-    assert 'bash --rcfile "/opt/remote-ssh/shell/rc.sh"' in output
++    assert output.index("VS Code Remote-SSH terminal profile") < output.index(
++        "Optional Git and SSH setup"
++    )
++    assert "bash --rcfile /opt/remote-ssh/shell/rc.sh -i" in output
+     assert "Host test-host.example" in output
+     assert "HostName 203.0.113.10" in output
+     assert "User shared-user" in output
+@@ -78,3 +88,56 @@ def test_post_install_renderer_renders_split_templates_in_order(
+     assert "@HOSTNAME@" not in output
+     assert "@IP_ADDRESS@" not in output
+     assert "@WHO_AM_I@" not in output
++
++
++@pytest.mark.parametrize("path_present", [False, True, "alias"])
++def test_footer_and_guide_commands_execute_without_path(
++    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool | str
++) -> None:
++    c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
++    c.env["REMOTE_SSH_WELCOME"] = "0"
++    if path_present == "alias":
++        alias = c.home / "directory alias"
++        alias.symlink_to(c.bin, target_is_directory=True)
++        c.env["PATH"] = f"{alias}:{c.env['PATH']}"
++    elif path_present:
++        c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
++    else:
++        # A prefix/substring match is not a directory match.
++        c.env["PATH"] = f"{c.bin}-different:{c.env['PATH']}"
++    result = c.run("install", "--yes", "demo")
++    assert_ok(result)
++    guide, start, export = footer_commands(result.stdout)
++    assert (export is None) == bool(path_present)
++    if export:
++        assert ':"$PATH"' in export
++        assert c.env["PATH"] not in export
++    interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
++    if shutil.which("zsh"):
++        interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
++    for shell in interpreters:
++        rendered = c.shell([*shell, guide])
++        assert_ok(rendered)
++        assert "Interactive usage" in rendered.stdout
++        assert "@INTERACTIVE_COMMAND@" not in rendered.stdout
++        interactive = next(
++            line.strip() for line in rendered.stdout.splitlines() if "  bash --rcfile " in line
++        )
++        for command in (start, interactive):
++            activation = c.shell(
++                [
++                    *shell,
++                    command
++                    + " -c "
++                    + shlex.quote(
++                        'test -n "$REMOTE_ENV_DIR" && alias rhelp >/dev/null && printf activation-ok'
++                    ),
++                ]
++            )
++            assert_ok(activation)
++            assert "activation-ok" in activation.stdout
++        if export:
++            lookup = c.shell([*shell, export + "\ncommand -v remote-ssh"])
++            assert_ok(lookup)
++            assert lookup.stdout.strip() == str(c.command)
++    assert not c.network.exists()
+diff --git a/dev/tests/test_runme.py b/dev/tests/test_runme.py
+index 62b4a30..f59ed0f 100644
+--- a/dev/tests/test_runme.py
++++ b/dev/tests/test_runme.py
+@@ -8,8 +8,10 @@ from conftest import (
+     assert_ok,
+     prepare_runme_checkout,
+     run_cmd,
++    write_executable,
+     write_fake_runme_git,
+ )
++from test_install_cli import footer_commands, prepare_cli_install
+ 
+ 
+ def runme_install_dir(env: IsolatedEnv) -> Path:
+@@ -167,3 +169,77 @@ def test_runme_stops_before_install_after_git_failure(
+     assert not args_file.exists()
+     if step == "FETCH":
+         assert "reset" not in log.read_text()
++
++
++@pytest.mark.parametrize("path_present", [False, True])
++def test_runme_real_install_then_fresh_ordinary_shell(
++    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool
++) -> None:
++    # The older fixtures intentionally test forwarding only. This fixture keeps
++    # the real dispatcher, install facade, tools and rcfile, replacing Git
++    # transport with a local copy and leaving observable fail-fast network stubs.
++    c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
++    c.env.pop("INSTALL_BIN_DIR")
++    c.bin = c.home / ".local/bin"
++    c.bin.mkdir(parents=True)
++    (c.bin / "demo").symlink_to(c.home / "opt/demo-1/demo")
++    c.env["CANDIDATE_TREE"] = str(c.root)
++    c.env["GIT_LOG"] = str(c.home / "git.log")
++    if path_present:
++        c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
++    write_executable(
++        c.transport / "git",
++        """#!/bin/sh
++printf '%s\n' "$*" >> "$GIT_LOG"
++if [ "$1" = clone ]; then
++  /bin/cp -R "$CANDIDATE_TREE" "$5" || exit $?
++  /bin/mkdir "$5/.git"
++  exit $?
++fi
++if [ "$1" = -C ]; then shift 2; fi
++case "$1" in
++rev-parse) printf 'origin/main\n';;
++fetch|reset|ls-files) :;;
++*) exit 98;;
++esac
++""",
++    )
++    startup = {p: p.read_bytes() for p in c.home.glob(".*") if p.is_file()}
++    for iteration in range(2):
++        result = c.shell([runtime_bash, repo_dir / "runme.sh", "--yes", "demo"])
++        assert_ok(result)
++        installed_tree = c.home / ".local/share/remote-ssh"
++        assert c.command.readlink() == installed_tree / "bin/remote-ssh"
++        assert c.expected.read_text().splitlines()[-1] == "demo"
++        assert c.command.is_symlink()
++        assert set(p.name for p in c.bin.iterdir()) == {"demo", "remote-ssh"}
++        guide, _, export = footer_commands(result.stdout)
++        ordinary = """
++set -e
++[[ -z ${REMOTE_ENV_DIR+x} && -z ${REMOTE_SHELL_DIR+x} && -z ${PS1+x} ]]
++! alias cheats >/dev/null 2>&1
++! alias rhelp >/dev/null 2>&1
++! declare -F log >/dev/null
++! command -v ssh-find >/dev/null
++! command -v logrun >/dev/null
++"""
++        if path_present:
++            ordinary += "command -v remote-ssh\nremote-ssh --help\nremote-ssh guide post-install\n"
++            assert export is None
++        else:
++            assert export is not None
++            ordinary += "! command -v remote-ssh >/dev/null\n" + guide + "\n"
++            ordinary += export + "\ncommand -v remote-ssh\nremote-ssh --help\n"
++        fresh = c.shell([runtime_bash, "--noprofile", "--norc", "-c", ordinary])
++        assert_ok(fresh)
++        assert "Usage: remote-ssh" in fresh.stdout
++        assert "Interactive usage" in fresh.stdout
++        assert str(c.command) in fresh.stdout
++        assert not c.network.exists()
++        assert all(p.read_bytes() == before for p, before in startup.items())
++        git_log = (c.home / "git.log").read_text()
++        if iteration:
++            assert "fetch origin main" in git_log
++            assert "reset --hard origin/main" in git_log
++        else:
++            assert "clone --depth 1" in git_log
+diff --git a/dev/todo-bench.md b/dev/todo-bench.md
+index 1e88992..f183bf7 100644
+--- a/dev/todo-bench.md
++++ b/dev/todo-bench.md
+@@ -1,15 +1,23 @@
+ # Shell Startup Benchmark TODO
+ 
+-Status: config loader optimization implemented and independently reviewed.
++Status: config loader and bundled welcome optimizations implemented and
++independently reviewed.
+ Other shell startup simplification remains deferred.
+ 
+-The completed follow-up is documented in the
++The completed config-loader follow-up is documented in the
+ [implementation record](docs/config-loader-implementation-record.md), following
+ the [accepted plan](docs/config-loader-implementation-plan.md) and an independent
+ [implementation audit](docs/config-loader-implementation-audit.md). A fresh
+ [behavior re-audit](docs/config-loader-independent-reaudit.md) and
+ [paired performance verification](docs/config-loader-reaudit-performance.md)
+ confirm the size of the measured saving; the fresh audit accepted repair R1.
++
++The welcome optimization follows its [accepted plan](docs/welcome-implementation-plan.md).
++Its [implementation record](docs/welcome-implementation-record.md) retains the
++full panel, compatibility checks, and two paired performance batches on Bash 3.2
++and 5.3. The independent [implementation audit](docs/welcome-implementation-audit.md)
++accepted R1 after repairing worker preflight and measurement snapshot preparation.
++
+ The earlier
+ [audit fixes](docs/audit-fix-plan.md) remain a separate correctness workstream.
+ 
+@@ -48,10 +56,11 @@ loader scans the config file again for every key and creates many subprocesses.
+    subprocesses. Allowed keys, literal values, environment precedence, reload
+    behavior, and child-process provenance are preserved. See the
+    [implementation and measurements](docs/config-loader-implementation-record.md).
+-2. Reduce work performed by welcome. Consider a short login summary and move
+-   detailed tool, hardware, and integration inspection to `remote-ssh doctor`.
+-   First try rendering bundled modules in the current process; preserve
+-   isolation for user modules.
++2. Completed: render the three standard welcome modules in one fresh Bash
++   worker that loads the library once. The full status panel, separate renderer
++   captures, external user modules, standalone wrappers, and conservative
++   external fallback are preserved. See the
++   [implementation and measurements](docs/welcome-implementation-record.md).
+ 3. Review the startup load graph and repeated source guards. Consolidate tiny
+    private modules where it improves readability, and avoid external `basename`
+    calls just to construct guard messages. Keep public command facades.
+diff --git a/docs/install.md b/docs/install.md
+index 7a8e5b3..ba6f5f6 100644
+--- a/docs/install.md
++++ b/docs/install.md
+@@ -59,6 +59,55 @@ From a checked-out repository:
+ ./bin/remote-ssh install --profile quick --yes
+ ```
+ 
++The installer links only the management CLI from checkout helpers; prompt,
++aliases and other checkout helpers require the explicit Bash session below.
++It does not change your default shell or edit startup files.
++
++The installer also links the `remote-ssh` command into `~/.local/bin` (or
++`INSTALL_BIN_DIR` when overridden). To use it in your current terminal:
++
++```bash
++export PATH="$HOME/.local/bin:$PATH"
++remote-ssh guide post-install
++```
++
++Add the export to your shell startup file, such as `~/.zshrc` for Zsh or
++`~/.bashrc` for interactive Bash, to keep the command available in new terminals.
++The installer prints the export using the actual installation directory and
++does not edit shell startup files.
++
++SSH is optional. To start the environment locally from this checkout:
++
++```bash
++bash --rcfile "$PWD/shell/rc.sh" -i
++```
++
++After installing with `runme.sh`, use
++`bash --rcfile "$HOME/.local/share/remote-ssh/shell/rc.sh" -i` instead.
++This also works from Zsh; do not source `shell/rc.sh` directly in Zsh.
++
++`INSTALL_BIN_DIR=/custom/bin ./bin/remote-ssh install --yes fd` selects another
++command/tool destination. A relative destination is relative to the install
++caller's working directory. The footer prints full-path commands which work
++without a PATH change; it prints a PATH export only when the effective directory
++is absent from the install process's PATH. Configure that directory for future
++terminals too. An earlier PATH entry can shadow `remote-ssh`.
++
++The CLI is a symlink to the installing checkout's executable, not a standalone
++copy. Keep that checkout in place: moving/deleting it can break the link; updates
++in the same checkout update the command. Reinstallation reuses only the exact
++direct canonical link. An existing file, directory, hard link, broken link,
++link to another checkout, or relative/chained equivalent link causes an early
++failure without replacement. Inspect and move/remove the entry deliberately,
++or select another `INSTALL_BIN_DIR`. Changing destinations leaves older links
++alone; installation does not migrate them.
++
++`remote-ssh uninstall` removes managed tools and retains the management CLI,
++checkout and SSH/Git configuration. `remote-ssh prune`, including `--apply`,
++only handles eligible inactive tool release directories. Full manual removal
++also requires inspecting the management symlink and removing it only if it
++still points to the checkout being removed.
++
+ Install profiles are platform-filtered:
+ 
+ ```text
+diff --git a/docs/post-install.d/00-interactive.in b/docs/post-install.d/00-interactive.in
+index 41ae963..5f8f549 100644
+--- a/docs/post-install.d/00-interactive.in
++++ b/docs/post-install.d/00-interactive.in
+@@ -2,10 +2,26 @@
+ Interactive usage
+ ======================================================================
+ 
+-To start an interactive shell using the remote-ssh environment:
++To start an interactive shell locally or on an SSH host using the
++remote-ssh environment:
+ 
+-  bash --rcfile "@INSTALL_DIR@/shell/rc.sh"
++  @INTERACTIVE_COMMAND@
+ 
+ remote-ssh's shell environment is Bash-first. Do not source shell/rc.sh from
+ Zsh; start Bash with --rcfile as shown above.
+ 
++
++Installation exposes only the management CLI and selected tool binaries in
++INSTALL_BIN_DIR. Prompt, aliases and checkout helpers activate only in this
++explicit Bash session. Startup files and the default shell are not changed.
++
++The management link points to this checkout. Moving or deleting the checkout
++can break it; updating this checkout updates the command. Reinstalls reuse only
++the direct canonical link. Conflicting entries, including other checkouts or
++relative/chained equivalent links, are preserved: inspect and move or remove
++one deliberately, or choose another INSTALL_BIN_DIR.
++
++Uninstall and prune retain the management link and checkout. For full manual
++removal, inspect the link and remove it only if it still points to the checkout
++being removed. Configure INSTALL_BIN_DIR in PATH for ordinary/new terminals;
++an earlier PATH entry may shadow the command. The installer edits no profiles.
+diff --git a/docs/shell/welcome.md b/docs/shell/welcome.md
+index e19e90c..6031a80 100644
+--- a/docs/shell/welcome.md
++++ b/docs/shell/welcome.md
+@@ -44,6 +44,18 @@ modules live in:
+ shell/welcome.d
+ ```
+ 
++The three bundled executables share renderers in the welcome library.
++For the standard files, one fresh Bash worker loads that library once and
++captures each renderer separately before displaying it. Each executable also
++remains directly runnable. The panel still reads the same current status data
++and keeps its full content and order.
++
++The runner uses the existing external execution path for the whole bundled
++group if it finds an extra, modified, or symlinked executable, selects a different
++library tree, cannot use the worker, or inherits a nonempty `BASH_ENV` or exported
++`SHELLOPTS`/`BASHOPTS`. This keeps local replacements and shell startup hooks
++working through their own executable files.
++
+ User-local executable modules are loaded after bundled modules from:
+ 
+ ```text
+@@ -56,7 +68,12 @@ welcome lines. Copy it to the user-local directory with a numbered name such as
+ noninteractive.
+ 
+ User-local modules should stay fast, local-only, and noninteractive; they run
+-during shell startup.
++during shell startup. They always run as external executables with their own
++shebang, including files whose names match bundled modules. Each receives empty
++stdin; its completed stdout is replayed before the next module starts. Stderr is
++hidden unless welcome debug mode is enabled, and a failed module does not stop
++later modules. Their shell state cannot change another module or the calling
++shell. Module output has no special issue-message syntax.
+ 
+ ## Toggles
+ 
+diff --git a/shell/welcome.d/00-remote-ssh.sh b/shell/welcome.d/00-remote-ssh.sh
+index 7f3c2f2..ebf98e3 100755
+--- a/shell/welcome.d/00-remote-ssh.sh
++++ b/shell/welcome.d/00-remote-ssh.sh
+@@ -4,15 +4,4 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ # shellcheck source=/dev/null
+ . "$SCRIPT_DIR/../welcome.lib.sh"
+ 
+-remote_ssh_welcome_print_banner
+-remote_ssh_welcome_print_host
+-remote_ssh_welcome_print_update
+-
+-if remote_ssh_welcome_load_commands; then
+-  remote_ssh_welcome_print_tools
+-  remote_ssh_welcome_print_scripts
+-else
+-  printf 'tools:   0 checked / 0 ok\n'
+-  printf 'scripts: 0 checked / 0 ok\n'
+-  remote_ssh_welcome_issue doctor
+-fi
++remote_ssh_welcome_render_remote_ssh
+diff --git a/shell/welcome.d/10-hw.sh b/shell/welcome.d/10-hw.sh
+index 3592b7b..b92cbda 100755
+--- a/shell/welcome.d/10-hw.sh
++++ b/shell/welcome.d/10-hw.sh
+@@ -4,4 +4,4 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ # shellcheck source=/dev/null
+ . "$SCRIPT_DIR/../welcome.lib.sh"
+ 
+-remote_ssh_welcome_print_hw
++remote_ssh_welcome_render_hw
+diff --git a/shell/welcome.d/20-sw.sh b/shell/welcome.d/20-sw.sh
+index 7ebc6d8..d77aeac 100755
+--- a/shell/welcome.d/20-sw.sh
++++ b/shell/welcome.d/20-sw.sh
+@@ -4,4 +4,4 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ # shellcheck source=/dev/null
+ . "$SCRIPT_DIR/../welcome.lib.sh"
+ 
+-remote_ssh_welcome_print_sw
++remote_ssh_welcome_render_sw
+diff --git a/shell/welcome.lib.sh b/shell/welcome.lib.sh
+index 3b988ec..e146b19 100644
+--- a/shell/welcome.lib.sh
++++ b/shell/welcome.lib.sh
+@@ -25,6 +25,7 @@ REMOTE_SSH_WELCOME_MODULE_DIR="$REMOTE_SSH_WELCOME_LOADER_DIR/welcome"
+ . "$REMOTE_SSH_WELCOME_MODULE_DIR/commands.sh"
+ . "$REMOTE_SSH_WELCOME_MODULE_DIR/hw.sh"
+ . "$REMOTE_SSH_WELCOME_MODULE_DIR/sw.sh"
++. "$REMOTE_SSH_WELCOME_MODULE_DIR/bundled.sh"
+ . "$REMOTE_SSH_WELCOME_MODULE_DIR/runner.sh"
+ 
+ unset REMOTE_SSH_WELCOME_MODULE_DIR
+diff --git a/shell/welcome/runner.sh b/shell/welcome/runner.sh
+index bc2a2a5..3b59fdf 100644
+--- a/shell/welcome/runner.sh
++++ b/shell/welcome/runner.sh
+@@ -54,45 +54,119 @@ remote_ssh_welcome_cleanup_issues() {
+ 
+ remote_ssh_welcome_run_module() {
+   (
+-    local module="$1" line out_file status=0
++    local __rs_wr_module="$1" __rs_wr_renderer="${2:-}"
++    local __rs_wr_line __rs_wr_out_file __rs_wr_status=0
+ 
+-    out_file="$(mktemp "${TMPDIR:-/tmp}/remote-ssh-welcome-module.XXXXXX" 2>/dev/null)" || return 0
+-    trap 'remote_ssh_welcome_remove_temp_file "$out_file"' EXIT
++    __rs_wr_out_file="$(mktemp "${TMPDIR:-/tmp}/remote-ssh-welcome-module.XXXXXX" 2>/dev/null)" || return 0
++    trap 'remote_ssh_welcome_remove_temp_file "$__rs_wr_out_file"' EXIT
+ 
+     set +e
+ 
+     if remote_ssh_welcome_debug_enabled; then
+-      "$module" >"$out_file" </dev/null
+-      status=$?
++      if [[ -n "$__rs_wr_renderer" ]]; then
++        (remote_ssh_welcome_bundled_render "$__rs_wr_renderer") >"$__rs_wr_out_file" </dev/null
++      else
++        "$__rs_wr_module" >"$__rs_wr_out_file" </dev/null
++      fi
++      __rs_wr_status=$?
+     else
+-      "$module" >"$out_file" 2>/dev/null </dev/null
+-      status=$?
++      if [[ -n "$__rs_wr_renderer" ]]; then
++        (remote_ssh_welcome_bundled_render "$__rs_wr_renderer") >"$__rs_wr_out_file" 2>/dev/null </dev/null
++      else
++        "$__rs_wr_module" >"$__rs_wr_out_file" 2>/dev/null </dev/null
++      fi
++      __rs_wr_status=$?
+     fi
+ 
+-    while IFS= read -r line || [[ -n "$line" ]]; do
+-      remote_ssh_welcome_print_line "$line"
+-    done <"$out_file"
++    while IFS= read -r __rs_wr_line || [[ -n "$__rs_wr_line" ]]; do
++      remote_ssh_welcome_print_line "$__rs_wr_line"
++    done <"$__rs_wr_out_file"
+ 
+-    if ((status != 0)) && remote_ssh_welcome_debug_enabled; then
+-      printf 'remote-ssh welcome: module failed: %s (exit %s)\n' "$module" "$status" >&2
++    if ((__rs_wr_status != 0)) && remote_ssh_welcome_debug_enabled; then
++      printf 'remote-ssh welcome: module failed: %s (exit %s)\n' "$__rs_wr_module" "$__rs_wr_status" >&2
+     fi
+ 
+-    return "$status"
++    return "$__rs_wr_status"
+   )
+ }
+ 
+-remote_ssh_welcome_run_dir() {
+-  local dir="$1" module restore_nullglob
+-
+-  [[ -d "$dir" ]] || return 0
++# Both the ordinary user path and bundled fallback retain the old launch scope:
++# exported BASHOPTS sees nullglob on; run_module disables errexit before exec.
++remote_ssh_welcome_run_external_paths() {
++  local __rs_wr_path __rs_wr_had_nullglob=0
+ 
+-  restore_nullglob="$(shopt -p nullglob || true)"
++  if shopt -q nullglob; then __rs_wr_had_nullglob=1; fi
+   shopt -s nullglob
+-  for module in "$dir"/*; do
+-    [[ -f "$module" && -x "$module" ]] || continue
+-    remote_ssh_welcome_run_module "$module" || true
++  for __rs_wr_path in "$@"; do
++    [[ -f "$__rs_wr_path" && -x "$__rs_wr_path" ]] || continue
++    remote_ssh_welcome_run_module "$__rs_wr_path" || true
++  done
++  if ((__rs_wr_had_nullglob == 0)); then shopt -u nullglob; fi
++  return 0
++}
++
++remote_ssh_welcome_run_dir() {
++  local __rs_wr_dir="$1" __rs_wr_path __rs_wr_count=0
++  local -a __rs_wr_paths=()
++
++  [[ -d "$__rs_wr_dir" ]] || return 0
++  for __rs_wr_path in "$__rs_wr_dir"/*; do
++    [[ -f "$__rs_wr_path" && -x "$__rs_wr_path" ]] || continue
++    __rs_wr_paths[__rs_wr_count]="$__rs_wr_path"
++    __rs_wr_count=$((__rs_wr_count + 1))
++  done
++  ((__rs_wr_count > 0)) || return 0
++  remote_ssh_welcome_run_external_paths "${__rs_wr_paths[@]}"
++}
++
++remote_ssh_welcome_run_bundled() {
++  local __rs_wr_dir="$1" __rs_wr_path __rs_wr_count=0 __rs_wr_qualified=1
++  local __rs_wr_loaded_dir __rs_wr_selected_dir __rs_wr_worker __rs_wr_worker_status
++  local -a __rs_wr_paths=()
++
++  [[ -d "$__rs_wr_dir" ]] || return 0
++  # Filtering the unmatched literal glob gives the same empty-directory result
++  # without changing caller options during discovery.
++  for __rs_wr_path in "$__rs_wr_dir"/*; do
++    [[ -f "$__rs_wr_path" && -x "$__rs_wr_path" ]] || continue
++    __rs_wr_paths[__rs_wr_count]="$__rs_wr_path"
++    __rs_wr_count=$((__rs_wr_count + 1))
++    remote_ssh_welcome_bundled_renderer "$__rs_wr_dir" "$__rs_wr_path" >/dev/null || __rs_wr_qualified=0
+   done
+-  eval "$restore_nullglob"
++  ((__rs_wr_count > 0)) || return 0
++
++  __rs_wr_loaded_dir="$(remote_ssh_welcome_bundled_shell_dir 2>/dev/null)" || __rs_wr_qualified=0
++  __rs_wr_selected_dir="$(builtin cd -P -- "$__rs_wr_dir/.." 2>/dev/null && builtin pwd -P)" || __rs_wr_qualified=0
++  [ "$__rs_wr_loaded_dir" = "$__rs_wr_selected_dir" ] || __rs_wr_qualified=0
++  __rs_wr_worker="$__rs_wr_loaded_dir/welcome/bundled-runner.sh"
++  [[ -f "$__rs_wr_worker" && -x "$__rs_wr_worker" ]] || __rs_wr_qualified=0
++  [[ -z "${BASH_ENV:-}" ]] || __rs_wr_qualified=0
++  remote_ssh_welcome_bundled_options_unexported || __rs_wr_qualified=0
++
++  if ((__rs_wr_qualified == 0)); then
++    remote_ssh_welcome_run_external_paths "${__rs_wr_paths[@]}"
++    return 0
++  fi
++
++  if remote_ssh_welcome_debug_enabled; then
++    if "$__rs_wr_worker" -- "${__rs_wr_paths[@]}"; then
++      __rs_wr_worker_status=0
++    else
++      __rs_wr_worker_status=$?
++    fi
++  elif "$__rs_wr_worker" -- "${__rs_wr_paths[@]}" 2>/dev/null; then
++    __rs_wr_worker_status=0
++  else
++    __rs_wr_worker_status=$?
++  fi
++
++  if ((__rs_wr_worker_status == 125)); then
++    # Only worker preflight may return 125, before any renderer has started.
++    remote_ssh_welcome_run_external_paths "${__rs_wr_paths[@]}"
++  elif ((__rs_wr_worker_status != 0)) && remote_ssh_welcome_debug_enabled; then
++    printf 'remote-ssh welcome: bundled worker failed (exit %s)\n' "$__rs_wr_worker_status" >&2
++  fi
++  return 0
+ }
+ 
+ remote_ssh_welcome_user_dir() {
+@@ -169,7 +243,7 @@ remote_ssh_welcome_run() {
+     bundled_dir="$(remote_ssh_welcome_bundled_dir)"
+     user_dir="$(remote_ssh_welcome_user_dir 2>/dev/null || true)"
+ 
+-    remote_ssh_welcome_run_dir "$bundled_dir"
++    remote_ssh_welcome_run_bundled "$bundled_dir"
+     if remote_ssh_welcome_user_enabled && [[ -n "$user_dir" ]]; then
+       remote_ssh_welcome_run_dir "$user_dir"
+     fi
+diff --git a/tools/lib/commands/install.sh b/tools/lib/commands/install.sh
+index 8b084e2..d1242ab 100644
+--- a/tools/lib/commands/install.sh
++++ b/tools/lib/commands/install.sh
+@@ -166,6 +166,8 @@ remote_ssh_cmd_install_main() {
+     return 1
+   }
+ 
++  install_cli_preflight || return 1
++
+   remote_ssh_cmd_install_print_list "Selected tools (${source_label}):" ${tools[@]+"${tools[@]}"}
+   if ((${#skipped[@]} > 0)); then
+     printf '\n'
+@@ -176,15 +178,17 @@ remote_ssh_cmd_install_main() {
+     remote_ssh_cmd_install_confirm "$source_label" || return 1
+   fi
+ 
+-  install_tools ${tools[@]+"${tools[@]}"}
++  install_cli_publish || return 1
++  install_tools ${tools[@]+"${tools[@]}"} || return 1
+ 
+   log_info "Configuring environment..."
+-  install_shell_dir
+-  install_bin_dir
++  install_shell_dir || return 1
++  install_bin_dir || return 1
+   install_dots_dir
+-  write_expected_tools ${tools[@]+"${tools[@]}"}
++  write_expected_tools ${tools[@]+"${tools[@]}"} || return 1
+ 
+   log_info "Done."
+   printf 'Expected tools saved: %s\n' "$(expected_tools_file)"
++  repo_dir="${INSTALL_CLI_SOURCE%/bin/remote-ssh}"
+   install_print_post_install "$repo_dir"
+ }
+diff --git a/tools/lib/install/dirs.sh b/tools/lib/install/dirs.sh
+index b9470b0..4a19546 100644
+--- a/tools/lib/install/dirs.sh
++++ b/tools/lib/install/dirs.sh
+@@ -10,10 +10,58 @@ install_shell_dir() {
+   # [ -d "$SHELL_DIR" ] && find "$SHELL_DIR" -maxdepth 1 -type f -name '*.sh' -exec chmod +x {} +
+ }
+ 
++# Ownership deliberately accepts only our literal canonical target. Bootstrap
++# resolution is more permissive so users can invoke the CLI through other links.
++install_cli_check_destination() {
++  local command_path="$INSTALL_BIN_DIR/remote-ssh"
++  if [[ -e "$command_path" || -L "$command_path" ]]; then
++    if [[ ! -L "$command_path" ]] || [[ "$(readlink "$command_path")" != "$INSTALL_CLI_SOURCE" ]]; then
++      printf 'Cannot install remote-ssh: refusing to replace %s\nExpected source: %s\nNo replacement was made. Inspect and move or remove the existing entry deliberately, or select a different INSTALL_BIN_DIR.\n' \
++        "$command_path" "$INSTALL_CLI_SOURCE" >&2
++      return 1
++    fi
++  fi
++}
++
++# No mkdir, chmod, config write or tool installation is allowed in preflight.
++install_cli_preflight() {
++  INSTALL_CLI_SOURCE="$(cd -- "$BIN_DIR" && pwd -P)/remote-ssh" || return 1
++  if [[ ! -f "$INSTALL_CLI_SOURCE" ]] || [[ ! -x "$INSTALL_CLI_SOURCE" && ! -O "$INSTALL_CLI_SOURCE" ]]; then
++    printf 'Cannot prepare remote-ssh executable: %s\n' "$INSTALL_CLI_SOURCE" >&2
++    return 1
++  fi
++  case "$INSTALL_BIN_DIR" in
++    /*) ;;
++    *) INSTALL_BIN_DIR="$PWD/$INSTALL_BIN_DIR" ;;
++  esac
++  export INSTALL_BIN_DIR
++  install_cli_check_destination
++}
++
++install_cli_publish() {
++  mkdir -p "$INSTALL_BIN_DIR" || return 1
++  # Canonicalize after creation; the preflight absolute path preserves the
++  # caller's relative override even if another helper changes directories.
++  INSTALL_BIN_DIR="$(cd -- "$INSTALL_BIN_DIR" && pwd -P)" || return 1
++  export INSTALL_BIN_DIR
++  install_cli_check_destination || return 1
++  chmod +x "$INSTALL_CLI_SOURCE" || return 1
++  if [[ ! -L "$INSTALL_BIN_DIR/remote-ssh" ]]; then
++    # Directory operand prevents a newly occupied final directory from getting
++    # a nested link. Never overwrite an existing entry, even after the recheck.
++    ln -s "$INSTALL_CLI_SOURCE" "$INSTALL_BIN_DIR/" || {
++      install_cli_check_destination || return 1
++      printf 'Cannot publish remote-ssh: %s -> %s\n' "$INSTALL_BIN_DIR/remote-ssh" "$INSTALL_CLI_SOURCE" >&2
++      return 1
++    }
++  fi
++  [[ -L "$INSTALL_BIN_DIR/remote-ssh" ]] &&
++    [[ "$(readlink "$INSTALL_BIN_DIR/remote-ssh")" == "$INSTALL_CLI_SOURCE" ]] || return 1
++}
++
+ install_bin_dir() {
+   log_info "  bin/..."
+-
+-  [[ -d $BIN_DIR ]] && find "$BIN_DIR" -maxdepth 1 -type f -exec chmod +x {} +
++  [[ ! -d $BIN_DIR ]] || find "$BIN_DIR" -maxdepth 1 -type f -exec chmod +x {} +
+ }
+ 
+ install_dots_dir() {
+diff --git a/tools/lib/install/install.sh b/tools/lib/install/install.sh
+index dfdfc16..5822985 100644
+--- a/tools/lib/install/install.sh
++++ b/tools/lib/install/install.sh
+@@ -68,8 +68,10 @@ install_tool() {
+ install_tools() {
+   local -a tools=("$@")
+ 
+-  mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR"
++  mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR" || return 1
+ 
+   local t
+-  for t in ${tools[@]+"${tools[@]}"}; do install_tool "$t"; done
++  for t in ${tools[@]+"${tools[@]}"}; do
++    install_tool "$t" || return 1
++  done
+ }
+diff --git a/tools/lib/install/post_install.sh b/tools/lib/install/post_install.sh
+index 1fffb18..c52b7d4 100644
+--- a/tools/lib/install/post_install.sh
++++ b/tools/lib/install/post_install.sh
+@@ -33,7 +33,11 @@ install_render_post_install() {
+     printf '%s' "$1" | sed -e 's/[\/&|\\]/\\&/g'
+   }
+ 
++  local interactive_command
++  printf -v interactive_command 'bash --rcfile %q -i' "$install_dir/shell/rc.sh"
++
+   sed \
++    -e "s|@INTERACTIVE_COMMAND@|$(_sed_escape "$interactive_command")|g" \
+     -e "s|@INSTALL_DIR@|$(_sed_escape "$install_dir")|g" \
+     -e "s|@HOSTNAME@|$(_sed_escape "${hostname:-<hostname>}")|g" \
+     -e "s|@IP_ADDRESS@|$(_sed_escape "${ip:-<ip-address>}")|g" \
+@@ -41,10 +45,34 @@ install_render_post_install() {
+     ${templates[@]+"${templates[@]}"}
+ }
+ 
++install_post_install_bin_in_path() {
++  local bin_dir="$1" entry path_rest="${PATH}:" canonical
++  canonical="$(cd -- "$bin_dir" 2>/dev/null && pwd -P)" || canonical="$bin_dir"
++  while [[ "$path_rest" == *:* ]]; do
++    entry="${path_rest%%:*}"
++    path_rest="${path_rest#*:}"
++    [[ -n "$entry" ]] || entry=.
++    if [[ "$entry" == "$bin_dir" ]] ||
++      [[ "$(cd -- "$entry" 2>/dev/null && pwd -P)" == "$canonical" ]]; then
++      return 0
++    fi
++  done
++  return 1
++}
++
+ install_print_post_install() {
+-  cat <<'EOF'
+-Post-install setup:
+-  run: remote-ssh guide post-install
+-  includes SSH, VS Code Remote-SSH, Git, and interactive shell setup
+-EOF
++  local install_dir="${1:?install_dir required}"
++  local bin_dir="${INSTALL_BIN_DIR:-$HOME/.local/bin}"
++
++  printf '\nInstalled CLI: %s/remote-ssh\n' "$bin_dir"
++  printf 'Post-install setup:\n  run: %q guide post-install\n' "$bin_dir/remote-ssh"
++  printf 'Start a local remote-ssh shell (also works from Zsh):\n'
++  printf '  bash --rcfile %q -i\n' "$install_dir/shell/rc.sh"
++  if ! install_post_install_bin_in_path "$bin_dir"; then
++    printf 'To use remote-ssh by name in this terminal:\n'
++    # Keep PATH literal so the printed command expands it in the user's shell.
++    # shellcheck disable=SC2016
++    printf '  export PATH=%q:"$PATH"\n' "$bin_dir"
++    printf 'Configure this directory in PATH for new terminals too; startup files were not modified.\n'
++  fi
+ }

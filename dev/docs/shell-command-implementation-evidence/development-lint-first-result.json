@@ -1,0 +1,5 @@
+{
+  "command": "UV_OFFLINE=1 UV_CACHE_DIR=/tmp/remote-ssh-uv-cache uv run --project dev ruff check --no-fix dev/tests/test_shell_command.py dev/tests/test_entrypoint.py dev/tests/test_post_install.py dev/tests/test_guide.py dev/tests/test_install_cli.py",
+  "exit_code": 1,
+  "reason": "Initial new test quoting/import errors, before runtime tests."
+}

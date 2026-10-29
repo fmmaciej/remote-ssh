@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+script_path="${BASH_SOURCE[0]}"
+link_depth=0
+while [[ -L "$script_path" ]]; do
+  if ((link_depth >= 40)); then
+    printf 'remote-ssh: cannot resolve CLI source (symlink depth exceeds 40): %s\n' "$script_path" >&2
+    exit 1
+  fi
+  SCRIPT_DIR="$(cd -- "$(dirname -- "$script_path")" && pwd -P)" || exit 1
+  script_path="$(readlink "$script_path")" || {
+    printf 'remote-ssh: cannot read CLI symlink.\n' >&2
+    exit 1
+  }
+  [[ "$script_path" == /* ]] || script_path="$SCRIPT_DIR/$script_path"
+  link_depth=$((link_depth + 1))
+done
+if [[ ! -f "$script_path" ]]; then
+  printf 'remote-ssh: cannot resolve CLI source: %s\n' "$script_path" >&2
+  exit 1
+fi
+SCRIPT_DIR="$(cd -- "$(dirname -- "$script_path")" && pwd -P)" || exit 1
+script_repo_dir="$(cd "$SCRIPT_DIR/.." && pwd -P)" || exit 1
+requested_repo_dir="${REMOTE_ENV_DIR:-}"
+repo_dir="${requested_repo_dir:-$script_repo_dir}"
+lib_repo_dir="$repo_dir"
+
+if [[ ! -f "$lib_repo_dir/tools/lib/env.sh" && "${1:-}" == "doctor" ]]; then
+  lib_repo_dir="$script_repo_dir"
+fi
+
+# shellcheck source=/dev/null
+. "$lib_repo_dir/tools/lib/env.sh"
+# shellcheck source=/dev/null
+. "$TOOLS_LIB_DIR/commands.lib.sh"
+
+remote_ssh_usage() {
+  cat <<'EOF'
+Usage: remote-ssh <command> [args]
+
+Commands:
+  setup                     Configure bundled SSH and Git defaults
+  install [tool ...]        Install expected or selected remote-ssh tools
+  install --profile <name>  Install mini, quick, or full profile
+  install --full [--yes]    Install all supported default tools
+  uninstall [--yes] [tool ...]
+                            Uninstall managed remote-ssh tools
+  tool install <tool ...>   Install selected pinned tools
+  tool list                 Show default, expected, installed, unsupported tools
+  check [--strict] [tool]   Report pinned tools vs local bin and PATH
+  update [check]            Refresh checkout, or check whether upstream changed
+  ssh <command>             Configure and inspect SSH integration
+  git <command>             Configure and inspect Git integration
+  doctor                    Check runtime requirements and installed tools
+  prune [--apply]           Report or remove unused installed tool releases
+  scripts --list            List bundled helper scripts
+  guide [section]           Show shell configuration guide
+  help                      Show this help
+EOF
+}
+
+die_usage() {
+  remote_ssh_usage >&2
+  exit 1
+}
+
+main() {
+  local command="${1:-}"
+
+  case "$command" in
+    ''|-h|--help) remote_ssh_usage ;;
+    setup) shift; remote_ssh_cmd_setup_main "$@" ;;
+    install) shift; remote_ssh_cmd_install_main "$repo_dir" "$@" ;;
+    uninstall) shift; remote_ssh_cmd_uninstall_main "$@" ;;
+    tool) shift; remote_ssh_cmd_tool_main "$@" ;;
+    check) shift; remote_ssh_cmd_check_main "$@" ;;
+    ssh) shift; remote_ssh_cmd_ssh_main "$@" ;;
+    git) shift; remote_ssh_cmd_git_main "$@" ;;
+    update) shift; remote_ssh_cmd_update_main "$repo_dir" "$@" ;;
+    doctor) shift; (($# == 0)) || die_usage; remote_ssh_cmd_doctor_main "$repo_dir" "$script_repo_dir" "$requested_repo_dir" ;;
+    prune) shift; remote_ssh_cmd_prune_main "$@" ;;
+    scripts) shift; remote_ssh_cmd_scripts_main "$@" ;;
+    guide) shift; remote_ssh_cmd_guide_main "$@" ;;
+    help) shift; remote_ssh_cmd_help_main "$@" ;;
+    *) printf 'Unknown remote-ssh command: %s\n' "$command" >&2; die_usage ;;
+  esac
+}
+
+main "$@"

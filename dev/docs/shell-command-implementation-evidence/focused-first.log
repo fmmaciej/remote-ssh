@@ -1,0 +1,2621 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.9, pytest-9.0.3, pluggy-1.6.0 -- /Users/fm/Programming/00_Other/remote-ssh/dev/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/fm/Programming/00_Other/remote-ssh/dev
+configfile: pyproject.toml
+collecting ... collected 185 items
+
+dev/tests/test_shell_command.py::test_dispatch_exact_argv_cwd_and_status[/bin/bash] PASSED [  0%]
+dev/tests/test_shell_command.py::test_dispatch_exact_argv_cwd_and_status[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [  1%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args0] PASSED [  1%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args1] PASSED [  2%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args2] PASSED [  2%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args3] PASSED [  3%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args4] PASSED [  3%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args5] PASSED [  4%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args6] PASSED [  4%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args7] PASSED [  5%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args8] PASSED [  5%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args9] PASSED [  6%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args10] PASSED [  7%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args11] PASSED [  7%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args12] PASSED [  8%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args13] PASSED [  8%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/bin/bash-args14] PASSED [  9%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args0] PASSED [  9%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args1] PASSED [ 10%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args2] PASSED [ 10%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args3] PASSED [ 11%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args4] PASSED [ 11%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args5] PASSED [ 12%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args6] PASSED [ 12%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args7] PASSED [ 13%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args8] PASSED [ 14%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args9] PASSED [ 14%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args10] PASSED [ 15%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args11] PASSED [ 15%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args12] PASSED [ 16%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args13] PASSED [ 16%]
+dev/tests/test_shell_command.py::test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args14] PASSED [ 17%]
+dev/tests/test_shell_command.py::test_installed_no_tty_matches_manual_and_bare_path[/bin/bash-0] PASSED [ 17%]
+dev/tests/test_shell_command.py::test_installed_no_tty_matches_manual_and_bare_path[/bin/bash-23] PASSED [ 18%]
+dev/tests/test_shell_command.py::test_installed_no_tty_matches_manual_and_bare_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-0] PASSED [ 18%]
+dev/tests/test_shell_command.py::test_installed_no_tty_matches_manual_and_bare_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-23] PASSED [ 19%]
+dev/tests/test_shell_command.py::test_effective_checkout_override[/bin/bash] PASSED [ 20%]
+dev/tests/test_shell_command.py::test_effective_checkout_override[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 20%]
+dev/tests/test_shell_command.py::test_preflight_failures[/bin/bash-missing] PASSED [ 21%]
+dev/tests/test_shell_command.py::test_preflight_failures[/bin/bash-directory] PASSED [ 21%]
+dev/tests/test_shell_command.py::test_preflight_failures[/bin/bash-unreadable] PASSED [ 22%]
+dev/tests/test_shell_command.py::test_preflight_failures[/bin/bash-bash] PASSED [ 22%]
+dev/tests/test_shell_command.py::test_preflight_failures[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-missing] PASSED [ 23%]
+dev/tests/test_shell_command.py::test_preflight_failures[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-directory] PASSED [ 23%]
+dev/tests/test_shell_command.py::test_preflight_failures[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-unreadable] PASSED [ 24%]
+dev/tests/test_shell_command.py::test_preflight_failures[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-bash] PASSED [ 24%]
+dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/bin/bash-bash] FAILED [ 25%]
+dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/bin/bash-zsh] FAILED [ 25%]
+dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-bash] FAILED [ 26%]
+dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-zsh] FAILED [ 27%]
+dev/tests/test_shell_command.py::test_pty_cleanup_covers_job_control_groups[/bin/bash] FAILED [ 27%]
+dev/tests/test_shell_command.py::test_pty_cleanup_covers_job_control_groups[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] FAILED [ 28%]
+dev/tests/test_shell_command.py::test_exec_pid_and_native_signal[/bin/bash] FAILED [ 28%]
+dev/tests/test_shell_command.py::test_exec_pid_and_native_signal[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] FAILED [ 29%]
+dev/tests/test_shell_command.py::test_preinstall_guide_is_copyable_in_bash_and_zsh[/bin/bash] PASSED [ 29%]
+dev/tests/test_shell_command.py::test_preinstall_guide_is_copyable_in_bash_and_zsh[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 30%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args0-0] PASSED [ 30%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args1-0] PASSED [ 31%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args2-0] PASSED [ 31%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args3-0] PASSED [ 32%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args4-0] PASSED [ 32%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args5-0] PASSED [ 33%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args6-0] PASSED [ 34%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args7-0] PASSED [ 34%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args8-0] PASSED [ 35%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args9-1] PASSED [ 35%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args10-0] PASSED [ 36%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/bin/bash-args11-0] PASSED [ 36%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args0-0] PASSED [ 37%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args1-0] PASSED [ 37%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args2-0] PASSED [ 38%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args3-0] PASSED [ 38%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args4-0] PASSED [ 39%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args5-0] PASSED [ 40%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args6-0] PASSED [ 40%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args7-0] PASSED [ 41%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args8-0] PASSED [ 41%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args9-1] PASSED [ 42%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args10-0] PASSED [ 42%]
+dev/tests/test_entrypoint.py::test_public_commands_with_empty_state_on_supported_bash[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args11-0] PASSED [ 43%]
+dev/tests/test_entrypoint.py::test_remote_ssh_usage_and_unknown_command PASSED [ 43%]
+dev/tests/test_entrypoint.py::test_remote_ssh_guide_renders_commands_section PASSED [ 44%]
+dev/tests/test_entrypoint.py::test_remote_ssh_git_usage_and_unknown_command PASSED [ 44%]
+dev/tests/test_entrypoint.py::test_remote_ssh_check_delegates_to_check_command PASSED [ 45%]
+dev/tests/test_entrypoint.py::test_remote_ssh_tool_list_reports_tool_sets PASSED [ 45%]
+dev/tests/test_install_cli.py::test_install_ownership_reinstall_and_destination[/bin/bash-custom] PASSED [ 46%]
+dev/tests/test_install_cli.py::test_install_ownership_reinstall_and_destination[/bin/bash-default] PASSED [ 47%]
+dev/tests/test_install_cli.py::test_install_ownership_reinstall_and_destination[/bin/bash-relative] PASSED [ 47%]
+dev/tests/test_install_cli.py::test_install_ownership_reinstall_and_destination[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-custom] PASSED [ 48%]
+dev/tests/test_install_cli.py::test_install_ownership_reinstall_and_destination[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-default] PASSED [ 48%]
+dev/tests/test_install_cli.py::test_install_ownership_reinstall_and_destination[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-relative] PASSED [ 49%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-file] PASSED [ 49%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-directory] PASSED [ 50%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-hardlink] PASSED [ 50%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-broken] PASSED [ 51%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-foreign] PASSED [ 51%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-relative] PASSED [ 52%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-chain] PASSED [ 52%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-spelling] PASSED [ 53%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/bin/bash-checkout] PASSED [ 54%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-file] PASSED [ 54%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-directory] PASSED [ 55%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-hardlink] PASSED [ 55%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-broken] PASSED [ 56%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-foreign] PASSED [ 56%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-relative] PASSED [ 57%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-chain] PASSED [ 57%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-spelling] PASSED [ 58%]
+dev/tests/test_install_cli.py::test_collision_is_nonmutating_before_confirmation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-checkout] PASSED [ 58%]
+dev/tests/test_install_cli.py::test_invalid_input_and_declined_confirmation_do_not_publish[/bin/bash-args0] PASSED [ 59%]
+dev/tests/test_install_cli.py::test_invalid_input_and_declined_confirmation_do_not_publish[/bin/bash-args1] PASSED [ 60%]
+dev/tests/test_install_cli.py::test_invalid_input_and_declined_confirmation_do_not_publish[/bin/bash-args2] PASSED [ 60%]
+dev/tests/test_install_cli.py::test_invalid_input_and_declined_confirmation_do_not_publish[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args0] PASSED [ 61%]
+dev/tests/test_install_cli.py::test_invalid_input_and_declined_confirmation_do_not_publish[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args1] PASSED [ 61%]
+dev/tests/test_install_cli.py::test_invalid_input_and_declined_confirmation_do_not_publish[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args2] PASSED [ 62%]
+dev/tests/test_install_cli.py::test_absent_bin_and_failure_after_publication[/bin/bash] PASSED [ 62%]
+dev/tests/test_install_cli.py::test_absent_bin_and_failure_after_publication[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 63%]
+dev/tests/test_install_cli.py::test_publication_rechecks_and_never_nests[/bin/bash-file] PASSED [ 63%]
+dev/tests/test_install_cli.py::test_publication_rechecks_and_never_nests[/bin/bash-directory] PASSED [ 64%]
+dev/tests/test_install_cli.py::test_publication_rechecks_and_never_nests[/bin/bash-symlink] PASSED [ 64%]
+dev/tests/test_install_cli.py::test_publication_rechecks_and_never_nests[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-file] PASSED [ 65%]
+dev/tests/test_install_cli.py::test_publication_rechecks_and_never_nests[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-directory] PASSED [ 65%]
+dev/tests/test_install_cli.py::test_publication_rechecks_and_never_nests[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-symlink] PASSED [ 66%]
+dev/tests/test_install_cli.py::test_publication_recheck_before_ln[/bin/bash] PASSED [ 67%]
+dev/tests/test_install_cli.py::test_publication_recheck_before_ln[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 67%]
+dev/tests/test_install_cli.py::test_bootstrap_links_override_and_doctor[/bin/bash] PASSED [ 68%]
+dev/tests/test_install_cli.py::test_bootstrap_links_override_and_doctor[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 68%]
+dev/tests/test_install_cli.py::test_lifecycle_preserves_cli_and_user_paths[/bin/bash] PASSED [ 69%]
+dev/tests/test_install_cli.py::test_lifecycle_preserves_cli_and_user_paths[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 69%]
+dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/bin/bash-demo] PASSED [ 70%]
+dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/bin/bash-second] PASSED [ 70%]
+dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/bin/bash-prefix] PASSED [ 71%]
+dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-demo] PASSED [ 71%]
+dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-second] PASSED [ 72%]
+dev/tests/test_install_cli.py::test_tool_batch_failure_stops_without_completion[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-prefix] PASSED [ 72%]
+dev/tests/test_install_cli.py::test_absent_destination_success_uses_real_tool_installer[/bin/bash] PASSED [ 73%]
+dev/tests/test_install_cli.py::test_absent_destination_success_uses_real_tool_installer[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 74%]
+dev/tests/test_install_cli.py::test_install_respects_effective_checkout_override[/bin/bash] FAILED [ 74%]
+dev/tests/test_install_cli.py::test_install_respects_effective_checkout_override[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] FAILED [ 75%]
+dev/tests/test_install_cli.py::test_env_bash_children_use_selected_runtime[/bin/bash] PASSED [ 75%]
+dev/tests/test_install_cli.py::test_env_bash_children_use_selected_runtime[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 76%]
+dev/tests/test_post_install.py::test_post_install_prints_short_guide_hint PASSED [ 76%]
+dev/tests/test_post_install.py::test_post_install_renderer_renders_split_templates_in_order PASSED [ 77%]
+dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/bin/bash-False] PASSED [ 77%]
+dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/bin/bash-True] PASSED [ 78%]
+dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/bin/bash-alias] PASSED [ 78%]
+dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False] PASSED [ 79%]
+dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True] PASSED [ 80%]
+dev/tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-alias] PASSED [ 80%]
+dev/tests/test_guide.py::test_remote_ssh_guide_lists_core_entries PASSED [ 81%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_aliases_section PASSED [ 81%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_functions_section PASSED [ 82%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_git_section PASSED [ 82%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_tools_section PASSED [ 83%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_config_section PASSED [ 83%]
+dev/tests/test_guide.py::test_remote_ssh_guide_config_ignores_legacy_and_stale_source_markers PASSED [ 84%]
+dev/tests/test_guide.py::test_remote_ssh_guide_config_preserves_rc_config_provenance PASSED [ 84%]
+dev/tests/test_guide.py::test_remote_ssh_guide_config_uses_shared_config_entries PASSED [ 85%]
+dev/tests/test_guide.py::test_remote_ssh_guide_config_file_changes_and_empty_values[/bin/bash] PASSED [ 85%]
+dev/tests/test_guide.py::test_remote_ssh_guide_config_file_changes_and_empty_values[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] PASSED [ 86%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_scripts_section PASSED [ 87%]
+dev/tests/test_guide.py::test_remote_ssh_guide_scripts_supports_single_helper PASSED [ 87%]
+dev/tests/test_guide.py::test_remote_ssh_guide_scripts_supports_ssh_find_helper PASSED [ 88%]
+dev/tests/test_guide.py::test_remote_ssh_guide_scripts_supports_bssh_ip_helper PASSED [ 88%]
+dev/tests/test_guide.py::test_remote_ssh_guide_scripts_rejects_unknown_helper PASSED [ 89%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_starship_section PASSED [ 89%]
+dev/tests/test_guide.py::test_remote_ssh_guide_supports_post_install_section PASSED [ 90%]
+dev/tests/test_runme.py::test_runme_uses_default_tool_selection PASSED   [ 90%]
+dev/tests/test_runme.py::test_runme_uses_argument_tool_selection PASSED  [ 91%]
+dev/tests/test_runme.py::test_runme_forwards_yes_verbatim PASSED         [ 91%]
+dev/tests/test_runme.py::test_runme_forwards_yes_to_argument_tool_selection PASSED [ 92%]
+dev/tests/test_runme.py::test_runme_forwards_full_install PASSED         [ 92%]
+dev/tests/test_runme.py::test_runme_forwards_profile_install PASSED      [ 93%]
+dev/tests/test_runme.py::test_runme_updates_existing_checkout_by_default PASSED [ 94%]
+dev/tests/test_runme.py::test_runme_checks_out_requested_ref PASSED      [ 94%]
+dev/tests/test_runme.py::test_runme_stops_before_install_after_git_failure[FETCH] PASSED [ 95%]
+dev/tests/test_runme.py::test_runme_stops_before_install_after_git_failure[RESET] PASSED [ 95%]
+dev/tests/test_runme.py::test_runme_real_install_then_fresh_ordinary_shell[/bin/bash-False] PASSED [ 96%]
+dev/tests/test_runme.py::test_runme_real_install_then_fresh_ordinary_shell[/bin/bash-True] PASSED [ 96%]
+dev/tests/test_runme.py::test_runme_real_install_then_fresh_ordinary_shell[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False] PASSED [ 97%]
+dev/tests/test_runme.py::test_runme_real_install_then_fresh_ordinary_shell[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True] PASSED [ 97%]
+dev/tests/test_rc_flow.py::test_rc_loads_os_and_host_overrides PASSED    [ 98%]
+dev/tests/test_rc_flow.py::test_update_check_rc_skips_noninteractive_shells PASSED [ 98%]
+dev/tests/test_rc_flow.py::test_update_check_rc_refreshes_cache_silently PASSED [ 99%]
+dev/tests/test_rc_flow.py::test_rc_fails_clearly_when_sourced_from_zsh PASSED [100%]
+
+=================================== FAILURES ===================================
+_____________ test_pty_parent_return_nested_ctrl_c[/bin/bash-bash] _____________
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_par...ders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_parent_return_nested_0/bin'), bash='/bin/bash')
+caller = 'bash'
+
+    @pytest.mark.parametrize("caller", ["bash", "zsh"])
+    def test_pty_parent_return_nested_ctrl_c(shell_install: CliInstall, caller: str) -> None:
+        c = shell_install
+        snapshot = install(c)
+        if caller == "zsh":
+            zsh = shutil.which("zsh")
+            assert zsh, "The required available Zsh caller must be verified"
+            args = [zsh, "-f", "-i"]
+        else:
+            args = [c.bash, "--noprofile", "--norc", "-i"]
+        terminal = Terminal(args, c)
+        try:
+            baseline = terminal.command(
+                'printf "PARENT:%s:%s:%s\\n" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "command -v rhelp || :; command -v log || :; command -v ssh-find || :"
+            )
+            assert f"PARENT:{c.home}:unset:unset" in baseline
+            assert str(c.root / "bin") not in baseline
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            active = terminal.command(activation(c, c.root, c.home).strip())
+            assert "ACTIVATED:" in active, active
+            # Ctrl-C at the child's ready prompt must leave an ordinary usable shell.
+            terminal.send("\x03")
+            assert "AFTER-INT" in terminal.command("printf 'AFTER-INT\\n'")
+            terminal.command('export CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"')
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            inner = terminal.command('printf "INNER:%s:%s\\n" "$$" "$CHILD_ONLY"')
+            assert ":outer" in inner
+            terminal.send("export CHILD_ONLY=inner; exit 23\n")
+            returned = terminal.command('printf "NESTED-RETURN:%s:%s\\n" "$?" "$CHILD_ONLY"')
+            assert "NESTED-RETURN:23:outer" in returned
+            terminal.send("cd /; export CHILD_ONLY=changed; exit 23\n")
+            returned = terminal.command(
+                'printf "RETURN:%s:%s:%s:%s\\n" "$?" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "command -v rhelp || :; command -v log || :; command -v ssh-find || :"
+            )
+            assert f"RETURN:23:{c.home}:unset:unset" in returned, returned
+            assert str(c.root / "bin") not in returned
+            assert "rhelp=" not in returned
+            terminal.send("exit\n")
+            terminal.process.wait(timeout=5)
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:406: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:335: in close
+    self.owned.update(descendants(self.process.pid))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+dev/tests/test_shell_command.py:246: in descendants
+    result = subprocess.run(
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:554: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/bin/ps', '-axo', 'pid=,ppid=']>
+args = ['/bin/ps', '-axo', 'pid=,ppid='], executable = b'/bin/ps'
+preexec_fn = None, close_fds = True, pass_fds = (), cwd = None, env = None
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = 12, c2pwrite = 13, errread = 14, errwrite = 15
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1972: PermissionError
+_____________ test_pty_parent_return_nested_ctrl_c[/bin/bash-zsh] ______________
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_par...ders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_parent_return_nested_1/bin'), bash='/bin/bash')
+caller = 'zsh'
+
+    @pytest.mark.parametrize("caller", ["bash", "zsh"])
+    def test_pty_parent_return_nested_ctrl_c(shell_install: CliInstall, caller: str) -> None:
+        c = shell_install
+        snapshot = install(c)
+        if caller == "zsh":
+            zsh = shutil.which("zsh")
+            assert zsh, "The required available Zsh caller must be verified"
+            args = [zsh, "-f", "-i"]
+        else:
+            args = [c.bash, "--noprofile", "--norc", "-i"]
+        terminal = Terminal(args, c)
+        try:
+            baseline = terminal.command(
+                'printf "PARENT:%s:%s:%s\\n" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "command -v rhelp || :; command -v log || :; command -v ssh-find || :"
+            )
+            assert f"PARENT:{c.home}:unset:unset" in baseline
+            assert str(c.root / "bin") not in baseline
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            active = terminal.command(activation(c, c.root, c.home).strip())
+            assert "ACTIVATED:" in active, active
+            # Ctrl-C at the child's ready prompt must leave an ordinary usable shell.
+            terminal.send("\x03")
+            assert "AFTER-INT" in terminal.command("printf 'AFTER-INT\\n'")
+            terminal.command('export CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"')
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            inner = terminal.command('printf "INNER:%s:%s\\n" "$$" "$CHILD_ONLY"')
+            assert ":outer" in inner
+            terminal.send("export CHILD_ONLY=inner; exit 23\n")
+            returned = terminal.command('printf "NESTED-RETURN:%s:%s\\n" "$?" "$CHILD_ONLY"')
+>           assert "NESTED-RETURN:23:outer" in returned
+E           assert 'NESTED-RETURN:23:outer' in 'export CHILD_ONLY=inner; exit 23\r\nprintf "NESTED-RETURN:%s:%s\\n" "$?" "$CHILD_ONLY"; printf \'\\n%s\\n\' DONE-f75fabe06d7e4582adab49c5e02edd3c\r\n'
+
+dev/tests/test_shell_command.py:394: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_par...ders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_parent_return_nested_1/bin'), bash='/bin/bash')
+caller = 'zsh'
+
+    @pytest.mark.parametrize("caller", ["bash", "zsh"])
+    def test_pty_parent_return_nested_ctrl_c(shell_install: CliInstall, caller: str) -> None:
+        c = shell_install
+        snapshot = install(c)
+        if caller == "zsh":
+            zsh = shutil.which("zsh")
+            assert zsh, "The required available Zsh caller must be verified"
+            args = [zsh, "-f", "-i"]
+        else:
+            args = [c.bash, "--noprofile", "--norc", "-i"]
+        terminal = Terminal(args, c)
+        try:
+            baseline = terminal.command(
+                'printf "PARENT:%s:%s:%s\\n" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "command -v rhelp || :; command -v log || :; command -v ssh-find || :"
+            )
+            assert f"PARENT:{c.home}:unset:unset" in baseline
+            assert str(c.root / "bin") not in baseline
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            active = terminal.command(activation(c, c.root, c.home).strip())
+            assert "ACTIVATED:" in active, active
+            # Ctrl-C at the child's ready prompt must leave an ordinary usable shell.
+            terminal.send("\x03")
+            assert "AFTER-INT" in terminal.command("printf 'AFTER-INT\\n'")
+            terminal.command('export CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"')
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            inner = terminal.command('printf "INNER:%s:%s\\n" "$$" "$CHILD_ONLY"')
+            assert ":outer" in inner
+            terminal.send("export CHILD_ONLY=inner; exit 23\n")
+            returned = terminal.command('printf "NESTED-RETURN:%s:%s\\n" "$?" "$CHILD_ONLY"')
+            assert "NESTED-RETURN:23:outer" in returned
+            terminal.send("cd /; export CHILD_ONLY=changed; exit 23\n")
+            returned = terminal.command(
+                'printf "RETURN:%s:%s:%s:%s\\n" "$?" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "command -v rhelp || :; command -v log || :; command -v ssh-find || :"
+            )
+            assert f"RETURN:23:{c.home}:unset:unset" in returned, returned
+            assert str(c.root / "bin") not in returned
+            assert "rhelp=" not in returned
+            terminal.send("exit\n")
+            terminal.process.wait(timeout=5)
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:406: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:335: in close
+    self.owned.update(descendants(self.process.pid))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+dev/tests/test_shell_command.py:246: in descendants
+    result = subprocess.run(
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:554: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/bin/ps', '-axo', 'pid=,ppid=']>
+args = ['/bin/ps', '-axo', 'pid=,ppid='], executable = b'/bin/ps'
+preexec_fn = None, close_fds = True, pass_fds = (), cwd = None, env = None
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = 13, c2pwrite = 14, errread = 15, errwrite = 16
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1972: PermissionError
+_ test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-bash] _
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_par...0000gn/T/pytest-of-fm/pytest-0/test_pty_parent_return_nested_2/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+caller = 'bash'
+
+    @pytest.mark.parametrize("caller", ["bash", "zsh"])
+    def test_pty_parent_return_nested_ctrl_c(shell_install: CliInstall, caller: str) -> None:
+        c = shell_install
+        snapshot = install(c)
+        if caller == "zsh":
+            zsh = shutil.which("zsh")
+            assert zsh, "The required available Zsh caller must be verified"
+            args = [zsh, "-f", "-i"]
+        else:
+            args = [c.bash, "--noprofile", "--norc", "-i"]
+        terminal = Terminal(args, c)
+        try:
+            baseline = terminal.command(
+                'printf "PARENT:%s:%s:%s\\n" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "command -v rhelp || :; command -v log || :; command -v ssh-find || :"
+            )
+            assert f"PARENT:{c.home}:unset:unset" in baseline
+            assert str(c.root / "bin") not in baseline
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            active = terminal.command(activation(c, c.root, c.home).strip())
+            assert "ACTIVATED:" in active, active
+            # Ctrl-C at the child's ready prompt must leave an ordinary usable shell.
+            terminal.send("\x03")
+            assert "AFTER-INT" in terminal.command("printf 'AFTER-INT\\n'")
+            terminal.command('export CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"')
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            inner = terminal.command('printf "INNER:%s:%s\\n" "$$" "$CHILD_ONLY"')
+            assert ":outer" in inner
+            terminal.send("export CHILD_ONLY=inner; exit 23\n")
+            returned = terminal.command('printf "NESTED-RETURN:%s:%s\\n" "$?" "$CHILD_ONLY"')
+            assert "NESTED-RETURN:23:outer" in returned
+            terminal.send("cd /; export CHILD_ONLY=changed; exit 23\n")
+            returned = terminal.command(
+                'printf "RETURN:%s:%s:%s:%s\\n" "$?" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "command -v rhelp || :; command -v log || :; command -v ssh-find || :"
+            )
+            assert f"RETURN:23:{c.home}:unset:unset" in returned, returned
+            assert str(c.root / "bin") not in returned
+            assert "rhelp=" not in returned
+            terminal.send("exit\n")
+>           terminal.process.wait(timeout=5)
+
+dev/tests/test_shell_command.py:404: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1280: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: None args: ['/opt/homebrew/Cellar/bash/5.3.20/bin/bash',...>
+timeout = 5
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', '--noprofile', '--norc', '-i']' timed out after 5 seconds
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:2058: TimeoutExpired
+
+During handling of the above exception, another exception occurred:
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_par...0000gn/T/pytest-of-fm/pytest-0/test_pty_parent_return_nested_2/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+caller = 'bash'
+
+    @pytest.mark.parametrize("caller", ["bash", "zsh"])
+    def test_pty_parent_return_nested_ctrl_c(shell_install: CliInstall, caller: str) -> None:
+        c = shell_install
+        snapshot = install(c)
+        if caller == "zsh":
+            zsh = shutil.which("zsh")
+            assert zsh, "The required available Zsh caller must be verified"
+            args = [zsh, "-f", "-i"]
+        else:
+            args = [c.bash, "--noprofile", "--norc", "-i"]
+        terminal = Terminal(args, c)
+        try:
+            baseline = terminal.command(
+                'printf "PARENT:%s:%s:%s\\n" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "command -v rhelp || :; command -v log || :; command -v ssh-find || :"
+            )
+            assert f"PARENT:{c.home}:unset:unset" in baseline
+            assert str(c.root / "bin") not in baseline
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            active = terminal.command(activation(c, c.root, c.home).strip())
+            assert "ACTIVATED:" in active, active
+            # Ctrl-C at the child's ready prompt must leave an ordinary usable shell.
+            terminal.send("\x03")
+            assert "AFTER-INT" in terminal.command("printf 'AFTER-INT\\n'")
+            terminal.command('export CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"')
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            inner = terminal.command('printf "INNER:%s:%s\\n" "$$" "$CHILD_ONLY"')
+            assert ":outer" in inner
+            terminal.send("export CHILD_ONLY=inner; exit 23\n")
+            returned = terminal.command('printf "NESTED-RETURN:%s:%s\\n" "$?" "$CHILD_ONLY"')
+            assert "NESTED-RETURN:23:outer" in returned
+            terminal.send("cd /; export CHILD_ONLY=changed; exit 23\n")
+            returned = terminal.command(
+                'printf "RETURN:%s:%s:%s:%s\\n" "$?" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "command -v rhelp || :; command -v log || :; command -v ssh-find || :"
+            )
+            assert f"RETURN:23:{c.home}:unset:unset" in returned, returned
+            assert str(c.root / "bin") not in returned
+            assert "rhelp=" not in returned
+            terminal.send("exit\n")
+            terminal.process.wait(timeout=5)
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:406: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:335: in close
+    self.owned.update(descendants(self.process.pid))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+dev/tests/test_shell_command.py:246: in descendants
+    result = subprocess.run(
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:554: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/bin/ps', '-axo', 'pid=,ppid=']>
+args = ['/bin/ps', '-axo', 'pid=,ppid='], executable = b'/bin/ps'
+preexec_fn = None, close_fds = True, pass_fds = (), cwd = None, env = None
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = 14, c2pwrite = 15, errread = 16, errwrite = 17
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1972: PermissionError
+_ test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-zsh] _
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_par...0000gn/T/pytest-of-fm/pytest-0/test_pty_parent_return_nested_3/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+caller = 'zsh'
+
+    @pytest.mark.parametrize("caller", ["bash", "zsh"])
+    def test_pty_parent_return_nested_ctrl_c(shell_install: CliInstall, caller: str) -> None:
+        c = shell_install
+        snapshot = install(c)
+        if caller == "zsh":
+            zsh = shutil.which("zsh")
+            assert zsh, "The required available Zsh caller must be verified"
+            args = [zsh, "-f", "-i"]
+        else:
+            args = [c.bash, "--noprofile", "--norc", "-i"]
+        terminal = Terminal(args, c)
+        try:
+            baseline = terminal.command(
+                'printf "PARENT:%s:%s:%s\\n" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "command -v rhelp || :; command -v log || :; command -v ssh-find || :"
+            )
+            assert f"PARENT:{c.home}:unset:unset" in baseline
+            assert str(c.root / "bin") not in baseline
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            active = terminal.command(activation(c, c.root, c.home).strip())
+            assert "ACTIVATED:" in active, active
+            # Ctrl-C at the child's ready prompt must leave an ordinary usable shell.
+            terminal.send("\x03")
+            assert "AFTER-INT" in terminal.command("printf 'AFTER-INT\\n'")
+            terminal.command('export CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"')
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            inner = terminal.command('printf "INNER:%s:%s\\n" "$$" "$CHILD_ONLY"')
+>           assert ":outer" in inner
+E           assert ':outer' in '\rtest> \x1b[?2004hp\x1b[?2004l\r\r\n%                                                                              \r \r\rtest> \x1b[?2004hrintf \'AFTER-INT\\n\'; printf \'\\n%s\\n\' DONE-f6f70c20cadf42618080b5b2956186\r<\' DONE-f6f70c20cadf42618080b5b29561864                                       \r<\' DONE-f6f70c20cadf42618080b5b29561864d\x1b[?2004l\r\r\nzsh: command not found: rintf\r\n\r\nDONE-f6f70c20cadf42618080b5b29561864d\r\n%                                                                              \r \r\rtest> \x1b[?2004hexport CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"; printf \'\\n%s\\n\' DONE-\r<TER:%s\\n" "$$"; printf \'\\n%s\\n\' DONE-f                                       \r<TER:%s\\n" "$$"; printf \'\\n%s\\n\' DONE-f2444369ee6641b0a08dc0e3c9488884\x1b[?2004l\r\r\nOUTER:79083\r\n\r\nDONE-f2444369ee6641b0a08dc0e3c9488884\r\n%                                                                              \r \r\rtest> \x1b[?2004h\'/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/p\r<g1z17hwfsv9n5c0000gn/T/pytest-of-fm/py                                       \r<g1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_parent_return_nested_3/\r<st-0/test_pty_parent_return_nested_3/h                                       \r<st-0/test_pty_parent_return_nested_3/home/local bin \'"\'"\' $ ; &/remote-ssh\' s\r<e/local bin \'"\'"\' $ ; &/remote-ssh\' sh                                       \r<e/local bin \'"\'"\' $ ; &/remote-ssh\' shell\x1b[?2004l\r\r\nbash-5.3$ \r<intf \'\\n%s\\n\' DONE-3ac7f6c45ee0403ebda83e30d0dacc01\r\n'
+
+dev/tests/test_shell_command.py:391: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_par...0000gn/T/pytest-of-fm/pytest-0/test_pty_parent_return_nested_3/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+caller = 'zsh'
+
+    @pytest.mark.parametrize("caller", ["bash", "zsh"])
+    def test_pty_parent_return_nested_ctrl_c(shell_install: CliInstall, caller: str) -> None:
+        c = shell_install
+        snapshot = install(c)
+        if caller == "zsh":
+            zsh = shutil.which("zsh")
+            assert zsh, "The required available Zsh caller must be verified"
+            args = [zsh, "-f", "-i"]
+        else:
+            args = [c.bash, "--noprofile", "--norc", "-i"]
+        terminal = Terminal(args, c)
+        try:
+            baseline = terminal.command(
+                'printf "PARENT:%s:%s:%s\\n" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "command -v rhelp || :; command -v log || :; command -v ssh-find || :"
+            )
+            assert f"PARENT:{c.home}:unset:unset" in baseline
+            assert str(c.root / "bin") not in baseline
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            active = terminal.command(activation(c, c.root, c.home).strip())
+            assert "ACTIVATED:" in active, active
+            # Ctrl-C at the child's ready prompt must leave an ordinary usable shell.
+            terminal.send("\x03")
+            assert "AFTER-INT" in terminal.command("printf 'AFTER-INT\\n'")
+            terminal.command('export CHILD_ONLY=outer; printf "OUTER:%s\\n" "$$"')
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            inner = terminal.command('printf "INNER:%s:%s\\n" "$$" "$CHILD_ONLY"')
+            assert ":outer" in inner
+            terminal.send("export CHILD_ONLY=inner; exit 23\n")
+            returned = terminal.command('printf "NESTED-RETURN:%s:%s\\n" "$?" "$CHILD_ONLY"')
+            assert "NESTED-RETURN:23:outer" in returned
+            terminal.send("cd /; export CHILD_ONLY=changed; exit 23\n")
+            returned = terminal.command(
+                'printf "RETURN:%s:%s:%s:%s\\n" "$?" "$PWD" "${REMOTE_ENV_DIR-unset}" "${CHILD_ONLY-unset}"; '
+                "command -v rhelp || :; command -v log || :; command -v ssh-find || :"
+            )
+            assert f"RETURN:23:{c.home}:unset:unset" in returned, returned
+            assert str(c.root / "bin") not in returned
+            assert "rhelp=" not in returned
+            terminal.send("exit\n")
+            terminal.process.wait(timeout=5)
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:406: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:335: in close
+    self.owned.update(descendants(self.process.pid))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+dev/tests/test_shell_command.py:246: in descendants
+    result = subprocess.run(
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:554: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/bin/ps', '-axo', 'pid=,ppid=']>
+args = ['/bin/ps', '-axo', 'pid=,ppid='], executable = b'/bin/ps'
+preexec_fn = None, close_fds = True, pass_fds = (), cwd = None, env = None
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = 15, c2pwrite = 16, errread = 17, errwrite = 18
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1972: PermissionError
+____________ test_pty_cleanup_covers_job_control_groups[/bin/bash] _____________
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_cle...ders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_cleanup_covers_job_co0/bin'), bash='/bin/bash')
+
+    def test_pty_cleanup_covers_job_control_groups(shell_install: CliInstall) -> None:
+        c = shell_install
+        install(c)
+        terminal = Terminal([c.bash, "--noprofile", "--norc", "-i"], c)
+        owned: set[int] = set()
+        try:
+            terminal.command("printf 'PARENT-READY\\n'")
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            terminal.command("printf 'CHILD-READY\\n'")
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            terminal.command("printf 'NESTED-READY\\n'")
+>           owned = descendants(terminal.process.pid)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+dev/tests/test_shell_command.py:421: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:246: in descendants
+    result = subprocess.run(
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:554: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/bin/ps', '-axo', 'pid=,ppid=']>
+args = ['/bin/ps', '-axo', 'pid=,ppid='], executable = b'/bin/ps'
+preexec_fn = None, close_fds = True, pass_fds = (), cwd = None, env = None
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = 16, c2pwrite = 17, errread = 18, errwrite = 19
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1972: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_cle...ders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_cleanup_covers_job_co0/bin'), bash='/bin/bash')
+
+    def test_pty_cleanup_covers_job_control_groups(shell_install: CliInstall) -> None:
+        c = shell_install
+        install(c)
+        terminal = Terminal([c.bash, "--noprofile", "--norc", "-i"], c)
+        owned: set[int] = set()
+        try:
+            terminal.command("printf 'PARENT-READY\\n'")
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            terminal.command("printf 'CHILD-READY\\n'")
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            terminal.command("printf 'NESTED-READY\\n'")
+            owned = descendants(terminal.process.pid)
+            assert len(owned) >= 2
+            groups = {os.getpgid(pid) for pid in owned | {terminal.process.pid}}
+            assert len(groups) >= 3, groups
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:426: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:335: in close
+    self.owned.update(descendants(self.process.pid))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+dev/tests/test_shell_command.py:246: in descendants
+    result = subprocess.run(
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:554: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/bin/ps', '-axo', 'pid=,ppid=']>
+args = ['/bin/ps', '-axo', 'pid=,ppid='], executable = b'/bin/ps'
+preexec_fn = None, close_fds = True, pass_fds = (), cwd = None, env = None
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = 16, c2pwrite = 17, errread = 18, errwrite = 19
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1972: PermissionError
+_ test_pty_cleanup_covers_job_control_groups[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] _
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_cle...0000gn/T/pytest-of-fm/pytest-0/test_pty_cleanup_covers_job_co1/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+
+    def test_pty_cleanup_covers_job_control_groups(shell_install: CliInstall) -> None:
+        c = shell_install
+        install(c)
+        terminal = Terminal([c.bash, "--noprofile", "--norc", "-i"], c)
+        owned: set[int] = set()
+        try:
+            terminal.command("printf 'PARENT-READY\\n'")
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            terminal.command("printf 'CHILD-READY\\n'")
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            terminal.command("printf 'NESTED-READY\\n'")
+>           owned = descendants(terminal.process.pid)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+dev/tests/test_shell_command.py:421: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:246: in descendants
+    result = subprocess.run(
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:554: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/bin/ps', '-axo', 'pid=,ppid=']>
+args = ['/bin/ps', '-axo', 'pid=,ppid='], executable = b'/bin/ps'
+preexec_fn = None, close_fds = True, pass_fds = (), cwd = None, env = None
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = 17, c2pwrite = 18, errread = 19, errwrite = 20
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1972: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_pty_cle...0000gn/T/pytest-of-fm/pytest-0/test_pty_cleanup_covers_job_co1/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+
+    def test_pty_cleanup_covers_job_control_groups(shell_install: CliInstall) -> None:
+        c = shell_install
+        install(c)
+        terminal = Terminal([c.bash, "--noprofile", "--norc", "-i"], c)
+        owned: set[int] = set()
+        try:
+            terminal.command("printf 'PARENT-READY\\n'")
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            terminal.command("printf 'CHILD-READY\\n'")
+            terminal.send(shlex.quote(str(c.command)) + " shell\n")
+            terminal.command("printf 'NESTED-READY\\n'")
+            owned = descendants(terminal.process.pid)
+            assert len(owned) >= 2
+            groups = {os.getpgid(pid) for pid in owned | {terminal.process.pid}}
+            assert len(groups) >= 3, groups
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:426: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:335: in close
+    self.owned.update(descendants(self.process.pid))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+dev/tests/test_shell_command.py:246: in descendants
+    result = subprocess.run(
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:554: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/bin/ps', '-axo', 'pid=,ppid=']>
+args = ['/bin/ps', '-axo', 'pid=,ppid='], executable = b'/bin/ps'
+preexec_fn = None, close_fds = True, pass_fds = (), cwd = None, env = None
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = 17, c2pwrite = 18, errread = 19, errwrite = 20
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1972: PermissionError
+__________________ test_exec_pid_and_native_signal[/bin/bash] __________________
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_exec_pi...ders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_exec_pid_and_native_signa0/bin'), bash='/bin/bash')
+
+    def test_exec_pid_and_native_signal(shell_install: CliInstall) -> None:
+        c = shell_install
+        snapshot = install(c)
+        terminal = Terminal([c.command, "shell"], c)
+        try:
+            result = terminal.command('printf "EXEC-PID:%s\\n" "$$"')
+            assert f"EXEC-PID:{terminal.process.pid}\r\n" in result
+            os.kill(terminal.process.pid, signal.SIGKILL)
+            assert terminal.process.wait(timeout=5) == -signal.SIGKILL
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:440: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:335: in close
+    self.owned.update(descendants(self.process.pid))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+dev/tests/test_shell_command.py:246: in descendants
+    result = subprocess.run(
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:554: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/bin/ps', '-axo', 'pid=,ppid=']>
+args = ['/bin/ps', '-axo', 'pid=,ppid='], executable = b'/bin/ps'
+preexec_fn = None, close_fds = True, pass_fds = (), cwd = None, env = None
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = 18, c2pwrite = 19, errread = 20, errwrite = 21
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1972: PermissionError
+__ test_exec_pid_and_native_signal[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] __
+
+shell_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_exec_pi...0000gn/T/pytest-of-fm/pytest-0/test_exec_pid_and_native_signa1/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+
+    def test_exec_pid_and_native_signal(shell_install: CliInstall) -> None:
+        c = shell_install
+        snapshot = install(c)
+        terminal = Terminal([c.command, "shell"], c)
+        try:
+            result = terminal.command('printf "EXEC-PID:%s\\n" "$$"')
+            assert f"EXEC-PID:{terminal.process.pid}\r\n" in result
+            os.kill(terminal.process.pid, signal.SIGKILL)
+            assert terminal.process.wait(timeout=5) == -signal.SIGKILL
+        finally:
+>           terminal.close()
+
+dev/tests/test_shell_command.py:440: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+dev/tests/test_shell_command.py:335: in close
+    self.owned.update(descendants(self.process.pid))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+dev/tests/test_shell_command.py:246: in descendants
+    result = subprocess.run(
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:554: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/bin/ps', '-axo', 'pid=,ppid=']>
+args = ['/bin/ps', '-axo', 'pid=,ppid='], executable = b'/bin/ps'
+preexec_fn = None, close_fds = True, pass_fds = (), cwd = None, env = None
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = 19, c2pwrite = 20, errread = 21, errwrite = 22
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+
+../../../.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/subprocess.py:1972: PermissionError
+_________ test_install_respects_effective_checkout_override[/bin/bash] _________
+
+cli_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install...ders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/bin'), bash='/bin/bash')
+
+    def test_install_respects_effective_checkout_override(cli_install: CliInstall) -> None:
+        c = cli_install
+        override = c.home / "effective checkout"
+        shutil.copytree(c.root, override)
+        c.env["REMOTE_ENV_DIR"] = str(override)
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        assert c.command.readlink() == override / "bin/remote-ssh"
+>       assert str(override).replace(" ", "\\ ") in result.stdout
+E       assert '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/effective\\ checkout' in 'Selected tools (selected):\n  demo\nExpected tools saved: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/.config/remote-ssh/expected-tools\n\nInstalled CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local bin \' $ ; &/remote-ssh\nPost-install setup:\n  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh guide post-install\nStart a local remote-ssh shell (also works from Zsh):\n  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh shell\nTo use remote-ssh by name in this terminal:\n  export PATH=/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&:"$PATH"\nConfigure this directory in PATH for new terminals too; startup files were not modified.\n'
+E        +  where '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/effective\\ checkout' = <built-in method replace of str object at 0x106d01420>(' ', '\\ ')
+E        +    where <built-in method replace of str object at 0x106d01420> = '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/effective checkout'.replace
+E        +      where '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/effective checkout' = str(PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/effective checkout'))
+E        +  and   'Selected tools (selected):\n  demo\nExpected tools saved: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/.config/remote-ssh/expected-tools\n\nInstalled CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local bin \' $ ; &/remote-ssh\nPost-install setup:\n  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh guide post-install\nStart a local remote-ssh shell (also works from Zsh):\n  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh shell\nTo use remote-ssh by name in this terminal:\n  export PATH=/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&:"$PATH"\nConfigure this directory in PATH for new terminals too; startup files were not modified.\n' = CompletedProcess(args=['/bin/bash', "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/repo space ' $ ; &/bin/remote-ssh", 'install', '--yes', 'demo'], returncode=0, stdout='Selected tools (selected):\n  demo\nExpected tools saved: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/.config/remote-ssh/expected-tools\n\nInstalled CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local bin \' $ ; &/remote-ssh\nPost-install setup:\n  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh guide post-install\nStart a local remote-ssh shell (also works from Zsh):\n  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh shell\nTo use remote-ssh by name in this terminal:\n  export PATH=/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&:"$PATH"\nConfigure this directory in PATH for new terminals too; startup files were not modified.\n', stderr="[INFO] Begin.\n[INFO] 'demo' 1 is installed in /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local bin ' $ ; &/demo - SKIPPING.\n[INFO] Configuring environment...\n[INFO]   shell/...\n[INFO]   bin/...\n[INFO]   dots/...\n[INFO]     App configs:\n[INFO]       dots/starship.toml\n[INFO]       dots/tmux.conf\n[INFO]       dots/vimrc\n[INFO]       dots/atuin/config.toml\n[INFO]     Setup templates:\n[INFO]       dots/git/config.base\n[INFO]       dots/git/user.local.example\n[INFO]       dots/ssh/config.example\n[INFO]     Cheatsheets:\n[INFO]       dots/navi/cheats/*.cheat\n[INFO] Done.\n").stdout
+
+dev/tests/test_install_cli.py:443: AssertionError
+_ test_install_respects_effective_checkout_override[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] _
+
+cli_install = CliInstall(root=PosixPath("/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install...0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/bin'), bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+
+    def test_install_respects_effective_checkout_override(cli_install: CliInstall) -> None:
+        c = cli_install
+        override = c.home / "effective checkout"
+        shutil.copytree(c.root, override)
+        c.env["REMOTE_ENV_DIR"] = str(override)
+        result = c.run("install", "--yes", "demo")
+        assert_ok(result)
+        assert c.command.readlink() == override / "bin/remote-ssh"
+>       assert str(override).replace(" ", "\\ ") in result.stdout
+E       assert '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/effective\\ checkout' in 'Selected tools (selected):\n  demo\nExpected tools saved: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/.config/remote-ssh/expected-tools\n\nInstalled CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local bin \' $ ; &/remote-ssh\nPost-install setup:\n  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh guide post-install\nStart a local remote-ssh shell (also works from Zsh):\n  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh shell\nTo use remote-ssh by name in this terminal:\n  export PATH=/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&:"$PATH"\nConfigure this directory in PATH for new terminals too; startup files were not modified.\n'
+E        +  where '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/effective\\ checkout' = <built-in method replace of str object at 0x106d02ce0>(' ', '\\ ')
+E        +    where <built-in method replace of str object at 0x106d02ce0> = '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/effective checkout'.replace
+E        +      where '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/effective checkout' = str(PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/effective checkout'))
+E        +  and   'Selected tools (selected):\n  demo\nExpected tools saved: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/.config/remote-ssh/expected-tools\n\nInstalled CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local bin \' $ ; &/remote-ssh\nPost-install setup:\n  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh guide post-install\nStart a local remote-ssh shell (also works from Zsh):\n  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh shell\nTo use remote-ssh by name in this terminal:\n  export PATH=/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&:"$PATH"\nConfigure this directory in PATH for new terminals too; startup files were not modified.\n' = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/repo space ' $ ; &/bin/remote-ssh", 'install', '--yes', 'demo'], returncode=0, stdout='Selected tools (selected):\n  demo\nExpected tools saved: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/.config/remote-ssh/expected-tools\n\nInstalled CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local bin \' $ ; &/remote-ssh\nPost-install setup:\n  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh guide post-install\nStart a local remote-ssh shell (also works from Zsh):\n  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh shell\nTo use remote-ssh by name in this terminal:\n  export PATH=/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&:"$PATH"\nConfigure this directory in PATH for new terminals too; startup files were not modified.\n', stderr="[INFO] Begin.\n[INFO] 'demo' 1 is installed in /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local bin ' $ ; &/demo - SKIPPING.\n[INFO] Configuring environment...\n[INFO]   shell/...\n[INFO]   bin/...\n[INFO]   dots/...\n[INFO]     App configs:\n[INFO]       dots/starship.toml\n[INFO]       dots/tmux.conf\n[INFO]       dots/vimrc\n[INFO]       dots/atuin/config.toml\n[INFO]     Setup templates:\n[INFO]       dots/git/config.base\n[INFO]       dots/git/user.local.example\n[INFO]       dots/ssh/config.example\n[INFO]     Cheatsheets:\n[INFO]       dots/navi/cheats/*.cheat\n[INFO] Done.\n").stdout
+
+dev/tests/test_install_cli.py:443: AssertionError
+=========================== short test summary info ============================
+FAILED dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/bin/bash-bash] - PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+FAILED dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/bin/bash-zsh] - PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+FAILED dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-bash] - PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+FAILED dev/tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-zsh] - PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+FAILED dev/tests/test_shell_command.py::test_pty_cleanup_covers_job_control_groups[/bin/bash] - PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+FAILED dev/tests/test_shell_command.py::test_pty_cleanup_covers_job_control_groups[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] - PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+FAILED dev/tests/test_shell_command.py::test_exec_pid_and_native_signal[/bin/bash] - PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+FAILED dev/tests/test_shell_command.py::test_exec_pid_and_native_signal[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] - PermissionError: [Errno 1] Operation not permitted: '/bin/ps'
+FAILED dev/tests/test_install_cli.py::test_install_respects_effective_checkout_override[/bin/bash] - assert '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/effective\\ checkout' in 'Selected tools (selected):\n  demo\nExpected tools saved: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/.config/remote-ssh/expected-tools\n\nInstalled CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local bin \' $ ; &/remote-ssh\nPost-install setup:\n  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh guide post-install\nStart a local remote-ssh shell (also works from Zsh):\n  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh shell\nTo use remote-ssh by name in this terminal:\n  export PATH=/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&:"$PATH"\nConfigure this directory in PATH for new terminals too; startup files were not modified.\n'
+ +  where '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/effective\\ checkout' = <built-in method replace of str object at 0x106d01420>(' ', '\\ ')
+ +    where <built-in method replace of str object at 0x106d01420> = '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/effective checkout'.replace
+ +      where '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/effective checkout' = str(PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/effective checkout'))
+ +  and   'Selected tools (selected):\n  demo\nExpected tools saved: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/.config/remote-ssh/expected-tools\n\nInstalled CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local bin \' $ ; &/remote-ssh\nPost-install setup:\n  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh guide post-install\nStart a local remote-ssh shell (also works from Zsh):\n  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh shell\nTo use remote-ssh by name in this terminal:\n  export PATH=/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&:"$PATH"\nConfigure this directory in PATH for new terminals too; startup files were not modified.\n' = CompletedProcess(args=['/bin/bash', "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/repo space ' $ ; &/bin/remote-ssh", 'install', '--yes', 'demo'], returncode=0, stdout='Selected tools (selected):\n  demo\nExpected tools saved: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/.config/remote-ssh/expected-tools\n\nInstalled CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local bin \' $ ; &/remote-ssh\nPost-install setup:\n  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh guide post-install\nStart a local remote-ssh shell (also works from Zsh):\n  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh shell\nTo use remote-ssh by name in this terminal:\n  export PATH=/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&:"$PATH"\nConfigure this directory in PATH for new terminals too; startup files were not modified.\n', stderr="[INFO] Begin.\n[INFO] 'demo' 1 is installed in /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv0/home/local bin ' $ ; &/demo - SKIPPING.\n[INFO] Configuring environment...\n[INFO]   shell/...\n[INFO]   bin/...\n[INFO]   dots/...\n[INFO]     App configs:\n[INFO]       dots/starship.toml\n[INFO]       dots/tmux.conf\n[INFO]       dots/vimrc\n[INFO]       dots/atuin/config.toml\n[INFO]     Setup templates:\n[INFO]       dots/git/config.base\n[INFO]       dots/git/user.local.example\n[INFO]       dots/ssh/config.example\n[INFO]     Cheatsheets:\n[INFO]       dots/navi/cheats/*.cheat\n[INFO] Done.\n").stdout
+FAILED dev/tests/test_install_cli.py::test_install_respects_effective_checkout_override[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] - assert '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/effective\\ checkout' in 'Selected tools (selected):\n  demo\nExpected tools saved: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/.config/remote-ssh/expected-tools\n\nInstalled CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local bin \' $ ; &/remote-ssh\nPost-install setup:\n  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh guide post-install\nStart a local remote-ssh shell (also works from Zsh):\n  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh shell\nTo use remote-ssh by name in this terminal:\n  export PATH=/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&:"$PATH"\nConfigure this directory in PATH for new terminals too; startup files were not modified.\n'
+ +  where '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/effective\\ checkout' = <built-in method replace of str object at 0x106d02ce0>(' ', '\\ ')
+ +    where <built-in method replace of str object at 0x106d02ce0> = '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/effective checkout'.replace
+ +      where '/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/effective checkout' = str(PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/effective checkout'))
+ +  and   'Selected tools (selected):\n  demo\nExpected tools saved: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/.config/remote-ssh/expected-tools\n\nInstalled CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local bin \' $ ; &/remote-ssh\nPost-install setup:\n  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh guide post-install\nStart a local remote-ssh shell (also works from Zsh):\n  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh shell\nTo use remote-ssh by name in this terminal:\n  export PATH=/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&:"$PATH"\nConfigure this directory in PATH for new terminals too; startup files were not modified.\n' = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/repo space ' $ ; &/bin/remote-ssh", 'install', '--yes', 'demo'], returncode=0, stdout='Selected tools (selected):\n  demo\nExpected tools saved: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/.config/remote-ssh/expected-tools\n\nInstalled CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local bin \' $ ; &/remote-ssh\nPost-install setup:\n  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh guide post-install\nStart a local remote-ssh shell (also works from Zsh):\n  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&/remote-ssh shell\nTo use remote-ssh by name in this terminal:\n  export PATH=/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local\\ bin\\ \\\'\\ \\$\\ \\;\\ \\&:"$PATH"\nConfigure this directory in PATH for new terminals too; startup files were not modified.\n', stderr="[INFO] Begin.\n[INFO] 'demo' 1 is installed in /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-0/test_install_respects_effectiv1/home/local bin ' $ ; &/demo - SKIPPING.\n[INFO] Configuring environment...\n[INFO]   shell/...\n[INFO]   bin/...\n[INFO]   dots/...\n[INFO]     App configs:\n[INFO]       dots/starship.toml\n[INFO]       dots/tmux.conf\n[INFO]       dots/vimrc\n[INFO]       dots/atuin/config.toml\n[INFO]     Setup templates:\n[INFO]       dots/git/config.base\n[INFO]       dots/git/user.local.example\n[INFO]       dots/ssh/config.example\n[INFO]     Cheatsheets:\n[INFO]       dots/navi/cheats/*.cheat\n[INFO] Done.\n").stdout
+================== 10 failed, 175 passed in 90.61s (0:01:30) ===================

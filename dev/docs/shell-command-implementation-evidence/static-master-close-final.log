@@ -1,0 +1,11 @@
+$ ['uv', 'run', '--project', 'dev', 'ruff', 'format', '--check', 'dev/tests/test_shell_command.py']
+1 file already formatted
+
+exit=0
+$ ['uv', 'run', '--project', 'dev', 'ruff', 'check', '--no-fix', 'dev/tests/test_shell_command.py']
+All checks passed!
+
+exit=0
+$ ['git', 'diff', '--check']
+
+exit=0

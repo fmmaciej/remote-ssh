@@ -1,0 +1,26 @@
+{
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "/Users/fm/Programming/00_Other/remote-ssh/dev",
+    "pytest",
+    "-vv",
+    "-ra",
+    "dev/tests/test_shell_command.py",
+    "dev/tests/test_entrypoint.py",
+    "dev/tests/test_install_cli.py",
+    "dev/tests/test_post_install.py",
+    "dev/tests/test_guide.py",
+    "dev/tests/test_runme.py",
+    "dev/tests/test_rc_flow.py"
+  ],
+  "exit_code": 1,
+  "timeout": false,
+  "elapsed_seconds": 91.06535158399993,
+  "supervisor_pid": 70365,
+  "child_pid": 70366,
+  "offline": true,
+  "closed_stdin": true,
+  "fresh_session": true
+}

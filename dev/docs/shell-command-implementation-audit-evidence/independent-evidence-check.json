@@ -1,0 +1,80 @@
+{
+  "plan_sha256": "cf52fce5f2e665c04316d08c9f7f112a40a30733fb62de43f30101f1da1e1124",
+  "plan_audit_sha256": "edd51255423e71f8ce15bd46078262db2cf706253da40e2b69ceeeae8d9d0c5b",
+  "protected_count": 264,
+  "protected_mismatches": [],
+  "candidate_count": 15,
+  "candidate_mismatches": [],
+  "scope_matches_candidate": true,
+  "baseline_copy_mismatches": [],
+  "baseline_outside_scope_changes": [
+    "dev/docs/shell-command-process-record.md"
+  ],
+  "runs": {
+    "focused-final": {
+      "command": [
+        "uv",
+        "run",
+        "--offline",
+        "--project",
+        "dev",
+        "pytest",
+        "-vv",
+        "-ra",
+        "dev/tests/test_shell_command.py",
+        "dev/tests/test_entrypoint.py",
+        "dev/tests/test_install_cli.py",
+        "dev/tests/test_post_install.py",
+        "dev/tests/test_guide.py",
+        "dev/tests/test_runme.py",
+        "dev/tests/test_rc_flow.py"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "timeout_seconds": 300,
+      "elapsed_seconds": 75.42190837499948,
+      "outside_sandbox": true,
+      "supervisor_python": "/Users/fm/Programming/00_Other/remote-ssh/dev/.venv/bin/python",
+      "child_pid": 62808,
+      "stdin": "DEVNULL",
+      "start_new_session": true,
+      "offline": true,
+      "environment_removed": [],
+      "hashes_match": true,
+      "tracked_descendants": 602,
+      "survivors": [],
+      "complete": true,
+      "raw_before_equals_frozen": true,
+      "raw_after_equals_frozen": true,
+      "log_sha256": "adeef3281ff8329cab9ee96fa32453b125e9f33c4ad69354361fef9ab163e42d",
+      "result_sha256": "7a3dee0e093de87edeb00f40091752d3b7d61d001fc62d04ef3e7bf5a576305f"
+    },
+    "smoke": {
+      "command": [
+        "just",
+        "smoke"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "timeout_seconds": 900,
+      "elapsed_seconds": 379.40644908299873,
+      "outside_sandbox": true,
+      "supervisor_python": "/Users/fm/Programming/00_Other/remote-ssh/dev/.venv/bin/python",
+      "child_pid": 6579,
+      "stdin": "DEVNULL",
+      "start_new_session": true,
+      "offline": true,
+      "environment_removed": [],
+      "hashes_match": true,
+      "tracked_descendants": 2357,
+      "survivors": [],
+      "complete": true,
+      "raw_before_equals_frozen": true,
+      "raw_after_equals_frozen": true,
+      "log_sha256": "bcb4b9df7feccbc2f5986c30c2734c0155f7c154c4dab65253d7554f61548d0a",
+      "result_sha256": "63fcfeffabf024c48e4744edc83946a4baa29d6b114d4851e292c2bd8abc52a3"
+    }
+  },
+  "feature_diff_matches_frozen": true,
+  "bootstrap_byte_preserved": true
+}

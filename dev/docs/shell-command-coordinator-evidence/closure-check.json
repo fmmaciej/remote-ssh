@@ -1,0 +1,28 @@
+{
+  "protected": {
+    "count": 264,
+    "mismatches": []
+  },
+  "candidate": {
+    "count": 15,
+    "mismatches": []
+  },
+  "plan_sha256": "cf52fce5f2e665c04316d08c9f7f112a40a30733fb62de43f30101f1da1e1124",
+  "plan_audit_sha256": "edd51255423e71f8ce15bd46078262db2cf706253da40e2b69ceeeae8d9d0c5b",
+  "implementation_audit_sha256": "040f14db55ac3cd0989d444bcfa15018bd7a797cab98b5416570a51119fa8485",
+  "runs": {
+    "focused-final": {
+      "exit_code": 0,
+      "timed_out": false,
+      "hashes_match": true,
+      "survivors": []
+    },
+    "smoke": {
+      "exit_code": 0,
+      "timed_out": false,
+      "hashes_match": true,
+      "survivors": []
+    }
+  },
+  "diff_check_exit_code": 0
+}

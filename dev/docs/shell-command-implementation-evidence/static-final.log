@@ -1,0 +1,20 @@
+$ ['uv', 'run', '--project', 'dev', 'ruff', 'format', '--check', 'dev/tests/test_shell_command.py', 'dev/tests/test_entrypoint.py', 'dev/tests/test_install_cli.py', 'dev/tests/test_post_install.py', 'dev/tests/test_guide.py']
+5 files already formatted
+
+exit=0
+$ ['uv', 'run', '--project', 'dev', 'ruff', 'check', '--no-fix', 'dev/tests/test_shell_command.py', 'dev/tests/test_entrypoint.py', 'dev/tests/test_install_cli.py', 'dev/tests/test_post_install.py', 'dev/tests/test_guide.py']
+All checks passed!
+
+exit=0
+$ ['/bin/bash', '-n', 'tools/lib/commands/shell.sh', 'tools/lib/commands.lib.sh', 'bin/remote-ssh', 'tools/lib/commands/guide/sections.sh', 'tools/lib/install/post_install.sh']
+
+exit=0
+$ ['/opt/homebrew/bin/bash', '-n', 'tools/lib/commands/shell.sh', 'tools/lib/commands.lib.sh', 'bin/remote-ssh', 'tools/lib/commands/guide/sections.sh', 'tools/lib/install/post_install.sh']
+
+exit=0
+$ ['shellcheck', 'tools/lib/commands/shell.sh', 'tools/lib/commands.lib.sh', 'bin/remote-ssh', 'tools/lib/commands/guide/sections.sh', 'tools/lib/install/post_install.sh']
+
+exit=0
+$ ['git', 'diff', '--check']
+
+exit=0

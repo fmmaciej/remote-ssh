@@ -208,10 +208,27 @@ New releases contain a `.remote-ssh-release` ownership record identifying the
 tool, version, layout, and relative executable path. Neovim preserves its full
 package layout, so its symlink targets `<release>/bin/nvim`.
 
+Reinstalls may create `<tool>-<version>.<PID>-<RANDOM>` directories, where PID
+and RANDOM contain decimal digits only. Other suffixes are not recognized as
+installer-generated suffixes. The ownership record must match the full release
+version and directory name; a different version sharing the pinned version's
+prefix does not satisfy the pinned install check.
+
+Installation locations may be directory symlinks. `prune` and `uninstall`
+scan the physical prefix's direct children and keep child directory symlinks
+protected. `check` and `doctor` recognize equivalent bin paths by filesystem
+identity, including directory symlinks and relative PATH entries. An empty
+PATH entry denotes the current directory. Diagnostic headers retain configured
+paths; release listings use physical paths.
+
 Removal requires a valid ownership record inside a direct child of the install
 prefix. Files, directory symlinks, foreign directories such as `rg-personal-notes`,
 and older releases without a record are protected. Active binary and alias
 symlinks protect their entire release during prune, including bundled runtimes.
+This protection also covers links to helper programs or data files inside a
+release, even when there is no link to its main executable. Reference detection
+does not grant ownership: deletion still requires the valid ownership record
+described above. Protected paths are compared literally using Bash built-ins.
 
 Older unmarked releases remain usable and are left for manual review. Reinstall
 a tool to create a new marked release without changing `expected-tools`:
@@ -234,6 +251,13 @@ Deletion requires:
 ```bash
 remote-ssh prune --apply
 ```
+
+Both prune modes require an existing, readable and searchable `INSTALL_BIN_DIR`.
+Missing directories, insufficient permissions, or failed active-link enumeration
+abort with a nonzero exit status before reporting candidates or removing releases.
+A successfully read empty directory means there are no active tool links; write
+permission on the bin directory is not required. Directory symlinks and custom
+alias names are supported. Inventory failures do not count as an empty directory.
 
 ## Updating
 

@@ -6,27 +6,73 @@ remote_ssh_cmd_prune_canonical_dir() {
   local dir="$1"
 
   [[ -d "$dir" ]] || return 1
-  cd "$dir" && pwd -P
+  cd -P -- "$dir" && pwd -P
 }
 
 remote_ssh_cmd_prune_symlink_target_dir() {
-  remote_ssh_release_for_link "$1"
+  local target prefix relative root
+
+  target="$(remote_ssh_link_target_path "$1")" || return "$?"
+  [[ -f "$target" ]] || return 1
+  prefix="$(remote_ssh_cmd_prune_canonical_dir "$INSTALL_PREFIX" 2>/dev/null)" || return 1
+  prefix="${prefix%/}"
+  case "$target" in "$prefix/"*) ;; *) return 1 ;; esac
+  relative="${target#"$prefix"/}"
+  root="$prefix/${relative%%/*}"
+  [[ -d "$root" ]] || return 1
+  # Any referenced payload file protects its root. Ownership is checked separately
+  # before deletion, without requiring this link to point at the main executable.
+  printf '%s\n' "$root"
 }
 
-remote_ssh_cmd_prune_protected_release_dirs() {
-  local link protected_dir
+remote_ssh_cmd_prune_protected_release_dirs() (
+  local bin_canon inventory link protected_dir resolve_status
+
+  if ! bin_canon="$(remote_ssh_cmd_prune_canonical_dir "$INSTALL_BIN_DIR" 2>/dev/null)"; then
+    printf 'Cannot inspect INSTALL_BIN_DIR: %s\n' "$INSTALL_BIN_DIR" >&2
+    return 1
+  fi
+  if ! [[ -r "$bin_canon" && -x "$bin_canon" ]]; then
+    printf 'Cannot read/search INSTALL_BIN_DIR: %s\n' "$INSTALL_BIN_DIR" >&2
+    return 1
+  fi
+
+  inventory="$(mktemp "${TMPDIR:-/tmp}/remote-ssh-prune-links.XXXXXX")" || {
+    printf 'Cannot create active-link inventory for INSTALL_BIN_DIR: %s\n' "$INSTALL_BIN_DIR" >&2
+    return 1
+  }
+  trap 'rm -f -- "$inventory"' EXIT
+  # Capture the whole inventory successfully before interpreting any entries.
+  # NUL delimiters preserve custom alias names, including embedded newlines.
+  if ! find "$bin_canon" -mindepth 1 -maxdepth 1 -type l -print0 >"$inventory"; then
+    printf 'Cannot enumerate INSTALL_BIN_DIR: %s\n' "$INSTALL_BIN_DIR" >&2
+    return 1
+  fi
+
   # Protect custom and older alias names too, not just aliases in today's defs.
-  for link in "$INSTALL_BIN_DIR"/*; do
+  while IFS= read -r -d '' link; do
     if protected_dir="$(remote_ssh_cmd_prune_symlink_target_dir "$link")"; then
       printf '%s\n' "$protected_dir"
+    else
+      resolve_status=$?
+      if ((resolve_status != 1)); then
+        printf 'Cannot read symlink while checking active releases: %s\n' "$link" >&2
+        return 1
+      fi
     fi
-  done
-}
+  done <"$inventory"
+  return 0
+)
 
 remote_ssh_cmd_prune_is_protected_release_dir() {
   local dir="$1" protected="$2"
 
-  grep -Fx -- "$dir" <<<"$protected" >/dev/null
+  [[ -n "$dir" ]] || return 1
+  # Newline boundaries give exact entries; quoted data stays literal in the pattern.
+  case $'\n'"$protected"$'\n' in
+    *$'\n'"$dir"$'\n'*) return 0 ;;
+  esac
+  return 1
 }
 
 remote_ssh_cmd_prune_is_known_release_dir_name() {
@@ -66,13 +112,16 @@ remote_ssh_cmd_prune_main() {
     esac
   done
 
-  mkdir -p "$INSTALL_PREFIX"
+  if ! protected="$(remote_ssh_cmd_prune_protected_release_dirs)"; then
+    printf 'Cannot determine active tool releases; prune aborted.\n' >&2
+    return 1
+  fi
+
+  mkdir -p "$INSTALL_PREFIX" || return 1
   prefix_canon="$(remote_ssh_cmd_prune_canonical_dir "$INSTALL_PREFIX")" || {
     printf 'Cannot resolve INSTALL_PREFIX: %s\n' "$INSTALL_PREFIX" >&2
     return 1
   }
-  protected="$(remote_ssh_cmd_prune_protected_release_dirs | sort -u)"
-
   if ((apply == 1)); then
     printf 'remote-ssh prune --apply\n'
   else
@@ -99,7 +148,7 @@ remote_ssh_cmd_prune_main() {
     else
       printf 'candidate: %s\n' "$dir"
     fi
-  done < <(find "$INSTALL_PREFIX" -mindepth 1 -maxdepth 1 -type d -print | sort)
+  done < <(find "$prefix_canon" -mindepth 1 -maxdepth 1 -type d -print | sort)
 
   ((found == 1)) || printf 'No prune candidates.\n'
 }

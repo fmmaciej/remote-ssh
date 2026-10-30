@@ -23,18 +23,6 @@ remote_ssh_tool_status_read_link_target() {
   fi
 }
 
-remote_ssh_tool_status_target_matches_version() {
-  local target="$1" tool="$2" version="$3"
-
-  case "$target" in
-    "$INSTALL_PREFIX/${tool}-${version}/"* | "$INSTALL_PREFIX/${tool}-${version}".*/*)
-      return 0
-      ;;
-  esac
-
-  return 1
-}
-
 remote_ssh_tool_status_classify_bin() {
   local expected_tool="$1" version="$2" local_bin="$3" path_bin="$4"
 
@@ -48,12 +36,13 @@ remote_ssh_tool_status_classify_bin() {
     )"
     if ! [[ -L "$local_bin" ]]; then
       REMOTE_SSH_TOOL_STATUS_ITEM_STATUS="unmanaged-local"
-    elif ! remote_ssh_tool_status_target_matches_version \
-      "$REMOTE_SSH_TOOL_STATUS_ITEM_TARGET" \
+    elif ! remote_ssh_link_matches_version \
+      "$local_bin" \
       "$expected_tool" \
       "$version"; then
       REMOTE_SSH_TOOL_STATUS_ITEM_STATUS="stale-local"
-    elif [[ "$path_bin" == "$local_bin" ]]; then
+    elif [[ -n "$path_bin" && "$path_bin" -ef "$local_bin" ]] &&
+      [[ "$(type -t "${local_bin##*/}")" == file ]]; then
       if [[ "${INSTALL_LAYOUT:-binary}" == bundle ]] && ! remote_ssh_bundle_install_valid "$local_bin" "$expected_tool" "$BINARY_PATH"; then
         REMOTE_SSH_TOOL_STATUS_ITEM_STATUS="incomplete-local"
       else

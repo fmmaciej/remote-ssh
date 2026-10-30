@@ -82,3 +82,21 @@ def test_ownership_record_cannot_adopt_external_paths_or_execute_code(
     assert release.is_dir()
     assert outside.is_dir()
     assert not (outside / "executed").exists()
+
+
+@pytest.mark.parametrize("command", [["prune", "--apply"], ["uninstall", "--yes", "rg"]])
+@pytest.mark.parametrize("suffix", ["123x-456", "123-456x", "123-456-7"])
+def test_removal_protects_malformed_release_suffix(
+    repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str, command: list[str], suffix: str
+) -> None:
+    (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+    release = tool_env.opt_dir / f"rg-15.1.0.{suffix}"
+    release.mkdir()
+    mark_managed_release(release, "rg", "15.1.0")
+    (tool_env.bin_dir / "rg").symlink_to(release / "rg")
+
+    result = run_remote_ssh(repo_dir, command, env=tool_env.env)
+
+    assert_ok(result)
+    assert release.is_dir()
+    assert (tool_env.bin_dir / "rg").is_symlink()

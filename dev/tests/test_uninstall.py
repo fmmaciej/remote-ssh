@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from conftest import (
     ToolStateEnv,
     assert_failed,
@@ -191,3 +192,43 @@ def test_uninstall_without_args_detects_relative_managed_symlink(
     assert_ok(result)
     assert not (tool_env.bin_dir / "rg").exists()
     assert not release_dir.exists()
+
+
+@pytest.mark.parametrize("explicit", [False, True], ids=["all-managed", "selected"])
+def test_uninstall_scans_symlinked_prefix_and_preserves_foreign_paths(
+    repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str, explicit: bool
+) -> None:
+    (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+    active = make_managed_tool(tool_env, "rg", "15.1.0")
+    other = make_managed_tool(tool_env, "fd", "10.3.0")
+    stale = tool_env.opt_dir / "rg-14.1.0"
+    stale.mkdir()
+    mark_managed_release(stale, "rg", "14.1.0")
+    legacy = tool_env.opt_dir / "rg-13.1.0"
+    legacy.mkdir()
+    unknown = tool_env.opt_dir / "personal-notes"
+    unknown.mkdir()
+    outside = tool_env.external_dir / "rg-12.1.0"
+    outside.mkdir()
+    mark_managed_release(outside, "rg", "12.1.0")
+    child_link = tool_env.opt_dir / outside.name
+    child_link.symlink_to(outside, target_is_directory=True)
+    prefix = tool_env.home / "opt alias"
+    prefix.symlink_to(tool_env.opt_dir, target_is_directory=True)
+    expected = write_expected_tools(tool_env, ["rg", "fd", "fzf"])
+    env = tool_env.env | {"INSTALL_PREFIX": str(prefix)}
+
+    result = run_remote_ssh(
+        repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=env
+    )
+
+    assert_ok(result)
+    assert not (tool_env.bin_dir / "rg").is_symlink()
+    assert not active.parent.exists() and not stale.exists()
+    assert other.exists() == explicit
+    assert (tool_env.bin_dir / "fd").is_symlink() == explicit
+    assert legacy.is_dir() and unknown.is_dir() and outside.is_dir()
+    assert child_link.is_symlink()
+    assert expected.read_text().splitlines()[-(2 if explicit else 1) :] == (
+        ["fd", "fzf"] if explicit else ["fzf"]
+    )

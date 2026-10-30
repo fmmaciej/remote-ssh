@@ -2,11 +2,14 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from conftest import (
     ToolStateEnv,
     assert_failed,
+    assert_ok,
     make_external_tool,
     make_managed_tool,
+    run_cmd,
     run_remote_ssh,
     write_expected_tools,
 )
@@ -97,3 +100,85 @@ def test_remote_ssh_doctor_reports_missing_binary_alias(
     assert "alias:     nushell -> [missing] status=missing target=[missing]" in result.stdout
     assert "run: remote-ssh install" in result.stdout
     assert "inspect: remote-ssh check --strict" in result.stdout
+
+
+def test_doctor_accepts_equivalent_bin_directory(
+    repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str
+) -> None:
+    (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+    make_managed_tool(tool_env, "rg", "15.1.0")
+    write_expected_tools(tool_env, ["rg"])
+    alias = tool_env.home / "bin alias"
+    alias.symlink_to(tool_env.bin_dir, target_is_directory=True)
+
+    result = run_remote_ssh(
+        repo_dir, ["doctor"], env=tool_env.env | {"INSTALL_BIN_DIR": str(alias)}
+    )
+
+    assert_ok(result)
+    assert f"PATH\n  bin:    {alias}\n  status: ok" in result.stdout
+    assert "summary: ok" in result.stdout
+    assert "path-shadowed" not in result.stdout
+
+
+@pytest.mark.parametrize(
+    "path_form,expected",
+    [
+        ("physical", True),
+        ("symlink", True),
+        ("trailing-slash", True),
+        ("relative", True),
+        ("leading-empty", True),
+        ("trailing-empty", True),
+        ("middle-empty", True),
+        ("empty", True),
+        ("other", False),
+        ("unset", False),
+    ],
+)
+def test_doctor_path_check_compares_directory_identity(
+    repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str, path_form: str, expected: bool
+) -> None:
+    alias = tool_env.home / "bin alias"
+    alias.symlink_to(tool_env.bin_dir, target_is_directory=True)
+    path_value = {
+        "physical": str(tool_env.bin_dir),
+        "symlink": str(alias),
+        "trailing-slash": str(tool_env.bin_dir) + "/",
+        "relative": ".",
+        "leading-empty": ":/usr/bin:/bin",
+        "trailing-empty": "/usr/bin:/bin:",
+        "middle-empty": "/usr/bin::/bin",
+        "empty": "",
+        "other": str(tool_env.external_dir),
+        "unset": "",
+    }[path_form]
+    result = run_cmd(
+        [
+            runtime_bash,
+            "-c",
+            """
+        set -euo pipefail
+        . "$1/tools/lib/env.sh"
+        . "$TOOLS_LIB_DIR/commands.lib.sh"
+        INSTALL_BIN_DIR="$2"
+        PATH="$3"
+        if [[ "$4" == unset ]]; then unset PATH; fi
+        if remote_ssh_cmd_doctor_path_contains_install_bin; then
+          printf 'present\\n'
+        else
+          printf 'absent\\n'
+        fi
+        """,
+            "_",
+            repo_dir,
+            alias,
+            path_value,
+            path_form,
+        ],
+        cwd=tool_env.bin_dir,
+        env=tool_env.env,
+    )
+
+    assert_ok(result)
+    assert result.stdout.strip() == ("present" if expected else "absent")

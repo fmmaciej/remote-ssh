@@ -21,18 +21,16 @@ is_tool_installed() {
 
     if [[ -L $local_bin ]]; then
       target="$(readlink "$local_bin")"
-      case "$target" in
-        "$INSTALL_PREFIX/${tool}-${expected_version}/"* | "$INSTALL_PREFIX/${tool}-${expected_version}".*/*)
-          if [[ "${INSTALL_LAYOUT:-binary}" == bundle ]]; then
-            release="$(remote_ssh_release_for_link "$local_bin" "$tool")" || return 1
-            remote_ssh_release_validate "$release" "$tool" || return 1
-            [[ "$REMOTE_SSH_RELEASE_LAYOUT" == bundle &&
-              "$REMOTE_SSH_RELEASE_EXECUTABLE" == "$BINARY_PATH" ]] || return 1
-          fi
-          log_info "'$tool' ${expected_version} is installed in ${local_bin} - SKIPPING."
-          return 0
-          ;;
-      esac
+      if remote_ssh_link_matches_version "$local_bin" "$tool" "$expected_version"; then
+        if [[ "${INSTALL_LAYOUT:-binary}" == bundle ]]; then
+          release="$(remote_ssh_release_for_link "$local_bin" "$tool")" || return 1
+          remote_ssh_release_validate "$release" "$tool" || return 1
+          [[ "$REMOTE_SSH_RELEASE_LAYOUT" == bundle &&
+            "$REMOTE_SSH_RELEASE_EXECUTABLE" == "$BINARY_PATH" ]] || return 1
+        fi
+        log_info "'$tool' ${expected_version} is installed in ${local_bin} - SKIPPING."
+        return 0
+      fi
 
       log_info "'$tool' is installed in ${local_bin}, but target is not VERSION=${expected_version}: ${target}"
       return 1

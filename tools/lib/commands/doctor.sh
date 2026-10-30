@@ -3,12 +3,19 @@
 ensure_this_file_sourced
 
 remote_ssh_cmd_doctor_path_contains_install_bin() {
-  local part
-  local -a path_parts
+  local part remaining="${PATH-}"
 
-  IFS=':' read -r -a path_parts <<<"${PATH:-}"
-  for part in ${path_parts[@]+"${path_parts[@]}"}; do
-    [[ "$part" == "$INSTALL_BIN_DIR" ]] && return 0
+  [[ -d "$INSTALL_BIN_DIR" && -n "${PATH+x}" ]] || return 1
+  # Splitting explicitly preserves trailing and empty entries (the current dir).
+  while :; do
+    part="${remaining%%:*}"
+    if [[ -d "${part:-.}" && "${part:-.}" -ef "$INSTALL_BIN_DIR" ]]; then
+      return 0
+    fi
+    case "$remaining" in
+      *:*) remaining="${remaining#*:}" ;;
+      *) break ;;
+    esac
   done
   return 1
 }

@@ -18,6 +18,59 @@ remote_ssh_release_write() {
     "$tool" "$version" "$layout" "$executable" >"$dir/.remote-ssh-release"
 }
 
+# Resolve directory symlinks before '..', just as filesystem path lookup does.
+remote_ssh_link_target_path() {
+  local link="$1" target parent link_dir
+  [[ -L "$link" ]] || return 1
+  # Keep an I/O failure distinct from an ordinary unresolved/unmanaged link.
+  target="$(readlink "$link")" || return 2
+  case "$target" in
+    /*) ;;
+    *)
+      link_dir="${link%/*}"
+      [[ "$link_dir" != "$link" ]] || link_dir=.
+      target="$link_dir/$target"
+      ;;
+  esac
+  parent="$(cd -P -- "${target%/*}" 2>/dev/null && pwd -P)" || return 1
+  printf '%s/%s\n' "${parent%/}" "${target##*/}"
+}
+
+remote_ssh_release_name_matches_version() {
+  local name="$1" tool="$2" version="$3" suffix
+
+  [[ "$name" == "$tool-$version" ]] && return 0
+  case "$name" in
+    "$tool-$version".*)
+      suffix="${name#"$tool-$version."}"
+      [[ "$suffix" =~ ^[0-9]+-[0-9]+$ ]]
+      ;;
+    *) return 1 ;;
+  esac
+}
+
+# Marked releases use their recorded version. Only absent records allow legacy
+# matching against the exact release name or the installer's numeric suffix.
+remote_ssh_link_matches_version() {
+  local link="$1" tool="$2" version="$3" target prefix relative root record
+
+  target="$(remote_ssh_link_target_path "$link")" || return 1
+  [[ -f "$target" && ! -L "$target" ]] || return 1
+  prefix="$(cd -P -- "$INSTALL_PREFIX" 2>/dev/null && pwd -P)" || return 1
+  prefix="${prefix%/}"
+  case "$target" in "$prefix/"*) ;; *) return 1 ;; esac
+  relative="${target#"$prefix"/}"
+  root="$prefix/${relative%%/*}"
+  record="$root/.remote-ssh-release"
+
+  if [[ -e "$record" || -L "$record" ]]; then
+    remote_ssh_release_for_link "$link" "$tool" >/dev/null || return 1
+    [[ "$REMOTE_SSH_RELEASE_VERSION" == "$version" ]]
+  else
+    remote_ssh_release_name_matches_version "${root##*/}" "$tool" "$version"
+  fi
+}
+
 # The fixed-order record is data, not shell code. Deletion requires a complete,
 # valid record and an executable contained in a direct child of INSTALL_PREFIX.
 remote_ssh_release_validate() {
@@ -42,17 +95,15 @@ remote_ssh_release_validate() {
   [[ -f "$TOOLS_DIR/defs/$tool.sh" ]] || return 1
   [[ -z "$expected_tool" || "$tool" == "$expected_tool" ]] || return 1
   remote_ssh_relative_path_valid "$executable" || return 1
-  prefix="$(cd -- "$INSTALL_PREFIX" && pwd -P)" || return 1
-  canonical="$(cd -- "$dir" && pwd -P)" || return 1
+  prefix="$(cd -P -- "$INSTALL_PREFIX" && pwd -P)" || return 1
+  prefix="${prefix%/}"
+  canonical="$(cd -P -- "$dir" && pwd -P)" || return 1
   [[ "${canonical%/*}" == "$prefix" ]] || return 1
-  case "${canonical##*/}" in
-    "$tool-$version"|"$tool-$version".[0-9]*-[0-9]*) ;;
-    *) return 1 ;;
-  esac
+  remote_ssh_release_name_matches_version "${canonical##*/}" "$tool" "$version" || return 1
   [[ -f "$canonical/$executable" && ! -L "$canonical/$executable" ]] || return 1
   parent="${executable%/*}"
   [[ "$parent" != "$executable" ]] || parent=.
-  parent="$(cd -- "$canonical/$parent" && pwd -P)" || return 1
+  parent="$(cd -P -- "$canonical/$parent" && pwd -P)" || return 1
   case "$parent/" in "$canonical/"*) ;; *) return 1 ;; esac
   REMOTE_SSH_RELEASE_TOOL="$tool"
   REMOTE_SSH_RELEASE_VERSION="$version"
@@ -61,17 +112,15 @@ remote_ssh_release_validate() {
 }
 
 remote_ssh_release_for_link() {
-  local link="$1" expected_tool="${2:-}" target parent prefix relative root
-  [[ -L "$link" ]] || return 1
-  target="$(readlink "$link")" || return 1
-  case "$target" in /*) ;; *) target="${link%/*}/$target" ;; esac
-  parent="$(cd -- "${target%/*}" 2>/dev/null && pwd -P)" || return 1
-  prefix="$(cd -- "$INSTALL_PREFIX" 2>/dev/null && pwd -P)" || return 1
-  case "$parent/" in "$prefix/"*) ;; *) return 1 ;; esac
-  relative="${parent#"$prefix"/}"
+  local link="$1" expected_tool="${2:-}" target prefix relative root
+  target="$(remote_ssh_link_target_path "$link")" || return "$?"
+  prefix="$(cd -P -- "$INSTALL_PREFIX" 2>/dev/null && pwd -P)" || return 1
+  prefix="${prefix%/}"
+  case "$target" in "$prefix/"*) ;; *) return 1 ;; esac
+  relative="${target#"$prefix"/}"
   root="$prefix/${relative%%/*}"
   remote_ssh_release_validate "$root" "$expected_tool" || return 1
-  [[ "$parent/${target##*/}" == "$root/$REMOTE_SSH_RELEASE_EXECUTABLE" ]] || return 1
+  [[ "$target" == "$root/$REMOTE_SSH_RELEASE_EXECUTABLE" ]] || return 1
   printf '%s\n' "$root"
 }
 

@@ -61,7 +61,7 @@ remote_ssh_cmd_uninstall_canonical_dir() {
   local dir="$1"
 
   [[ -d "$dir" ]] || return 1
-  (cd "$dir" && pwd -P)
+  (cd -P -- "$dir" && pwd -P)
 }
 
 remote_ssh_cmd_uninstall_link_target_path() {
@@ -126,7 +126,7 @@ remote_ssh_cmd_uninstall_collect_release_dirs_for_tool() {
     [[ "$(dirname "$dir_canon")" == "$prefix_canon" ]] || continue
     remote_ssh_release_validate "$dir" "$TOOL_NAME" || continue
     printf '%s\n' "$dir"
-  done < <(find "$INSTALL_PREFIX" -mindepth 1 -maxdepth 1 -type d -print | sort)
+  done < <(find "$prefix_canon" -mindepth 1 -maxdepth 1 -type d -print | sort)
 }
 
 remote_ssh_cmd_uninstall_managed_tools() {

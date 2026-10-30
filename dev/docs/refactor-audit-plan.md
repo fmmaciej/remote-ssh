@@ -15,6 +15,12 @@ Other repository areas, including `docs/`, `dots/`, and broad `dev/tests/`
 review, are intentionally deferred unless an audited area directly depends on
 them.
 
+Planned follow-up: [Atuin integration simplification](atuin-simplification-plan.md)
+defines startup-only history selection, Ctrl-R-only managed search, disabled
+automatic sync, and conditional `bash-preexec` loading. It is a separate
+implementation proposal; the completed audit reports retain their original
+findings.
+
 ## Ground Rules
 
 - Audit first, refactor later.

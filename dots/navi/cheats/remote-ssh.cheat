@@ -24,8 +24,14 @@ remote-ssh install --full --yes
 # Install selected remote-ssh tools and save expected-tools config
 remote-ssh install <tools>
 
-# Show default, expected, installed, and unsupported tools
+# List available tools and managed installations
 remote-ssh tool list
+
+# List only managed installations
+remote-ssh tool list --installed
+
+# List all tools, including unsupported tools on this platform
+remote-ssh tool list --all
 
 # Install selected remote-ssh tool
 remote-ssh tool install <tool>

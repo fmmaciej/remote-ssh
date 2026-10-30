@@ -6,66 +6,80 @@ remote_ssh_cmd_tool_usage() {
   cat <<'EOF' >&2
 Usage:
   remote-ssh tool install <tool ...>
-  remote-ssh tool list
+  remote-ssh tool list [--installed | --all]
 EOF
 }
 
-remote_ssh_cmd_tool_print_lines() {
-  local title="$1"
-  shift
+remote_ssh_cmd_tool_list_usage() {
+  cat <<'EOF'
+Usage: remote-ssh tool list [--installed | --all]
 
-  printf '%s\n' "$title"
-  if (($# == 0)); then
-    printf '  [none]\n'
-    return 0
-  fi
+Lists tools supported on this platform and managed installations.
 
-  printf '  %s\n' "$@"
-}
+Options:
+  --installed  Show only managed installations
+  --all        Include tools unsupported on this platform
+  -h, --help   Show this help
 
-remote_ssh_cmd_tool_print_profiles() {
-  local profile tool
-  local -a tools
-
-  printf 'Install profiles:\n'
-  for profile in ${INSTALL_PROFILES[@]+"${INSTALL_PROFILES[@]}"}; do
-    tools=()
-    while IFS= read -r tool; do
-      [[ -n "$tool" ]] && tools+=("$tool")
-    done < <(install_profile_tools "$profile")
-    printf '  %-5s %s\n' "$profile" "${tools[*]}"
-  done
+Status:
+  installed    Managed installation; use remote-ssh check for diagnostics
+  available    Supported on this platform, without a managed installation
+  unsupported  No matching asset for this platform
+EOF
 }
 
 remote_ssh_cmd_tool_list() {
-  local tool
-  local -a expected=() installed=() unsupported=()
+  local mode=default show_help=0 arg platform raw_os raw_arch libc tool status
+  local -a rows=()
 
-  if expected_tools_exists; then
-    while IFS= read -r tool; do
-      [[ -n "$tool" ]] && expected+=("$tool")
-    done < <(read_expected_tools)
+  for arg in "$@"; do
+    case "$arg" in
+      --installed|--all)
+        if [[ "$mode" != default && "$mode" != "${arg#--}" ]]; then
+          printf 'remote-ssh tool list: --installed and --all cannot be combined.\n' >&2
+          return 1
+        fi
+        mode="${arg#--}"
+        ;;
+      -h|--help)
+        show_help=1
+        ;;
+      *)
+        printf 'remote-ssh tool list: unexpected argument: %s\n' "$arg" >&2
+        remote_ssh_cmd_tool_list_usage >&2
+        return 1
+        ;;
+    esac
+  done
+
+  if ((show_help == 1)); then
+    remote_ssh_cmd_tool_list_usage
+    return 0
   fi
 
-  while IFS= read -r tool; do
-    [[ -n "$tool" ]] && installed+=("$tool")
-  done < <(managed_installed_tools)
+  platform="$(default_platform)"
+  IFS=: read -r raw_os raw_arch libc <<<"$platform"
 
   while IFS= read -r tool; do
-    [[ -n "$tool" ]] && unsupported+=("$tool")
-  done < <(current_unsupported_default_tools)
+    if managed_tool_installed "$tool"; then
+      status=installed
+    elif [[ "$mode" == installed ]]; then
+      continue
+    elif default_tool_supported_on_platform "$tool" "$raw_os" "$raw_arch" "$libc"; then
+      status=available
+    elif [[ "$mode" == all ]]; then
+      status=unsupported
+    else
+      continue
+    fi
+    rows+=("$tool" "$status")
+  done < <(LC_ALL=C all_known_tools)
 
-  printf 'remote-ssh tool list\n\n'
-  remote_ssh_cmd_tool_print_profiles
-  printf '\n'
-  remote_ssh_cmd_tool_print_lines "Default tools:" ${DEFAULT_TOOLS[@]+"${DEFAULT_TOOLS[@]}"}
-  printf '\n'
-  printf 'Expected tools config: %s\n' "$(expected_tools_file)"
-  remote_ssh_cmd_tool_print_lines "Expected tools:" ${expected[@]+"${expected[@]}"}
-  printf '\n'
-  remote_ssh_cmd_tool_print_lines "Managed installed tools:" ${installed[@]+"${installed[@]}"}
-  printf '\n'
-  remote_ssh_cmd_tool_print_lines "Unsupported default tools on this platform:" ${unsupported[@]+"${unsupported[@]}"}
+  if ((${#rows[@]} == 0)); then
+    printf 'No tools found.\n'
+    return 0
+  fi
+  printf '%-16s %s\n' TOOL STATUS "${rows[@]}"
 }
 
 remote_ssh_cmd_tool_main() {
@@ -84,11 +98,7 @@ remote_ssh_cmd_tool_main() {
       install_tools "$@"
       ;;
     list)
-      (($# == 0)) || {
-        remote_ssh_cmd_tool_usage
-        return 1
-      }
-      remote_ssh_cmd_tool_list
+      remote_ssh_cmd_tool_list "$@"
       ;;
     -h|--help)
       remote_ssh_cmd_tool_usage

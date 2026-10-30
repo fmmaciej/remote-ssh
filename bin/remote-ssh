@@ -49,7 +49,8 @@ Commands:
   uninstall [--yes] [tool ...]
                             Uninstall managed remote-ssh tools
   tool install <tool ...>   Install selected pinned tools
-  tool list                 Show default, expected, installed, unsupported tools
+  tool list [--installed | --all]
+                            List available tools and managed installations
   check [--strict] [tool]   Report pinned tools vs local bin and PATH
   update [check]            Refresh checkout, or check whether upstream changed
   ssh <command>             Configure and inspect SSH integration

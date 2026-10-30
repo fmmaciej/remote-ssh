@@ -10,7 +10,6 @@ from conftest import (
     make_managed_tool,
     run_cmd,
     run_remote_ssh,
-    write_expected_tools,
 )
 
 
@@ -25,6 +24,8 @@ from conftest import (
         (["shell", "-h"], 0),
         (["shell", "--help"], 0),
         (["tool", "list"], 0),
+        (["tool", "list", "--installed"], 0),
+        (["tool", "list", "--all"], 0),
         (["check", "rg"], 0),
         (["check", "--strict", "rg"], 1),
         (["uninstall", "--yes"], 0),
@@ -80,7 +81,8 @@ def test_remote_ssh_guide_renders_commands_section(repo_dir: Path, tool_env: Too
     assert "remote-ssh guide [section]  Show this configuration guide" in result.stdout
     assert "remote-ssh install --profile <name>" in result.stdout
     assert "remote-ssh check --strict   Report pinned tools vs local bin and PATH" in result.stdout
-    assert "remote-ssh tool list        Show tool selection and install state" in result.stdout
+    assert "remote-ssh tool list [--installed | --all]" in result.stdout
+    assert "List available tools and managed installations" in result.stdout
     assert "remote-ssh uninstall [tool ...]" in result.stdout
     assert "remote-ssh setup            Configure bundled SSH and Git defaults" in result.stdout
     assert "remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
@@ -117,20 +119,11 @@ def test_remote_ssh_check_delegates_to_check_command(
     assert "status:    ok" in result.stdout
 
 
-def test_remote_ssh_tool_list_reports_tool_sets(repo_dir: Path, tool_env: ToolStateEnv) -> None:
-    write_expected_tools(tool_env, ["rg", "fd"])
+def test_remote_ssh_tool_list_reports_install_state(repo_dir: Path, tool_env: ToolStateEnv) -> None:
     make_managed_tool(tool_env, "rg", "15.1.0")
 
     result = run_remote_ssh(repo_dir, ["tool", "list"], env=tool_env.env)
 
     assert_ok(result)
-    assert "remote-ssh tool list" in result.stdout
-    assert "Default tools:" in result.stdout
-    assert "Install profiles:" in result.stdout
-    assert "  mini" in result.stdout
-    assert "  quick" in result.stdout
-    assert "  full" in result.stdout
-    assert "Expected tools:" in result.stdout
-    assert "  rg" in result.stdout
-    assert "Managed installed tools:" in result.stdout
-    assert "Unsupported default tools on this platform:" in result.stdout
+    assert result.stdout.splitlines()[0].split() == ["TOOL", "STATUS"]
+    assert ["rg", "installed"] in [line.split() for line in result.stdout.splitlines()[1:]]

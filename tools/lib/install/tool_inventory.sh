@@ -17,16 +17,19 @@ all_known_tools() {
   done
 }
 
-managed_installed_tools() {
-  local tool target
+managed_tool_installed() {
+  local tool="$1" link="$INSTALL_BIN_DIR/$1"
 
-  for tool in $(all_known_tools); do
-    [[ -L "$INSTALL_BIN_DIR/$tool" ]] || continue
-    target="$(readlink "$INSTALL_BIN_DIR/$tool")"
-    case "$target" in
-      "$INSTALL_PREFIX/${tool}-"*/*)
-        printf '%s\n' "$tool"
-        ;;
-    esac
-  done
+  [[ -x "$link" ]] || return 1
+  remote_ssh_release_for_link "$link" "$tool" >/dev/null
+}
+
+managed_installed_tools() {
+  local tool
+
+  while IFS= read -r tool; do
+    if managed_tool_installed "$tool"; then
+      printf '%s\n' "$tool"
+    fi
+  done < <(all_known_tools)
 }

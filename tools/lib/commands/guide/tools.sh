@@ -46,10 +46,16 @@ Tools
   install quick remote-ssh install --profile quick
   install all  remote-ssh install --full
   list         remote-ssh tool list
+  installed    remote-ssh tool list --installed
+  catalogue    remote-ssh tool list --all
   check        remote-ssh check --strict
   doctor       remote-ssh doctor
   prune        remote-ssh prune
   prune apply  remote-ssh prune --apply
+
+Tool list shows supported tools and managed installations. Use --all to include
+unsupported tools. Installed does not imply the pinned version or correct PATH;
+use remote-ssh check for diagnostics.
 
 EOF
 

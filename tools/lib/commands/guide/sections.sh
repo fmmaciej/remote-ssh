@@ -18,7 +18,8 @@ Commands
   remote-ssh uninstall [tool ...]
                               Uninstall managed remote-ssh tools
   remote-ssh tool install     Install selected pinned tools
-  remote-ssh tool list        Show tool selection and install state
+  remote-ssh tool list [--installed | --all]
+                              List available tools and managed installations
   remote-ssh check --strict   Report pinned tools vs local bin and PATH
   remote-ssh git setup        Add remote-ssh Git config via include.path
   remote-ssh git status       Check Git identity, session override, and origin

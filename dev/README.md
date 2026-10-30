@@ -44,6 +44,8 @@ just fmt
   coverage in delivery order.
 - [Archive Extraction Plan](docs/archive-extraction-plan.md): validation,
   isolated extraction, and installer failure regressions; not scheduled.
+- [Flyline Integration Plan](docs/flyline-implementation-plan.md): proposed
+  compatibility pilot, optional editor activation, and managed library installs.
 - [Deferred Shell Simplification](todo-bench.md): startup measurements and
   simplification ideas to revisit after the correctness fixes.
 

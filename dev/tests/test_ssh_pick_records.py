@@ -53,7 +53,7 @@ def test_ssh_pick_uses_config_selected_by_backend(
         printf '%s\\n' "$@"
     """,
     )
-    write_executable(isolated_env.bin_dir / "fzf", "#!/bin/sh\ncat\n")
+    write_executable(isolated_env.bin_dir / "sk", "#!/bin/sh\ncat\n")
     env = isolated_env.env | {
         "PATH": f"{isolated_env.bin_dir}:{repo_dir / 'bin'}:/usr/bin:/bin",
         "SSH_FIND_SSH_CONFIG": str(config),
@@ -117,7 +117,7 @@ else:
     print('connected-port=' + port)
 """,
     )
-    write_executable(isolated_env.bin_dir / "fzf", '#!/bin/sh\ntee "$SELECTED_RECORD"\n')
+    write_executable(isolated_env.bin_dir / "sk", '#!/bin/sh\ntee "$SELECTED_RECORD"\n')
     backend = isolated_env.bin_dir / "backend"
     write_executable(
         backend,

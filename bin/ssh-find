@@ -8,6 +8,11 @@ repo_dir="$(cd -- "$script_dir/.." && pwd)"
 ssh_find_backend="${SSH_FIND_BACKEND:-$repo_dir/scripts/ssh_find.py}"
 query="$*"
 
+command -v sk >/dev/null 2>&1 || {
+  printf '[WARN] ssh-find requires skim (sk). Install it with: remote-ssh tool install sk\n' >&2
+  exit 127
+}
+
 records="$("$ssh_find_backend" 2>&1)" || {
   printf '[WARN] ssh-find could not list SSH hosts.\n' >&2
   printf '[WARN] ssh-find currently requires python3 for scripts/ssh_find.py.\n' >&2
@@ -20,7 +25,7 @@ if [[ -z "$records" ]]; then
   exit 1
 fi
 
-fzf_args=(
+sk_args=(
   --prompt='ssh host> '
   --delimiter=$'\t'
   "--with-nth=1,2,3,4"
@@ -28,10 +33,10 @@ fzf_args=(
 )
 
 if [[ -n "$query" ]]; then
-  fzf_args+=(--query="$query")
+  sk_args+=(--query="$query")
 fi
 
-selected="$(printf '%s\n' "$records" | fzf "${fzf_args[@]}")" || {
+selected="$(printf '%s\n' "$records" | sk "${sk_args[@]}")" || {
   status=$?
   exit "$status"
 }

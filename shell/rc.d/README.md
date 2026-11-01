@@ -200,15 +200,42 @@ dots/ssh/config.local
 
 `user.local` and `config.local` are intentionally local and not tracked by Git.
 
-## fzf and Atuin
+## skim and Atuin
 
-`fzf` stays enabled as a general-purpose picker and as a dependency for tools
+Skim (`sk`) is enabled as a general-purpose picker and as a dependency for tools
 such as `ssh-find` and `ssh-pick`.
 
 `atuin` is loaded separately by `23-atuin.sh` in interactive shells. When
 `atuin` exists in `PATH`, it owns shell history integration. The `Ctrl-r`
-history picker from `20-fzf.sh` is then skipped and works only as a fallback on
-hosts without `atuin`.
+history picker from `20-skim.sh` is then skipped and works only as a fallback on
+hosts without active Atuin, including when it is disabled or fails to initialize.
+
+`20-skim.sh` defaults `SKIM_DEFAULT_OPTIONS` to
+`--height=40% --reverse --border` and preserves a nonempty user value. Skim
+does not use `FZF_DEFAULT_OPTS`; migrate custom picker options explicitly.
+`24-navi.sh` defaults `NAVI_FINDER=skim`, preserving an explicit environment
+selection. This environment setting takes precedence over navi's YAML finder.
+The `navi` function calls the private `shell/navi-bin/navi` dispatcher. For skim
+selection, it uses navi's fzf protocol through `shell/navi-bin/fzf`, translating
+expected keys and single-result output while preserving free-text parameters.
+Both helpers stay in PATH only for navi and its children. Within that process
+tree, `NAVI_FINDER=fzf` and `REMOTE_SSH_NAVI_PROTOCOL=skim` make navi's absolute
+self-invocations inherit the adapter protocol; the calling shell is unchanged.
+The dispatcher skips the helpers when resolving actual binaries, including
+after reload. A top-level explicit fzf selection removes the private PATH entry
+and uses real fzf. Ordinary `sk` calls keep using the installed executable
+directly.
+
+The adapter isolates navi's picker from `SKIM_DEFAULT_OPTIONS` and
+`SKIM_OPTIONS_FILE`, using `--height=40% --reverse --border`. Navi's finder
+overrides remain CLI arguments; the adapter does not parse or evaluate global
+skim configuration. Its CLI `--select-1` and `--no-select-1` flags are handled
+in order. See [the developer contract](../../dev/docs/checks.md#navi-and-skim)
+for supported flows, limitations, and real-binary tests.
+
+`21-zoxide.sh` shares its skim directory picker between `zi` and Bash's
+interactive `z` completion, preserving upstream ordinary completion and
+Readline handling without calling zoxide's fzf-dependent interactive mode.
 
 In interactive Bash sessions, `06-bash-history.sh` keeps session history in
 memory but disables writes to the standard Bash history file. Persistent shell

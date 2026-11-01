@@ -3,6 +3,7 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
+import pytest
 from conftest import (
     IsolatedEnv,
     assert_failed,
@@ -282,6 +283,7 @@ def test_navi_init_sets_cheats_path(
     env = isolated_env.env | {
         "PATH": f"{isolated_env.bin_dir}:/usr/bin:/bin",
         "REMOTE_DOTS_DIR": str(remote / "dots"),
+        "NAVI_FINDER": "",
     }
 
     result = run_cmd(
@@ -294,6 +296,7 @@ def test_navi_init_sets_cheats_path(
             source "$1"
             alias cheats
             printf "NAVI_PATH=%s\n" "$NAVI_PATH"
+            env | sed -n '/^NAVI_FINDER=/p'
             """,
             "_",
             rc_dir / "24-navi.sh",
@@ -305,6 +308,31 @@ def test_navi_init_sets_cheats_path(
     lines = result.stdout.splitlines()
     assert f"NAVI_PATH={cheats}" in lines
     assert "alias cheats='navi'" in lines
+    assert "NAVI_FINDER=skim" in lines
+
+
+@pytest.mark.parametrize("finder", ["skim", "fzf"])
+def test_navi_init_preserves_explicit_finder(
+    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, finder: str
+) -> None:
+    result = run_cmd(
+        [
+            runtime_bash,
+            "-c",
+            """
+        . "$1/lib/guards.sh"
+        . "$1/lib/helpers.sh"
+        . "$1/shell/rc.d/24-navi.sh"
+        . "$1/shell/rc.d/24-navi.sh"
+        env | sed -n '/^NAVI_FINDER=/p'
+        """,
+            "_",
+            repo_dir,
+        ],
+        env=isolated_env.env | {"REMOTE_DOTS_DIR": str(repo_dir / "dots"), "NAVI_FINDER": finder},
+    )
+    assert_ok(result)
+    assert result.stdout.strip() == f"NAVI_FINDER={finder}"
 
 
 def test_navi_init_preserves_existing_cheats_path(

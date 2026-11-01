@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from conftest import IsolatedEnv, assert_ok, require_zsh, run_cmd, write_executable
 
 
@@ -247,11 +248,58 @@ def test_atuin_plugin_initializes_for_bash(
     assert result.stdout.rstrip("\n") == "bash"
 
 
-def test_fzf_history_bind_is_fallback_when_atuin_is_missing(
+@pytest.mark.parametrize("cancel", [False, True])
+def test_skim_history_preserves_options_and_readline_on_cancel(
+    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, cancel: bool
+) -> None:
+    write_executable(
+        isolated_env.bin_dir / "sk",
+        '#!/bin/sh\ncat >"$HISTORY_INPUT"\n[ "$CANCEL" = 0 ] || exit 130\nprintf "echo selected\\n"\n',
+    )
+    history_input = isolated_env.home / "history.input"
+    result = run_cmd(
+        [
+            runtime_bash,
+            "--noprofile",
+            "--norc",
+            "-c",
+            """
+        . "$1/lib/guards.sh"
+        . "$1/lib/helpers.sh"
+        . "$1/shell/rc.d/20-skim.sh"
+            set +o history
+            history -c
+        history -s 'echo older'
+        history -s 'echo newer'
+        history -s 'echo older'
+        READLINE_LINE='keep this'; READLINE_POINT=3
+        __skim_history || true
+        printf '%s\n%s\n%s\n' "$READLINE_LINE" "$READLINE_POINT" "$SKIM_DEFAULT_OPTIONS"
+        """,
+            "_",
+            repo_dir,
+        ],
+        env=isolated_env.env
+        | {
+            "HISTORY_INPUT": str(history_input),
+            "CANCEL": str(int(cancel)),
+            "SKIM_DEFAULT_OPTIONS": "--height=60% --reverse",
+        },
+    )
+    assert_ok(result)
+    assert history_input.read_text().splitlines() == ["echo older", "echo newer"]
+    assert result.stdout.splitlines() == [
+        "keep this" if cancel else "echo selected",
+        "3" if cancel else "13",
+        "--height=60% --reverse",
+    ]
+
+
+def test_sk_history_bind_is_fallback_when_atuin_is_missing(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
 ) -> None:
-    write_executable(isolated_env.bin_dir / "fzf", "#!/usr/bin/env bash\nexit 0\n")
+    write_executable(isolated_env.bin_dir / "sk", "#!/usr/bin/env bash\nexit 0\n")
     bind_log = isolated_env.home / "bind.log"
     env = isolated_env.env | {
         "PATH": _tool_path(isolated_env),
@@ -267,14 +315,14 @@ def test_fzf_history_bind_is_fallback_when_atuin_is_missing(
             "-ic",
             """
             bind() {
-              if [[ "${1:-}" == "-x" && "${2:-}" == *"__fzf_history"* ]]; then
+              if [[ "${1:-}" == "-x" && "${2:-}" == *"__skim_history"* ]]; then
                 printf "%s\n" "$2" >> "$BIND_LOG"
               fi
               return 0
             }
             . "$REPO_DIR/lib/guards.sh"
             . "$REPO_DIR/lib/helpers.sh"
-            . "$REPO_DIR/shell/rc.d/20-fzf.sh"
+            . "$REPO_DIR/shell/rc.d/20-skim.sh"
             if [[ -s "$BIND_LOG" ]]; then
               printf bound
             else
@@ -289,11 +337,11 @@ def test_fzf_history_bind_is_fallback_when_atuin_is_missing(
     assert result.stdout == "bound"
 
 
-def test_fzf_history_bind_is_skipped_when_atuin_exists(
+def test_sk_history_bind_is_skipped_when_atuin_exists(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
 ) -> None:
-    write_executable(isolated_env.bin_dir / "fzf", "#!/usr/bin/env bash\nexit 0\n")
+    write_executable(isolated_env.bin_dir / "sk", "#!/usr/bin/env bash\nexit 0\n")
     write_executable(isolated_env.bin_dir / "atuin", "#!/usr/bin/env bash\nexit 0\n")
     bind_log = isolated_env.home / "bind.log"
     env = isolated_env.env | {
@@ -310,14 +358,14 @@ def test_fzf_history_bind_is_skipped_when_atuin_exists(
             "-ic",
             """
             bind() {
-              if [[ "${1:-}" == "-x" && "${2:-}" == *"__fzf_history"* ]]; then
+              if [[ "${1:-}" == "-x" && "${2:-}" == *"__skim_history"* ]]; then
                 printf "%s\n" "$2" >> "$BIND_LOG"
               fi
               return 0
             }
             . "$REPO_DIR/lib/guards.sh"
             . "$REPO_DIR/lib/helpers.sh"
-            . "$REPO_DIR/shell/rc.d/20-fzf.sh"
+            . "$REPO_DIR/shell/rc.d/20-skim.sh"
             if [[ -s "$BIND_LOG" ]]; then
               printf bound
             else

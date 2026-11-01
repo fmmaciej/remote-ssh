@@ -44,8 +44,8 @@ If you already know the desired set, pass tools directly:
 
 ```bash
 ./runme.sh --full --yes
-./runme.sh --yes fd rg fzf zoxide
-./runme.sh fd rg fzf zoxide
+./runme.sh --yes fd rg sk zoxide
+./runme.sh fd rg sk zoxide
 ```
 
 ## Local Install
@@ -57,8 +57,8 @@ From a checked-out repository:
 ./bin/remote-ssh install --profile full --yes
 ./bin/remote-ssh install --profile quick --yes
 ./bin/remote-ssh install --profile mini --yes
-./bin/remote-ssh install fd rg fzf
-./bin/remote-ssh install --yes fd rg fzf
+./bin/remote-ssh install fd rg sk
+./bin/remote-ssh install --yes fd rg sk
 ```
 
 The selected tool set is saved in:
@@ -111,7 +111,7 @@ guide generated from the currently loaded shell configuration.
 
 Optional helper requirements:
 
-- `python3`, `ssh`, and `fzf` for `ssh-find` and `ssh-pick`
+- `python3`, `ssh`, and `sk` for `ssh-find` and `ssh-pick`
 
 ## More Documentation
 

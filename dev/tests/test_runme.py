@@ -48,7 +48,10 @@ def test_runme_uses_default_tool_selection(repo_dir: Path, isolated_env: Isolate
     result = run_cmd(["bash", repo_dir / "runme.sh"], env=isolated_env.env)
 
     assert_ok(result)
-    assert args_file.read_text(encoding="utf-8").rstrip("\n") == default_install_args(repo_dir)
+    args = args_file.read_text(encoding="utf-8").splitlines()
+    assert "sk" in args
+    assert "fzf" not in args
+    assert "\n".join(args) == default_install_args(repo_dir)
 
 
 def test_runme_uses_argument_tool_selection(repo_dir: Path, isolated_env: IsolatedEnv) -> None:

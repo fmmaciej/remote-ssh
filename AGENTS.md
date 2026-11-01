@@ -90,12 +90,22 @@ be required on remote hosts.
   pull, install, or modify the working tree.
 - `remote-ssh guide starship` explains the bundled Starship prompt symbols.
 - `navi` provides private cheatsheets from `dots/navi/cheats`; remote-ssh
-  shells prepend that directory to `NAVI_PATH` and expose `cheats='navi'`.
+  shells prepend that directory to `NAVI_PATH`, default `NAVI_FINDER=skim`,
+  and expose `cheats='navi'`. The session navi function scopes a private
+  dispatcher and fzf-protocol adapter backed by skim to navi and its children.
+  The process tree inherits `NAVI_FINDER=fzf` plus a private skim marker so
+  absolute navi self-invocations keep the protocol. A top-level explicit fzf
+  selection uses the real fzf executable. Navi's picker isolates global
+  `SKIM_DEFAULT_OPTIONS` and `SKIM_OPTIONS_FILE`; use navi's own finder overrides.
+  Keep support bounded to the pinned versions and the flows documented in
+  `dev/docs/checks.md`. Do not grow a general fzf compatibility layer.
+- `zi` and Bash's interactive `z` completion select zoxide's ranked directory
+  list with skim; do not use `zoxide query --interactive`, which requires fzf.
 - `log` and `logrun` are shell functions from `shell/rc.d/25-log.sh` for
   capturing command output to a file while still streaming it through `tspin`
   when available.
 - `sshf` lists SSH config hosts with `scripts/ssh_hosts.py`, lets the user pick
-  one with `fzf`, then runs `ssh`. This is optional functionality and currently
+  one with `sk`, then runs `ssh`. This is optional functionality and currently
   requires `python3`.
 
 Tool installs are platform-aware. `DEFAULT_TOOLS` is the full candidate list

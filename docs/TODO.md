@@ -46,7 +46,7 @@
 
 **ssh-find / ssh-pick:**
 
-- Documented as optional helper requiring `python3`, `ssh`, and `fzf` for now
+- Documented as optional helper requiring `python3`, `ssh`, and skim (`sk`) for now
 
 - Decide later whether to keep Python, replace `ssh_find.py`, or add a shell fallback
 
@@ -131,6 +131,14 @@
 - Consider roles later: `rc.d/roles.d/db.sh`, `web.sh`
 
 **Low priority / polish:**
+
+- Revisit navi/skim limitations only when a concrete workflow needs them.
+  - The supported scope and offline tests are in
+    [developer checks](../dev/docs/checks.md#navi-and-skim).
+  - Known limitation: a nested navi command returned by `--print` and executed
+    later loses the adapter environment and can lose parameter values.
+  - Shell widgets, mixed nested finders, and general fzf compatibility are
+    deferred; do not expand the migration to cover them automatically.
 
 - Clarify the partial Zsh story:
   - `shell/rc.sh` is Bash-first and should fail clearly when sourced from Zsh

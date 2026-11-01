@@ -40,7 +40,7 @@ just bench-shell --suite login --iterations 5 --warmup 1
 | remote-ssh-default-warm-home | 361.7 ms |
 
 These measurements used the local machine and available integrations, including
-Starship, Zoxide, and fzf, without Atuin. Compare changes on the same machine
+Starship, Zoxide, and skim, without Atuin. Compare changes on the same machine
 with the same tools and state. The benchmark's `zsh-reference` is a synthetic
 reference and is not a measured competing shell.
 

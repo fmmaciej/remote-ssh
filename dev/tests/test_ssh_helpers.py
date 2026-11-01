@@ -123,7 +123,16 @@ clusters:
     ]
 
 
-def test_ssh_find_opens_fzf_without_query(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+def test_ssh_find_requires_skim(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+    # Having fzf installed does not satisfy the new picker dependency.
+    write_executable(isolated_env.bin_dir / "fzf", "#!/bin/sh\nexit 0\n")
+    result = run_cmd([repo_dir / "bin/ssh-find"], env=isolated_env.env)
+    assert result.returncode == 127
+    assert "requires skim (sk)" in result.stderr
+    assert "remote-ssh tool install sk" in result.stderr
+
+
+def test_ssh_find_opens_sk_without_query(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
     write_executable(
         isolated_env.bin_dir / "ssh_find_backend",
         """\
@@ -133,16 +142,16 @@ def test_ssh_find_opens_fzf_without_query(repo_dir: Path, isolated_env: Isolated
         """,
     )
     write_executable(
-        isolated_env.bin_dir / "fzf",
+        isolated_env.bin_dir / "sk",
         """
         #!/usr/bin/env bash
-        printf '%s\\n' "$*" >"${FZF_ARGS_OUT:?}"
+        printf '%s\\n' "$*" >"${SKIM_ARGS_OUT:?}"
         sed -n '2p'
         """,
     )
-    fzf_args_out = isolated_env.home / "fzf.args"
+    sk_args_out = isolated_env.home / "sk.args"
     env = isolated_env.env | {
-        "FZF_ARGS_OUT": str(fzf_args_out),
+        "SKIM_ARGS_OUT": str(sk_args_out),
         "SSH_FIND_BACKEND": str(isolated_env.bin_dir / "ssh_find_backend"),
     }
 
@@ -152,13 +161,13 @@ def test_ssh_find_opens_fzf_without_query(repo_dir: Path, isolated_env: Isolated
     assert result.stdout.rstrip("\n") == (
         "gpu-a\t10.1.2.4\tdeploy\t.config/bssh/config.yaml\t2200\tdirect\tgpu-host"
     )
-    fzf_args = fzf_args_out.read_text(encoding="utf-8")
-    assert "--with-nth=1,2,3,4" in fzf_args
-    assert "--nth=1,2,3,4" in fzf_args
-    assert "--query=" not in fzf_args
+    sk_args = sk_args_out.read_text(encoding="utf-8")
+    assert "--with-nth=1,2,3,4" in sk_args
+    assert "--nth=1,2,3,4" in sk_args
+    assert "--query=" not in sk_args
 
 
-def test_ssh_find_passes_query_to_fzf(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+def test_ssh_find_passes_query_to_sk(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
     write_executable(
         isolated_env.bin_dir / "ssh_find_backend",
         """\
@@ -167,29 +176,29 @@ def test_ssh_find_passes_query_to_fzf(repo_dir: Path, isolated_env: IsolatedEnv)
         """,
     )
     write_executable(
-        isolated_env.bin_dir / "fzf",
+        isolated_env.bin_dir / "sk",
         """
         #!/usr/bin/env bash
-        printf '%s\\n' "$*" >"${FZF_ARGS_OUT:?}"
+        printf '%s\\n' "$*" >"${SKIM_ARGS_OUT:?}"
         sed -n '1p'
         """,
     )
-    fzf_args_out = isolated_env.home / "fzf.args"
+    sk_args_out = isolated_env.home / "sk.args"
     env = isolated_env.env | {
-        "FZF_ARGS_OUT": str(fzf_args_out),
+        "SKIM_ARGS_OUT": str(sk_args_out),
         "SSH_FIND_BACKEND": str(isolated_env.bin_dir / "ssh_find_backend"),
     }
 
     result = run_cmd([repo_dir / "bin" / "ssh-find", "10.1"], env=env)
 
     assert_ok(result)
-    assert "--query=10.1" in fzf_args_out.read_text(encoding="utf-8")
+    assert "--query=10.1" in sk_args_out.read_text(encoding="utf-8")
     assert result.stdout.rstrip("\n") == (
         "lab-a\t10.1.2.3\talice\t.ssh/config\t2222\tssh-config\tlab-a"
     )
 
 
-def test_ssh_find_cancel_returns_fzf_status(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+def test_ssh_find_cancel_returns_sk_status(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
     write_executable(
         isolated_env.bin_dir / "ssh_find_backend",
         """\
@@ -198,7 +207,7 @@ def test_ssh_find_cancel_returns_fzf_status(repo_dir: Path, isolated_env: Isolat
         """,
     )
     write_executable(
-        isolated_env.bin_dir / "fzf",
+        isolated_env.bin_dir / "sk",
         """
         #!/usr/bin/env bash
         exit 130

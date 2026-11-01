@@ -26,8 +26,8 @@ Without arguments, `runme.sh` runs `remote-ssh install` with `RUNME_TOOLS`.
 With arguments, it forwards them directly to `remote-ssh install`:
 
 ```bash
-./runme.sh fd rg fzf zoxide
-./runme.sh --yes fd rg fzf zoxide
+./runme.sh fd rg sk zoxide
+./runme.sh --yes fd rg sk zoxide
 ./runme.sh --profile quick --yes
 ./runme.sh --full --yes
 ```
@@ -119,8 +119,8 @@ Install profiles are platform-filtered:
 
 ```text
 mini   rg fd sd
-quick  rg fd sd bat starship eza zoxide navi atuin
-full   fd rg sd dust fzf bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi bssh
+quick  rg fd sd bat starship eza zoxide sk navi atuin
+full   fd rg sd dust sk bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi bssh
 ```
 
 `--full` is a compatibility alias for `--profile full`:
@@ -137,13 +137,13 @@ a clear install summary.
 To install only selected tools:
 
 ```bash
-./bin/remote-ssh install fd rg fzf
+./bin/remote-ssh install fd rg sk
 ```
 
 For non-interactive scripts:
 
 ```bash
-./bin/remote-ssh install --yes fd rg fzf
+./bin/remote-ssh install --yes fd rg sk
 ```
 
 To uninstall managed tools:
@@ -189,6 +189,33 @@ remote-ssh install --profile quick --yes
 Helper scripts such as `ssh-find` and `ssh-pick` are part of the remote-ssh
 checkout. There is no `--scripts` install flag; use `remote-ssh guide scripts`
 to inspect helper requirements.
+
+## Migrating From fzf To skim
+
+The default full and quick profiles now use skim (`sk`). SSH host selection,
+the Bash Ctrl-R fallback, and navi in remote-ssh sessions use it too. The fzf
+definition remains available for explicit installation.
+
+For an existing installation, install skim first without changing the saved
+tool set:
+
+```bash
+remote-ssh tool install sk
+```
+
+Then edit `${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/expected-tools`: replace
+the `fzf` entry with `sk`, or add `sk` if neither is listed, keeping all other
+entries. Keep `fzf` too if you still use it separately. Run `remote-ssh install`
+to check/reinstall the saved set, then open a new `remote-ssh shell`.
+
+Updates do not rewrite the saved tool set or uninstall fzf. If you want to
+remove the old managed installation after migrating, use
+`remote-ssh uninstall fzf`. `remote-ssh doctor` reports a missing `sk` and
+prints installation and configuration hints.
+
+Skim's `.tar.xz` release archives require tar with xz support. GNU tar also
+needs `xz` in PATH; macOS tar has built-in support. A failed extraction leaves
+the previous installation intact.
 
 ## Installed Paths
 

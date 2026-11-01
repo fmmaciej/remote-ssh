@@ -8,14 +8,14 @@ REMOTE_SSH_REF="${REMOTE_SSH_REF:-}"
 
 # First-install tool selection.
 # Download this file, remove tools you do not want, then run: bash runme.sh
-# Passing arguments overrides this list, e.g.: bash runme.sh fd rg fzf
+# Passing arguments overrides this list, e.g.: bash runme.sh fd rg sk
 # Any arguments are forwarded to remote-ssh install without interpretation.
 RUNME_TOOLS=(
   fd
   rg
   sd
   dust
-  fzf
+  sk
   bat
   bottom
   procs

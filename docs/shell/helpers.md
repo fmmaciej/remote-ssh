@@ -51,6 +51,42 @@ Remote-ssh shells prepend that directory to `NAVI_PATH`, so `navi` and the
 `cheats` alias can search project-local snippets without copying them into a
 global user directory.
 
+Sessions default `NAVI_FINDER` to `skim`, so both `navi` and `cheats` use `sk`.
+Set `NAVI_FINDER` before starting the session or use `navi --finder` to select
+another supported finder explicitly. The session setting takes precedence over
+the finder in navi's YAML configuration.
+
+The integration supports snippet selection, suggested and free-text parameter
+values, Enter/Tab acceptance, cancellation, and automatic single-result
+selection with the pinned navi and skim versions. `navi --print` returns ordinary
+commands with their substituted parameters. Quote placeholders in cheatsheets
+when a parameter should remain one shell argument, for example `"<directory>"`.
+
+Navi's picker uses `--height=40% --reverse --border` independently of
+`SKIM_DEFAULT_OPTIONS` and `SKIM_OPTIONS_FILE`. Customize it through navi's
+`--fzf-overrides` and `--fzf-overrides-var` options (or corresponding navi
+configuration). Ordinary `sk` commands keep their global settings. From the
+session shell, `navi --finder fzf` uses the real fzf executable if installed.
+
+Nested navi commands are supported while executing inside the original navi
+process tree. A nested navi command returned by `--print` and executed later
+does not retain this integration and can lose parameter values. Mixed finders
+inside nested calls, shell widgets, and general fzf compatibility are outside
+the supported scope. Outside a remote-ssh session, `navi --finder skim` alone
+does not provide this integration.
+
+See [developer checks](../../dev/docs/checks.md#navi-and-skim) for the adapter
+contract and offline acceptance tests.
+
+## Directory Selection
+
+The `zi` directory picker and Bash's interactive `z` completion use zoxide's
+ranked `query --list` output with skim. Both replace generated selection paths
+that call fzf internally. `zi` keeps `_ZO_ECHO=1` support. Bash versions where
+zoxide enables completion (4.4+) retain ordinary directory completion and its
+Readline helpers; cancellation redraws the current line. Plain `z` and zoxide's
+tracking hooks continue to use the normal initialization.
+
 ## bssh
 
 `bssh` wraps the installed `bssh` binary with:
@@ -81,7 +117,7 @@ bssh-ip lab-a
 
 `ssh-find` reads host aliases from `$HOME/.ssh/config`, including `Include`
 files, plus the supported subset of `$HOME/.config/bssh/config.yaml`. It opens
-`fzf` and shows:
+`sk` and shows:
 
 ```text
 alias  address  user  source
@@ -104,7 +140,7 @@ ssh-find lab-a
 ssh-find 10.1.2
 ```
 
-The optional argument sets the initial `fzf` query. It does not auto-select a
+The optional argument sets the initial `sk` query. It does not auto-select a
 single match; press Enter to choose a row.
 
 OpenSSH entries resolve `HostName`, `User`, and `Port` through `ssh -G`. bssh
@@ -121,7 +157,7 @@ loading, including system defaults. Set
 test or override the hosts-file lookup.
 
 It currently uses `scripts/ssh_find.py` plus `ssh -G`, so this helper requires
-`python3`, `ssh`, and `fzf`.
+`python3`, `ssh`, and `sk`.
 
 ## ssh-pick
 
@@ -151,7 +187,7 @@ a shell-only version; a future version may replace it or add a fallback.
 When remote-ssh initializes Atuin successfully, it owns persistent command
 history and Bash file writes are disabled for that integration's lifetime.
 When our integration is unavailable, disabled with `REMOTE_SSH_ENABLE_ATUIN=0`,
-or fails to initialize, Bash keeps its normal history file. fzf supplies Ctrl-R
+or fails to initialize, Bash keeps its normal history file. Skim supplies Ctrl-R
 when available, unless independently initialized Atuin owns the bindings.
 
 An explicit `HISTFILE` is preserved for fallback, including an empty value or
@@ -163,9 +199,9 @@ the user. Reload also detects a removed executable still cached by Bash.
 Re-enabling Atuin in the same shell reattaches its saved hooks and bindings
 without running the upstream initializer again. User callbacks are preserved,
 including callbacks added while Atuin was active. If reattachment cannot find
-a required Atuin helper, Bash history and the available fzf fallback remain
+a required Atuin helper, Bash history and the available sk fallback remain
 enabled. Atuin initialized independently before remote-ssh keeps its own
-registrations and bindings, including its default Ctrl-R search. The fzf
+registrations and bindings, including its default Ctrl-R search. The sk
 fallback does not replace these bindings, even when remote-ssh's Atuin toggle
 is disabled. A failed remote-ssh initialization still enables the usual fallback.
 

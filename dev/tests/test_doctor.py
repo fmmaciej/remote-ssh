@@ -11,8 +11,24 @@ from conftest import (
     make_managed_tool,
     run_cmd,
     run_remote_ssh,
+    write_executable,
     write_expected_tools,
 )
+
+
+def test_doctor_suggests_explicit_skim_migration(repo_dir: Path, tool_env: ToolStateEnv) -> None:
+    expected = write_expected_tools(tool_env, ["rg", "fzf"])
+    before = expected.read_bytes()
+    result = run_remote_ssh(repo_dir, ["doctor"], env=tool_env.env)
+    assert "ssh-find sk:      missing-optional" in result.stdout
+    assert "remote-ssh tool install sk" in result.stdout
+    assert f"add sk to {expected} (replace fzf if migrating)" in result.stdout
+    assert expected.read_bytes() == before
+
+    write_executable(tool_env.bin_dir / "sk", "#!/bin/sh\nexit 0\n")
+    result = run_remote_ssh(repo_dir, ["doctor"], env=tool_env.env)
+    assert "ssh-find sk:      ok" in result.stdout
+    assert "install skim:" not in result.stdout
 
 
 def test_remote_ssh_doctor_reports_missing_tools(repo_dir: Path, tool_env: ToolStateEnv) -> None:
@@ -33,7 +49,7 @@ def test_remote_ssh_doctor_reports_missing_tools(repo_dir: Path, tool_env: ToolS
     assert "Optional helpers" in output
     assert "ssh-find python3:" in output
     assert "ssh-find ssh:" in output
-    assert "ssh-find fzf:" in output
+    assert "ssh-find sk:" in output
     assert "Tool check" in output
     assert "summary: failed" in output
     assert "Next steps" in output
@@ -83,7 +99,7 @@ def test_remote_ssh_doctor_reports_missing_expected_tools_config(
 
     assert_failed(result)
     assert "No expected tools config found:" in result.stdout
-    assert "choose tools: remote-ssh install fd rg fzf" in result.stdout
+    assert "choose tools: remote-ssh install fd rg sk" in result.stdout
     assert "remote-ssh install --profile quick --yes" in result.stdout
 
 

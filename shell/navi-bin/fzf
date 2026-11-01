@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+# Translate the fzf protocol emitted by pinned navi to skim's CLI.
+set -euo pipefail
+
+: "${REMOTE_SSH_NAVI_SK_BIN:?missing real skim executable}"
+if [[ "$REMOTE_SSH_NAVI_SK_BIN" -ef "${BASH_SOURCE[0]}" ||
+  "$REMOTE_SSH_NAVI_SK_BIN" -ef "${BASH_SOURCE[0]%/*}/navi" ]]; then
+  printf 'navi: refusing to execute a picker adapter recursively\n' >&2
+  exit 127
+fi
+
+# Navi owns its picker settings. Global skim defaults can change its output
+# protocol (for example --select-1 or --print-query), so do not import them.
+# Navi's own finder overrides are already supplied as literal CLI arguments.
+export SKIM_DEFAULT_OPTIONS="--height=40% --reverse --border" SKIM_OPTIONS_FILE=""
+
+args=()
+expect=""
+select_1=-1
+print_query=0
+filter=0
+while (($# > 0)); do
+  case "$1" in
+    --expect)
+      (($# >= 2)) || { printf 'sk: --expect requires keys\n' >&2; exit 2; }
+      expect="$2"
+      shift 2
+      ;;
+    --expect=*)
+      expect="${1#*=}"
+      shift
+      ;;
+    --select-1|-1) select_1=1; shift ;;
+    --no-select-1) select_1=0; shift ;;
+    --print-query) print_query=1; args+=("$1"); shift ;;
+    --filter=*) filter=1; args+=("$1"); shift ;;
+    --preview|--preview-window|--delimiter|--bind|--with-nth|--query|--filter|--header|--prompt|--header-lines)
+      (($# >= 2)) || { printf 'navi: %s requires a value\n' "$1" >&2; exit 2; }
+      if [[ "$1" == --filter ]]; then filter=1; fi
+      args+=("$1=$2")
+      shift 2
+      ;;
+    *)
+      args+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if ((select_1 == 1)); then args+=(--select-1); fi
+
+# skim's automatic single-result acceptance omits the expected-key line. Tag
+# interactive accepts so we can distinguish them from automatic acceptance.
+marker=""
+if ((select_1 == 1 && filter == 0)) && [[ -n "$expect" ]]; then
+  marker="__remote_navi_$$_${RANDOM}_"
+fi
+
+if [[ -n "$expect" ]]; then
+  bindings=""
+  while :; do
+    key="${expect%%,*}"
+    if [[ -n "$key" ]]; then
+      bindings="${bindings:+$bindings,}$key:accept($marker$key)"
+    fi
+    case "$expect" in
+      *,*) expect="${expect#*,}" ;;
+      *) break ;;
+    esac
+  done
+  args+=("--bind=$bindings")
+fi
+
+if [[ -n "$marker" ]]; then
+  status=0
+  # Append a sentinel to retain empty query/selection lines through substitution.
+  output="$("$REMOTE_SSH_NAVI_SK_BIN" ${args[@]+"${args[@]}"}; result=$?; printf '\034'; exit "$result")" || status=$?
+  output="${output%$'\034'}"
+  if ((status > 1)); then printf '%s' "$output"; exit "$status"; fi
+  if ((print_query)); then
+    printf '%s\n' "${output%%$'\n'*}"
+    output="${output#*$'\n'}"
+  fi
+  if [[ "$output" == "$marker"* ]]; then
+    key="${output%%$'\n'*}"
+    printf '%s\n' "${key#"$marker"}"
+    output="${output#*$'\n'}"
+  else
+    printf '\n'
+  fi
+  printf '%s' "$output"
+  exit "$status"
+fi
+
+exec "$REMOTE_SSH_NAVI_SK_BIN" ${args[@]+"${args[@]}"}

@@ -145,10 +145,14 @@ remote_ssh_cmd_doctor_main() {
   else
     printf '  ssh-find ssh:     missing-optional\n'
   fi
-  if command -v fzf >/dev/null 2>&1; then
-    printf '  ssh-find fzf:     ok\n'
+  if command -v sk >/dev/null 2>&1; then
+    printf '  ssh-find sk:      ok\n'
   else
-    printf '  ssh-find fzf:     missing-optional\n'
+    printf '  ssh-find sk:      missing-optional\n'
+    printf '  install skim: remote-ssh tool install sk\n'
+    if expected_tools_exists; then
+      printf '  maintain expected tools: add sk to %s (replace fzf if migrating)\n' "$(expected_tools_file)"
+    fi
   fi
 
   printf '\nTool check\n'
@@ -175,7 +179,7 @@ remote_ssh_cmd_doctor_main() {
 
       printf '\nNext steps\n'
       if ! expected_tools_exists; then
-        printf '  choose tools: remote-ssh install fd rg fzf\n'
+        printf '  choose tools: remote-ssh install fd rg sk\n'
         printf '  or install quick profile: remote-ssh install --profile quick --yes\n'
       elif remote_ssh_cmd_doctor_has_install_hint_status; then
         printf '  run: remote-ssh install\n'

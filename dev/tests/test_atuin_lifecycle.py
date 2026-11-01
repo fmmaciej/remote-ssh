@@ -23,8 +23,8 @@ def upstream_env(repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str) -
     assert hashlib.sha256(source.read_bytes()).hexdigest() == SOURCE_HASH
     (isolated_env.bin_dir / "bash").symlink_to(runtime_bash)
     write_executable(
-        isolated_env.bin_dir / "fzf",
-        '#!/bin/sh\n[ -z "$FZF_CALLS" ] || printf "fzf\\n" >> "$FZF_CALLS"\nexit 0\n',
+        isolated_env.bin_dir / "sk",
+        '#!/bin/sh\n[ -z "$SKIM_CALLS" ] || printf "sk\\n" >> "$SKIM_CALLS"\nexit 0\n',
     )
     write_executable(
         isolated_env.bin_dir / "atuin",
@@ -76,7 +76,7 @@ REMOTE_DOTS_DIR="$REPO/dots"
 bash_preexec_imported=1
 reload_history() {
   . "$REPO/shell/rc.d/06-bash-history.sh"
-  . "$REPO/shell/rc.d/20-fzf.sh"
+  . "$REPO/shell/rc.d/20-skim.sh"
   . "$REPO/shell/rc.d/23-atuin.sh"
 }
 dump_k() {
@@ -293,7 +293,7 @@ REMOTE_SSH_ENABLE_ATUIN=1
 reload_history
 unset -f bind
 [[ "$binding_failed" == 1 && "$REMOTE_SSH_ATUIN_ACTIVE" == 0 ]] || exit 10
-[[ "$HISTFILE" == "$SAVED_HISTORY" && "$REMOTE_SSH_FZF_HISTORY_BOUND" == 1 ]] || exit 11
+[[ "$HISTFILE" == "$SAVED_HISTORY" && "$REMOTE_SSH_SKIM_HISTORY_BOUND" == 1 ]] || exit 11
 [[ "$(bind -m emacs -s)" == "$before_emacs" && "$(bind -m vi-insert -s)" == "$before_viins" && "$(bind -m vi-command -s)" == "$before_vicmd" && "$(dump_k)" == "$before_k" ]] || exit 12
 [[ ${#preexec_functions[@]} == 0 && ${#precmd_functions[@]} == 0 && ${#BLE_ONLOAD[@]} == 0 ]] || exit 13
 reload_history
@@ -330,7 +330,7 @@ REMOTE_SSH_ENABLE_ATUIN=1
 for attempt in 1 2; do
   reload_history
   [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 0 && "$HISTFILE" == "$SAVED_HISTORY" ]] || exit 11
-  [[ "$REMOTE_SSH_FZF_HISTORY_BOUND" == 1 && "$__atuin_initialized" == true ]] || exit 12
+  [[ "$REMOTE_SSH_SKIM_HISTORY_BOUND" == 1 && "$__atuin_initialized" == true ]] || exit 12
   [[ "${preexec_functions[*]}" == audit_user_hook && "${precmd_functions[*]}" == audit_user_hook && "${BLE_ONLOAD[*]}" == audit_user_hook ]] || exit 13
   [[ "$(dump_k)" == "$expected_binding" ]] || exit 14
 done
@@ -380,9 +380,9 @@ for attempt in 1 2; do
   [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 0 && "$HISTFILE" == "$SAVED_HISTORY" ]] || exit 10
   [[ "$__atuin_initialized" == true ]] || exit 11
   if [[ "$SCENARIO" == external ]]; then
-    [[ "${REMOTE_SSH_FZF_HISTORY_BOUND:-0}" == 0 ]] || exit 14
+    [[ "${REMOTE_SSH_SKIM_HISTORY_BOUND:-0}" == 0 ]] || exit 14
   else
-    [[ "$REMOTE_SSH_FZF_HISTORY_BOUND" == 1 ]] || exit 15
+    [[ "$REMOTE_SSH_SKIM_HISTORY_BOUND" == 1 ]] || exit 15
   fi
   [[ "${preexec_functions[*]}" == "$expected_exec" && "${precmd_functions[*]}" == "$expected_cmd" && "${BLE_ONLOAD[*]}" == "$expected_ble" ]] || exit 12
   [[ "$(dump_k)" == "$expected_binding" ]] || exit 13

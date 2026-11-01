@@ -29,7 +29,7 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "  remote-ssh guide config     Show runtime config sources and values" in result.stdout
     assert "  bssh                        Run bssh with the shared SSH config" in result.stdout
     assert "  bssh-ip                     Print resolved SSH host address" in result.stdout
-    assert "  ssh-find                    Find an SSH host by name/IP with fzf" in result.stdout
+    assert "  ssh-find                    Find an SSH host by name/IP with sk" in result.stdout
     assert "  ssh-pick                    Pick an SSH host by name/IP and connect" in result.stdout
     assert "  remote-ssh guide starship   Explain prompt and Git status symbols" in result.stdout
     assert "  remote-ssh guide post-install" in result.stdout
@@ -404,7 +404,7 @@ def test_remote_ssh_guide_scripts_supports_ssh_find_helper(
     assert "Scripts" in output
     assert "ssh-find" in output
     assert "ssh-find [query]" in output
-    assert "Requires: python3, ssh, fzf" in output
+    assert "Requires: python3, ssh, sk" in output
     assert "Entry point: bin/ssh-find" in output
     assert "Backend: scripts/ssh_find.py" in output
     assert "Docs: docs/shell/helpers.md#ssh-find" in output

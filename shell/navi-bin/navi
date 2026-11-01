@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+# Adapt pinned navi's picker protocol to skim; see dev/docs/checks.md.
+# Descendant navi commands find this same dispatcher through the private PATH.
+set -euo pipefail
+
+adapter_dir="$(cd -P -- "${BASH_SOURCE[0]%/*}" && pwd)"
+
+is_adapter() {
+  [[ "$1" -ef "$adapter_dir/navi" || "$1" -ef "$adapter_dir/fzf" ]]
+}
+
+real_executable() {
+  local name="$1" cached="$2" remaining="${PATH-}" part candidate
+  if [[ "$cached" == /* && -f "$cached" && -x "$cached" ]] && ! is_adapter "$cached"; then
+    printf '%s\n' "$cached"
+    return 0
+  fi
+  while :; do
+    part="${remaining%%:*}"
+    candidate="${part:-.}/$name"
+    if [[ -f "$candidate" && -x "$candidate" ]] && ! is_adapter "$candidate"; then
+      (cd -P -- "${candidate%/*}" && printf '%s/%s\n' "$PWD" "${candidate##*/}")
+      return $?
+    fi
+    case "$remaining" in *:*) remaining="${remaining#*:}" ;; *) break ;; esac
+  done
+  printf 'navi: cannot find the real %s executable\n' "$name" >&2
+  return 127
+}
+
+base_path() {
+  local remaining="${PATH-}" part clean="" first=1
+  while :; do
+    part="${remaining%%:*}"
+    if ! [[ -d "${part:-.}" && "${part:-.}" -ef "$adapter_dir" ]]; then
+      if ((first)); then clean="$part"; first=0; else clean="$clean:$part"; fi
+    fi
+    case "$remaining" in *:*) remaining="${remaining#*:}" ;; *) break ;; esac
+  done
+  printf '%s\n' "$clean"
+}
+
+real_navi="$(real_executable navi "${REMOTE_SSH_NAVI_BIN:-}")" || exit $?
+clean_path="$(base_path)"
+finder="${NAVI_FINDER:-skim}"
+# Absolute self-invocations of navi inherit fzf's protocol as well. A dispatcher
+# reached through PATH must distinguish this from a top-level native selection.
+if [[ "${REMOTE_SSH_NAVI_PROTOCOL:-}" == skim && "$finder" == fzf ]]; then finder=skim; fi
+finder_value=0
+option_value=0
+finder_seen=0
+stop_options=0
+subcommand=0
+help_requested=0
+args=()
+for arg in "$@"; do
+  if ((finder_value)); then
+    finder="$arg"
+    args+=(fzf)
+    finder_value=0
+  elif ((option_value)); then
+    args+=("$arg")
+    option_value=0
+  elif ((stop_options)); then
+    args+=("$arg")
+  elif ((subcommand)); then
+    case "$arg" in -h|--help|-V|--version) help_requested=1 ;; esac
+    args+=("$arg")
+  else
+    case "$arg" in
+      --finder) finder_value=1; finder_seen=1; args+=("$arg") ;;
+      --finder=*) finder="${arg#*=}"; finder_seen=1; args+=(--finder=fzf) ;;
+      -p|--path|--tldr|--tag-rules|--cheatsh|-q|--query|--fzf-overrides|--fzf-overrides-var)
+        option_value=1; args+=("$arg") ;;
+      --) stop_options=1; args+=("$arg") ;;
+      fn|repo|preview|preview-var|preview-var-stdin|widget|info) subcommand=1; args+=("$arg") ;;
+      -h|--help|-V|--version) help_requested=1; args+=("$arg") ;;
+      *) args+=("$arg") ;;
+    esac
+  fi
+done
+
+native_navi() {
+  unset REMOTE_SSH_NAVI_PROTOCOL
+  PATH="$clean_path" exec "$real_navi" "$@"
+}
+
+if ((help_requested || option_value)); then native_navi "$@"; fi
+
+# Let navi diagnose malformed arguments and unsupported/explicit native finders.
+case "$finder_value:$finder" in
+  0:[Ss][Kk][Ii][Mm]) ;;
+  *) native_navi "$@" ;;
+esac
+
+real_sk="$(real_executable sk "${REMOTE_SSH_NAVI_SK_BIN:-}")" || exit $?
+if ((finder_seen == 0)); then args=(--finder=fzf ${args[@]+"${args[@]}"}); fi
+export REMOTE_SSH_NAVI_BIN="$real_navi" REMOTE_SSH_NAVI_SK_BIN="$real_sk"
+# navi rewrites leading `navi ...` snippets to its absolute executable path.
+# Pass the protocol through the environment so those calls also use the adapter.
+# These settings are scoped to this process tree; the calling shell keeps skim.
+export REMOTE_SSH_NAVI_PROTOCOL=skim NAVI_FINDER=fzf
+PATH="$adapter_dir:$clean_path" exec "$real_navi" ${args[@]+"${args[@]}"}

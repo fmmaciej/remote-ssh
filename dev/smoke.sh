@@ -18,7 +18,7 @@ find "$REPO_DIR" \
   -path "$REPO_DIR/dev/.venv" -prune -o \
   -name '*.sh' -print0 \
   | xargs -0 bash -n
-find "$REPO_DIR/bin" -maxdepth 1 -type f -print0 \
+find "$REPO_DIR/bin" "$REPO_DIR/shell/navi-bin" -maxdepth 1 -type f -print0 \
   | xargs -0 bash -n
 
 dev_log "shellcheck"
@@ -28,7 +28,7 @@ find "$REPO_DIR" \
   -path "$REPO_DIR/dev/.venv" -prune -o \
   -name '*.sh' -print0 \
   | xargs -0 shellcheck
-find "$REPO_DIR/bin" -maxdepth 1 -type f -print0 \
+find "$REPO_DIR/bin" "$REPO_DIR/shell/navi-bin" -maxdepth 1 -type f -print0 \
   | xargs -0 shellcheck
 
 dev_log "python checks"

@@ -30,7 +30,7 @@ remote_ssh_cmd_scripts_entries() {
   cat <<'EOF'
 bssh|shell function|bssh|Run bssh with stream output and the shared SSH config.|bssh <host-pattern>|shell/rc.d/26-bssh.sh|shell/rc.d/26-bssh.sh|docs/shell/helpers.md#bssh|you want to browse SSH hosts through bssh using the shared config.
 bssh-ip|shell function|ssh, awk|Print the resolved HostName, user, and port for an SSH host.|bssh-ip <host>|shell/rc.d/26-bssh.sh|shell/rc.d/26-bssh.sh|docs/shell/helpers.md#bssh|you want to inspect the address bssh or ssh will use.
-ssh-find|command|python3, ssh, fzf|Find an SSH host by alias, HostName, or IP and print the selected record.|ssh-find [query]|bin/ssh-find|scripts/ssh_find.py|docs/shell/helpers.md#ssh-find|you want to browse or resolve SSH hosts before connecting.
+ssh-find|command|python3, ssh, sk|Find an SSH host by alias, HostName, or IP and print the selected record.|ssh-find [query]|bin/ssh-find|scripts/ssh_find.py|docs/shell/helpers.md#ssh-find|you want to browse or resolve SSH hosts before connecting.
 ssh-pick|shell function|ssh|Pick an SSH host through ssh-find and connect with ssh.|ssh-pick [--query QUERY] [remote-command...]|shell/rc.d/30-ssh-pick.sh|bin/ssh-find|docs/shell/helpers.md#ssh-pick|you want to connect by full or partial SSH alias, hostname, or IP address.
 EOF
 }

@@ -112,8 +112,8 @@ def test_install_profiles_are_defined(repo_dir: Path, isolated_env: IsolatedEnv)
     )
 
     assert "mini=rg fd sd" in got
-    assert "quick=rg fd sd bat starship eza zoxide navi atuin" in got
-    assert "full=fd rg sd dust fzf bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi bssh" in got
+    assert "quick=rg fd sd bat starship eza zoxide sk navi atuin" in got
+    assert "full=fd rg sd dust sk bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi bssh" in got
 
 
 def test_install_dots_dir_reports_bundled_dotfiles(
@@ -175,14 +175,14 @@ def test_expected_tools_read_write_config(
         {
           printf '# comment\n'
           printf '\n'
-          printf '  fzf  # inline comment\n'
+          printf '  sk  # inline comment\n'
         } >>"$(expected_tools_file)"
         read_expected_tools
         """,
         env=isolated_env.env,
     )
 
-    assert got == "fd\nrg\nfzf"
+    assert got == "fd\nrg\nsk"
     assert (isolated_env.home / ".config" / "remote-ssh" / "expected-tools").is_file()
 
 
@@ -533,7 +533,7 @@ def test_tool_install_does_not_change_expected_tools(
         write_expected_tools fd rg
         install_check_requirements() { :; }
         install_tools() { printf '%s\n' "$@" >"$tool_installed"; }
-        remote_ssh_cmd_tool_main install fzf >/dev/null
+        remote_ssh_cmd_tool_main install sk >/dev/null
         read_expected_tools
         """,
         env=_install_env(isolated_env),

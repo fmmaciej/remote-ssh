@@ -4,6 +4,7 @@ import os
 import pty
 import select
 import signal
+import termios
 import time
 from collections.abc import Callable, Mapping
 
@@ -13,12 +14,22 @@ class PtyShell:
 
     prompt_text = b"REMOTE_SSH_TEST> "
 
-    def __init__(self, bash: str, env: Mapping[str, str]) -> None:
+    def __init__(
+        self,
+        bash: str,
+        env: Mapping[str, str],
+        *,
+        terminal_size: tuple[int, int] | None = None,
+        respond_to_cursor: bool = False,
+    ) -> None:
         self.output = bytearray()
         self.counter = 0
+        self.respond_to_cursor = respond_to_cursor
         self.pid, self.fd = pty.fork()
         if self.pid == 0:
             try:
+                if terminal_size is not None:
+                    termios.tcsetwinsize(0, terminal_size)
                 os.execve(
                     bash,
                     [bash, "--noprofile", "--norc", "-i"],
@@ -52,6 +63,8 @@ class PtyShell:
                 if not data:
                     break
                 self.output.extend(data)
+                if self.respond_to_cursor and b"\x1b[6n" in data:
+                    os.write(self.fd, b"\x1b[1;1R")
         raise AssertionError(self.output.decode(errors="replace"))
 
     def prompt(self) -> None:

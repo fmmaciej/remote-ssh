@@ -26,7 +26,7 @@ define_atuin_wrapper() {
 
 def prepare_history_tools(isolated_env: IsolatedEnv, runtime_bash: str) -> None:
     (isolated_env.bin_dir / "bash").symlink_to(runtime_bash)
-    write_executable(isolated_env.bin_dir / "fzf", "#!/bin/sh\nexit 0\n")
+    write_executable(isolated_env.bin_dir / "sk", "#!/bin/sh\nexit 0\n")
     write_executable(
         isolated_env.bin_dir / "atuin",
         r"""
@@ -90,11 +90,11 @@ def test_atuin_lookup_ignores_wrappers(
             define_atuin_wrapper
           fi
           . "$1/shell/rc.d/06-bash-history.sh"
-          . "$1/shell/rc.d/20-fzf.sh"
+          . "$1/shell/rc.d/20-skim.sh"
           . "$1/shell/rc.d/23-atuin.sh"
         done
         [[ "$(alias atuin 2>/dev/null || declare -f atuin)" == "$WRAPPER_DEFINITION" ]] || exit 30
-        printf 'active=%s\nfile=%s\nfzf=%s\n' "$REMOTE_SSH_ATUIN_ACTIVE" "$HISTFILE" "${REMOTE_SSH_FZF_HISTORY_BOUND:-0}"
+        printf 'active=%s\nfile=%s\nsk=%s\n' "$REMOTE_SSH_ATUIN_ACTIVE" "$HISTFILE" "${REMOTE_SSH_SKIM_HISTORY_BOUND:-0}"
         printf 'exec=%s\ncmd=%s\nwrapper=%s\n' "${preexec_functions[*]}" "${precmd_functions[*]}" "$(type -t atuin)"
         """,
             "_",
@@ -116,12 +116,12 @@ def test_atuin_lookup_ignores_wrappers(
     assert not wrapper_log.exists()
     assert f"wrapper={wrapper}\n" in result.stdout
     if backend == "working":
-        assert "active=1\nfile=\nfzf=0\n" in result.stdout
+        assert "active=1\nfile=\nsk=0\n" in result.stdout
         assert "exec=audit_user_exec audit_atuin_preexec\n" in result.stdout
         assert "cmd=audit_user_cmd audit_atuin_precmd\n" in result.stdout
         assert log.read_text().splitlines() == ["init"]
     else:
-        assert f"active=0\nfile={history}\nfzf=1\n" in result.stdout
+        assert f"active=0\nfile={history}\nsk=1\n" in result.stdout
         assert "exec=audit_user_exec\ncmd=audit_user_cmd\n" in result.stdout
         assert not log.exists()
 
@@ -142,10 +142,10 @@ def test_history_backend_and_repeated_initialization(
         bash_preexec_imported=1
         for iteration in 1 2; do
           . "$1/shell/rc.d/06-bash-history.sh"
-          . "$1/shell/rc.d/20-fzf.sh"
+          . "$1/shell/rc.d/20-skim.sh"
           . "$1/shell/rc.d/23-atuin.sh"
         done
-        printf 'file=%s\nactive=%s\nfzf=%s\n' "$HISTFILE" "${REMOTE_SSH_ATUIN_ACTIVE:-0}" "${REMOTE_SSH_FZF_HISTORY_BOUND:-0}"
+        printf 'file=%s\nactive=%s\nsk=%s\n' "$HISTFILE" "${REMOTE_SSH_ATUIN_ACTIVE:-0}" "${REMOTE_SSH_SKIM_HISTORY_BOUND:-0}"
         printf 'hooks=%s\n' "${#preexec_functions[@]}"
         REMOTE_SSH_ENABLE_ATUIN=0
         . "$1/shell/rc.d/06-bash-history.sh"
@@ -166,11 +166,11 @@ def test_history_backend_and_repeated_initialization(
     )
     assert_ok(result)
     if backend == "working":
-        assert "file=\nactive=1\nfzf=0" in result.stdout
+        assert "file=\nactive=1\nsk=0" in result.stdout
         assert "hooks=1\n" in result.stdout
         assert log.read_text().splitlines() == ["init"]
     else:
-        assert f"file={history}\nactive=0\nfzf=1" in result.stdout
+        assert f"file={history}\nactive=0\nsk=1" in result.stdout
     assert f"restored={history}\nhooks-after=0" in result.stdout
     assert "atuin-owned" not in result.stdout
 
@@ -257,7 +257,7 @@ def test_removed_hashed_atuin_restores_history(
         precmd_functions=(audit_user_cmd)
         bind -m vi-insert '"\e[A":"user-before"'
         . "$1/shell/rc.d/06-bash-history.sh"
-        . "$1/shell/rc.d/20-fzf.sh"
+        . "$1/shell/rc.d/20-skim.sh"
         . "$1/shell/rc.d/23-atuin.sh"
         [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 1 ]] || exit 20
         bind -m vi-command '"k":forward-char'
@@ -273,12 +273,12 @@ def test_removed_hashed_atuin_restores_history(
         [[ "$(hash -t atuin)" == "$ATUIN_BIN" ]] || exit 21
         for iteration in 1 2; do
           . "$1/shell/rc.d/06-bash-history.sh"
-          . "$1/shell/rc.d/20-fzf.sh"
+          . "$1/shell/rc.d/20-skim.sh"
           . "$1/shell/rc.d/23-atuin.sh"
         done
         [[ "$(hash -t mkdir)" == "$other_hash" ]] || exit 22
         [[ "$WRAPPER" == none || "$(type -t atuin)" == "$WRAPPER" ]] || exit 23
-        printf 'active=%s\nfile=%s\nfzf=%s\n' "$REMOTE_SSH_ATUIN_ACTIVE" "$HISTFILE" "$REMOTE_SSH_FZF_HISTORY_BOUND"
+        printf 'active=%s\nfile=%s\nsk=%s\n' "$REMOTE_SSH_ATUIN_ACTIVE" "$HISTFILE" "$REMOTE_SSH_SKIM_HISTORY_BOUND"
         printf 'exec=%s\ncmd=%s\n' "${preexec_functions[*]}" "${precmd_functions[*]}"
         bind -m vi-insert -s
         bind -m vi-command -p
@@ -293,7 +293,7 @@ def test_removed_hashed_atuin_restores_history(
     assert_ok(result)
     assert not wrapper_log.exists()
     expected = {"default": str(history), "custom": str(history), "empty": "", "null": "/dev/null"}
-    assert f"active=0\nfile={expected[choice]}\nfzf=1" in result.stdout
+    assert f"active=0\nfile={expected[choice]}\nsk=1" in result.stdout
     assert "exec=audit_user_exec\ncmd=audit_user_cmd\n" in result.stdout
     assert '"\\e[A": "user-before"' in result.stdout
     assert '"k": forward-char' in result.stdout
@@ -346,7 +346,7 @@ def test_atuin_removal_and_reactivation_in_full_rc(
             'rm "$ATUIN_BIN"',
             'printf "cached=%s\\n" "$(hash -t atuin)"',
             "rcrc",
-            'printf "removed=%s:%s:%s\\n" "$REMOTE_SSH_ATUIN_ACTIVE" "$HISTFILE" "$REMOTE_SSH_FZF_HISTORY_BOUND"',
+            'printf "removed=%s:%s:%s\\n" "$REMOTE_SSH_ATUIN_ACTIVE" "$HISTFILE" "$REMOTE_SSH_SKIM_HISTORY_BOUND"',
             'cp "$ATUIN_SAVED" "$ATUIN_BIN"',
             "rcrc",
             "rcrc",

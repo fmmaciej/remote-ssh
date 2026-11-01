@@ -28,6 +28,7 @@ just fmt
 - [Start](docs/start.md): required local tools, `uv sync`, and pre-commit hooks.
 - [Commands](docs/commands.md): root and `dev/` `just` recipes.
 - [Checks](docs/checks.md): smoke, lint, type checks, pytest, and test guidance.
+  Includes the [navi/skim contract and offline acceptance tests](docs/checks.md#navi-and-skim).
 - [Live Assets](docs/live-assets.md): optional GitHub Releases validation.
 - [Shell Startup Benchmark](docs/bench-shell.md): local PTY benchmark for
   remote-ssh shell startup cost.

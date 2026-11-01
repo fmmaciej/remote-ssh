@@ -40,7 +40,7 @@ Commands
                               Reprint setup instructions
   bssh                        Run bssh with the shared SSH config
   bssh-ip                     Print resolved SSH host address
-  ssh-find                    Find an SSH host by name/IP with fzf
+  ssh-find                    Find an SSH host by name/IP with sk
   ssh-pick                    Pick an SSH host by name/IP and connect
   cheats                      Open private navi cheatsheets
 EOF
@@ -217,7 +217,7 @@ Notes
   Use logrun make build to save make.log, or command 2>&1 | log file.log.
   bssh uses BSSH_SSH_CONFIG, defaulting to $HOME/.ssh/config.d/00-all.conf.
   vim/nvim and tmux are not installed by remote-ssh.
-  ssh-find currently requires python3, ssh -G lookup, and fzf.
+  ssh-find currently requires python3, ssh -G lookup, and sk.
 EOF
 }
 

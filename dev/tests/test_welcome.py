@@ -950,7 +950,7 @@ def test_remote_ssh_welcome_module_reports_statuses(
     write_expected_tools(tool_env, ["rg", "fd"])
     make_managed_tool(tool_env, "rg", "15.1.0")
     make_managed_tool(tool_env, "fd", "10.3.0")
-    for command in ("bssh", "python3", "ssh", "fzf"):
+    for command in ("bssh", "python3", "ssh", "sk"):
         write_executable(tool_env.bin_dir / command, "#!/usr/bin/env bash\nexit 0\n")
 
     result = run_cmd(

@@ -26,6 +26,12 @@ RUNTIME_BASHES = tuple(
 )
 
 
+def pytest_addoption(parser: pytest.Parser) -> None:
+    group = parser.getgroup("navi-skim", "offline tests with pinned navi and skim binaries")
+    group.addoption("--navi-bin", help="Absolute path to the pinned navi executable")
+    group.addoption("--skim-bin", help="Absolute path to the pinned sk executable")
+
+
 @pytest.fixture(params=RUNTIME_BASHES, ids=lambda path: str(path))
 def runtime_bash(request: pytest.FixtureRequest) -> str:
     """Select explicitly, including env-bash children, rather than trusting PATH."""

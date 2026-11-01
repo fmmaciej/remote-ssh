@@ -34,13 +34,13 @@ def event_env(upstream_env: dict[str, str], repo_dir: Path) -> dict[str, str]:
         "REPO": str(repo_dir),
         "ATUIN_EVENTS": str(home / "history.events"),
         "ATUIN_UNIQUE_IDS": "1",
-        "FZF_CALLS": str(home / "fzf.calls"),
+        "SKIM_CALLS": str(home / "sk.calls"),
         "ATUIN_BIN": str(Path(upstream_env["PATH"].split(":")[0]) / "atuin"),
     }
 
 
 @pytest.mark.parametrize("mode", ["emacs", "vi"])
-@pytest.mark.parametrize("scenario", ["normal", "disabled", "missing", "prior-fzf"])
+@pytest.mark.parametrize("scenario", ["normal", "disabled", "missing", "prior-sk"])
 def test_external_atuin_keeps_default_bindings(
     runtime_bash: str, event_env: dict[str, str], mode: str, scenario: str
 ) -> None:
@@ -48,9 +48,9 @@ def test_external_atuin_keeps_default_bindings(
         shell.command(
             '. "$REPO/lib/guards.sh"; . "$REPO/lib/helpers.sh"; REMOTE_DOTS_DIR="$REPO/dots"'
         )
-        if scenario == "prior-fzf":
+        if scenario == "prior-sk":
             shell.command(
-                'REMOTE_SSH_ENABLE_ATUIN=0; . "$REPO/shell/rc.d/20-fzf.sh"; REMOTE_SSH_ENABLE_ATUIN=1'
+                'REMOTE_SSH_ENABLE_ATUIN=0; . "$REPO/shell/rc.d/20-skim.sh"; REMOTE_SSH_ENABLE_ATUIN=1'
             )
         shell.command('__atuin_bind_ctrl_r=true; __atuin_bind_up_arrow=true; . "$ATUIN_SOURCE"')
         shell.command(
@@ -78,7 +78,7 @@ def test_external_atuin_keeps_default_bindings(
             b"\x12",
             lambda: any(line.startswith("search ") for line in calls.read_text().splitlines()),
         )
-        assert not Path(event_env["FZF_CALLS"]).exists()
+        assert not Path(event_env["SKIM_CALLS"]).exists()
         assert not any(line.startswith("init ") for line in calls.read_text().splitlines())
 
 
@@ -192,7 +192,7 @@ def test_owned_history_detach_completes_at_first_prompt(
 
 
 @pytest.mark.parametrize("failure", ["cli", "partial"])
-def test_failed_owned_initialization_keeps_working_fzf(
+def test_failed_owned_initialization_keeps_working_sk(
     runtime_bash: str, event_env: dict[str, str], failure: str
 ) -> None:
     env = event_env | {
@@ -201,12 +201,12 @@ def test_failed_owned_initialization_keeps_working_fzf(
     }
     with PtyShell(runtime_bash, env) as shell:
         shell.command(
-            '. "$REPO/shell/rc.sh"; [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 0 && "$REMOTE_SSH_FZF_HISTORY_BOUND" == 1 ]]'
+            '. "$REPO/shell/rc.sh"; [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 0 && "$REMOTE_SSH_SKIM_HISTORY_BOUND" == 1 ]]'
         )
         shell.command(
-            'rcrc; [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 0 && "$REMOTE_SSH_FZF_HISTORY_BOUND" == 1 ]]'
+            'rcrc; [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 0 && "$REMOTE_SSH_SKIM_HISTORY_BOUND" == 1 ]]'
         )
-        shell.keypress(b"\x12", lambda: Path(env["FZF_CALLS"]).exists())
+        shell.keypress(b"\x12", lambda: Path(env["SKIM_CALLS"]).exists())
         calls = Path(env["ATUIN_CALLS"]).read_text().splitlines()
         assert sum(line.startswith("init ") for line in calls) == (2 if failure == "cli" else 1)
 

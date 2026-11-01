@@ -516,7 +516,7 @@ remote_atuin_bash_init() {
         [[ -n "$init" ]] || return 1
         while IFS= read -r hook; do before_functions+=("$hook"); done < <(compgen -A function)
         if ! eval "$init"; then
-            # Preserve provenance for 20-fzf.sh: this guard is not external.
+            # Preserve provenance for 20-skim.sh: this guard is not external.
             # shellcheck disable=SC2034
             if [[ "${__atuin_initialized:-}" == true ]]; then REMOTE_SSH_ATUIN_FAILED_INIT_GUARD=1; fi
             remote_atuin_record_bindings
@@ -565,7 +565,7 @@ if [[ -n "${BASH_VERSION:-}" ]]; then
         declare -F remote_history_use_bash >/dev/null && remote_history_use_bash
     }
     if [[ "${REMOTE_SSH_ATUIN_ACTIVE:-0}" == 1 ]]; then remote_atuin_auto_import_once; fi
-    if declare -F remote_fzf_history_bind >/dev/null; then remote_fzf_history_bind; fi
+    if declare -F remote_skim_history_bind >/dev/null; then remote_skim_history_bind; fi
     return 0
 fi
 

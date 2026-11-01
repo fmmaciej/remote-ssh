@@ -1,0 +1,22 @@
+{
+  "bash": "/bin/bash",
+  "atuin": "/Users/fm/.local/opt/atuin-18.14.1/atuin",
+  "rows": [
+    [
+      ": real-recording-0; REMOTE_SSH_ENABLE_ATUIN=0; rcrc; (exit 7); audit_status=$?; printf '\\0363:%s\\037' \"$audit_status\"; (exit \"$audit_status\")",
+      "/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/atuin-recording-verify.amv5qwes",
+      "MacBook-Pro-Maciej.local:fm",
+      7,
+      85310000,
+      "01a196a4d8747350b28c3f0353a36ab4"
+    ],
+    [
+      ": real-recording-1; REMOTE_SSH_ENABLE_ATUIN=0; rcrc; (exit 7); audit_status=$?; printf '\\0363:%s\\037' \"$audit_status\"; (exit \"$audit_status\")",
+      "/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/atuin-recording-verify.amv5qwes",
+      "MacBook-Pro-Maciej.local:fm",
+      7,
+      82865000,
+      "01a196a4d9997a83b690e09ecc0b3b24"
+    ]
+  ]
+}

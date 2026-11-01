@@ -1,7 +1,12 @@
 # Atuin Integration Simplification Plan
 
 Created: 2026-10-30
-Status: proposed; planning only, implementation not started
+Status: implemented; awaiting independent audit
+
+The current planning baseline includes an in-progress migration from fzf to
+skim, including changes to Atuin integration tests. Use `20-skim.sh`, `sk`,
+and the current test helpers as the implementation baseline. Preserve those
+working-tree changes rather than restoring the earlier fzf integration.
 
 Keep Atuin as the local history store while reducing remote-ssh's integration
 code and startup work. Preserve shared history between sessions on one host and
@@ -24,7 +29,7 @@ Atuin search shortcut, disable automatic synchronization, and load
 - An active Atuin session remains active after `REMOTE_SSH_ENABLE_ATUIN=0;
   rcrc`; an existing fallback session remains on fallback after setting it to
   `1`. Repeated reloads must not duplicate hooks or rebind history keys.
-- Keep fallback at initial setup: Bash history with fzf Ctrl-R when available,
+- Keep fallback at initial setup: Bash history with skim Ctrl-R when available,
   otherwise native Readline history. Preserve explicit `HISTFILE` values,
   including an empty value and `/dev/null`.
 - For an integration owned by remote-ssh, suppress Bash history-file writes
@@ -49,7 +54,7 @@ untouched. There is no new daemon configuration in this change.
 | --- | --- | --- |
 | `shell/rc.d/05-bash-preexec.sh` | Loads the vendor library for interactive Bash regardless of the Atuin toggle or executable. | Capture the initial request and load only for an eligible Atuin startup; skip subsequent reloads and independently initialized Atuin. |
 | `shell/rc.d/06-bash-history.sh` | Calls `remote_history_use_bash` on every source, restoring `HISTFILE` previously suppressed for Atuin. | Prepare fallback once and preserve the committed backend's history policy on reload. |
-| `shell/rc.d/20-fzf.sh` | Determines key ownership using availability, live toggle values, and Atuin lifecycle flags. | Use the frozen startup result; initialize the fallback key once after that result is known. |
+| `shell/rc.d/20-skim.sh` | Determines key ownership using availability, live toggle values, and Atuin lifecycle flags. | Use the frozen startup result; initialize the fallback key once after that result is known. |
 | `shell/rc.d/23-atuin.sh` | Initializes, detaches, reattaches, restores arrow bindings, and completes detached history entries. | Initialize once, install only the agreed keys, and keep a small startup-failure rollback. Remove runtime switching machinery. |
 | `dots/atuin/config.toml` | `auto_sync = true`; update checks already disabled. | Set `auto_sync = false`; remove settings used only by the abandoned up-arrow search. |
 | `docs/shell/helpers.md`, `shell/rc.d/README.md` | Describe live switching and old key behavior; the module README also has stale history/import guidance. | Document the new contract consistently and correct the stale guidance. |
@@ -84,7 +89,7 @@ inheriting a completed initialization flag. Avoid a general lifecycle framework.
    fallback file. Validate the expected helpers from the pinned integration,
    rather than accepting empty output or a successful `eval` alone.
 5. Finalize key ownership only after the result is known. Do not provisionally
-   bind fzf and then restore it during a normal successful Atuin startup.
+   bind skim and then restore it during a normal successful Atuin startup.
 6. On later `rcrc`, return before availability probing, initialization,
    backend changes, history-key binding, or repeated import checks.
 
@@ -109,7 +114,7 @@ single-shortcut contract.
    insert mode; do not silently replace redo in command mode.
 4. Respect an explicit user `ATUIN_NOBIND` opt-out. It suppresses our managed
    bindings as well, while history recording can remain enabled.
-5. Keep fallback fzf Ctrl-R in the same intended editable maps, without
+5. Keep fallback skim Ctrl-R in the same intended editable maps, without
    taking vi-command redo or external Atuin bindings. Once selected, reload
    must not overwrite later user edits to these keys.
 
@@ -154,8 +159,8 @@ was completed exactly once. Keep asynchronous history-end checks bounded.
 | Reload freeze | Changing the toggle, PATH, or binary availability in either direction does not change the selected backend after repeated full `rcrc` calls. A fresh shell sees the changed inputs. |
 | History ownership | Active Atuin keeps `HISTFILE` suppressed across reload; fallback preserves default/custom/empty/`/dev/null` choices. No history files or database are migrated or truncated by our setup. |
 | Recording | Successful and failed commands, directory changes, multiline input, and commands containing `rcrc` retain normal upstream start/end pairing and exit status. User prompt callbacks still receive the expected status and pipeline information. |
-| Keys | PTY Ctrl-R invokes Atuin in Emacs and vi insert modes; fallback invokes fzf. Up, `k`, `/`, vi-command redo, user key edits after setup, and external bindings remain intact. Honor `ATUIN_NOBIND`. |
-| External ownership | An independently initialized Atuin is neither reinitialized nor replaced by fzf, even when our toggle is off. Preserve its hooks and history-file policy. |
+| Keys | PTY Ctrl-R invokes Atuin in Emacs and vi insert modes; fallback invokes skim. Up, `k`, `/`, vi-command redo, user key edits after setup, and external bindings remain intact. Honor `ATUIN_NOBIND`. |
+| External ownership | An independently initialized Atuin is neither reinitialized nor replaced by skim, even when our toggle is off. Preserve its hooks and history-file policy. |
 | Surrounding prompt setup | Full rc startup/reload with representative Starship and Zoxide hooks does not duplicate Atuin callbacks or corrupt status delivery. |
 | Configuration/import | Assert the bundled sync default is false. Retain import-once, disabled-import, and retry-on-a-new-shell-after-import-failure coverage. |
 
@@ -194,7 +199,7 @@ Update `docs/shell/helpers.md` and `shell/rc.d/README.md` together. Explain:
   later toggle changes and `rcrc` do not switch history ownership.
 - Ctrl-R opens Atuin in insert mode; normal Up and vi-command navigation stay
   available. Explicitly describe the externally initialized Atuin exception.
-- Initial absence/failure uses Bash/fzf. Removing or breaking Atuin after a
+- Initial absence/failure uses Bash/skim. Removing or breaking Atuin after a
   successful startup does not trigger automatic failover, so start a new shell
   promptly in that situation; recording may fail in the old one.
 - Automatic sync is disabled, with manual sync still available. Existing local
@@ -242,3 +247,30 @@ without promising a particular speedup. Do not stage or commit unrelated work.
 
 Use the tagged source and offline fixture to validate the pinned API; current
 online documentation can describe behavior added after 18.14.1.
+
+
+## Implementation notes
+
+The implementation defers the pinned initializer's `bind` writes in a local
+queue until eval and helper/hook validation succeed. Read queries use builtin
+Readline behavior; an existing `bind` function is restored before application.
+The queue is preflighted in an inherited subshell keymap, so deterministic
+application errors also leave the parent's keys untouched, including unknown
+Bash 3.2 `bind -x` commands. No second eval of upstream integration is needed.
+
+A transient failure during the subsequent parent replay is best-effort:
+callbacks and HISTFILE are restored, but already overwritten shell bindings
+cannot always be recovered on Bash 3.2. Skim reclaims editable Ctrl-R when
+available; without skim a partially applied managed Ctrl-R could remain. Up,
+`k`, `/`, and vi-command redo are never requested. This boundary is explicit
+for independent audit. This queue is scoped to 18.14.1 startup, not a general
+shell transaction or reload protocol. Normal successful startup does not
+snapshot or restore arrow bindings. See [measurements](atuin-measurements/README.md)
+for isolated startup evidence and source fingerprints.
+
+The full real 18.14.1 CLI initializer appends an AI `?` binding outside the
+vendored `atuin.bash` source. Its local `atuin init --help` supports
+`--disable-ai`; implementation also passes this flag to preserve the agreed
+single-shortcut behavior. The unmodified offline fixture alone cannot cover
+this generated CLI suffix. The isolated real-binary recording check explicitly
+preserves `?` and exercises commands containing `$?`.

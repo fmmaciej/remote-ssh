@@ -218,6 +218,7 @@ def test_atuin_plugin_initializes_for_bash(
         #!/usr/bin/env bash
         if [[ "${1:-}" == "init" && "${2:-}" == "bash" ]]; then
           printf 'export ATUIN_INIT_SHELL=bash\n'
+          printf '%s\n' '__atuin_initialized=true; __atuin_preexec() { :; }; __atuin_precmd() { :; }; __atuin_history() { :; }; atuin-bind() { :; }; preexec_functions+=(__atuin_preexec); precmd_functions+=(__atuin_precmd)'
         fi
         """,
     )
@@ -237,6 +238,8 @@ def test_atuin_plugin_initializes_for_bash(
             export bash_preexec_imported=1
             . "$REPO_DIR/lib/guards.sh"
             . "$REPO_DIR/lib/helpers.sh"
+            REMOTE_ENV_DIR="$REPO_DIR"
+            . "$REPO_DIR/shell/rc.d/05-bash-preexec.sh"
             . "$REPO_DIR/shell/rc.d/23-atuin.sh"
             printf "%s\n" "${ATUIN_INIT_SHELL:-missing}"
             """,
@@ -315,14 +318,16 @@ def test_sk_history_bind_is_fallback_when_atuin_is_missing(
             "-ic",
             """
             bind() {
-              if [[ "${1:-}" == "-x" && "${2:-}" == *"__skim_history"* ]]; then
-                printf "%s\n" "$2" >> "$BIND_LOG"
+              if [[ "${3:-}" == "-x" && "${4:-}" == *"__skim_history"* ]]; then
+                printf "%s\n" "$4" >> "$BIND_LOG"
               fi
               return 0
             }
             . "$REPO_DIR/lib/guards.sh"
             . "$REPO_DIR/lib/helpers.sh"
             . "$REPO_DIR/shell/rc.d/20-skim.sh"
+            REMOTE_DOTS_DIR="$REPO_DIR/dots"
+            . "$REPO_DIR/shell/rc.d/23-atuin.sh"
             if [[ -s "$BIND_LOG" ]]; then
               printf bound
             else
@@ -358,8 +363,8 @@ def test_sk_history_bind_is_skipped_when_atuin_exists(
             "-ic",
             """
             bind() {
-              if [[ "${1:-}" == "-x" && "${2:-}" == *"__skim_history"* ]]; then
-                printf "%s\n" "$2" >> "$BIND_LOG"
+              if [[ "${3:-}" == "-x" && "${4:-}" == *"__skim_history"* ]]; then
+                printf "%s\n" "$4" >> "$BIND_LOG"
               fi
               return 0
             }
@@ -387,10 +392,11 @@ def _write_auto_import_atuin(path: Path) -> None:
         #!/usr/bin/env bash
         if [[ "${1:-}" == "import" && "${2:-}" == "auto" ]]; then
           printf 'import auto\n' >> "$ATUIN_TEST_LOG"
-          exit 0
+          exit "${IMPORT_STATUS:-0}"
         fi
         if [[ "${1:-}" == "init" && "${2:-}" == "bash" ]]; then
           printf 'export REMOTE_SSH_TEST_ATUIN_BASH_INIT=1\n'
+          printf '%s\n' '__atuin_initialized=true; __atuin_preexec() { :; }; __atuin_precmd() { :; }; __atuin_history() { :; }; atuin-bind() { :; }; preexec_functions+=(__atuin_preexec); precmd_functions+=(__atuin_precmd)'
           exit 0
         fi
         exit 0
@@ -421,6 +427,8 @@ def test_atuin_auto_import_runs_once_when_marker_is_missing(
             export bash_preexec_imported=1
             . "$REPO_DIR/lib/guards.sh"
             . "$REPO_DIR/lib/helpers.sh"
+            REMOTE_ENV_DIR="$REPO_DIR"
+            . "$REPO_DIR/shell/rc.d/05-bash-preexec.sh"
             . "$REPO_DIR/shell/rc.d/23-atuin.sh"
             printf "log=%s\n" "$(cat "$ATUIN_TEST_LOG")"
             printf "marker=%s\n" "$XDG_STATE_HOME/remote-ssh/atuin-import-auto.done"
@@ -462,6 +470,8 @@ def test_atuin_auto_import_is_skipped_when_marker_exists(
             export bash_preexec_imported=1
             . "$REPO_DIR/lib/guards.sh"
             . "$REPO_DIR/lib/helpers.sh"
+            REMOTE_ENV_DIR="$REPO_DIR"
+            . "$REPO_DIR/shell/rc.d/05-bash-preexec.sh"
             . "$REPO_DIR/shell/rc.d/23-atuin.sh"
             printf "logged=%s\n" "$([[ -f "$ATUIN_TEST_LOG" ]] && printf 1 || printf 0)"
             printf "marked=%s\n" "$([[ -f "$XDG_STATE_HOME/remote-ssh/atuin-import-auto.done" ]] && printf 1 || printf 0)"
@@ -501,7 +511,7 @@ def test_bash_preexec_loads_in_rc_flow(
     )
 
     assert_ok(result)
-    assert result.stdout.rstrip("\n") == "defined"
+    assert result.stdout.rstrip("\n") == "missing"
 
 
 def test_atuin_init_sets_bash_config_and_runs_init(
@@ -515,6 +525,7 @@ def test_atuin_init_sets_bash_config_and_runs_init(
         if [[ "${1:-}" == "init" && "${2:-}" == "bash" ]]; then
           cat <<'SCRIPT'
         export REMOTE_SSH_TEST_ATUIN_BASH_INIT=1
+        __atuin_initialized=true; __atuin_preexec() { :; }; __atuin_precmd() { :; }; __atuin_history() { :; }; atuin-bind() { :; }; preexec_functions+=(__atuin_preexec); precmd_functions+=(__atuin_precmd)
         SCRIPT
           exit 0
         fi
@@ -534,6 +545,8 @@ def test_atuin_init_sets_bash_config_and_runs_init(
             """
             export REMOTE_DOTS_DIR="$REMOTE_SSH_REPO_DIR/dots"
             export bash_preexec_imported=1
+            REMOTE_ENV_DIR="$REMOTE_SSH_REPO_DIR"
+            source "$REMOTE_SSH_REPO_DIR/shell/rc.d/05-bash-preexec.sh"
             source "$REMOTE_SSH_REPO_DIR/shell/rc.d/23-atuin.sh"
             printf "init=%s\n" "${REMOTE_SSH_TEST_ATUIN_BASH_INIT:-0}"
             printf "config=%s\n" "${ATUIN_CONFIG_DIR:-}"
@@ -579,6 +592,8 @@ def test_atuin_init_sets_zsh_config_and_runs_init(
             """
             export PATH="$1:$PATH"
             export REMOTE_DOTS_DIR="$REMOTE_SSH_REPO_DIR/dots"
+            REMOTE_ENV_DIR="$REMOTE_SSH_REPO_DIR"
+            source "$REMOTE_SSH_REPO_DIR/shell/rc.d/05-bash-preexec.sh"
             source "$REMOTE_SSH_REPO_DIR/shell/rc.d/23-atuin.sh"
             print -r -- "init=${REMOTE_SSH_TEST_ATUIN_ZSH_INIT:-0}"
             print -r -- "config=${ATUIN_CONFIG_DIR:-}"
@@ -593,3 +608,44 @@ def test_atuin_init_sets_zsh_config_and_runs_init(
     lines = result.stdout.splitlines()
     assert "init=1" in lines
     assert f"config={repo_dir}/dots/atuin" in lines
+
+
+@pytest.mark.parametrize("disabled", [False, True])
+def test_import_failure_retries_only_in_new_shell(
+    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, disabled: bool
+) -> None:
+    atuin = isolated_env.bin_dir / "atuin"
+    _write_auto_import_atuin(atuin)
+    log = isolated_env.home / "import.log"
+    env = isolated_env.env | {
+        "REPO": str(repo_dir),
+        "ATUIN_TEST_LOG": str(log),
+        "REMOTE_SSH_CONFIG": "0",
+        "REMOTE_SSH_WELCOME": "0",
+        "REMOTE_SSH_UPDATE_CHECK": "0",
+        "REMOTE_SSH_ENABLE_ATUIN_AUTO_IMPORT": "0" if disabled else "1",
+    }
+    command = '. "$REPO/shell/rc.sh"\nrcrc\nrcrc'
+    result = run_cmd(
+        [runtime_bash, "--noprofile", "--norc", "-ic", command], env=env | {"IMPORT_STATUS": "1"}
+    )
+    assert_ok(result)
+    marker = Path(env["XDG_STATE_HOME"]) / "remote-ssh/atuin-import-auto.done"
+    assert not marker.exists()
+    assert log.read_text().splitlines() == ["import auto"] if not disabled else not log.exists()
+    result = run_cmd(
+        [runtime_bash, "--noprofile", "--norc", "-ic", command], env=env | {"IMPORT_STATUS": "0"}
+    )
+    assert_ok(result)
+    assert marker.exists() == (not disabled)
+    if not disabled:
+        assert log.read_text().splitlines() == ["import auto", "import auto"]
+
+
+def test_bundled_atuin_is_local_by_default(repo_dir: Path) -> None:
+    config = (repo_dir / "dots/atuin/config.toml").read_text()
+    assert "auto_sync = false" in config
+    assert "update_check = false" in config
+    assert "enter_accept = false" in config
+    assert "sync_frequency" not in config
+    assert "shell_up_key_binding" not in config

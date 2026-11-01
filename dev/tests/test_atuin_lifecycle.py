@@ -1,17 +1,11 @@
 from __future__ import annotations
 
 import hashlib
-import os
-import pty
-import select
-import shlex
-import signal
-import subprocess
-import time
 from pathlib import Path
 
 import pytest
 from conftest import IsolatedEnv, assert_ok, run_cmd, write_executable
+from pty_shell import PtyShell
 
 SOURCE_HASH = "60dde7dd731f9963b19f313c9b44870b1b0a6836c38bf22e96134251cc834d5a"
 
@@ -33,17 +27,19 @@ def upstream_env(repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str) -
         case "$1" in
           init)
             [ "${FAIL_INIT:-0}" != 1 ] || exit 1
-            up=true
-            for arg in "$@"; do [ "$arg" != --disable-up-arrow ] || up=false; done
-            printf '__atuin_bind_ctrl_r=false\n__atuin_bind_up_arrow=%s\n' "$up"
+            up=true; ctrl=true
+            for arg in "$@"; do
+              [ "$arg" != --disable-up-arrow ] || up=false
+              [ "$arg" != --disable-ctrl-r ] || ctrl=false
+            done
+            printf '__atuin_bind_ctrl_r=%s\n__atuin_bind_up_arrow=%s\n' "$ctrl" "$up"
             cat "$ATUIN_SOURCE"
             if [ "${FAIL_AFTER_SOURCE:-0}" = 1 ]; then printf '\nfalse\n'; fi
             ;;
           uuid) printf 'fixture-session\n' ;;
           history)
             if [ "$2" = start ]; then
-              id=fixture-history-id
-              [ "${ATUIN_UNIQUE_IDS:-0}" != 1 ] || id="history-$$"
+              id="history-$$"
               printf '%s\n' "$id"
               [ -z "$ATUIN_EVENTS" ] || printf 'start\t%s\t%s\n' "$id" "$*" >> "$ATUIN_EVENTS"
             elif [ "$2" = end ]; then
@@ -69,450 +65,156 @@ def upstream_env(repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str) -
     }
 
 
-SETUP = r"""
-. "$REPO/lib/guards.sh"
-. "$REPO/lib/helpers.sh"
-REMOTE_DOTS_DIR="$REPO/dots"
-bash_preexec_imported=1
-reload_history() {
-  . "$REPO/shell/rc.d/06-bash-history.sh"
-  . "$REPO/shell/rc.d/20-skim.sh"
-  . "$REPO/shell/rc.d/23-atuin.sh"
-}
-dump_k() {
-  local line
-  while IFS= read -r line; do
-    case "$line" in '"k"'*) printf '%s\n' "$line" ;; esac
-  done < <(bind -m vi-command -p; bind -m vi-command -s; bind -m vi-command -X 2>/dev/null)
-}
-"""
+@pytest.mark.parametrize("mode", ["emacs", "vi"])
+@pytest.mark.parametrize("fallback", [False, True])
+def test_ctrl_r_uses_selected_backend(
+    repo_dir: Path, runtime_bash: str, upstream_env: dict[str, str], mode: str, fallback: bool
+) -> None:
+    env = upstream_env | {
+        "REPO": str(repo_dir),
+        "REMOTE_SSH_ENABLE_ATUIN": "0" if fallback else "1",
+        "SKIM_CALLS": str(Path(upstream_env["HOME"]) / "sk.calls"),
+    }
+    with PtyShell(runtime_bash, env) as shell:
+        shell.command('. "$REPO/shell/rc.sh"')
+        shell.command(f"set -o {mode}")
+        calls = Path(env["SKIM_CALLS"] if fallback else env["ATUIN_CALLS"])
+        shell.keypress(
+            b"\x12",
+            lambda: (
+                calls.exists()
+                and (
+                    fallback or any(x.startswith("search ") for x in calls.read_text().splitlines())
+                )
+            ),
+        )
+    if not fallback:
+        assert "init bash --disable-up-arrow --disable-ctrl-r --disable-ai" in calls.read_text()
 
 
-@pytest.mark.parametrize("wrapper", ["none", "alias", "function"])
-def test_upstream_atuin_full_rc_lifecycle(
-    repo_dir: Path,
-    runtime_bash: str,
-    upstream_env: dict[str, str],
-    wrapper: str,
+@pytest.mark.parametrize("nobind", [False, True])
+def test_only_editable_ctrl_r_changes_and_reload_preserves_user_edits(
+    repo_dir: Path, runtime_bash: str, upstream_env: dict[str, str], nobind: bool
 ) -> None:
     script = r"""
-audit_user_exec() { :; }
-audit_user_cmd() { :; }
-audit_user_onload() { :; }
-audit_late_hook() { :; }
-preexec_functions=(audit_user_exec)
-precmd_functions=(audit_user_cmd)
-BLE_ONLOAD=(audit_user_onload)
-case "$WRAPPER" in
-  alias) alias atuin='command atuin' ;;
-  function) atuin() { command atuin "$@"; } ;;
-esac
-. "$REPO/shell/rc.sh"
-[[ "$REMOTE_SSH_ATUIN_ACTIVE" == 1 ]] || exit 20
-preexec_functions+=(audit_late_hook)
-precmd_functions+=(audit_late_hook)
-BLE_ONLOAD+=(audit_late_hook)
-exec_count=${#preexec_functions[@]}
-cmd_count=${#precmd_functions[@]}
-ble_count=${#BLE_ONLOAD[@]}
-for cycle in 1 2 3; do
-  REMOTE_SSH_ENABLE_ATUIN=0
-  rcrc
-  [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 0 && "$HISTFILE" == "$SAVED_HISTORY" ]] || exit 21
-  [[ " ${preexec_functions[*]} " == *' audit_user_exec '* && " ${preexec_functions[*]} " == *' audit_late_hook '* ]] || exit 22
-  [[ " ${precmd_functions[*]} " == *' audit_user_cmd '* && " ${precmd_functions[*]} " == *' audit_late_hook '* ]] || exit 29
-  pending_count=0
-  [[ -z "${REMOTE_SSH_ATUIN_PENDING_ID:-}" ]] || pending_count=1
-  [[ ${#preexec_functions[@]} == $((exec_count - 1)) && ${#precmd_functions[@]} == $((cmd_count - 1 + pending_count)) ]] || exit 31
-  [[ "${BLE_ONLOAD[*]}" == 'audit_user_onload audit_late_hook' ]] || exit 30
-  REMOTE_SSH_ENABLE_ATUIN=1
-  rcrc
-  rcrc
-  [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 1 && "$HISTFILE" == '' ]] || exit 23
-  # This directly entered multiline loop changes the outer call site. Pending
-  # completion is conservatively discarded; only the active hooks remain.
-  [[ -z "${REMOTE_SSH_ATUIN_PENDING_ID:-}" && -z "${REMOTE_SSH_ATUIN_PENDING_TIME:-}" && -z "${REMOTE_SSH_ATUIN_PENDING_CONTEXT:-}" ]] || exit 32
-  [[ ${#preexec_functions[@]} == "$exec_count" && ${#precmd_functions[@]} == "$cmd_count" && ${#BLE_ONLOAD[@]} == "$ble_count" ]] || exit 24
-done
-command atuin noop
-mv "$ATUIN_BIN" "$ATUIN_BIN.saved"
-rcrc
-[[ "$REMOTE_SSH_ATUIN_ACTIVE" == 0 ]] || exit 25
-mv "$ATUIN_BIN.saved" "$ATUIN_BIN"
-rcrc
-[[ "$REMOTE_SSH_ATUIN_ACTIVE" == 1 && "$__atuin_initialized" == true ]] || exit 26
-audit_check_callbacks() {
-  trap - DEBUG
-  __atuin_preexec audit-functional-marker
-  [[ "$ATUIN_HISTORY_ID" == fixture-history-id ]] || exit 27
-  __atuin_precmd
-  [[ "$ATUIN_HISTORY_ID" == '' ]] || exit 28
-}
-audit_check_callbacks
-printf 'lifecycle-ok\n'
-exit
-"""
-    # Send separate interactive lines: this runs the real rcrc alias and the
-    # bash-preexec prompt hooks instead of modeling a reload with direct calls.
-    result = subprocess.run(
-        [runtime_bash, "--noprofile", "--norc", "-i"],
-        input=script,
-        text=True,
-        capture_output=True,
-        env=upstream_env
-        | {
-            "REPO": str(repo_dir),
-            "WRAPPER": wrapper,
-            "SAVED_HISTORY": upstream_env["HISTFILE"],
-            "ATUIN_BIN": str(Path(upstream_env["PATH"].split(":")[0]) / "atuin"),
-        },
-        timeout=15,
-    )
-    assert_ok(result)
-    assert "lifecycle-ok" in result.stdout
-    calls = Path(upstream_env["ATUIN_CALLS"]).read_text().splitlines()
-    assert sum(line.startswith("init ") for line in calls) == 1
-    assert "history start -- audit-functional-marker" in calls
-
-
-@pytest.mark.parametrize("initial", ["shell", "macro", "readline", "unbound"])
-@pytest.mark.parametrize("change", ["none", "shell", "unbound"])
-def test_upstream_atuin_restores_typed_bindings(
-    repo_dir: Path,
-    runtime_bash: str,
-    upstream_env: dict[str, str],
-    initial: str,
-    change: str,
-) -> None:
-    if run_cmd([runtime_bash, "-c", "bind -X"], env=upstream_env).returncode != 0:
-        pytest.skip("bind -X requires modern Bash; legacy bindings use the PTY regression")
-    script = (
-        SETUP
-        + r"""
-case "$INITIAL" in
-  shell) bind -m vi-command -x "\"k\": $USER_COMMAND" ;;
-  macro) bind -m vi-command '"k":"original-macro"' ;;
-  readline) bind -m vi-command '"k":previous-history' ;;
-  unbound) bind -m vi-command -r k ;;
-esac
-expected="$(dump_k)"
-reload_history
-[[ "$REMOTE_SSH_ATUIN_ACTIVE" == 1 ]] || exit 10
-case "$CHANGE" in
-  shell) bind -m vi-command -x '"k": audit_changed_while_active' ;;
-  unbound) bind -m vi-command -r k ;;
-esac
-[[ "$CHANGE" == none ]] || expected="$(dump_k)"
-REMOTE_SSH_ENABLE_ATUIN=0
-reload_history
-[[ "$(dump_k)" == "$expected" ]] || exit 11
-bind -m vi-command -x '"k": audit_changed_while_disabled'
-expected="$(dump_k)"
-REMOTE_SSH_ENABLE_ATUIN=1
-reload_history
-[[ "$REMOTE_SSH_ATUIN_ACTIVE" == 1 ]] || exit 12
-REMOTE_SSH_ENABLE_ATUIN=0
-reload_history
-[[ "$(dump_k)" == "$expected" ]] || exit 13
-printf 'bindings-ok\n'
-"""
-    )
+    audit_keys() {
+      local map
+      for map in emacs vi-insert vi-command; do
+        bind -m "$map" -p; bind -m "$map" -s
+      done | grep -E '^"(\\e\[A|\\eOA|k|/|\\C-r)":'
+    }
+    for map in emacs vi-insert vi-command; do
+      bind -m "$map" '"\e[A":"user-up"'
+      bind -m "$map" '"\eOA":"user-up-other"'
+    done
+    bind -m emacs '"?":self-insert'
+    bind -m vi-command '"k":forward-char'
+    bind -m vi-command '"/":vi-search'
+    bind -m vi-command '"\C-r":vi-redo'
+    before="$(audit_keys)"
+    . "$REPO/shell/rc.sh"
+    after="$(audit_keys)"
+    [[ "$REMOTE_SSH_HISTORY_BACKEND" == atuin ]] || exit 10
+    [[ "$ATUIN_NOBIND" != 1 || "$after" == "$before" ]] || exit 11
+    for map in emacs vi-insert; do bind -m "$map" '"\C-r":"user-later"'; done
+    edited="$(audit_keys)"
+    REMOTE_SSH_ENABLE_ATUIN=0
+    rcrc; rcrc
+    [[ "$(audit_keys)" == "$edited" && "$HISTFILE" == '' ]] || exit 12
+    [[ "$(bind -m emacs -p)" == *'"?": self-insert'* ]] || exit 20
+    [[ "$(bind -m vi-command -p)" == *'"k": forward-char'* ]] || exit 13
+    [[ "$(bind -m vi-command -p)" == *'"/": vi-search'* ]] || exit 14
+    [[ "$(bind -m vi-command -p)" == *'"\C-r": vi-redo'* ]] || exit 15
+    [[ "$(bind -m emacs -s)" == *'"\e[A": "user-up"'* ]] || exit 16
+    """
     result = run_cmd(
         [runtime_bash, "--noprofile", "--norc", "-ic", script],
-        env=upstream_env
-        | {
-            "REPO": str(repo_dir),
-            "INITIAL": initial,
-            "CHANGE": change,
-            "USER_COMMAND": "printf '%s\\n' 'quotes \" | \\ path' | cat\n: user-command",
-        },
+        env=upstream_env | {"REPO": str(repo_dir), "ATUIN_NOBIND": "1" if nobind else ""},
     )
     assert_ok(result)
-    assert "bindings-ok" in result.stdout
+
+
+def test_custom_shell_navigation_binding_survives_actual_keypress(
+    repo_dir: Path, runtime_bash: str, upstream_env: dict[str, str]
+) -> None:
+    marker = Path(upstream_env["HOME"]) / "navigation"
+    env = upstream_env | {"REPO": str(repo_dir)}
+    with PtyShell(runtime_bash, env) as shell:
+        shell.command(
+            r"""audit_nav() { echo pressed >> "$HOME/navigation"; }; bind -m vi-command -x '"k":audit_nav'; . "$REPO/shell/rc.sh"; set -o vi"""
+        )
+        shell.keypress(b"\x1bk", marker.exists)
+        shell.command("REMOTE_SSH_ENABLE_ATUIN=0; rcrc")
+        marker.unlink()
+        shell.keypress(b"\x1bk", marker.exists)
 
 
 @pytest.mark.parametrize(
-    "keymap,key", [("emacs", r"\e[A"), ("vi-insert", r"\eOA"), ("vi-command", r"\e[A")]
+    "failure", ["partial", "return", "missing-helper", "binding", "late-binding-no-skim"]
 )
-def test_upstream_atuin_restores_arrow_shell_commands(
-    repo_dir: Path,
-    runtime_bash: str,
-    upstream_env: dict[str, str],
-    keymap: str,
-    key: str,
+def test_failed_initialization_preserves_user_callbacks_keys_and_bind_function(
+    repo_dir: Path, runtime_bash: str, upstream_env: dict[str, str], failure: str
 ) -> None:
-    if run_cmd([runtime_bash, "-c", "bind -X"], env=upstream_env).returncode != 0:
-        pytest.skip("legacy shell commands are protected by disabling arrow takeover")
-    script = (
-        SETUP
-        + r"""
-bind -m "$KEYMAP" -x "\"$KEY\": audit_user_arrow"
-expected="$(bind -m "$KEYMAP" -X)"
-reload_history
-[[ "$REMOTE_SSH_ATUIN_ACTIVE" == 1 ]] || exit 10
-REMOTE_SSH_ENABLE_ATUIN=0
-reload_history
-[[ "$(bind -m "$KEYMAP" -X)" == *"$expected"* ]] || exit 11
-"""
+    atuin = Path(upstream_env["PATH"].split(":")[0]) / "atuin"
+    if failure == "late-binding-no-skim":
+        (atuin.parent / "sk").unlink()
+    script = atuin.read_text().replace(
+        'cat "$ATUIN_SOURCE"',
+        'cat "$ATUIN_SOURCE"\n'
+        + {
+            "partial": "printf '\\nfalse\\n'",
+            "late-binding-no-skim": "printf '%s\\n' 'atuin-bind() { bind -m emacs '\"'\"'\"\\C-r\":\"attempted\"'\"'\"'; bind -m invalid-keymap '\"'\"'\"x\":forward-char'\"'\"'; }'",
+            "return": "printf '\\nreturn 1\\n'",
+            "missing-helper": "printf '\\nunset -f __atuin_history\\n'",
+            "binding": "printf '%s\\n' 'bind -m invalid-keymap '\"'\"'\"x\":forward-char'\"'\"''",
+        }[failure],
     )
+    atuin.write_text(script)
     result = run_cmd(
-        [runtime_bash, "--noprofile", "--norc", "-ic", script],
-        env=upstream_env | {"REPO": str(repo_dir), "KEYMAP": keymap, "KEY": key},
+        [
+            runtime_bash,
+            "--noprofile",
+            "--norc",
+            "-ic",
+            r"""
+      audit_user() { :; }
+      preexec_functions=(audit_user); precmd_functions=(audit_user); BLE_ONLOAD=(audit_user)
+      bind() { builtin bind "$@"; }
+      saved_bind="$(declare -f bind)"
+      bind -m emacs '"?":self-insert'
+      audit_ctrl_r() { :; }
+      bind -m emacs -x '"\C-r":audit_ctrl_r'
+      bind -m vi-command '"k":forward-char'
+      bind -m vi-command '"/":vi-search'
+      bind -m emacs '"\e[A":"user-up"'
+      saved_history="$HISTFILE"
+      . "$REPO/shell/rc.sh"
+      [[ "$REMOTE_SSH_HISTORY_BACKEND" == bash && "$HISTFILE" == "$saved_history" ]] || exit 10
+      [[ "$(declare -f bind)" == "$saved_bind" ]] || exit 11
+      [[ " ${preexec_functions[*]} " != *' __atuin_preexec '* && " ${preexec_functions[*]} " == *' audit_user '* ]] || exit 12
+      [[ " ${precmd_functions[*]} " != *' __atuin_precmd '* && " ${precmd_functions[*]} " == *' audit_user '* ]] || exit 13
+      [[ "${BLE_ONLOAD[*]}" == audit_user ]] || exit 14
+      [[ "$(bind -m vi-command -p)" == *'"k": forward-char'* ]] || exit 15
+      [[ "$(bind -m vi-command -p)" == *'"/": vi-search'* ]] || exit 16
+      [[ "$(bind -m emacs -s)" == *'"\e[A": "user-up"'* ]] || exit 17
+      if [[ "$FAILURE" == late-binding-no-skim ]]; then
+        [[ "${REMOTE_SSH_SKIM_HISTORY_BOUND:-0}" == 0 ]] || exit 18
+        [[ "$(bind -m emacs -s)" != *'attempted'* ]] || exit 20
+        [[ "$(bind -m emacs -p)" != *'"\C-r":'* ]] || exit 21
+      else
+        [[ "$REMOTE_SSH_SKIM_HISTORY_BOUND" == 1 ]] || exit 18
+      fi
+      rcrc; rcrc
+      [[ "$(declare -f bind)" == "$saved_bind" ]] || exit 19
+    """,
+        ],
+        env=upstream_env | {"REPO": str(repo_dir), "FAILURE": failure},
     )
     assert_ok(result)
-
-
-def test_upstream_atuin_rolls_back_partial_binding_reattachment(
-    repo_dir: Path, runtime_bash: str, upstream_env: dict[str, str]
-) -> None:
-    if run_cmd([runtime_bash, "-c", "bind -X"], env=upstream_env).returncode != 0:
-        pytest.skip("this failure injection targets modern binding takeover")
-    script = (
-        SETUP
-        + r"""
-reload_history
-REMOTE_SSH_ENABLE_ATUIN=0
-reload_history
-for map in emacs vi-insert vi-command; do
-  bind -m "$map" '"\e[A":"user-arrow"'
-  bind -m "$map" '"\eOA":"user-arrow"'
-done
-bind -m vi-command '"k":previous-history'
-before_emacs="$(bind -m emacs -s)"
-before_viins="$(bind -m vi-insert -s)"
-before_vicmd="$(bind -m vi-command -s)"
-before_k="$(dump_k)"
-bind() {
-  if [[ "$1" == -m && "$2" == vi-command && "$3" == '"k":'* ]]; then
-    binding_failed=1
-    return 73
-  fi
-  builtin bind "$@"
-}
-REMOTE_SSH_ENABLE_ATUIN=1
-reload_history
-unset -f bind
-[[ "$binding_failed" == 1 && "$REMOTE_SSH_ATUIN_ACTIVE" == 0 ]] || exit 10
-[[ "$HISTFILE" == "$SAVED_HISTORY" && "$REMOTE_SSH_SKIM_HISTORY_BOUND" == 1 ]] || exit 11
-[[ "$(bind -m emacs -s)" == "$before_emacs" && "$(bind -m vi-insert -s)" == "$before_viins" && "$(bind -m vi-command -s)" == "$before_vicmd" && "$(dump_k)" == "$before_k" ]] || exit 12
-[[ ${#preexec_functions[@]} == 0 && ${#precmd_functions[@]} == 0 && ${#BLE_ONLOAD[@]} == 0 ]] || exit 13
-reload_history
-[[ "$REMOTE_SSH_ATUIN_ACTIVE" == 1 ]] || exit 14
-"""
-    )
-    result = run_cmd(
-        [runtime_bash, "--noprofile", "--norc", "-ic", script],
-        env=upstream_env | {"REPO": str(repo_dir), "SAVED_HISTORY": upstream_env["HISTFILE"]},
-    )
-    assert_ok(result)
-
-
-@pytest.mark.parametrize("missing", ["__atuin_preexec", "__atuin_history"])
-def test_upstream_atuin_failed_reattachment_keeps_fallback(
-    repo_dir: Path, runtime_bash: str, upstream_env: dict[str, str], missing: str
-) -> None:
-    script = (
-        SETUP
-        + r"""
-reload_history
-[[ "$REMOTE_SSH_ATUIN_ACTIVE" == 1 ]] || exit 10
-REMOTE_SSH_ENABLE_ATUIN=0
-reload_history
-saved_function="$(declare -f "$MISSING")"
-unset -f "$MISSING"
-audit_user_hook() { :; }
-preexec_functions+=(audit_user_hook)
-precmd_functions+=(audit_user_hook)
-BLE_ONLOAD+=(audit_user_hook)
-bind -m vi-command '"k":previous-history'
-expected_binding="$(dump_k)"
-REMOTE_SSH_ENABLE_ATUIN=1
-for attempt in 1 2; do
-  reload_history
-  [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 0 && "$HISTFILE" == "$SAVED_HISTORY" ]] || exit 11
-  [[ "$REMOTE_SSH_SKIM_HISTORY_BOUND" == 1 && "$__atuin_initialized" == true ]] || exit 12
-  [[ "${preexec_functions[*]}" == audit_user_hook && "${precmd_functions[*]}" == audit_user_hook && "${BLE_ONLOAD[*]}" == audit_user_hook ]] || exit 13
-  [[ "$(dump_k)" == "$expected_binding" ]] || exit 14
-done
-eval "$saved_function"
-reload_history
-reload_history
-[[ "$REMOTE_SSH_ATUIN_ACTIVE" == 1 && "$HISTFILE" == '' ]] || exit 15
-[[ ${#preexec_functions[@]} == 2 && ${#precmd_functions[@]} == 2 && ${#BLE_ONLOAD[@]} == 3 ]] || exit 16
-REMOTE_SSH_ENABLE_ATUIN=0
-reload_history
-[[ "$(dump_k)" == "$expected_binding" ]] || exit 17
-"""
-    )
-    result = run_cmd(
-        [runtime_bash, "--noprofile", "--norc", "-ic", script],
-        env=upstream_env
-        | {"REPO": str(repo_dir), "MISSING": missing, "SAVED_HISTORY": upstream_env["HISTFILE"]},
-    )
-    assert_ok(result)
-    calls = Path(upstream_env["ATUIN_CALLS"]).read_text().splitlines()
-    assert sum(line.startswith("init ") for line in calls) == 1
-
-
-@pytest.mark.parametrize("scenario", ["external", "failed-init"])
-def test_upstream_atuin_preserves_foreign_or_failed_initialization(
-    repo_dir: Path, runtime_bash: str, upstream_env: dict[str, str], scenario: str
-) -> None:
-    script = (
-        SETUP
-        + r"""
-audit_user_hook() { :; }
-preexec_functions=(audit_user_hook)
-precmd_functions=(audit_user_hook)
-BLE_ONLOAD=(audit_user_hook)
-bind -m vi-command '"k":"user-macro"'
-if [[ "$SCENARIO" == external ]]; then
-  __atuin_bind_ctrl_r=false
-  __atuin_bind_up_arrow=true
-  . "$ATUIN_SOURCE"
-fi
-expected_binding="$(dump_k)"
-expected_exec="${preexec_functions[*]}"
-expected_cmd="${precmd_functions[*]}"
-expected_ble="${BLE_ONLOAD[*]}"
-for attempt in 1 2; do
-  reload_history
-  [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 0 && "$HISTFILE" == "$SAVED_HISTORY" ]] || exit 10
-  [[ "$__atuin_initialized" == true ]] || exit 11
-  if [[ "$SCENARIO" == external ]]; then
-    [[ "${REMOTE_SSH_SKIM_HISTORY_BOUND:-0}" == 0 ]] || exit 14
-  else
-    [[ "$REMOTE_SSH_SKIM_HISTORY_BOUND" == 1 ]] || exit 15
-  fi
-  [[ "${preexec_functions[*]}" == "$expected_exec" && "${precmd_functions[*]}" == "$expected_cmd" && "${BLE_ONLOAD[*]}" == "$expected_ble" ]] || exit 12
-  [[ "$(dump_k)" == "$expected_binding" ]] || exit 13
-  REMOTE_SSH_ENABLE_ATUIN=0
-  reload_history
-  REMOTE_SSH_ENABLE_ATUIN=1
-done
-"""
-    )
-    result = run_cmd(
-        [runtime_bash, "--noprofile", "--norc", "-ic", script],
-        env=upstream_env
-        | {
-            "REPO": str(repo_dir),
-            "SCENARIO": scenario,
-            "FAIL_AFTER_SOURCE": "1" if scenario == "failed-init" else "0",
-            "SAVED_HISTORY": upstream_env["HISTFILE"],
-        },
-    )
-    assert_ok(result)
-    calls = Path(upstream_env["ATUIN_CALLS"]).read_text().splitlines()
-    assert sum(line.startswith("init ") for line in calls) == (scenario == "failed-init")
-
-
-@pytest.mark.parametrize("initial", ["shell", "readline"])
-def test_upstream_atuin_shell_binding_survives_real_keypresses(
-    repo_dir: Path,
-    runtime_bash: str,
-    isolated_env: IsolatedEnv,
-    upstream_env: dict[str, str],
-    initial: str,
-) -> None:
-    marker = isolated_env.home / "keypresses"
-    setup = isolated_env.home / "setup.sh"
-    setup.write_text(
-        SETUP
-        + r"""
-set -o vi
-audit_user_binding() { printf 'pressed\n' >> "$KEY_MARKER"; }
-bind -m vi-command -x '"k": audit_user_binding'
-"""
-    )
-    env = upstream_env | {"REPO": str(repo_dir), "KEY_MARKER": str(marker), "PS1": "ATUIN_TEST> "}
-    pid, fd = pty.fork()
-    if pid == 0:
-        os.execve(runtime_bash, [runtime_bash, "--noprofile", "--norc", "-i"], env)
-    output = bytearray()
-    completed_commands = 0
-
-    def until(predicate) -> None:
-        deadline = time.monotonic() + 5
-        while time.monotonic() < deadline:
-            if predicate():
-                return
-            readable, _, _ = select.select([fd], [], [], 0.03)
-            if readable:
-                try:
-                    output.extend(os.read(fd, 65536))
-                except OSError:
-                    break
-        raise AssertionError(output.decode(errors="replace"))
-
-    def prompt() -> None:
-        until(lambda: b"ATUIN_TEST> " in output)
-        output.clear()
-
-    def command(value: str) -> None:
-        nonlocal completed_commands
-        completed_commands += 1
-        marker = f"\x1e{completed_commands}\x1f".encode()
-        # Readline may redraw PS1 while consuming a long input. Wait for an
-        # executed printf with control bytes that cannot match the input echo.
-        suffix = rf"; printf '\036%s\037' {completed_commands}".encode()
-        os.write(fd, value.encode() + suffix + b"\n")
-        until(lambda: marker in output)
-        del output[: output.index(marker) + len(marker)]
-        prompt()
-
-    def press_k(count: int) -> None:
-        os.write(fd, b"\x1bk")
-        until(lambda: marker.exists() and len(marker.read_text().splitlines()) == count)
-        output.clear()
-        os.write(fd, b"\x03")
-        prompt()
-
-    try:
-        prompt()
-        command(f". {shlex.quote(str(setup))}")
-        press_k(1)
-        if initial == "readline":
-            # Make every tracked binding readable even without bind -X, then
-            # introduce an unreadable shell command while Atuin is detached.
-            command(
-                r"""for map in emacs vi-insert vi-command; do
-                  bind -m "$map" '"\e[A":previous-history'
-                  bind -m "$map" '"\eOA":previous-history'
-                done; bind -m vi-command '"k":previous-history'"""
-            )
-        command('reload_history; [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 1 ]] || exit 20')
-        legacy = run_cmd([runtime_bash, "-c", "bind -X"], env=env).returncode != 0
-        calls = Path(upstream_env["ATUIN_CALLS"]).read_text()
-        assert ("--disable-up-arrow" in calls) == (legacy and initial == "shell")
-        command(
-            'REMOTE_SSH_ENABLE_ATUIN=0; reload_history; [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 0 ]] || exit 21'
+    assert (
+        sum(
+            x.startswith("init ")
+            for x in Path(upstream_env["ATUIN_CALLS"]).read_text().splitlines()
         )
-        if initial == "readline":
-            command("bind -m vi-command -x '\"k\": audit_user_binding'")
-        command(
-            'REMOTE_SSH_ENABLE_ATUIN=1; reload_history; [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 1 ]] || exit 22'
-        )
-        if legacy:
-            press_k(2)
-        command(
-            'REMOTE_SSH_ENABLE_ATUIN=0; reload_history; [[ "$REMOTE_SSH_ATUIN_ACTIVE" == 0 ]] || exit 23'
-        )
-        press_k(3 if legacy else 2)
-        os.write(fd, b"exit\n")
-        until(lambda: b"exit" in output)
-    finally:
-        try:
-            os.kill(pid, signal.SIGKILL)
-        except ProcessLookupError:
-            pass
-        # Closing the master releases terminal output/teardown before reaping
-        # the child. Never let cleanup turn a failed PTY test into a hung suite.
-        os.close(fd)
-        deadline = time.monotonic() + 2
-        while time.monotonic() < deadline:
-            if os.waitpid(pid, os.WNOHANG)[0] == pid:
-                break
-            time.sleep(0.01)
-        else:
-            pytest.fail(f"PTY shell {pid} did not exit after SIGKILL and terminal close")
+        == 1
+    )

@@ -205,10 +205,23 @@ dots/ssh/config.local
 Skim (`sk`) is enabled as a general-purpose picker and as a dependency for tools
 such as `ssh-find` and `ssh-pick`.
 
-`atuin` is loaded separately by `23-atuin.sh` in interactive shells. When
-`atuin` exists in `PATH`, it owns shell history integration. The `Ctrl-r`
-history picker from `20-skim.sh` is then skipped and works only as a fallback on
-hosts without active Atuin, including when it is disabled or fails to initialize.
+`05-bash-preexec.sh` captures the first interactive Bash history choice and
+loads the vendor library only for an eligible Atuin startup, before prompt
+initialization. Disabled, missing, or independently initialized Atuin does not
+cause remote-ssh to load the library. A pre-existing library is reused.
+`06-bash-history.sh` prepares fallback history without overriding an explicit
+`HISTFILE`. `23-atuin.sh` attempts owned initialization once and commits Atuin,
+Bash/skim fallback, or external ownership. `rcrc` preserves the selected backend,
+file policy, hooks, and later user key edits. Start a new shell after changing
+`REMOTE_SSH_ENABLE_ATUIN`, PATH, or executable availability.
+
+Owned Atuin binds Ctrl-R only in Emacs and vi insert modes, unless
+`ATUIN_NOBIND` is set. Up and vi command-mode `k`, `/`, and Ctrl-R redo remain
+available. Fallback binds skim Ctrl-R in the same editable maps. An externally
+initialized Atuin keeps its keys and history policy even with our toggle off.
+An active owned integration does not fail over if Atuin later disappears;
+recording can fail, so open a new shell promptly. Existing shells using the old
+live-switching integration must be closed after this update.
 
 `20-skim.sh` defaults `SKIM_DEFAULT_OPTIONS` to
 `--height=40% --reverse --border` and preserves a nonempty user value. Skim
@@ -237,25 +250,14 @@ for supported flows, limitations, and real-binary tests.
 interactive `z` completion, preserving upstream ordinary completion and
 Readline handling without calling zoxide's fzf-dependent interactive mode.
 
-In interactive Bash sessions, `06-bash-history.sh` keeps session history in
-memory but disables writes to the standard Bash history file. Persistent shell
-history is intentionally left to Atuin in remote-ssh sessions.
+Successful owned Atuin setup suppresses Bash history-file writes while keeping
+in-memory history. Initial fallback preserves default/custom/empty/`/dev/null`
+`HISTFILE` choices. Reload never restores a file behind active Atuin hooks.
+Atuin stores history locally; automatic sync is disabled in the bundled config,
+and manual `atuin sync` remains possible. Existing local history, credentials,
+and database paths are unchanged.
 
-Atuin stores history in its own database and does not automatically import the
-old shell history. On first use, flush the current shell history and import it:
-
-```bash
-# bash
-history -w
-atuin import bash
-
-# zsh
-fc -W
-atuin import zsh
-```
-
-For a generic import, use:
-
-```bash
-atuin import auto
-```
+On first successful owned setup, `atuin import auto` imports existing history
+and writes `${XDG_STATE_HOME:-$HOME/.local/state}/remote-ssh/atuin-import-auto.done`
+on success. Existing markers skip import; failures retry in a new shell.
+Disable import with `REMOTE_SSH_ENABLE_ATUIN_AUTO_IMPORT=0` before startup.

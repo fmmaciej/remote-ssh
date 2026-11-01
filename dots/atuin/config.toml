@@ -4,18 +4,14 @@ db_path = "~/.local/share/atuin/history.db"
 key_path = "~/.local/share/atuin/key"
 session_path = "~/.local/share/atuin/session"
 
-auto_sync = true
-sync_frequency = "30m"
+auto_sync = false
 update_check = false
 
 filter_mode = "global"
 search_mode = "fuzzy"
 
-filter_mode_shell_up_key_binding = "global"
-search_mode_shell_up_key_binding = "fuzzy"
 
 inline_height = 20
-inline_height_shell_up_key_binding = 12
 style = "compact"
 
 max_preview_height = 3

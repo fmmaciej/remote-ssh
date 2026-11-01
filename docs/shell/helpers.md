@@ -184,65 +184,42 @@ a shell-only version; a future version may replace it or add a fallback.
 
 ## History
 
-When remote-ssh initializes Atuin successfully, it owns persistent command
-history and Bash file writes are disabled for that integration's lifetime.
-When our integration is unavailable, disabled with `REMOTE_SSH_ENABLE_ATUIN=0`,
-or fails to initialize, Bash keeps its normal history file. Skim supplies Ctrl-R
-when available, unless independently initialized Atuin owns the bindings.
+The history backend is selected once during the first interactive remote-ssh
+setup in each Bash process. Working Atuin owns persistent history in its local
+database, with normal directory, host, exit-status, and duration metadata.
+Bash keeps in-memory history while its history-file writes are suppressed.
+`rcrc` reloads configuration without changing this choice or rebinding keys.
 
-An explicit `HISTFILE` is preserved for fallback, including an empty value or
-`/dev/null` to disable file persistence. Reloading with `rcrc` does not duplicate
-Atuin hooks; disabling or removing Atuin restores fallback history and its
-previous arrow key bindings unless those bindings were subsequently changed by
-the user. Reload also detects a removed executable still cached by Bash.
+To select Bash history for a new shell:
 
-Re-enabling Atuin in the same shell reattaches its saved hooks and bindings
-without running the upstream initializer again. User callbacks are preserved,
-including callbacks added while Atuin was active. If reattachment cannot find
-a required Atuin helper, Bash history and the available sk fallback remain
-enabled. Atuin initialized independently before remote-ssh keeps its own
-registrations and bindings, including its default Ctrl-R search. The sk
-fallback does not replace these bindings, even when remote-ssh's Atuin toggle
-is disabled. A failed remote-ssh initialization still enables the usual fallback.
+```bash
+REMOTE_SSH_ENABLE_ATUIN=0 remote-ssh shell
+```
 
-When disabling our integration with `rcrc`, the current command's history entry
-is finished at the following prompt, using that command's exit status. Later
-time spent in the fallback is excluded. A temporary first prompt statement
-handles owned history completion before user prompt commands, including a
-multiline `PROMPT_COMMAND` that forwards dispatch through a function or script.
-The owned registration is removed after completion. User precmd callbacks run
-at their normal dispatch point: a prefix preparing data for a wrapper still
-runs before those callbacks. Status, pipeline metadata, and the previous argument
-delivered to callbacks follow the normal dispatcher for that prompt layout.
-On Bash 5.1 and newer, a prepended completion boundary uses a separate prompt
-array entry so Bash preserves the inputs of the user's prefix or wrapper.
-Cleanup restores the original prompt layout while retaining user edits. Bash
-3.2 retains the upstream dispatcher's pipeline capture behavior.
-Disabling and re-enabling within one input line still finishes the entry once.
+If Atuin is initially disabled, missing, or fails to initialize, Bash retains
+its history file and skim supplies Ctrl-R when available; otherwise native
+Readline history stays available. An explicit `HISTFILE` is preserved, including
+an empty value or `/dev/null`. Installing Atuin, changing PATH or the toggle,
+or removing its executable takes effect for backend selection in a new shell.
+An active Atuin shell does not automatically fail over if the executable is
+removed or breaks; recording may fail, so start a new shell promptly.
 
-Completion is best-effort. The pending entry is tied to the outer interactive
-call site at the beginning of the prompt, independently of history settings. If
-the executable, completion helper, or prompt hook is unavailable, or the completion
-context is uncertain, remote-ssh drops the local pending association. A directly
-entered multiline block may change that call site before the prompt; in that
-case the local pending association is dropped. Multiline functions and sourced
-scripts invoked from one input line keep the same outer call site.
+remote-ssh binds only Ctrl-R in Emacs and vi insert modes to Atuin. Up remains
+ordinary history navigation, and vi command-mode `k`, `/`, and Ctrl-R redo keep
+their existing behavior. `ATUIN_NOBIND` suppresses these managed Atuin bindings.
+Later user binding edits survive reload. Atuin initialized independently before
+remote-ssh retains its own hooks, keys, config, and history-file policy, even
+when remote-ssh's Atuin switch is disabled.
 
-Removing all prompt dispatch after disable also removes the opportunity for
-immediate cleanup. The next reload or resumed completion callback discards an
-expired association before trying to finish it. Old registrations restored
-directly or through a cached wrapper retain normal prompt dispatch, including
-after reactivation. Exact owned statements are removed from the current prompt;
-cached user function bodies are preserved and can replay compatible statements
-again. The backend may retain an unfinished entry, but a later command's status
-or time in the fallback is never used to finish that detached ID.
+First successful owned setup runs `atuin import auto` once per host state
+marker at `${XDG_STATE_HOME:-$HOME/.local/state}/remote-ssh/atuin-import-auto.done`.
+Set `REMOTE_SSH_ENABLE_ATUIN_AUTO_IMPORT=0` before starting the shell to skip it.
+A failed import is retried in a new shell. Existing databases, import markers,
+credentials, and database locations are preserved. Automatic synchronization
+is disabled in the bundled config; manual `atuin sync` remains available.
 
-On Bash with `bind -X`, restoration includes shell commands installed with
-`bind -x`, Readline functions, macros, and unbound keys. On older Bash, including
-macOS Bash 3.2, shell-command bindings cannot be enumerated. If any tracked
-binding is unreadable, remote-ssh passes `--disable-up-arrow`: Up and vi-command
-`k` stay under user control while Atuin still records history. remote-ssh leaves
-Ctrl-R out of its own Atuin initialization.
+After updating from the older integration, exit existing shells and open new
+ones. Reloading old detach/reattach callbacks with `rcrc` is unsupported.
 
 ## Tmux
 

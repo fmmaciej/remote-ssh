@@ -119,6 +119,12 @@ sd|darwin:x86_64:any|sd-v1.1.0-x86_64-apple-darwin.tar.gz
 sd|linux:aarch64:musl|sd-v1.1.0-aarch64-unknown-linux-musl.tar.gz
 sd|linux:x86_64:gnu|sd-v1.1.0-x86_64-unknown-linux-gnu.tar.gz
 sd|linux:x86_64:musl|sd-v1.1.0-x86_64-unknown-linux-musl.tar.gz
+sk|darwin:aarch64:any|skim-aarch64-apple-darwin.tar.xz
+sk|linux:aarch64:gnu|skim-aarch64-unknown-linux-gnu.tar.xz
+sk|linux:aarch64:musl|skim-aarch64-unknown-linux-musl.tar.xz
+sk|darwin:x86_64:any|skim-x86_64-apple-darwin.tar.xz
+sk|linux:x86_64:gnu|skim-x86_64-unknown-linux-gnu.tar.xz
+sk|linux:x86_64:musl|skim-x86_64-unknown-linux-musl.tar.xz
 starship|darwin:aarch64:any|starship-aarch64-apple-darwin.tar.gz
 starship|darwin:x86_64:any|starship-x86_64-apple-darwin.tar.gz
 starship|linux:aarch64:musl|starship-aarch64-unknown-linux-musl.tar.gz
@@ -200,6 +206,8 @@ rg|linux:x86_64:gnu|ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz
 rg|linux:aarch64:gnu|ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz
 sd|linux:x86_64:gnu|sd-v1.1.0-x86_64-unknown-linux-musl.tar.gz
 sd|linux:aarch64:gnu|sd-v1.1.0-aarch64-unknown-linux-musl.tar.gz
+sk|linux:x86_64:gnu|skim-x86_64-unknown-linux-musl.tar.xz
+sk|linux:aarch64:gnu|skim-aarch64-unknown-linux-musl.tar.xz
 starship|linux:x86_64:gnu|starship-x86_64-unknown-linux-musl.tar.gz
 starship|linux:aarch64:gnu|starship-aarch64-unknown-linux-musl.tar.gz
 tspin|linux:x86_64:gnu|tailspin-x86_64-unknown-linux-musl.tar.gz

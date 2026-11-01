@@ -11,6 +11,12 @@ extract_archive_in_pwd() {
   *.tar.gz | *.tgz)
     tar xzf "$archive_name"
     ;;
+  *.tar.xz)
+    tar xJf "$archive_name" || {
+      echo "Cannot extract $archive_name: .tar.xz needs tar with xz support (GNU tar also needs xz in PATH), and a valid archive." >&2
+      return 1
+    }
+    ;;
   *.zip)
     [[ ${ZIP_SUPPORTED:-0} -eq 1 ]] || {
       echo "unzip not available" >&2

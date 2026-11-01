@@ -14,9 +14,17 @@ from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd, write_execu
     "failure,kind",
     [
         (failure, kind)
-        for failure in ("checksum", "curl", "hash-command", "missing-hasher", "archive", "none")
-        for kind in ("raw", "tar")
-        if failure != "archive" or kind == "tar"
+        for failure in (
+            "checksum",
+            "curl",
+            "hash-command",
+            "missing-hasher",
+            "archive",
+            "xz-support",
+            "none",
+        )
+        for kind in ("raw", "tar", "tar.xz")
+        if (failure != "archive" or kind != "raw") and (failure != "xz-support" or kind == "tar.xz")
     ],
 )
 def test_public_installer_preserves_previous_release_on_download_failure(
@@ -30,10 +38,10 @@ def test_public_installer_preserves_previous_release_on_download_failure(
     defs.mkdir()
     payload = isolated_env.home / "payload"
     write_executable(payload, "#!/bin/sh\nprintf new\n")
-    asset = "demo.tar.gz" if kind == "tar" else "demo-raw"
+    asset = {"tar": "demo.tar.gz", "tar.xz": "demo.tar.xz", "raw": "demo-raw"}[kind]
     archive = isolated_env.home / "download"
-    if kind == "tar":
-        with tarfile.open(archive, "w:gz") as tar:
+    if kind != "raw":
+        with tarfile.open(archive, "w:xz" if kind == "tar.xz" else "w:gz") as tar:
             tar.add(payload, arcname="demo")
     else:
         shutil.copy2(payload, archive)
@@ -59,6 +67,8 @@ def test_public_installer_preserves_previous_release_on_download_failure(
     if failure == "hash-command":
         for command in ("sha256sum", "shasum"):
             write_executable(isolated_env.bin_dir / command, "#!/bin/sh\nexit 9\n")
+    if failure == "xz-support":
+        write_executable(isolated_env.bin_dir / "tar", "#!/bin/sh\nexit 2\n")
     opt = isolated_env.home / "opt"
     old = opt / "demo-0" / "demo"
     write_executable(old, "#!/bin/sh\nprintf old\n")
@@ -101,6 +111,8 @@ def test_public_installer_preserves_previous_release_on_download_failure(
         assert run_cmd([link], env=env).stdout == "new"
     else:
         assert_failed(result)
+        if kind == "tar.xz" and failure in ("archive", "xz-support"):
+            assert ".tar.xz needs tar with xz support" in result.stderr
         assert link.readlink() == old
         assert run_cmd([link], env=env).stdout == "old"
         assert not (opt / "demo-1").exists()

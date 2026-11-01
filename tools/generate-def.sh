@@ -103,7 +103,7 @@ parse_args() {
 }
 
 main() {
-  local repo tool tag list
+  local repo tool tag list asset_tool
 
   parse_args "$@"
 
@@ -123,7 +123,12 @@ main() {
 
   tag_prefix_and_version "$GITHUB_TAG"
 
-  detect_asset_prefix "$tool" "$VERSION" "${GITHUB_ASSETS[@]}"
+  asset_tool="$tool"
+  # skim publishes skim-* archives containing the sk executable.
+  if [[ "$repo" == skim-rs/skim && "$tool" == sk ]]; then
+    asset_tool=skim
+  fi
+  detect_asset_prefix "$asset_tool" "$VERSION" "${GITHUB_ASSETS[@]}"
 
   build_assets_from_assets "${GITHUB_ASSETS[@]}"
   build_checksums_from_emitted_assets

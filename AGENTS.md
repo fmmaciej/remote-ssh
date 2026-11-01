@@ -10,7 +10,8 @@ Keep runtime dependencies small. Core runtime shell code should assume only
 basic tools such as `bash`, `curl`, `tar`, `find`, `sed`, `grep`, `mktemp`,
 `date`, and `uname`. `git` is required by `runme.sh`, `remote-ssh update`, and
 the optional login-time update check. `unzip` is needed only when a selected
-asset is a `.zip`; `sha256sum` or `shasum` is needed only when the selected
+asset is a `.zip`. `.tar.xz` assets require tar with xz support; GNU tar also
+requires `xz` in PATH. `sha256sum` or `shasum` is needed only when the selected
 asset has a pinned checksum. The optional `sshf` helper currently requires
 `python3` because it uses `scripts/ssh_hosts.py`; keep that dependency explicit
 until the project decides on a shell fallback or replacement.
@@ -153,6 +154,7 @@ Supported runtime assets:
 
 - `.tar.gz`
 - `.tgz`
+- `.tar.xz`
 - `.zip`
 - raw executable assets
 

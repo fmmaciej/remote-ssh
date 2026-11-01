@@ -108,8 +108,14 @@ Supported release asset formats:
 
 - `.tar.gz`
 - `.tgz`
+- `.tar.xz`
 - `.zip`
 - raw executable assets
+
+`.tar.xz` extraction requires tar with xz support. GNU tar also needs `xz` in
+PATH; macOS tar has built-in support. Extraction failures leave active tool
+symlinks unchanged. Single-binary installs support this format; bundle installs
+still require `.tar.gz` or `.tgz`.
 
 Unsupported by design:
 
@@ -143,6 +149,7 @@ Generate a draft tool definition from GitHub Releases:
 tools/generate-def.sh chmln/sd
 tools/generate-def.sh BurntSushi/ripgrep --tool rg --tag 15.1.0
 tools/generate-def.sh nushell/nushell --tool nu --version 0.112.2
+tools/generate-def.sh skim-rs/skim --tool sk --tag v5.9.0
 tools/generate-def.sh chmln/sd --list
 ```
 

@@ -1,9 +1,53 @@
 from __future__ import annotations
 
+import json
 import textwrap
 from pathlib import Path
 
-from conftest import assert_ok, run_cmd
+from conftest import IsolatedEnv, assert_ok, run_cmd, write_executable
+
+
+def test_generate_skim_with_binary_name_override(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+    assets = [
+        "skim-aarch64-apple-darwin.tar.xz.sha256",
+        "skim-aarch64-apple-darwin.tar.xz",
+        "skim-x86_64-unknown-linux-musl.tar.xz",
+        "skim-x86_64-pc-windows-msvc.zip",
+        "source.tar.gz",
+    ]
+    fixture = isolated_env.home / "release.json"
+    fixture.write_text(
+        json.dumps(
+            {
+                "tag_name": "v5.9.0",
+                "assets": [{"name": name, "digest": "sha256:" + "a" * 64} for name in assets],
+            },
+            indent=2,
+        )
+    )
+    write_executable(isolated_env.bin_dir / "curl", '#!/bin/sh\ncat "$RELEASE_FIXTURE"\n')
+    result = run_cmd(
+        [
+            "bash",
+            repo_dir / "tools/generate-def.sh",
+            "skim-rs/skim",
+            "--tool",
+            "sk",
+            "--tag",
+            "v5.9.0",
+        ],
+        env=isolated_env.env | {"RELEASE_FIXTURE": str(fixture)},
+    )
+    assert_ok(result)
+    assert 'TOOL_NAME="sk"' in result.stdout
+    assert 'BINARY_NAME="sk"' in result.stdout
+    assert '"darwin:aarch64:any|skim-aarch64-apple-darwin.tar.xz"' in result.stdout
+    assert '"linux:x86_64:musl|skim-x86_64-unknown-linux-musl.tar.xz"' in result.stdout
+    assert f"skim-aarch64-apple-darwin.tar.xz|{'a' * 64}" in result.stdout
+    assert "source.tar.gz" not in result.stdout
+    assert ".sha256" not in result.stdout
+    assert "windows" not in result.stdout
+    assert "example" not in result.stdout
 
 
 def _run_repo_bash(repo_dir: Path, script: str) -> str:
@@ -109,8 +153,7 @@ def test_github_parse_asset_digests(repo_dir: Path) -> None:
     )
 
     assert (
-        got
-        == "one.tar.gz|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n"
+        got == "one.tar.gz|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n"
         "two.zip|bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
     )
 

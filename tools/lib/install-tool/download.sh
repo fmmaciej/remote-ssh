@@ -11,7 +11,7 @@ stage_downloaded_asset() {
   fi
 
   case "$asset_name" in
-  *.tar.gz | *.tgz | *.zip)
+  *.tar.gz | *.tgz | *.tar.xz | *.zip)
     extract_archive_in_pwd "$asset_name"
     ;;
   *)

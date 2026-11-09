@@ -1,0 +1,133 @@
+{
+  "date": "2026-11-08",
+  "hardware": {
+    "model": "MacBookPro18,3",
+    "memory_bytes": 17179869184,
+    "physical_cpu_cores": 10
+  },
+  "archives": {
+    "ble.sh": {
+      "local_filename": "remote-ssh-editor-bench-ble.tar.xz",
+      "sha256": "2462ad9fa4efdbf25cc96a6fb0ce5a91eb30baf69e3e8d09399f2bb6e68ea8c5",
+      "tag": "nightly",
+      "release_url": "https://github.com/akinomyoga/ble.sh/releases/tag/nightly",
+      "asset_id": 694834297,
+      "asset_name": "ble-nightly.tar.xz",
+      "download_url": "https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz"
+    },
+    "carapace": {
+      "local_filename": "remote-ssh-editor-bench-carapace.tar.gz",
+      "sha256": "d9c05be343f19005f4bd568f2cedd8307c358e82aff32ebfb2d42af0c52b28ea",
+      "tag": "v1.8.2",
+      "release_url": "https://github.com/carapace-sh/carapace-bin/releases/tag/v1.8.2",
+      "asset_id": 698585380,
+      "asset_name": "carapace-bin_1.8.2_darwin_arm64.tar.gz",
+      "download_url": "https://github.com/carapace-sh/carapace-bin/releases/download/v1.8.2/carapace-bin_1.8.2_darwin_arm64.tar.gz"
+    },
+    "flycomp": {
+      "local_filename": "remote-ssh-editor-bench-flycomp.tar.gz",
+      "sha256": "2f30a06c9eedd0f62fffb07ce7a7025ca4ce1ce438eeb19c92397056a9f70949",
+      "tag": "v1.1.2",
+      "release_url": "https://github.com/HalFrgrd/flycomp/releases/tag/v1.1.2",
+      "asset_id": 463562867,
+      "asset_name": "flycomp-v1.1.2-aarch64-apple-darwin.tar.gz",
+      "download_url": "https://github.com/HalFrgrd/flycomp/releases/download/v1.1.2/flycomp-v1.1.2-aarch64-apple-darwin.tar.gz"
+    },
+    "zsh-syntax-highlighting": {
+      "local_filename": "remote-ssh-editor-bench-zsh-highlight.tar.gz",
+      "sha256": "5981c19ebaab027e356fe1ee5284f7a021b89d4405cc53dc84b476c3aee9cc32",
+      "download_url": "https://codeload.github.com/zsh-users/zsh-syntax-highlighting/tar.gz/refs/tags/0.8.0"
+    }
+  },
+  "executables": {
+    "bash": {
+      "path": "/opt/homebrew/bin/bash",
+      "sha256": "5c59a6000502aa3af7fa1b87921a8e53e88d7407d9e73da744a202b7af88dd96"
+    },
+    "zsh": {
+      "path": "/bin/zsh",
+      "sha256": "82bab4884831effc95a1d22db7d0b71c0fb38363abf5e8228fdae5f7844ac175"
+    },
+    "rg": {
+      "path": "/opt/homebrew/bin/rg",
+      "sha256": "1c57905960cd69dbb5b05492560957f4a57cdd4d39137e20de23981c6e1f4423"
+    },
+    "carapace": {
+      "path": "/private/tmp/remote-ssh-editor-bench/carapace",
+      "sha256": "f6564588cef3d9e5c52b38f1e90a3ed919af7dd8fc566369577c89a8c1009d9e"
+    },
+    "flycomp": {
+      "path": "/private/tmp/remote-ssh-editor-bench/flycomp",
+      "sha256": "8a52902a04bae7f3bf0b364ae4752e130b21d8ff3358d267a9d296a2502f17a1"
+    },
+    "flyline": {
+      "path": "/private/tmp/remote-ssh-flyline-pilot/libflyline.dylib.1.9.0",
+      "sha256": "d0026255e9e288aba220301b0b7ef1fdbcdbe6f321f0b0665136de0a07d09fca"
+    },
+    "ble.sh": {
+      "path": "/private/tmp/remote-ssh-editor-bench/ble-nightly/ble.sh",
+      "sha256": "2ef7eafc238939c50be8a62dbf353fa03b5bb074c03d87be22854e4909983479"
+    }
+  },
+  "shell_input_sha256": {
+    "shell/aliases.sh": "7d0a4fa5f4a5864431fe3b4b05302c4db6ddd15a64dda5ef2ae37cc2ae00dc90",
+    "shell/config/entries.sh": "f25851e2c72a2cdb78c75c1ee98902c40f1855ad5939dd26c21ba564691ffb90",
+    "shell/config/load.sh": "bfee6c32ce4b94cb7526acd5926cf8df6e44fe60b5dc898d3e706d3d6d470dea",
+    "shell/config/markers.sh": "7591de066e72d9674f32677f32258ddafca53d149d72a541a3760ba9099dd0af",
+    "shell/config/parse.sh": "b478dca2f276abd625a721d0a839ada1b793c19764416cb452387ce39cb7465d",
+    "shell/config/path.sh": "3121f255d6188c5f7c02ed2a48678a1578da07f3a0163ec05d3715d7f4259fdb",
+    "shell/config.lib.sh": "cf808a3dfad415a841420379b9bed55151106fa18fd3014f92133e256284c0eb",
+    "shell/env.sh": "f3b9659e4ec72b985bde69b5b11af6fde2c73c76e97c447ecc3796739034fe0a",
+    "shell/navi-bin/fzf": "a1b9cbb87b022d39e73a14b88dbab44071a99e54d7eb681590f53604684c9a7b",
+    "shell/navi-bin/navi": "977471266ad602fc6c5b5d9b389b1abd01d9af7450199fa4ff8fb48e606611f9",
+    "shell/rc.d/04-update-check.sh": "259d37cba91d602f04d39f5dab9dbc8068060745ffb43788a5c85c3c6fdbd5f1",
+    "shell/rc.d/05-bash-preexec.sh": "3f4c8d26ed0776f924918822450e58f16bd0cb02618e2c37108effe4ef0846a2",
+    "shell/rc.d/06-bash-history.sh": "735b4805f8525211f9f93d2411d3b8fbcb3144619ff90cae643dfdf16a8f2335",
+    "shell/rc.d/07-git-session-identity.sh": "57414146be410f70d8c9b9029fe5cf18707f747d649cf51c90d19e3c870386a9",
+    "shell/rc.d/08-welcome.sh": "bb6de534d8d321a5530793fd036e37980c72177f9c58975aabc877fe2b4743f6",
+    "shell/rc.d/10-editor-pager.sh": "a6943cc8ad2549fe0714a1d7637f1219b662fcfe7fc407d8fa476c0150031c0d",
+    "shell/rc.d/11-line-editing.sh": "cbb1d9f1df4fcd9f7bf1619177c6a69bbb1f56697b3223d30218c49f9d2fce83",
+    "shell/rc.d/20-skim.sh": "7b1f29be01e453519ec1743705cd5c1488f40f1043116f3a65f0e4ffa1c22d52",
+    "shell/rc.d/21-yazi.sh": "638815f422def6cc433cf3ff4c50930980f510930d0249b5acbd7e8a9c534801",
+    "shell/rc.d/21-zoxide.sh": "8f544ed6678c9e420978b54a2e47098aca06cf793af7ee2b4c59cdedc67ade57",
+    "shell/rc.d/22-starship.sh": "f6c613f5399fe7f4b895b1377fc5ab4f3474ae608d3b448cb36fb21069b37b6b",
+    "shell/rc.d/23-atuin.sh": "a09067a6f8be5c4d1d51fb3a43cb59073ccd281c1e8314a4d82f2e98a59358c2",
+    "shell/rc.d/24-navi.sh": "f6858ff999029e00351f765a914408bff6b9ae019809074cada9e3d4fe1c6d81",
+    "shell/rc.d/25-log.sh": "b149b7e1f777be5f2f90a98d7a8c5846a13d4b6f2f2bd51171922a22ac436cea",
+    "shell/rc.d/26-bssh.sh": "9b183c1d0cd0e96295b4ff4eb36c600839b1707e9805e061db38a2257f1a5a7f",
+    "shell/rc.d/30-ssh-pick.sh": "4b9e7e37dbc3c68c875a0dbf8d712139391642697ff0a8193f7c415f8e0c6cc7",
+    "shell/rc.d/README.md": "74df9653939aa9996b76827e9baecd9886d80b11f528084d94419c6e21702412",
+    "shell/rc.d/host.d/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "shell/rc.d/host.d/example-host.sh.example": "fedfd64e4ebcc36e1784413b7dbaa24356fbf325e6a1304fb19163a6797546b9",
+    "shell/rc.d/os.d/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "shell/rc.d/os.d/darwin.sh.example": "d1d95483d8975030a0d13743d33a75b81d7029df5def793a1c399ec1858fbdf2",
+    "shell/rc.d/os.d/linux.sh.example": "34586b1d4aba06d14ac5d3b34de6286198490689a20fad4b12d67225e11f0373",
+    "shell/rc.sh": "15f9b253713eb31ac858329198e5128858b34e1c0a1063d1c34c8ac9d0ca6e67",
+    "shell/update-check/state.sh": "e234bc38297c1eed76dd9fad020cbfbcc3f621e354cb6720819d2c7f3979f702",
+    "shell/update-check/time.sh": "344a5c91521057bbc54e832c63279be36a5a4332c1495ddb8f9481d065d17390",
+    "shell/update-check/toggle.sh": "fbed680d84ce8ad21507cfce8a71fd6625bc914029eddace3339b14d189df508",
+    "shell/update-check.lib.sh": "e53e9c2292838f9b6fdfa6300dd1b6a21fe0934c583619b2a76102c37526e136",
+    "shell/welcome/banner.sh": "a14828318cc030f2f2a07d0fd1d952fe80654039ce7f94a2ab22ccfa790e5f23",
+    "shell/welcome/base.sh": "017eec394eaa12441aab6cdbe3fa40d7e9a5d314f5babceab7e50c9c67fe6163",
+    "shell/welcome/bundled-runner.sh": "bb870d5ea1479b1d6d14ede338a404e0bb775c800cb3e6ee673d2028a547fcc0",
+    "shell/welcome/bundled.sh": "da269d5e8798d9512f4e6a9ab39395030c758e136ef43433fe735ae6dc99825f",
+    "shell/welcome/commands.sh": "dabc9a1a9bf47beb771621f608657e2d528c36e569ebaa3ddbf97d5995fdd811",
+    "shell/welcome/host.sh": "dbfac20893287d7791f8b2b84e26396c10621ec006e94123a11c07794383d2a6",
+    "shell/welcome/hw.sh": "c9a17dfb77d7c2d6dd65d7ba1bbee589fdd6ce438b0dc911deaa57c260cd5659",
+    "shell/welcome/issues.sh": "bc1aba65014ddd6f700f0a655c15261f7b298125a3cb4f95802f8dc6dbf56b52",
+    "shell/welcome/runner.sh": "8d840f54c9f2ee502e2e19b43cae1c8487b1b6412ac1b6ef093df50516d18c5a",
+    "shell/welcome/sw.sh": "694a3783def6c640eacf787e54f7972ee3a8ff6e24cd8d0d7fc6e0c4a69e39c6",
+    "shell/welcome/toggles.sh": "9121ac0490097395aaa945eaff109e1b487a9154c5ebfd0f7627b20373b37568",
+    "shell/welcome/update.sh": "183ea4c2c07210b65fbcbcce48533b7396bb97db4eac221e110ea3c033a711b6",
+    "shell/welcome.d/00-remote-ssh.sh": "1c29dec35d67e356f5381e6c0c5d6edb0d3e965f716edf535774cf90e974b294",
+    "shell/welcome.d/10-hw.sh": "6be028fe2e833e1035a0a671f81774bcb66bbd5ab1f29710b0bae24781aa6caa",
+    "shell/welcome.d/20-sw.sh": "b84d5d697c5eadc0003f248871c340b9445141d9524690e9666b72102fbb0b89",
+    "shell/welcome.d/user-module.sh.example": "e501c143d9e9ea3168852b0a09a6433b62b67808f9c71d64a281d6823b7ef753",
+    "shell/welcome.lib.sh": "45ef112946af4d75f91949cfa58301947a14dd7d39083476afa7b2607c287961"
+  },
+  "flyline_archive": {
+    "asset_name": "libflyline-v1.9.0-aarch64-apple-darwin.tar.gz",
+    "sha256": "e91b4738a62221dba93ab166ca3dbea131f81fb7690e8c838145690742cb6932",
+    "release_url": "https://github.com/HalFrgrd/flyline/releases/tag/v1.9.0"
+  }
+}

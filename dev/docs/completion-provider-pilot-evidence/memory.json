@@ -1,0 +1,59 @@
+{
+  "argc": {
+    "command": [
+      "/private/tmp/remote-ssh-completion-bench/bin/argc",
+      "--argc-compgen",
+      "bash",
+      "",
+      "rg",
+      "--ver"
+    ],
+    "samples_mib": [
+      2.78125,
+      2.734375,
+      2.796875,
+      2.765625,
+      2.75,
+      2.765625
+    ],
+    "median_mib_excluding_first": 2.765625
+  },
+  "carapace": {
+    "command": [
+      "/private/tmp/remote-ssh-completion-bench/bin/carapace",
+      "rg",
+      "export",
+      "rg",
+      "--ver"
+    ],
+    "samples_mib": [
+      27.265625,
+      26.34375,
+      26.796875,
+      26.4375,
+      26.578125,
+      26.640625
+    ],
+    "median_mib_excluding_first": 26.578125
+  },
+  "native": {
+    "command": [
+      "/private/tmp/remote-ssh-completion-bench/bin/bash",
+      "--noprofile",
+      "--norc",
+      "-c",
+      "source \"$1\"; COMP_WORDS=(rg --ver); COMP_CWORD=1; _rg rg --ver rg; printf \"%s\\n\" \"${COMPREPLY[@]}\"",
+      "probe",
+      "/private/tmp/remote-ssh-completion-bench/native/rg.bash"
+    ],
+    "samples_mib": [
+      7.0625,
+      7.078125,
+      7.046875,
+      7.09375,
+      7.0625,
+      7.046875
+    ],
+    "median_mib_excluding_first": 7.0625
+  }
+}

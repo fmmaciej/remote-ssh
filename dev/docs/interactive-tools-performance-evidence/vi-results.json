@@ -1,0 +1,26 @@
+[
+  {
+    "case": "bash",
+    "expected": "bc",
+    "actual": "bc",
+    "passed": true
+  },
+  {
+    "case": "ble-minimal",
+    "expected": "bc",
+    "actual": "bc",
+    "passed": true
+  },
+  {
+    "case": "flyline-minimal",
+    "expected": "bc",
+    "actual": "achrbA",
+    "passed": false
+  },
+  {
+    "case": "zsh-highlighting",
+    "expected": "bc",
+    "actual": "bc",
+    "passed": true
+  }
+]

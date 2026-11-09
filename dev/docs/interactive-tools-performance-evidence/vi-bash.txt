@@ -1,0 +1,1 @@
+"\u001b[?2004hBMARK> pilot_capture ac\b\bb\b\u001b[C\u001b[C\r\n\u001b[?2004l\r\u001eARG:bc\u001f\r\n"

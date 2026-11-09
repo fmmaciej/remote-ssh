@@ -1,0 +1,46 @@
+{
+  "bash_version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+  "library_sha256": "d0026255e9e288aba220301b0b7ef1fdbcdbe6f321f0b0665136de0a07d09fca",
+  "scenarios": [
+    {
+      "editor": "readline",
+      "scenario": "plain-input",
+      "startup_ready": true,
+      "flyline_version": "",
+      "expected_argument": "ac",
+      "actual_argument": "ac",
+      "passed": true,
+      "transcript": "readline-plain-input.pty"
+    },
+    {
+      "editor": "readline",
+      "scenario": "vi-replace",
+      "startup_ready": true,
+      "flyline_version": "",
+      "expected_argument": "bc",
+      "actual_argument": "bc",
+      "passed": true,
+      "transcript": "readline-vi-replace.pty"
+    },
+    {
+      "editor": "flyline",
+      "scenario": "plain-input",
+      "startup_ready": true,
+      "flyline_version": "\u001b[>cflyline 1.9.0\ngit hash: 3b9e900\nbuild mode: release\nbuild datetime: 2026-09-20T20:07:32Z\nbuild target: aarch64-apple-darwin\nrustc version: rustc 1.98.1 (48a229cea 2026-09-01)\n\nRunning in: Bash 5.3.20(1)-release\nshell: /bin/zsh\n\nRunning in: xterm-256color (xterm)\nmultiplexer: none\ndevice attributes raw: none\ndevice attributes version: none\nprogram: unknown\nprogram version: unknown\nlocale: en_US.UTF-8 (LC_ALL: unknown, LC_CTYPE: unknown)\n\nRunning in: macOS (kernel 27.2.0 arm64)\nsystem linker: @(#)PROGRAM:ld PROJECT:ld-27037.1\ndynamic linker: dyld (tied to macOS 27.2 (Build 26B123))\n\nRunning on: aarch64 architecture\n\nRunning in: a simulation",
+      "expected_argument": "ac",
+      "actual_argument": "ac",
+      "passed": true,
+      "transcript": "flyline-plain-input.pty"
+    },
+    {
+      "editor": "flyline",
+      "scenario": "vi-replace",
+      "startup_ready": true,
+      "flyline_version": "\u001b[>cflyline 1.9.0\ngit hash: 3b9e900\nbuild mode: release\nbuild datetime: 2026-09-20T20:07:32Z\nbuild target: aarch64-apple-darwin\nrustc version: rustc 1.98.1 (48a229cea 2026-09-01)\n\nRunning in: Bash 5.3.20(1)-release\nshell: /bin/zsh\n\nRunning in: xterm-256color (xterm)\nmultiplexer: none\ndevice attributes raw: none\ndevice attributes version: none\nprogram: unknown\nprogram version: unknown\nlocale: en_US.UTF-8 (LC_ALL: unknown, LC_CTYPE: unknown)\n\nRunning in: macOS (kernel 27.2.0 arm64)\nsystem linker: @(#)PROGRAM:ld PROJECT:ld-27037.1\ndynamic linker: dyld (tied to macOS 27.2 (Build 26B123))\n\nRunning on: aarch64 architecture\n\nRunning in: a simulation",
+      "expected_argument": "bc",
+      "actual_argument": "achrbA",
+      "passed": false,
+      "transcript": "flyline-vi-replace.pty"
+    }
+  ]
+}

@@ -47,6 +47,15 @@ just fmt
   isolated extraction, and installer failure regressions; not scheduled.
 - [Flyline Integration Plan](docs/flyline-implementation-plan.md): proposed
   compatibility pilot, optional editor activation, and managed library installs.
+- [Interactive Tool Performance](docs/interactive-tools-performance.md): local
+  ble.sh/Flyline/zsh editor measurements, vi controls, and separate
+  Carapace/flycomp completion timings.
+- [Completion Provider Pilot](docs/completion-provider-pilot.md): argc, Carapace,
+  and native Bash completions; repeated timings, dependency checks, quoting,
+  candidate coverage, and vi controls.
+- [Carapace Integration Plan](docs/carapace-implementation-plan.md): one optional
+  on-demand provider for Readline and the planned Flyline integration; planned,
+  not implemented.
 - [Deferred Shell Simplification](todo-bench.md): startup measurements and
   simplification ideas to revisit after the correctness fixes.
 

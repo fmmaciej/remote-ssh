@@ -1,0 +1,16 @@
+{
+  "argc-gnu-transcript.txt": "1d25396863efbd2b187313d18d4dfae93265ab9a2e46a5d88573ad4f47c50ea0",
+  "argc-transcript.txt": "4555608376d6af3364316d62c6b08ee8c3f6db2d9582b324ed1169e30764f24c",
+  "carapace-transcript.txt": "06a34295e851d32fe316e9b34a0a74f857d5f5906a88a9fca413843bc5b4243c",
+  "compare.py": "554784f758d9283f4c958cbcbe7f5489f13cfde0a5af59d3e841f40998dd37d0",
+  "input-manifest.json": "c8073b5238750249373b1c43345a8870943190f252dcff058a6356cf33fdc31f",
+  "memory.json": "1d7683df365070ac9422a76562fc7f77d96c45c09b328b3d9b2bb461959c878c",
+  "memory_probe.py": "c08ae145ffc5f394756a4a2052b0e20f80eddc79af54ae7542fe526371f6a24c",
+  "native-scripts/fd.bash.txt": "e90bbae0af1bb5a2887fa739ab2d40400cd1191694666b55082267983d21b707",
+  "native-scripts/git.bash.txt": "56264a168d862c2a51305fe2a3450edf04590d8bafa42c2d061e6f992985fc0f",
+  "native-scripts/rg.bash.txt": "9fd807931c6d350d50e0bb6819629b6cc83e6253528342e95bbaeef81241d0e3",
+  "native-transcript.txt": "afa6e5faf76d6978935ebb990a9a254bd0ea6a3ab4d2ad6b8d5d85921be76ae3",
+  "report.json": "d32fb1ef24ede3c4c3800e9910d15bcd4ed4786ca096d06f3862b09f6e3aedf0",
+  "samples.json": "8711bef69ea64f9107a5338510636664324b109fb5fc059f2fd7adbd48a549af",
+  "smoke.log": "59691d44e16925d7d849495eada3fdd0252040951f74f235d9c5812784e75d1b"
+}

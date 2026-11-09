@@ -1,0 +1,1080 @@
+{
+  "host": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "python": "3.15.2",
+  "iterations": 15,
+  "warmup": 2,
+  "script_sha256": "554784f758d9283f4c958cbcbe7f5489f13cfde0a5af59d3e841f40998dd37d0",
+  "pty_helper_sha256": "83375041d00e332712fc6622cd6693445e4d0d8ff509be8b9d52d5b0223876e8",
+  "summaries": {
+    "baseline": {
+      "startup_ms": {
+        "n": 15,
+        "median": 11.087166960351169,
+        "min": 10.413500014692545,
+        "max": 16.975166043266654,
+        "p95": 16.975166043266654
+      },
+      "rss_mib": {
+        "n": 15,
+        "median": 7.078125,
+        "min": 7.0625,
+        "max": 7.15625,
+        "p95": 7.15625
+      },
+      "key_ms": {
+        "n": 45,
+        "median": 0.06474996916949749,
+        "min": 0.05287490785121918,
+        "max": 0.3149580443277955,
+        "p95": 0.10145804844796658
+      },
+      "queries": {}
+    },
+    "native": {
+      "startup_ms": {
+        "n": 15,
+        "median": 16.811875044368207,
+        "min": 16.04545908048749,
+        "max": 24.704459006898105,
+        "p95": 24.704459006898105
+      },
+      "rss_mib": {
+        "n": 15,
+        "median": 8.125,
+        "min": 8.046875,
+        "max": 8.203125,
+        "p95": 8.203125
+      },
+      "key_ms": {
+        "n": 45,
+        "median": 0.06866594776511192,
+        "min": 0.0540000619366765,
+        "max": 0.12199999764561653,
+        "p95": 0.09991705883294344
+      },
+      "queries": {
+        "rg-version": {
+          "ms": {
+            "n": 15,
+            "median": 1.319,
+            "min": 1.187,
+            "max": 1.758,
+            "p95": 1.758
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-version",
+            "ms": 1.268,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--version"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-color": {
+          "ms": {
+            "n": 15,
+            "median": 1.223,
+            "min": 1.052,
+            "max": 2.679,
+            "p95": 2.679
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-color",
+            "ms": 1.091,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "auto",
+              "always",
+              "ansi"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-type": {
+          "ms": {
+            "n": 15,
+            "median": 3.903,
+            "min": 3.488,
+            "max": 6.651,
+            "p95": 6.651
+          },
+          "passes": 0,
+          "example": {
+            "case": "rg-type",
+            "ms": 4.256,
+            "callback_exit": 0,
+            "file_fallback": true,
+            "candidates": [],
+            "missing": [
+              "py"
+            ],
+            "passed": false
+          }
+        },
+        "rg-file": {
+          "ms": {
+            "n": 15,
+            "median": 2.108,
+            "min": 1.856,
+            "max": 4.569,
+            "p95": 4.569
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-file",
+            "ms": 3.353,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "fixture_unique.txt"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-space": {
+          "ms": {
+            "n": 15,
+            "median": 2.147,
+            "min": 1.85,
+            "max": 3.423,
+            "p95": 3.423
+          },
+          "passes": 0,
+          "example": {
+            "case": "rg-space",
+            "ms": 1.85,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "fixture",
+              "space/match.txt"
+            ],
+            "missing": [
+              "fixture space/match.txt"
+            ],
+            "passed": false
+          }
+        },
+        "fd-color-option": {
+          "ms": {
+            "n": 15,
+            "median": 1.083,
+            "min": 0.947,
+            "max": 2.598,
+            "p95": 2.598
+          },
+          "passes": 15,
+          "example": {
+            "case": "fd-color-option",
+            "ms": 1.117,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--color"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "fd-color-value": {
+          "ms": {
+            "n": 15,
+            "median": 0.974,
+            "min": 0.888,
+            "max": 1.37,
+            "p95": 1.37
+          },
+          "passes": 15,
+          "example": {
+            "case": "fd-color-value",
+            "ms": 0.971,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "auto",
+              "always"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-subcommand": {
+          "ms": {
+            "n": 15,
+            "median": 16.069,
+            "min": 15.08,
+            "max": 76.677,
+            "p95": 76.677
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-subcommand",
+            "ms": 16.51,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "switch "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-switch-option": {
+          "ms": {
+            "n": 15,
+            "median": 30.415,
+            "min": 29.087,
+            "max": 97.996,
+            "p95": 97.996
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-switch-option",
+            "ms": 86.646,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--detach "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-branches": {
+          "ms": {
+            "n": 15,
+            "median": 54.03,
+            "min": 50.97,
+            "max": 127.174,
+            "p95": 127.174
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-branches",
+            "ms": 50.97,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "bench-alpha ",
+              "bench-beta "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-modified-file": {
+          "ms": {
+            "n": 15,
+            "median": 16.938,
+            "min": 14.447,
+            "max": 87.949,
+            "p95": 87.949
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-modified-file",
+            "ms": 15.204,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "fixture_unique.txt"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        }
+      }
+    },
+    "argc": {
+      "startup_ms": {
+        "n": 15,
+        "median": 14.663834008388221,
+        "min": 13.315666932612658,
+        "max": 23.931790958158672,
+        "p95": 23.931790958158672
+      },
+      "rss_mib": {
+        "n": 15,
+        "median": 7.25,
+        "min": 7.21875,
+        "max": 7.296875,
+        "p95": 7.296875
+      },
+      "key_ms": {
+        "n": 45,
+        "median": 0.06991706322878599,
+        "min": 0.053999945521354675,
+        "max": 0.18383399583399296,
+        "p95": 0.11833303142338991
+      },
+      "queries": {
+        "rg-version": {
+          "ms": {
+            "n": 15,
+            "median": 4.239,
+            "min": 4.103,
+            "max": 6.083,
+            "p95": 6.083
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-version",
+            "ms": 6.083,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--version "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-color": {
+          "ms": {
+            "n": 15,
+            "median": 20.659,
+            "min": 18.471,
+            "max": 28.848,
+            "p95": 28.848
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-color",
+            "ms": 18.471,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "auto ",
+              "always ",
+              "ansi "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-type": {
+          "ms": {
+            "n": 15,
+            "median": 22.092,
+            "min": 20.374,
+            "max": 35.594,
+            "p95": 35.594
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-type",
+            "ms": 21.94,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "py ",
+              "python "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-file": {
+          "ms": {
+            "n": 15,
+            "median": 4.374,
+            "min": 3.859,
+            "max": 9.863,
+            "p95": 9.863
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-file",
+            "ms": 9.863,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "fixture_unique.txt "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-space": {
+          "ms": {
+            "n": 15,
+            "median": 4.454,
+            "min": 3.956,
+            "max": 5.182,
+            "p95": 5.182
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-space",
+            "ms": 4.219,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "fixture\\ space/match.txt "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "fd-color-option": {
+          "ms": {
+            "n": 15,
+            "median": 3.893,
+            "min": 3.457,
+            "max": 9.287,
+            "p95": 9.287
+          },
+          "passes": 15,
+          "example": {
+            "case": "fd-color-option",
+            "ms": 4.276,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--color "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "fd-color-value": {
+          "ms": {
+            "n": 15,
+            "median": 4.072,
+            "min": 3.601,
+            "max": 4.988,
+            "p95": 4.988
+          },
+          "passes": 0,
+          "example": {
+            "case": "fd-color-value",
+            "ms": 4.808,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [],
+            "missing": [
+              "always",
+              "auto"
+            ],
+            "passed": false
+          }
+        },
+        "git-subcommand": {
+          "ms": {
+            "n": 15,
+            "median": 59.526,
+            "min": 53.601,
+            "max": 110.377,
+            "p95": 110.377
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-subcommand",
+            "ms": 56.848,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "switch "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-switch-option": {
+          "ms": {
+            "n": 15,
+            "median": 11.622,
+            "min": 10.686,
+            "max": 17.318,
+            "p95": 17.318
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-switch-option",
+            "ms": 13.844,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--detach "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-branches": {
+          "ms": {
+            "n": 15,
+            "median": 41.589,
+            "min": 40.118,
+            "max": 52.414,
+            "p95": 52.414
+          },
+          "passes": 0,
+          "example": {
+            "case": "git-branches",
+            "ms": 41.589,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [],
+            "missing": [
+              "bench-alpha",
+              "bench-beta"
+            ],
+            "passed": false
+          }
+        },
+        "git-modified-file": {
+          "ms": {
+            "n": 15,
+            "median": 102.406,
+            "min": 53.764,
+            "max": 125.661,
+            "p95": 125.661
+          },
+          "passes": 0,
+          "example": {
+            "case": "git-modified-file",
+            "ms": 106.985,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [],
+            "missing": [
+              "fixture_unique.txt"
+            ],
+            "passed": false
+          }
+        }
+      }
+    },
+    "argc-gnu": {
+      "startup_ms": {
+        "n": 15,
+        "median": 14.574124943464994,
+        "min": 13.796750106848776,
+        "max": 22.14400004595518,
+        "p95": 22.14400004595518
+      },
+      "rss_mib": {
+        "n": 15,
+        "median": 7.25,
+        "min": 7.203125,
+        "max": 7.28125,
+        "p95": 7.28125
+      },
+      "key_ms": {
+        "n": 45,
+        "median": 0.06579095497727394,
+        "min": 0.054416945204138756,
+        "max": 0.2536250976845622,
+        "p95": 0.11716701555997133
+      },
+      "queries": {
+        "rg-version": {
+          "ms": {
+            "n": 15,
+            "median": 4.304,
+            "min": 3.781,
+            "max": 5.689,
+            "p95": 5.689
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-version",
+            "ms": 5.689,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--version "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-color": {
+          "ms": {
+            "n": 15,
+            "median": 20.706,
+            "min": 18.213,
+            "max": 32.228,
+            "p95": 32.228
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-color",
+            "ms": 19.616,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "auto ",
+              "always ",
+              "ansi "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-type": {
+          "ms": {
+            "n": 15,
+            "median": 21.648,
+            "min": 20.733,
+            "max": 34.525,
+            "p95": 34.525
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-type",
+            "ms": 20.733,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "py ",
+              "python "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-file": {
+          "ms": {
+            "n": 15,
+            "median": 4.483,
+            "min": 3.816,
+            "max": 10.707,
+            "p95": 10.707
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-file",
+            "ms": 10.707,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "fixture_unique.txt "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-space": {
+          "ms": {
+            "n": 15,
+            "median": 4.374,
+            "min": 3.97,
+            "max": 6.093,
+            "p95": 6.093
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-space",
+            "ms": 4.089,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "fixture\\ space/match.txt "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "fd-color-option": {
+          "ms": {
+            "n": 15,
+            "median": 3.826,
+            "min": 3.511,
+            "max": 7.027,
+            "p95": 7.027
+          },
+          "passes": 15,
+          "example": {
+            "case": "fd-color-option",
+            "ms": 3.885,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--color "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "fd-color-value": {
+          "ms": {
+            "n": 15,
+            "median": 4.118,
+            "min": 3.443,
+            "max": 4.58,
+            "p95": 4.58
+          },
+          "passes": 0,
+          "example": {
+            "case": "fd-color-value",
+            "ms": 4.58,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [],
+            "missing": [
+              "always",
+              "auto"
+            ],
+            "passed": false
+          }
+        },
+        "git-subcommand": {
+          "ms": {
+            "n": 15,
+            "median": 54.535,
+            "min": 53.455,
+            "max": 106.351,
+            "p95": 106.351
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-subcommand",
+            "ms": 53.846,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "switch "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-switch-option": {
+          "ms": {
+            "n": 15,
+            "median": 11.31,
+            "min": 11.018,
+            "max": 20.396,
+            "p95": 20.396
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-switch-option",
+            "ms": 16.409,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--detach "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-branches": {
+          "ms": {
+            "n": 15,
+            "median": 87.038,
+            "min": 84.384,
+            "max": 150.478,
+            "p95": 150.478
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-branches",
+            "ms": 87.038,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "bench-alpha ",
+              "bench-beta "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-modified-file": {
+          "ms": {
+            "n": 15,
+            "median": 57.082,
+            "min": 54.085,
+            "max": 128.165,
+            "p95": 128.165
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-modified-file",
+            "ms": 114.172,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "fixture_unique.txt "
+            ],
+            "missing": [],
+            "passed": true
+          }
+        }
+      }
+    },
+    "carapace": {
+      "startup_ms": {
+        "n": 15,
+        "median": 54.05954096931964,
+        "min": 52.1866250783205,
+        "max": 74.49108397122473,
+        "p95": 74.49108397122473
+      },
+      "rss_mib": {
+        "n": 15,
+        "median": 7.296875,
+        "min": 7.234375,
+        "max": 7.3125,
+        "p95": 7.3125
+      },
+      "key_ms": {
+        "n": 45,
+        "median": 0.06324995774775743,
+        "min": 0.050042057409882545,
+        "max": 0.13320893049240112,
+        "p95": 0.0801250571385026
+      },
+      "queries": {
+        "rg-version": {
+          "ms": {
+            "n": 15,
+            "median": 16.284,
+            "min": 15.776,
+            "max": 17.089,
+            "p95": 17.089
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-version",
+            "ms": 16.284,
+            "callback_exit": 1,
+            "file_fallback": false,
+            "candidates": [
+              "--version"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-color": {
+          "ms": {
+            "n": 15,
+            "median": 15.846,
+            "min": 14.535,
+            "max": 23.736,
+            "p95": 23.736
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-color",
+            "ms": 14.914,
+            "callback_exit": 1,
+            "file_fallback": false,
+            "candidates": [
+              "always",
+              "ansi",
+              "auto"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-type": {
+          "ms": {
+            "n": 15,
+            "median": 20.0,
+            "min": 18.664,
+            "max": 27.941,
+            "p95": 27.941
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-type",
+            "ms": 19.941,
+            "callback_exit": 1,
+            "file_fallback": false,
+            "candidates": [
+              "py",
+              "python"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-file": {
+          "ms": {
+            "n": 15,
+            "median": 15.662,
+            "min": 14.833,
+            "max": 23.439,
+            "p95": 23.439
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-file",
+            "ms": 23.439,
+            "callback_exit": 1,
+            "file_fallback": false,
+            "candidates": [
+              "fixture_unique.txt"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "rg-space": {
+          "ms": {
+            "n": 15,
+            "median": 15.5,
+            "min": 15.267,
+            "max": 17.522,
+            "p95": 17.522
+          },
+          "passes": 15,
+          "example": {
+            "case": "rg-space",
+            "ms": 16.112,
+            "callback_exit": 1,
+            "file_fallback": false,
+            "candidates": [
+              "\"fixture space/match.txt\""
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "fd-color-option": {
+          "ms": {
+            "n": 15,
+            "median": 15.517,
+            "min": 14.686,
+            "max": 19.913,
+            "p95": 19.913
+          },
+          "passes": 15,
+          "example": {
+            "case": "fd-color-option",
+            "ms": 15.219,
+            "callback_exit": 1,
+            "file_fallback": false,
+            "candidates": [
+              "--color"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "fd-color-value": {
+          "ms": {
+            "n": 15,
+            "median": 15.11,
+            "min": 14.357,
+            "max": 17.313,
+            "p95": 17.313
+          },
+          "passes": 15,
+          "example": {
+            "case": "fd-color-value",
+            "ms": 15.004,
+            "callback_exit": 1,
+            "file_fallback": false,
+            "candidates": [
+              "always",
+              "auto"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-subcommand": {
+          "ms": {
+            "n": 15,
+            "median": 53.873,
+            "min": 52.573,
+            "max": 108.768,
+            "p95": 108.768
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-subcommand",
+            "ms": 52.801,
+            "callback_exit": 1,
+            "file_fallback": false,
+            "candidates": [
+              "switch"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-switch-option": {
+          "ms": {
+            "n": 15,
+            "median": 24.72,
+            "min": 23.826,
+            "max": 34.205,
+            "p95": 34.205
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-switch-option",
+            "ms": 26.712,
+            "callback_exit": 1,
+            "file_fallback": false,
+            "candidates": [
+              "--detach"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-branches": {
+          "ms": {
+            "n": 15,
+            "median": 40.471,
+            "min": 39.48,
+            "max": 107.73,
+            "p95": 107.73
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-branches",
+            "ms": 39.852,
+            "callback_exit": 1,
+            "file_fallback": false,
+            "candidates": [
+              "bench-alpha",
+              "bench-beta"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        },
+        "git-modified-file": {
+          "ms": {
+            "n": 15,
+            "median": 53.848,
+            "min": 50.685,
+            "max": 115.52,
+            "p95": 115.52
+          },
+          "passes": 15,
+          "example": {
+            "case": "git-modified-file",
+            "ms": 104.553,
+            "callback_exit": 1,
+            "file_fallback": false,
+            "candidates": [
+              "fixture_unique.txt"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        }
+      }
+    }
+  }
+}

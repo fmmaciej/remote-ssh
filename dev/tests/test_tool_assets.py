@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import shlex
 import textwrap
 from pathlib import Path
 
-from conftest import assert_ok, run_cmd
+import pytest
+from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd
 
 
 def test_neovim_declares_exact_bundle_roots(repo_dir: Path) -> None:
@@ -15,6 +17,7 @@ def test_neovim_declares_exact_bundle_roots(repo_dir: Path) -> None:
         . "$TOOLS_LIB_DIR/install-tool.lib.sh"
         load_defs "$TOOLS_DIR/defs" nvim
         [[ "$INSTALL_LAYOUT" == bundle && "$BINARY_PATH" == bin/nvim ]]
+        [[ "$REMOTE_SSH_BINARY_PATH_EXPLICIT" == 1 ]]
         for entry in "${ASSETS[@]}"; do
           asset="${entry#*|}"
           root="$(bundle_root_for_asset "$asset")"
@@ -22,8 +25,109 @@ def test_neovim_declares_exact_bundle_roots(repo_dir: Path) -> None:
         done
         load_defs "$TOOLS_DIR/defs" rg
         [[ "$INSTALL_LAYOUT" == binary && "$BINARY_PATH" == rg ]]
+        [[ "$REMOTE_SSH_BINARY_PATH_EXPLICIT" == 0 ]]
     """,
     )
+
+
+def test_binary_path_explicit_state_resets_between_definitions(
+    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str
+) -> None:
+    definitions = isolated_env.home / "definitions"
+    definitions.mkdir()
+    for tool, extra in (
+        ("explicit", "BINARY_PATH='bin/renamed'\n"),
+        ("default", ""),
+        ("empty", "BINARY_PATH=''\n"),
+    ):
+        (definitions / f"{tool}.sh").write_text(
+            f"TOOL_NAME={tool}\nGH_REPO=owner/demo\nRELEASE_TAG=v1\nVERSION=1\n"
+            'BINARY_NAME=demo\nASSETS=("linux:x86_64:musl|demo.tar.gz")\n' + extra
+        )
+    result = run_cmd(
+        [
+            runtime_bash,
+            "-c",
+            """
+            set -euo pipefail
+            . "$1/tools/lib/env.sh"
+            . "$TOOLS_LIB_DIR/install-tool.lib.sh"
+            load_defs "$2" explicit
+            [[ "$REMOTE_SSH_BINARY_PATH_EXPLICIT" == 1 && "$BINARY_PATH" == bin/renamed ]]
+            load_defs "$2" default
+            [[ "$REMOTE_SSH_BINARY_PATH_EXPLICIT" == 0 && "$BINARY_PATH" == demo ]]
+            load_defs "$2" explicit
+            [[ "$REMOTE_SSH_BINARY_PATH_EXPLICIT" == 1 && "$BINARY_PATH" == bin/renamed ]]
+            if load_defs "$2" empty; then exit 9; fi
+            [[ "$REMOTE_SSH_BINARY_PATH_EXPLICIT" == 1 && -z "$BINARY_PATH" ]]
+            load_defs "$2" default
+            [[ "$REMOTE_SSH_BINARY_PATH_EXPLICIT" == 0 && "$BINARY_PATH" == demo ]]
+            """,
+            "_",
+            repo_dir,
+            definitions,
+        ],
+        env=isolated_env.env,
+    )
+    assert_ok(result)
+    assert "Invalid BINARY_PATH" in result.stderr
+
+
+@pytest.mark.parametrize(
+    "binary_name,accepted",
+    [
+        (None, True),
+        ("", True),
+        ("demo", True),
+        ("de mo's[1]*?", True),
+        ("nested/demo", False),
+        ("../demo", False),
+        ("/demo", False),
+        (".", False),
+        ("..", False),
+        ("demo\\name", False),
+        ("demo|record", False),
+        ("demo\nrecord", False),
+    ],
+)
+def test_binary_name_is_a_single_allowed_component(
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    runtime_bash: str,
+    binary_name: str | None,
+    accepted: bool,
+) -> None:
+    definitions = isolated_env.home / "definitions"
+    definitions.mkdir()
+    (definitions / "demo.sh").write_text(
+        "TOOL_NAME=demo\nGH_REPO=owner/demo\nRELEASE_TAG=v1\nVERSION=1\n"
+        'ASSETS=("linux:x86_64:musl|demo.tar.gz")\nBINARY_PATH=bin/source\n'
+        + (f"BINARY_NAME={shlex.quote(binary_name)}\n" if binary_name is not None else "")
+    )
+    result = run_cmd(
+        [
+            runtime_bash,
+            "-c",
+            """
+            set -euo pipefail
+            . "$1/tools/lib/env.sh"
+            . "$TOOLS_LIB_DIR/install-tool.lib.sh"
+            load_defs "$2" demo
+            printf '%s|%s' "$BINARY_NAME" "$REMOTE_SSH_BINARY_PATH_EXPLICIT"
+            """,
+            "_",
+            repo_dir,
+            definitions,
+        ],
+        env=isolated_env.env,
+    )
+    if accepted:
+        assert_ok(result)
+        assert result.stdout == f"{binary_name or 'demo'}|1"
+    else:
+        assert_failed(result)
+        assert "Invalid BINARY_NAME" in result.stderr
+        assert result.stdout == ""
 
 
 def _run_repo_bash(repo_dir: Path, script: str) -> str:

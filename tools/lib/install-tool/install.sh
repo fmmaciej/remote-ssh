@@ -2,15 +2,71 @@
 
 ensure_this_file_sourced
 
-find_binary_path_by_name() {
-  local extract_dir="$1" bin_name="$2"
-  local bin
-
-  bin="$(find "$extract_dir" -maxdepth 4 -type f -name "$bin_name" | head -n1)"
-  bin="${bin#"$extract_dir"/}"
-
-  echo "$bin"
+# On failure, stdout explains why the relative path is not a candidate.
+install_binary_check_path() {
+  local root="$1" relative="$2" remaining part current
+  install_tool_binary_path_valid "$relative" || {
+    printf 'unsafe relative path\n'
+    return 1
+  }
+  current="${root%/}"
+  remaining="$relative"
+  while :; do
+    part="${remaining%%/*}"
+    current="$current/$part"
+    [[ ! -L "$current" ]] || {
+      printf 'symbolic link in path\n'
+      return 1
+    }
+    [[ "$remaining" == */* ]] || break
+    remaining="${remaining#*/}"
+  done
+  [[ -f "$current" ]] || {
+    printf 'not a regular file\n'
+    return 1
+  }
+  [[ -x "$current" ]] || { printf 'not executable\n'; return 1; }
 }
+
+# A subshell keeps the temporary-file trap separate from download cleanup.
+find_binary_path_by_name() (
+  local extract_dir="${1%/}" bin_name="$2" results entry relative reason index
+  local -a valid=() rejected=() reasons=()
+  [[ -n "$extract_dir" ]] || extract_dir=/
+  results="$(mktemp "${TMPDIR:-/tmp}/remote-ssh-candidates.XXXXXX")" || {
+    log_error 'Cannot create binary selection results file'
+    return 1
+  }
+  trap 'rm -f -- "$results"' EXIT
+  if ! find "$extract_dir" -maxdepth 4 -print0 >"$results"; then
+    printf 'Cannot scan binaries in %q\n' "$extract_dir" >&2
+    return 1
+  fi
+  while IFS= read -r -d '' entry; do
+    [[ "$entry" != "$extract_dir" && "${entry##*/}" == "$bin_name" ]] || continue
+    relative="${entry#"${extract_dir%/}/"}"
+    if reason="$(install_binary_check_path "$extract_dir" "$relative")"; then
+      valid+=("$relative")
+    else
+      rejected+=("$relative")
+      reasons+=("$reason")
+    fi
+  done <"$results"
+  if [[ ${#valid[@]} == 1 ]]; then
+    printf '%s\n' "${valid[0]}"
+    return 0
+  fi
+  if [[ ${#valid[@]} -gt 1 ]]; then
+    printf 'Ambiguous binary %q: multiple valid candidates\n' "$bin_name" >&2
+    printf '  - %q\n' "${valid[@]}" >&2
+  else
+    printf 'No valid binary %q found within depth 4\n' "$bin_name" >&2
+    for index in "${!rejected[@]}"; do
+      printf '  - %q: %s\n' "${rejected[$index]}" "${reasons[$index]}" >&2
+    done
+  fi
+  return 1
+)
 
 make_install_staging_dir() {
   local tool_name="$1" version="$2"
@@ -138,21 +194,32 @@ install_binary_validate_candidate() {
 install_binary() {
   local tool_name="$1" binary_name="$2" version="$3" extract_dir="$4"
   local -a binary_aliases=("${@:5}")
+  install_tool_binary_name_valid "$binary_name" || {
+    local escaped_name
+    printf -v escaped_name '%q' "$binary_name"
+    log_error "Invalid BINARY_NAME: $escaped_name"
+    return 1
+  }
 
   local rel target_dir stage_dir release_dir alias_name source layout="${INSTALL_LAYOUT:-binary}"
   local -a link_paths
   if [[ "$layout" == bundle ]]; then
     rel="${BINARY_PATH:?}"
     source="$extract_dir/${SELECTED_BUNDLE_ROOT:?}"
+  elif [[ ${REMOTE_SSH_BINARY_PATH_EXPLICIT:-0} == 1 ]]; then
+    source="$extract_dir"
+    rel="$BINARY_PATH"
   else
     source="$extract_dir"
-    rel="$(find_binary_path_by_name "$extract_dir" "$binary_name")"
+    rel="$(find_binary_path_by_name "$extract_dir" "$binary_name")" || return 1
   fi
 
-  [[ -n $rel ]] || {
-    log_error "Binary '$binary_name' not found"
+  local reason escaped_path
+  if ! reason="$(install_binary_check_path "$source" "$rel")"; then
+    printf -v escaped_path '%q' "$rel"
+    log_error "Invalid binary candidate $escaped_path: $reason"
     return 1
-  }
+  fi
   install_binary_validate_candidate "$source/$rel" || return 1
 
   target_dir="${INSTALL_PREFIX}/${tool_name}-${version}"

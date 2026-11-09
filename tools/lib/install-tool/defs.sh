@@ -2,6 +2,16 @@
 
 ensure_this_file_sourced
 
+install_tool_binary_path_valid() {
+  local LC_ALL=C
+  remote_ssh_relative_path_valid "$1" || return 1
+  [[ "$1" != *[[:cntrl:]]* ]]
+}
+
+install_tool_binary_name_valid() {
+  [[ -n "$1" && "$1" != */* ]] && install_tool_binary_path_valid "$1"
+}
+
 load_defs() {
   local def_dir="$1" tool="$2"
   local def_file="$def_dir/${tool}.sh"
@@ -12,7 +22,7 @@ load_defs() {
   }
 
   unset TOOL_NAME GH_REPO RELEASE_TAG VERSION BINARY_NAME ASSETS CHECKSUMS BINARY_ALIASES
-  unset INSTALL_LAYOUT BINARY_PATH BUNDLE_ROOTS
+  unset INSTALL_LAYOUT BINARY_PATH BUNDLE_ROOTS REMOTE_SSH_BINARY_PATH_EXPLICIT
 
   # shellcheck source=/dev/null
   . "$def_file"
@@ -24,10 +34,28 @@ load_defs() {
   : "${ASSETS:?}"
 
   BINARY_NAME="${BINARY_NAME:-$TOOL_NAME}"
+  install_tool_binary_name_valid "$BINARY_NAME" || {
+    local escaped_name
+    printf -v escaped_name '%q' "$BINARY_NAME"
+    log_error "Invalid BINARY_NAME: $escaped_name"
+    return 1
+  }
   INSTALL_LAYOUT="${INSTALL_LAYOUT:-binary}"
-  BINARY_PATH="${BINARY_PATH:-$BINARY_NAME}"
+  # Keep the public default while distinguishing a definition's explicit path.
+  # shellcheck disable=SC2034
+  REMOTE_SSH_BINARY_PATH_EXPLICIT=0
+  if [[ ${BINARY_PATH+x} ]]; then
+    # shellcheck disable=SC2034
+    REMOTE_SSH_BINARY_PATH_EXPLICIT=1
+  fi
+  BINARY_PATH="${BINARY_PATH-$BINARY_NAME}"
   case "$INSTALL_LAYOUT" in binary|bundle) ;; *) log_error "Invalid INSTALL_LAYOUT: $INSTALL_LAYOUT"; return 1 ;; esac
-  remote_ssh_relative_path_valid "$BINARY_PATH" || return 1
+  install_tool_binary_path_valid "$BINARY_PATH" || {
+    local escaped_path
+    printf -v escaped_path '%q' "$BINARY_PATH"
+    log_error "Invalid BINARY_PATH: $escaped_path"
+    return 1
+  }
 
   if ! declare -p BINARY_ALIASES >/dev/null 2>&1; then
     BINARY_ALIASES=()

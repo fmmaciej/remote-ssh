@@ -76,6 +76,50 @@ CHECKSUMS=(
 
 `BINARY_ALIASES=(...)` is optional. For example, `nu` also installs `nushell`.
 
+### Single-binary selection
+
+`BINARY_NAME` is a single destination filename, not a path. It must be a
+nonempty allowed component without `/`, traversal components, backslashes,
+`|`, or control characters. Literal spaces, apostrophes, and metacharacters
+are supported. The loader validates the name before download, and direct
+`install_binary` calls validate it again before selecting or copying files.
+An omitted or empty definition value retains the default of `TOOL_NAME`.
+
+By default, the installer searches at most four levels below the extraction
+directory for entries whose basename equals `BINARY_NAME` literally. Characters
+such as `*`, `?`, and `[]` are part of the name, not search patterns. It installs
+exactly one valid candidate: a regular executable file with an allowed relative
+path and no symbolic links in that path. Matching directories, non-executable
+files, symlinks, and unsafe paths are rejected; they do not prevent selection
+when there is exactly one valid candidate. Multiple valid candidates fail with
+their paths. No valid candidates fail with the matching paths and rejection
+reasons, or a not-found message if nothing matched. A failed scan always aborts,
+even when it produced partial results.
+
+For an ambiguous or deeper archive layout, declare an exact path:
+
+```bash
+BINARY_NAME="example"
+BINARY_PATH="package/bin/example-real"
+```
+
+For single-binary installations, `BINARY_PATH` is relative to the extraction
+directory, may be deeper than the automatic search limit, and may use a different
+basename. The selected file is still installed as `BINARY_NAME`. An explicitly
+empty, missing, or invalid path fails without falling back to discovery.
+Absolute paths, traversal, repeated separators, internal `.` components,
+backslashes, `|`, control characters, and symlinks in any relative component
+are rejected. Spaces and apostrophes are supported. Symlinks pointing inside
+the package are rejected too.
+
+An omitted `BINARY_PATH` retains its internal default of `BINARY_NAME`, but
+automatic discovery remains active; the loader separately records whether the
+definition supplied a path. Raw executable assets retain their preparation as
+`BINARY_NAME` before selection. Selection and source validation precede release
+staging/publication, and selection errors preserve existing binaries and aliases.
+These checks run after extraction; they do not validate an archive before it
+writes files.
+
 ### Bundled runtimes
 
 Single-binary installation is the default. Tools such as Neovim also need their

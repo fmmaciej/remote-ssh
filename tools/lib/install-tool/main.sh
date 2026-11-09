@@ -33,9 +33,20 @@ install_tool_main() {
   if [[ "$INSTALL_LAYOUT" == bundle ]]; then
     # shellcheck disable=SC2034
     SELECTED_BUNDLE_ROOT="$(bundle_root_for_asset "$asset_name")" || exit 1
+  elif [[ "$INSTALL_LAYOUT" == bash-builtin ]]; then
+    # shellcheck disable=SC2034
+    SELECTED_LIBRARY_MEMBER="$(library_member_for_asset "$asset_name")" || exit 1
+    asset_checksum "$asset_name" ${CHECKSUMS[@]+"${CHECKSUMS[@]}"} >/dev/null || {
+      log_error "bash-builtin requires a pinned checksum for $asset_name"
+      exit 1
+    }
   fi
 
   download_and_extract "$GH_REPO" "$RELEASE_TAG" "$asset_name" "$BINARY_NAME" ${CHECKSUMS[@]+"${CHECKSUMS[@]}"} || exit 1
 
-  install_binary "$TOOL_NAME" "$BINARY_NAME" "$VERSION" "$EXTRACT_DIR" ${BINARY_ALIASES[@]+"${BINARY_ALIASES[@]}"} || exit 1
+  if [[ "$INSTALL_LAYOUT" == bash-builtin ]]; then
+    install_library "$TOOL_NAME" "$VERSION" "$EXTRACT_DIR" "$SELECTED_LIBRARY_MEMBER" || exit 1
+  else
+    install_binary "$TOOL_NAME" "$BINARY_NAME" "$VERSION" "$EXTRACT_DIR" ${BINARY_ALIASES[@]+"${BINARY_ALIASES[@]}"} || exit 1
+  fi
 }

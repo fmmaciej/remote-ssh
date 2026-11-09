@@ -218,6 +218,37 @@ Preferred workflow:
 `DEFAULT_TOOLS` is not a promise that every listed tool installs on every
 platform. It is filtered by exact manifest support for the current platform.
 
+## Bash builtin libraries
+
+The optional `INSTALL_LAYOUT="bash-builtin"` contract declares exact archive
+members rather than executable paths:
+
+```bash
+INSTALL_LAYOUT="bash-builtin"
+LIBRARY_MEMBERS=("example-aarch64-apple-darwin.tar.gz|libexample.dylib")
+```
+
+Each selected asset needs one mapping and a pinned checksum. Only tar.gz/tgz
+archives of ordinary files/directories are accepted. The library must be a
+readable regular file with no symlinks in its relative path; an executable bit
+is not required. Linux selection requires the exact libc instead of the
+executable musl-first policy. Do not infer Bash ABI support from OS/architecture.
+
+The installer probes the staged library in the PATH-selected Bash >= 4.4,
+without user startup files, before publishing an absolute active-file link at
+`$INSTALL_PREFIX/.active/<tool>`. Releases remain immutable direct children of
+the prefix. Format-2 records use `layout=bash-builtin` and `library=...`;
+format-1 binary/bundle records remain supported. Installation, expected sets,
+update, inventory, check, doctor, uninstall and conservative prune use these
+links without requiring an executable in PATH. Open sessions keep their loaded
+code after updates. No source build or API discovery occurs on remote hosts.
+
+The developer generator accepts repeated
+`--library-member 'asset.tar.gz|relative/library'` options to emit this layout;
+review the mappings, platform keys, checksums and ABI qualification manually.
+The live checker verifies asset metadata equally for libraries; it is not a
+native load test.
+
 ## Development Checks
 
 Useful commands:

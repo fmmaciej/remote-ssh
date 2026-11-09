@@ -52,6 +52,7 @@ def load_tool_defs(root: Path) -> list[ToolDef]:
 
     for def in "$repo"/tools/defs/*.sh; do
       unset TOOL_NAME GH_REPO RELEASE_TAG VERSION BINARY_NAME BINARY_ALIASES ASSETS CHECKSUMS
+      unset INSTALL_LAYOUT BINARY_PATH BUNDLE_ROOTS LIBRARY_MEMBERS
       . "$def"
       printf 'TOOL\t%s\t%s\t%s\n' "$TOOL_NAME" "$GH_REPO" "$RELEASE_TAG"
       for rec in "${ASSETS[@]}"; do

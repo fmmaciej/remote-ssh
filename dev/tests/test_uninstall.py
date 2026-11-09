@@ -232,3 +232,44 @@ def test_uninstall_scans_symlinked_prefix_and_preserves_foreign_paths(
     assert expected.read_text().splitlines()[-(2 if explicit else 1) :] == (
         ["fd", "fzf"] if explicit else ["fzf"]
     )
+
+
+@pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+@pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+def test_binary_uninstall_ignores_unrelated_active_path(
+    repo_dir: Path,
+    tool_env: ToolStateEnv,
+    runtime_bash: str,
+    active_kind: str,
+    explicit: bool,
+) -> None:
+    (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+    executable = make_managed_tool(tool_env, "rg", "15.1.0")
+    other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+    expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+    active = tool_env.opt_dir / ".active"
+    target = tool_env.external_dir / "unrelated"
+    target.mkdir()
+    sentinel = target / "keep"
+    sentinel.write_text("untouched")
+    if active_kind == "file":
+        active.write_text("unrelated")
+    else:
+        active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+    before = active.read_bytes() if active_kind == "file" else active.readlink()
+
+    result = run_remote_ssh(
+        repo_dir,
+        ["uninstall", "--yes", *(["rg"] if explicit else [])],
+        env=tool_env.env,
+    )
+
+    assert_ok(result)
+    assert not executable.parent.exists() and not (tool_env.bin_dir / "rg").is_symlink()
+    assert (active.read_bytes() if active_kind == "file" else active.readlink()) == before
+    assert sentinel.read_text() == "untouched"
+    if explicit:
+        assert other is not None and other.exists()
+        assert expected.read_text().splitlines()[-1] == "fd"
+    else:
+        assert not expected.exists()

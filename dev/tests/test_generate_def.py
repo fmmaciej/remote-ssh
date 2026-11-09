@@ -7,6 +7,24 @@ from pathlib import Path
 from conftest import IsolatedEnv, assert_ok, run_cmd, write_executable
 
 
+def test_render_builtin_definition_has_explicit_library_members(repo_dir: Path):
+    output = _run_repo_bash(
+        repo_dir,
+        r"""
+      . "$1/tools/lib/env.sh"
+      . "$TOOLS_LIB_DIR/generate-def.lib.sh"
+      RELEASE_TAG=v1; VERSION=1
+      GENERATE_LIBRARY_MEMBERS=('flyline-1-aarch64-apple-darwin.tar.gz|libflyline.dylib')
+      ASSETS_EMIT=('"darwin:aarch64:any|flyline-1-aarch64-apple-darwin.tar.gz"')
+      CHECKSUMS_EMIT=()
+      render_defs flyline fixture/repo v1
+    """,
+    )
+    assert 'INSTALL_LAYOUT="bash-builtin"' in output
+    assert "LIBRARY_MEMBERS=(" in output and "libflyline.dylib" in output
+    assert "BINARY_NAME=" not in output
+
+
 def test_generate_skim_with_binary_name_override(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
     assets = [
         "skim-aarch64-apple-darwin.tar.xz.sha256",

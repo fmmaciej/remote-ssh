@@ -36,7 +36,7 @@ extract_archive_in_pwd() {
 extract_bundle_archive() {
   local archive="$1" root="$2" names details name line
   case "$archive" in *.tar.gz|*.tgz) ;; *) log_error "Bundle requires a tar.gz or tgz archive"; return 1 ;; esac
-  remote_ssh_relative_path_valid "$root" || return 1
+  [[ "$root" == . ]] || remote_ssh_relative_path_valid "$root" || return 1
   names="$(LC_ALL=C tar -tzf "$archive")" || return 1
   details="$(LC_ALL=C tar -tvzf "$archive")" || return 1
   [[ -n "$names" && -n "$details" ]] || return 1
@@ -47,7 +47,9 @@ extract_bundle_archive() {
       log_error "Unsafe bundle member: $name"
       return 1
     }
-    case "$name" in "$root"|"$root/"*) ;; *) log_error "Bundle member outside declared root: $name"; return 1 ;; esac
+    if [[ "$root" != . ]]; then
+      case "$name" in "$root"|"$root/"*) ;; *) log_error "Bundle member outside declared root: $name"; return 1 ;; esac
+    fi
   done <<<"$names"
   while IFS= read -r line; do
     case "${line:0:1}" in -|d) ;; *) log_error "Bundle contains a link or special file"; return 1 ;; esac

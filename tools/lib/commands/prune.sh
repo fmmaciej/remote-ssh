@@ -26,7 +26,7 @@ remote_ssh_cmd_prune_symlink_target_dir() {
 }
 
 remote_ssh_cmd_prune_protected_release_dirs() (
-  local bin_canon inventory link protected_dir resolve_status
+  local bin_canon inventory link protected_dir resolve_status active
 
   if ! bin_canon="$(remote_ssh_cmd_prune_canonical_dir "$INSTALL_BIN_DIR" 2>/dev/null)"; then
     printf 'Cannot inspect INSTALL_BIN_DIR: %s\n' "$INSTALL_BIN_DIR" >&2
@@ -47,6 +47,15 @@ remote_ssh_cmd_prune_protected_release_dirs() (
   if ! find "$bin_canon" -mindepth 1 -maxdepth 1 -type l -print0 >"$inventory"; then
     printf 'Cannot enumerate INSTALL_BIN_DIR: %s\n' "$INSTALL_BIN_DIR" >&2
     return 1
+  fi
+
+  active="$INSTALL_PREFIX/.active"
+  if [[ -e "$active" || -L "$active" ]]; then
+    if ! remote_ssh_active_dir_valid ||
+      ! find "$active" -mindepth 1 -maxdepth 1 -type l -print0 >>"$inventory"; then
+      printf 'Cannot enumerate active libraries: %s; prune aborted.\n' "$active" >&2
+      return 1
+    fi
   fi
 
   # Protect custom and older alias names too, not just aliases in today's defs.

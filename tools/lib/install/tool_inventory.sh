@@ -20,6 +20,12 @@ all_known_tools() {
 managed_tool_installed() {
   local tool="$1" link="$INSTALL_BIN_DIR/$1"
 
+  load_defs "$TOOLS_DIR/defs" "$tool" || return 1
+  if [[ "$INSTALL_LAYOUT" == bash-builtin ]]; then
+    link="$(remote_ssh_tool_link "$tool")"
+    remote_ssh_library_install_valid "$link" "$tool"
+    return $?
+  fi
   [[ -x "$link" ]] || return 1
   remote_ssh_release_for_link "$link" "$tool" >/dev/null
 }

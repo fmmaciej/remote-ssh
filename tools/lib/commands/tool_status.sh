@@ -75,6 +75,24 @@ remote_ssh_tool_status_load() {
   REMOTE_SSH_TOOL_STATUS_ALIAS_RECORDS=()
   REMOTE_SSH_TOOL_STATUS_STATUSES=()
 
+  if [[ "$INSTALL_LAYOUT" == bash-builtin ]]; then
+    REMOTE_SSH_TOOL_STATUS_LOCAL_BIN="$(remote_ssh_tool_link "$TOOL_NAME")"
+    REMOTE_SSH_TOOL_STATUS_PATH_BIN="[library; activation checked in a new shell]"
+    if [[ -L "$REMOTE_SSH_TOOL_STATUS_LOCAL_BIN" ]]; then
+      REMOTE_SSH_TOOL_STATUS_TARGET="$(readlink "$REMOTE_SSH_TOOL_STATUS_LOCAL_BIN")"
+      if remote_ssh_library_install_valid "$REMOTE_SSH_TOOL_STATUS_LOCAL_BIN" "$TOOL_NAME" "$VERSION"; then
+        REMOTE_SSH_TOOL_STATUS_STATUS=ok
+        REMOTE_SSH_TOOL_STATUS_PROBLEM=0
+      else
+        REMOTE_SSH_TOOL_STATUS_STATUS=stale-local
+      fi
+    elif [[ -e "$REMOTE_SSH_TOOL_STATUS_LOCAL_BIN" ]]; then
+      REMOTE_SSH_TOOL_STATUS_STATUS=unmanaged-local
+    fi
+    REMOTE_SSH_TOOL_STATUS_STATUSES=("$REMOTE_SSH_TOOL_STATUS_STATUS")
+    return 0
+  fi
+
   remote_ssh_tool_status_classify_bin \
     "$TOOL_NAME" \
     "$VERSION" \

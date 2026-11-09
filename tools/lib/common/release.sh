@@ -18,6 +18,44 @@ remote_ssh_release_write() {
     "$tool" "$version" "$layout" "$executable" >"$dir/.remote-ssh-release"
 }
 
+remote_ssh_library_release_write() {
+  printf 'format=2\ntool=%s\nversion=%s\nlayout=bash-builtin\nlibrary=%s\n' \
+    "$2" "$3" "$4" >"$1/.remote-ssh-release"
+}
+
+# The active library directory is owned by the prefix, never a redirected path.
+remote_ssh_active_dir_valid() {
+  [[ -d "$INSTALL_PREFIX/.active" && ! -L "$INSTALL_PREFIX/.active" &&
+    -r "$INSTALL_PREFIX/.active" && -x "$INSTALL_PREFIX/.active" ]]
+}
+
+remote_ssh_tool_link() {
+  if [[ "${INSTALL_LAYOUT:-binary}" == bash-builtin ]]; then
+    printf '%s/.active/%s\n' "${INSTALL_PREFIX%/}" "$1"
+  else
+    printf '%s/%s\n' "${INSTALL_BIN_DIR%/}" "$1"
+  fi
+}
+
+remote_ssh_library_member_declared() {
+  local record
+  for record in ${LIBRARY_MEMBERS[@]+"${LIBRARY_MEMBERS[@]}"}; do
+    [[ "${record#*|}" != "$1" ]] || return 0
+  done
+  return 1
+}
+
+remote_ssh_library_install_valid() {
+  local link="$1" tool="$2" version="${3:-}"
+  remote_ssh_active_dir_valid || return 1
+  # Keep validated metadata in this process instead of losing it in a command
+  # substitution and validating the same record a second time at shell startup.
+  remote_ssh_release_for_link "$link" "$tool" >/dev/null || return 1
+  [[ "$REMOTE_SSH_RELEASE_LAYOUT" == bash-builtin &&
+    ( -z "$version" || "$REMOTE_SSH_RELEASE_VERSION" == "$version" ) ]] || return 1
+  remote_ssh_library_member_declared "$REMOTE_SSH_RELEASE_LIBRARY"
+}
+
 # Resolve directory symlinks before '..', just as filesystem path lookup does.
 remote_ssh_link_target_path() {
   local link="$1" target parent link_dir
@@ -75,22 +113,25 @@ remote_ssh_link_matches_version() {
 # valid record and an executable contained in a direct child of INSTALL_PREFIX.
 remote_ssh_release_validate() {
   local dir="$1" expected_tool="${2:-}" file line count=0 prefix canonical parent
-  local tool="" version="" layout="" executable=""
+  local tool="" version="" layout="" executable="" format="" kind="" member current
   [[ -d "$dir" && ! -L "$dir" ]] || return 1
   file="$dir/.remote-ssh-release"
   [[ -f "$file" && ! -L "$file" && -r "$file" ]] || return 1
   while IFS= read -r line || [[ -n "$line" ]]; do
     count=$((count + 1))
     case "$count:$line" in
-      1:format=1) ;;
+      1:format=1|1:format=2) format="${line#*=}" ;;
       2:tool=*) tool="${line#*=}" ;;
       3:version=*) version="${line#*=}" ;;
       4:layout=binary|4:layout=bundle) layout="${line#*=}" ;;
-      5:executable=*) executable="${line#*=}" ;;
+      4:layout=bash-builtin) layout=bash-builtin ;;
+      5:executable=*) executable="${line#*=}"; kind=executable ;;
+      5:library=*) executable="${line#*=}"; kind=library ;;
       *) return 1 ;;
     esac
   done <"$file"
   [[ $count == 5 && -n "$tool" && -n "$version" ]] || return 1
+  case "$format:$layout:$kind" in 1:binary:executable|1:bundle:executable|2:bash-builtin:library) ;; *) return 1 ;; esac
   case "$tool:$version" in *[!a-zA-Z0-9_.:+-]*) return 1 ;; esac
   [[ -f "$TOOLS_DIR/defs/$tool.sh" ]] || return 1
   [[ -z "$expected_tool" || "$tool" == "$expected_tool" ]] || return 1
@@ -101,14 +142,32 @@ remote_ssh_release_validate() {
   [[ "${canonical%/*}" == "$prefix" ]] || return 1
   remote_ssh_release_name_matches_version "${canonical##*/}" "$tool" "$version" || return 1
   [[ -f "$canonical/$executable" && ! -L "$canonical/$executable" ]] || return 1
+  if [[ "$layout" == bash-builtin ]]; then
+    [[ -r "$canonical/$executable" ]] || return 1
+    member="$executable" current="$canonical"
+    while :; do
+      current="$current/${member%%/*}"
+      [[ ! -L "$current" ]] || return 1
+      [[ "$member" == */* ]] || break
+      member="${member#*/}"
+    done
+  fi
   parent="${executable%/*}"
   [[ "$parent" != "$executable" ]] || parent=.
   parent="$(cd -P -- "$canonical/$parent" && pwd -P)" || return 1
   case "$parent/" in "$canonical/"*) ;; *) return 1 ;; esac
   REMOTE_SSH_RELEASE_TOOL="$tool"
+  REMOTE_SSH_RELEASE_DIR="$canonical"
   REMOTE_SSH_RELEASE_VERSION="$version"
   REMOTE_SSH_RELEASE_LAYOUT="$layout"
-  REMOTE_SSH_RELEASE_EXECUTABLE="$executable"
+  REMOTE_SSH_RELEASE_FILE="$executable"
+  REMOTE_SSH_RELEASE_EXECUTABLE=""
+  REMOTE_SSH_RELEASE_LIBRARY=""
+  if [[ "$layout" == bash-builtin ]]; then
+    REMOTE_SSH_RELEASE_LIBRARY="$executable"
+  else
+    REMOTE_SSH_RELEASE_EXECUTABLE="$executable"
+  fi
 }
 
 remote_ssh_release_for_link() {
@@ -120,7 +179,7 @@ remote_ssh_release_for_link() {
   relative="${target#"$prefix"/}"
   root="$prefix/${relative%%/*}"
   remote_ssh_release_validate "$root" "$expected_tool" || return 1
-  [[ "$target" == "$root/$REMOTE_SSH_RELEASE_EXECUTABLE" ]] || return 1
+  [[ "$target" == "$root/$REMOTE_SSH_RELEASE_FILE" ]] || return 1
   printf '%s\n' "$root"
 }
 

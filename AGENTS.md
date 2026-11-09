@@ -179,6 +179,16 @@ For Linux glibc hosts, prefer a matching `musl` asset when available, then
 `glibc`/`gnu`, then `any`. For Linux musl hosts, prefer `musl`, then `any`.
 For macOS, use `darwin:<arch>:any`.
 
+The optional `bash-builtin` library layout is an exception to musl-first
+selection: Linux libraries must match the host libc exactly (`glibc`/`gnu`
+are equivalent). Never load a musl library into a glibc Bash. Its exact
+`LIBRARY_MEMBERS` mapping and checksum are mandatory. Libraries use readable
+regular files in immutable releases, format-2 ownership records, and absolute
+active links under `$INSTALL_PREFIX/.active`; they do not publish executables.
+Only tar.gz/tgz archives containing ordinary files/directories are currently
+accepted for this layout. Management commands remain compatible with Bash 3.2;
+loading requires a separately qualified Bash >= 4.4 build.
+
 If no asset matches, errors should include the detected platform and the
 available `ASSETS` entries.
 

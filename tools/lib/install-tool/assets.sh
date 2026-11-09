@@ -35,6 +35,16 @@ select_asset() {
     ;;
   esac
 
+  # A builtin shares Bash's process and must match its libc. Executable tools
+  # retain their musl-first policy above.
+  if [[ "${INSTALL_LAYOUT:-binary}" == bash-builtin && "$raw_os" == linux ]]; then
+    case "$libc" in
+      glibc|gnu) wanted=("linux:${raw_arch}:glibc" "linux:${raw_arch}:gnu") ;;
+      musl) wanted=("linux:${raw_arch}:musl") ;;
+      *) return 1 ;;
+    esac
+  fi
+
   for candidate in ${wanted[@]+"${wanted[@]}"}; do
     for rec in "$@"; do
       key="${rec%%|*}"

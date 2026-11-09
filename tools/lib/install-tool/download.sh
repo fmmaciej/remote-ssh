@@ -8,6 +8,11 @@ stage_downloaded_asset() {
   if [[ "${INSTALL_LAYOUT:-binary}" == bundle ]]; then
     extract_bundle_archive "$asset_name" "$SELECTED_BUNDLE_ROOT"
     return $?
+  elif [[ "${INSTALL_LAYOUT:-binary}" == bash-builtin ]]; then
+    # Library packages use the same conservative ordinary-files-only extractor,
+    # with an explicit member relative to the archive root.
+    extract_bundle_archive "$asset_name" .
+    return $?
   fi
 
   case "$asset_name" in
@@ -106,7 +111,7 @@ download_and_extract() {
 
   # shellcheck disable=SC2034
   EXTRACT_DIR="$REMOTE_SSH_DOWNLOAD_DIR"
-  if [[ "${INSTALL_LAYOUT:-binary}" == bundle ]]; then
+  if [[ "${INSTALL_LAYOUT:-binary}" == bundle || "${INSTALL_LAYOUT:-binary}" == bash-builtin ]]; then
     # shellcheck disable=SC2034
     EXTRACT_DIR="$REMOTE_SSH_DOWNLOAD_DIR/payload"
   fi

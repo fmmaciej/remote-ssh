@@ -20,7 +20,7 @@ fi
 usage() {
   cat <<EOF >&2
 Usage:
-  $0 <owner>/<repo> [--tool <name>] [--tag <tag>]
+  $0 <owner>/<repo> [--tool <name>] [--tag <tag>] [--library-member <asset|relative-path> ...]
   $0 <owner>/<repo> [--tool <name>] [--version <tag>]
   $0 <owner>/<repo> --list
 
@@ -37,6 +37,7 @@ parse_args() {
   tool=""
   tag=""
   list=0
+  GENERATE_LIBRARY_MEMBERS=()
 
   repo="$1"
   shift
@@ -72,6 +73,11 @@ parse_args() {
         list=1
         shift
         ;;
+      --library-member)
+        [[ $# -ge 2 && "$2" == *'|'* ]] || { echo 'ERROR: --library-member requires asset|relative-path' >&2; usage; }
+        GENERATE_LIBRARY_MEMBERS+=("$2")
+        shift 2
+        ;;
       -h | --help)
         usage
         ;;
@@ -104,6 +110,7 @@ parse_args() {
 
 main() {
   local repo tool tag list asset_tool
+  local -a GENERATE_LIBRARY_MEMBERS
 
   parse_args "$@"
 

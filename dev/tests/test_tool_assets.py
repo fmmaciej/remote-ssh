@@ -9,6 +9,31 @@ import pytest
 from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd
 
 
+def test_builtin_asset_requires_matching_linux_libc(repo_dir: Path, runtime_bash: str) -> None:
+    result = run_cmd(
+        [
+            runtime_bash,
+            "-c",
+            r"""
+      set -euo pipefail
+      . "$1/tools/lib/env.sh"
+      . "$TOOLS_LIB_DIR/install-tool.lib.sh"
+      ASSETS=('linux:x86_64:musl|musl.tar.gz' 'linux:x86_64:gnu|gnu.tar.gz' 'linux:x86_64:any|any.tar.gz')
+      INSTALL_LAYOUT=binary
+      [[ $(select_asset linux x86_64 gnu "${ASSETS[@]}") == musl.tar.gz ]]
+      INSTALL_LAYOUT=bash-builtin
+      [[ $(select_asset linux x86_64 glibc "${ASSETS[@]}") == gnu.tar.gz ]]
+      [[ $(select_asset linux x86_64 musl "${ASSETS[@]}") == musl.tar.gz ]]
+      if select_asset linux x86_64 gnu 'linux:x86_64:musl|wrong' 'linux:x86_64:any|unknown'; then exit 9; fi
+      if select_asset linux x86_64 musl 'linux:x86_64:gnu|wrong' 'linux:x86_64:any|unknown'; then exit 10; fi
+    """,
+            "_",
+            repo_dir,
+        ]
+    )
+    assert_ok(result)
+
+
 # No hashes in the checked official release metadata, asset lists, or bodies.
 # Keep these tied to exact releases; see docs/tool-checksums.md.
 CHECKSUM_EXCEPTIONS = {

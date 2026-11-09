@@ -15,8 +15,17 @@ TOOL_NAME="${tool}"
 GH_REPO="${repo}"
 RELEASE_TAG="${RELEASE_TAG}"
 VERSION="${VERSION}"
+EOF
 
-BINARY_NAME="${tool}"
+  if [[ ${GENERATE_LIBRARY_MEMBERS+x} && ${#GENERATE_LIBRARY_MEMBERS[@]} -gt 0 ]]; then
+    printf '\nINSTALL_LAYOUT="bash-builtin"\nLIBRARY_MEMBERS=(\n'
+    printf '  %q\n' "${GENERATE_LIBRARY_MEMBERS[@]}"
+    printf ')\n'
+  else
+    printf '\nBINARY_NAME="%s"\n' "$tool"
+  fi
+
+  cat <<EOF
 
 # "<os>:<arch>:<libc>|<asset_name>"
 #

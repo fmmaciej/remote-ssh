@@ -25,7 +25,58 @@ install_binary_check_path() {
     printf 'not a regular file\n'
     return 1
   }
+  if [[ "${3:-executable}" == library ]]; then
+    [[ -r "$current" ]] && return 0
+    printf 'not readable\n'
+    return 1
+  fi
   [[ -x "$current" ]] || { printf 'not executable\n'; return 1; }
+}
+
+# Probe only in a disposable child. Management itself remains Bash 3.2 compatible.
+install_library_probe() {
+  local library="$1" tool="$2" bash_path diagnostics
+  bash_path="$(type -P bash)" || { log_error 'bash not found in PATH'; return 1; }
+  # shellcheck disable=SC2016 # Evaluated by the disposable child Bash.
+  if ! diagnostics="$("$bash_path" --noprofile --norc -i -c '
+    ((BASH_VERSINFO[0] > 4 || (BASH_VERSINFO[0] == 4 && BASH_VERSINFO[1] >= 4))) || exit 64
+    builtin enable -f "$1" "$2" || exit 65
+    if [[ "$2" == flyline ]]; then builtin flyline key --vim-mode true || exit 66; fi
+  ' remote-ssh-library-probe "$library" "$tool" </dev/null 2>&1)"; then
+    log_error "Cannot load $tool in selected Bash ($bash_path); requires compatible Bash >= 4.4: $diagnostics"
+    return 1
+  fi
+}
+
+install_library() {
+  local tool="$1" version="$2" source="$3" member="$4" stage release reason
+  if ! reason="$(install_binary_check_path "$source" "$member" library)"; then
+    log_error "Invalid library candidate: $reason"
+    return 1
+  fi
+  mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR" || return 1
+  # Link targets are absolute even for a relative custom prefix.
+  INSTALL_PREFIX="$(cd -P -- "$INSTALL_PREFIX" && pwd -P)" || return 1
+  if [[ ! -e "$INSTALL_PREFIX/.active" && ! -L "$INSTALL_PREFIX/.active" ]]; then
+    mkdir "$INSTALL_PREFIX/.active" || return 1
+  fi
+  remote_ssh_active_dir_valid || { log_error "Invalid active library directory: $INSTALL_PREFIX/.active"; return 1; }
+  install_binary_validate_link_path "$INSTALL_PREFIX/.active/$tool" || return 1
+  stage="$(make_install_staging_dir "$tool" "$version")" || return 1
+  if ! cp -R "$source/." "$stage/" ||
+    ! install_binary_check_path "$stage" "$member" library ||
+    ! install_library_probe "$stage/$member" "$tool" ||
+    ! remote_ssh_library_release_write "$stage" "$tool" "$version" "$member"; then
+    rm -rf -- "$stage"
+    return 1
+  fi
+  release="$(choose_release_dir "$tool" "$version" "$INSTALL_PREFIX/$tool-$version")" || {
+    rm -rf -- "$stage"; return 1;
+  }
+  mv "$stage" "$release" || { rm -rf -- "$stage"; return 1; }
+  install_binary_switch_links "$release/$member" "$INSTALL_PREFIX/.active/$tool" || return 1
+  log_info "Installed library: $release/$member"
+  log_info "Active library: $INSTALL_PREFIX/.active/$tool (new shells only)"
 }
 
 # A subshell keeps the temporary-file trap separate from download cleanup.

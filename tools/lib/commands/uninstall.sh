@@ -8,7 +8,7 @@ Usage:
   remote-ssh uninstall [--yes] [tool ...]
 
 Uninstalls managed remote-ssh tools. Without tool arguments, uninstalls all
-managed tools detected from symlinks in INSTALL_BIN_DIR.
+managed tools detected from executable and active-library symlinks.
 
 Options:
   --yes       Skip confirmation prompt
@@ -79,7 +79,7 @@ remote_ssh_cmd_uninstall_managed_link_target() {
   local link="$1" _prefix_canon="$2" expected_tool="${3:-}" root
   root="$(remote_ssh_release_for_link "$link" "$expected_tool")" || return 1
   remote_ssh_release_validate "$root" "$expected_tool" || return 1
-  printf '%s/%s\n' "$root" "$REMOTE_SSH_RELEASE_EXECUTABLE"
+  printf '%s/%s\n' "$root" "$REMOTE_SSH_RELEASE_FILE"
 }
 
 remote_ssh_cmd_uninstall_collect_links_for_tool() {
@@ -94,7 +94,11 @@ remote_ssh_cmd_uninstall_collect_links_for_tool() {
   done
 
   for alias_name in ${link_names[@]+"${link_names[@]}"}; do
-    link_path="$INSTALL_BIN_DIR/$alias_name"
+    link_path="$(remote_ssh_tool_link "$alias_name")"
+    if [[ "$INSTALL_LAYOUT" == bash-builtin ]] && ! remote_ssh_active_dir_valid; then
+      printf 'protect|%s (invalid active library directory)\n' "$link_path"
+      continue
+    fi
     if [[ -L "$link_path" ]]; then
       if target="$(remote_ssh_cmd_uninstall_managed_link_target "$link_path" "$prefix_canon" "$TOOL_NAME")"; then
         printf 'remove|%s\n' "$link_path"
@@ -135,11 +139,30 @@ remote_ssh_cmd_uninstall_managed_tools() {
 
   for tool in $(all_known_tools); do
     load_defs "$TOOLS_DIR/defs" "$tool"
-    link_path="$INSTALL_BIN_DIR/$TOOL_NAME"
+    link_path="$(remote_ssh_tool_link "$TOOL_NAME")"
+    if [[ "$INSTALL_LAYOUT" == bash-builtin ]]; then remote_ssh_active_dir_valid || continue; fi
     [[ -L "$link_path" ]] || continue
     remote_ssh_cmd_uninstall_managed_link_target "$link_path" "$prefix_canon" "$TOOL_NAME" >/dev/null || continue
     printf '%s\n' "$tool"
   done
+}
+
+# Only library selections own .active. Run this directly before collecting
+# output through process substitution, so a failed preflight cannot be lost.
+remote_ssh_cmd_uninstall_preflight() {
+  local tool
+  for tool in "$@"; do
+    load_defs "$TOOLS_DIR/defs" "$tool"
+    [[ "$INSTALL_LAYOUT" == bash-builtin ]] || continue
+    if [[ -e "$INSTALL_PREFIX/.active" || -L "$INSTALL_PREFIX/.active" ]]; then
+      remote_ssh_active_dir_valid || {
+        printf 'Cannot inspect active library links; uninstall aborted.\n' >&2
+        return 1
+      }
+    fi
+    return 0
+  done
+  return 0
 }
 
 remote_ssh_cmd_uninstall_expected_plan() {
@@ -257,7 +280,13 @@ remote_ssh_cmd_uninstall_main() {
         selected+=("$value")
       fi
     done
+    remote_ssh_cmd_uninstall_preflight ${selected[@]+"${selected[@]}"} || return 1
   else
+    value="$(all_known_tools)" || return 1
+    while IFS= read -r tool; do
+      [[ -n "$tool" ]] && requested+=("$tool")
+    done <<< "$value"
+    remote_ssh_cmd_uninstall_preflight ${requested[@]+"${requested[@]}"} || return 1
     while IFS= read -r tool; do
       [[ -n "$tool" ]] && selected+=("$tool")
     done < <(remote_ssh_cmd_uninstall_managed_tools "$prefix_canon")

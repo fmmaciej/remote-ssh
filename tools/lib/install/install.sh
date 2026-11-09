@@ -13,6 +13,15 @@ is_tool_installed() {
     return 1
   fi
 
+  if [[ "${INSTALL_LAYOUT:-binary}" == bash-builtin ]]; then
+    local_bin="$(remote_ssh_tool_link "$tool")"
+    if remote_ssh_library_install_valid "$local_bin" "$tool" "$expected_version"; then
+      log_info "'$tool' ${expected_version} library is installed in ${local_bin} - SKIPPING."
+      return 0
+    fi
+    return 1
+  fi
+
   if [[ -x $local_bin ]]; then
     if [[ -z $expected_version ]]; then
       log_info "'$tool' is installed in ${local_bin} - SKIPPING."

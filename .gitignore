@@ -4,6 +4,7 @@
 .ruff_cache/
 dots/git/user.local
 dots/ssh/config.local
+dev/flyline/dist/
 
 # Generated Python bytecode
 __pycache__/

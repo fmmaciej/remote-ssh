@@ -1,0 +1,54 @@
+diff --git a/crates/flybuffer/src/movement.rs b/crates/flybuffer/src/movement.rs
+index a4c81ad..d165c0f 100644
+--- a/crates/flybuffer/src/movement.rs
++++ b/crates/flybuffer/src/movement.rs
+@@ -544,7 +544,8 @@ impl TextBuffer {
+             None
+         };
+ 
+-        let start_pos = if let Some(c) = self.buf[self.cursor_byte..].chars().next() {
++        let start_pos = {
++            let c = self.buf[self.cursor_byte..].chars().next()?;
+             if find_pair(c).is_some() {
+                 self.cursor_byte
+             } else {
+@@ -559,8 +560,6 @@ impl TextBuffer {
+                         }
+                     })?
+             }
+-        } else {
+-            return None;
+         };
+ 
+         let c = self.buf[start_pos..].chars().next()?;
+@@ -669,7 +668,7 @@ impl TextBuffer {
+             return None;
+         }
+ 
+-        for window in quote_positions.chunks_exact(2) {
++        for window in quote_positions.as_chunks::<2>().0 {
+             let q1 = window[0];
+             let q2 = window[1];
+             if rel_cursor <= q2 {
+diff --git a/src/app/actions/keyboard.rs b/src/app/actions/keyboard.rs
+index 69ae3b4..b540150 100644
+--- a/src/app/actions/keyboard.rs
++++ b/src/app/actions/keyboard.rs
+@@ -2246,12 +2246,11 @@ impl Binding {
+         for event in key_events {
+             let mut event = event.clone();
+             if vim_binding {
+-                if let KeyEventMatch::Exact(ref mut key) = event {
+-                    if let KeyCode::Char(c) = key.code {
+-                        if c.is_ascii_uppercase() {
+-                            key.modifiers |= KeyModifiers::SHIFT;
+-                        }
+-                    }
++                if let KeyEventMatch::Exact(ref mut key) = event
++                    && let KeyCode::Char(c) = key.code
++                    && c.is_ascii_uppercase()
++                {
++                    key.modifiers |= KeyModifiers::SHIFT;
+                 }
+                 if matches!(event, KeyEventMatch::AnyCharAndMods(mods) if mods.is_empty()) {
+                     unique_events.push(KeyEventMatch::AnyCharAndMods(KeyModifiers::SHIFT));

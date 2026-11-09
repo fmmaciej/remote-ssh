@@ -15,6 +15,16 @@ from bench.scenarios import ATUIN_IMPORT_MARKER, SCENARIO_ORDER, scenario_enviro
 from bench.stats import series_stats
 
 
+def test_flyline_scenarios_are_explicit_and_require_selected_editor(tmp_path: Path):
+    assert not set(bench_scenarios.FLYLINE_SCENARIOS) & set(SCENARIO_ORDER)
+    for name in bench_scenarios.FLYLINE_SCENARIOS:
+        env = scenario_environment(name, {"PATH": "/usr/bin:/bin"}, tmp_path / name, tmp_path)
+        assert env["REMOTE_SSH_ENABLE_FLYLINE"] == ("1" if "-on-" in name else "0")
+        assert env["REMOTE_SSH_ENABLE_ATUIN"] == ("1" if "-atuin" in name else "0")
+        command = bench_scenarios.scenario_args(name, tmp_path, "READY")[-1]
+        assert "exit 69" in command and "REMOTE_SSH_FLYLINE_STATE" in command
+
+
 def test_series_stats_are_deterministic() -> None:
     assert series_stats([4.0, 1.0, 3.0, 2.0]) == {
         "median": 2.5,
@@ -283,7 +293,7 @@ def test_cli_unknown_suite_fails(
     )
 
     assert_failed(result)
-    assert "unknown suite: unknown; available: login" in result.stderr
+    assert "unknown suite: unknown; available: flyline, login" in result.stderr
 
 
 def test_cli_json_reference_scenario_adds_baseline(

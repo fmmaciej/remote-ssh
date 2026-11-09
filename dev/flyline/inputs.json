@@ -1,0 +1,30 @@
+{
+  "base": "ca910967af35579a2d455a071aa939778d8f6171",
+  "pr_head": "aae68bb4acb43d7462bbe4abffedd6e2b10bd889",
+  "patches": [
+    {
+      "file": "0001-upstream-pr974.patch",
+      "sha256": "259a30228d5fad952c49afa8f86f0908885684e7b5ac1410e617b71414fb4f50"
+    },
+    {
+      "file": "0002-vi-key-dispatch-and-repeat.patch",
+      "sha256": "08daaf5f6c80ec2433c9602b73f56fe837865a3e2412abbbc0794574f5daf389"
+    },
+    {
+      "file": "0003-vi-transactions-motion-and-history.patch",
+      "sha256": "b0aff662bda12b2c60966057670a58198a613d3bfce998c01d725d871e424493"
+    },
+    {
+      "file": "0004-current-toolchain-lints.patch",
+      "sha256": "06d31874fd5df3c7c3f0a4e540d2d0f9b4aa8185125a383253d8faefcc93b87a"
+    },
+    {
+      "file": "0005-restore-bash-input-on-unload.patch",
+      "sha256": "3e86ee0500c6ebab5bf347baefabc128a57ffbe67047830398ada810bc1afcd5"
+    },
+    {
+      "file": "0006-preserve-native-history-search-buffer.patch",
+      "sha256": "a4043005af495bc31e08ee921c722edac2bf6554b19d90cf7e8dcd7999e5bd84"
+    }
+  ]
+}

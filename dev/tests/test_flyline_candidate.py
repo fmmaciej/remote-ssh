@@ -1,0 +1,155 @@
+"""Offline checks for developer candidate preparation; no native library needed."""
+
+from __future__ import annotations
+
+import json
+import subprocess
+import tarfile
+from pathlib import Path
+
+import pytest
+
+from flyline import candidate
+
+
+def fixture_archive(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, *, lock_patch=False):
+    inputs = tmp_path / "inputs"
+    (inputs / "patches").mkdir(parents=True)
+    tree = tmp_path / f"flyline-{candidate.BASE}"
+    tree.mkdir()
+    (tree / "Cargo.lock").write_text("locked dependencies\n")
+    (tree / "editor.txt").write_text("base editor\n")
+    archive = tmp_path / "source.tar.gz"
+    with tarfile.open(archive, "w:gz") as output:
+        output.add(tree, arcname=tree.name)
+    file = "Cargo.lock" if lock_patch else "editor.txt"
+    old = "locked dependencies" if lock_patch else "base editor"
+    patch = inputs / "patches/port.patch"
+    patch.write_text(
+        f"diff --git a/{file} b/{file}\n--- a/{file}\n+++ b/{file}\n"
+        f"@@ -1 +1 @@\n-{old}\n+patched editor\n"
+    )
+    (inputs / "inputs.json").write_text(
+        json.dumps(
+            {
+                "base": candidate.BASE,
+                "pr_head": candidate.PR,
+                "patches": [{"file": patch.name, "sha256": candidate.digest(patch)}],
+            }
+        )
+    )
+    monkeypatch.setattr(candidate, "ROOT", inputs)
+    monkeypatch.setattr(candidate, "ARCHIVE_SHA256", candidate.digest(archive))
+    return archive, inputs
+
+
+def test_prepare_verifies_patch_and_records_exact_source_tree(tmp_path, monkeypatch):
+    archive, _ = fixture_archive(tmp_path, monkeypatch)
+    output = tmp_path / "candidate"
+    candidate.prepare(archive, output)
+    assert (output / "editor.txt").read_text() == "patched editor\n"
+    assert (output / "Cargo.lock").read_text() == "locked dependencies\n"
+    provenance = json.loads((output / "remote-ssh-provenance.json").read_text())
+    assert (
+        provenance["port_commit"]
+        == subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=output,
+            text=True,
+        ).strip()
+    )
+    assert (
+        provenance["source_tree"]
+        == subprocess.check_output(
+            ["git", "rev-parse", "HEAD^{tree}"],
+            cwd=output,
+            text=True,
+        ).strip()
+    )
+    with pytest.raises(ValueError, match="overwrite"):
+        candidate.prepare(archive, output)
+    assert (output / "editor.txt").read_text() == "patched editor\n"
+
+
+def test_prepare_rejects_changed_source_without_creating_output(tmp_path, monkeypatch):
+    archive, _ = fixture_archive(tmp_path, monkeypatch)
+    archive.write_bytes(archive.read_bytes() + b"tampered")
+    output = tmp_path / "candidate"
+    with pytest.raises(ValueError, match="archive checksum"):
+        candidate.prepare(archive, output)
+    assert not output.exists()
+
+
+def test_prepare_rejects_changed_patch_without_creating_output(tmp_path, monkeypatch):
+    archive, inputs = fixture_archive(tmp_path, monkeypatch)
+    (inputs / "patches/port.patch").write_text("different patch")
+    output = tmp_path / "candidate"
+    with pytest.raises(ValueError, match="Patch checksum"):
+        candidate.prepare(archive, output)
+    assert not output.exists()
+
+
+def test_prepare_preserves_lockfile_contract_transactionally(tmp_path, monkeypatch):
+    archive, _ = fixture_archive(tmp_path, monkeypatch, lock_patch=True)
+    output = tmp_path / "candidate"
+    with pytest.raises(ValueError, match="changes Cargo.lock"):
+        candidate.prepare(archive, output)
+    assert not output.exists()
+
+
+def test_recorded_patch_fingerprints_match_repository():
+    pins = json.loads((candidate.ROOT / "inputs.json").read_text())
+    assert pins["base"] == candidate.BASE
+    assert pins["pr_head"] == candidate.PR
+    for patch in pins["patches"]:
+        assert candidate.digest(candidate.ROOT / "patches" / patch["file"]) == patch["sha256"]
+
+
+def test_fork_pins_match_the_integration_entrypoint():
+    pins = json.loads((candidate.ROOT / "fork.json").read_text())
+    assert pins["repository"] == candidate.FORK_REPO
+    assert pins["source_commit"] == candidate.FORK_COMMIT
+    assert pins["identity"] == candidate.FORK_IDENTITY
+    assert pins["upstream_base"] == candidate.BASE and pins["pr_head"] == candidate.PR
+
+
+@pytest.mark.parametrize("invalid", ["head", "dirty", "identity"])
+def test_fork_builder_rejects_unreviewed_source_before_execution(tmp_path, monkeypatch, invalid):
+    source = tmp_path / "source"
+    (source / "remote-ssh").mkdir(parents=True)
+    marker = tmp_path / "executed"
+    (source / "remote-ssh/build.py").write_text(
+        f"from pathlib import Path\nPath({str(marker)!r}).touch()\n"
+    )
+    pins = {
+        "identity": candidate.FORK_IDENTITY,
+        "upstream_base": candidate.BASE,
+        "pr_head": candidate.PR,
+    }
+    if invalid == "identity":
+        pins["identity"] = "unreviewed"
+    (source / "remote-ssh/build.json").write_text(json.dumps(pins))
+    git = [
+        "git",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-c",
+        "commit.gpgsign=false",
+        "-c",
+        "user.name=fixture",
+        "-c",
+        "user.email=fixture@example.invalid",
+    ]
+    subprocess.run(git + ["init", "-q"], cwd=source, check=True)
+    subprocess.run(git + ["add", "--all"], cwd=source, check=True)
+    subprocess.run(git + ["commit", "-qm", "fixture"], cwd=source, check=True)
+    head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=source, text=True).strip()
+    monkeypatch.setattr(candidate, "FORK_COMMIT", "0" * 40 if invalid == "head" else head)
+    if invalid == "dirty":
+        (source / "remote-ssh/build.py").write_text("modified\n")
+    with pytest.raises(ValueError):
+        candidate.build_fork(
+            source, Path("/unused/cargo"), "aarch64-apple-darwin", tmp_path / "output", True
+        )
+    assert not marker.exists()
+    assert not (tmp_path / "output").exists()

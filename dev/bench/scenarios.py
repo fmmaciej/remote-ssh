@@ -18,7 +18,7 @@ MEASURED_SCENARIO_ORDER = (
     "remote-ssh-default-warm-home",
 )
 SCENARIO_ORDER = MEASURED_SCENARIO_ORDER
-SCENARIO_SUITES = {
+SCENARIO_SUITES: dict[str, tuple[str, ...]] = {
     "login": (
         "remote-ssh-min",
         "remote-ssh-default",
@@ -37,10 +37,31 @@ MEASURED_SCENARIO_DESCRIPTIONS = {
     "remote-ssh-default-warm-home": "remote-ssh default with one warmed isolated HOME",
 }
 
+# Explicit-only: require a locally installed candidate and a compatible Bash.
+# Do not change the historical default suite or silently benchmark a fallback.
+FLYLINE_SCENARIOS = tuple(
+    f"remote-ssh-flyline-{editor}-{history}{cache}"
+    for editor in ("off", "on")
+    for history in ("bash", "atuin")
+    for cache in ("", "-warm-home")
+)
+SCENARIO_SUITES["flyline"] = FLYLINE_SCENARIOS
+MEASURED_SCENARIO_DESCRIPTIONS.update(
+    {
+        name: "explicit Flyline/history toggle startup (validated selection)"
+        for name in FLYLINE_SCENARIOS
+    }
+)
+
 REMOTE_SSH_ENV_PREFIX = "REMOTE_SSH_"
 NO_COLOR_ENV = "NO_COLOR"
 ATUIN_IMPORT_MARKER = "atuin-import-auto.done"
-WARM_HOME_SCENARIOS = frozenset({"remote-ssh-default-warm-home"})
+WARM_HOME_SCENARIOS = frozenset(
+    {
+        "remote-ssh-default-warm-home",
+        *(name for name in FLYLINE_SCENARIOS if name.endswith("-warm-home")),
+    }
+)
 
 
 def clean_parent_env(parent_env: Mapping[str, str]) -> dict[str, str]:
@@ -76,7 +97,15 @@ def scenario_environment(
         }
     )
 
-    if scenario_name == "remote-ssh-min":
+    if scenario_name in FLYLINE_SCENARIOS:
+        env.update(
+            REMOTE_SSH_WELCOME="0",
+            REMOTE_SSH_UPDATE_CHECK="0",
+            REMOTE_SSH_ENABLE_FLYLINE="1" if "-on-" in scenario_name else "0",
+            REMOTE_SSH_ENABLE_ATUIN="1" if "-atuin" in scenario_name else "0",
+            REMOTE_SSH_ENABLE_ATUIN_AUTO_IMPORT="0",
+        )
+    elif scenario_name == "remote-ssh-min":
         env["REMOTE_SSH_WELCOME"] = "0"
         env["REMOTE_SSH_UPDATE_CHECK"] = "0"
     elif scenario_name == "remote-ssh-welcome":
@@ -129,6 +158,13 @@ def shell_command(marker: str) -> str:
 
 def scenario_args(scenario_name: str, current_repo: Path, marker: str) -> list[str]:
     command = shell_command(marker)
+    if scenario_name in FLYLINE_SCENARIOS:
+        editor = "active" if "-on-" in scenario_name else "disabled"
+        history = "atuin" if "-atuin" in scenario_name else "bash"
+        command = (
+            f'[[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_HISTORY_BACKEND" == {editor}:{history} ]] || exit 69; '
+            + command
+        )
     if scenario_name == "bash-baseline":
         return ["bash", "--noprofile", "--norc", "-i", "-c", command]
     return ["bash", "--rcfile", str(current_repo / "shell" / "rc.sh"), "-i", "-c", command]
@@ -230,7 +266,9 @@ def run_named_scenario(
     reference = reference_map.get(scenario_name)
     if reference is not None:
         return run_reference_scenario(reference)
-    return run_scenario(scenario_name, current_repo, bench_root, iterations, warmup, timeout_seconds)
+    return run_scenario(
+        scenario_name, current_repo, bench_root, iterations, warmup, timeout_seconds
+    )
 
 
 def default_scenario_names(reference_names: Sequence[str]) -> tuple[str, ...]:

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import io
 import shlex
 import shutil
@@ -72,6 +73,10 @@ def test_bundle_installer_preserves_runtime_and_rejects_invalid_package(
             elif unsafe == "fifo":
                 info.type = tarfile.FIFOTYPE
             tar.addfile(info)
+    # This isolated fixture has local archive bytes, not the upstream release.
+    fixture_checksum = hashlib.sha256(archive.read_bytes()).hexdigest()
+    with (defs / "nvim.sh").open("a") as definition:
+        definition.write(f'CHECKSUMS=("{package}.tar.gz|{fixture_checksum}")\n')
     (isolated_env.bin_dir / "bash").symlink_to(runtime_bash)
     write_executable(
         isolated_env.bin_dir / "uname",
@@ -109,6 +114,7 @@ def test_bundle_installer_preserves_runtime_and_rejects_invalid_package(
         "TMPDIR": str(downloads),
     }
     result = run_cmd([runtime_bash, root / "tools" / "install-tool.sh", "nvim"], env=env)
+    assert f"Checksum OK: {package}.tar.gz" in result.stdout + result.stderr
     assert not outside.exists()
     assert list(downloads.iterdir()) == []
     if unsafe == "none":

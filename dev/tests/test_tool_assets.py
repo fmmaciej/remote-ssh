@@ -1,11 +1,28 @@
 from __future__ import annotations
 
+import re
 import shlex
 import textwrap
 from pathlib import Path
 
 import pytest
 from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd
+
+
+# No hashes in the checked official release metadata, asset lists, or bodies.
+# Keep these tied to exact releases; see docs/tool-checksums.md.
+CHECKSUM_EXCEPTIONS = {
+    ("denisidoro/navi", "v2.23.0", "navi-v2.23.0-aarch64-apple-darwin.tar.gz"),
+    ("denisidoro/navi", "v2.23.0", "navi-v2.23.0-x86_64-apple-darwin.tar.gz"),
+    ("denisidoro/navi", "v2.23.0", "navi-v2.23.0-aarch64-unknown-linux-gnu.tar.gz"),
+    ("denisidoro/navi", "v2.23.0", "navi-v2.23.0-x86_64-unknown-linux-musl.tar.gz"),
+    ("sxyazi/yazi", "v25.5.31", "yazi-aarch64-apple-darwin.zip"),
+    ("sxyazi/yazi", "v25.5.31", "yazi-x86_64-apple-darwin.zip"),
+    ("sxyazi/yazi", "v25.5.31", "yazi-aarch64-unknown-linux-musl.zip"),
+    ("sxyazi/yazi", "v25.5.31", "yazi-x86_64-unknown-linux-musl.zip"),
+    ("sxyazi/yazi", "v25.5.31", "yazi-aarch64-unknown-linux-gnu.zip"),
+    ("sxyazi/yazi", "v25.5.31", "yazi-x86_64-unknown-linux-gnu.zip"),
+}
 
 
 def test_neovim_declares_exact_bundle_roots(repo_dir: Path) -> None:
@@ -390,7 +407,7 @@ def test_asset_selection_no_match(repo_dir: Path) -> None:
 
 
 def test_checksum_manifest_contract(repo_dir: Path) -> None:
-    _run_repo_bash(
+    records = _run_repo_bash(
         repo_dir,
         r"""
         repo="$1"
@@ -402,27 +419,32 @@ def test_checksum_manifest_contract(repo_dir: Path) -> None:
           unset TOOL_NAME GH_REPO RELEASE_TAG VERSION BINARY_NAME BINARY_ALIASES ASSETS CHECKSUMS
           . "$def"
 
+          for rec in "${ASSETS[@]}"; do
+            printf 'asset|%s|%s|%s\n' "$GH_REPO" "$RELEASE_TAG" "${rec#*|}"
+          done
           for rec in "${CHECKSUMS[@]}"; do
-            asset="${rec%%|*}"
-            checksum="${rec#*|}"
-
-            [[ $checksum =~ ^[0-9a-f]{64}$ ]] || {
-              printf 'Invalid checksum for %s: %s\n' "$asset" "$checksum" >&2
-              exit 1
-            }
-
-            found=0
-            for asset_rec in "${ASSETS[@]}"; do
-              [[ ${asset_rec#*|} == "$asset" ]] || continue
-              found=1
-              break
-            done
-
-            ((found == 1)) || {
-              printf 'Checksum references unknown asset: %s\n' "$asset" >&2
-              exit 1
-            }
+            printf 'checksum|%s|%s|%s\n' "$GH_REPO" "$RELEASE_TAG" "$rec"
           done
         done
         """,
+    )
+    assets: set[tuple[str, str, str]] = set()
+    checksums: set[tuple[str, str, str]] = set()
+    for record in records.splitlines():
+        kind, repository, tag, asset, *values = record.split("|")
+        key = (repository, tag, asset)
+        if kind == "asset":
+            assert not values, f"Malformed asset: {record}"
+            assets.add(key)
+        else:
+            assert kind == "checksum" and len(values) == 1, f"Malformed checksum: {record}"
+            assert re.fullmatch(r"[0-9a-f]{64}", values[0]), f"Invalid checksum: {record}"
+            assert key not in checksums, f"Duplicate checksum: {key}"
+            checksums.add(key)
+
+    assert not checksums - assets, f"Checksums reference unknown assets: {checksums - assets}"
+    missing = assets - checksums
+    assert not missing - CHECKSUM_EXCEPTIONS, f"Missing checksums: {missing - CHECKSUM_EXCEPTIONS}"
+    assert not CHECKSUM_EXCEPTIONS - missing, (
+        f"Remove obsolete checksum exceptions: {CHECKSUM_EXCEPTIONS - missing}"
     )

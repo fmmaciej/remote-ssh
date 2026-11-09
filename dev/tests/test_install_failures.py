@@ -69,11 +69,23 @@ def test_public_installer_preserves_previous_release_on_download_failure(
             write_executable(isolated_env.bin_dir / command, "#!/bin/sh\nexit 9\n")
     if failure == "xz-support":
         write_executable(isolated_env.bin_dir / "tar", "#!/bin/sh\nexit 2\n")
+    extractor_calls = isolated_env.home / "extractor.calls"
+    if kind != "raw" and failure in ("checksum", "none"):
+        tar_command = shutil.which("tar")
+        assert tar_command
+        write_executable(
+            isolated_env.bin_dir / "tar",
+            "#!/bin/sh\n"
+            f'printf "%s\\n" "$*" >>{shlex.quote(str(extractor_calls))}\n'
+            f'exec {shlex.quote(tar_command)} "$@"\n',
+        )
     opt = isolated_env.home / "opt"
     old = opt / "demo-0" / "demo"
     write_executable(old, "#!/bin/sh\nprintf old\n")
     link = isolated_env.bin_dir / "demo"
     link.symlink_to(old)
+    alias = isolated_env.bin_dir / "demo-alias"
+    alias.symlink_to(old)
     temp = isolated_env.home / "downloads"
     temp.mkdir()
     env = isolated_env.env | {
@@ -109,13 +121,23 @@ def test_public_installer_preserves_previous_release_on_download_failure(
     if failure == "none":
         assert_ok(result)
         assert run_cmd([link], env=env).stdout == "new"
+        assert run_cmd([alias], env=env).stdout == "new"
+        if kind != "raw":
+            assert extractor_calls.read_text().strip(), (
+                "Successful archive extraction was not traced"
+            )
     else:
         assert_failed(result)
+        if failure == "checksum":
+            assert "Checksum mismatch" in result.stderr
+            assert not extractor_calls.exists(), "Bad-checksum asset reached the extractor"
         if kind == "tar.xz" and failure in ("archive", "xz-support"):
             assert ".tar.xz needs tar with xz support" in result.stderr
         assert link.readlink() == old
+        assert alias.readlink() == old
         assert run_cmd([link], env=env).stdout == "old"
-        assert not (opt / "demo-1").exists()
+        assert run_cmd([alias], env=env).stdout == "old"
+        assert list(opt.iterdir()) == [old.parent]
     assert list(temp.iterdir()) == []
 
 

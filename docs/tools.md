@@ -178,9 +178,10 @@ installs selected pinned tools without changing the user's saved
 `expected-tools` set. Regular users should prefer `remote-ssh install`.
 
 When a selected asset has a matching `CHECKSUMS` entry, the installer verifies
-its SHA-256 before extraction or installation. Some upstream projects do not
-publish checksum files for every asset yet; those remaining entries are tracked
-as follow-up hardening work.
+its SHA-256 before extraction or installation. See
+[pinned tool checksums](tool-checksums.md) for verified upstream sources,
+coverage, and exact release-specific exceptions. Offline asset contract tests
+require full coverage outside those documented exceptions.
 
 Download, hash calculation, checksum verification, and extraction failures stop
 installation with a nonzero exit status before switching any active symlinks.

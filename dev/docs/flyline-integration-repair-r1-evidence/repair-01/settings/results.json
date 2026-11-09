@@ -1,0 +1,323 @@
+{
+  "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+  "script_sha256": "1e0706946ea2dbbf9347823cf0abb01d8b09ec2a25a29626e79203cf541f34da",
+  "before_module_sha256": "77085365d4ee8e64c4274afcdc48a3b3f63878f4da70098dcd136b08ceff536f",
+  "current_module_sha256": "74ee8407729bb3a4cc125eaf0b512200d86104de2759bd28688d5d6ecee2c305",
+  "mandatory_expected": {
+    "run_tutorial": "false",
+    "show_animations": "false",
+    "enable_easter_eggs": "false",
+    "enable_extended_key_codes": "false",
+    "send_shell_integration_codes": "None",
+    "mouse_mode": "Disabled",
+    "cursor.backend": "Terminal",
+    "auto_suggest": "false",
+    "auto_suggest_inline": "false",
+    "flycomp.enabled": "false",
+    "history.backend": "bash",
+    "vim_mode": "true"
+  },
+  "profiles": [
+    {
+      "profile": "atuin",
+      "snapshots": [
+        {
+          "profile": "atuin",
+          "variant": "before",
+          "actual_state": "active:managed:atuin",
+          "expected_state": "active:managed:atuin",
+          "required_actual": {
+            "run_tutorial": "false",
+            "show_animations": "false",
+            "enable_easter_eggs": "false",
+            "enable_extended_key_codes": "false",
+            "send_shell_integration_codes": "None",
+            "mouse_mode": "Disabled",
+            "cursor.backend": "Terminal",
+            "auto_suggest": "false",
+            "auto_suggest_inline": "false",
+            "flycomp.enabled": "false",
+            "history.backend": "bash",
+            "vim_mode": "true"
+          },
+          "mandatory_settings": true,
+          "bindings_valid": true,
+          "user_keybindings": [
+            "Ctrl+r vimInsertMode=runBashCommand('__remote_ssh_flyline_history_vi')",
+            "Ctrl+r !vimModeEnabled+editingBufferMode=runBashCommand('__remote_ssh_flyline_history_emacs')"
+          ],
+          "passed": true,
+          "resources": {
+            "shell_cpu_ms": 182.182,
+            "shell_peak_rss_mib": 13.140625
+          }
+        },
+        {
+          "profile": "atuin",
+          "variant": "current",
+          "actual_state": "active:managed:atuin",
+          "expected_state": "active:managed:atuin",
+          "required_actual": {
+            "run_tutorial": "false",
+            "show_animations": "false",
+            "enable_easter_eggs": "false",
+            "enable_extended_key_codes": "false",
+            "send_shell_integration_codes": "None",
+            "mouse_mode": "Disabled",
+            "cursor.backend": "Terminal",
+            "auto_suggest": "false",
+            "auto_suggest_inline": "false",
+            "flycomp.enabled": "false",
+            "history.backend": "bash",
+            "vim_mode": "true"
+          },
+          "mandatory_settings": true,
+          "bindings_valid": true,
+          "user_keybindings": [
+            "Ctrl+r vimInsertMode=runBashCommand('__remote_ssh_flyline_history_vi')",
+            "Ctrl+r !vimModeEnabled+editingBufferMode=runBashCommand('__remote_ssh_flyline_history_emacs')"
+          ],
+          "passed": true,
+          "resources": {
+            "shell_cpu_ms": 179.378,
+            "shell_peak_rss_mib": 13.078125
+          }
+        }
+      ],
+      "all_settings_byte_equal": true,
+      "key_list_byte_equal": true,
+      "passed": true
+    },
+    {
+      "profile": "skim",
+      "snapshots": [
+        {
+          "profile": "skim",
+          "variant": "before",
+          "actual_state": "active:managed:bash",
+          "expected_state": "active:managed:bash",
+          "required_actual": {
+            "run_tutorial": "false",
+            "show_animations": "false",
+            "enable_easter_eggs": "false",
+            "enable_extended_key_codes": "false",
+            "send_shell_integration_codes": "None",
+            "mouse_mode": "Disabled",
+            "cursor.backend": "Terminal",
+            "auto_suggest": "false",
+            "auto_suggest_inline": "false",
+            "flycomp.enabled": "false",
+            "history.backend": "bash",
+            "vim_mode": "true"
+          },
+          "mandatory_settings": true,
+          "bindings_valid": true,
+          "user_keybindings": [
+            "Ctrl+r vimInsertMode=runBashCommand('__skim_history')",
+            "Ctrl+r !vimModeEnabled+editingBufferMode=runBashCommand('__skim_history')"
+          ],
+          "passed": true,
+          "resources": {
+            "shell_cpu_ms": 139.321,
+            "shell_peak_rss_mib": 12.3125
+          }
+        },
+        {
+          "profile": "skim",
+          "variant": "current",
+          "actual_state": "active:managed:bash",
+          "expected_state": "active:managed:bash",
+          "required_actual": {
+            "run_tutorial": "false",
+            "show_animations": "false",
+            "enable_easter_eggs": "false",
+            "enable_extended_key_codes": "false",
+            "send_shell_integration_codes": "None",
+            "mouse_mode": "Disabled",
+            "cursor.backend": "Terminal",
+            "auto_suggest": "false",
+            "auto_suggest_inline": "false",
+            "flycomp.enabled": "false",
+            "history.backend": "bash",
+            "vim_mode": "true"
+          },
+          "mandatory_settings": true,
+          "bindings_valid": true,
+          "user_keybindings": [
+            "Ctrl+r vimInsertMode=runBashCommand('__skim_history')",
+            "Ctrl+r !vimModeEnabled+editingBufferMode=runBashCommand('__skim_history')"
+          ],
+          "passed": true,
+          "resources": {
+            "shell_cpu_ms": 139.43800000000002,
+            "shell_peak_rss_mib": 12.3125
+          }
+        }
+      ],
+      "all_settings_byte_equal": true,
+      "key_list_byte_equal": true,
+      "passed": true
+    },
+    {
+      "profile": "nobind",
+      "snapshots": [
+        {
+          "profile": "nobind",
+          "variant": "before",
+          "actual_state": "active:managed:atuin",
+          "expected_state": "active:managed:atuin",
+          "required_actual": {
+            "run_tutorial": "false",
+            "show_animations": "false",
+            "enable_easter_eggs": "false",
+            "enable_extended_key_codes": "false",
+            "send_shell_integration_codes": "None",
+            "mouse_mode": "Disabled",
+            "cursor.backend": "Terminal",
+            "auto_suggest": "false",
+            "auto_suggest_inline": "false",
+            "flycomp.enabled": "false",
+            "history.backend": "bash",
+            "vim_mode": "true"
+          },
+          "mandatory_settings": true,
+          "bindings_valid": true,
+          "user_keybindings": [],
+          "passed": true,
+          "resources": {
+            "shell_cpu_ms": 165.001,
+            "shell_peak_rss_mib": 13.0
+          }
+        },
+        {
+          "profile": "nobind",
+          "variant": "current",
+          "actual_state": "active:managed:atuin",
+          "expected_state": "active:managed:atuin",
+          "required_actual": {
+            "run_tutorial": "false",
+            "show_animations": "false",
+            "enable_easter_eggs": "false",
+            "enable_extended_key_codes": "false",
+            "send_shell_integration_codes": "None",
+            "mouse_mode": "Disabled",
+            "cursor.backend": "Terminal",
+            "auto_suggest": "false",
+            "auto_suggest_inline": "false",
+            "flycomp.enabled": "false",
+            "history.backend": "bash",
+            "vim_mode": "true"
+          },
+          "mandatory_settings": true,
+          "bindings_valid": true,
+          "user_keybindings": [],
+          "passed": true,
+          "resources": {
+            "shell_cpu_ms": 164.521,
+            "shell_peak_rss_mib": 13.0
+          }
+        }
+      ],
+      "all_settings_byte_equal": true,
+      "key_list_byte_equal": true,
+      "passed": true
+    },
+    {
+      "profile": "no-widget",
+      "snapshots": [
+        {
+          "profile": "no-widget",
+          "variant": "before",
+          "actual_state": "active:managed:bash",
+          "expected_state": "active:managed:bash",
+          "required_actual": {
+            "run_tutorial": "false",
+            "show_animations": "false",
+            "enable_easter_eggs": "false",
+            "enable_extended_key_codes": "false",
+            "send_shell_integration_codes": "None",
+            "mouse_mode": "Disabled",
+            "cursor.backend": "Terminal",
+            "auto_suggest": "false",
+            "auto_suggest_inline": "false",
+            "flycomp.enabled": "false",
+            "history.backend": "bash",
+            "vim_mode": "true"
+          },
+          "mandatory_settings": true,
+          "bindings_valid": true,
+          "user_keybindings": [],
+          "passed": true,
+          "resources": {
+            "shell_cpu_ms": 130.8,
+            "shell_peak_rss_mib": 12.046875
+          }
+        },
+        {
+          "profile": "no-widget",
+          "variant": "current",
+          "actual_state": "active:managed:bash",
+          "expected_state": "active:managed:bash",
+          "required_actual": {
+            "run_tutorial": "false",
+            "show_animations": "false",
+            "enable_easter_eggs": "false",
+            "enable_extended_key_codes": "false",
+            "send_shell_integration_codes": "None",
+            "mouse_mode": "Disabled",
+            "cursor.backend": "Terminal",
+            "auto_suggest": "false",
+            "auto_suggest_inline": "false",
+            "flycomp.enabled": "false",
+            "history.backend": "bash",
+            "vim_mode": "true"
+          },
+          "mandatory_settings": true,
+          "bindings_valid": true,
+          "user_keybindings": [],
+          "passed": true,
+          "resources": {
+            "shell_cpu_ms": 134.08199999999997,
+            "shell_peak_rss_mib": 12.046875
+          }
+        }
+      ],
+      "all_settings_byte_equal": true,
+      "key_list_byte_equal": true,
+      "passed": true
+    }
+  ],
+  "failures": [
+    {
+      "failure": "global-cursor",
+      "expected_state": "failed:settings:atuin",
+      "actual_state": "failed:settings:atuin",
+      "attributes_preserved": true,
+      "unloaded": true,
+      "fallback_warning": true,
+      "readline_argument": "bc",
+      "early_execution": false,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 213.53,
+        "shell_peak_rss_mib": 17.21875
+      }
+    },
+    {
+      "failure": "vim-bind",
+      "expected_state": "failed:settings:atuin",
+      "actual_state": "failed:settings:atuin",
+      "attributes_preserved": true,
+      "unloaded": true,
+      "fallback_warning": true,
+      "readline_argument": "bc",
+      "early_execution": false,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 204.90900000000002,
+        "shell_peak_rss_mib": 17.171875
+      }
+    }
+  ],
+  "passed": true
+}

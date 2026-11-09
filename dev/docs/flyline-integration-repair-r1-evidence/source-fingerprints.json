@@ -1,0 +1,40 @@
+{
+  "files": [
+    {
+      "source": "tools/lib/commands/uninstall.sh",
+      "sha256": "324f10ed4da4e34f016d4679f5b2f2736e71187dcc569817a3f8b950f692d68e"
+    },
+    {
+      "source": "shell/rc.d/29-flyline.sh",
+      "sha256": "77085365d4ee8e64c4274afcdc48a3b3f63878f4da70098dcd136b08ceff536f"
+    },
+    {
+      "source": "dev/tests/test_uninstall.py",
+      "sha256": "36a220e70ce458fba08995e5653bc68eead59f0b6d21503ad0dafb3ae4899023"
+    },
+    {
+      "source": "dev/tests/test_install_library.py",
+      "sha256": "2ee30331aa89459aea2d36709bd0ef27c8d75f50a867a5350e4e8622fc44015b"
+    },
+    {
+      "source": "dev/tests/test_flyline_lifecycle.py",
+      "sha256": "f1b6b92bc5c0e8c71f05dfa742ade3d9391c046345f87196e05b0513e756b87e"
+    },
+    {
+      "source": "dev/flyline/ownership.py",
+      "sha256": "64662c8972cbacc77ec4ddd099efb9bf74230e16b4f5e82719e6d1b628274db8"
+    },
+    {
+      "source": "dev/flyline/README.md",
+      "sha256": "c3f8836222a0c666024f5adaf0516073cfaa7de864c1c43fe2abba42a5487146"
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "sha256": "be8632678ff65dc7dcb11bbc664fe7f9de7ab7a5df600299360fa4b096b6db11"
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "sha256": "47613853624a4c90fd5e03f408cf3197b0fccfc4fcdb4db3a402d1ca7151ab62"
+    }
+  ]
+}

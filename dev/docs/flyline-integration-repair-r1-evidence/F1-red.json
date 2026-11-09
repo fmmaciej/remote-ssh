@@ -1,0 +1,14 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "dev/tests/test_flyline_lifecycle.py",
+    "-k",
+    "late_external"
+  ],
+  "exit": 1,
+  "elapsed_seconds": 3.6685562919592485,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

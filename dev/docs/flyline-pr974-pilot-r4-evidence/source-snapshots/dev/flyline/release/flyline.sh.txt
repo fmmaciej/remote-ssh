@@ -1,0 +1,20 @@
+# shellcheck shell=bash
+# shellcheck disable=SC2034
+# REVIEW CANDIDATE ONLY. Promote to tools/defs after publishing and verifying
+# the exact release asset below. No production URL exists yet.
+
+TOOL_NAME="flyline"
+GH_REPO="fmmaciej/remote-ssh"
+RELEASE_TAG="flyline-1.10.0-pr974.aae68bb4.r4"
+VERSION="1.10.0-pr974.aae68bb4.r4"
+INSTALL_LAYOUT="bash-builtin"
+
+ASSETS=(
+  "darwin:aarch64:any|flyline-1.10.0-pr974.aae68bb4.r4-aarch64-apple-darwin.tar.gz"
+)
+LIBRARY_MEMBERS=(
+  "flyline-1.10.0-pr974.aae68bb4.r4-aarch64-apple-darwin.tar.gz|libflyline.dylib"
+)
+CHECKSUMS=(
+  "flyline-1.10.0-pr974.aae68bb4.r4-aarch64-apple-darwin.tar.gz|d535d6b8fef325458f043d76a43d03dba763dc9857c04417d0322a922b234c7a"
+)

@@ -1,0 +1,31 @@
+Selected tools (selected):
+  flyline
+Expected tools saved: /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/flyline-ownership-kqfb18tj/config/remote-ssh/expected-tools
+
+Installed CLI: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/flyline-ownership-kqfb18tj/bin/remote-ssh
+Post-install setup:
+  run: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/flyline-ownership-kqfb18tj/bin/remote-ssh guide post-install
+Start a local remote-ssh shell (also works from Zsh):
+  /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/flyline-ownership-kqfb18tj/bin/remote-ssh shell
+[INFO] Begin.
+[INFO] Installing: fixture/flyline, version=1.10.0-pr974.aae68bb4.r5, raw=darwin/aarch64, libc=any
+[INFO] Downloading: https://github.com/fixture/flyline/releases/download/pilot/flyline-1.10.0-pr974.aae68bb4.r5-aarch64-apple-darwin.tar.gz
+[INFO] Checksum OK: flyline-1.10.0-pr974.aae68bb4.r5-aarch64-apple-darwin.tar.gz
+[INFO] Installed library: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/flyline-ownership-kqfb18tj/managed prefix/flyline-1.10.0-pr974.aae68bb4.r5/libflyline.dylib
+[INFO] Active library: /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/flyline-ownership-kqfb18tj/managed prefix/.active/flyline (new shells only)
+[INFO] Configuring environment...
+[INFO]   shell/...
+[INFO]   bin/...
+[INFO]   dots/...
+[INFO]     App configs:
+[INFO]       dots/starship.toml
+[INFO]       dots/tmux.conf
+[INFO]       dots/vimrc
+[INFO]       dots/atuin/config.toml
+[INFO]     Setup templates:
+[INFO]       dots/git/config.base
+[INFO]       dots/git/user.local.example
+[INFO]       dots/ssh/config.example
+[INFO]     Cheatsheets:
+[INFO]       dots/navi/cheats/*.cheat
+[INFO] Done.

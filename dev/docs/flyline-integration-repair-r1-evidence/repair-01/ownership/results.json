@@ -1,0 +1,558 @@
+{
+  "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+  "script_sha256": "64662c8972cbacc77ec4ddd099efb9bf74230e16b4f5e82719e6d1b628274db8",
+  "bash_version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+  "atuin_version": "atuin 18.14.1 (1e93b3129bc540ae8d2b996ba6aa64b93a732d99)",
+  "results": [
+    {
+      "case": "late-os-0",
+      "expected": {
+        "case": "late-os-0",
+        "hook": "os",
+        "toggle": "0",
+        "expected_state": "skipped:external:bash"
+      },
+      "actual": "skipped:external:bash",
+      "passed": true,
+      "managed_calls": [],
+      "external_intact": true,
+      "resources": {
+        "shell_cpu_ms": 153.09599999999998,
+        "shell_peak_rss_mib": 11.96875
+      }
+    },
+    {
+      "case": "late-os-1",
+      "expected": {
+        "case": "late-os-1",
+        "hook": "os",
+        "toggle": "1",
+        "expected_state": "skipped:external:bash"
+      },
+      "actual": "skipped:external:bash",
+      "passed": true,
+      "managed_calls": [],
+      "external_intact": true,
+      "resources": {
+        "shell_cpu_ms": 144.94199999999998,
+        "shell_peak_rss_mib": 12.03125
+      }
+    },
+    {
+      "case": "late-host-0",
+      "expected": {
+        "case": "late-host-0",
+        "hook": "host",
+        "toggle": "0",
+        "expected_state": "skipped:external:bash"
+      },
+      "actual": "skipped:external:bash",
+      "passed": true,
+      "managed_calls": [],
+      "external_intact": true,
+      "resources": {
+        "shell_cpu_ms": 144.233,
+        "shell_peak_rss_mib": 11.984375
+      }
+    },
+    {
+      "case": "late-host-1",
+      "expected": {
+        "case": "late-host-1",
+        "hook": "host",
+        "toggle": "1",
+        "expected_state": "skipped:external:bash"
+      },
+      "actual": "skipped:external:bash",
+      "passed": true,
+      "managed_calls": [],
+      "external_intact": true,
+      "resources": {
+        "shell_cpu_ms": 145.287,
+        "shell_peak_rss_mib": 11.9375
+      }
+    },
+    {
+      "case": "external-disabled",
+      "expected": {
+        "case": "external-disabled",
+        "expected_state": "skipped:external:bash"
+      },
+      "actual": "skipped:external:bash",
+      "passed": true,
+      "managed_calls": [],
+      "disabled_entry_preserved": true,
+      "duplicate_load_warning": false,
+      "resources": {
+        "shell_cpu_ms": 122.722,
+        "shell_peak_rss_mib": 10.84375
+      }
+    },
+    {
+      "case": "managed-bash",
+      "expected": {
+        "case": "managed-bash",
+        "expected_state": "active:managed:bash"
+      },
+      "actual": "active:managed:bash",
+      "passed": true,
+      "actual_managed_load": true,
+      "actual_settings": true,
+      "resources": {
+        "shell_cpu_ms": 139.056,
+        "shell_peak_rss_mib": 11.5625
+      }
+    },
+    {
+      "case": "managed-atuin",
+      "expected": {
+        "case": "managed-atuin",
+        "expected_state": "active:managed:atuin"
+      },
+      "actual": "active:managed:atuin",
+      "passed": true,
+      "actual_managed_load": true,
+      "actual_settings": true,
+      "resources": {
+        "shell_cpu_ms": 175.976,
+        "shell_peak_rss_mib": 12.921875
+      }
+    },
+    {
+      "case": "managed-nobind",
+      "expected": {
+        "case": "managed-nobind",
+        "expected_state": "active:managed:atuin"
+      },
+      "actual": "active:managed:atuin",
+      "passed": true,
+      "actual_managed_load": true,
+      "actual_settings": true,
+      "resources": {
+        "shell_cpu_ms": 185.139,
+        "shell_peak_rss_mib": 12.71875
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_LOAD_DIR-unset-load",
+      "expected": {
+        "case": "rollback-FLYLINE_LOAD_DIR-unset-load",
+        "variable": "FLYLINE_LOAD_DIR",
+        "state": "unset",
+        "failure": "load",
+        "expected_state": "failed:load:bash"
+      },
+      "actual": "failed:load:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "resources": {
+        "shell_cpu_ms": 124.196,
+        "shell_peak_rss_mib": 8.015625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_LOAD_DIR-unset-settings",
+      "expected": {
+        "case": "rollback-FLYLINE_LOAD_DIR-unset-settings",
+        "variable": "FLYLINE_LOAD_DIR",
+        "state": "unset",
+        "failure": "settings",
+        "expected_state": "failed:settings:bash"
+      },
+      "actual": "failed:settings:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "readline_argument": "bc",
+      "resources": {
+        "shell_cpu_ms": 164.041,
+        "shell_peak_rss_mib": 10.125
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_LOAD_DIR-exported-unset-load",
+      "expected": {
+        "case": "rollback-FLYLINE_LOAD_DIR-exported-unset-load",
+        "variable": "FLYLINE_LOAD_DIR",
+        "state": "exported-unset",
+        "failure": "load",
+        "expected_state": "failed:load:bash"
+      },
+      "actual": "failed:load:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "resources": {
+        "shell_cpu_ms": 131.37099999999998,
+        "shell_peak_rss_mib": 8.0625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_LOAD_DIR-exported-unset-settings",
+      "expected": {
+        "case": "rollback-FLYLINE_LOAD_DIR-exported-unset-settings",
+        "variable": "FLYLINE_LOAD_DIR",
+        "state": "exported-unset",
+        "failure": "settings",
+        "expected_state": "failed:settings:bash"
+      },
+      "actual": "failed:settings:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "readline_argument": "bc",
+      "resources": {
+        "shell_cpu_ms": 152.386,
+        "shell_peak_rss_mib": 10.1875
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_LOAD_DIR-empty-load",
+      "expected": {
+        "case": "rollback-FLYLINE_LOAD_DIR-empty-load",
+        "variable": "FLYLINE_LOAD_DIR",
+        "state": "empty",
+        "failure": "load",
+        "expected_state": "failed:load:bash"
+      },
+      "actual": "failed:load:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "resources": {
+        "shell_cpu_ms": 136.321,
+        "shell_peak_rss_mib": 8.0625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_LOAD_DIR-empty-settings",
+      "expected": {
+        "case": "rollback-FLYLINE_LOAD_DIR-empty-settings",
+        "variable": "FLYLINE_LOAD_DIR",
+        "state": "empty",
+        "failure": "settings",
+        "expected_state": "failed:settings:bash"
+      },
+      "actual": "failed:settings:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "readline_argument": "bc",
+      "resources": {
+        "shell_cpu_ms": 146.664,
+        "shell_peak_rss_mib": 9.90625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_LOAD_DIR-exported-empty-load",
+      "expected": {
+        "case": "rollback-FLYLINE_LOAD_DIR-exported-empty-load",
+        "variable": "FLYLINE_LOAD_DIR",
+        "state": "exported-empty",
+        "failure": "load",
+        "expected_state": "failed:load:bash"
+      },
+      "actual": "failed:load:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "resources": {
+        "shell_cpu_ms": 145.31900000000002,
+        "shell_peak_rss_mib": 8.078125
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_LOAD_DIR-exported-empty-settings",
+      "expected": {
+        "case": "rollback-FLYLINE_LOAD_DIR-exported-empty-settings",
+        "variable": "FLYLINE_LOAD_DIR",
+        "state": "exported-empty",
+        "failure": "settings",
+        "expected_state": "failed:settings:bash"
+      },
+      "actual": "failed:settings:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "readline_argument": "bc",
+      "resources": {
+        "shell_cpu_ms": 169.08200000000002,
+        "shell_peak_rss_mib": 9.875
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_LOAD_DIR-value-load",
+      "expected": {
+        "case": "rollback-FLYLINE_LOAD_DIR-value-load",
+        "variable": "FLYLINE_LOAD_DIR",
+        "state": "value",
+        "failure": "load",
+        "expected_state": "failed:load:bash"
+      },
+      "actual": "failed:load:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "resources": {
+        "shell_cpu_ms": 151.816,
+        "shell_peak_rss_mib": 8.09375
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_LOAD_DIR-value-settings",
+      "expected": {
+        "case": "rollback-FLYLINE_LOAD_DIR-value-settings",
+        "variable": "FLYLINE_LOAD_DIR",
+        "state": "value",
+        "failure": "settings",
+        "expected_state": "failed:settings:bash"
+      },
+      "actual": "failed:settings:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "readline_argument": "bc",
+      "resources": {
+        "shell_cpu_ms": 153.831,
+        "shell_peak_rss_mib": 10.015625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_LOAD_DIR-exported-value-load",
+      "expected": {
+        "case": "rollback-FLYLINE_LOAD_DIR-exported-value-load",
+        "variable": "FLYLINE_LOAD_DIR",
+        "state": "exported-value",
+        "failure": "load",
+        "expected_state": "failed:load:bash"
+      },
+      "actual": "failed:load:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "resources": {
+        "shell_cpu_ms": 170.90099999999998,
+        "shell_peak_rss_mib": 8.078125
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_LOAD_DIR-exported-value-settings",
+      "expected": {
+        "case": "rollback-FLYLINE_LOAD_DIR-exported-value-settings",
+        "variable": "FLYLINE_LOAD_DIR",
+        "state": "exported-value",
+        "failure": "settings",
+        "expected_state": "failed:settings:bash"
+      },
+      "actual": "failed:settings:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "readline_argument": "bc",
+      "resources": {
+        "shell_cpu_ms": 158.223,
+        "shell_peak_rss_mib": 9.90625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_VERSION-unset-load",
+      "expected": {
+        "case": "rollback-FLYLINE_VERSION-unset-load",
+        "variable": "FLYLINE_VERSION",
+        "state": "unset",
+        "failure": "load",
+        "expected_state": "failed:load:bash"
+      },
+      "actual": "failed:load:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "resources": {
+        "shell_cpu_ms": 161.669,
+        "shell_peak_rss_mib": 8.03125
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_VERSION-unset-settings",
+      "expected": {
+        "case": "rollback-FLYLINE_VERSION-unset-settings",
+        "variable": "FLYLINE_VERSION",
+        "state": "unset",
+        "failure": "settings",
+        "expected_state": "failed:settings:bash"
+      },
+      "actual": "failed:settings:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "readline_argument": "bc",
+      "resources": {
+        "shell_cpu_ms": 148.982,
+        "shell_peak_rss_mib": 10.0625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_VERSION-exported-unset-load",
+      "expected": {
+        "case": "rollback-FLYLINE_VERSION-exported-unset-load",
+        "variable": "FLYLINE_VERSION",
+        "state": "exported-unset",
+        "failure": "load",
+        "expected_state": "failed:load:bash"
+      },
+      "actual": "failed:load:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "resources": {
+        "shell_cpu_ms": 132.614,
+        "shell_peak_rss_mib": 7.984375
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_VERSION-exported-unset-settings",
+      "expected": {
+        "case": "rollback-FLYLINE_VERSION-exported-unset-settings",
+        "variable": "FLYLINE_VERSION",
+        "state": "exported-unset",
+        "failure": "settings",
+        "expected_state": "failed:settings:bash"
+      },
+      "actual": "failed:settings:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "readline_argument": "bc",
+      "resources": {
+        "shell_cpu_ms": 138.702,
+        "shell_peak_rss_mib": 10.109375
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_VERSION-empty-load",
+      "expected": {
+        "case": "rollback-FLYLINE_VERSION-empty-load",
+        "variable": "FLYLINE_VERSION",
+        "state": "empty",
+        "failure": "load",
+        "expected_state": "failed:load:bash"
+      },
+      "actual": "failed:load:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "resources": {
+        "shell_cpu_ms": 139.41199999999998,
+        "shell_peak_rss_mib": 8.0625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_VERSION-empty-settings",
+      "expected": {
+        "case": "rollback-FLYLINE_VERSION-empty-settings",
+        "variable": "FLYLINE_VERSION",
+        "state": "empty",
+        "failure": "settings",
+        "expected_state": "failed:settings:bash"
+      },
+      "actual": "failed:settings:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "readline_argument": "bc",
+      "resources": {
+        "shell_cpu_ms": 152.503,
+        "shell_peak_rss_mib": 10.0625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_VERSION-exported-empty-load",
+      "expected": {
+        "case": "rollback-FLYLINE_VERSION-exported-empty-load",
+        "variable": "FLYLINE_VERSION",
+        "state": "exported-empty",
+        "failure": "load",
+        "expected_state": "failed:load:bash"
+      },
+      "actual": "failed:load:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "resources": {
+        "shell_cpu_ms": 130.928,
+        "shell_peak_rss_mib": 8.015625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_VERSION-exported-empty-settings",
+      "expected": {
+        "case": "rollback-FLYLINE_VERSION-exported-empty-settings",
+        "variable": "FLYLINE_VERSION",
+        "state": "exported-empty",
+        "failure": "settings",
+        "expected_state": "failed:settings:bash"
+      },
+      "actual": "failed:settings:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "readline_argument": "bc",
+      "resources": {
+        "shell_cpu_ms": 143.361,
+        "shell_peak_rss_mib": 10.03125
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_VERSION-value-load",
+      "expected": {
+        "case": "rollback-FLYLINE_VERSION-value-load",
+        "variable": "FLYLINE_VERSION",
+        "state": "value",
+        "failure": "load",
+        "expected_state": "failed:load:bash"
+      },
+      "actual": "failed:load:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "resources": {
+        "shell_cpu_ms": 140.315,
+        "shell_peak_rss_mib": 8.015625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_VERSION-value-settings",
+      "expected": {
+        "case": "rollback-FLYLINE_VERSION-value-settings",
+        "variable": "FLYLINE_VERSION",
+        "state": "value",
+        "failure": "settings",
+        "expected_state": "failed:settings:bash"
+      },
+      "actual": "failed:settings:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "readline_argument": "bc",
+      "resources": {
+        "shell_cpu_ms": 154.333,
+        "shell_peak_rss_mib": 10.140625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_VERSION-exported-value-load",
+      "expected": {
+        "case": "rollback-FLYLINE_VERSION-exported-value-load",
+        "variable": "FLYLINE_VERSION",
+        "state": "exported-value",
+        "failure": "load",
+        "expected_state": "failed:load:bash"
+      },
+      "actual": "failed:load:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "resources": {
+        "shell_cpu_ms": 127.40599999999999,
+        "shell_peak_rss_mib": 8.0625
+      }
+    },
+    {
+      "case": "rollback-FLYLINE_VERSION-exported-value-settings",
+      "expected": {
+        "case": "rollback-FLYLINE_VERSION-exported-value-settings",
+        "variable": "FLYLINE_VERSION",
+        "state": "exported-value",
+        "failure": "settings",
+        "expected_state": "failed:settings:bash"
+      },
+      "actual": "failed:settings:bash",
+      "passed": true,
+      "attributes_preserved": true,
+      "readline_argument": "bc",
+      "resources": {
+        "shell_cpu_ms": 148.272,
+        "shell_peak_rss_mib": 10.09375
+      }
+    }
+  ],
+  "passed": true
+}

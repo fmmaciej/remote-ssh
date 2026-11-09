@@ -1,0 +1,9 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "dev/docs/flyline-integration-repair-r1-evidence/check-local-links.py"
+  ],
+  "exit": 0,
+  "elapsed_seconds": 0.08220750000327826,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

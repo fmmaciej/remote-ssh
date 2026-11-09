@@ -247,7 +247,8 @@ The developer generator accepts repeated
 `--library-member 'asset.tar.gz|relative/library'` options to emit this layout;
 review the mappings, platform keys, checksums and ABI qualification manually.
 The live checker verifies asset metadata equally for libraries; it is not a
-native load test.
+native load test. [Flyline](shell/flyline.md) is the initial experimental user
+of this layout, with release publication still pending.
 
 ## Development Checks
 

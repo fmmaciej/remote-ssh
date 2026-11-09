@@ -45,8 +45,21 @@ just fmt
   coverage in delivery order.
 - [Archive Extraction Plan](docs/archive-extraction-plan.md): validation,
   isolated extraction, and installer failure regressions; not scheduled.
-- [Flyline Integration Plan](docs/flyline-implementation-plan.md): proposed
-  compatibility pilot, optional editor activation, and managed library installs.
+- [Flyline Integration Plan](docs/flyline-implementation-plan.md): latest stable
+  1.10.0 plus a pinned port of Vim PR #974, native macOS/Linux builds, and optional
+  editor activation. The earlier [1.9.0 pilot](docs/flyline-pilot-record.md)
+  remains historical. The [patched candidate pilot](docs/flyline-pr974-pilot-record.md)
+  records the historical R4 vi/history/completion/terminal gates and measurements.
+  The [fork migration](docs/flyline-fork-integration-record.md) moves source/builds
+  to `fmmaciej/flyline`, keeping its master unchanged. Library management and
+  opt-in activation are implemented; Release publication is deferred by user.
+  Linux/SSH remain unverified.
+  The [integration audit and commit proposal](docs/flyline-integration-audit.md)
+  preserves the original four findings and proposed commit boundaries.
+  The [completed repair record](docs/flyline-integration-repair-r1-record.md)
+  records their implementation, local qualification and independent SDD Pass.
+  The [post-audit repair plan](docs/flyline-implementation-plan.md#post-audit-repair-plan)
+  preserves the accepted scope and completion gates.
 - [Interactive Tool Performance](docs/interactive-tools-performance.md): local
   ble.sh/Flyline/zsh editor measurements, vi controls, and separate
   Carapace/flycomp completion timings.

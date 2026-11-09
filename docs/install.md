@@ -3,6 +3,16 @@
 Remote-ssh installs into the current user's home directory and avoids package
 managers, source builds, `.deb`, `.rpm`, and `.apk` packages.
 
+The experimental [Flyline integration](shell/flyline.md) is optional and excluded
+from all install profiles. Its source lives in the user's Flyline fork; Release
+publication is deferred and the production manifest is not enabled. Its library
+layout stores immutable releases in `INSTALL_PREFIX`
+and an absolute active-file link in `INSTALL_PREFIX/.active/flyline`, with no
+executable in `INSTALL_BIN_DIR`. A selected PATH Bash >= 4.4 must successfully
+load the staged library in a disposable child before the active link changes.
+Only macOS arm64/Bash 5.3.20 has native qualification so far. Installation and
+session activation are separate operations; management still runs on Bash 3.2.
+
 ## Remote Bootstrap
 
 `runme.sh` is the remote bootstrap script. It contains an editable

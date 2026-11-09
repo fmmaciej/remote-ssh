@@ -2,6 +2,21 @@
 
 Back: [Developer tooling](../README.md)
 
+The optional Flyline qualification adds an explicit-only `--suite flyline`:
+editor on/off, Bash/Atuin history, and fresh/warm HOME. These scenarios require
+the requested editor/backend to activate; they fail instead of timing a silent
+fallback. The historical default suite and its scenario order are unchanged.
+Use an explicit qualified Bash in PATH, a checkout with the reviewed definition,
+and the same exported `INSTALL_PREFIX` used to install the candidate.
+
+For a fully isolated local candidate test, `dev/flyline/startup.py` prepares a
+temporary managed install and runs all eight scenarios (20 measured samples
+and two warmups by default). It records a 30 ms median / 60 ms p95 overhead
+budget against each disabled-editor counterpart before measuring. See the
+[Flyline tooling](../flyline/README.md) and [pilot](flyline-pr974-pilot-record.md).
+The separate PTY performance harness measures actual first usable input, keys,
+Tab, paste and idle resources; startup-command timings do not replace it.
+
 The 2026-10-28 bundled welcome optimization has its own
 [execution record](welcome-implementation-record.md), with the pinned baseline,
 frozen populated screen fixtures, detached welcome and full PTY comparisons,

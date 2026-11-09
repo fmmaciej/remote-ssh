@@ -1,0 +1,42 @@
+[
+  {
+    "source": "tools/lib/commands/uninstall.sh",
+    "sha256": "b30a856b266295c89b9ac8d8cc50e301cae09d14a5ad688a792fbabb52ca38a0"
+  },
+  {
+    "source": "shell/rc.d/29-flyline.sh",
+    "sha256": "428982e43abe1c4f52f5bb8ba0adb7f9bc9e0ac68b26211d0641571afe2583f6"
+  },
+  {
+    "source": "shell/rc.d/23-atuin.sh",
+    "sha256": "a09067a6f8be5c4d1d51fb3a43cb59073ccd281c1e8314a4d82f2e98a59358c2"
+  },
+  {
+    "source": "shell/rc.sh",
+    "sha256": "19daa57cbea99520cf80b11a0130c7ae6b63f8c97c24881dae8a9dee22266dfd"
+  },
+  {
+    "source": "dev/tests/test_uninstall.py",
+    "sha256": "a7b60311304bd4e02b8a42439b98d97d3c9a4b44354bf33110678f9754c51bc4"
+  },
+  {
+    "source": "dev/tests/test_install_library.py",
+    "sha256": "0ca9a5f1a8e778fac38f99880df060524099f9b671ed61b514e129d20e913746"
+  },
+  {
+    "source": "dev/tests/test_flyline_lifecycle.py",
+    "sha256": "e0052d4108a57ec485e2c36b4b27a395618092cd91361ee9595d59639d29ceb8"
+  },
+  {
+    "source": "dev/flyline/managed.py",
+    "sha256": "9d9ee83de95059c8316b2af48cab084cae257c59a89b55089b70a67dcbb152fb"
+  },
+  {
+    "source": "dev/flyline/lifecycle.py",
+    "sha256": "729693d8b81c6d2a15bc9f1c6e09f053deb7253848da17e4bddfae2533880ec4"
+  },
+  {
+    "source": "dev/flyline/startup.py",
+    "sha256": "c10fc7b722c2ae8aaafddd73a1705a25d6b4671174019ce22daf12e28ab558ec"
+  }
+]

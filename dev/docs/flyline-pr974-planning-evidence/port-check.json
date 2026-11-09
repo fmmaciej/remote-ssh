@@ -1,0 +1,63 @@
+{
+  "base_tag": "v1.10.0",
+  "base_commit": "ca910967af35579a2d455a071aa939778d8f6171",
+  "pr": 974,
+  "pr_commit": "aae68bb4acb43d7462bbe4abffedd6e2b10bd889",
+  "source_archive_sha256": "7994f94058328ef31edc89d888b8fbc156fe6c5e693cb40feafd8786fab13ef0",
+  "pr_patch_sha256": "f3324f7a007a612894bcdf0064d345e707a7f0d8659b11778e225701250ea570",
+  "check_only": true,
+  "compiled": false,
+  "native_tested": false,
+  "files": [
+    {
+      "file": "crates/flybuffer/src/editing_advanced.rs",
+      "applies": false,
+      "stderr": "error: patch failed: crates/flybuffer/src/editing_advanced.rs:254\nerror: crates/flybuffer/src/editing_advanced.rs: patch does not apply"
+    },
+    {
+      "file": "crates/flybuffer/src/movement.rs",
+      "applies": true,
+      "stderr": ""
+    },
+    {
+      "file": "src/app/actions/keyboard.rs",
+      "applies": true,
+      "stderr": ""
+    },
+    {
+      "file": "src/app/actions/mod.rs",
+      "applies": true,
+      "stderr": ""
+    },
+    {
+      "file": "src/app/actions/vim.rs",
+      "applies": true,
+      "stderr": ""
+    },
+    {
+      "file": "src/app/mod.rs",
+      "applies": true,
+      "stderr": ""
+    },
+    {
+      "file": "src/app/ui.rs",
+      "applies": true,
+      "stderr": ""
+    },
+    {
+      "file": "src/cli.rs",
+      "applies": true,
+      "stderr": ""
+    },
+    {
+      "file": "src/prompt_manager.rs",
+      "applies": true,
+      "stderr": ""
+    },
+    {
+      "file": "src/settings.rs",
+      "applies": true,
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+"\u001eLOADED\u001f\r\n\u001b[?2004hBMARK> /^capture seed\r\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[Ccapture seed\r\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\r\n\u001b[?2004l\r\u001eARG:seeded\u001f\r\n"

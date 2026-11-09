@@ -1,0 +1,372 @@
+{
+  "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+  "script_sha256": "a0aea0280e55e575daa2430b7c1dfca03a8a45b18fad40512ee8755baef918d9",
+  "adapter_sha256": "9224ba53bf8c3aee18e21ce7d59acca0159cfa4019c60e6c2d1e7f68ee23a96f",
+  "carapace_version": "carapace-bin 1.8.2",
+  "results": [
+    {
+      "case": "readline-carapace-0",
+      "provider_called_during_startup_or_typing": false,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 12.618,
+        "shell_peak_rss_mib": 7.34375
+      }
+    },
+    {
+      "case": "readline-carapace-1",
+      "provider_called_during_startup_or_typing": false,
+      "queries": [
+        {
+          "case": "rg-version",
+          "ms": 124.202,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "--version"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "rg-color",
+          "ms": 29.9,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "always",
+            "ansi",
+            "auto"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "rg-type",
+          "ms": 37.843,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "py",
+            "python"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "rg-file",
+          "ms": 27.592,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "fixture_unique.txt"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "rg-space",
+          "ms": 29.034,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "\"fixture space/match.txt\""
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "fd-color-option",
+          "ms": 25.099,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "--color"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "fd-color-value",
+          "ms": 23.456,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "always",
+            "auto"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "git-subcommand",
+          "ms": 144.579,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "switch"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "git-switch-option",
+          "ms": 35.44,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "--detach"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "git-branches",
+          "ms": 50.431,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "bench-alpha",
+            "bench-beta"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "git-modified-file",
+          "ms": 75.479,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "fixture_unique.txt"
+          ],
+          "missing": [],
+          "passed": true
+        }
+      ],
+      "controls": {
+        "tabs": [
+          {
+            "input": "rg --ver\t",
+            "passed": true,
+            "observed": "BMARK> rg --version",
+            "ms": 29.61683296598494
+          },
+          {
+            "input": "fd --max-dep\t",
+            "passed": true,
+            "observed": "BMARK> fd --max-depth",
+            "ms": 30.215667095035315
+          },
+          {
+            "input": "git switch bench-a\t",
+            "passed": true,
+            "observed": "BMARK> git switch bench-alpha",
+            "ms": 51.64304201025516
+          },
+          {
+            "input": "rg --file fixture_uni\t",
+            "passed": true,
+            "observed": "BMARK> rg --file fixture_unique.txt",
+            "ms": 26.577709009870887
+          },
+          {
+            "input": "rg --file fixture\\ space/ma\t",
+            "passed": true,
+            "observed": "BMARK> rg --file \"fixture space/match.txt\"",
+            "ms": 25.89325001463294
+          }
+        ],
+        "vi_actual": "bc",
+        "vi_passed": true
+      },
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 615.1949999999999,
+        "shell_peak_rss_mib": 34.34375
+      }
+    },
+    {
+      "case": "flyline-carapace-0",
+      "provider_called_during_startup_or_typing": false,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 63.29199999999999,
+        "shell_peak_rss_mib": 11.359375
+      }
+    },
+    {
+      "case": "flyline-carapace-1",
+      "provider_called_during_startup_or_typing": false,
+      "queries": [
+        {
+          "case": "rg-version",
+          "ms": 30.069,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "--version"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "rg-color",
+          "ms": 26.64,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "always",
+            "ansi",
+            "auto"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "rg-type",
+          "ms": 32.168,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "py",
+            "python"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "rg-file",
+          "ms": 28.918,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "fixture_unique.txt"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "rg-space",
+          "ms": 27.447,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "\"fixture space/match.txt\""
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "fd-color-option",
+          "ms": 27.027,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "--color"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "fd-color-value",
+          "ms": 26.211,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "always",
+            "auto"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "git-subcommand",
+          "ms": 64.698,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "switch"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "git-switch-option",
+          "ms": 35.482,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "--detach"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "git-branches",
+          "ms": 49.883,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "bench-alpha",
+            "bench-beta"
+          ],
+          "missing": [],
+          "passed": true
+        },
+        {
+          "case": "git-modified-file",
+          "ms": 62.882,
+          "callback_exit": 0,
+          "file_fallback": false,
+          "candidates": [
+            "fixture_unique.txt"
+          ],
+          "missing": [],
+          "passed": true
+        }
+      ],
+      "controls": {
+        "tabs": [
+          {
+            "input": "rg --ver\t",
+            "passed": true,
+            "observed": "BMARK> rg --version",
+            "ms": 58.34579200018197
+          },
+          {
+            "input": "fd --max-dep\t",
+            "passed": true,
+            "observed": "BMARK> fd --max-depth",
+            "ms": 60.191792086698115
+          },
+          {
+            "input": "git switch bench-a\t",
+            "passed": true,
+            "observed": "BMARK> git switch bench-alpha",
+            "ms": 61.35241698939353
+          },
+          {
+            "input": "rg --file fixture_uni\t",
+            "passed": true,
+            "observed": "BMARK> rg --file fixture_unique.txt",
+            "ms": 58.78670793026686
+          },
+          {
+            "input": "rg --file fixture\\ space/ma\t",
+            "passed": true,
+            "observed": "BMARK> rg --file \"fixture space/match.txt\"",
+            "ms": 60.43295795097947
+          }
+        ],
+        "vi_actual": "bc",
+        "vi_passed": true
+      },
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 707.595,
+        "shell_peak_rss_mib": 34.46875
+      }
+    }
+  ]
+}

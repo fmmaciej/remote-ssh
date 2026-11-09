@@ -1,0 +1,36 @@
+{
+  "identity": "1.10.0-pr974.aae68bb4.r1",
+  "upstream_base": "ca910967af35579a2d455a071aa939778d8f6171",
+  "pr_head": "aae68bb4acb43d7462bbe4abffedd6e2b10bd889",
+  "source_archive_sha256": "7994f94058328ef31edc89d888b8fbc156fe6c5e693cb40feafd8786fab13ef0",
+  "reconstructed_base_commit": "89b63bfce5b269cc70156e66f006ce0742f29efb",
+  "port_commit": "3b8d358e2c389c3ee420a492a6313757cd7d9639",
+  "source_tree": "5db364b34259a19ed3c88a25242f6bb4f6eac8f4",
+  "cargo_lock_sha256": "3162250ee645024bf56933a723a300f1850464d31acbbc0ba156eb80301085e9",
+  "patches": [
+    {
+      "file": "0001-upstream-pr974.patch",
+      "sha256": "259a30228d5fad952c49afa8f86f0908885684e7b5ac1410e617b71414fb4f50"
+    },
+    {
+      "file": "0002-vi-key-dispatch-and-repeat.patch",
+      "sha256": "08daaf5f6c80ec2433c9602b73f56fe837865a3e2412abbbc0794574f5daf389"
+    }
+  ],
+  "qualification": "Developer candidate; native acceptance required before distribution",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+  "target": "aarch64-apple-darwin",
+  "build_command": [
+    "/private/tmp/remote-ssh-flyline-build/rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+    "build",
+    "--release",
+    "--locked",
+    "--target",
+    "aarch64-apple-darwin",
+    "--offline"
+  ],
+  "source_date_epoch": "1794132000",
+  "library_member": "libflyline.dylib",
+  "library_sha256": "45dbe2b847bf638eb0d9228d5c8d531405fcb63fe58f3280f34d6f96cef5a018"
+}

@@ -1,0 +1,23 @@
+{
+  "purpose": "Causal diagnostic only; not startup acceptance and cannot invalidate either full failed gate",
+  "pairs": 20,
+  "warmup_per_variant": 2,
+  "scenario": "remote-ssh-flyline-on-atuin",
+  "order": "before,current on even pair; current,before on odd pair; same pattern for warmups",
+  "difference": "Only frozen/current shell/rc.d/29-flyline.sh bytes in equal-length isolated checkout roots",
+  "environment": "Existing run_sample cold-HOME semantics and identical allowlisted native inputs; one common managed prefix",
+  "failures": "All 40 measured samples retained; state mismatch or timeout nonzero; no overhead acceptance threshold applied",
+  "no_concurrent_tests_or_benchmarks": true,
+  "source_sha256": {
+    "before": "428982e43abe1c4f52f5bb8ba0adb7f9bc9e0ac68b26211d0641571afe2583f6",
+    "current": "77085365d4ee8e64c4274afcdc48a3b3f63878f4da70098dcd136b08ceff536f"
+  },
+  "input_sha256": {
+    "bash": "5c59a6000502aa3af7fa1b87921a8e53e88d7407d9e73da744a202b7af88dd96",
+    "library": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+    "atuin": "536ba791bb03c390c2ffe5d1232ae80d94b54f93ac8498ac96245761224acdf9",
+    "skim": "f1bc68808fe5cc41fe24cf0668fa493ae5a2da1547b5646c5f83a33d26ba93bf",
+    "starship": "ff6129ecab094d2d1d7aa69a04bece8adb3cbf7243284ebddb8784248230619c"
+  },
+  "script_sha256": "5c8a2f3b43583cf213e110635cd68d2d6f867dc7c59c57a73006c85ab8129de1"
+}

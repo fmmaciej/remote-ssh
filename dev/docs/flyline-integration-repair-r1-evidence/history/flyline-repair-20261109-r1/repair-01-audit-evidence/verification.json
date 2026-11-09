@@ -1,0 +1,185 @@
+{
+  "baseline": {
+    "count": 5,
+    "mismatches": []
+  },
+  "round0_snapshots": {
+    "count": 9,
+    "mismatches": []
+  },
+  "round1_snapshots": {
+    "count": 11,
+    "mismatches": []
+  },
+  "current_vs_round1": {
+    "count": 11,
+    "mismatches": []
+  },
+  "current_fingerprints": {
+    "count": 8,
+    "mismatches": []
+  },
+  "historical": {
+    "count": 361,
+    "mismatches": []
+  },
+  "audit0_sha256": "c814fa77d01c347f087acd730f7850ce58c5f7ccecdb5f1550e6efc1a8e5b214",
+  "r5_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+  "startup": {
+    "sha256": "545a202b7700b3a4ba5981360b1be4bcbc16dad745b81304b8ffd96a3c5a5355",
+    "scenarios": 8,
+    "samples": 160,
+    "bad": [],
+    "deltas_ms": {
+      "bash": {
+        "median": 2.9675834999999893,
+        "p95": -20.518832999999972
+      },
+      "bash-warm-home": {
+        "median": 21.84174949999999,
+        "p95": -34.616083
+      },
+      "atuin": {
+        "median": 47.691959,
+        "p95": 59.53316699999999
+      },
+      "atuin-warm-home": {
+        "median": 20.568500500000027,
+        "p95": -8.497500000000002
+      }
+    },
+    "reported_checks": {
+      "bash": true,
+      "bash-warm-home": true,
+      "atuin": false,
+      "atuin-warm-home": true
+    },
+    "reported_passed": false,
+    "budgets": {
+      "median_over_disabled_ms": 30,
+      "p95_over_disabled_ms": 60
+    }
+  },
+  "startup-confirmation-1": {
+    "sha256": "1fe248860b6a4f4aa630b9a2cd89ea5c086c5fdea114ecb4a2455c8be08936b1",
+    "scenarios": 8,
+    "samples": 160,
+    "bad": [],
+    "deltas_ms": {
+      "bash": {
+        "median": 21.83212500000002,
+        "p95": 18.289999999999992
+      },
+      "bash-warm-home": {
+        "median": 20.1459165,
+        "p95": 4.694583999999992
+      },
+      "atuin": {
+        "median": 47.29220799999996,
+        "p95": 93.353541
+      },
+      "atuin-warm-home": {
+        "median": 26.492853999999994,
+        "p95": 32.62370900000002
+      }
+    },
+    "reported_checks": {
+      "bash": true,
+      "bash-warm-home": true,
+      "atuin": false,
+      "atuin-warm-home": true
+    },
+    "reported_passed": false,
+    "budgets": {
+      "median_over_disabled_ms": 30,
+      "p95_over_disabled_ms": 60
+    }
+  },
+  "repair-01/startup": {
+    "sha256": "7729fde0b22c237f1ac510e1365d89701570f0b843b13c9c41d7a15cd49815db",
+    "scenarios": 8,
+    "samples": 160,
+    "bad": [],
+    "deltas_ms": {
+      "bash": {
+        "median": 12.570104500000014,
+        "p95": -12.27270900000002
+      },
+      "bash-warm-home": {
+        "median": 8.695687499999963,
+        "p95": -3.6477079999999944
+      },
+      "atuin": {
+        "median": 17.505021,
+        "p95": -92.71558299999998
+      },
+      "atuin-warm-home": {
+        "median": 25.490020500000014,
+        "p95": 44.771625
+      }
+    },
+    "reported_checks": {
+      "bash": true,
+      "bash-warm-home": true,
+      "atuin": true,
+      "atuin-warm-home": true
+    },
+    "reported_passed": true,
+    "budgets": {
+      "median_over_disabled_ms": 30,
+      "p95_over_disabled_ms": 60
+    }
+  },
+  "settings": {
+    "passed_cases": 4,
+    "cases": 4,
+    "failed": [],
+    "failures": [
+      {
+        "failure": "global-cursor",
+        "expected_state": "failed:settings:atuin",
+        "actual_state": "failed:settings:atuin",
+        "attributes_preserved": true,
+        "unloaded": true,
+        "fallback_warning": true,
+        "readline_argument": "bc",
+        "early_execution": false,
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 213.53,
+          "shell_peak_rss_mib": 17.21875
+        }
+      },
+      {
+        "failure": "vim-bind",
+        "expected_state": "failed:settings:atuin",
+        "actual_state": "failed:settings:atuin",
+        "attributes_preserved": true,
+        "unloaded": true,
+        "fallback_warning": true,
+        "readline_argument": "bc",
+        "early_execution": false,
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 204.90900000000002,
+          "shell_peak_rss_mib": 17.171875
+        }
+      }
+    ]
+  },
+  "ownership": {
+    "passed_cases": 32,
+    "cases": 32,
+    "failed": []
+  },
+  "lifecycle": {
+    "passed_cases": 4,
+    "cases": 4,
+    "failed": []
+  },
+  "history": {
+    "passed_cases": 3,
+    "cases": 3,
+    "failed": []
+  }
+}

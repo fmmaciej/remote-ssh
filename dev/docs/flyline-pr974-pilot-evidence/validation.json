@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-08",
+  "source_preparation_repeated_identical": true,
+  "archive_members_and_sha256_verified": true,
+  "upstream_unit_tests": {
+    "passed": 1083,
+    "ignored": 1,
+    "failed": 0
+  },
+  "developer_tests": {
+    "passed": 5,
+    "failed": 0
+  },
+  "static_checks": "passed",
+  "native_vi_gate": {
+    "passed": 13,
+    "failed": 4,
+    "total": 17
+  },
+  "readline_control": {
+    "passed": 17,
+    "failed": 0
+  },
+  "runtime_integration": "withheld",
+  "full_smoke": {
+    "result": "passed",
+    "passed": 1411,
+    "skipped": 30,
+    "failed": 0,
+    "seconds": 452.92,
+    "sandbox": "Completed outside sandbox after ps restrictions blocked the first attempt"
+  },
+  "unverified": [
+    "Linux native execution",
+    "full history/prompt adapters",
+    "Carapace complete -D",
+    "performance acceptance",
+    "SSH/tmux/Zellij",
+    "macOS Intel"
+  ],
+  "git_diff_check": "passed"
+}

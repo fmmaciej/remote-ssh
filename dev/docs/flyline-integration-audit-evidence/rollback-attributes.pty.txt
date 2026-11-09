@@ -1,0 +1,11 @@
+AUDIT_BEFORE_ATTRIBUTES
+declare -- FLYLINE_LOAD_DIR="/external/unexported"
+declare -x FLYLINE_VERSION="external-exported"
+remote-ssh: Flyline initialization failed; using Readline.
+AUDIT_AFTER_STATE=failed:settings
+AUDIT_AFTER_HISTORY=bash:unset
+AUDIT_AFTER_TYPE=
+AUDIT_AFTER_ATTRIBUTES
+declare -x FLYLINE_LOAD_DIR="/external/unexported"
+declare -- FLYLINE_VERSION="external-exported"
+AUDIT_DONE

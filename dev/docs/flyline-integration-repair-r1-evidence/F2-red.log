@@ -1,0 +1,86 @@
+.......F....                                                             [100%]
+=================================== FAILURES ===================================
+_ test_external_editor_detection_is_read_only[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-disabled] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-633/test_exte...olders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-633/test_external_editor_detection7/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', entry = 'disabled'
+
+    @pytest.mark.parametrize("entry", ["enabled", "disabled", "function", "alias", "unrelated", "absent"])
+    def test_external_editor_detection_is_read_only(repo_dir, isolated_env, runtime_bash, entry):
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "ENTRY": entry,
+            "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        calls=; listed=0; loaded=0
+        FLYLINE_VERSION=stale; FLYLINE_LOAD_DIR=/stale; export FLYLINE_VERSION FLYLINE_LOAD_DIR
+        remote_flyline_library() { printf resolve >> "$HOME/resolve"; printf /fixture/library; }
+        function builtin() {
+          case "$1:$2" in
+            type:-t)
+              case "$ENTRY" in enabled) echo builtin;; function|alias) echo "$ENTRY";; *) command builtin "$@";; esac ;;
+            enable:-a)
+              command builtin enable -a
+              case "$ENTRY" in enabled) echo 'enable flyline';; disabled) echo 'enable -n flyline';; unrelated) echo 'enable -n flyline-extra';; esac ;;
+            enable:-f) calls+="load"; loaded=1; FLYLINE_VERSION=new; export FLYLINE_VERSION ;;
+            enable:-d) calls+="unload"; loaded=0 ;;
+            flyline:*) calls+="settings" ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_finalize
+        if ((BASH_VERSINFO[0] < 4)); then
+          [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON" == skipped:bash ]] || return 31
+        else
+          case "$ENTRY" in
+            enabled|disabled|function|alias)
+              [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON" == skipped:external ]] || return 32
+              [[ -z "$calls" && "$loaded" == 0 && ! -e "$HOME/resolve" ]] || return 33
+              [[ "$FLYLINE_VERSION:$FLYLINE_LOAD_DIR" == stale:/stale ]] || return 34 ;;
+            unrelated|absent)
+              [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == active:managed:1 ]] || return 35
+              [[ "$calls" == load*settings* && -e "$HOME/resolve" ]] || return 36 ;;
+          esac
+        fi
+        """
+        script = isolated_env.home / "external-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:227: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x108f84e20>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-633/test_external_editor_detection7/home/external-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=32, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-633/test_external_editor_detection7/home/external-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status")
+E       [?2004l
+1:32
+
+dev/tests/pty_shell.py:90: AssertionError
+=========================== short test summary info ============================
+FAILED dev/tests/test_flyline_lifecycle.py::test_external_editor_detection_is_read_only[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-disabled]
+1 failed, 11 passed, 34 deselected in 0.38s

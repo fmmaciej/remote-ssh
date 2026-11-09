@@ -1,0 +1,421 @@
+   Compiling flyline v1.10.0 (/private/tmp/remote-ssh-flyline-build/fork-r5)
+    Checking flycontent v0.1.0 (/private/tmp/remote-ssh-flyline-build/fork-r5/crates/flycontent)
+    Checking flybuffer v0.1.0 (/private/tmp/remote-ssh-flyline-build/fork-r5/crates/flybuffer)
+ Documenting flycontent v0.1.0 (/private/tmp/remote-ssh-flyline-build/fork-r5/crates/flycontent)
+ Documenting flybuffer v0.1.0 (/private/tmp/remote-ssh-flyline-build/fork-r5/crates/flybuffer)
+warning: output of `xcrun` while finding MacOSX.sdk
+  |
+  = note: xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+
+warning: linker stderr: cc: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+  |
+  = note: `#[warn(linker_messages)]` on by default
+
+warning: `flyline` (build script) generated 2 warnings
+warning: unresolved link to `Duration`
+   --> crates/flycontent/src/utils.rs:396:16
+    |
+396 | /// Format a [`Duration`] as a compact, exactly-5-character string.
+    |                ^^^^^^^^ no item named `Duration` in scope
+    |
+    = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+    = note: `#[warn(rustdoc::broken_intra_doc_links)]` on by default
+
+warning: `flycontent` (lib doc) generated 1 warning
+ Documenting flyline v1.10.0 (/private/tmp/remote-ssh-flyline-build/fork-r5)
+warning: unresolved link to `into_processed`
+    --> src/active_suggestions.rs:1429:37
+     |
+1429 | /// a [`ProcessedSuggestion`] via [`into_processed`].
+     |                                     ^^^^^^^^^^^^^^ no item named `into_processed` in scope
+     |
+     = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+     = note: `#[warn(rustdoc::broken_intra_doc_links)]` on by default
+
+warning: unresolved link to `ActiveSuggestions::try_accept`
+    --> src/active_suggestions.rs:1683:7
+     |
+1683 | /// [`ActiveSuggestions::try_accept`] will silently accept the candidate when
+     |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the struct `ActiveSuggestions` has no field or associated item named `try_accept`
+
+warning: unresolved link to `auto_accept_if_solo`
+    --> src/active_suggestions.rs:1716:20
+     |
+1716 |     /// Override [`auto_accept_if_solo`].  Set to `false` for fuzzy filename
+     |                    ^^^^^^^^^^^^^^^^^^^ no item named `auto_accept_if_solo` in scope
+     |
+     = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `into_grid`
+    --> src/active_suggestions.rs:1863:31
+     |
+1863 |     /// in chunks each time [`into_grid`] is called or fuzzy matching runs.
+     |                               ^^^^^^^^^ no item named `into_grid` in scope
+     |
+     = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `update_grid_size`
+    --> src/active_suggestions.rs:1876:34
+     |
+1876 |     /// grid.  Kept in sync by [`update_grid_size`].
+     |                                  ^^^^^^^^^^^^^^^^ no item named `update_grid_size` in scope
+     |
+     = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: public documentation for `<unknown>` links to private item `KeyEventMatch`
+    --> src/app/actions/keyboard.rs:1852:42
+     |
+1852 | /// Add a set of [`KeyModifiers`] to a [`KeyEventMatch`], OR-ing them into the
+     |                                          ^^^^^^^^^^^^^ this item is private
+     |
+     = note: this link resolves only because you passed `--document-private-items`, but will break without
+     = note: `#[warn(rustdoc::private_intra_doc_links)]` on by default
+
+warning: public documentation for `<unknown>` links to private item `KeyEventMatch`
+    --> src/app/actions/keyboard.rs:1854:7
+     |
+1854 | /// [`KeyEventMatch`], this lets binding definitions read like keyboard
+     |       ^^^^^^^^^^^^^ this item is private
+     |
+     = note: this link resolves only because you passed `--document-private-items`, but will break without
+
+warning: public documentation for `<unknown>` links to private item `KeyEventMatch`
+    --> src/app/actions/keyboard.rs:1864:7
+     |
+1864 | /// [`KeyEventMatch`] first.  For "any char" matches with modifiers, write
+     |       ^^^^^^^^^^^^^ this item is private
+     |
+     = note: this link resolves only because you passed `--document-private-items`, but will break without
+
+warning: unresolved link to `copy`
+   --> src/cli.rs:409:73
+    |
+409 |     ///   flyline create-prompt-widget copy-buffer --name COPY_BUFFER '[copy]'
+    |                                                                         ^^^^ no item named `copy` in scope
+    |
+    = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `FLYLINE_MOUSE_MODE`
+   --> src/cli.rs:945:26
+    |
+945 |     ///   PS1='\u@\h:\w [FLYLINE_MOUSE_MODE] $ '
+    |                          ^^^^^^^^^^^^^^^^^^ no item named `FLYLINE_MOUSE_MODE` in scope
+    |
+    = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `copy`
+   --> src/cli.rs:970:54
+    |
+970 |     ///   flyline create-prompt-widget copy-buffer '[copy]'
+    |                                                      ^^^^ no item named `copy` in scope
+    |
+    = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `CUSTOM_WIDGET1`
+   --> src/cli.rs:996:26
+    |
+996 |     ///   PS1='\u@\h:\w [CUSTOM_WIDGET1] $ '
+    |                          ^^^^^^^^^^^^^^ no item named `CUSTOM_WIDGET1` in scope
+    |
+    = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `NORMAL`
+    --> src/cli.rs:1078:52
+     |
+1078 |     ///   flyline create-prompt-widget vim-mode ' [NORMAL] ' ' [INSERT] ' ' [VISUAL] '
+     |                                                    ^^^^^^ no item named `NORMAL` in scope
+     |
+     = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `INSERT`
+    --> src/cli.rs:1078:65
+     |
+1078 |     ///   flyline create-prompt-widget vim-mode ' [NORMAL] ' ' [INSERT] ' ' [VISUAL] '
+     |                                                                 ^^^^^^ no item named `INSERT` in scope
+     |
+     = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `VISUAL`
+    --> src/cli.rs:1078:78
+     |
+1078 |     ///   flyline create-prompt-widget vim-mode ' [NORMAL] ' ' [INSERT] ' ' [VISUAL] '
+     |                                                                              ^^^^^^ no item named `VISUAL` in scope
+     |
+     = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `TextBuffer`
+   --> src/completions/tab_completion.rs:982:64
+    |
+982 | /// Outcome of applying tab-completion results directly to a [`TextBuffer`].
+    |                                                                ^^^^^^^^^^ no item named `TextBuffer` in scope
+    |
+    = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `expand_span_to_segments`
+   --> src/prompt_manager.rs:267:46
+    |
+267 |     /// Pre-processed animations.  Used by [`expand_span_to_segments`] to
+    |                                              ^^^^^^^^^^^^^^^^^^^^^^^ no item named `expand_span_to_segments` in scope
+    |
+    = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `expand_span_to_segments`
+   --> src/prompt_manager.rs:271:51
+    |
+271 |     /// Raw prompt widget definitions.  Used by [`expand_span_to_segments`] to
+    |                                                   ^^^^^^^^^^^^^^^^^^^^^^^ no item named `expand_span_to_segments` in scope
+    |
+    = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `extract_time_codes`
+   --> src/prompt_manager.rs:414:14
+    |
+414 |     /// 1. [`extract_time_codes`] — replace bash time escape sequences with
+    |              ^^^^^^^^^^^^^^^^^^ no item named `extract_time_codes` in scope
+    |
+    = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `expand_span_to_segments`
+   --> src/prompt_manager.rs:419:14
+    |
+419 |     /// 3. [`expand_span_to_segments`] — split each decoded span at
+    |              ^^^^^^^^^^^^^^^^^^^^^^^ no item named `expand_span_to_segments` in scope
+    |
+    = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: unresolved link to `Tag::Ps1Prompt`
+   --> src/prompt_manager.rs:996:27
+    |
+996 | /// [`TaggedSpan`] with [`Tag::Ps1Prompt`].
+    |                           ^^^^^^^^^^^^^^ the enum `Tag` has no variant or associated item named `Ps1Prompt`
+
+warning: unresolved link to `try_wait`
+    --> src/prompt_manager.rs:1288:7
+     |
+1288 | /// [`try_wait`] returned `Some(status)`) and build the final [`WidgetCustomState`].
+     |       ^^^^^^^^ no item named `try_wait` in scope
+     |
+     = help: to escape `[` and `]` characters, add '\' before them like `\[` or `\]`
+
+warning: public documentation for `reset_bash_lock_after_fork` links to private item `BASH_LOCK`
+   --> src/shell/bash/symbols.rs:474:13
+    |
+474 | /// Reset [`BASH_LOCK`] in a forked child so it is not left held.
+    |             ^^^^^^^^^ this item is private
+    |
+    = note: this link resolves only because you passed `--document-private-items`, but will break without
+
+warning: public documentation for `reset_bash_lock_after_fork` links to private item `BASH_LOCK`
+   --> src/shell/bash/symbols.rs:479:29
+    |
+479 | /// this process observes [`BASH_LOCK`]. The parent may have held the lock at
+    |                             ^^^^^^^^^ this item is private
+    |
+    = note: this link resolves only because you passed `--document-private-items`, but will break without
+
+warning: public documentation for `locked_xmalloc` links to private item `BASH_LOCK`
+   --> src/shell/bash/symbols.rs:489:49
+    |
+489 | /// Allocate via Bash `xmalloc` while holding [`BASH_LOCK`].
+    |                                                 ^^^^^^^^^ this item is private
+    |
+    = note: this link resolves only because you passed `--document-private-items`, but will break without
+
+warning: public documentation for `locked_xfree` links to private item `BASH_LOCK`
+   --> src/shell/bash/symbols.rs:501:43
+    |
+501 | /// Free via Bash `xfree` while holding [`BASH_LOCK`].
+    |                                           ^^^^^^^^^ this item is private
+    |
+    = note: this link resolves only because you passed `--document-private-items`, but will break without
+
+warning: unresolved link to `test_fixtures::test_env_vars`
+   --> src/shell/test_backend.rs:251:26
+    |
+251 |     ///     name up in [`test_fixtures::test_env_vars`].
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no item named `test_fixtures` in scope
+
+warning: Rust code block is empty
+    --> src/app/actions/keyboard.rs:2632:5
+     |
+2632 |   /// ```ignore
+     |  _____^
+2633 | | /// // expand_variations![KeyCode::Enter.into()]   →  [Enter, Ctrl+j]
+2634 | | /// // expand_variations![KeyModifiers::ALT + KeyCode::Enter.into()]
+2635 | | /// //                                              →  [Alt+Enter, Meta+Enter]
+2636 | | /// ```
+     | |_______^
+     |
+help: `ignore` code blocks require valid Rust code for syntax highlighting; mark blocks that do not contain Rust code as text: ```text
+    --> src/app/actions/keyboard.rs:2632:5
+     |
+2632 | /// ```ignore
+     |     ^^^
+     = note: `#[warn(rustdoc::invalid_rust_codeblocks)]` on by default
+
+warning: this URL is not a hyperlink
+    --> src/app/actions/keyboard.rs:2927:12
+     |
+2927 | /// MacOs: https://stackoverflow.com/questions/12827888/what-is-the-representation-of-the-mac-command-key-in-the-terminal
+     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     |
+     = note: bare URLs are not automatically turned into clickable links
+     = note: `#[warn(rustdoc::bare_urls)]` on by default
+help: use an automatic link instead
+     |
+2927 | /// MacOs: <https://stackoverflow.com/questions/12827888/what-is-the-representation-of-the-mac-command-key-in-the-terminal>
+     |            +                                                                                                              +
+
+warning: this URL is not a hyperlink
+    --> src/app/actions/keyboard.rs:2936:5
+     |
+2936 | /// https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts#Command_line_shortcuts
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     |
+     = note: bare URLs are not automatically turned into clickable links
+help: use an automatic link instead
+     |
+2936 | /// <https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts#Command_line_shortcuts>
+     |     +                                                                                +
+
+warning: this URL is not a hyperlink
+   --> src/cli.rs:372:13
+    |
+372 |     /// See https://github.com/HalFrgrd/flyline/blob/master/examples/agent_mode.sh for more details and example usage.
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: bare URLs are not automatically turned into clickable links
+help: use an automatic link instead
+    |
+372 |     /// See <https://github.com/HalFrgrd/flyline/blob/master/examples/agent_mode.sh> for more details and example usage.
+    |             +                                                                      +
+
+warning: unclosed HTML tag `system-prompt`
+   --> src/cli.rs:380:38
+    |
+380 |         /// The subprocess receives "<system-prompt>\n<buffer>" as its final argument.
+    |                                      ^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(rustdoc::invalid_html_tags)]` on by default
+
+warning: unclosed HTML tag `buffer`
+   --> src/cli.rs:380:55
+    |
+380 |         /// The subprocess receives "<system-prompt>\n<buffer>" as its final argument.
+    |                                                       ^^^^^^^^
+    |
+help: try marking as source code
+    |
+380 |         /// The subprocess receives "<system-prompt>\`n<buffer>`" as its final argument.
+    |                                                      +         +
+
+warning: unclosed HTML tag `KEY`
+   --> src/cli.rs:508:31
+    |
+508 |     /// Use 'flyline key bind <KEY> <CONTEXT_EXPR>=<ACTION>' to bind a key sequence to an action.
+    |                               ^^^^^
+
+warning: unclosed HTML tag `ACTION`
+   --> src/cli.rs:508:52
+    |
+508 |     /// Use 'flyline key bind <KEY> <CONTEXT_EXPR>=<ACTION>' to bind a key sequence to an action.
+    |                                                    ^^^^^^^^
+
+warning: unclosed HTML tag `FROM`
+   --> src/cli.rs:510:32
+    |
+510 |     /// Use 'flyline key remap <FROM> <TO>' to translate one key or modifier to another before
+    |                                ^^^^^^
+
+warning: unclosed HTML tag `TO`
+   --> src/cli.rs:510:39
+    |
+510 |     /// Use 'flyline key remap <FROM> <TO>' to translate one key or modifier to another before
+    |                                       ^^^^
+
+warning: unclosed HTML tag `name`
+   --> src/cli.rs:521:26
+    |
+521 |     ///   F1-F255, Media:<name> (e.g. Media:Play, Media:Pause, Media:Stop,
+    |                          ^^^^^^
+
+warning: unclosed HTML tag `name`
+   --> src/cli.rs:524:20
+    |
+524 |     ///   Modifier:<name> (e.g. Modifier:LeftShift, Modifier:RightCtrl,
+    |                    ^^^^^^
+
+warning: unclosed HTML tag `KEY`
+   --> src/cli.rs:527:61
+    |
+527 |     /// Tab completion is available: type 'flyline key bind <KEY> <Tab>' to browse
+    |                                                             ^^^^^
+
+warning: unclosed HTML tag `Tab`
+   --> src/cli.rs:527:67
+    |
+527 |     /// Tab completion is available: type 'flyline key bind <KEY> <Tab>' to browse
+    |                                                                   ^^^^^
+
+warning: this URL is not a hyperlink
+   --> src/cli.rs:918:13
+    |
+918 |     /// See https://github.com/HalFrgrd/flyline/blob/master/examples/animations.sh for more details and example usage.
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: bare URLs are not automatically turned into clickable links
+help: use an automatic link instead
+    |
+918 |     /// See <https://github.com/HalFrgrd/flyline/blob/master/examples/animations.sh> for more details and example usage.
+    |             +                                                                      +
+
+warning: unclosed HTML tag `TAB`
+   --> src/completions/flags.rs:187:54
+    |
+187 | /// So here I convert those to the format "suggestion<TAB>description" so that
+    |                                                      ^^^^^
+    |
+help: try marking as source code
+    |
+187 | /// So here I convert those to the format "`suggestion<TAB>`description" so that
+    |                                            +               +
+
+warning: this URL is not a hyperlink
+ --> src/shell_integration.rs:5:5
+  |
+5 | /// https://code.visualstudio.com/docs/terminal/shell-integration#_supported-escape-sequences
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: bare URLs are not automatically turned into clickable links
+help: use an automatic link instead
+  |
+5 | /// <https://code.visualstudio.com/docs/terminal/shell-integration#>_supported-escape-sequences
+  |     +                                                              +
+
+warning: this URL is not a hyperlink
+ --> src/shell_integration.rs:6:5
+  |
+6 | /// https://sw.kovidgoyal.net/kitty/shell-integration/
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: bare URLs are not automatically turned into clickable links
+help: use an automatic link instead
+  |
+6 | /// <https://sw.kovidgoyal.net/kitty/shell-integration/>
+  |     +                                                  +
+
+warning: this URL is not a hyperlink
+ --> src/shell_integration.rs:7:5
+  |
+7 | /// https://ghostty.org/docs/features/shell-integration#troubleshooting
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: bare URLs are not automatically turned into clickable links
+help: use an automatic link instead
+  |
+7 | /// <https://ghostty.org/docs/features/shell-integration#troubleshooting>
+  |     +                                                                   +
+
+warning: `flyline` (lib doc) generated 46 warnings (run `cargo fix --lib -p flyline` to apply 7 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.70s
+   Generated /private/tmp/remote-ssh-flyline-build/fork-r5/target/doc/flybuffer/index.html and 2 other files

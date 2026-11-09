@@ -1,0 +1,68 @@
+diff --git a/src/app/actions/keyboard.rs b/src/app/actions/keyboard.rs
+index b540150..a060935 100644
+--- a/src/app/actions/keyboard.rs
++++ b/src/app/actions/keyboard.rs
+@@ -830,6 +830,13 @@ impl KeyEventAction {
+                 app.try_submit_current_buffer();
+             }
+             KeyEventAction::RunFuzzyHistorySearch => {
++                // Edit the query separately; cancellation must preserve the
++                // command, cursor, selection and complete undo history.
++                let query = app.buffer.buffer().to_string();
++                app.fuzzy_history_saved_buffer = Some(std::mem::replace(
++                    &mut app.buffer,
++                    flybuffer::TextBuffer::new(&query),
++                ));
+                 if crate::settings().history_backend == crate::settings::HistoryBackend::Flyline {
+                     app.long_lived.history_manager.refresh_jsonl_backend();
+                 }
+@@ -1299,6 +1306,11 @@ impl KeyEventAction {
+                     ContentMode::FuzzyHistorySearch(FuzzyHistorySource::AgentPrompts) => {
+                         app.dismissed_agent_mode_buffer = Some(app.buffer.buffer().to_string());
+                     }
++                    ContentMode::FuzzyHistorySearch(FuzzyHistorySource::PastCommands) => {
++                        if let Some(original) = app.fuzzy_history_saved_buffer.take() {
++                            app.buffer = original;
++                        }
++                    }
+                     _ => {
+                         // Not tab completion; just clear the dismissed field.
+                         app.dismissed_tab_completion_wuc = None;
+diff --git a/src/app/mod.rs b/src/app/mod.rs
+index 1a72bc1..af52a46 100644
+--- a/src/app/mod.rs
++++ b/src/app/mod.rs
+@@ -397,6 +397,7 @@ pub(crate) struct App<'a> {
+     pub(super) path_warming_subshell: Option<SubshellHandle<shell::PathScanPayload>>,
+     pub(super) git_warming_subshell: Option<SubshellHandle<Option<crate::git::GitRepoPayload>>>,
+     pub(super) fuzzy_history_session_filter_active: bool,
++    pub(super) fuzzy_history_saved_buffer: Option<flybuffer::TextBuffer>,
+     pub(super) vim_state: crate::app::actions::VimState,
+     pub(super) vim_history_search: Option<crate::app::actions::VimHistorySearch>,
+ }
+@@ -549,6 +550,7 @@ impl<'a> App<'a> {
+             path_warming_subshell,
+             git_warming_subshell,
+             fuzzy_history_session_filter_active: false,
++            fuzzy_history_saved_buffer: None,
+             vim_state: crate::app::actions::VimState::default(),
+             vim_history_search: None,
+         };
+@@ -1591,11 +1593,14 @@ impl<'a> App<'a> {
+             ContentMode::FuzzyHistorySearch(s) => *s,
+             _ => return,
+         };
+-        if let Some(entry) = self
++        let entry = self
+             .select_fuzzy_history_manager(&source)
+             .accept_fuzzy_search_result()
+-            .cloned()
+-        {
++            .cloned();
++        if let Some(original) = self.fuzzy_history_saved_buffer.take() {
++            self.buffer = original;
++        }
++        if let Some(entry) = entry {
+             let new_command = entry.command.clone();
+             self.buffer.replace_buffer(new_command.as_str());
+         }

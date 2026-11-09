@@ -1,0 +1,8 @@
+{"case": "remote-ssh-flyline-off-bash", "stats": {"median": 226.608229, "p95": 233.613167, "min": 218.789167, "max": 235.775542}, "passed": true}
+{"case": "remote-ssh-flyline-off-bash-warm-home", "stats": {"median": 166.712042, "p95": 189.756333, "min": 159.924584, "max": 288.677667}, "passed": true}
+{"case": "remote-ssh-flyline-off-atuin", "stats": {"median": 263.0879585, "p95": 272.759917, "min": 253.21375, "max": 276.283375}, "passed": true}
+{"case": "remote-ssh-flyline-off-atuin-warm-home", "stats": {"median": 199.9645625, "p95": 220.024791, "min": 193.374041, "max": 220.319166}, "passed": true}
+{"case": "remote-ssh-flyline-on-bash", "stats": {"median": 248.440354, "p95": 251.903167, "min": 240.275292, "max": 253.110292}, "passed": true}
+{"case": "remote-ssh-flyline-on-bash-warm-home", "stats": {"median": 186.8579585, "p95": 194.450917, "min": 181.547, "max": 194.769041}, "passed": true}
+{"case": "remote-ssh-flyline-on-atuin", "stats": {"median": 310.3801665, "p95": 366.113458, "min": 277.4265, "max": 611.773042}, "passed": true}
+{"case": "remote-ssh-flyline-on-atuin-warm-home", "stats": {"median": 226.4574165, "p95": 252.6485, "min": 214.2295, "max": 265.62525}, "passed": true}

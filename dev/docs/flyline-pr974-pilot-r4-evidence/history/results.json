@@ -1,0 +1,201 @@
+{
+  "library_sha256": "e73823eeeb046eb31b9941e1f951ec6aa346c0a3cf4ec0331fe188e55da77cc4",
+  "script_sha256": "ad1b2c984ab76882b12b955fff6eec158f609117b9b41b15455d40d458ec030a",
+  "results": [
+    {
+      "backend": "native",
+      "initial_state": "bash:/tmp/flyline-native-history-lmi48_ow/bash-history",
+      "selection_did_not_execute": true,
+      "editable_selection": {
+        "actual": "selected_edited",
+        "expected": "selected_edited",
+        "early_execution": false,
+        "passed": true
+      },
+      "cancel": {
+        "actual": "draft",
+        "expected": "draft",
+        "early_execution": false,
+        "passed": true
+      },
+      "cancel_edited_query": {
+        "actual": "draft",
+        "expected": "draft",
+        "early_execution": false,
+        "passed": true
+      },
+      "up": {
+        "actual": "navigation",
+        "expected": "navigation",
+        "early_execution": false,
+        "passed": true
+      },
+      "k": {
+        "actual": "navigation",
+        "expected": "navigation",
+        "early_execution": false,
+        "passed": true
+      },
+      "reload_keeps_backend": true,
+      "bash_history_persisted": true,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 863.245,
+        "shell_peak_rss_mib": 12.9375
+      }
+    },
+    {
+      "backend": "skim",
+      "initial_state": "bash:/tmp/flyline-skim-history-h1bwh5gz/bash-history",
+      "selection_did_not_execute": true,
+      "editable_selection": {
+        "actual": "selected_edited",
+        "expected": "selected_edited",
+        "early_execution": false,
+        "passed": true
+      },
+      "cancel": {
+        "actual": "draft",
+        "expected": "draft",
+        "early_execution": false,
+        "passed": true
+      },
+      "cancel_edited_query": {
+        "actual": "draft",
+        "expected": "draft",
+        "early_execution": false,
+        "passed": true
+      },
+      "up": {
+        "actual": "navigation",
+        "expected": "navigation",
+        "early_execution": false,
+        "passed": true
+      },
+      "k": {
+        "actual": "navigation",
+        "expected": "navigation",
+        "early_execution": false,
+        "passed": true
+      },
+      "reload_keeps_backend": true,
+      "bash_history_persisted": true,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 947.38,
+        "shell_peak_rss_mib": 13.125
+      }
+    },
+    {
+      "backend": "atuin",
+      "initial_state": "atuin:",
+      "selection_did_not_execute": true,
+      "editable_selection": {
+        "actual": "selected_edited",
+        "expected": "selected_edited",
+        "early_execution": false,
+        "passed": true
+      },
+      "cancel": {
+        "actual": "draft",
+        "expected": "draft",
+        "early_execution": false,
+        "passed": true
+      },
+      "cancel_edited_query": {
+        "actual": "draft",
+        "expected": "draft",
+        "early_execution": false,
+        "passed": true
+      },
+      "up": {
+        "actual": "navigation",
+        "expected": "navigation",
+        "early_execution": false,
+        "passed": true
+      },
+      "k": {
+        "actual": "navigation",
+        "expected": "navigation",
+        "early_execution": false,
+        "passed": true
+      },
+      "reload_keeps_backend": true,
+      "history_records": [
+        [
+          "printf '\\036STATE:%s:%s\\037\\n' \"$REMOTE_SSH_HISTORY_BACKEND\" \"$HISTFILE\"",
+          0,
+          19898000
+        ],
+        [
+          "false",
+          1,
+          17431000
+        ],
+        [
+          "sleep 0.05",
+          0,
+          76169000
+        ],
+        [
+          "capture selected",
+          0,
+          16392000
+        ],
+        [
+          "capture selected_edited",
+          0,
+          17432000
+        ],
+        [
+          "capture draft",
+          0,
+          22591000
+        ],
+        [
+          "capture draft",
+          0,
+          21030000
+        ],
+        [
+          "capture navigation",
+          0,
+          17241000
+        ],
+        [
+          "capture navigation",
+          0,
+          19539000
+        ],
+        [
+          "capture navigation",
+          0,
+          16499000
+        ],
+        [
+          "capture navigation",
+          0,
+          22783000
+        ],
+        [
+          "source /tmp/flyline-atuin-history-oghhv1l1/checkout/shell/rc.sh; printf '\\036RELOADED:%s\\037\\n' \"$REMOTE_SSH_HISTORY_BACKEND\"",
+          0,
+          160263000
+        ],
+        [
+          "exit",
+          -1,
+          -1
+        ]
+      ],
+      "false_status": true,
+      "duration": true,
+      "no_duplicate_selected": true,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 1133.646,
+        "shell_peak_rss_mib": 17.90625
+      }
+    }
+  ]
+}

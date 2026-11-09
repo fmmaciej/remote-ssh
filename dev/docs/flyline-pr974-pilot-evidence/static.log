@@ -1,0 +1,6 @@
+[smoke] bash syntax
+[smoke] shellcheck
+[smoke] python checks
+All checks passed!
+Success: no issues found in 14 source files
+[smoke] ok

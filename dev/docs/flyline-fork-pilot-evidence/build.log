@@ -1,0 +1,22 @@
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+     Removed 1122 files, 505.9MiB total
+     Removed 0 files
+   Compiling flycomp v1.1.2 (https://github.com/HalFrgrd/flycomp.git?rev=754be16d7a2130ad12b6d038d42a8933c92c103f#754be16d)
+   Compiling flyline v1.10.0 (/private/tmp/remote-ssh-flyline-build/fork-r5)
+   Compiling flycontent v0.1.0 (/private/tmp/remote-ssh-flyline-build/fork-r5/crates/flycontent)
+   Compiling flybuffer v0.1.0 (/private/tmp/remote-ssh-flyline-build/fork-r5/crates/flybuffer)
+warning: linker stderr: cc: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+  |
+  = note: `#[warn(linker_messages)]` on by default
+
+warning: `flyline` (build script) generated 1 warning
+warning: `flyline` (lib) generated 1 warning (1 duplicate)
+    Finished `release` profile [optimized] target(s) in 59.03s
+git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+Built /private/tmp/remote-ssh-flyline-build/artifact-r5/flyline-1.10.0-pr974.aae68bb4.r5-aarch64-apple-darwin.tar.gz; not installed or published

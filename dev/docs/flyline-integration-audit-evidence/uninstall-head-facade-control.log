@@ -1,0 +1,24 @@
+remote-ssh uninstall
+
+Install paths
+  prefix:    /private/tmp/flyline-integration-audit-j9a5_wdf/uninstall-head-facade-control/prefix
+  bin:       /private/tmp/flyline-integration-audit-j9a5_wdf/uninstall-head-facade-control/bin
+
+Selected tools:
+  bat
+
+Symlinks to remove:
+  /private/tmp/flyline-integration-audit-j9a5_wdf/uninstall-head-facade-control/bin/bat
+
+Release dirs to remove:
+  /private/tmp/flyline-integration-audit-j9a5_wdf/uninstall-head-facade-control/prefix/bat-0.26.1
+
+Protected/skipped paths:
+  [none]
+
+Expected tools action:
+  [none]
+
+Applying uninstall
+removed symlink: /private/tmp/flyline-integration-audit-j9a5_wdf/uninstall-head-facade-control/bin/bat
+removed release dir: /private/tmp/flyline-integration-audit-j9a5_wdf/uninstall-head-facade-control/prefix/bat-0.26.1

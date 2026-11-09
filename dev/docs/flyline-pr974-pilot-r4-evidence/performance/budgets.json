@@ -1,0 +1,11 @@
+{
+  "startup_median_over_readline_ms": 30,
+  "startup_p95_over_readline_ms": 60,
+  "single_key_median_ms": 2,
+  "single_key_p95_ms": 8,
+  "extra_idle_rss_mib": 12,
+  "file_tab_median_ms": 50,
+  "file_tab_p95_ms": 150,
+  "bracketed_paste_p95_ms": 500,
+  "idle_cpu_percent_of_one_core": 1
+}

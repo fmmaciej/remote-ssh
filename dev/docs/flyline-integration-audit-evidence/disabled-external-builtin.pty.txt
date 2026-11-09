@@ -1,0 +1,10 @@
+AUDIT_BEFORE_TYPE=
+enable -n flyline
+bash: enable: warning: flyline: dynamic builtin already loaded
+AUDIT_AFTER_STATE=active:managed
+AUDIT_AFTER_HISTORY=bash:unset
+AUDIT_AFTER_TYPE=builtin
+AUDIT_AFTER_ATTRIBUTES
+declare -x FLYLINE_LOAD_DIR="/private/tmp/flyline-integration-audit-j9a5_wdf/disabled-external-builtin/managed prefix/flyline-1.10.0-pr974.aae68bb4.r5"
+declare -x FLYLINE_VERSION="1.10.0"
+AUDIT_DONE

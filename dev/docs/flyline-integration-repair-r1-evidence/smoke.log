@@ -1,0 +1,13 @@
+just -f dev/justfile smoke
+./smoke.sh
+[smoke] bash syntax
+[smoke] shellcheck
+
+In /Users/fm/Programming/00_Other/remote-ssh/tools/lib/commands/uninstall.sh line 285:
+    remote_ssh_cmd_uninstall_preflight $(all_known_tools) || return 1
+                                       ^----------------^ SC2046 (warning): Quote this to prevent word splitting.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2046 -- Quote this to prevent word splitt...
+error: recipe `smoke` failed on line 45 with exit code 1
+error: recipe `smoke` failed on line 27 with exit code 1

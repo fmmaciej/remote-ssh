@@ -1,0 +1,6 @@
+     Removed 0 files
+     Removed 0 files
+   Compiling flyline v1.10.0 (/private/tmp/remote-ssh-flyline-build/source-r4)
+   Compiling flybuffer v0.1.0 (/private/tmp/remote-ssh-flyline-build/source-r4/crates/flybuffer)
+    Finished `release` profile [optimized] target(s) in 54.03s
+Built developer candidate in /private/tmp/remote-ssh-flyline-build/artifact-r4; not installed or published

@@ -1,0 +1,14 @@
+{
+  "base": "ca910967af35579a2d455a071aa939778d8f6171",
+  "pr_head": "aae68bb4acb43d7462bbe4abffedd6e2b10bd889",
+  "patches": [
+    {
+      "file": "0001-upstream-pr974.patch",
+      "sha256": "259a30228d5fad952c49afa8f86f0908885684e7b5ac1410e617b71414fb4f50"
+    },
+    {
+      "file": "0002-vi-key-dispatch-and-repeat.patch",
+      "sha256": "08daaf5f6c80ec2433c9602b73f56fe837865a3e2412abbbc0794574f5daf389"
+    }
+  ]
+}

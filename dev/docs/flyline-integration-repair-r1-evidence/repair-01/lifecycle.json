@@ -1,0 +1,15 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "dev/flyline/lifecycle.py",
+    "--bash",
+    "/opt/homebrew/bin/bash",
+    "--library",
+    "/Users/fm/Programming/00_Other/remote-ssh/dev/flyline/dist/1.10.0-pr974.aae68bb4.r5/libflyline.dylib",
+    "--output",
+    "dev/docs/flyline-integration-repair-r1-evidence/repair-01/lifecycle"
+  ],
+  "exit": 0,
+  "elapsed_seconds": 0.7210639169206843,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

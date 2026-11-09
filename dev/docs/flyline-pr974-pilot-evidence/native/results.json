@@ -1,0 +1,289 @@
+{
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+  "bash_version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+  "library": "/private/tmp/remote-ssh-flyline-build/artifact-r1-packaged/libflyline.dylib",
+  "library_sha256": "45dbe2b847bf638eb0d9228d5c8d531405fcb63fe58f3280f34d6f96cef5a018",
+  "pilot_sha256": "a807b0be9c85138df1cd91ddbd5dd9e857ad21e7bf9a2a0d776f111439ec9836",
+  "results": [
+    {
+      "case": "replace",
+      "expected": "bc",
+      "keys": [
+        "b'\\x1b'",
+        "b'hrbA'"
+      ],
+      "line_before_submit": "BMARK> capture bc",
+      "executed_before_submit": false,
+      "actual": "bc",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 59.0,
+        "shell_peak_rss_mib": 11.5
+      }
+    },
+    {
+      "case": "delete",
+      "expected": "abc",
+      "keys": [
+        "b'\\x1b'",
+        "b'xA'"
+      ],
+      "line_before_submit": "BMARK> capture abc",
+      "executed_before_submit": false,
+      "actual": "abc",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 57.018,
+        "shell_peak_rss_mib": 11.5
+      }
+    },
+    {
+      "case": "delete-word",
+      "expected": "two three",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wdwA'"
+      ],
+      "line_before_submit": "BMARK> capture two three",
+      "executed_before_submit": false,
+      "actual": "two three",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 52.748000000000005,
+        "shell_peak_rss_mib": 11.546875
+      }
+    },
+    {
+      "case": "change-word",
+      "expected": "ONE two",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wcwONE'",
+        "b'\\x1b'",
+        "b'A'"
+      ],
+      "line_before_submit": "BMARK> capture ONE two",
+      "executed_before_submit": false,
+      "actual": "ONE two",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 56.068,
+        "shell_peak_rss_mib": 11.5
+      }
+    },
+    {
+      "case": "yank-paste",
+      "expected": "abab",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wyw$pA'"
+      ],
+      "line_before_submit": "BMARK> capture abab",
+      "executed_before_submit": false,
+      "actual": "abab",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 49.492999999999995,
+        "shell_peak_rss_mib": 11.546875
+      }
+    },
+    {
+      "case": "undo-redo",
+      "expected": "bc",
+      "keys": [
+        "b'\\x1b'",
+        "b'hrb'",
+        "b'u'",
+        "b'\\x12'",
+        "b'A'"
+      ],
+      "line_before_submit": "BMARK> capture bc",
+      "executed_before_submit": false,
+      "actual": "bc",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 53.583999999999996,
+        "shell_peak_rss_mib": 11.53125
+      }
+    },
+    {
+      "case": "undo",
+      "expected": "ac",
+      "keys": [
+        "b'\\x1b'",
+        "b'hrb'",
+        "b'u'",
+        "b'A'"
+      ],
+      "line_before_submit": "BMARK>",
+      "executed_before_submit": false,
+      "passed": false,
+      "error": "missing b'\\x1f': b'C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x",
+      "resources": {
+        "shell_cpu_ms": 71.56599999999999,
+        "shell_peak_rss_mib": 11.5
+      }
+    },
+    {
+      "case": "dot-delete",
+      "expected": "ad",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wlx.A'"
+      ],
+      "line_before_submit": "BMARK> capture ad",
+      "executed_before_submit": false,
+      "actual": "ad",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 48.7,
+        "shell_peak_rss_mib": 11.5625
+      }
+    },
+    {
+      "case": "dot-replace",
+      "expected": "XXcd",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wrXl.A'"
+      ],
+      "line_before_submit": "BMARK> capture XXcd",
+      "executed_before_submit": false,
+      "actual": "XXcd",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 53.79299999999999,
+        "shell_peak_rss_mib": 11.46875
+      }
+    },
+    {
+      "case": "dot-change",
+      "expected": "NEW NEW",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wcwNEW'",
+        "b'\\x1b'",
+        "b'w.A'"
+      ],
+      "line_before_submit": "BMARK> capture NEW NEW",
+      "executed_before_submit": false,
+      "actual": "NEW NEW",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 53.791999999999994,
+        "shell_peak_rss_mib": 11.515625
+      }
+    },
+    {
+      "case": "unicode-paste",
+      "expected": "\u017c\u00f3\u0142w",
+      "keys": [],
+      "line_before_submit": "BMARK> capture \u017c\u00f3\u0142w",
+      "executed_before_submit": false,
+      "actual": "\u017c\u00f3\u0142w",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 49.502,
+        "shell_peak_rss_mib": 11.578125
+      }
+    },
+    {
+      "case": "normal-mode-no-text",
+      "expected": "abc",
+      "keys": [
+        "b'\\x1b'",
+        "b'qA'"
+      ],
+      "line_before_submit": "BMARK> capture abc",
+      "executed_before_submit": false,
+      "actual": "abc",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 49.24399999999999,
+        "shell_peak_rss_mib": 11.5
+      }
+    },
+    {
+      "case": "count-motion",
+      "expected": "aXcd",
+      "keys": [
+        "b'\\x1b'",
+        "b'2hrXA'"
+      ],
+      "line_before_submit": "BMARK> capture abXd",
+      "executed_before_submit": false,
+      "actual": "abXd",
+      "passed": false,
+      "resources": {
+        "shell_cpu_ms": 53.818,
+        "shell_peak_rss_mib": 11.515625
+      }
+    },
+    {
+      "case": "history-k",
+      "expected": "seeded",
+      "keys": [
+        "b'\\x1b'",
+        "b'kA'"
+      ],
+      "line_before_submit": "BMARK>",
+      "executed_before_submit": false,
+      "passed": false,
+      "error": "missing b'\\x1f': b'l\\x1b[?2026h\\x1b[?2026l\\x1b[?2026h\\x1b[?2026l\\x1b[?2026h\\x1b[?2026l\\x1b[G\\n\\x1b[1A\\x1b[G\\x1b[?2026h\\x1b[?7lBMARK> \\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1",
+      "resources": {
+        "shell_cpu_ms": 69.86799999999998,
+        "shell_peak_rss_mib": 11.5
+      }
+    },
+    {
+      "case": "history-up",
+      "expected": "seeded",
+      "keys": [
+        "b'\\x1b[A'"
+      ],
+      "line_before_submit": "BMARK> capture seeded",
+      "executed_before_submit": false,
+      "actual": "seeded",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 53.236,
+        "shell_peak_rss_mib": 11.484375
+      }
+    },
+    {
+      "case": "history-slash",
+      "expected": "seeded",
+      "keys": [
+        "b'\\x1b'",
+        "b'/seeded'",
+        "b'\\r'",
+        "b'A'"
+      ],
+      "line_before_submit": "BMARK> A",
+      "executed_before_submit": false,
+      "passed": false,
+      "error": "missing b'\\x1f': b'[?2026l\\x1b[6n\\x1b[?1004h\\x1b[?2026h\\x1b[?2026l\\x1b[?2026h\\x1b[?2026l\\x1b[?2026h\\x1b[1B\\x1b[G\\x1b[?7l\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1C\\x1b[X\\x1b[1",
+      "resources": {
+        "shell_cpu_ms": 88.935,
+        "shell_peak_rss_mib": 11.5
+      }
+    },
+    {
+      "case": "unicode-yank-paste",
+      "expected": "\u017c\u00f3\u0142w\u017c\u00f3\u0142w",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wyw$pA'"
+      ],
+      "line_before_submit": "BMARK> capture \u017c\u00f3\u0142w\u017c\u00f3\u0142w",
+      "executed_before_submit": false,
+      "actual": "\u017c\u00f3\u0142w\u017c\u00f3\u0142w",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 49.665,
+        "shell_peak_rss_mib": 11.578125
+      }
+    }
+  ]
+}

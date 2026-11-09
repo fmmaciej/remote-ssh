@@ -1,0 +1,13 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "dev/tests/test_uninstall.py",
+    "dev/tests/test_install_library.py"
+  ],
+  "exit": 0,
+  "elapsed_seconds": 30.436960665974766,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

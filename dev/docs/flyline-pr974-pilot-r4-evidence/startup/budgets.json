@@ -1,0 +1,4 @@
+{
+  "median_over_disabled_ms": 30,
+  "p95_over_disabled_ms": 60
+}

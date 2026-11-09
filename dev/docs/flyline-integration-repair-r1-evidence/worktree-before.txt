@@ -1,0 +1,73 @@
+ M .gitignore
+ M AGENTS.md
+ M dev/README.md
+ M dev/bench/scenarios.py
+ M dev/check_assets_live.py
+ M dev/docs/bench-shell.md
+ M dev/docs/flyline-implementation-plan.md
+ M dev/justfile
+ M dev/smoke.sh
+ M dev/tests/test_bench_shell_startup.py
+ M dev/tests/test_config.py
+ M dev/tests/test_generate_def.py
+ M dev/tests/test_install_binary.py
+ M dev/tests/test_install_bundle.py
+ M dev/tests/test_install_failures.py
+ M dev/tests/test_tool_assets.py
+ M docs/TODO.md
+ M docs/install.md
+ M docs/shell.md
+ M docs/shell/config.md
+ M docs/shell/helpers.md
+ M docs/tools.md
+ M shell/config/entries.sh
+ M shell/rc.d/README.md
+ M shell/rc.sh
+ M tools/defs/bat.sh
+ M tools/defs/eza.sh
+ M tools/defs/fd.sh
+ M tools/defs/fzf.sh
+ M tools/defs/nu.sh
+ M tools/defs/nvim.sh
+ M tools/defs/zoxide.sh
+ M tools/generate-def.sh
+ M tools/lib/commands/guide/sections.sh
+ M tools/lib/commands/prune.sh
+ M tools/lib/commands/tool_status.sh
+ M tools/lib/commands/uninstall.sh
+ M tools/lib/common/extract.sh
+ M tools/lib/common/release.sh
+ M tools/lib/generate-def/render.sh
+ M tools/lib/install-tool/assets.sh
+ M tools/lib/install-tool/defs.sh
+ M tools/lib/install-tool/download.sh
+ M tools/lib/install-tool/install.sh
+ M tools/lib/install-tool/main.sh
+ M tools/lib/install/install.sh
+ M tools/lib/install/tool_inventory.sh
+?? dev/docs/carapace-implementation-plan.md
+?? dev/docs/completion-provider-pilot-evidence/
+?? dev/docs/completion-provider-pilot.md
+?? dev/docs/flyline-fork-integration-record.md
+?? dev/docs/flyline-fork-pilot-evidence/
+?? dev/docs/flyline-integration-audit-evidence/
+?? dev/docs/flyline-integration-audit.md
+?? dev/docs/flyline-integration-repair-r1-evidence/
+?? dev/docs/flyline-pilot-evidence/
+?? dev/docs/flyline-pilot-record.md
+?? dev/docs/flyline-pr974-pilot-evidence/
+?? dev/docs/flyline-pr974-pilot-r4-evidence/
+?? dev/docs/flyline-pr974-pilot-record-r1.md
+?? dev/docs/flyline-pr974-pilot-record.md
+?? dev/docs/flyline-pr974-planning-evidence/
+?? dev/docs/interactive-tools-performance-evidence/
+?? dev/docs/interactive-tools-performance.md
+?? dev/flyline/
+?? dev/tests/test_flyline_candidate.py
+?? dev/tests/test_flyline_lifecycle.py
+?? dev/tests/test_install_library.py
+?? docs/multi-agent-workflow.md
+?? docs/plans/
+?? docs/shell/flyline.md
+?? docs/tool-checksums.md
+?? shell/rc.d/29-flyline.sh

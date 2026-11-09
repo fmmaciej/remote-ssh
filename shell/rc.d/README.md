@@ -7,6 +7,15 @@
 3. `shell/rc.d/*.sh`
 4. `shell/rc.d/os.d/<os>.sh`
 5. `shell/rc.d/host.d/<hostname>.sh`
+6. Optional Flyline finalization, after prompt/history and local hooks.
+
+`29-flyline.sh` only defines the private integration. Finalization selects an
+editor once per interactive process. `REMOTE_SSH_ENABLE_FLYLINE=0` is the
+default; missing/incompatible libraries and external editor/history ownership
+skip activation. Reload preserves the outcome and later bindings. See
+[Flyline support and recovery](../../docs/shell/flyline.md). The patched release
+and production manifest remain local because the user deferred publication.
+Source/builds are maintained in the Flyline fork; default installs are unchanged.
 
 `<os>` is detected from `uname -s` and normalized to `linux` or `darwin`
 for the common cases.

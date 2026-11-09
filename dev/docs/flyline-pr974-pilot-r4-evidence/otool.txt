@@ -1,0 +1,5 @@
+libflyline.dylib:
+	/private/tmp/remote-ssh-flyline-build/source-r4/target/aarch64-apple-darwin/release/deps/libflyline.dylib (compatibility version 0.0.0, current version 0.0.0)
+	/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)
+	/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)

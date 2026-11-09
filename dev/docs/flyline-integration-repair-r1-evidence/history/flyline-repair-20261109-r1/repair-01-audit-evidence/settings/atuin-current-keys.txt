@@ -1,0 +1,28 @@
+Default Keybindings:
+╭──────────┬───────────────────┬───────────────────┬───────────────────────────╮
+│  Key(s)  │      Context      │  KeyEventAction   │        Description        │
+├──────────┼───────────────────┼───────────────────┼───────────────────────────┤
+│ Ctrl+r   │ always            │ runFuzzyHistorySe │ Start fuzzy search throug │
+│          │                   │ arch              │ h command history         │
+├──────────┼───────────────────┼───────────────────┼───────────────────────────┤
+│ Ctrl+r,  │ fuzzyHistorySearc │ escapeToNormalMod │ Return to the normal comm │
+│ Alt+r, M │ h                 │ e                 │ and editing mode          │
+│ eta+r    │                   │                   │                           │
+├──────────┼───────────────────┼───────────────────┼───────────────────────────┤
+│ Ctrl+r   │ vimNormalMode     │ redo              │ Redo last action          │
+╰──────────┴───────────────────┴───────────────────┴───────────────────────────╯
+
+User Keybindings:
+╭──────────┬───────────────────┬───────────────────┬───────────────────────────╮
+│  Key(s)  │      Context      │  KeyEventAction   │        Description        │
+├──────────┼───────────────────┼───────────────────┼───────────────────────────┤
+│ Ctrl+r   │ vimInsertMode     │ runBashCommand('_ │ Run a Bash command        │
+│          │                   │ _remote_ssh_flyli │                           │
+│          │                   │ ne_history_vi')   │                           │
+├──────────┼───────────────────┼───────────────────┼───────────────────────────┤
+│ Ctrl+r   │ !vimModeEnabled+e │ runBashCommand('_ │ Run a Bash command        │
+│          │ ditingBufferMode  │ _remote_ssh_flyli │                           │
+│          │                   │ ne_history_emacs' │                           │
+│          │                   │ )                 │                           │
+╰──────────┴───────────────────┴───────────────────┴───────────────────────────╯
+

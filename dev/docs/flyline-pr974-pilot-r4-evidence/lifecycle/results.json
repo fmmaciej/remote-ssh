@@ -1,0 +1,38 @@
+{
+  "library_sha256": "e73823eeeb046eb31b9941e1f951ec6aa346c0a3cf4ec0331fe188e55da77cc4",
+  "script_sha256": "729693d8b81c6d2a15bc9f1c6e09f053deb7253848da17e4bddfae2533880ec4",
+  "results": [
+    {
+      "case": "probe-load",
+      "exit": 0,
+      "stdout": "AFTER_PROBE",
+      "stderr": "bash: cannot set terminal process group (5777): Inappropriate ioctl for device\nbash: no job control in this shell\n",
+      "passed": true
+    },
+    {
+      "case": "probe-unload",
+      "exit": 0,
+      "stdout": "AFTER_PROBE",
+      "stderr": "bash: cannot set terminal process group (5777): Inappropriate ioctl for device\nbash: no job control in this shell\n",
+      "passed": true
+    },
+    {
+      "case": "startup-rollback",
+      "actual": "bc",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 14.411,
+        "shell_peak_rss_mib": 10.03125
+      }
+    },
+    {
+      "case": "later-unload",
+      "actual": "bc",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 29.628999999999994,
+        "shell_peak_rss_mib": 11.28125
+      }
+    }
+  ]
+}

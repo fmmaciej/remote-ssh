@@ -1,0 +1,525 @@
+{
+  "declaration": {
+    "purpose": "Causal diagnostic only; not startup acceptance and cannot invalidate either full failed gate",
+    "pairs": 20,
+    "warmup_per_variant": 2,
+    "scenario": "remote-ssh-flyline-on-atuin",
+    "order": "before,current on even pair; current,before on odd pair; same pattern for warmups",
+    "difference": "Only frozen/current shell/rc.d/29-flyline.sh bytes in equal-length isolated checkout roots",
+    "environment": "Existing run_sample cold-HOME semantics and identical allowlisted native inputs; one common managed prefix",
+    "failures": "All 40 measured samples retained; state mismatch or timeout nonzero; no overhead acceptance threshold applied",
+    "no_concurrent_tests_or_benchmarks": true,
+    "source_sha256": {
+      "before": "428982e43abe1c4f52f5bb8ba0adb7f9bc9e0ac68b26211d0641571afe2583f6",
+      "current": "77085365d4ee8e64c4274afcdc48a3b3f63878f4da70098dcd136b08ceff536f"
+    },
+    "input_sha256": {
+      "bash": "5c59a6000502aa3af7fa1b87921a8e53e88d7407d9e73da744a202b7af88dd96",
+      "library": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+      "atuin": "536ba791bb03c390c2ffe5d1232ae80d94b54f93ac8498ac96245761224acdf9",
+      "skim": "f1bc68808fe5cc41fe24cf0668fa493ae5a2da1547b5646c5f83a33d26ba93bf",
+      "starship": "ff6129ecab094d2d1d7aa69a04bece8adb3cbf7243284ebddb8784248230619c"
+    },
+    "script_sha256": "5c8a2f3b43583cf213e110635cd68d2d6f867dc7c59c57a73006c85ab8129de1"
+  },
+  "warmups": [
+    {
+      "pair": -2,
+      "variant": "before",
+      "ready_ms": 442.742833,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_-2__\r\n",
+      "valid": true
+    },
+    {
+      "pair": -2,
+      "variant": "current",
+      "ready_ms": 284.143333,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_-2__\r\n",
+      "valid": true
+    },
+    {
+      "pair": -1,
+      "variant": "current",
+      "ready_ms": 286.916084,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_-1__\r\n",
+      "valid": true
+    },
+    {
+      "pair": -1,
+      "variant": "before",
+      "ready_ms": 299.384042,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_-1__\r\n",
+      "valid": true
+    }
+  ],
+  "results": [
+    {
+      "pair": 0,
+      "variant": "before",
+      "ready_ms": 275.627292,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_0__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 0,
+      "variant": "current",
+      "ready_ms": 278.150125,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_0__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 1,
+      "variant": "current",
+      "ready_ms": 294.475083,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_1__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 1,
+      "variant": "before",
+      "ready_ms": 291.742084,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_1__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 2,
+      "variant": "before",
+      "ready_ms": 275.116083,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_2__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 2,
+      "variant": "current",
+      "ready_ms": 282.711917,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_2__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 3,
+      "variant": "current",
+      "ready_ms": 306.422584,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_3__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 3,
+      "variant": "before",
+      "ready_ms": 277.012208,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_3__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 4,
+      "variant": "before",
+      "ready_ms": 279.049417,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_4__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 4,
+      "variant": "current",
+      "ready_ms": 292.938625,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_4__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 5,
+      "variant": "current",
+      "ready_ms": 317.379416,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_5__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 5,
+      "variant": "before",
+      "ready_ms": 316.700917,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_5__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 6,
+      "variant": "before",
+      "ready_ms": 300.910083,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_6__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 6,
+      "variant": "current",
+      "ready_ms": 312.122334,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_6__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 7,
+      "variant": "current",
+      "ready_ms": 315.569875,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_7__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 7,
+      "variant": "before",
+      "ready_ms": 305.552084,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_7__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 8,
+      "variant": "before",
+      "ready_ms": 301.437584,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_8__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 8,
+      "variant": "current",
+      "ready_ms": 318.361041,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_8__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 9,
+      "variant": "current",
+      "ready_ms": 301.260834,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_9__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 9,
+      "variant": "before",
+      "ready_ms": 331.055333,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_9__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 10,
+      "variant": "before",
+      "ready_ms": 473.722209,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_10__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 10,
+      "variant": "current",
+      "ready_ms": 302.473833,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_10__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 11,
+      "variant": "current",
+      "ready_ms": 313.469875,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_11__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 11,
+      "variant": "before",
+      "ready_ms": 294.444833,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_11__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 12,
+      "variant": "before",
+      "ready_ms": 309.478333,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_12__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 12,
+      "variant": "current",
+      "ready_ms": 305.856167,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_12__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 13,
+      "variant": "current",
+      "ready_ms": 296.601,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_13__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 13,
+      "variant": "before",
+      "ready_ms": 288.1135,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_13__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 14,
+      "variant": "before",
+      "ready_ms": 290.675834,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_14__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 14,
+      "variant": "current",
+      "ready_ms": 297.844292,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_14__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 15,
+      "variant": "current",
+      "ready_ms": 275.324209,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_15__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 15,
+      "variant": "before",
+      "ready_ms": 276.466625,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_15__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 16,
+      "variant": "before",
+      "ready_ms": 285.219208,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_16__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 16,
+      "variant": "current",
+      "ready_ms": 284.737083,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_16__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 17,
+      "variant": "current",
+      "ready_ms": 275.102458,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_17__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 17,
+      "variant": "before",
+      "ready_ms": 279.178167,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_17__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 18,
+      "variant": "before",
+      "ready_ms": 289.67,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_18__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 18,
+      "variant": "current",
+      "ready_ms": 282.883792,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_18__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 19,
+      "variant": "current",
+      "ready_ms": 279.589208,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_19__\r\n",
+      "valid": true
+    },
+    {
+      "pair": 19,
+      "variant": "before",
+      "ready_ms": 290.114583,
+      "returncode": 0,
+      "timed_out": false,
+      "output_tail": "__REMOTE_SSH_BENCH_READY_83526_19__\r\n",
+      "valid": true
+    }
+  ],
+  "stats": {
+    "before": {
+      "median": 290.39520849999997,
+      "p95": 331.055333,
+      "min": 275.116083,
+      "max": 473.722209
+    },
+    "current": {
+      "median": 297.222646,
+      "p95": 317.379416,
+      "min": 275.102458,
+      "max": 318.361041
+    }
+  },
+  "paired_deltas": [
+    {
+      "pair": 0,
+      "current_minus_before_ms": 2.5228329999999914
+    },
+    {
+      "pair": 1,
+      "current_minus_before_ms": 2.7329990000000066
+    },
+    {
+      "pair": 2,
+      "current_minus_before_ms": 7.595834000000025
+    },
+    {
+      "pair": 3,
+      "current_minus_before_ms": 29.410375999999985
+    },
+    {
+      "pair": 4,
+      "current_minus_before_ms": 13.889207999999996
+    },
+    {
+      "pair": 5,
+      "current_minus_before_ms": 0.678498999999988
+    },
+    {
+      "pair": 6,
+      "current_minus_before_ms": 11.212251000000037
+    },
+    {
+      "pair": 7,
+      "current_minus_before_ms": 10.017791000000045
+    },
+    {
+      "pair": 8,
+      "current_minus_before_ms": 16.923456999999985
+    },
+    {
+      "pair": 9,
+      "current_minus_before_ms": -29.79449900000003
+    },
+    {
+      "pair": 10,
+      "current_minus_before_ms": -171.248376
+    },
+    {
+      "pair": 11,
+      "current_minus_before_ms": 19.025041999999985
+    },
+    {
+      "pair": 12,
+      "current_minus_before_ms": -3.622165999999993
+    },
+    {
+      "pair": 13,
+      "current_minus_before_ms": 8.487500000000011
+    },
+    {
+      "pair": 14,
+      "current_minus_before_ms": 7.168457999999987
+    },
+    {
+      "pair": 15,
+      "current_minus_before_ms": -1.1424160000000256
+    },
+    {
+      "pair": 16,
+      "current_minus_before_ms": -0.48212499999999636
+    },
+    {
+      "pair": 17,
+      "current_minus_before_ms": -4.075708999999961
+    },
+    {
+      "pair": 18,
+      "current_minus_before_ms": -6.786207999999988
+    },
+    {
+      "pair": 19,
+      "current_minus_before_ms": -10.525374999999997
+    }
+  ],
+  "paired_median_delta_ms": 2.627915999999999,
+  "difference_of_medians_ms": 6.8274375000000305,
+  "valid": true,
+  "acceptance": "No acceptance judgment; both full-startup failures remain unmet"
+}

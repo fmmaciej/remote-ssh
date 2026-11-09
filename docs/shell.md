@@ -28,6 +28,8 @@ launch instead.
   and VS Code Remote-SSH terminal profiles.
 - [Runtime config](shell/config.md): config file format, precedence, supported
   toggles, and `remote-ssh guide config`.
+- [Optional Flyline](shell/flyline.md): experimental Vim editing, history,
+  supported builds, activation, and recovery.
 - [Welcome panel](shell/welcome.md): login status, update cache, custom welcome
   modules, colors, and debug toggles.
 - [Helpers](shell/helpers.md): loaded helper commands, `cheats`, `log`,

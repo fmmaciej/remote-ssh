@@ -1,0 +1,48 @@
+# Flyline 1.10.0 + Vim PR #974 — experimental macOS arm64
+
+Custom build `1.10.0-pr974.aae68bb4.r4`; this is not an official Flyline release.
+
+Based on upstream `ca910967af35579a2d455a071aa939778d8f6171` (v1.10.0) and
+Vim PR #974 head `aae68bb4acb43d7462bbe4abffedd6e2b10bd889`, with six
+recorded patches. The patches reconcile the PR with 1.10.0, fix uppercase vi
+dispatch/dot-repeat, add undo transactions/counts/vi history, satisfy current
+toolchain lints, restore Bash input safely when unloading the builtin, and
+restore the original command/cursor/undo history when cancelling native fuzzy
+history search after editing its query.
+
+Qualified locally: macOS arm64, Homebrew Bash 5.3.20. Native vi, history with
+Atuin 18.14.1/skim 5.9.0/Starship 1.24.1, Bash default completion with optional
+Carapace 1.8.2, direct PTY/tmux 3.8/Zellij 0.44.2, load/unload and measured
+performance are covered by the accompanying pilot. This is bounded experimental
+Vim support, not a promise of complete Vim compatibility. macOS Bash 3.2 is not
+supported for activation. Linux, weak remote hosts, SSH transport and other
+architectures remain unverified. No system Bash upgrade is performed.
+
+The runtime archive contains exactly `libflyline.dylib`, `LICENSE-MIT` and
+`provenance.json`. SHA-256 of its library:
+`e73823eeeb046eb31b9941e1f951ec6aa346c0a3cf4ec0331fe188e55da77cc4`.
+Archive SHA-256:
+`d535d6b8fef325458f043d76a43d03dba763dc9857c04417d0322a922b234c7a`.
+See `SHA256SUMS` for all attached payload files and `qualification.json` for
+the bounded native results and measurements. Local full-session startup overhead
+is 7–17 ms median, single-key response about 0.38 ms median, and extra idle
+shell RSS about 4.1 MiB. These macOS results do not qualify a weak Linux host.
+
+The attached Git source bundle is authoritative for the patched Flyline source,
+including local port commit `ce6529bc45bd0609cdde576877098e66492fc757` and
+tree `d70b582492f52e526e122c93527cf98a59ac5d1e`. Its parent reconstructs the
+pinned source archive; it is not an original upstream Git parent. The unchanged
+Cargo.lock and every patch digest are in provenance. Use Rust 1.99.1 and locked
+native builds; see BUILDING.md. MIT licensing is retained.
+
+This asset-only tag is hosted in the remote-ssh repository. Its target is an
+existing remote-ssh commit, not the patched Flyline source. GitHub's automatically
+generated source archives therefore contain remote-ssh; use the attached source
+bundle to inspect or rebuild Flyline. The remote-ssh integration is maintained
+separately and is not implied to be committed by publishing these assets.
+
+Flyline remains optional and off by default. Atuin keeps history storage;
+Flyline provides editing/Tab UI and registered Bash completers supply candidates.
+Carapace is a separate provider integration. Runtime installation never builds
+Rust or downloads Actions artifacts. Existing sessions retain loaded code after
+updates; recovery is a new shell with `REMOTE_SSH_ENABLE_FLYLINE=0`.

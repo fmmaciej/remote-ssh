@@ -1,0 +1,32 @@
+{
+  "checked_on": "2026-11-08",
+  "base": {
+    "tag": "v1.10.0",
+    "commit": "ca910967af35579a2d455a071aa939778d8f6171",
+    "url": "https://github.com/HalFrgrd/flyline/releases/tag/v1.10.0",
+    "source_url": "https://codeload.github.com/HalFrgrd/flyline/tar.gz/ca910967af35579a2d455a071aa939778d8f6171"
+  },
+  "pr": {
+    "number": 974,
+    "head": "aae68bb4acb43d7462bbe4abffedd6e2b10bd889",
+    "url": "https://github.com/HalFrgrd/flyline/pull/974",
+    "branch_package_version": "1.7.1"
+  },
+  "patch_input": "Unified patches from the 10 PR files at the recorded head, reconstructed with git diff headers and new-file mode; --numstat matched all 2933 additions and 38 deletions. Only git apply --check was run, per file; no patch applied or code compiled.",
+  "macos": {
+    "base_release_has_archives": [
+      "aarch64-apple-darwin",
+      "x86_64-apple-darwin"
+    ],
+    "patched_build_or_execution_verified": false,
+    "linker_config": ".cargo/config.toml: -undefined dynamic_lookup for both Darwin targets"
+  },
+  "pr_ci": {
+    "run_url": "https://github.com/HalFrgrd/flyline/actions/runs/33311816306",
+    "library_artifact_id": 9732308724,
+    "library_artifact_name": "built-flyline-library",
+    "library_filename": "libflyline.so",
+    "expires_at": "2026-11-28T12:33:48Z",
+    "valid_as_backported_or_macos_build": false
+  }
+}

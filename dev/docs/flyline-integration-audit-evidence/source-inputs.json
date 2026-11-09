@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-09",
+  "repository_head": "34ff644314ab068631ad583949ae24df0cb43d44",
+  "reviewed_sources": {
+    "shell/rc.d/29-flyline.sh": "428982e43abe1c4f52f5bb8ba0adb7f9bc9e0ac68b26211d0641571afe2583f6",
+    "shell/rc.sh": "19daa57cbea99520cf80b11a0130c7ae6b63f8c97c24881dae8a9dee22266dfd",
+    "shell/rc.d/05-bash-preexec.sh": "3f4c8d26ed0776f924918822450e58f16bd0cb02618e2c37108effe4ef0846a2",
+    "shell/rc.d/23-atuin.sh": "a09067a6f8be5c4d1d51fb3a43cb59073ccd281c1e8314a4d82f2e98a59358c2",
+    "tools/lib/commands/uninstall.sh": "b30a856b266295c89b9ac8d8cc50e301cae09d14a5ad688a792fbabb52ca38a0",
+    "tools/lib/common/release.sh": "485c9f16ab88f8807b4de3307ed9e6a56122fbf0709fde654824e870f28d6029",
+    "dev/tests/test_flyline_lifecycle.py": "e0052d4108a57ec485e2c36b4b27a395618092cd91361ee9595d59639d29ceb8",
+    "dev/tests/test_install_library.py": "0ca9a5f1a8e778fac38f99880df060524099f9b671ed61b514e129d20e913746",
+    "dev/flyline/managed.py": "9d9ee83de95059c8316b2af48cab084cae257c59a89b55089b70a67dcbb152fb",
+    "dev/docs/interactive-tools-performance-evidence/benchmark.py": "83375041d00e332712fc6622cd6693445e4d0d8ff509be8b9d52d5b0223876e8",
+    "dev/docs/flyline-integration-audit.md": "2bac45691e26c46ccc3fb4669d59e0d8a0eb25c58dab27f07c341bca6ea084f2"
+  },
+  "fork_head": "d037c075ed30a61080873985ea2621d743ddfc64",
+  "scope": "Local offline audit; documentation/evidence only; no implementation edits, staging, commits or network operations."
+}

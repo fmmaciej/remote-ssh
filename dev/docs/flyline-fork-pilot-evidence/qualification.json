@@ -1,0 +1,2654 @@
+{
+  "identity": "1.10.0-pr974.aae68bb4.r5",
+  "date": "2026-11-09",
+  "source_repository": "https://github.com/fmmaciej/flyline",
+  "source_commit": "d037c075ed30a61080873985ea2621d743ddfc64",
+  "publication": "Deferred by user; no Release or downstream tag created",
+  "support": "local macOS 27.2 arm64 / Homebrew Bash 5.3.20 only",
+  "native": {
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+    "bash_version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+    "library": "/private/tmp/remote-ssh-flyline-build/artifact-r5/libflyline.dylib",
+    "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+    "pilot_sha256": "aa39e381f6f1457715691732499de1d0354e26d8b132e3dd5d53234bc1205140",
+    "managed": true,
+    "results": [
+      {
+        "case": "replace",
+        "expected": "bc",
+        "keys": [
+          "b'\\x1b'",
+          "b'hrbA'"
+        ],
+        "line_before_submit": "BMARK> capture bc",
+        "executed_before_submit": false,
+        "actual": "bc",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 153.363,
+          "shell_peak_rss_mib": 12.15625
+        }
+      },
+      {
+        "case": "delete",
+        "expected": "abc",
+        "keys": [
+          "b'\\x1b'",
+          "b'xA'"
+        ],
+        "line_before_submit": "BMARK> capture abc",
+        "executed_before_submit": false,
+        "actual": "abc",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 156.13299999999998,
+          "shell_peak_rss_mib": 12.21875
+        }
+      },
+      {
+        "case": "delete-word",
+        "expected": "two three",
+        "keys": [
+          "b'\\x1b'",
+          "b'0wdwA'"
+        ],
+        "line_before_submit": "BMARK> capture two three",
+        "executed_before_submit": false,
+        "actual": "two three",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 143.10600000000002,
+          "shell_peak_rss_mib": 12.1875
+        }
+      },
+      {
+        "case": "change-word",
+        "expected": "ONE two",
+        "keys": [
+          "b'\\x1b'",
+          "b'0wcwONE'",
+          "b'\\x1b'",
+          "b'A'"
+        ],
+        "line_before_submit": "BMARK> capture ONE two",
+        "executed_before_submit": false,
+        "actual": "ONE two",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 137.639,
+          "shell_peak_rss_mib": 12.125
+        }
+      },
+      {
+        "case": "yank-paste",
+        "expected": "abab",
+        "keys": [
+          "b'\\x1b'",
+          "b'0wyw$pA'"
+        ],
+        "line_before_submit": "BMARK> capture abab",
+        "executed_before_submit": false,
+        "actual": "abab",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 126.641,
+          "shell_peak_rss_mib": 12.09375
+        }
+      },
+      {
+        "case": "undo-redo",
+        "expected": "bc",
+        "keys": [
+          "b'\\x1b'",
+          "b'hrb'",
+          "b'u'",
+          "b'\\x12'",
+          "b'A'"
+        ],
+        "line_before_submit": "BMARK> capture bc",
+        "executed_before_submit": false,
+        "actual": "bc",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 128.587,
+          "shell_peak_rss_mib": 12.109375
+        }
+      },
+      {
+        "case": "undo",
+        "expected": "ac",
+        "keys": [
+          "b'\\x1b'",
+          "b'hrb'",
+          "b'u'",
+          "b'A'"
+        ],
+        "line_before_submit": "BMARK> capture ac",
+        "executed_before_submit": false,
+        "actual": "ac",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 146.49499999999998,
+          "shell_peak_rss_mib": 12.1875
+        }
+      },
+      {
+        "case": "dot-delete",
+        "expected": "ad",
+        "keys": [
+          "b'\\x1b'",
+          "b'0wlx.A'"
+        ],
+        "line_before_submit": "BMARK> capture ad",
+        "executed_before_submit": false,
+        "actual": "ad",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 134.99699999999999,
+          "shell_peak_rss_mib": 12.125
+        }
+      },
+      {
+        "case": "dot-replace",
+        "expected": "XXcd",
+        "keys": [
+          "b'\\x1b'",
+          "b'0wrXl.A'"
+        ],
+        "line_before_submit": "BMARK> capture XXcd",
+        "executed_before_submit": false,
+        "actual": "XXcd",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 133.75699999999998,
+          "shell_peak_rss_mib": 12.109375
+        }
+      },
+      {
+        "case": "dot-change",
+        "expected": "NEW NEW",
+        "keys": [
+          "b'\\x1b'",
+          "b'0wcwNEW'",
+          "b'\\x1b'",
+          "b'w.A'"
+        ],
+        "line_before_submit": "BMARK> capture NEW NEW",
+        "executed_before_submit": false,
+        "actual": "NEW NEW",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 129.408,
+          "shell_peak_rss_mib": 12.09375
+        }
+      },
+      {
+        "case": "unicode-paste",
+        "expected": "\u017c\u00f3\u0142w",
+        "keys": [],
+        "line_before_submit": "BMARK> capture \u017c\u00f3\u0142w",
+        "executed_before_submit": false,
+        "actual": "\u017c\u00f3\u0142w",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 129.98499999999999,
+          "shell_peak_rss_mib": 12.125
+        }
+      },
+      {
+        "case": "normal-mode-no-text",
+        "expected": "abc",
+        "keys": [
+          "b'\\x1b'",
+          "b'qA'"
+        ],
+        "line_before_submit": "BMARK> capture abc",
+        "executed_before_submit": false,
+        "actual": "abc",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 129.237,
+          "shell_peak_rss_mib": 12.125
+        }
+      },
+      {
+        "case": "count-motion",
+        "expected": "aXcd",
+        "keys": [
+          "b'\\x1b'",
+          "b'2hrXA'"
+        ],
+        "line_before_submit": "BMARK> capture aXcd",
+        "executed_before_submit": false,
+        "actual": "aXcd",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 124.78,
+          "shell_peak_rss_mib": 12.09375
+        }
+      },
+      {
+        "case": "history-k",
+        "expected": "seeded",
+        "keys": [
+          "b'\\x1b'",
+          "b'kA'"
+        ],
+        "line_before_submit": "BMARK> capture seeded",
+        "executed_before_submit": false,
+        "actual": "seeded",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 127.717,
+          "shell_peak_rss_mib": 12.125
+        }
+      },
+      {
+        "case": "history-up",
+        "expected": "seeded",
+        "keys": [
+          "b'\\x1b[A'"
+        ],
+        "line_before_submit": "BMARK> capture seeded",
+        "executed_before_submit": false,
+        "actual": "seeded",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 138.338,
+          "shell_peak_rss_mib": 12.15625
+        }
+      },
+      {
+        "case": "history-slash",
+        "expected": "seeded",
+        "keys": [
+          "b'\\x1b'",
+          "b'/seeded'",
+          "b'\\r'",
+          "b'A'"
+        ],
+        "line_before_submit": "BMARK> capture seeded",
+        "executed_before_submit": false,
+        "actual": "seeded",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 135.851,
+          "shell_peak_rss_mib": 12.140625
+        }
+      },
+      {
+        "case": "unicode-yank-paste",
+        "expected": "\u017c\u00f3\u0142w\u017c\u00f3\u0142w",
+        "keys": [
+          "b'\\x1b'",
+          "b'0wyw$pA'"
+        ],
+        "line_before_submit": "BMARK> capture \u017c\u00f3\u0142w\u017c\u00f3\u0142w",
+        "executed_before_submit": false,
+        "actual": "\u017c\u00f3\u0142w\u017c\u00f3\u0142w",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 125.31399999999998,
+          "shell_peak_rss_mib": 12.140625
+        }
+      },
+      {
+        "case": "undo-change",
+        "expected": "one two",
+        "keys": [
+          "b'\\x1b'",
+          "b'0wcwNEW'",
+          "b'\\x1b'",
+          "b'uA'"
+        ],
+        "line_before_submit": "BMARK> capture one two",
+        "executed_before_submit": false,
+        "actual": "one two",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 130.303,
+          "shell_peak_rss_mib": 12.140625
+        }
+      },
+      {
+        "case": "undo-consecutive",
+        "expected": "abcd",
+        "keys": [
+          "b'\\x1b'",
+          "b'0wrXlrYuuA'"
+        ],
+        "line_before_submit": "BMARK> capture abcd",
+        "executed_before_submit": false,
+        "actual": "abcd",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 131.73499999999999,
+          "shell_peak_rss_mib": 12.125
+        }
+      },
+      {
+        "case": "undo-after-motion",
+        "expected": "ac",
+        "keys": [
+          "b'\\x1b'",
+          "b'hrbhluA'"
+        ],
+        "line_before_submit": "BMARK> capture ac",
+        "executed_before_submit": false,
+        "actual": "ac",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 131.32,
+          "shell_peak_rss_mib": 12.109375
+        }
+      },
+      {
+        "case": "dot-undo",
+        "expected": "acd",
+        "keys": [
+          "b'\\x1b'",
+          "b'0wlx.uA'"
+        ],
+        "line_before_submit": "BMARK> capture acd",
+        "executed_before_submit": false,
+        "actual": "acd",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 125.83299999999997,
+          "shell_peak_rss_mib": 12.09375
+        }
+      },
+      {
+        "case": "count-motion-right",
+        "expected": "abXd",
+        "keys": [
+          "b'\\x1b'",
+          "b'0w2lrXA'"
+        ],
+        "line_before_submit": "BMARK> capture abXd",
+        "executed_before_submit": false,
+        "actual": "abXd",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 133.58599999999998,
+          "shell_peak_rss_mib": 12.09375
+        }
+      },
+      {
+        "case": "count-ten",
+        "expected": "aXcdefghijkl",
+        "keys": [
+          "b'\\x1b'",
+          "b'10hrXA'"
+        ],
+        "line_before_submit": "BMARK> capture aXcdefghijkl",
+        "executed_before_submit": false,
+        "actual": "aXcdefghijkl",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 129.808,
+          "shell_peak_rss_mib": 12.078125
+        }
+      },
+      {
+        "case": "count-delete-words",
+        "expected": "three",
+        "keys": [
+          "b'\\x1b'",
+          "b'0w2dwA'"
+        ],
+        "line_before_submit": "BMARK> capture three",
+        "executed_before_submit": false,
+        "actual": "three",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 138.099,
+          "shell_peak_rss_mib": 12.09375
+        }
+      },
+      {
+        "case": "history-k-draft",
+        "expected": "seeded",
+        "keys": [
+          "b'\\x1b'",
+          "b'kA'"
+        ],
+        "line_before_submit": "BMARK> capture seeded",
+        "executed_before_submit": false,
+        "actual": "seeded",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 128.299,
+          "shell_peak_rss_mib": 12.078125
+        }
+      },
+      {
+        "case": "history-kj-draft",
+        "expected": "draft",
+        "keys": [
+          "b'\\x1b'",
+          "b'kjA'"
+        ],
+        "line_before_submit": "BMARK> capture draft",
+        "executed_before_submit": false,
+        "actual": "draft",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 133.19799999999998,
+          "shell_peak_rss_mib": 12.140625
+        }
+      },
+      {
+        "case": "history-count",
+        "expected": "older",
+        "keys": [
+          "b'\\x1b'",
+          "b'2kA'"
+        ],
+        "line_before_submit": "BMARK> capture older",
+        "executed_before_submit": false,
+        "actual": "older",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 125.737,
+          "shell_peak_rss_mib": 12.125
+        }
+      },
+      {
+        "case": "history-search-cancel",
+        "expected": "draft",
+        "keys": [
+          "b'\\x1b'",
+          "b'/seeded'",
+          "b'\\x07'",
+          "b'A'"
+        ],
+        "line_before_submit": "BMARK> capture draft",
+        "executed_before_submit": false,
+        "actual": "draft",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 128.17499999999998,
+          "shell_peak_rss_mib": 12.046875
+        }
+      },
+      {
+        "case": "history-search-miss",
+        "expected": "draft",
+        "keys": [
+          "b'\\x1b'",
+          "b'/not-in-fixture'",
+          "b'\\r'",
+          "b'A'"
+        ],
+        "line_before_submit": "BMARK> capture draft",
+        "executed_before_submit": false,
+        "actual": "draft",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 143.14,
+          "shell_peak_rss_mib": 12.140625
+        }
+      },
+      {
+        "case": "history-search-edit-query",
+        "expected": "seeded",
+        "keys": [
+          "b'\\x1b'",
+          "b'/seedX'",
+          "b'\\x7fed'",
+          "b'\\r'",
+          "b'A'"
+        ],
+        "line_before_submit": "BMARK> capture seeded",
+        "executed_before_submit": false,
+        "actual": "seeded",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 165.76,
+          "shell_peak_rss_mib": 12.078125
+        }
+      },
+      {
+        "case": "history-search-anchor",
+        "expected": "seeded",
+        "keys": [
+          "b'\\x1b'",
+          "b'/^capture seed'",
+          "b'\\r'",
+          "b'A'"
+        ],
+        "line_before_submit": "BMARK> capture seeded",
+        "executed_before_submit": false,
+        "actual": "seeded",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 150.59699999999998,
+          "shell_peak_rss_mib": 12.09375
+        }
+      },
+      {
+        "case": "history-search-preserves-undo",
+        "expected": "ac",
+        "keys": [
+          "b'\\x1b'",
+          "b'hrb/seeded'",
+          "b'\\x07'",
+          "b'uA'"
+        ],
+        "line_before_submit": "BMARK> capture ac",
+        "executed_before_submit": false,
+        "actual": "ac",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 152.32000000000002,
+          "shell_peak_rss_mib": 12.15625
+        }
+      }
+    ]
+  },
+  "lifecycle": {
+    "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+    "script_sha256": "729693d8b81c6d2a15bc9f1c6e09f053deb7253848da17e4bddfae2533880ec4",
+    "results": [
+      {
+        "case": "probe-load",
+        "exit": 0,
+        "stdout": "AFTER_PROBE",
+        "stderr": "bash: cannot set terminal process group (93583): Inappropriate ioctl for device\nbash: no job control in this shell\n",
+        "passed": true
+      },
+      {
+        "case": "probe-unload",
+        "exit": 0,
+        "stdout": "AFTER_PROBE",
+        "stderr": "bash: cannot set terminal process group (93583): Inappropriate ioctl for device\nbash: no job control in this shell\n",
+        "passed": true
+      },
+      {
+        "case": "startup-rollback",
+        "actual": "bc",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 14.058,
+          "shell_peak_rss_mib": 10.109375
+        }
+      },
+      {
+        "case": "later-unload",
+        "actual": "bc",
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 31.237999999999996,
+          "shell_peak_rss_mib": 11.296875
+        }
+      }
+    ]
+  },
+  "history": {
+    "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+    "script_sha256": "ad1b2c984ab76882b12b955fff6eec158f609117b9b41b15455d40d458ec030a",
+    "results": [
+      {
+        "backend": "native",
+        "initial_state": "bash:/tmp/flyline-native-history-paiv3nm9/bash-history",
+        "selection_did_not_execute": true,
+        "editable_selection": {
+          "actual": "selected_edited",
+          "expected": "selected_edited",
+          "early_execution": false,
+          "passed": true
+        },
+        "cancel": {
+          "actual": "draft",
+          "expected": "draft",
+          "early_execution": false,
+          "passed": true
+        },
+        "cancel_edited_query": {
+          "actual": "draft",
+          "expected": "draft",
+          "early_execution": false,
+          "passed": true
+        },
+        "up": {
+          "actual": "navigation",
+          "expected": "navigation",
+          "early_execution": false,
+          "passed": true
+        },
+        "k": {
+          "actual": "navigation",
+          "expected": "navigation",
+          "early_execution": false,
+          "passed": true
+        },
+        "reload_keeps_backend": true,
+        "bash_history_persisted": true,
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 839.6539999999999,
+          "shell_peak_rss_mib": 12.96875
+        }
+      },
+      {
+        "backend": "skim",
+        "initial_state": "bash:/tmp/flyline-skim-history-_r2yi5iu/bash-history",
+        "selection_did_not_execute": true,
+        "editable_selection": {
+          "actual": "selected_edited",
+          "expected": "selected_edited",
+          "early_execution": false,
+          "passed": true
+        },
+        "cancel": {
+          "actual": "draft",
+          "expected": "draft",
+          "early_execution": false,
+          "passed": true
+        },
+        "cancel_edited_query": {
+          "actual": "draft",
+          "expected": "draft",
+          "early_execution": false,
+          "passed": true
+        },
+        "up": {
+          "actual": "navigation",
+          "expected": "navigation",
+          "early_execution": false,
+          "passed": true
+        },
+        "k": {
+          "actual": "navigation",
+          "expected": "navigation",
+          "early_execution": false,
+          "passed": true
+        },
+        "reload_keeps_backend": true,
+        "bash_history_persisted": true,
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 914.544,
+          "shell_peak_rss_mib": 13.078125
+        }
+      },
+      {
+        "backend": "atuin",
+        "initial_state": "atuin:",
+        "selection_did_not_execute": true,
+        "editable_selection": {
+          "actual": "selected_edited",
+          "expected": "selected_edited",
+          "early_execution": false,
+          "passed": true
+        },
+        "cancel": {
+          "actual": "draft",
+          "expected": "draft",
+          "early_execution": false,
+          "passed": true
+        },
+        "cancel_edited_query": {
+          "actual": "draft",
+          "expected": "draft",
+          "early_execution": false,
+          "passed": true
+        },
+        "up": {
+          "actual": "navigation",
+          "expected": "navigation",
+          "early_execution": false,
+          "passed": true
+        },
+        "k": {
+          "actual": "navigation",
+          "expected": "navigation",
+          "early_execution": false,
+          "passed": true
+        },
+        "reload_keeps_backend": true,
+        "history_records": [
+          [
+            "printf '\\036STATE:%s:%s\\037\\n' \"$REMOTE_SSH_HISTORY_BACKEND\" \"$HISTFILE\"",
+            0,
+            17497000
+          ],
+          [
+            "false",
+            1,
+            19160000
+          ],
+          [
+            "sleep 0.05",
+            0,
+            72756000
+          ],
+          [
+            "capture selected",
+            0,
+            16960000
+          ],
+          [
+            "capture selected_edited",
+            0,
+            21066000
+          ],
+          [
+            "capture draft",
+            0,
+            20327000
+          ],
+          [
+            "capture draft",
+            0,
+            19455000
+          ],
+          [
+            "capture navigation",
+            0,
+            17831000
+          ],
+          [
+            "capture navigation",
+            0,
+            18136000
+          ],
+          [
+            "capture navigation",
+            0,
+            16884000
+          ],
+          [
+            "capture navigation",
+            0,
+            18838000
+          ],
+          [
+            "source /tmp/flyline-atuin-history-78s_1v80/checkout/shell/rc.sh; printf '\\036RELOADED:%s\\037\\n' \"$REMOTE_SSH_HISTORY_BACKEND\"",
+            0,
+            140267000
+          ],
+          [
+            "exit",
+            -1,
+            -1
+          ]
+        ],
+        "false_status": true,
+        "duration": true,
+        "no_duplicate_selected": true,
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 1105.3029999999999,
+          "shell_peak_rss_mib": 18.0
+        }
+      }
+    ]
+  },
+  "completion": {
+    "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+    "script_sha256": "a0aea0280e55e575daa2430b7c1dfca03a8a45b18fad40512ee8755baef918d9",
+    "adapter_sha256": "9224ba53bf8c3aee18e21ce7d59acca0159cfa4019c60e6c2d1e7f68ee23a96f",
+    "carapace_version": "carapace-bin 1.8.2",
+    "results": [
+      {
+        "case": "readline-carapace-0",
+        "provider_called_during_startup_or_typing": false,
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 12.618,
+          "shell_peak_rss_mib": 7.34375
+        }
+      },
+      {
+        "case": "readline-carapace-1",
+        "provider_called_during_startup_or_typing": false,
+        "queries": [
+          {
+            "case": "rg-version",
+            "ms": 124.202,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--version"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "rg-color",
+            "ms": 29.9,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "always",
+              "ansi",
+              "auto"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "rg-type",
+            "ms": 37.843,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "py",
+              "python"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "rg-file",
+            "ms": 27.592,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "fixture_unique.txt"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "rg-space",
+            "ms": 29.034,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "\"fixture space/match.txt\""
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "fd-color-option",
+            "ms": 25.099,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--color"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "fd-color-value",
+            "ms": 23.456,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "always",
+              "auto"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "git-subcommand",
+            "ms": 144.579,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "switch"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "git-switch-option",
+            "ms": 35.44,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--detach"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "git-branches",
+            "ms": 50.431,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "bench-alpha",
+              "bench-beta"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "git-modified-file",
+            "ms": 75.479,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "fixture_unique.txt"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        ],
+        "controls": {
+          "tabs": [
+            {
+              "input": "rg --ver\t",
+              "passed": true,
+              "observed": "BMARK> rg --version",
+              "ms": 29.61683296598494
+            },
+            {
+              "input": "fd --max-dep\t",
+              "passed": true,
+              "observed": "BMARK> fd --max-depth",
+              "ms": 30.215667095035315
+            },
+            {
+              "input": "git switch bench-a\t",
+              "passed": true,
+              "observed": "BMARK> git switch bench-alpha",
+              "ms": 51.64304201025516
+            },
+            {
+              "input": "rg --file fixture_uni\t",
+              "passed": true,
+              "observed": "BMARK> rg --file fixture_unique.txt",
+              "ms": 26.577709009870887
+            },
+            {
+              "input": "rg --file fixture\\ space/ma\t",
+              "passed": true,
+              "observed": "BMARK> rg --file \"fixture space/match.txt\"",
+              "ms": 25.89325001463294
+            }
+          ],
+          "vi_actual": "bc",
+          "vi_passed": true
+        },
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 615.1949999999999,
+          "shell_peak_rss_mib": 34.34375
+        }
+      },
+      {
+        "case": "flyline-carapace-0",
+        "provider_called_during_startup_or_typing": false,
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 63.29199999999999,
+          "shell_peak_rss_mib": 11.359375
+        }
+      },
+      {
+        "case": "flyline-carapace-1",
+        "provider_called_during_startup_or_typing": false,
+        "queries": [
+          {
+            "case": "rg-version",
+            "ms": 30.069,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--version"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "rg-color",
+            "ms": 26.64,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "always",
+              "ansi",
+              "auto"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "rg-type",
+            "ms": 32.168,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "py",
+              "python"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "rg-file",
+            "ms": 28.918,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "fixture_unique.txt"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "rg-space",
+            "ms": 27.447,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "\"fixture space/match.txt\""
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "fd-color-option",
+            "ms": 27.027,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--color"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "fd-color-value",
+            "ms": 26.211,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "always",
+              "auto"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "git-subcommand",
+            "ms": 64.698,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "switch"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "git-switch-option",
+            "ms": 35.482,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "--detach"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "git-branches",
+            "ms": 49.883,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "bench-alpha",
+              "bench-beta"
+            ],
+            "missing": [],
+            "passed": true
+          },
+          {
+            "case": "git-modified-file",
+            "ms": 62.882,
+            "callback_exit": 0,
+            "file_fallback": false,
+            "candidates": [
+              "fixture_unique.txt"
+            ],
+            "missing": [],
+            "passed": true
+          }
+        ],
+        "controls": {
+          "tabs": [
+            {
+              "input": "rg --ver\t",
+              "passed": true,
+              "observed": "BMARK> rg --version",
+              "ms": 58.34579200018197
+            },
+            {
+              "input": "fd --max-dep\t",
+              "passed": true,
+              "observed": "BMARK> fd --max-depth",
+              "ms": 60.191792086698115
+            },
+            {
+              "input": "git switch bench-a\t",
+              "passed": true,
+              "observed": "BMARK> git switch bench-alpha",
+              "ms": 61.35241698939353
+            },
+            {
+              "input": "rg --file fixture_uni\t",
+              "passed": true,
+              "observed": "BMARK> rg --file fixture_unique.txt",
+              "ms": 58.78670793026686
+            },
+            {
+              "input": "rg --file fixture\\ space/ma\t",
+              "passed": true,
+              "observed": "BMARK> rg --file \"fixture space/match.txt\"",
+              "ms": 60.43295795097947
+            }
+          ],
+          "vi_actual": "bc",
+          "vi_passed": true
+        },
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 707.595,
+          "shell_peak_rss_mib": 34.46875
+        }
+      }
+    ]
+  },
+  "terminal": {
+    "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+    "script_sha256": "0f3efbcad9c4b9fc3d324cc009b20ae6d8b439a5fcc8bc2eea9e8a0160b77da1",
+    "results": [
+      {
+        "context": "direct",
+        "command": [
+          "/opt/homebrew/bin/bash",
+          "--noprofile",
+          "--rcfile",
+          "/private/tmp/fl-term-23w8hsmg/rc.sh",
+          "-i"
+        ],
+        "vi": {
+          "actual": "bc",
+          "expected": "bc",
+          "early_execution": false,
+          "passed": true
+        },
+        "paste": {
+          "actual": "\u017c\u00f3\u0142w",
+          "expected": "\u017c\u00f3\u0142w",
+          "early_execution": false,
+          "passed": true
+        },
+        "multiline": {
+          "actual": "line1\nline2",
+          "expected": "line1\nline2",
+          "early_execution": false,
+          "passed": true
+        },
+        "ctrl_c": {
+          "actual": "recovered",
+          "expected": "recovered",
+          "early_execution": false,
+          "passed": true
+        },
+        "resize": {
+          "actual": "resized",
+          "expected": "resized",
+          "early_execution": false,
+          "passed": true
+        },
+        "terminal_flags_restored": true,
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 217.76399999999998,
+          "shell_peak_rss_mib": 11.4375
+        }
+      },
+      {
+        "context": "tmux",
+        "command": [
+          "/opt/homebrew/bin/tmux",
+          "-S",
+          "/private/tmp/fl-term-b4y59aos/socket",
+          "-f",
+          "/private/tmp/fl-term-b4y59aos/tmux.conf",
+          "new-session",
+          "-s",
+          "pilot",
+          "-x",
+          "120",
+          "-y",
+          "30",
+          "/opt/homebrew/bin/bash",
+          "--noprofile",
+          "--rcfile",
+          "/private/tmp/fl-term-b4y59aos/rc.sh",
+          "-i"
+        ],
+        "escape_time": "0",
+        "vi": {
+          "actual": "bc",
+          "expected": "bc",
+          "early_execution": false,
+          "passed": true
+        },
+        "paste": {
+          "actual": "\u017c\u00f3\u0142w",
+          "expected": "\u017c\u00f3\u0142w",
+          "early_execution": false,
+          "passed": true
+        },
+        "multiline": {
+          "actual": "line1\nline2",
+          "expected": "line1\nline2",
+          "early_execution": false,
+          "passed": true
+        },
+        "ctrl_c": {
+          "actual": "recovered",
+          "expected": "recovered",
+          "early_execution": false,
+          "passed": true
+        },
+        "resize": {
+          "actual": "resized",
+          "expected": "resized",
+          "early_execution": false,
+          "passed": true
+        },
+        "terminal_flags_restored": true,
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 13.204999999999998,
+          "shell_peak_rss_mib": 4.875
+        }
+      },
+      {
+        "context": "zellij",
+        "command": [
+          "/Users/fm/.local/bin/zellij",
+          "--config",
+          "/private/tmp/fl-term-dslcdl8o/config.kdl",
+          "--data-dir",
+          "/private/tmp/fl-term-dslcdl8o/data",
+          "--session",
+          "fl-term-dslcdl8o",
+          "--new-session-with-layout",
+          "/private/tmp/fl-term-dslcdl8o/layout.kdl"
+        ],
+        "vi": {
+          "actual": "bc",
+          "expected": "bc",
+          "early_execution": false,
+          "passed": true
+        },
+        "paste": {
+          "actual": "\u017c\u00f3\u0142w",
+          "expected": "\u017c\u00f3\u0142w",
+          "early_execution": false,
+          "passed": true
+        },
+        "multiline": {
+          "actual": "line1\nline2",
+          "expected": "line1\nline2",
+          "early_execution": false,
+          "passed": true
+        },
+        "ctrl_c": {
+          "actual": "recovered",
+          "expected": "recovered",
+          "early_execution": false,
+          "passed": true
+        },
+        "resize": {
+          "actual": "resized",
+          "expected": "resized",
+          "early_execution": false,
+          "passed": true
+        },
+        "terminal_flags_restored": true,
+        "passed": true,
+        "resources": {
+          "shell_cpu_ms": 76.127,
+          "shell_peak_rss_mib": 19.875
+        }
+      }
+    ]
+  },
+  "performance": {
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "official_sha256": "ff05ed23a0fd39b18dad31fbc458d60ec7ee0ba6d5228b3158fb39d01fc79de3",
+    "patched_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+    "script_sha256": "5d5faaa4c5259cc9676f49199acecf0f41bacf081646e4e9391ade5fa3d6e630",
+    "summaries": {
+      "readline/fresh": {
+        "startup_ms": {
+          "n": 30,
+          "median": 21.53508353512734,
+          "p95": 23.473292007111013
+        },
+        "file_tab_ms": {
+          "n": 30,
+          "median": 4.3221249943599105,
+          "p95": 6.364959059283137
+        },
+        "vi_insert_key_ms": {
+          "n": 30,
+          "median": 0.40181248914450407,
+          "p95": 1.1920420220121741
+        },
+        "idle_rss_mib": {
+          "n": 30,
+          "median": 7.1640625,
+          "p95": 7.265625
+        },
+        "idle_cpu_percent": {
+          "n": 30,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "bracketed_paste_ms": {
+          "n": 2,
+          "median": 11.992062034551054,
+          "p95": 13.67095799650997
+        },
+        "single_key_ms": {
+          "n": 90,
+          "median": 0.10689598275348544,
+          "p95": 0.21066609770059586
+        }
+      },
+      "readline/warm": {
+        "startup_ms": {
+          "n": 30,
+          "median": 22.0872710342519,
+          "p95": 23.831500089727342
+        },
+        "file_tab_ms": {
+          "n": 30,
+          "median": 3.4298329846933484,
+          "p95": 8.595000021159649
+        },
+        "vi_insert_key_ms": {
+          "n": 30,
+          "median": 0.3407704643905163,
+          "p95": 1.0077920742332935
+        },
+        "idle_rss_mib": {
+          "n": 30,
+          "median": 7.1875,
+          "p95": 7.3125
+        },
+        "idle_cpu_percent": {
+          "n": 30,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "bracketed_paste_ms": {
+          "n": 2,
+          "median": 13.973979454021901,
+          "p95": 16.69679197948426
+        },
+        "single_key_ms": {
+          "n": 90,
+          "median": 0.10652100900188088,
+          "p95": 0.21816696971654892
+        }
+      },
+      "official/fresh": {
+        "startup_ms": {
+          "n": 30,
+          "median": 32.74206246715039,
+          "p95": 41.94037499837577
+        },
+        "file_tab_ms": {
+          "n": 30,
+          "median": 5.290437489748001,
+          "p95": 6.387875066138804
+        },
+        "idle_rss_mib": {
+          "n": 30,
+          "median": 11.140625,
+          "p95": 12.203125
+        },
+        "idle_cpu_percent": {
+          "n": 30,
+          "median": 0.0,
+          "p95": 0.9997856709733405
+        },
+        "bracketed_paste_ms": {
+          "n": 2,
+          "median": 2.3528749588876963,
+          "p95": 2.50175001565367
+        },
+        "single_key_ms": {
+          "n": 90,
+          "median": 0.35779201425611973,
+          "p95": 0.42237492743879557
+        }
+      },
+      "official/warm": {
+        "startup_ms": {
+          "n": 30,
+          "median": 33.70418748818338,
+          "p95": 40.21795792505145
+        },
+        "file_tab_ms": {
+          "n": 30,
+          "median": 6.910979573149234,
+          "p95": 9.45174996741116
+        },
+        "idle_rss_mib": {
+          "n": 30,
+          "median": 11.1328125,
+          "p95": 12.265625
+        },
+        "idle_cpu_percent": {
+          "n": 30,
+          "median": 0.9980385912573284,
+          "p95": 0.9997388181653388
+        },
+        "bracketed_paste_ms": {
+          "n": 2,
+          "median": 3.647728997748345,
+          "p95": 3.9385000709444284
+        },
+        "single_key_ms": {
+          "n": 90,
+          "median": 0.4468749975785613,
+          "p95": 0.6206250982359052
+        }
+      },
+      "patched/fresh": {
+        "startup_ms": {
+          "n": 30,
+          "median": 31.563125492539257,
+          "p95": 48.300832975655794
+        },
+        "file_tab_ms": {
+          "n": 30,
+          "median": 5.352395528461784,
+          "p95": 6.8687909515574574
+        },
+        "vi_insert_key_ms": {
+          "n": 30,
+          "median": 1.0661875130608678,
+          "p95": 2.364874933846295
+        },
+        "idle_rss_mib": {
+          "n": 30,
+          "median": 11.2890625,
+          "p95": 12.453125
+        },
+        "idle_cpu_percent": {
+          "n": 30,
+          "median": 0.9976897889472529,
+          "p95": 0.999711624177906
+        },
+        "bracketed_paste_ms": {
+          "n": 2,
+          "median": 6.365124951116741,
+          "p95": 7.203207933343947
+        },
+        "single_key_ms": {
+          "n": 90,
+          "median": 0.36356248892843723,
+          "p95": 0.44249999336898327
+        }
+      },
+      "patched/warm": {
+        "startup_ms": {
+          "n": 30,
+          "median": 34.07468745717779,
+          "p95": 37.648540921509266
+        },
+        "file_tab_ms": {
+          "n": 30,
+          "median": 6.803708558436483,
+          "p95": 8.88633297290653
+        },
+        "vi_insert_key_ms": {
+          "n": 30,
+          "median": 1.1496460647322237,
+          "p95": 3.2342090271413326
+        },
+        "idle_rss_mib": {
+          "n": 30,
+          "median": 11.296875,
+          "p95": 12.421875
+        },
+        "idle_cpu_percent": {
+          "n": 30,
+          "median": 0.998659403896545,
+          "p95": 0.9996519122694651
+        },
+        "bracketed_paste_ms": {
+          "n": 2,
+          "median": 6.257271044887602,
+          "p95": 7.397750043310225
+        },
+        "single_key_ms": {
+          "n": 90,
+          "median": 0.44283352326601744,
+          "p95": 0.5706670926883817
+        }
+      }
+    },
+    "budgets": {
+      "startup_median_over_readline_ms": 30,
+      "startup_p95_over_readline_ms": 60,
+      "single_key_median_ms": 2,
+      "single_key_p95_ms": 8,
+      "extra_idle_rss_mib": 12,
+      "file_tab_median_ms": 50,
+      "file_tab_p95_ms": 150,
+      "bracketed_paste_p95_ms": 500,
+      "idle_cpu_percent_of_one_core": 1
+    },
+    "checks": {
+      "fresh": {
+        "startup_median": true,
+        "startup_p95": true,
+        "key_median": true,
+        "key_p95": true,
+        "vi_insert_key_p95": true,
+        "rss": true,
+        "file_tab_median": true,
+        "file_tab_p95": true,
+        "paste": true,
+        "idle_cpu": true
+      },
+      "warm": {
+        "startup_median": true,
+        "startup_p95": true,
+        "key_median": true,
+        "key_p95": true,
+        "vi_insert_key_p95": true,
+        "rss": true,
+        "file_tab_median": true,
+        "file_tab_p95": true,
+        "paste": true,
+        "idle_cpu": true
+      }
+    },
+    "passed": true
+  },
+  "startup": {
+    "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+    "iterations": 20,
+    "warmup": 2,
+    "budgets": {
+      "median_over_disabled_ms": 30,
+      "p95_over_disabled_ms": 60
+    },
+    "checks": {
+      "bash": true,
+      "bash-warm-home": true,
+      "atuin": true,
+      "atuin-warm-home": true
+    },
+    "results": {
+      "remote-ssh-flyline-off-bash": {
+        "samples": [
+          {
+            "ready_ms": 177.825125,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 198.246375,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 189.66725,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 181.205875,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 179.063166,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 205.091583,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 211.931959,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 192.556042,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 183.332375,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 174.164333,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 171.361791,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 177.838625,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 191.775916,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 178.133375,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 174.374792,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 173.841417,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 175.8175,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 183.260792,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 187.387,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 174.028667,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          }
+        ],
+        "stats": {
+          "median": 180.1345205,
+          "p95": 205.091583,
+          "min": 171.361791,
+          "max": 211.931959
+        },
+        "passed": true
+      },
+      "remote-ssh-flyline-off-bash-warm-home": {
+        "samples": [
+          {
+            "ready_ms": 125.491708,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 137.165667,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 136.623125,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 126.559792,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 133.94925,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 126.665916,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 126.119708,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 127.672791,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 134.071958,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 145.537875,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 127.020209,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 127.912625,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 126.289958,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 125.055041,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 126.030042,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 126.367417,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 135.968125,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 138.23825,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 127.898125,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 131.615917,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          }
+        ],
+        "stats": {
+          "median": 127.785458,
+          "p95": 138.23825,
+          "min": 125.055041,
+          "max": 145.537875
+        },
+        "passed": true
+      },
+      "remote-ssh-flyline-off-atuin": {
+        "samples": [
+          {
+            "ready_ms": 224.306,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 206.74725,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 203.1535,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 201.894167,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 198.476125,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 223.908458,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 209.3655,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 205.314417,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 200.700292,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 210.551042,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 225.011625,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 203.957459,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 200.355625,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 200.151333,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 207.294958,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 224.348583,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 202.756917,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 200.832708,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 204.532875,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 226.243834,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          }
+        ],
+        "stats": {
+          "median": 204.923646,
+          "p95": 225.011625,
+          "min": 198.476125,
+          "max": 226.243834
+        },
+        "passed": true
+      },
+      "remote-ssh-flyline-off-atuin-warm-home": {
+        "samples": [
+          {
+            "ready_ms": 157.65325,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 159.566583,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 168.146334,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 165.65225,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 153.075083,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 155.703167,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 156.881625,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 154.129917,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 170.420583,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 168.400875,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 155.092958,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 159.156125,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 154.593584,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 155.624875,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 158.654875,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 183.415583,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 154.440042,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 154.478542,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 155.84625,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 153.248666,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          }
+        ],
+        "stats": {
+          "median": 156.36393750000002,
+          "p95": 170.420583,
+          "min": 153.075083,
+          "max": 183.415583
+        },
+        "passed": true
+      },
+      "remote-ssh-flyline-on-bash": {
+        "samples": [
+          {
+            "ready_ms": 189.363167,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 187.75975,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 187.40925,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 187.26,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 218.0785,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 188.649333,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 186.345542,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 186.011833,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 187.924833,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 210.865875,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 188.8105,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 182.789625,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 187.503875,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 186.965,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 201.503375,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 195.235833,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 195.077959,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 186.716917,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 189.092333,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 200.36875,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          }
+        ],
+        "stats": {
+          "median": 188.287083,
+          "p95": 210.865875,
+          "min": 182.789625,
+          "max": 218.0785
+        },
+        "passed": true
+      },
+      "remote-ssh-flyline-on-bash-warm-home": {
+        "samples": [
+          {
+            "ready_ms": 140.693458,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 140.358417,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 141.34325,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 159.676,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 140.88475,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 140.022625,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 139.442542,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 140.584125,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 139.85725,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 140.866375,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 161.517542,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 139.604,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 138.738792,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 139.080584,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 137.949042,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 140.693208,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 140.709209,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 164.012334,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 141.848791,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 139.514166,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          }
+        ],
+        "stats": {
+          "median": 140.6386665,
+          "p95": 161.517542,
+          "min": 137.949042,
+          "max": 164.012334
+        },
+        "passed": true
+      },
+      "remote-ssh-flyline-on-atuin": {
+        "samples": [
+          {
+            "ready_ms": 229.210042,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 216.686083,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 218.798541,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 214.439916,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 217.358542,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 235.488,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 215.521167,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 213.77975,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 214.036458,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 227.996792,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 223.209208,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 215.107709,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 213.23925,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 215.856667,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 233.91825,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 213.207417,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 212.1915,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 221.445708,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 225.776,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 225.475208,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          }
+        ],
+        "stats": {
+          "median": 217.0223125,
+          "p95": 233.91825,
+          "min": 212.1915,
+          "max": 235.488
+        },
+        "passed": true
+      },
+      "remote-ssh-flyline-on-atuin-warm-home": {
+        "samples": [
+          {
+            "ready_ms": 178.848458,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 191.159667,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 169.628583,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 173.388667,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 167.822125,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 168.040125,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 180.790791,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 172.294875,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 170.939792,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 167.850792,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 170.747959,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 167.722208,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 187.485709,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 171.250916,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 167.782792,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 167.13725,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 167.036542,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 167.466083,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 190.411958,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          },
+          {
+            "ready_ms": 170.717625,
+            "returncode": 0,
+            "timed_out": false,
+            "output_tail": ""
+          }
+        ],
+        "stats": {
+          "median": 170.73279200000002,
+          "p95": 190.411958,
+          "min": 167.036542,
+          "max": 191.159667
+        },
+        "passed": true
+      }
+    },
+    "passed": true
+  },
+  "repository_validation": {
+    "smoke_passed": 1467,
+    "smoke_skipped": 30,
+    "candidate_tests_passed": 9,
+    "upstream_lib_passed": 1087,
+    "upstream_ignored": 1
+  }
+}

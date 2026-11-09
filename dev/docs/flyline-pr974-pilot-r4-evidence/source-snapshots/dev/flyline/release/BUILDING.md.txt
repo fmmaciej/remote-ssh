@@ -1,0 +1,32 @@
+# Rebuild the patched source
+
+Developer machines only. Runtime hosts must use the prebuilt archive.
+
+Verify `SHA256SUMS`, then clone the attached self-contained Git bundle into
+an unused directory:
+
+```bash
+git clone flyline-1.10.0-pr974.aae68bb4.r4-source.bundle /tmp/flyline-source
+git -C /tmp/flyline-source rev-parse HEAD
+cp provenance.json /tmp/flyline-source/remote-ssh-provenance.json
+```
+
+The expected HEAD is `ce6529bc45bd0609cdde576877098e66492fc757` and tree is
+`d70b582492f52e526e122c93527cf98a59ac5d1e`. Use native macOS arm64 and Rust
+1.99.1 with its matching Cargo, a C linker and SDK. From the reviewed remote-ssh
+checkout, run the documented `dev/flyline/candidate.py build` command with
+`--source /tmp/flyline-source --target aarch64-apple-darwin` and an unused output
+directory. Supply the real Cargo binary from that toolchain. Locked dependency
+fetching is a developer operation; add `--offline` once cached. Do not update
+Cargo.lock. The isolated toolchain's rust-objcopy must find its libLLVM library;
+resolve toolchain packaging errors before accepting a build.
+
+Alternatively reconstruct the source with `candidate.py prepare`, the pinned
+upstream archive and recorded patch series in the reviewed checkout. This
+reconstructs the same local commit/tree before building. Preserve MIT notices.
+
+Source and archive packaging are pinned, but different paths, toolchain caches,
+SDKs or linkers may produce different native library bytes. A rebuilt hash does
+not inherit the distributed binary's native qualification. Run the explicit
+local lifecycle, vi/control, managed history, completion, terminal, startup and
+performance probes again and record that hash before distributing it.

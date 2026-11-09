@@ -1,0 +1,77 @@
+{
+  "rounds": 3,
+  "loops_per_run": 100,
+  "source_sha256": {
+    "before": "428982e43abe1c4f52f5bb8ba0adb7f9bc9e0ac68b26211d0641571afe2583f6",
+    "current": "77085365d4ee8e64c4274afcdc48a3b3f63878f4da70098dcd136b08ceff536f"
+  },
+  "results": [
+    {
+      "round": 0,
+      "variant": "before",
+      "ms_per_guard": 2.31,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 193.06300000000002,
+        "shell_peak_rss_mib": 7.53125
+      }
+    },
+    {
+      "round": 0,
+      "variant": "current",
+      "ms_per_guard": 6.3,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 554.543,
+        "shell_peak_rss_mib": 7.671875
+      }
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "ms_per_guard": 6.14,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 547.268,
+        "shell_peak_rss_mib": 7.65625
+      }
+    },
+    {
+      "round": 1,
+      "variant": "before",
+      "ms_per_guard": 2.32,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 192.498,
+        "shell_peak_rss_mib": 7.46875
+      }
+    },
+    {
+      "round": 2,
+      "variant": "before",
+      "ms_per_guard": 2.33,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 192.582,
+        "shell_peak_rss_mib": 7.4375
+      }
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "ms_per_guard": 6.17,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 554.326,
+        "shell_peak_rss_mib": 7.609375
+      }
+    }
+  ],
+  "medians_ms": {
+    "before": 2.32,
+    "current": 6.17
+  },
+  "increment_ms": 3.85,
+  "passed": true,
+  "scope": "Guard-only diagnostic, not startup acceptance or native compatibility"
+}

@@ -1,0 +1,1066 @@
+{
+  "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+  "iterations": 20,
+  "warmup": 2,
+  "budgets": {
+    "median_over_disabled_ms": 30,
+    "p95_over_disabled_ms": 60
+  },
+  "checks": {
+    "bash": true,
+    "bash-warm-home": true,
+    "atuin": true,
+    "atuin-warm-home": true
+  },
+  "results": {
+    "remote-ssh-flyline-off-bash": {
+      "samples": [
+        {
+          "ready_ms": 229.440375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 242.711125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 233.347667,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 236.223458,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 236.983416,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 232.529584,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 233.741333,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 235.106583,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 236.289209,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 276.430625,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 241.5835,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 247.52225,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 241.752541,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 246.545292,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 240.182291,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 233.831625,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 229.90625,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 267.384,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 228.609834,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 226.716875,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        }
+      ],
+      "stats": {
+        "median": 236.25633349999998,
+        "p95": 267.384,
+        "min": 226.716875,
+        "max": 276.430625
+      },
+      "passed": true
+    },
+    "remote-ssh-flyline-off-bash-warm-home": {
+      "samples": [
+        {
+          "ready_ms": 174.530125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 184.59475,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 172.82225,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 167.883166,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 171.631917,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 197.779791,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 174.239083,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 187.36375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 176.871459,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 175.2645,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 174.934708,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 172.855375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 175.511542,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 180.374042,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 171.936917,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 206.960833,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 172.576875,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 175.134625,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 178.398042,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 171.897541,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        }
+      ],
+      "stats": {
+        "median": 175.03466650000001,
+        "p95": 197.779791,
+        "min": 167.883166,
+        "max": 206.960833
+      },
+      "passed": true
+    },
+    "remote-ssh-flyline-off-atuin": {
+      "samples": [
+        {
+          "ready_ms": 276.065875,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 257.252459,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 274.845416,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 266.070708,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 294.795583,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 273.81125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 262.925667,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 275.254958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 264.437167,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 260.211125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 256.668958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 264.322,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 266.711292,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 262.625917,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 453.097792,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 271.531958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 269.181125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 388.18025,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 320.646209,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 268.42775,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        }
+      ],
+      "stats": {
+        "median": 268.8044375,
+        "p95": 388.18025,
+        "min": 256.668958,
+        "max": 453.097792
+      },
+      "passed": true
+    },
+    "remote-ssh-flyline-off-atuin-warm-home": {
+      "samples": [
+        {
+          "ready_ms": 205.591875,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 199.216917,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 193.369458,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 201.89225,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 198.0805,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 204.270792,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 190.502959,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 193.57275,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 199.36925,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 198.125958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 204.9045,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 193.926625,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 196.100375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 202.41425,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 204.726542,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 289.349959,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 195.770125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 199.692625,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 205.610333,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 204.882375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        }
+      ],
+      "stats": {
+        "median": 199.5309375,
+        "p95": 205.610333,
+        "min": 190.502959,
+        "max": 289.349959
+      },
+      "passed": true
+    },
+    "remote-ssh-flyline-on-bash": {
+      "samples": [
+        {
+          "ready_ms": 252.703084,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 256.780709,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 248.490792,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 240.06975,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 253.438,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 245.63575,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 245.462583,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 239.455333,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 249.162084,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 253.5525,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 250.11875,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 255.111291,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 254.898125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 245.639541,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 243.54325,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 242.7685,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 252.300458,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 253.921208,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 242.153958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 240.033375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        }
+      ],
+      "stats": {
+        "median": 248.826438,
+        "p95": 255.111291,
+        "min": 239.455333,
+        "max": 256.780709
+      },
+      "passed": true
+    },
+    "remote-ssh-flyline-on-bash-warm-home": {
+      "samples": [
+        {
+          "ready_ms": 180.723291,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 177.048333,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 188.9895,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 188.029125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 191.995542,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 183.730958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 182.883292,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 183.72975,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 191.383417,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 194.132083,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 181.656667,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 178.603792,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 181.205125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 191.081333,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 183.146542,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 190.27775,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 204.897417,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 180.134917,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 191.75425,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 181.628667,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        }
+      ],
+      "stats": {
+        "median": 183.73035399999998,
+        "p95": 194.132083,
+        "min": 177.048333,
+        "max": 204.897417
+      },
+      "passed": true
+    },
+    "remote-ssh-flyline-on-atuin": {
+      "samples": [
+        {
+          "ready_ms": 286.647958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 287.485959,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 283.512958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 281.862834,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 288.581375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 295.464667,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 282.543958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 285.970959,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 289.408458,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 274.55575,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 276.597125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 299.891542,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 289.799,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 277.6215,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 289.952417,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 294.807958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 289.320958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 280.639958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 282.343041,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 285.888166,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        }
+      ],
+      "stats": {
+        "median": 286.3094585,
+        "p95": 295.464667,
+        "min": 274.55575,
+        "max": 299.891542
+      },
+      "passed": true
+    },
+    "remote-ssh-flyline-on-atuin-warm-home": {
+      "samples": [
+        {
+          "ready_ms": 231.164625,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 214.77375,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 216.336917,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 224.756583,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 223.524542,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 217.004709,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 214.388,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 225.285333,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 223.974875,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 226.731917,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 217.390542,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 220.081875,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 228.301708,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 222.718792,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 246.032583,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 271.614334,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 250.381958,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 235.255791,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 232.574125,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        },
+        {
+          "ready_ms": 231.887542,
+          "returncode": 0,
+          "timed_out": false,
+          "output_tail": ""
+        }
+      ],
+      "stats": {
+        "median": 225.020958,
+        "p95": 250.381958,
+        "min": 214.388,
+        "max": 271.614334
+      },
+      "passed": true
+    }
+  },
+  "passed": true
+}

@@ -1,0 +1,21 @@
+{
+  "cycle": "flyline-repair-20261109-r1",
+  "repair_round": 1,
+  "date": "2026-11-09",
+  "planned_full_acceptance_runs": 1,
+  "source": "shell/rc.d/29-flyline.sh",
+  "source_sha256": "74ee8407729bb3a4cc125eaf0b512200d86104de2759bd28688d5d6ecee2c305",
+  "settings_probe_sha256": "1e0706946ea2dbbf9347823cf0abb01d8b09ec2a25a29626e79203cf541f34da",
+  "settings_and_bindings": "All four profiles byte-identical to audited round-0 effective state, mandatory settings asserted; both native combined-call failures recover Readline bc",
+  "matrix": {
+    "scenarios": 8,
+    "measured_rounds": 20,
+    "warmups": 2,
+    "median_overhead_limit_ms": 30,
+    "p95_overhead_limit_ms": 60
+  },
+  "prior_failures": "Both round-0 full runs retained, not invalidated",
+  "output": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/startup",
+  "no_concurrent_tests": true,
+  "no_unchanged_confirmation_or_threshold_change": true
+}

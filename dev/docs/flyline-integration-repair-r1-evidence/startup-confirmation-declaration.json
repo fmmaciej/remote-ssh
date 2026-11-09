@@ -1,0 +1,20 @@
+{
+  "task_id": "flyline-repair-20261109-r1",
+  "date": "2026-11-09",
+  "planned_additional_full_runs": 1,
+  "reason": "Valid initial failure with whole-run drift and cold-Atuin within-run variability; paired guard diagnostic shows added median cost 3.85ms, without isolating the observed 47.692ms total overhead cause.",
+  "first_run_sha256": "545a202b7700b3a4ba5981360b1be4bcbc16dad745b81304b8ffd96a3c5a5355",
+  "guard_diagnostic_sha256": "041f76d00a1b0c18606948bca25dfd099c7ed2288ce25729dbaf5514f574d93d",
+  "runtime_sha256": "77085365d4ee8e64c4274afcdc48a3b3f63878f4da70098dcd136b08ceff536f",
+  "output": "dev/docs/flyline-integration-repair-r1-evidence/startup-confirmation-1",
+  "unchanged": {
+    "scenarios": 8,
+    "measured_rounds": 20,
+    "warmups": 2,
+    "median_overhead_limit_ms": 30,
+    "p95_overhead_limit_ms": 60,
+    "harness": "dev/flyline/startup.py",
+    "sampling_order": "existing sequential order"
+  },
+  "interpretation": "Diagnostic confirmation only; preserve all samples and both outcomes. A passing result establishes non-reproduction, not invalidation of the initial valid failure. Independent auditor receives both before acceptance. No repeat-until-pass, pooling, sample removal or threshold changes."
+}

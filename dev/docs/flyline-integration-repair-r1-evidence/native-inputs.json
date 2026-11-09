@@ -1,0 +1,33 @@
+{
+  "library": {
+    "source": "dev/flyline/dist/1.10.0-pr974.aae68bb4.r5/libflyline.dylib",
+    "sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57"
+  },
+  "skim": {
+    "url": "https://github.com/skim-rs/skim/releases/download/v5.9.0/skim-aarch64-apple-darwin.tar.xz",
+    "archive_sha256": "9fe50c046ca23def3fb6b6d01cf60cc2c4aa24752936f5745899c61c324b6b26",
+    "binary_sha256": "f1bc68808fe5cc41fe24cf0668fa493ae5a2da1547b5646c5f83a33d26ba93bf",
+    "member": "skim-aarch64-apple-darwin/sk",
+    "version": "sk 5.9.0",
+    "path": "/private/tmp/flyline-repair-20261109-r1-inputs/sk",
+    "scope": "Explicit local test input only, no managed/global user install"
+  },
+  "bash": {
+    "path": "/opt/homebrew/bin/bash",
+    "resolved": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+    "sha256": "5c59a6000502aa3af7fa1b87921a8e53e88d7407d9e73da744a202b7af88dd96",
+    "version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)"
+  },
+  "atuin": {
+    "path": "/Users/fm/.local/opt/atuin-18.14.1/atuin",
+    "resolved": "/Users/fm/.local/opt/atuin-18.14.1/atuin",
+    "sha256": "536ba791bb03c390c2ffe5d1232ae80d94b54f93ac8498ac96245761224acdf9",
+    "version": "atuin 18.14.1 (1e93b3129bc540ae8d2b996ba6aa64b93a732d99)"
+  },
+  "starship": {
+    "path": "/Users/fm/.local/bin/starship",
+    "resolved": "/Users/fm/.local/opt/starship-1.24.1/starship",
+    "sha256": "ff6129ecab094d2d1d7aa69a04bece8adb3cbf7243284ebddb8784248230619c",
+    "version": "starship 1.24.1"
+  }
+}

@@ -4,6 +4,11 @@ Back: [Shell Runtime](../shell.md)
 
 The remote-ssh shell loads a few small helpers:
 
+Optional [Flyline](flyline.md) changes the editor and Tab UI, while these
+helpers remain shell commands/functions. It adds no executable wrapper.
+`rcrc` preserves the selected editor/history backend; start a new disabled
+shell with `REMOTE_SSH_ENABLE_FLYLINE=0 remote-ssh shell` to return to Readline.
+
 - `remote-ssh`: main entrypoint for setup, install, uninstall, check, ssh, git,
   update, doctor, prune, and scripts.
 - `remote-ssh guide`: show loaded aliases, functions, paths, tools, and Git/SSH

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "dev/tests/test_history_backend.py",
+    "dev/tests/test_atuin_lifecycle.py",
+    "dev/tests/test_rc_flow.py"
+  ],
+  "exit": 0,
+  "elapsed_seconds": 31.68243637494743,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

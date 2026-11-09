@@ -1,0 +1,19 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "dev/flyline/ownership.py",
+    "--repo",
+    ".",
+    "--bash",
+    "/opt/homebrew/bin/bash",
+    "--library",
+    "dev/flyline/dist/1.10.0-pr974.aae68bb4.r5/libflyline.dylib",
+    "--atuin",
+    "/Users/fm/.local/opt/atuin-18.14.1/atuin",
+    "--output",
+    "dev/docs/flyline-integration-repair-r1-evidence/native-ownership"
+  ],
+  "exit": 1,
+  "elapsed_seconds": 29.439853290910833,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

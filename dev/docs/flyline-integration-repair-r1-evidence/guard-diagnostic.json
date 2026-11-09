@@ -1,0 +1,19 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "dev/docs/flyline-integration-repair-r1-evidence/guard-diagnostic.py",
+    "--repo",
+    ".",
+    "--bash",
+    "/opt/homebrew/bin/bash",
+    "--output",
+    "dev/docs/flyline-integration-repair-r1-evidence/guard-diagnostic",
+    "--rounds",
+    "3",
+    "--loops",
+    "100"
+  ],
+  "exit": 0,
+  "elapsed_seconds": 2.78938091697637,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

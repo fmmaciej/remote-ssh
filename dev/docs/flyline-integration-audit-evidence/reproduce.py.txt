@@ -1,0 +1,165 @@
+"""Offline, isolated macOS audit probes; does not edit implementation or Git state.
+
+Run with Python 3.11+, --repo CHECKOUT and --output DIRECTORY. Uses the existing
+R5 archive/library, Homebrew Bash and locally installed Atuin; no downloads.
+The .txt suffix keeps this frozen audit reproduction outside normal dev checks.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import platform
+import shlex
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--repo", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    repo, output = args.repo.resolve(), args.output.resolve()
+    output.mkdir(parents=True, exist_ok=True)
+    sys.path.insert(0, str(repo / "dev/flyline"))
+    sys.path.insert(0, str(repo / "dev/docs/interactive-tools-performance-evidence"))
+    from managed import install
+    from benchmark import Session, environment
+
+    bash = Path("/opt/homebrew/bin/bash")
+    atuin = Path("/Users/fm/.local/opt/atuin-18.14.1/atuin")
+    library = repo / "dev/flyline/dist/1.10.0-pr974.aae68bb4.r5/libflyline.dylib"
+    results = {
+        "platform": platform.platform(),
+        "bash": subprocess.check_output([str(bash), "--version"], text=True).splitlines()[0],
+        "library_sha256": hashlib.sha256(library.read_bytes()).hexdigest(),
+        "cases": [],
+    }
+    q = shlex.quote
+    with tempfile.TemporaryDirectory(prefix="flyline-integration-audit-", dir="/private/tmp") as tmp:
+        root = Path(tmp)
+        for name in ("late-external-atuin", "disabled-external-builtin", "rollback-attributes"):
+            home = root / name
+            for sub in ("bin", "config", "data", "state", "cache"):
+                (home / sub).mkdir(parents=True)
+            (home / "bin/bash").symlink_to(bash)
+            env = environment(home, home / "bin")
+            checkout = install(repo, bash, library, home, env)
+            setup = "set -o vi\n"
+            if name == "late-external-atuin":
+                (home / "bin/atuin").symlink_to(atuin)
+                hook = checkout / "shell/rc.d/os.d/darwin.sh"
+                hook.parent.mkdir(parents=True, exist_ok=True)
+                hook.write_text(
+                    '. "$REMOTE_ENV_DIR/tools/vendors/bash-preexec.sh"\n'
+                    'eval "$(command atuin init bash --disable-up-arrow --disable-ai)"\n'
+                    "printf 'AUDIT_HOOK_ATUIN=%s\\n' \"${__atuin_initialized:-unset}\"\n"
+                )
+            elif name == "disabled-external-builtin":
+                setup += (
+                    f"builtin enable -f {q(env['INSTALL_PREFIX'] + '/.active/flyline')} flyline\n"
+                    "builtin flyline key --vim-mode false\n"
+                    "builtin enable -n flyline\n"
+                    "printf 'AUDIT_BEFORE_TYPE=%s\\n' \"$(builtin type -t flyline)\"\n"
+                    "builtin enable -a | /usr/bin/grep flyline\n"
+                )
+            else:
+                setup += (
+                    f". {q(str(checkout / 'shell/rc.d/29-flyline.sh'))}\n"
+                    "remote_flyline_settings() { return 1; }\n"
+                    "FLYLINE_LOAD_DIR=/external/unexported\n"
+                    "export -n FLYLINE_LOAD_DIR\n"
+                    "export FLYLINE_VERSION=external-exported\n"
+                    "printf 'AUDIT_BEFORE_ATTRIBUTES\\n'\n"
+                    "declare -p FLYLINE_LOAD_DIR FLYLINE_VERSION\n"
+                )
+            setup += (
+                f". {q(str(checkout / 'shell/rc.sh'))}\n"
+                "printf 'AUDIT_AFTER_STATE=%s:%s\\n' \"$REMOTE_SSH_FLYLINE_STATE\" \"$REMOTE_SSH_FLYLINE_REASON\"\n"
+                "printf 'AUDIT_AFTER_HISTORY=%s:%s\\n' \"$REMOTE_SSH_HISTORY_BACKEND\" \"${__atuin_initialized:-unset}\"\n"
+                "printf 'AUDIT_AFTER_TYPE=%s\\n' \"$(builtin type -t flyline)\"\n"
+                "printf 'AUDIT_AFTER_ATTRIBUTES\\n'\n"
+                "declare -p FLYLINE_LOAD_DIR FLYLINE_VERSION\n"
+                "printf '\\036AUDIT_DONE\\037\\n'\n"
+            )
+            rc = home / "audit.rc.sh"
+            rc.write_text(setup)
+            (output / f"{name}.rc.txt").write_text(setup)
+            session = Session([str(bash), "--noprofile", "--rcfile", str(rc), "-i"], env, home)
+            case = {"name": name}
+            try:
+                session.expect(b"\x1eAUDIT_DONE\x1f", raw=True)
+                case["completed"] = True
+            except (RuntimeError, OSError) as exc:
+                case.update(completed=False, error=str(exc))
+            finally:
+                case["resources"] = session.close()
+                (output / f"{name}.pty.txt").write_bytes(session.transcript)
+                (output / f"{name}.install.log").write_bytes((home / "install.log").read_bytes())
+            text = bytes(session.transcript).decode(errors="replace")
+            if name == "late-external-atuin":
+                case["reproduced"] = all(s in text for s in (
+                    "AUDIT_HOOK_ATUIN=true", "AUDIT_AFTER_STATE=active:managed", "AUDIT_AFTER_HISTORY=bash:true"
+                ))
+            elif name == "disabled-external-builtin":
+                case["reproduced"] = all(s in text for s in (
+                    "enable -n flyline", "AUDIT_AFTER_STATE=active:managed", "AUDIT_AFTER_TYPE=builtin"
+                ))
+            else:
+                case["reproduced"] = all(s in text for s in (
+                    'declare -- FLYLINE_LOAD_DIR="/external/unexported"',
+                    'declare -x FLYLINE_VERSION="external-exported"',
+                    'declare -x FLYLINE_LOAD_DIR="/external/unexported"',
+                    'declare -- FLYLINE_VERSION="external-exported"',
+                    "AUDIT_AFTER_STATE=failed:settings",
+                ))
+            results["cases"].append(case)
+
+        # Compare the current uninstall facade with HEAD's facade, using the same
+        # current shared helpers. This isolates the newly added global guard.
+        baseline = subprocess.check_output(
+            ["git", "show", "HEAD:tools/lib/commands/uninstall.sh"], cwd=repo
+        )
+        for variant in ("current", "head-facade-control"):
+            home = root / f"uninstall-{variant}"
+            home.mkdir()
+            checkout = home / "checkout"
+            for part in ("lib", "tools", "shell", "bin", "dots"):
+                shutil.copytree(repo / part, checkout / part)
+            if variant != "current":
+                (checkout / "tools/lib/commands/uninstall.sh").write_bytes(baseline)
+            prefix, bindir = home / "prefix", home / "bin"
+            release = prefix / "bat-0.26.1"
+            release.mkdir(parents=True)
+            bindir.mkdir()
+            executable = release / "bat"
+            executable.write_text("#!/bin/sh\nexit 0\n")
+            executable.chmod(0o755)
+            (release / ".remote-ssh-release").write_text(
+                "format=1\ntool=bat\nversion=0.26.1\nlayout=binary\nexecutable=bat\n"
+            )
+            (bindir / "bat").symlink_to(executable)
+            (prefix / ".active").write_text("unmanaged, unrelated file\n")
+            env = environment(home, bindir) | {"INSTALL_PREFIX": str(prefix), "INSTALL_BIN_DIR": str(bindir)}
+            run = subprocess.run(
+                [str(bash), str(checkout / "bin/remote-ssh"), "uninstall", "--yes", "bat"],
+                env=env, capture_output=True, text=True, timeout=20,
+            )
+            (output / f"uninstall-{variant}.log").write_text(run.stdout + run.stderr)
+            results["cases"].append({
+                "name": f"uninstall-{variant}", "exit": run.returncode,
+                "binary_link_present": (bindir / "bat").is_symlink(),
+                "release_present": release.exists(),
+                "unmanaged_active_file_preserved": (prefix / ".active").read_text() == "unmanaged, unrelated file\n",
+            })
+    (output / "results.json").write_text(json.dumps(results, indent=2) + "\n")
+    print(json.dumps(results, indent=2))
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,48 @@
+{
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+  "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+  "cases": [
+    {
+      "name": "late-external-atuin",
+      "completed": true,
+      "resources": {
+        "shell_cpu_ms": 181.96699999999998,
+        "shell_peak_rss_mib": 11.96875
+      },
+      "reproduced": true
+    },
+    {
+      "name": "disabled-external-builtin",
+      "completed": true,
+      "resources": {
+        "shell_cpu_ms": 152.78799999999998,
+        "shell_peak_rss_mib": 10.890625
+      },
+      "reproduced": true
+    },
+    {
+      "name": "rollback-attributes",
+      "completed": true,
+      "resources": {
+        "shell_cpu_ms": 158.669,
+        "shell_peak_rss_mib": 9.703125
+      },
+      "reproduced": true
+    },
+    {
+      "name": "uninstall-current",
+      "exit": 1,
+      "binary_link_present": true,
+      "release_present": true,
+      "unmanaged_active_file_preserved": true
+    },
+    {
+      "name": "uninstall-head-facade-control",
+      "exit": 0,
+      "binary_link_present": false,
+      "release_present": false,
+      "unmanaged_active_file_preserved": true
+    }
+  ]
+}

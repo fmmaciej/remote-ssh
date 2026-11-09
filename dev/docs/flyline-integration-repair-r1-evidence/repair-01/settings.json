@@ -1,0 +1,23 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "dev/flyline/settings.py",
+    "--repo",
+    ".",
+    "--bash",
+    "/opt/homebrew/bin/bash",
+    "--library",
+    "dev/flyline/dist/1.10.0-pr974.aae68bb4.r5/libflyline.dylib",
+    "--atuin",
+    "/Users/fm/.local/opt/atuin-18.14.1/atuin",
+    "--skim",
+    "/private/tmp/flyline-repair-20261109-r1-inputs/sk",
+    "--before",
+    "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/round-0-subject/files/shell/rc.d/29-flyline.sh.snapshot",
+    "--output",
+    "dev/docs/flyline-integration-repair-r1-evidence/repair-01/settings"
+  ],
+  "exit": 0,
+  "elapsed_seconds": 6.806097458000295,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

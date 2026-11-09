@@ -1,0 +1,218 @@
+"""Prepare and build the pinned Flyline candidate on a developer machine only.
+
+No downloads, installation, startup-file changes, or release publication.
+Cargo may fetch locked dependencies unless --offline is supplied to build.
+"""
+
+from __future__ import annotations
+
+import argparse
+import gzip
+import hashlib
+import json
+import os
+import shutil
+import subprocess
+import tarfile
+import tempfile
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+BASE = "ca910967af35579a2d455a071aa939778d8f6171"
+ARCHIVE_SHA256 = "7994f94058328ef31edc89d888b8fbc156fe6c5e693cb40feafd8786fab13ef0"
+PR = "aae68bb4acb43d7462bbe4abffedd6e2b10bd889"
+IDENTITY = "1.10.0-pr974.aae68bb4.r4"
+RUST_VERSION = "1.99.1"
+SOURCE_DATE_EPOCH = "1794132000"
+
+
+def digest(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def run(command: list[str], source: Path, **kwargs) -> str:
+    return subprocess.check_output(command, cwd=source, text=True, **kwargs).strip()
+
+
+def write_json(path: Path, value: object) -> None:
+    path.write_text(json.dumps(value, indent=2) + "\n")
+
+
+def prepare(archive: Path, output: Path) -> None:
+    """Verify the exact source, apply recorded patches, and commit a local tree."""
+    if output.exists():
+        raise ValueError(f"Refusing to overwrite {output}")
+    if digest(archive) != ARCHIVE_SHA256:
+        raise ValueError("Base source archive checksum mismatch")
+    pins = json.loads((ROOT / "inputs.json").read_text())
+    if pins["base"] != BASE or pins["pr_head"] != PR:
+        raise ValueError("Input record differs from the pinned source identities")
+    patches = []
+    for entry in pins["patches"]:
+        path = ROOT / "patches" / entry["file"]
+        if digest(path) != entry["sha256"]:
+            raise ValueError(f"Patch checksum mismatch: {path.name}")
+        patches.append(path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="flyline-prepare-", dir=output.parent) as directory:
+        work = Path(directory)
+        prefix = f"flyline-{BASE}"
+        with tarfile.open(archive, "r:gz") as source_tar:
+            if any(Path(member.name).parts[0] != prefix for member in source_tar.getmembers()):
+                raise ValueError("Unexpected source archive root")
+            source_tar.extractall(work, filter="data")
+        source = work / prefix
+        lock_digest = digest(source / "Cargo.lock")
+        git = ["git", "-c", "core.hooksPath=/dev/null", "-c", "commit.gpgsign=false"]
+        run(git + ["init", "-q"], source)
+        commit_env = {
+            **os.environ,
+            "GIT_AUTHOR_NAME": "remote-ssh candidate builder",
+            "GIT_AUTHOR_EMAIL": "build@remote-ssh.invalid",
+            "GIT_COMMITTER_NAME": "remote-ssh candidate builder",
+            "GIT_COMMITTER_EMAIL": "build@remote-ssh.invalid",
+            "GIT_AUTHOR_DATE": f"@{SOURCE_DATE_EPOCH} +0000",
+            "GIT_COMMITTER_DATE": f"@{SOURCE_DATE_EPOCH} +0000",
+        }
+        run(git + ["add", "--all"], source)
+        run(git + ["commit", "-qm", f"Source archive of upstream {BASE}"], source, env=commit_env)
+        reconstructed_base = run(git + ["rev-parse", "HEAD"], source)
+        for patch in patches:
+            run(git + ["apply", "--check", str(patch)], source)
+            run(git + ["apply", str(patch)], source)
+        if digest(source / "Cargo.lock") != lock_digest:
+            raise ValueError("Patch series unexpectedly changes Cargo.lock")
+        run(git + ["add", "--all"], source)
+        run(git + ["commit", "-qm", IDENTITY], source, env=commit_env)
+        provenance = {
+            "identity": IDENTITY,
+            "upstream_base": BASE,
+            "pr_head": PR,
+            "source_archive_sha256": ARCHIVE_SHA256,
+            "reconstructed_base_commit": reconstructed_base,
+            "port_commit": run(git + ["rev-parse", "HEAD"], source),
+            "source_tree": run(git + ["rev-parse", "HEAD^{tree}"], source),
+            "cargo_lock_sha256": lock_digest,
+            "patches": pins["patches"],
+            "qualification": "Developer candidate; native acceptance required before distribution",
+        }
+        # This generated record is deliberately outside the committed source tree.
+        write_json(source / "remote-ssh-provenance.json", provenance)
+        source.rename(output)
+    print(f"Prepared {output}")
+
+
+def build(source: Path, cargo: Path, target: str, output: Path, offline: bool) -> None:
+    if output.exists():
+        raise ValueError(f"Refusing to overwrite {output}")
+    cargo = cargo.resolve()
+    rustc = cargo.with_name("rustc")
+    rust_version = run([str(rustc), "--version"], source)
+    if not rust_version.startswith(f"rustc {RUST_VERSION} "):
+        raise ValueError(f"Use pinned Rust {RUST_VERSION}; found {rust_version}")
+    host = run([str(rustc), "-vV"], source).split("host: ")[1].splitlines()[0]
+    if host != target:
+        raise ValueError("This pilot requires a native target, not a cross-compiled artifact")
+    provenance = json.loads((source / "remote-ssh-provenance.json").read_text())
+    if run(["git", "rev-parse", "HEAD"], source) != provenance["port_commit"]:
+        raise ValueError("Source commit differs from prepared candidate")
+    if run(["git", "diff", "HEAD", "--"], source):
+        raise ValueError("Tracked source differs from prepared candidate")
+    if digest(source / "Cargo.lock") != provenance["cargo_lock_sha256"]:
+        raise ValueError("Lockfile differs from prepared candidate")
+    env = {
+        **os.environ,
+        "PATH": f"{cargo.parent}{os.pathsep}{os.environ.get('PATH', '')}",
+        "SOURCE_DATE_EPOCH": SOURCE_DATE_EPOCH,
+    }
+    # Reject ambient compiler overrides: the recorded source supplies target flags.
+    for key in (
+        "RUSTFLAGS",
+        "CARGO_ENCODED_RUSTFLAGS",
+        "RUSTC",
+        "RUSTC_WRAPPER",
+        "RUSTC_WORKSPACE_WRAPPER",
+        "CARGO_TARGET_DIR",
+    ):
+        if env.get(key):
+            raise ValueError(f"Unset {key} before the reproducible candidate build")
+    command = [str(cargo), "build", "--release", "--locked", "--target", target]
+    if offline:
+        command.append("--offline")
+    # A target directory moved between prepared trees can retain build.rs output
+    # for another Git HEAD. Rebuild this package's metadata and library even when
+    # Cargo considers the file contents unchanged. Locked dependencies stay cached.
+    clean_commands = [
+        [str(cargo), "clean", "--package", "flyline"],
+        [str(cargo), "clean", "--package", "flyline", "--target", target],
+    ]
+    for clean_command in clean_commands:
+        subprocess.run(clean_command, cwd=source, env=env, check=True)
+    # Cargo versions differ in which target/profile outputs a package-only clean
+    # removes. Refresh the build script mtime too, without changing source bytes.
+    (source / "build.rs").touch()
+    subprocess.run(command, cwd=source, env=env, check=True)
+    library = "libflyline.dylib" if target.endswith("apple-darwin") else "libflyline.so"
+    target_dir = source / "target"
+    output.mkdir(parents=True)
+    shutil.copy2(target_dir / target / "release" / library, output / library)
+    shutil.copy2(source / "LICENSE-MIT", output / "LICENSE-MIT")
+    provenance.update(
+        rustc=rust_version,
+        cargo=run([str(cargo), "--version"], source),
+        target=target,
+        build_command=command,
+        clean_commands=clean_commands,
+        source_date_epoch=SOURCE_DATE_EPOCH,
+        library_member=library,
+        library_sha256=digest(output / library),
+    )
+    write_json(output / "provenance.json", provenance)
+    archive = output / f"flyline-{IDENTITY}-{target}.tar.gz"
+    with (
+        archive.open("wb") as raw,
+        gzip.GzipFile(
+            filename="", mode="wb", fileobj=raw, mtime=int(SOURCE_DATE_EPOCH)
+        ) as compressed,
+        tarfile.open(fileobj=compressed, mode="w") as bundle,
+    ):
+        for member in (library, "LICENSE-MIT", "provenance.json"):
+            path = output / member
+            info = tarfile.TarInfo(member)
+            info.size = path.stat().st_size
+            info.mtime = int(SOURCE_DATE_EPOCH)
+            info.mode = 0o755 if member == library else 0o644
+            with path.open("rb") as content:
+                bundle.addfile(info, content)
+    (output / "SHA256SUMS").write_text(f"{digest(archive)}  {archive.name}\n")
+    print(f"Built developer candidate in {output}; not installed or published")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    commands = parser.add_subparsers(dest="command", required=True)
+    prep = commands.add_parser("prepare")
+    prep.add_argument("--archive", type=Path, required=True)
+    prep.add_argument("--output", type=Path, required=True)
+    compile_cmd = commands.add_parser("build")
+    compile_cmd.add_argument("--source", type=Path, required=True)
+    compile_cmd.add_argument("--cargo", type=Path, required=True)
+    compile_cmd.add_argument(
+        "--target", choices=("aarch64-apple-darwin", "x86_64-unknown-linux-gnu"), required=True
+    )
+    compile_cmd.add_argument("--output", type=Path, required=True)
+    compile_cmd.add_argument("--offline", action="store_true")
+    args = parser.parse_args()
+    try:
+        if args.command == "prepare":
+            prepare(args.archive.resolve(), args.output.resolve())
+        else:
+            build(
+                args.source.resolve(), args.cargo, args.target, args.output.resolve(), args.offline
+            )
+    except (ValueError, subprocess.CalledProcessError) as exc:
+        parser.exit(1, f"{exc}\n")
+
+
+if __name__ == "__main__":
+    main()

@@ -32,11 +32,17 @@ REMOTE_SSH_WELCOME_USER
 REMOTE_SSH_UPDATE_CHECK
 REMOTE_SSH_UPDATE_CHECK_INTERVAL
 REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY
+REMOTE_SSH_ENABLE_FLYLINE
 NO_COLOR
 ```
 
 `NO_COLOR` is a standard environment convention and may affect tools outside
 remote-ssh.
+
+`REMOTE_SSH_ENABLE_FLYLINE` defaults to `0`; see [Flyline](flyline.md) for its
+experimental release status and qualified Bash/platform combination. Editor
+selection is once per process, so changing the value and running `rcrc` does
+not switch an existing editor. Start a new shell with the desired setting.
 
 To inspect effective values and whether they came from the environment, config
 file, or defaults, run:

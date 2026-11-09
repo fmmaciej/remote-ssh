@@ -1,0 +1,225 @@
+
+"\C-g": abort
+"\C-j": accept-line
+"\C-m": accept-line
+# alias-expand-line (not bound)
+# arrow-key-prefix (not bound)
+# backward-byte (not bound)
+"\C-h": backward-char
+"\eOD": backward-char
+"\e[D": backward-char
+"h": backward-char
+# backward-delete-char (not bound)
+# backward-kill-line (not bound)
+# backward-kill-word (not bound)
+"\e[1;3D": backward-word
+"\e[1;5D": backward-word
+"*": bash-vi-complete
+"=": bash-vi-complete
+"\\": bash-vi-complete
+# beginning-of-history (not bound)
+"\eOH": beginning-of-line
+"\e[H": beginning-of-line
+"0": beginning-of-line
+# bracketed-paste-begin (not bound)
+# call-last-kbd-macro (not bound)
+# capitalize-word (not bound)
+# character-search (not bound)
+# character-search-backward (not bound)
+# clear-display (not bound)
+"\C-l": clear-screen
+# complete (not bound)
+# complete-command (not bound)
+# complete-filename (not bound)
+# complete-hostname (not bound)
+# complete-into-braces (not bound)
+# complete-username (not bound)
+# complete-variable (not bound)
+# copy-backward-word (not bound)
+# copy-forward-word (not bound)
+# copy-region-as-kill (not bound)
+# dabbrev-expand (not bound)
+# delete-char (not bound)
+# delete-char-or-list (not bound)
+# delete-horizontal-space (not bound)
+# digit-argument (not bound)
+# display-shell-version (not bound)
+# do-lowercase-version (not bound)
+# downcase-word (not bound)
+# dump-functions (not bound)
+# dump-macros (not bound)
+# dump-variables (not bound)
+# dynamic-complete-history (not bound)
+# edit-and-execute-command (not bound)
+# emacs-editing-mode (not bound)
+# end-kbd-macro (not bound)
+# end-of-history (not bound)
+"\eOF": end-of-line
+"\e[F": end-of-line
+"$": end-of-line
+# exchange-point-and-mark (not bound)
+# execute-named-command (not bound)
+# export-completions (not bound)
+# fetch-history (not bound)
+# forward-backward-delete-char (not bound)
+# forward-byte (not bound)
+"\eOC": forward-char
+"\e[C": forward-char
+" ": forward-char
+"l": forward-char
+"\C-s": forward-search-history
+"\e[1;3C": forward-word
+"\e[1;5C": forward-word
+# glob-complete-word (not bound)
+# glob-expand-word (not bound)
+# glob-list-expansions (not bound)
+# history-and-alias-expand-line (not bound)
+# history-expand-line (not bound)
+# history-search-backward (not bound)
+# history-search-forward (not bound)
+# history-substring-search-backward (not bound)
+# history-substring-search-forward (not bound)
+"#": insert-comment
+# insert-completions (not bound)
+# insert-last-argument (not bound)
+"\C-k": kill-line
+# kill-region (not bound)
+# kill-whole-line (not bound)
+"\e[3;5~": kill-word
+# magic-space (not bound)
+# menu-complete (not bound)
+# menu-complete-backward (not bound)
+"\C-n": next-history
+"\eOB": next-history
+"\e[B": next-history
+"+": next-history
+"j": next-history
+# next-screen-line (not bound)
+# non-incremental-forward-search-history (not bound)
+# non-incremental-forward-search-history-again (not bound)
+# non-incremental-reverse-search-history (not bound)
+# non-incremental-reverse-search-history-again (not bound)
+# old-menu-complete (not bound)
+# operate-and-get-next (not bound)
+# overwrite-mode (not bound)
+# possible-command-completions (not bound)
+# possible-completions (not bound)
+# possible-filename-completions (not bound)
+# possible-hostname-completions (not bound)
+# possible-username-completions (not bound)
+# possible-variable-completions (not bound)
+"\C-p": previous-history
+"\eOA": previous-history
+"\e[A": previous-history
+"-": previous-history
+"k": previous-history
+# previous-screen-line (not bound)
+# print-last-kbd-macro (not bound)
+"\C-q": quoted-insert
+"\C-v": quoted-insert
+# re-read-init-file (not bound)
+# redraw-current-line (not bound)
+"\C-r": reverse-search-history
+"U": revert-line
+# self-insert (not bound)
+# set-mark (not bound)
+# shell-backward-kill-word (not bound)
+# shell-backward-word (not bound)
+# shell-expand-line (not bound)
+# shell-forward-word (not bound)
+# shell-kill-word (not bound)
+# shell-transpose-words (not bound)
+# skip-csi-sequence (not bound)
+# spell-correct-word (not bound)
+# start-kbd-macro (not bound)
+# tab-insert (not bound)
+# tilde-expand (not bound)
+"\C-t": transpose-chars
+# transpose-words (not bound)
+# tty-status (not bound)
+# undo (not bound)
+# universal-argument (not bound)
+# unix-filename-rubout (not bound)
+"\C-u": unix-line-discard
+# unix-word-rubout (not bound)
+# upcase-word (not bound)
+"A": vi-append-eol
+"a": vi-append-mode
+"1": vi-arg-digit
+"2": vi-arg-digit
+"3": vi-arg-digit
+"4": vi-arg-digit
+"5": vi-arg-digit
+"6": vi-arg-digit
+"7": vi-arg-digit
+"8": vi-arg-digit
+"9": vi-arg-digit
+# vi-back-to-indent (not bound)
+# vi-backward-bigword (not bound)
+# vi-backward-word (not bound)
+# vi-bword (not bound)
+# vi-bWord (not bound)
+"~": vi-change-case
+"r": vi-change-char
+"C": vi-change-to
+"c": vi-change-to
+",": vi-char-search
+";": vi-char-search
+"F": vi-char-search
+"T": vi-char-search
+"f": vi-char-search
+"t": vi-char-search
+"|": vi-column
+# vi-complete (not bound)
+"x": vi-delete
+"D": vi-delete-to
+"d": vi-delete-to
+"v": vi-edit-and-execute-command
+# vi-editing-mode (not bound)
+# vi-end-bigword (not bound)
+"E": vi-end-word
+"e": vi-end-word
+"\C-d": vi-eof-maybe
+# vi-eword (not bound)
+# vi-eWord (not bound)
+"G": vi-fetch-history
+"^": vi-first-print
+# vi-forward-bigword (not bound)
+# vi-forward-word (not bound)
+# vi-fword (not bound)
+# vi-fWord (not bound)
+"`": vi-goto-mark
+"I": vi-insert-beg
+"i": vi-insertion-mode
+"%": vi-match
+# vi-movement-mode (not bound)
+"W": vi-next-word
+"w": vi-next-word
+# vi-overstrike (not bound)
+# vi-overstrike-delete (not bound)
+"B": vi-prev-word
+"b": vi-prev-word
+"P": vi-put
+"p": vi-put
+".": vi-redo
+"R": vi-replace
+"X": vi-rubout
+"/": vi-search
+"?": vi-search
+"N": vi-search-again
+"n": vi-search-again
+"m": vi-set-mark
+"S": vi-subst
+"s": vi-subst
+"&": vi-tilde-expand
+"\C-_": vi-undo
+"u": vi-undo
+"\C-w": vi-unix-word-rubout
+"_": vi-yank-arg
+# vi-yank-pop (not bound)
+"Y": vi-yank-to
+"y": vi-yank-to
+"\C-y": yank
+# yank-last-arg (not bound)
+# yank-nth-arg (not bound)
+# yank-pop (not bound)

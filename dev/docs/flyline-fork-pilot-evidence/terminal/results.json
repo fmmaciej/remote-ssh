@@ -1,0 +1,161 @@
+{
+  "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+  "script_sha256": "0f3efbcad9c4b9fc3d324cc009b20ae6d8b439a5fcc8bc2eea9e8a0160b77da1",
+  "results": [
+    {
+      "context": "direct",
+      "command": [
+        "/opt/homebrew/bin/bash",
+        "--noprofile",
+        "--rcfile",
+        "/private/tmp/fl-term-23w8hsmg/rc.sh",
+        "-i"
+      ],
+      "vi": {
+        "actual": "bc",
+        "expected": "bc",
+        "early_execution": false,
+        "passed": true
+      },
+      "paste": {
+        "actual": "\u017c\u00f3\u0142w",
+        "expected": "\u017c\u00f3\u0142w",
+        "early_execution": false,
+        "passed": true
+      },
+      "multiline": {
+        "actual": "line1\nline2",
+        "expected": "line1\nline2",
+        "early_execution": false,
+        "passed": true
+      },
+      "ctrl_c": {
+        "actual": "recovered",
+        "expected": "recovered",
+        "early_execution": false,
+        "passed": true
+      },
+      "resize": {
+        "actual": "resized",
+        "expected": "resized",
+        "early_execution": false,
+        "passed": true
+      },
+      "terminal_flags_restored": true,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 217.76399999999998,
+        "shell_peak_rss_mib": 11.4375
+      }
+    },
+    {
+      "context": "tmux",
+      "command": [
+        "/opt/homebrew/bin/tmux",
+        "-S",
+        "/private/tmp/fl-term-b4y59aos/socket",
+        "-f",
+        "/private/tmp/fl-term-b4y59aos/tmux.conf",
+        "new-session",
+        "-s",
+        "pilot",
+        "-x",
+        "120",
+        "-y",
+        "30",
+        "/opt/homebrew/bin/bash",
+        "--noprofile",
+        "--rcfile",
+        "/private/tmp/fl-term-b4y59aos/rc.sh",
+        "-i"
+      ],
+      "escape_time": "0",
+      "vi": {
+        "actual": "bc",
+        "expected": "bc",
+        "early_execution": false,
+        "passed": true
+      },
+      "paste": {
+        "actual": "\u017c\u00f3\u0142w",
+        "expected": "\u017c\u00f3\u0142w",
+        "early_execution": false,
+        "passed": true
+      },
+      "multiline": {
+        "actual": "line1\nline2",
+        "expected": "line1\nline2",
+        "early_execution": false,
+        "passed": true
+      },
+      "ctrl_c": {
+        "actual": "recovered",
+        "expected": "recovered",
+        "early_execution": false,
+        "passed": true
+      },
+      "resize": {
+        "actual": "resized",
+        "expected": "resized",
+        "early_execution": false,
+        "passed": true
+      },
+      "terminal_flags_restored": true,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 13.204999999999998,
+        "shell_peak_rss_mib": 4.875
+      }
+    },
+    {
+      "context": "zellij",
+      "command": [
+        "/Users/fm/.local/bin/zellij",
+        "--config",
+        "/private/tmp/fl-term-dslcdl8o/config.kdl",
+        "--data-dir",
+        "/private/tmp/fl-term-dslcdl8o/data",
+        "--session",
+        "fl-term-dslcdl8o",
+        "--new-session-with-layout",
+        "/private/tmp/fl-term-dslcdl8o/layout.kdl"
+      ],
+      "vi": {
+        "actual": "bc",
+        "expected": "bc",
+        "early_execution": false,
+        "passed": true
+      },
+      "paste": {
+        "actual": "\u017c\u00f3\u0142w",
+        "expected": "\u017c\u00f3\u0142w",
+        "early_execution": false,
+        "passed": true
+      },
+      "multiline": {
+        "actual": "line1\nline2",
+        "expected": "line1\nline2",
+        "early_execution": false,
+        "passed": true
+      },
+      "ctrl_c": {
+        "actual": "recovered",
+        "expected": "recovered",
+        "early_execution": false,
+        "passed": true
+      },
+      "resize": {
+        "actual": "resized",
+        "expected": "resized",
+        "early_execution": false,
+        "passed": true
+      },
+      "terminal_flags_restored": true,
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 76.127,
+        "shell_peak_rss_mib": 19.875
+      }
+    }
+  ]
+}

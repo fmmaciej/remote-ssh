@@ -1,0 +1,14 @@
+   Compiling flyline v1.10.0 (/private/tmp/remote-ssh-flyline-build/fork-r5)
+    Checking flycontent v0.1.0 (/private/tmp/remote-ssh-flyline-build/fork-r5/crates/flycontent)
+    Checking flybuffer v0.1.0 (/private/tmp/remote-ssh-flyline-build/fork-r5/crates/flybuffer)
+warning: output of `xcrun` while finding MacOSX.sdk
+  |
+  = note: xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+
+warning: linker stderr: cc: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+  |
+  = note: `#[warn(linker_messages)]` on by default
+  = note: the `linker_messages` lint ignores `-D warnings`
+
+warning: `flyline` (build script) generated 2 warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.65s

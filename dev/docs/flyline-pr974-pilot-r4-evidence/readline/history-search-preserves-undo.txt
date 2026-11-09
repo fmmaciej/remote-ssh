@@ -1,0 +1,1 @@
+"\u001eLOADED\u001f\r\n\u001b[?2004hBMARK> capture ac\b\bb\b\b\b\b\b\b\b\b\b/\u001b[Kseeded\u0007\b\b\b\b\b\b\bcapture bc\b\ba\u001b[C\r\n\u001b[?2004l\r\u001eARG:ac\u001f\r\n"

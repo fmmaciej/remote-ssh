@@ -1,0 +1,1446 @@
+[
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/disabled-external-builtin.install.log",
+    "sha256": "909b7849245cfa8b9dd185de2ba5e6bc01038fb740faedb4d7347e487c7ac17a"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/disabled-external-builtin.pty.txt",
+    "sha256": "b6afef03523cfbfa8c49f202b60483188caf75b7caefaab27ef9ec09b25a0a25"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/disabled-external-builtin.rc.txt",
+    "sha256": "c56e6a08a2d6074a6b6835481d6b02b7b55c8b597a81eeef35ebb73283f66f9f"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/fingerprints.json",
+    "sha256": "0f59f720e3f95277d0a36a4380656bab0d7e3a303ce04a15863cd59501fde0e6"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/head-uninstall-facade.sh.txt",
+    "sha256": "4ba860199feeb203df70830dfe5ef2b9023146c4ccbe62451ebfcb986279655a"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/late-external-atuin.install.log",
+    "sha256": "f4fbdaf4f4ac70eab573174df5e8fbc68e4fcab711d78b7a753e2ef78f9b57a5"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/late-external-atuin.pty.txt",
+    "sha256": "32b58dbb687b3bffc4acccac2d4aa8bde0bf0cb8d9d8f575ca424fe66a6f4a6a"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/late-external-atuin.rc.txt",
+    "sha256": "c795b19ca86f0d440062584e1c386c4644520275733b8bbae86d60a2be7e35e8"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/reproduce.py.txt",
+    "sha256": "61c2dc26b864cab9b6f2e37b21965ee4cc33a30edd04a494d98c602bfef161a6"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/results.json",
+    "sha256": "8cfd5bd5e210c9dd92cfaa28617d0eab02f5d3b9c5d24bdcabd8b56f8bafd75f"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/rollback-attributes.install.log",
+    "sha256": "b102a9f466ee8f1e74148750d75a3b9c1ed57360e3c1f695de3b4c292ca5e5ae"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/rollback-attributes.pty.txt",
+    "sha256": "89ed37b7f7347ab39b363d45e2c17bfb0091271b84c8fc64e72fb6bbc27aef8b"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/rollback-attributes.rc.txt",
+    "sha256": "1d557310202ca967c4539e3269bda5dbb8deb99cd6117400a894afed8a6f1039"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/source-inputs.json",
+    "sha256": "fb39782f3af819ce754f3e497e00c190b3819d7e9e16e41b1b4b88a6fb96708d"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/source-snapshots/dev/docs/flyline-integration-audit.md.txt",
+    "sha256": "2bac45691e26c46ccc3fb4669d59e0d8a0eb25c58dab27f07c341bca6ea084f2"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/source-snapshots/dev/docs/interactive-tools-performance-evidence/benchmark.py.txt",
+    "sha256": "83375041d00e332712fc6622cd6693445e4d0d8ff509be8b9d52d5b0223876e8"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/source-snapshots/dev/flyline/managed.py.txt",
+    "sha256": "9d9ee83de95059c8316b2af48cab084cae257c59a89b55089b70a67dcbb152fb"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/source-snapshots/dev/tests/test_flyline_lifecycle.py.txt",
+    "sha256": "e0052d4108a57ec485e2c36b4b27a395618092cd91361ee9595d59639d29ceb8"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/source-snapshots/dev/tests/test_install_library.py.txt",
+    "sha256": "0ca9a5f1a8e778fac38f99880df060524099f9b671ed61b514e129d20e913746"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/source-snapshots/shell/rc.d/05-bash-preexec.sh.txt",
+    "sha256": "3f4c8d26ed0776f924918822450e58f16bd0cb02618e2c37108effe4ef0846a2"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/source-snapshots/shell/rc.d/23-atuin.sh.txt",
+    "sha256": "a09067a6f8be5c4d1d51fb3a43cb59073ccd281c1e8314a4d82f2e98a59358c2"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/source-snapshots/shell/rc.d/29-flyline.sh.txt",
+    "sha256": "428982e43abe1c4f52f5bb8ba0adb7f9bc9e0ac68b26211d0641571afe2583f6"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/source-snapshots/shell/rc.sh.txt",
+    "sha256": "19daa57cbea99520cf80b11a0130c7ae6b63f8c97c24881dae8a9dee22266dfd"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/source-snapshots/tools/lib/commands/uninstall.sh.txt",
+    "sha256": "b30a856b266295c89b9ac8d8cc50e301cae09d14a5ad688a792fbabb52ca38a0"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/source-snapshots/tools/lib/common/release.sh.txt",
+    "sha256": "485c9f16ab88f8807b4de3307ed9e6a56122fbf0709fde654824e870f28d6029"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/tracked-diffstat.txt",
+    "sha256": "148f461ec4a76105f0fd5b2720a15ffaaacea69b45a0698163774e5cb8d27603"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/uninstall-current.log",
+    "sha256": "7db7c372fab22be7be9df0cedb4962d23a5d01b1955d75e14a99fbb15cac1355"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/uninstall-head-facade-control.log",
+    "sha256": "aa71eb25aabda56a19d07d6c989ce9afb31cbf726f3faa021b342656f8343dc3"
+  },
+  {
+    "source": "dev/docs/flyline-integration-audit-evidence/working-tree-status.txt",
+    "sha256": "d0d6aa5d4e1cebd747db7f4d0b0b85fc48a5c44e40cafc9e6b43dc7db142c110"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/SHA256SUMS",
+    "sha256": "c0501eca25ff553045f75ffb0e3028982d758640ccb4d4f40f1c2fb94ccdfd70"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/build.log",
+    "sha256": "897e6a541c9346fdff403fa8e05f8a3c3d6e64faf72eb13a967b8dbd2de8a12a"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/clippy.log",
+    "sha256": "1a9f568b94626096e4e49abebdce52f6f096ee4998032f3c73ce77f88e733daa"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/completion/flyline-carapace-0.txt",
+    "sha256": "077d7ff6a81380aff4edb763ba743d0ac973afa7f432a1573c53fbbfa6be5ba8"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/completion/flyline-carapace-1.txt",
+    "sha256": "21f43dfb03d8b772c4720919483b93518ca97cf6951d099dd99576e9c20ca804"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/completion/readline-carapace-0.txt",
+    "sha256": "74230c3ec13791825ae892562c3294aead1d3375850052cbdf51bc59620859ec"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/completion/readline-carapace-1.txt",
+    "sha256": "067a34c4303d86882ea3a1ad6a2db0a5f6220def4aead3a9eaf7b40213cb9a71"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/completion/results.json",
+    "sha256": "3cbc93e81c665b6c2c8199a25fed3071dceeb46717ce27a03b6b4e8b6cd78686"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/fingerprints.json",
+    "sha256": "79d1621b8af6bf642c277dcfe6495289f1007e418cd7b0481b791681fd507e32"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/fork-source/remote-ssh/README.md.txt",
+    "sha256": "9894f4a40569c9f5aa6c7ccb2a4e721178deb0e59f50607a9761514e6cbcf609"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/fork-source/remote-ssh/build.json.txt",
+    "sha256": "41d1d466bc8106eb1cf2da3181fc1cbaad583ed0a0edb98197a70a4889ce5ba4"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/fork-source/remote-ssh/build.py.txt",
+    "sha256": "ab036768f72c5671c5a60fecd1c41d00b669e5b5562f7d74ee299b49c83ef0fd"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/fork.json",
+    "sha256": "3b040eeba28cd38fb556cba05728969e8a9039cd2cea46767bc160d9a181f1a7"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/history/atuin.txt",
+    "sha256": "affefc6ddc1e91295daf65506742cf8b8d63626a2ef6b7d6cad57a9045e530e4"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/history/native.txt",
+    "sha256": "019297efb8c093ea742c2c4673647d995798c3aae12a27646118efe7badf198e"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/history/results.json",
+    "sha256": "df6a62cf5bcb7b0e7836f5079e6d76c263a6256c6124c2de4eee5342badae7b6"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/history/skim.txt",
+    "sha256": "1c1c2381a3f6d919fa69dac3e07cf4cfd368b7e4e679aee282a005295812e45d"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/lifecycle/later-unload.txt",
+    "sha256": "66ad41dfcea63c067b4beb585f63ca4861292ae06836424d05236bd1a61fe52d"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/lifecycle/results.json",
+    "sha256": "27d131712330246a0396bb5b1fec85cae2373e240b2b9bd2b9e2edb44ad220a7"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/lifecycle/startup-rollback.txt",
+    "sha256": "7fd6580e69a0b363320633e04daa03cf7228a9464a69b908f8fda05417a161c7"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/change-word.txt",
+    "sha256": "ec3e2ce3e257e654a92f8c960e1dff185f8bffb9a6e96ecada2e85f61181de45"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/count-delete-words.txt",
+    "sha256": "16042c7c5aaa86df29d5ea9f08ed3486c27db794a053b77a8c1f3d49975db68a"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/count-motion-right.txt",
+    "sha256": "228ce2d20abe03eb58b442ec0509de9ffa9965042b4de237441eadb4666d7cb4"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/count-motion.txt",
+    "sha256": "436e2dcd3111275aa338b2ab2ac606a9173bee49ed08bdaeabe3e3a2ce453acf"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/count-ten.txt",
+    "sha256": "333aff7159b2660e0dd2a1d3288a424bac059dac50f4ae56fdce001533d057a0"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/delete-word.txt",
+    "sha256": "a7930ce0834d41661f89e15ac347c3f5256a5fa1859f0972c8bd5c6abfc86918"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/delete.txt",
+    "sha256": "99118e970c224e4f5650ec933c2667ce2e7ab6516111697a57d97e763410b6dc"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/dot-change.txt",
+    "sha256": "78c8bec60140d517e11d546b74029323ffa22cfdf148b1907ae0feb7374594ed"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/dot-delete.txt",
+    "sha256": "2dedb025680ff400c11344d9de41fd75ad44de546554751c5adbe4d15d10841c"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/dot-replace.txt",
+    "sha256": "d99d9eb1ef6be85fcb2ed80c4d364ccb2cd3841e0388ec4e513c0d14a7b73e9f"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/dot-undo.txt",
+    "sha256": "3681d818b1c4731d244303a5b9ea563321b863667aa2da03422469c8e3b5cc70"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/history-count.txt",
+    "sha256": "df9aa875cf598a36d36fbe21d8d172d8018e42b4f78b317453b1d8f88d83dcc7"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/history-k-draft.txt",
+    "sha256": "d34834462248ec36ea261356013b22d0595b104b2015c1184e0d2e38f7da38a6"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/history-k.txt",
+    "sha256": "2e742cec900256fa673f542da3d5329fa8459e9d93092c54abea3f8fb0ee0713"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/history-kj-draft.txt",
+    "sha256": "bc46bf435fff924d34a20ce69130accd6e7b1a8da6c7acbf67b01f5830d181b1"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/history-search-anchor.txt",
+    "sha256": "d40eb2be573048244799618ed184b7d5746227c26790cfb81bbacbd864330102"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/history-search-cancel.txt",
+    "sha256": "eb323b3679b9c26cac9cf7632328f4e5882e4eb6f9a4d95571c3d1a158ea8c05"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/history-search-edit-query.txt",
+    "sha256": "e34f37087b94f5522c24d8b544c4cfe2caa4ebfc91de2eb853e26266068f4743"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/history-search-miss.txt",
+    "sha256": "eebe826debf85409f9052fb839136ac956b97c1aef1151af3b4842cd0145b185"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/history-search-preserves-undo.txt",
+    "sha256": "2c7728f15748b398430b0742c8c9d957d7b1f4cff36a088970c26a1ee91ccbef"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/history-slash.txt",
+    "sha256": "66418f26f86343db89585ac44514b32cfa96dc5ab6ce9687f47fcc2a68725089"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/history-up.txt",
+    "sha256": "c4a929dd2a63d597596eb19ae525d43c7c05ac3ad03c33eb882d8a0b13476ee2"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/normal-mode-no-text.txt",
+    "sha256": "7fbc5fb6bd95f0cb52160853c68373fda95c24a6603432214212f97a5b3e7e30"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/replace.txt",
+    "sha256": "4c052270ed7a03eabf34f80ce4fe0616ab04d7cf75bde43d8e76ef577739955e"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/results.json",
+    "sha256": "054f2c1c9cef90dabc42ce5d8260d713248fe012a501733fa284e88e1345598c"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/undo-after-motion.txt",
+    "sha256": "f74ec126f72c8777ca888fb3684b7949b207971e027b6b045842afa1a480411c"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/undo-change.txt",
+    "sha256": "328e14722bf9630a3600a68007b355fd52a3b11c98ba3392a13c5cbb7179040d"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/undo-consecutive.txt",
+    "sha256": "7ec764a1a1be7ea50920215fed98ad7a53413f423d4f0210e00b6c5fd56188c0"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/undo-redo.txt",
+    "sha256": "c133dc85702d45dcbab33c23ce523b441ea05eeb2cb2e673a32b2bf98788f907"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/undo.txt",
+    "sha256": "0ff6cffab683a9e1784729ebf7be42ebf774195e6ca6bc9d63c158d88f32975f"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/unicode-paste.txt",
+    "sha256": "a59199670f9f516f7644e44facc06d2d82609b385fe791d408126b4f6db87247"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/unicode-yank-paste.txt",
+    "sha256": "9c8120bf4138e243231635f7ded9c3ae1f60b96071c8e46976ef16c39da9b511"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/native/yank-paste.txt",
+    "sha256": "404eea79925249820e75bc838d1f0057686a4fb98a9f781c88a33630466fa806"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/performance/budgets.json",
+    "sha256": "5e2e3ffb8d8e912de1c1da60aad95ef010e735438ac23b08137978c4fc4dd9ef"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/performance/official-2-fresh.txt",
+    "sha256": "425a875439c20f39513c8febc8eda929891bc5d2c75f5d627fa6a7be49e0d8c8"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/performance/official-2-warm.txt",
+    "sha256": "425a875439c20f39513c8febc8eda929891bc5d2c75f5d627fa6a7be49e0d8c8"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/performance/patched-2-fresh.txt",
+    "sha256": "8285b64209f4dfbdb1f9fa6c5e12741f27f7bd2314626ce4135c95f5849eaa6a"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/performance/patched-2-warm.txt",
+    "sha256": "2decd8aeef9181857f059f9e3907961bcd02d1db23c3f81c3df987d0a2ec28f5"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/performance/readline-2-fresh.txt",
+    "sha256": "97c1a69a7dc4948f44225cada5c40ffbbb893753217347c0f5c93f1fea4aabe5"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/performance/readline-2-warm.txt",
+    "sha256": "97c1a69a7dc4948f44225cada5c40ffbbb893753217347c0f5c93f1fea4aabe5"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/performance/report.json",
+    "sha256": "d9cafdb949f542517948cbd70324628f8bc85f46b13d4ba4deb398e44ba48f43"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/performance/samples.json",
+    "sha256": "28aad8031e3f48cc9ecbc94961704b604038af1e97907e92c21328ed945cdc53"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/port-commits.json",
+    "sha256": "a70a6323e8ed25efb08bc449634c547287af60fc1f9835b47baab4a29ec573d5"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/provenance.json",
+    "sha256": "e92285fd2d7affd021a314827c63ac64e0318766352309adde0852f0bc5e1270"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/qualification.json",
+    "sha256": "c3449be2cf3aa3b09e8baa5a7c0044885f65ffa8481f695c0662c2edd5c323cf"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/rustdoc.log",
+    "sha256": "1dc755ebf83178e9b4ae2ef7e525ee62aa3d91333f10b6be77b5fb8d3b294ff4"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/smoke.log",
+    "sha256": "c69975269976c9595b4c998fa822e49811c2c09156d7f9836b4afe3d7352d0e0"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/docs/flyline-fork-integration-record.md.txt",
+    "sha256": "72e6a36b928856184a895e4e6e9531d0223940df19470c5de16da6afbb69ba34"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/docs/flyline-implementation-plan.md.txt",
+    "sha256": "0eef452d02f032c753da77b52ed1e81e5fae8698a22ec1c05fdc95de97960368"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/README.md.txt",
+    "sha256": "98afbd24516566590bc90dc3794755d86deed9d30ac3e16a2964183e27689451"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/candidate.py.txt",
+    "sha256": "77c70eccf1128c0881e0174bead6132143a0f6a6d139bf3ddc88f0d2d9686460"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/carapace-pilot.sh.txt",
+    "sha256": "9224ba53bf8c3aee18e21ce7d59acca0159cfa4019c60e6c2d1e7f68ee23a96f"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/completion.py.txt",
+    "sha256": "a0aea0280e55e575daa2430b7c1dfca03a8a45b18fad40512ee8755baef918d9"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/fork.json.txt",
+    "sha256": "3b040eeba28cd38fb556cba05728969e8a9039cd2cea46767bc160d9a181f1a7"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/history.py.txt",
+    "sha256": "ad1b2c984ab76882b12b955fff6eec158f609117b9b41b15455d40d458ec030a"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/inputs.json.txt",
+    "sha256": "94f950f7496f87719a2c80ed73cbc0b6b936351e9a210d2894dee3ec8cc0aafd"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/lifecycle.py.txt",
+    "sha256": "729693d8b81c6d2a15bc9f1c6e09f053deb7253848da17e4bddfae2533880ec4"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/managed.py.txt",
+    "sha256": "9d9ee83de95059c8316b2af48cab084cae257c59a89b55089b70a67dcbb152fb"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/performance.py.txt",
+    "sha256": "5d5faaa4c5259cc9676f49199acecf0f41bacf081646e4e9391ade5fa3d6e630"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/pilot.py.txt",
+    "sha256": "aa39e381f6f1457715691732499de1d0354e26d8b132e3dd5d53234bc1205140"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/release/BUILDING.md.txt",
+    "sha256": "a60daaaba81c33a2095b7a1a23703acfdb1e0b4961a102e9c4baf581489180a4"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/release/README.md.txt",
+    "sha256": "c6b75ca25fad4be64332521a91cecf55116eae9c115b46904a019ef3a2672200"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/release/flyline.sh.txt",
+    "sha256": "bfa5358aa61dc85155d3a2feaebe35ea01c6a88fb6cc318eab456f450eac27ec"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/release/notes.md.txt",
+    "sha256": "18ab3a8de48e26d31539115161231e6ff97d18986767fb893aeb8e82c38c858e"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/startup.py.txt",
+    "sha256": "c10fc7b722c2ae8aaafddd73a1705a25d6b4671174019ce22daf12e28ab558ec"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/flyline/terminal.py.txt",
+    "sha256": "0f3efbcad9c4b9fc3d324cc009b20ae6d8b439a5fcc8bc2eea9e8a0160b77da1"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/dev/tests/test_flyline_candidate.py.txt",
+    "sha256": "dad3115582e4edf5a48176bbdf2335a8b26dc468e81e6ba8a8e39984e99469c2"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/shell/config/entries.sh.txt",
+    "sha256": "ee698b6b0c9feb22c3fe6d9681b0867024be5723d9420cf9d4f471e5405aac77"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/shell/rc.d/29-flyline.sh.txt",
+    "sha256": "428982e43abe1c4f52f5bb8ba0adb7f9bc9e0ac68b26211d0641571afe2583f6"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/shell/rc.sh.txt",
+    "sha256": "19daa57cbea99520cf80b11a0130c7ae6b63f8c97c24881dae8a9dee22266dfd"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/tools/lib/commands/prune.sh.txt",
+    "sha256": "023f0138db165aed86ffc14a75d9f5061cecbdc928d8ae845c4c481ec833b7e8"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/tools/lib/commands/tool_status.sh.txt",
+    "sha256": "0302cffd475c7dd4dba2bec234931e9af1ada0cf41ae700e360727dcda612017"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/tools/lib/commands/uninstall.sh.txt",
+    "sha256": "b30a856b266295c89b9ac8d8cc50e301cae09d14a5ad688a792fbabb52ca38a0"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/tools/lib/common/extract.sh.txt",
+    "sha256": "9d74c200f258ef9b24a073470e1a787b8c18bd56de6c7a587c3f4435b03fb165"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/tools/lib/common/release.sh.txt",
+    "sha256": "485c9f16ab88f8807b4de3307ed9e6a56122fbf0709fde654824e870f28d6029"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/tools/lib/install/install.sh.txt",
+    "sha256": "148b6ea729da8c4774b50230f404c7d7b6203796471e4b475243c585e67e2235"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/tools/lib/install/tool_inventory.sh.txt",
+    "sha256": "b77b55c894a832fbc3b15b3010722ae03deed5ad80e67fae96c4429d0916a284"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/tools/lib/install-tool/assets.sh.txt",
+    "sha256": "d1c7a6819901377d5bb77ea120e42af376423341d5d7be908dfda73d0bdc7054"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/tools/lib/install-tool/defs.sh.txt",
+    "sha256": "f8e610bbd676f6b99a9157ec8aa1f2a609fc83a24c65b494d924e0d0ffedb181"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/tools/lib/install-tool/download.sh.txt",
+    "sha256": "ed335302ef06cea381787191ee60850caaefe30e739cabc88ee7cb1d033a0615"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/tools/lib/install-tool/install.sh.txt",
+    "sha256": "fb08203a7c89d2a99e4e47d9723a6df111774b530f8248c0021be8f586202e55"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/source-snapshots/tools/lib/install-tool/main.sh.txt",
+    "sha256": "f110d411e9a6dff1dc7fd5b9afb2ea77b3e266cc8bd8da8091a9e413645b325c"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/startup/budgets.json",
+    "sha256": "170783f9125f30d81eeaa19c645a9bb974c0f9e8979e2a91b40872bc60ad265b"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/startup/results.json",
+    "sha256": "e60c4231505350ffbd84a8001dd9af2c63a46ca2899860e93062c1097a1d42bf"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/terminal/direct.txt",
+    "sha256": "a8cd43e30d14305defe2523d868846bc597504144057c99861d634edbe15285f"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/terminal/results.json",
+    "sha256": "3e40c82ffdbbf608bfc8ec5ca44f58a9a71fbe5af370aff3e1473bf09f21a17b"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/terminal/tmux.txt",
+    "sha256": "e1e951d450711c5dbcf1a5cfcc4c12ade5081af0da34f53a0fe47180e65dd462"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/terminal/zellij.txt",
+    "sha256": "f40a9919269d2ca0d79f92187d129f75692bfa788188d975b370c4c248512e1a"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/upstream-unit.log",
+    "sha256": "2a32ba0f21f2a4bd23e998b26771093d7f2d6e627eaf721a326efee960532cc9"
+  },
+  {
+    "source": "dev/docs/flyline-fork-pilot-evidence/validation.json",
+    "sha256": "3d4dbe3404b18b8fe8f02ccd17bd2d0d3993e91cbbc31cc82f50e4601afd29b7"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/SHA256SUMS",
+    "sha256": "f445456933f33c9f798488ef665c894f2626819de2d7e1514a16f52c88cff21f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/archive-members.txt",
+    "sha256": "479466b7c35f044c6c6874807b02c1b3cafa8d70f43a8f5279cb726759f34e3d"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/build.log",
+    "sha256": "2dd7598677c4a8196d53be1e5eaef566e170fa234eda292e7e2bbabad5b5c29c"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/clippy-all-features.log",
+    "sha256": "7b1e28052fb5d0e505e4b054bc928d4415e3ef1d5d697e421ebf517cc367d22b"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/clippy-default.log",
+    "sha256": "fe9e29cf83ca4a37642bab6725bd680952e8cfacac31f44f9244661c33f6a1c3"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/completion/flyline-carapace-0.txt",
+    "sha256": "9892829b11ee63568952d37a08fff49ecc30823ef506710facc0225b4d87192f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/completion/flyline-carapace-1.txt",
+    "sha256": "169e91eec718405ff8a7e33f854b6a74e52d5a831c2f33edc3adbfb9dc123370"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/completion/readline-carapace-0.txt",
+    "sha256": "74230c3ec13791825ae892562c3294aead1d3375850052cbdf51bc59620859ec"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/completion/readline-carapace-1.txt",
+    "sha256": "25218a29f6d8bff2622de68d3686a19bf2ff4d628163c61a91a25343e8d40d5c"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/completion/results.json",
+    "sha256": "ee3a10312b2547ede7f963b8c9d050725b8d456b5fe82005364fce7bcee5156e"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/exploratory/native-query-cancel-r3.json",
+    "sha256": "90ac43e927b5621c84d26974a75c14aec87912d6203d29310643aeb185d02342"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/exploratory/native-query-cancel-r4.json",
+    "sha256": "11328775434d30137d96103d5865068e0bc191199330a968ec7fdbfee71a8caf"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/exploratory/r2-performance-confirmation.json",
+    "sha256": "1315e9b722e835d9ee8d4371347c909f1b11f71265f4b4b873662e0200977d86"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/exploratory/r2-performance-first.json",
+    "sha256": "55cdece5e6ba3a1670d9b461cfd4aca6c6bd99da237c2d5619951f239d204c22"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/exploratory/r3-performance.json",
+    "sha256": "9d6c458084096c6b418420e7d0e561a231f694227aaf81a28addb3d4d2ba6a30"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/exploratory/startup-after-resolver-optimization-r3.json",
+    "sha256": "837f45a39a8c9f1c4bbd173e1cabf7e1688d49e86b43a92bcd0b4d15e042a46a"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/exploratory/startup-before-resolver-optimization.json",
+    "sha256": "b5f86d3977dd115fbf57a4c23f6362dda38cc37bc3a3c057cbaba379742f8b2f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/fingerprints.json",
+    "sha256": "4a9cec012f81bd688fa26a2a9aa59ae781ef19150291aa4a622bbf22dbd0d02b"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/focused-management.log",
+    "sha256": "1953476d41a91f40027258033a319bb1d72a3aba7e4c7e76576d8f716569d2eb"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/history/atuin.txt",
+    "sha256": "58e68239ebadedb0c056f6dfbee3cba9885d0c853702119de5f6b1789c2d28c6"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/history/native.txt",
+    "sha256": "cbaafa38efca7a51044e5b44aa50b1ed718a1fd21eebe3d618d46295121b70d5"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/history/results.json",
+    "sha256": "1a9819397e040c23705cd4e8e40ae0db74544496547effc7dc8766cc041111cf"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/history/skim.txt",
+    "sha256": "4c8f7c3e64f2aec8ec92ec02f54fa9b823ee9c31b0e4f556a9e75c0293e014bf"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/lifecycle/later-unload.txt",
+    "sha256": "66ad41dfcea63c067b4beb585f63ca4861292ae06836424d05236bd1a61fe52d"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/lifecycle/results.json",
+    "sha256": "b55a517a7b4abe00108ac29cac5f3e5033ab405c0e076acbbd91e41779f1659f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/lifecycle/startup-rollback.txt",
+    "sha256": "7fd6580e69a0b363320633e04daa03cf7228a9464a69b908f8fda05417a161c7"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/change-word.txt",
+    "sha256": "5ef2815597504550f4717e69a7714af99ff7ec62920ac5c031a2f1f3206384d4"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/count-delete-words.txt",
+    "sha256": "220105eafe450dde669abea6064ac944beaf8438d9d246760551958aefc4e1ff"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/count-motion-right.txt",
+    "sha256": "56e1189f4aeb3c84ec05c1e7127c523663a28382ff00d8519dead4ebef7e2f41"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/count-motion.txt",
+    "sha256": "3544697f1c7d1a61113007326a58bf940f24a8590988de7d6ab4d8657738d41b"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/count-ten.txt",
+    "sha256": "e84d1b79b4338e18d0dc58531eb3b11a74de9f4e58017fa9458e30716079c7bf"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/delete-word.txt",
+    "sha256": "96250348864f3fab34529d50645d25d6242a06c7ac44e8f30237a5be0a5c7bb1"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/delete.txt",
+    "sha256": "4721592f590bc9afca581542ee21f1d570b1703e34751cfa6e6fdc6a50a4de8f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/dot-change.txt",
+    "sha256": "9cf04aea329b62b22d87c195c5abbe99a604cd02a0728f53ef91ca095928c3b6"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/dot-delete.txt",
+    "sha256": "0d9b6249287d8589536c4f248f97a03269cefb4e6b2d0e15635bfcff86e27532"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/dot-replace.txt",
+    "sha256": "412a3defcea02354773be4d1ad13b0ba402550bdc90a1a5b66fe60d20d5dea67"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/dot-undo.txt",
+    "sha256": "cb48065f8685d1c3f9fef4aeebdeca0deaff04e44a3b52b0779051c395e3ce96"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/history-count.txt",
+    "sha256": "df9aa875cf598a36d36fbe21d8d172d8018e42b4f78b317453b1d8f88d83dcc7"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/history-k-draft.txt",
+    "sha256": "3fbd5372f24d6398d29d2755e190336077ef31f93dfb3859b01b7befd8b6bf97"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/history-k.txt",
+    "sha256": "2e742cec900256fa673f542da3d5329fa8459e9d93092c54abea3f8fb0ee0713"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/history-kj-draft.txt",
+    "sha256": "13e6ab5a1a9053f8a9991a587924c8550c901bff4fd22f570cbacae2580a9b87"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/history-search-anchor.txt",
+    "sha256": "8373b8b035639a407af7b64d8cd019570ea8064f8d8a222a9cc0fa41a5414b53"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/history-search-cancel.txt",
+    "sha256": "e62fb11ebba44fe3f581696b39886affb706262e9e4d91617f646d431092010b"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/history-search-edit-query.txt",
+    "sha256": "e34f37087b94f5522c24d8b544c4cfe2caa4ebfc91de2eb853e26266068f4743"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/history-search-miss.txt",
+    "sha256": "bd98160d1fd6d943411f8c290c02715915407917e98e824c94f7d00e6c8ed2ae"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/history-search-preserves-undo.txt",
+    "sha256": "2553cbe6d561d488580349ca1cd782a3d7a3816b32529bab1f10ec95a391c644"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/history-slash.txt",
+    "sha256": "66418f26f86343db89585ac44514b32cfa96dc5ab6ce9687f47fcc2a68725089"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/history-up.txt",
+    "sha256": "c4a929dd2a63d597596eb19ae525d43c7c05ac3ad03c33eb882d8a0b13476ee2"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/normal-mode-no-text.txt",
+    "sha256": "ccb710e56ad9a825e6bc87d965a6dd1af209f91ce8955d2f48eadcf1a5dce508"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/replace.txt",
+    "sha256": "ea1c7f7250f70ae4ad4dbd86a499722c008bc6e72116b42ebdc173924268b3a3"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/results.json",
+    "sha256": "946b01cb3cfe37f403c86c2335302d187da99dd00ed61eaad3161e1dc1bb2f22"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/undo-after-motion.txt",
+    "sha256": "e62be674c5098a9bf46f9f5e9b998224a0aebf57fb7d832728b7e4e594699e71"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/undo-change.txt",
+    "sha256": "41514f24c863fbead7b95192839fe717541e66836060a0a8ffbf032a58068abe"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/undo-consecutive.txt",
+    "sha256": "9b942b91e242617f33754cd8e796957b123f1966ab98d2877a7e5a301290b898"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/undo-redo.txt",
+    "sha256": "b3f052f9cd5fa2c66ebb4209a77094f34c4412765a050e351edc969c7ad073ef"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/undo.txt",
+    "sha256": "737507f06353e8ee4ff1c181c02311071e99b367c14ef63feb9604d313ee2913"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/unicode-paste.txt",
+    "sha256": "5b0e7873ca665898766770db13c2f270320f9c23abbd8738bac3554692b7896c"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/unicode-yank-paste.txt",
+    "sha256": "27ccb9ffb368d0de92db43e0fe055eb83c66abb3f9a91c807fbff68469967c33"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/native/yank-paste.txt",
+    "sha256": "76b8d3dc65e65315ce9af3d7cb54c69e6b1d6c3778585ef28c5202e0423ed788"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/otool.txt",
+    "sha256": "9d194ba804c3fb43479486765e034f6624b27b9ea0882b9f8a3cf9b157e8d064"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/performance/budgets.json",
+    "sha256": "5e2e3ffb8d8e912de1c1da60aad95ef010e735438ac23b08137978c4fc4dd9ef"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/performance/official-2-fresh.txt",
+    "sha256": "425a875439c20f39513c8febc8eda929891bc5d2c75f5d627fa6a7be49e0d8c8"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/performance/official-2-warm.txt",
+    "sha256": "9f2ef4165b8b841b931c9276c5e9ba104b1eb04eb1912939cf7aad5839d4c2b5"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/performance/patched-2-fresh.txt",
+    "sha256": "2decd8aeef9181857f059f9e3907961bcd02d1db23c3f81c3df987d0a2ec28f5"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/performance/patched-2-warm.txt",
+    "sha256": "8285b64209f4dfbdb1f9fa6c5e12741f27f7bd2314626ce4135c95f5849eaa6a"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/performance/readline-2-fresh.txt",
+    "sha256": "97c1a69a7dc4948f44225cada5c40ffbbb893753217347c0f5c93f1fea4aabe5"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/performance/readline-2-warm.txt",
+    "sha256": "97c1a69a7dc4948f44225cada5c40ffbbb893753217347c0f5c93f1fea4aabe5"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/performance/report.json",
+    "sha256": "4ac8f09c1a5e9e1c3218360c697464aac50ec4054049cde8636ef1dce762978a"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/performance/samples.json",
+    "sha256": "2687c4647050be0fd15c5ff047ea9fe3a324edc857a92844e40e70ae69a0b478"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/provenance.json",
+    "sha256": "696ff372553bf115bc96861b08172db0d575c4bf7ca6dfc2055eb45e4d5b0cfb"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/qualification.json",
+    "sha256": "faa0fd103c5230d2d3005ceb44e7cde2b84e5fc640ccc9c4851e52226df7bc4b"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/change-word.txt",
+    "sha256": "2ee93fed86d7cf4f21181860bc6b4bfa1cbc21d9700cdc17b12213901af538ea"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/count-delete-words.txt",
+    "sha256": "05b24b28f73978b6b379be44c9ccc8710d53b7487d94e68b9489d9128cc800f6"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/count-motion-right.txt",
+    "sha256": "10bc702e8af2cb48902a4991b31d2f30aca89ab46a68586dbf9e285d8843043c"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/count-motion.txt",
+    "sha256": "57dad3fd1ca190712ad2f8959deed577775e36211a8e42c8c6dcc4cd4bc569f7"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/count-ten.txt",
+    "sha256": "898b4654d927ec9d0ee3b5cea7ac60b27a4e92bbf06aa7536c729c06d95d5c65"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/delete-word.txt",
+    "sha256": "e0d5f9c222ac6b435ee4d99b870a94a5925ec56a2d0b91b458fe1f352c26e277"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/delete.txt",
+    "sha256": "586bdf67df318b3ba8ccc719ce9ab5df2c33f435e874a5cefdc00bca60fbdb01"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/dot-change.txt",
+    "sha256": "b05229dd87e9a330aaf8138e14c1be16daf626aa882356418ec0881599b454b7"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/dot-delete.txt",
+    "sha256": "5e6d38ece0ff49552ffeb10e1de4be926ad31ae81a6268381ee26bcc78bc51e5"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/dot-replace.txt",
+    "sha256": "6a2524879690485eec82f8092fc97a8ff04965fb8f3758c26cf13cdd0dbbec5f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/dot-undo.txt",
+    "sha256": "6eb37e0b25fee00119b5a70372b8e4c3464ff7b03126eb8e905d507c9c01254a"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/history-count.txt",
+    "sha256": "dfcb0007dc19f3b27deafd3c722a627b9ae7a54b0fa5e1266e4b8011ecc5378f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/history-k-draft.txt",
+    "sha256": "1b2a3c8b6295f8d69e4e1dd560813e84b59ab7050d610d3c4313e011c7ee84d4"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/history-k.txt",
+    "sha256": "b1a353fe8f0176d7dee3431c12fd6f51862fab4ac0d08fae881b6367e969c275"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/history-kj-draft.txt",
+    "sha256": "8e74f72d296a05ee567c49be19bc201bb9c1e03e11451acfcf442a30b88b1e57"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/history-search-anchor.txt",
+    "sha256": "97decb03a9f0c6731462717113089c2863868e2b57fe6a46136c740f1da5c6c7"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/history-search-cancel.txt",
+    "sha256": "934420a2f353b52d72d413c4cea173686382cd104cc83f592bff4f612c830dbc"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/history-search-edit-query.txt",
+    "sha256": "99cdafece98b3e694ce351fe0865f62a52c316e5f543a78de49fd88da887c79a"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/history-search-miss.txt",
+    "sha256": "309e2707093345a949ee9bff18f32fe2787f984aa50c71282499c40ea595f544"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/history-search-preserves-undo.txt",
+    "sha256": "07255314c2b503d6846f01e04a161cbf9537a5afd4af7062d85635c2577c19cb"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/history-slash.txt",
+    "sha256": "79431fd17e265bffe8960a6bd50ebdb6cdbe1dab811c04639bab19e2d0331836"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/history-up.txt",
+    "sha256": "b01030190a235298ef73eb0a08cde94aefa82d5352f74f7ccd32af856e193f63"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/normal-mode-no-text.txt",
+    "sha256": "d0d70d65ce382b880afe7bb09b1ece05dfd35956dcbd8a3d9b13bb010cb28002"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/replace.txt",
+    "sha256": "7fd6580e69a0b363320633e04daa03cf7228a9464a69b908f8fda05417a161c7"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/results.json",
+    "sha256": "4518ba596bf209e6fd8c775c9a1b7694c37039d5634a2060ab6e952f56b89025"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/undo-after-motion.txt",
+    "sha256": "163e628311093b8e85e0e830c4fd093f015e76f3336614ab7d5781a3420ae4c9"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/undo-change.txt",
+    "sha256": "21cf1996a333d836b85ef9c0d8ab3cbd7245f377ca649d61a186138a38a00e0b"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/undo-consecutive.txt",
+    "sha256": "83c8573f6c0cf47da283fa0d73ed1396a0678e236e473bfc3f82175a6cb904f3"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/undo-redo.txt",
+    "sha256": "92d1623a8ce9229928c204c22180b541acca53982a8b1c2d4b17c7dfb3e5c21c"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/undo.txt",
+    "sha256": "e8b33cdca2730840fa0fc9e9016ba0912ea9a625e3176ec2bf7d9e03848107de"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/unicode-paste.txt",
+    "sha256": "3588776c4367465442413a466fbb538bd83e932459bf33af766219ff55276866"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/unicode-yank-paste.txt",
+    "sha256": "34cd9d18eafa9ebef17894f725ca6fdb47726c8b93fecaa58060033b417dd362"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/yank-paste.txt",
+    "sha256": "049b6ddfc4509403ce8b4af5af5550f07e7030b7367bcbfc23594f1a944fc5c4"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/smoke.log",
+    "sha256": "d1aceb2945c5b8291f8ad7f5e9b2b42033d72c40a87fca2dab1245f1872e65a9"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/bench/scenarios.py.txt",
+    "sha256": "77a70dc4bcae1005ef32dc84e57338f652967cce76d1a587be4e4954dee4264c"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/check_assets_live.py.txt",
+    "sha256": "028e27f9c219b1633dac5601959be8328bca65f0be376ba7055c709c307816cf"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/docs/completion-provider-pilot-evidence/compare.py.txt",
+    "sha256": "554784f758d9283f4c958cbcbe7f5489f13cfde0a5af59d3e841f40998dd37d0"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/docs/flyline-implementation-plan.md.txt",
+    "sha256": "cb450169990b57393ad2865504c5598334fb3caa95ec3c2cbfe8312ebba28b8c"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/docs/flyline-pr974-pilot-record.md.txt",
+    "sha256": "da03c4bd9b5d2a233cc1600a0700105fb5b89f1e920e6cf0b18503a67f0c11eb"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/docs/interactive-tools-performance-evidence/benchmark.py.txt",
+    "sha256": "83375041d00e332712fc6622cd6693445e4d0d8ff509be8b9d52d5b0223876e8"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/README.md.txt",
+    "sha256": "361e8b8dc1912fc514d49813ffc48d27a310402853506b12a34e618f1552897e"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/candidate.py.txt",
+    "sha256": "8898950bde89178750b247b4c63e318dfd17f2b1394fb5715ef3f89b32e98e9f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/carapace-pilot.sh.txt",
+    "sha256": "9224ba53bf8c3aee18e21ce7d59acca0159cfa4019c60e6c2d1e7f68ee23a96f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/completion.py.txt",
+    "sha256": "a0aea0280e55e575daa2430b7c1dfca03a8a45b18fad40512ee8755baef918d9"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/history.py.txt",
+    "sha256": "ad1b2c984ab76882b12b955fff6eec158f609117b9b41b15455d40d458ec030a"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/inputs.json.txt",
+    "sha256": "94f950f7496f87719a2c80ed73cbc0b6b936351e9a210d2894dee3ec8cc0aafd"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/lifecycle.py.txt",
+    "sha256": "729693d8b81c6d2a15bc9f1c6e09f053deb7253848da17e4bddfae2533880ec4"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/managed.py.txt",
+    "sha256": "9d9ee83de95059c8316b2af48cab084cae257c59a89b55089b70a67dcbb152fb"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/patches/0001-upstream-pr974.patch.txt",
+    "sha256": "259a30228d5fad952c49afa8f86f0908885684e7b5ac1410e617b71414fb4f50"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/patches/0002-vi-key-dispatch-and-repeat.patch.txt",
+    "sha256": "08daaf5f6c80ec2433c9602b73f56fe837865a3e2412abbbc0794574f5daf389"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/patches/0003-vi-transactions-motion-and-history.patch.txt",
+    "sha256": "b0aff662bda12b2c60966057670a58198a613d3bfce998c01d725d871e424493"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/patches/0004-current-toolchain-lints.patch.txt",
+    "sha256": "06d31874fd5df3c7c3f0a4e540d2d0f9b4aa8185125a383253d8faefcc93b87a"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/patches/0005-restore-bash-input-on-unload.patch.txt",
+    "sha256": "3e86ee0500c6ebab5bf347baefabc128a57ffbe67047830398ada810bc1afcd5"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/patches/0006-preserve-native-history-search-buffer.patch.txt",
+    "sha256": "a4043005af495bc31e08ee921c722edac2bf6554b19d90cf7e8dcd7999e5bd84"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/performance.py.txt",
+    "sha256": "5d5faaa4c5259cc9676f49199acecf0f41bacf081646e4e9391ade5fa3d6e630"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/pilot.py.txt",
+    "sha256": "aa39e381f6f1457715691732499de1d0354e26d8b132e3dd5d53234bc1205140"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/release/BUILDING.md.txt",
+    "sha256": "37be5bbb75676283dcfdd80840d42dfb21af59f2482cae088607c31911076585"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/release/README.md.txt",
+    "sha256": "7ac17abebb6a0e6f9006c8ba945b059c431ab5ae788a367d4d98599fc419d95e"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/release/flyline.sh.txt",
+    "sha256": "d1ad6138348388c1d8af7827790429fd715b024d7e8ad27df2a760e6732a5eca"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/release/notes.md.txt",
+    "sha256": "3e2c1d01d6b867f25ac378086a37fb31159598c74e2d44ee9a60db824b8ecbf9"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/startup.py.txt",
+    "sha256": "c10fc7b722c2ae8aaafddd73a1705a25d6b4671174019ce22daf12e28ab558ec"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/flyline/terminal.py.txt",
+    "sha256": "0f3efbcad9c4b9fc3d324cc009b20ae6d8b439a5fcc8bc2eea9e8a0160b77da1"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/tests/test_flyline_candidate.py.txt",
+    "sha256": "48f605425e91e22b304edc472daa165df78a54cdd15643a8f2d997286edd53a0"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/tests/test_flyline_lifecycle.py.txt",
+    "sha256": "e0052d4108a57ec485e2c36b4b27a395618092cd91361ee9595d59639d29ceb8"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/dev/tests/test_install_library.py.txt",
+    "sha256": "0ca9a5f1a8e778fac38f99880df060524099f9b671ed61b514e129d20e913746"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/shell/config/entries.sh.txt",
+    "sha256": "ee698b6b0c9feb22c3fe6d9681b0867024be5723d9420cf9d4f471e5405aac77"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/shell/rc.d/29-flyline.sh.txt",
+    "sha256": "428982e43abe1c4f52f5bb8ba0adb7f9bc9e0ac68b26211d0641571afe2583f6"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/shell/rc.sh.txt",
+    "sha256": "19daa57cbea99520cf80b11a0130c7ae6b63f8c97c24881dae8a9dee22266dfd"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/generate-def.sh.txt",
+    "sha256": "85f8c5e1cb4789b0451c2304124867bc991558d080f9bc84fbd9250641078724"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/commands/guide/sections.sh.txt",
+    "sha256": "6aca104914933213c5467ac8b00a4011b5fb16c1c69e1a0f656ea90154f3ca2e"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/commands/prune.sh.txt",
+    "sha256": "023f0138db165aed86ffc14a75d9f5061cecbdc928d8ae845c4c481ec833b7e8"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/commands/tool_status.sh.txt",
+    "sha256": "0302cffd475c7dd4dba2bec234931e9af1ada0cf41ae700e360727dcda612017"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/commands/uninstall.sh.txt",
+    "sha256": "b30a856b266295c89b9ac8d8cc50e301cae09d14a5ad688a792fbabb52ca38a0"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/common/extract.sh.txt",
+    "sha256": "9d74c200f258ef9b24a073470e1a787b8c18bd56de6c7a587c3f4435b03fb165"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/common/release.sh.txt",
+    "sha256": "485c9f16ab88f8807b4de3307ed9e6a56122fbf0709fde654824e870f28d6029"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/generate-def/render.sh.txt",
+    "sha256": "18c29cc3cc18e9b4dd75fdedddf6a390d71d0cd504d86b11eed7e417aa518149"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/install/install.sh.txt",
+    "sha256": "148b6ea729da8c4774b50230f404c7d7b6203796471e4b475243c585e67e2235"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/install/tool_inventory.sh.txt",
+    "sha256": "b77b55c894a832fbc3b15b3010722ae03deed5ad80e67fae96c4429d0916a284"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/install-tool/assets.sh.txt",
+    "sha256": "d1c7a6819901377d5bb77ea120e42af376423341d5d7be908dfda73d0bdc7054"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/install-tool/defs.sh.txt",
+    "sha256": "f8e610bbd676f6b99a9157ec8aa1f2a609fc83a24c65b494d924e0d0ffedb181"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/install-tool/download.sh.txt",
+    "sha256": "ed335302ef06cea381787191ee60850caaefe30e739cabc88ee7cb1d033a0615"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/install-tool/install.sh.txt",
+    "sha256": "fb08203a7c89d2a99e4e47d9723a6df111774b530f8248c0021be8f586202e55"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/source-snapshots/tools/lib/install-tool/main.sh.txt",
+    "sha256": "f110d411e9a6dff1dc7fd5b9afb2ea77b3e266cc8bd8da8091a9e413645b325c"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/startup/budgets.json",
+    "sha256": "170783f9125f30d81eeaa19c645a9bb974c0f9e8979e2a91b40872bc60ad265b"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/startup/results.json",
+    "sha256": "69a438d0418f8aa7b794d5ba9076be7471d44fe0eaccf8434b1e15cdb1f5992f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/static.log",
+    "sha256": "c1c795a2b6ca48b2e2bea5f25ec3aee8e68481f98aaef08c052a4db3f4b3303b"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/terminal/direct.txt",
+    "sha256": "c475c556794e588803482ec75265ea87cbcf40eccc0ac11cb06e26e999e80952"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/terminal/results.json",
+    "sha256": "bdb4c59d5659ba0db5528819f1260df6bd655ffd526978c7c5689495b2fafdac"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/terminal/tmux.txt",
+    "sha256": "f0b51287827b7dc1682976b070e59d621174480e26e87f1855597ceae90b9000"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/terminal/zellij.txt",
+    "sha256": "d817c4750721cc660777663619bb12e9cdfed614f172eb88c6f9e8756bb0fe4f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/upstream-unit.log",
+    "sha256": "b0ac192e138caa6a78a3b2dba7406dadba19e15edb84acffa927bbd56e446441"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-r4-evidence/validation.json",
+    "sha256": "3a27e43fe098d4bac682a2844a93e9040d03cdc3f3632c22574924edce55042e"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/SHA256SUMS",
+    "sha256": "da04db1cd31f3d8d8e5db639675a157bf5217c50b08e76b90761cab70ab39065"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/build-packaged.log",
+    "sha256": "32b6da5cd51825bad90da6000d69a13dc21619880a4caa8dde48582fa86b71de"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/candidate-r1.py.txt",
+    "sha256": "dcd9e9b3dc2bf8787169f02a40e1e15bbde4a4783601323c4da27ecbdc766a4d"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/candidate-tests-r1.py.txt",
+    "sha256": "48f605425e91e22b304edc472daa165df78a54cdd15643a8f2d997286edd53a0"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/dependencies.txt",
+    "sha256": "95fc3b992ed59975fccafcb730aadcb728ff58c3e3a2f275161d81b73e6df96a"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/fingerprints.json",
+    "sha256": "6d963d58ed198f05d96dd814dfd99648befba747ed9f3abccf5c8efc09a56e89"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/inputs-r1.json",
+    "sha256": "750307dc2ce7c15bb8499dda644db0350d703a62c5cd368744f71d208a398268"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/change-word.txt",
+    "sha256": "f3bf7f852ab7d319585d84b9be3f4537d2d5bdc24e6230c2047761b71c7a04e4"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/count-motion.txt",
+    "sha256": "a45b413e50e3f7b82724cc3c6d628e62946bc9adf6501b766b237ebc61bf9a4e"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/delete-word.txt",
+    "sha256": "5b6621526e2589f09c6a0ced94858be5f4e99d35e91108f12ed42b0c54f8510b"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/delete.txt",
+    "sha256": "0ab86bcbdb7c5d449b40d560655845e3f10968c7fc5cc99261d7845cc09ee4d8"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/dot-change.txt",
+    "sha256": "4859c9461487b97da1251f1729372fad95989b1f4c87c61e61dd0a9136ea30e6"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/dot-delete.txt",
+    "sha256": "a66ba5794af0666268c96ef0a84a5e21538784c3cafd786acf33b77ac640838c"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/dot-replace.txt",
+    "sha256": "2189422c97e766e482d99f1c806a7017c60d173c1eb6d922278c689ae59ea539"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/history-k.txt",
+    "sha256": "07d5c74bd17769fa403f7a7a287d8d8b20b39e9fce5bcee98b4184dd344d9a43"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/history-slash.txt",
+    "sha256": "198f0c58c1757abad4d20381d5a90e8389cf718c7404f30954bba32d146cb5e4"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/history-up.txt",
+    "sha256": "c4a929dd2a63d597596eb19ae525d43c7c05ac3ad03c33eb882d8a0b13476ee2"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/normal-mode-no-text.txt",
+    "sha256": "d982b7f31268d8f87f4fba12e8bbad7856efa6ba83a2b0069d34a77afd983552"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/replace.txt",
+    "sha256": "644efb4ad0c8bd2a0b3b25ccf5ec86994fdf847151c07c015ae1ccced59ea388"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/results.json",
+    "sha256": "14d080f0f37d3bf0cc36e535683f8ea1da3cb5228adfcf9326332a28c8a5c46f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/undo-redo.txt",
+    "sha256": "590e25b9d3494b74c22d1895c8c64369c6e01ff80cf2048707c376c666afaee3"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/undo.txt",
+    "sha256": "492c6e971e19a3c9eb5994cb597b9b80efa9b2cf4a4a14302728e63f1b03433a"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/unicode-paste.txt",
+    "sha256": "59e9e6206e4b8720ee685a01cb5a28e64e2d0778863f16710af6b04755b4e014"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/unicode-yank-paste.txt",
+    "sha256": "4591ecb2c0d50a26dca688c7f6ccf0d34c2d154b5309bd132ced6a6aa22ec7ca"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/native/yank-paste.txt",
+    "sha256": "a2c9b94c8380dc23e90ed57e4d32e94af9fc8bda23c3ed9c6f3cfaa1edbf5bcf"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/pilot-r1.py.txt",
+    "sha256": "a807b0be9c85138df1cd91ddbd5dd9e857ad21e7bf9a2a0d776f111439ec9836"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/provenance.json",
+    "sha256": "bcb9376d30634cac6ade14d13c7490b98a4d06aec1c2f1b5ba777b2aababcdbf"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/change-word.txt",
+    "sha256": "2ee93fed86d7cf4f21181860bc6b4bfa1cbc21d9700cdc17b12213901af538ea"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/count-motion.txt",
+    "sha256": "57dad3fd1ca190712ad2f8959deed577775e36211a8e42c8c6dcc4cd4bc569f7"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/delete-word.txt",
+    "sha256": "e0d5f9c222ac6b435ee4d99b870a94a5925ec56a2d0b91b458fe1f352c26e277"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/delete.txt",
+    "sha256": "586bdf67df318b3ba8ccc719ce9ab5df2c33f435e874a5cefdc00bca60fbdb01"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/dot-change.txt",
+    "sha256": "b05229dd87e9a330aaf8138e14c1be16daf626aa882356418ec0881599b454b7"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/dot-delete.txt",
+    "sha256": "5e6d38ece0ff49552ffeb10e1de4be926ad31ae81a6268381ee26bcc78bc51e5"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/dot-replace.txt",
+    "sha256": "6a2524879690485eec82f8092fc97a8ff04965fb8f3758c26cf13cdd0dbbec5f"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/history-k.txt",
+    "sha256": "b1a353fe8f0176d7dee3431c12fd6f51862fab4ac0d08fae881b6367e969c275"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/history-slash.txt",
+    "sha256": "79431fd17e265bffe8960a6bd50ebdb6cdbe1dab811c04639bab19e2d0331836"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/history-up.txt",
+    "sha256": "b01030190a235298ef73eb0a08cde94aefa82d5352f74f7ccd32af856e193f63"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/normal-mode-no-text.txt",
+    "sha256": "d0d70d65ce382b880afe7bb09b1ece05dfd35956dcbd8a3d9b13bb010cb28002"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/replace.txt",
+    "sha256": "7fd6580e69a0b363320633e04daa03cf7228a9464a69b908f8fda05417a161c7"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/results.json",
+    "sha256": "ddcd823f29b089f4a30ed9170b9d07407904c7418d02d300593cb68d00b9366c"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/undo-redo.txt",
+    "sha256": "92d1623a8ce9229928c204c22180b541acca53982a8b1c2d4b17c7dfb3e5c21c"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/undo.txt",
+    "sha256": "e8b33cdca2730840fa0fc9e9016ba0912ea9a625e3176ec2bf7d9e03848107de"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/unicode-paste.txt",
+    "sha256": "3588776c4367465442413a466fbb538bd83e932459bf33af766219ff55276866"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/unicode-yank-paste.txt",
+    "sha256": "34cd9d18eafa9ebef17894f725ca6fdb47726c8b93fecaa58060033b417dd362"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline/yank-paste.txt",
+    "sha256": "049b6ddfc4509403ce8b4af5af5550f07e7030b7367bcbfc23594f1a944fc5c4"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/readline-bindings.txt",
+    "sha256": "f5ab564c65668878ea3aaa75f415f189c580aaa9bc3fdeee8fd0049289cb04b9"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/smoke.log",
+    "sha256": "10a7c251a3ac0c9f5808c11aa44b61bbb947968a8bf812a303085e606bff93c9"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/static.log",
+    "sha256": "60d0e8adba0fdbd313c1c458dc541bec036815c32870dbe4635e6a452cf3a77e"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/tooling-r1-readme.md.txt",
+    "sha256": "d60c074f348bab362f00a78ea3fe4305166343c1b59edcf9f73327bf4c96f27a"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/unit-tests.log",
+    "sha256": "fe5d11137ee759286f601aef516ae2f9a451fe91cb16f7000acd107ae8d74a25"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-pilot-evidence/validation.json",
+    "sha256": "33a450a6e508e48e5e50386df5521071233fcaa104d6b7bc85edcf4dcd500571"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-planning-evidence/fingerprints.json",
+    "sha256": "8cc2688be8e482978892995c505cc705d4d7f0c47cf1876c2d1f72baf0e32845"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-planning-evidence/inputs.json",
+    "sha256": "b37d4632fe810a683e4f83ed19ebef0c6f0939726a2fc887c3cbe168d4681b40"
+  },
+  {
+    "source": "dev/docs/flyline-pr974-planning-evidence/port-check.json",
+    "sha256": "34f157902f52df753d4e82b0a7f22a619d863922071550c25e1376dbe8f38ca0"
+  },
+  {
+    "source": "dev/docs/flyline-pilot-evidence/fingerprints.json",
+    "sha256": "9735be1427ad58e4d8c5f946eb4637bfec8899437c6baf3e3ce6cd088bd8703a"
+  },
+  {
+    "source": "dev/docs/flyline-pilot-evidence/pilot.py",
+    "sha256": "901a0aea4af6810d4faf8635787e8f15db1645158ecbf35ee9d9eacc559d4fa1"
+  },
+  {
+    "source": "dev/docs/flyline-pilot-evidence/results.json",
+    "sha256": "e348d3a8b7e5fc6423f8c008ae679cf51d27d86981b70249bb7e15983a28fd69"
+  },
+  {
+    "source": "dev/docs/flyline-pilot-evidence/sandbox-load.txt",
+    "sha256": "f5e966cd6d9cd4fb6261f86d8e5cacba3e402d8fa401834e42464c430305714d"
+  },
+  {
+    "source": "dev/docs/flyline-pilot-evidence/transcripts.txt",
+    "sha256": "69a0c5e0665db678f31a7a572ec34772e4aff158a973f21ac988b4b66b717e3e"
+  }
+]

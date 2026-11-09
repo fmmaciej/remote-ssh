@@ -1,0 +1,24 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "dev/flyline/history.py",
+    "--repo",
+    "/Users/fm/Programming/00_Other/remote-ssh",
+    "--bash",
+    "/opt/homebrew/bin/bash",
+    "--library",
+    "/Users/fm/Programming/00_Other/remote-ssh/dev/flyline/dist/1.10.0-pr974.aae68bb4.r5/libflyline.dylib",
+    "--atuin",
+    "/Users/fm/.local/opt/atuin-18.14.1/atuin",
+    "--skim",
+    "/private/tmp/flyline-repair-20261109-r1-inputs/sk",
+    "--starship",
+    "/Users/fm/.local/bin/starship",
+    "--managed",
+    "--output",
+    "dev/docs/flyline-integration-repair-r1-evidence/repair-01/history"
+  ],
+  "exit": 0,
+  "elapsed_seconds": 15.543674249900505,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

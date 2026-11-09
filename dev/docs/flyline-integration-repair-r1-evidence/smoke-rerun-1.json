@@ -1,0 +1,9 @@
+{
+  "command": [
+    "just",
+    "smoke"
+  ],
+  "exit": 0,
+  "elapsed_seconds": 454.90970149997156,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

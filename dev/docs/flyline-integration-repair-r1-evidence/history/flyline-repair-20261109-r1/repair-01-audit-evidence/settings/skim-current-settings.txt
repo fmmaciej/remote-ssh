@@ -1,0 +1,351 @@
+history.zsh_path
+  Current: -
+  Default: -
+
+run_tutorial
+  Current: false
+  Default: false
+
+show_animations
+  Current: false
+  Default: true
+
+show_inline_history
+  Current: true
+  Default: true
+
+show_inline_history_metadata
+  Current: true
+  Default: true
+
+auto_suggest
+  Current: false
+  Default: true
+
+auto_suggest_inline
+  Current: false
+  Default: true
+
+suggestions.git_ref_mtime
+  Current: true
+  Default: true
+
+flycomp.enabled
+  Current: false
+  Default: true
+
+flycomp.strategy
+  Current: ManPageOrRunHelp
+  Default: ManPageOrRunHelp
+
+flycomp.sandbox
+  Current: true
+  Default: true
+
+flycomp.no_sandbox
+  Current: false
+  Default: false
+
+flycomp.timeout_ms
+  Current: 5000
+  Default: 5000
+
+flycomp.recurse_limit
+  Current: 2
+  Default: 2
+
+flycomp.output_dir
+  Current: -
+  Default: -
+
+flycomp.blacklist
+  Current: []
+  Default: []
+
+suggestion_sort_order
+  Current: Mtime
+  Default: Mtime
+
+fuzzy_mode
+  Current: all
+  Default: all
+
+num_suggestion_rows
+  Current: 12
+  Default: 12
+
+auto_close_chars
+  Current: true
+  Default: true
+
+select_with_mouse
+  Current: true
+  Default: true
+
+cursor.backend
+  Current: Terminal
+  Default: -
+
+cursor.interpolate
+  Current: 16.0
+  Default: 16.0
+
+cursor.interpolate_easing
+  Current: Linear
+  Default: Linear
+
+cursor.style
+  Current: Default
+  Default: Default
+
+cursor.effect
+  Current: Fade
+  Default: Fade
+
+cursor.effect_speed
+  Current: 1.0
+  Default: 1.0
+
+cursor.effect_easing
+  Current: Linear
+  Default: Linear
+
+mouse_mode
+  Current: Disabled
+  Default: Smart
+
+matrix_animation
+  Current: Off
+  Default: Off
+
+frame_rate
+  Current: 24
+  Default: 24
+
+idle_frame_rate
+  Current: 0.2
+  Default: 0.2
+
+send_shell_integration_codes
+  Current: None
+  Default: OnlyPromptPos
+
+enable_extended_key_codes
+  Current: false
+  Default: true
+
+enable_easter_eggs
+  Current: false
+  Default: true
+
+colour_theme
+  Current: Dark
+  Default: Dark
+
+palette.recognised_command.fg
+  Current: Green
+  Default: Green
+
+palette.unrecognised_command.fg
+  Current: Red
+  Default: Red
+
+palette.single_quoted_text.fg
+  Current: Yellow
+  Default: Yellow
+
+palette.double_quoted_text.fg
+  Current: Magenta
+  Default: Magenta
+
+palette.secondary_text.add_modifier
+  Current: DIM
+  Default: DIM
+
+palette.inline_suggestion.add_modifier
+  Current: DIM
+  Default: DIM
+
+palette.tutorial_hint.add_modifier
+  Current: BOLD
+  Default: BOLD
+
+palette.matching_char.fg
+  Current: Green
+  Default: Green
+
+palette.matching_char.add_modifier
+  Current: BOLD | UNDERLINED
+  Default: BOLD | UNDERLINED
+
+palette.opening_and_closing_pair.fg
+  Current: Red
+  Default: Red
+
+palette.opening_and_closing_pair.add_modifier
+  Current: BOLD | UNDERLINED
+  Default: BOLD | UNDERLINED
+
+palette.comment.fg
+  Current: Red
+  Default: Red
+
+palette.comment.add_modifier
+  Current: ITALIC
+  Default: ITALIC
+
+palette.env_var.fg
+  Current: Cyan
+  Default: Cyan
+
+palette.unrecognised_env_var.fg
+  Current: Red
+  Default: Red
+
+palette.markdown_heading1.fg
+  Current: Cyan
+  Default: Cyan
+
+palette.markdown_heading1.add_modifier
+  Current: BOLD
+  Default: BOLD
+
+palette.markdown_heading2.fg
+  Current: Red
+  Default: Red
+
+palette.markdown_heading2.add_modifier
+  Current: BOLD
+  Default: BOLD
+
+palette.markdown_heading3.fg
+  Current: Magenta
+  Default: Magenta
+
+palette.markdown_heading3.add_modifier
+  Current: BOLD
+  Default: BOLD
+
+palette.markdown_code.add_modifier
+  Current: DIM
+  Default: DIM
+
+palette.key_sequence_style.add_modifier
+  Current: DIM
+  Default: DIM
+
+palette.selected_text.fg
+  Current: White
+  Default: White
+
+palette.selected_text.bg
+  Current: #FF9898
+  Default: #FF9898
+
+palette.bash_reserved.fg
+  Current: Yellow
+  Default: Yellow
+
+palette.bash_reserved.add_modifier
+  Current: BOLD
+  Default: BOLD
+
+palette.right_click_menu.fg
+  Current: Black
+  Default: Black
+
+palette.right_click_menu.bg
+  Current: Gray
+  Default: Gray
+
+palette.scrollbar.fg
+  Current: White
+  Default: White
+
+palette.scrollbar.bg
+  Current: #646464
+  Default: #646464
+
+palette.rainbow_brackets
+  Current:
+    [
+      {
+        "fg": "#FFD700"
+      },
+      {
+        "fg": "#FF6464"
+      },
+      {
+        "fg": "#64C8FF"
+      },
+      {
+        "fg": "#64E696"
+      }
+    ]
+  Default:
+    [
+      {
+        "fg": "#FFD700"
+      },
+      {
+        "fg": "#FF6464"
+      },
+      {
+        "fg": "#64C8FF"
+      },
+      {
+        "fg": "#64E696"
+      }
+    ]
+
+user_keybindings
+  Current:
+    [
+      "Ctrl+r vimInsertMode=runBashCommand('__skim_history')",
+      "Ctrl+r !vimModeEnabled+editingBufferMode=runBashCommand('__skim_history')"
+    ]
+  Default: []
+
+key_remappings
+  Current: []
+  Default: []
+
+clear_default_keybindings
+  Current: false
+  Default: false
+
+vim_mode
+  Current: true
+  Default: false
+
+key_debug
+  Current: false
+  Default: false
+
+mouse_debug
+  Current: false
+  Default: false
+
+mouse_change_shape
+  Current: true
+  Default: true
+
+history.jsonl_path
+  Current: /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/flyline-settings-skim-w435d8s9/Library/Application Support/flyline/history.jsonl
+  Default: /var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/flyline-settings-skim-w435d8s9/Library/Application Support/flyline/history.jsonl
+
+resize_logic
+  Current: Default
+  Default: Default
+
+delayed_startup_ms
+  Current: 150
+  Default: 150
+
+newline_marker
+  Current: [31m[flyline inserted newline][0m
+  Default: [31m[flyline inserted newline][0m
+
+history.backend
+  Current: bash
+  Default: bash

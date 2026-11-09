@@ -1,0 +1,400 @@
+....FFFF                                                                 [100%]
+=================================== FAILURES ===================================
+_ test_late_external_atuin_ownership_through_full_rc[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-0-os] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late...olders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late_external_atuin_owner4/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', hook = 'os'
+atuin_toggle = '0'
+
+    @pytest.mark.parametrize("hook", ["os", "host"])
+    @pytest.mark.parametrize("atuin_toggle", ["0", "1"])
+    def test_late_external_atuin_ownership_through_full_rc(
+        repo_dir, isolated_env, runtime_bash, hook, atuin_toggle,
+    ):
+        root = isolated_env.home / "checkout"
+        for name in ("shell", "lib", "bin", "dots"):
+            shutil.copytree(repo_dir / name, root / name)
+        hook_dir = root / "shell/rc.d" / f"{hook}.d"
+        hook_dir.mkdir(exist_ok=True)
+        (hook_dir / ("linux.sh" if hook == "os" else "ownership-test.sh")).write_text(
+            r"""
+            __atuin_initialized=true
+            __atuin_history() { printf external-history; }
+            __external_precmd() { :; }
+            precmd_functions+=(__external_precmd)
+            bind -m vi-insert '"\C-r":"external-owner"'
+            """
+        )
+        write_executable(isolated_env.bin_dir / "uname", "#!/bin/sh\necho Linux\n")
+        write_executable(isolated_env.bin_dir / "hostname", "#!/bin/sh\necho ownership-test\n")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(root),
+            "REMOTE_SSH_ENABLE_FLYLINE": "1", "REMOTE_SSH_ENABLE_ATUIN": atuin_toggle,
+            "REMOTE_SSH_CONFIG": "0", "REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        calls=
+        remote_flyline_library() { printf resolver >> "$HOME/flyline-calls"; printf /fixture/library; }
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f|enable:-d|flyline:*) calls+="|$*" ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        source "$REPO/shell/rc.sh"
+        [[ "$__atuin_initialized:$REMOTE_SSH_HISTORY_BACKEND" == true:bash ]] || exit 21
+        expected=external
+        ((BASH_VERSINFO[0] >= 4)) || expected=bash
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON" == skipped:$expected ]] || exit 22
+        [[ -z "$calls" && ! -e "$HOME/flyline-calls" ]] || exit 23
+        [[ "$(bind -m vi-insert -s)" == *external-owner* ]] || exit 24
+        [[ " ${precmd_functions[*]} " == *' __external_precmd '* ]] || exit 25
+        [[ "$(__atuin_history)" == external-history ]] || exit 26
+        bind -m vi-insert '"\C-r":"later-user-edit"'
+        before="$REMOTE_SSH_HISTORY_BACKEND:$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON"
+        REMOTE_SSH_ENABLE_ATUIN=1; REMOTE_SSH_ENABLE_FLYLINE=0
+        rcrc; rcrc
+        [[ "$REMOTE_SSH_HISTORY_BACKEND:$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON" == "$before" ]] || exit 27
+        [[ "$(bind -m vi-insert -s)" == *later-user-edit* ]] || exit 28
+        if [[ "${FRESH:-0}" == 0 ]]; then
+          FRESH=1 REMOTE_SSH_ENABLE_ATUIN=0 REMOTE_SSH_ENABLE_FLYLINE=1 "$BASH" --noprofile --norc -ic 'source "$HOME/late-probe.sh"' || exit 29
+        fi
+        """
+        script = isolated_env.home / "late-probe.sh"
+        script.write_text("run_late_probe() {\n" + code.replace("exit ", "return ") + "\n}\nrun_late_probe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x1068e6d70>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late_external_atuin_owner4/home/late-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=22, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late_external_atuin_owner4/home/late-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status")
+E       [?2004l
+1:22
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_late_external_atuin_ownership_through_full_rc[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-0-host] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late...olders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late_external_atuin_owner5/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', hook = 'host'
+atuin_toggle = '0'
+
+    @pytest.mark.parametrize("hook", ["os", "host"])
+    @pytest.mark.parametrize("atuin_toggle", ["0", "1"])
+    def test_late_external_atuin_ownership_through_full_rc(
+        repo_dir, isolated_env, runtime_bash, hook, atuin_toggle,
+    ):
+        root = isolated_env.home / "checkout"
+        for name in ("shell", "lib", "bin", "dots"):
+            shutil.copytree(repo_dir / name, root / name)
+        hook_dir = root / "shell/rc.d" / f"{hook}.d"
+        hook_dir.mkdir(exist_ok=True)
+        (hook_dir / ("linux.sh" if hook == "os" else "ownership-test.sh")).write_text(
+            r"""
+            __atuin_initialized=true
+            __atuin_history() { printf external-history; }
+            __external_precmd() { :; }
+            precmd_functions+=(__external_precmd)
+            bind -m vi-insert '"\C-r":"external-owner"'
+            """
+        )
+        write_executable(isolated_env.bin_dir / "uname", "#!/bin/sh\necho Linux\n")
+        write_executable(isolated_env.bin_dir / "hostname", "#!/bin/sh\necho ownership-test\n")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(root),
+            "REMOTE_SSH_ENABLE_FLYLINE": "1", "REMOTE_SSH_ENABLE_ATUIN": atuin_toggle,
+            "REMOTE_SSH_CONFIG": "0", "REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        calls=
+        remote_flyline_library() { printf resolver >> "$HOME/flyline-calls"; printf /fixture/library; }
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f|enable:-d|flyline:*) calls+="|$*" ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        source "$REPO/shell/rc.sh"
+        [[ "$__atuin_initialized:$REMOTE_SSH_HISTORY_BACKEND" == true:bash ]] || exit 21
+        expected=external
+        ((BASH_VERSINFO[0] >= 4)) || expected=bash
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON" == skipped:$expected ]] || exit 22
+        [[ -z "$calls" && ! -e "$HOME/flyline-calls" ]] || exit 23
+        [[ "$(bind -m vi-insert -s)" == *external-owner* ]] || exit 24
+        [[ " ${precmd_functions[*]} " == *' __external_precmd '* ]] || exit 25
+        [[ "$(__atuin_history)" == external-history ]] || exit 26
+        bind -m vi-insert '"\C-r":"later-user-edit"'
+        before="$REMOTE_SSH_HISTORY_BACKEND:$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON"
+        REMOTE_SSH_ENABLE_ATUIN=1; REMOTE_SSH_ENABLE_FLYLINE=0
+        rcrc; rcrc
+        [[ "$REMOTE_SSH_HISTORY_BACKEND:$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON" == "$before" ]] || exit 27
+        [[ "$(bind -m vi-insert -s)" == *later-user-edit* ]] || exit 28
+        if [[ "${FRESH:-0}" == 0 ]]; then
+          FRESH=1 REMOTE_SSH_ENABLE_ATUIN=0 REMOTE_SSH_ENABLE_FLYLINE=1 "$BASH" --noprofile --norc -ic 'source "$HOME/late-probe.sh"' || exit 29
+        fi
+        """
+        script = isolated_env.home / "late-probe.sh"
+        script.write_text("run_late_probe() {\n" + code.replace("exit ", "return ") + "\n}\nrun_late_probe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x106a40050>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late_external_atuin_owner5/home/late-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=22, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late_external_atuin_owner5/home/late-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status")
+E       [?2004l
+1:22
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_late_external_atuin_ownership_through_full_rc[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-1-os] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late...olders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late_external_atuin_owner6/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', hook = 'os'
+atuin_toggle = '1'
+
+    @pytest.mark.parametrize("hook", ["os", "host"])
+    @pytest.mark.parametrize("atuin_toggle", ["0", "1"])
+    def test_late_external_atuin_ownership_through_full_rc(
+        repo_dir, isolated_env, runtime_bash, hook, atuin_toggle,
+    ):
+        root = isolated_env.home / "checkout"
+        for name in ("shell", "lib", "bin", "dots"):
+            shutil.copytree(repo_dir / name, root / name)
+        hook_dir = root / "shell/rc.d" / f"{hook}.d"
+        hook_dir.mkdir(exist_ok=True)
+        (hook_dir / ("linux.sh" if hook == "os" else "ownership-test.sh")).write_text(
+            r"""
+            __atuin_initialized=true
+            __atuin_history() { printf external-history; }
+            __external_precmd() { :; }
+            precmd_functions+=(__external_precmd)
+            bind -m vi-insert '"\C-r":"external-owner"'
+            """
+        )
+        write_executable(isolated_env.bin_dir / "uname", "#!/bin/sh\necho Linux\n")
+        write_executable(isolated_env.bin_dir / "hostname", "#!/bin/sh\necho ownership-test\n")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(root),
+            "REMOTE_SSH_ENABLE_FLYLINE": "1", "REMOTE_SSH_ENABLE_ATUIN": atuin_toggle,
+            "REMOTE_SSH_CONFIG": "0", "REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        calls=
+        remote_flyline_library() { printf resolver >> "$HOME/flyline-calls"; printf /fixture/library; }
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f|enable:-d|flyline:*) calls+="|$*" ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        source "$REPO/shell/rc.sh"
+        [[ "$__atuin_initialized:$REMOTE_SSH_HISTORY_BACKEND" == true:bash ]] || exit 21
+        expected=external
+        ((BASH_VERSINFO[0] >= 4)) || expected=bash
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON" == skipped:$expected ]] || exit 22
+        [[ -z "$calls" && ! -e "$HOME/flyline-calls" ]] || exit 23
+        [[ "$(bind -m vi-insert -s)" == *external-owner* ]] || exit 24
+        [[ " ${precmd_functions[*]} " == *' __external_precmd '* ]] || exit 25
+        [[ "$(__atuin_history)" == external-history ]] || exit 26
+        bind -m vi-insert '"\C-r":"later-user-edit"'
+        before="$REMOTE_SSH_HISTORY_BACKEND:$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON"
+        REMOTE_SSH_ENABLE_ATUIN=1; REMOTE_SSH_ENABLE_FLYLINE=0
+        rcrc; rcrc
+        [[ "$REMOTE_SSH_HISTORY_BACKEND:$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON" == "$before" ]] || exit 27
+        [[ "$(bind -m vi-insert -s)" == *later-user-edit* ]] || exit 28
+        if [[ "${FRESH:-0}" == 0 ]]; then
+          FRESH=1 REMOTE_SSH_ENABLE_ATUIN=0 REMOTE_SSH_ENABLE_FLYLINE=1 "$BASH" --noprofile --norc -ic 'source "$HOME/late-probe.sh"' || exit 29
+        fi
+        """
+        script = isolated_env.home / "late-probe.sh"
+        script.write_text("run_late_probe() {\n" + code.replace("exit ", "return ") + "\n}\nrun_late_probe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x106995590>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late_external_atuin_owner6/home/late-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=22, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late_external_atuin_owner6/home/late-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status")
+E       [?2004l
+1:22
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_late_external_atuin_ownership_through_full_rc[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-1-host] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late...olders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late_external_atuin_owner7/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', hook = 'host'
+atuin_toggle = '1'
+
+    @pytest.mark.parametrize("hook", ["os", "host"])
+    @pytest.mark.parametrize("atuin_toggle", ["0", "1"])
+    def test_late_external_atuin_ownership_through_full_rc(
+        repo_dir, isolated_env, runtime_bash, hook, atuin_toggle,
+    ):
+        root = isolated_env.home / "checkout"
+        for name in ("shell", "lib", "bin", "dots"):
+            shutil.copytree(repo_dir / name, root / name)
+        hook_dir = root / "shell/rc.d" / f"{hook}.d"
+        hook_dir.mkdir(exist_ok=True)
+        (hook_dir / ("linux.sh" if hook == "os" else "ownership-test.sh")).write_text(
+            r"""
+            __atuin_initialized=true
+            __atuin_history() { printf external-history; }
+            __external_precmd() { :; }
+            precmd_functions+=(__external_precmd)
+            bind -m vi-insert '"\C-r":"external-owner"'
+            """
+        )
+        write_executable(isolated_env.bin_dir / "uname", "#!/bin/sh\necho Linux\n")
+        write_executable(isolated_env.bin_dir / "hostname", "#!/bin/sh\necho ownership-test\n")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(root),
+            "REMOTE_SSH_ENABLE_FLYLINE": "1", "REMOTE_SSH_ENABLE_ATUIN": atuin_toggle,
+            "REMOTE_SSH_CONFIG": "0", "REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        calls=
+        remote_flyline_library() { printf resolver >> "$HOME/flyline-calls"; printf /fixture/library; }
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f|enable:-d|flyline:*) calls+="|$*" ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        source "$REPO/shell/rc.sh"
+        [[ "$__atuin_initialized:$REMOTE_SSH_HISTORY_BACKEND" == true:bash ]] || exit 21
+        expected=external
+        ((BASH_VERSINFO[0] >= 4)) || expected=bash
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON" == skipped:$expected ]] || exit 22
+        [[ -z "$calls" && ! -e "$HOME/flyline-calls" ]] || exit 23
+        [[ "$(bind -m vi-insert -s)" == *external-owner* ]] || exit 24
+        [[ " ${precmd_functions[*]} " == *' __external_precmd '* ]] || exit 25
+        [[ "$(__atuin_history)" == external-history ]] || exit 26
+        bind -m vi-insert '"\C-r":"later-user-edit"'
+        before="$REMOTE_SSH_HISTORY_BACKEND:$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON"
+        REMOTE_SSH_ENABLE_ATUIN=1; REMOTE_SSH_ENABLE_FLYLINE=0
+        rcrc; rcrc
+        [[ "$REMOTE_SSH_HISTORY_BACKEND:$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON" == "$before" ]] || exit 27
+        [[ "$(bind -m vi-insert -s)" == *later-user-edit* ]] || exit 28
+        if [[ "${FRESH:-0}" == 0 ]]; then
+          FRESH=1 REMOTE_SSH_ENABLE_ATUIN=0 REMOTE_SSH_ENABLE_FLYLINE=1 "$BASH" --noprofile --norc -ic 'source "$HOME/late-probe.sh"' || exit 29
+        fi
+        """
+        script = isolated_env.home / "late-probe.sh"
+        script.write_text("run_late_probe() {\n" + code.replace("exit ", "return ") + "\n}\nrun_late_probe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x106995d00>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late_external_atuin_owner7/home/late-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=22, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-631/test_late_external_atuin_owner7/home/late-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status")
+E       [?2004l
+1:22
+
+dev/tests/pty_shell.py:90: AssertionError
+=========================== short test summary info ============================
+FAILED dev/tests/test_flyline_lifecycle.py::test_late_external_atuin_ownership_through_full_rc[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-0-os]
+FAILED dev/tests/test_flyline_lifecycle.py::test_late_external_atuin_ownership_through_full_rc[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-0-host]
+FAILED dev/tests/test_flyline_lifecycle.py::test_late_external_atuin_ownership_through_full_rc[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-1-os]
+FAILED dev/tests/test_flyline_lifecycle.py::test_late_external_atuin_ownership_through_full_rc[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-1-host]
+4 failed, 4 passed, 26 deselected in 2.92s

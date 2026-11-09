@@ -1,0 +1,68 @@
+{
+  "identity": "1.10.0-pr974.aae68bb4.r4",
+  "upstream_base": "ca910967af35579a2d455a071aa939778d8f6171",
+  "pr_head": "aae68bb4acb43d7462bbe4abffedd6e2b10bd889",
+  "source_archive_sha256": "7994f94058328ef31edc89d888b8fbc156fe6c5e693cb40feafd8786fab13ef0",
+  "reconstructed_base_commit": "89b63bfce5b269cc70156e66f006ce0742f29efb",
+  "port_commit": "ce6529bc45bd0609cdde576877098e66492fc757",
+  "source_tree": "d70b582492f52e526e122c93527cf98a59ac5d1e",
+  "cargo_lock_sha256": "3162250ee645024bf56933a723a300f1850464d31acbbc0ba156eb80301085e9",
+  "patches": [
+    {
+      "file": "0001-upstream-pr974.patch",
+      "sha256": "259a30228d5fad952c49afa8f86f0908885684e7b5ac1410e617b71414fb4f50"
+    },
+    {
+      "file": "0002-vi-key-dispatch-and-repeat.patch",
+      "sha256": "08daaf5f6c80ec2433c9602b73f56fe837865a3e2412abbbc0794574f5daf389"
+    },
+    {
+      "file": "0003-vi-transactions-motion-and-history.patch",
+      "sha256": "b0aff662bda12b2c60966057670a58198a613d3bfce998c01d725d871e424493"
+    },
+    {
+      "file": "0004-current-toolchain-lints.patch",
+      "sha256": "06d31874fd5df3c7c3f0a4e540d2d0f9b4aa8185125a383253d8faefcc93b87a"
+    },
+    {
+      "file": "0005-restore-bash-input-on-unload.patch",
+      "sha256": "3e86ee0500c6ebab5bf347baefabc128a57ffbe67047830398ada810bc1afcd5"
+    },
+    {
+      "file": "0006-preserve-native-history-search-buffer.patch",
+      "sha256": "a4043005af495bc31e08ee921c722edac2bf6554b19d90cf7e8dcd7999e5bd84"
+    }
+  ],
+  "qualification": "Developer candidate; native acceptance required before distribution",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+  "target": "aarch64-apple-darwin",
+  "build_command": [
+    "/private/tmp/remote-ssh-flyline-build/rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+    "build",
+    "--release",
+    "--locked",
+    "--target",
+    "aarch64-apple-darwin",
+    "--offline"
+  ],
+  "clean_commands": [
+    [
+      "/private/tmp/remote-ssh-flyline-build/rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "clean",
+      "--package",
+      "flyline"
+    ],
+    [
+      "/private/tmp/remote-ssh-flyline-build/rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "clean",
+      "--package",
+      "flyline",
+      "--target",
+      "aarch64-apple-darwin"
+    ]
+  ],
+  "source_date_epoch": "1794132000",
+  "library_member": "libflyline.dylib",
+  "library_sha256": "e73823eeeb046eb31b9941e1f951ec6aa346c0a3cf4ec0331fe188e55da77cc4"
+}

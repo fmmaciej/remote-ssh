@@ -1,0 +1,646 @@
+FFFFFFFFFFFF..........................                                   [100%]
+=================================== FAILURES ===================================
+_ test_binary_uninstall_ignores_unrelated_active_path[/bin/bash-selected-file] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+tool_env = ToolStateEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_bin.../private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_binary_uninstall_ignores_0/bin'})
+runtime_bash = '/bin/bash', active_kind = 'file', explicit = True
+
+    @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+    @pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+    def test_binary_uninstall_ignores_unrelated_active_path(
+        repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str,
+        active_kind: str, explicit: bool,
+    ) -> None:
+        (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+        executable = make_managed_tool(tool_env, "rg", "15.1.0")
+        other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+        expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+        active = tool_env.opt_dir / ".active"
+        target = tool_env.external_dir / "unrelated"
+        target.mkdir()
+        sentinel = target / "keep"
+        sentinel.write_text("untouched")
+        if active_kind == "file":
+            active.write_text("unrelated")
+        else:
+            active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        before = active.read_bytes() if active_kind == "file" else active.readlink()
+    
+        result = run_remote_ssh(
+            repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=tool_env.env,
+        )
+    
+>       assert_ok(result)
+
+dev/tests/test_uninstall.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes', 'rg'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Cannot inspect active library links; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes', 'rg'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n').returncode
+
+dev/tests/conftest.py:202: AssertionError
+_ test_binary_uninstall_ignores_unrelated_active_path[/bin/bash-selected-directory-link] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+tool_env = ToolStateEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_bin.../private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_binary_uninstall_ignores_1/bin'})
+runtime_bash = '/bin/bash', active_kind = 'directory-link', explicit = True
+
+    @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+    @pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+    def test_binary_uninstall_ignores_unrelated_active_path(
+        repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str,
+        active_kind: str, explicit: bool,
+    ) -> None:
+        (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+        executable = make_managed_tool(tool_env, "rg", "15.1.0")
+        other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+        expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+        active = tool_env.opt_dir / ".active"
+        target = tool_env.external_dir / "unrelated"
+        target.mkdir()
+        sentinel = target / "keep"
+        sentinel.write_text("untouched")
+        if active_kind == "file":
+            active.write_text("unrelated")
+        else:
+            active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        before = active.read_bytes() if active_kind == "file" else active.readlink()
+    
+        result = run_remote_ssh(
+            repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=tool_env.env,
+        )
+    
+>       assert_ok(result)
+
+dev/tests/test_uninstall.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes', 'rg'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Cannot inspect active library links; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes', 'rg'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n').returncode
+
+dev/tests/conftest.py:202: AssertionError
+_ test_binary_uninstall_ignores_unrelated_active_path[/bin/bash-selected-broken-link] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+tool_env = ToolStateEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_bin.../private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_binary_uninstall_ignores_2/bin'})
+runtime_bash = '/bin/bash', active_kind = 'broken-link', explicit = True
+
+    @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+    @pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+    def test_binary_uninstall_ignores_unrelated_active_path(
+        repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str,
+        active_kind: str, explicit: bool,
+    ) -> None:
+        (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+        executable = make_managed_tool(tool_env, "rg", "15.1.0")
+        other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+        expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+        active = tool_env.opt_dir / ".active"
+        target = tool_env.external_dir / "unrelated"
+        target.mkdir()
+        sentinel = target / "keep"
+        sentinel.write_text("untouched")
+        if active_kind == "file":
+            active.write_text("unrelated")
+        else:
+            active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        before = active.read_bytes() if active_kind == "file" else active.readlink()
+    
+        result = run_remote_ssh(
+            repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=tool_env.env,
+        )
+    
+>       assert_ok(result)
+
+dev/tests/test_uninstall.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes', 'rg'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Cannot inspect active library links; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes', 'rg'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n').returncode
+
+dev/tests/conftest.py:202: AssertionError
+_ test_binary_uninstall_ignores_unrelated_active_path[/bin/bash-binary-only-discovery-file] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+tool_env = ToolStateEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_bin.../private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_binary_uninstall_ignores_3/bin'})
+runtime_bash = '/bin/bash', active_kind = 'file', explicit = False
+
+    @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+    @pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+    def test_binary_uninstall_ignores_unrelated_active_path(
+        repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str,
+        active_kind: str, explicit: bool,
+    ) -> None:
+        (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+        executable = make_managed_tool(tool_env, "rg", "15.1.0")
+        other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+        expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+        active = tool_env.opt_dir / ".active"
+        target = tool_env.external_dir / "unrelated"
+        target.mkdir()
+        sentinel = target / "keep"
+        sentinel.write_text("untouched")
+        if active_kind == "file":
+            active.write_text("unrelated")
+        else:
+            active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        before = active.read_bytes() if active_kind == "file" else active.readlink()
+    
+        result = run_remote_ssh(
+            repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=tool_env.env,
+        )
+    
+>       assert_ok(result)
+
+dev/tests/test_uninstall.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Cannot inspect active library links; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n').returncode
+
+dev/tests/conftest.py:202: AssertionError
+_ test_binary_uninstall_ignores_unrelated_active_path[/bin/bash-binary-only-discovery-directory-link] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+tool_env = ToolStateEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_bin.../private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_binary_uninstall_ignores_4/bin'})
+runtime_bash = '/bin/bash', active_kind = 'directory-link', explicit = False
+
+    @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+    @pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+    def test_binary_uninstall_ignores_unrelated_active_path(
+        repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str,
+        active_kind: str, explicit: bool,
+    ) -> None:
+        (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+        executable = make_managed_tool(tool_env, "rg", "15.1.0")
+        other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+        expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+        active = tool_env.opt_dir / ".active"
+        target = tool_env.external_dir / "unrelated"
+        target.mkdir()
+        sentinel = target / "keep"
+        sentinel.write_text("untouched")
+        if active_kind == "file":
+            active.write_text("unrelated")
+        else:
+            active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        before = active.read_bytes() if active_kind == "file" else active.readlink()
+    
+        result = run_remote_ssh(
+            repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=tool_env.env,
+        )
+    
+>       assert_ok(result)
+
+dev/tests/test_uninstall.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Cannot inspect active library links; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n').returncode
+
+dev/tests/conftest.py:202: AssertionError
+_ test_binary_uninstall_ignores_unrelated_active_path[/bin/bash-binary-only-discovery-broken-link] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+tool_env = ToolStateEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_bin.../private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_binary_uninstall_ignores_5/bin'})
+runtime_bash = '/bin/bash', active_kind = 'broken-link', explicit = False
+
+    @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+    @pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+    def test_binary_uninstall_ignores_unrelated_active_path(
+        repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str,
+        active_kind: str, explicit: bool,
+    ) -> None:
+        (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+        executable = make_managed_tool(tool_env, "rg", "15.1.0")
+        other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+        expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+        active = tool_env.opt_dir / ".active"
+        target = tool_env.external_dir / "unrelated"
+        target.mkdir()
+        sentinel = target / "keep"
+        sentinel.write_text("untouched")
+        if active_kind == "file":
+            active.write_text("unrelated")
+        else:
+            active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        before = active.read_bytes() if active_kind == "file" else active.readlink()
+    
+        result = run_remote_ssh(
+            repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=tool_env.env,
+        )
+    
+>       assert_ok(result)
+
+dev/tests/test_uninstall.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Cannot inspect active library links; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n').returncode
+
+dev/tests/conftest.py:202: AssertionError
+_ test_binary_uninstall_ignores_unrelated_active_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-selected-file] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+tool_env = ToolStateEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_bin.../private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_binary_uninstall_ignores_6/bin'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', active_kind = 'file'
+explicit = True
+
+    @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+    @pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+    def test_binary_uninstall_ignores_unrelated_active_path(
+        repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str,
+        active_kind: str, explicit: bool,
+    ) -> None:
+        (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+        executable = make_managed_tool(tool_env, "rg", "15.1.0")
+        other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+        expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+        active = tool_env.opt_dir / ".active"
+        target = tool_env.external_dir / "unrelated"
+        target.mkdir()
+        sentinel = target / "keep"
+        sentinel.write_text("untouched")
+        if active_kind == "file":
+            active.write_text("unrelated")
+        else:
+            active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        before = active.read_bytes() if active_kind == "file" else active.readlink()
+    
+        result = run_remote_ssh(
+            repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=tool_env.env,
+        )
+    
+>       assert_ok(result)
+
+dev/tests/test_uninstall.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes', 'rg'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Cannot inspect active library links; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes', 'rg'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n').returncode
+
+dev/tests/conftest.py:202: AssertionError
+_ test_binary_uninstall_ignores_unrelated_active_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-selected-directory-link] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+tool_env = ToolStateEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_bin.../private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_binary_uninstall_ignores_7/bin'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+active_kind = 'directory-link', explicit = True
+
+    @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+    @pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+    def test_binary_uninstall_ignores_unrelated_active_path(
+        repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str,
+        active_kind: str, explicit: bool,
+    ) -> None:
+        (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+        executable = make_managed_tool(tool_env, "rg", "15.1.0")
+        other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+        expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+        active = tool_env.opt_dir / ".active"
+        target = tool_env.external_dir / "unrelated"
+        target.mkdir()
+        sentinel = target / "keep"
+        sentinel.write_text("untouched")
+        if active_kind == "file":
+            active.write_text("unrelated")
+        else:
+            active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        before = active.read_bytes() if active_kind == "file" else active.readlink()
+    
+        result = run_remote_ssh(
+            repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=tool_env.env,
+        )
+    
+>       assert_ok(result)
+
+dev/tests/test_uninstall.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes', 'rg'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Cannot inspect active library links; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes', 'rg'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n').returncode
+
+dev/tests/conftest.py:202: AssertionError
+_ test_binary_uninstall_ignores_unrelated_active_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-selected-broken-link] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+tool_env = ToolStateEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_bin.../private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_binary_uninstall_ignores_8/bin'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+active_kind = 'broken-link', explicit = True
+
+    @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+    @pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+    def test_binary_uninstall_ignores_unrelated_active_path(
+        repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str,
+        active_kind: str, explicit: bool,
+    ) -> None:
+        (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+        executable = make_managed_tool(tool_env, "rg", "15.1.0")
+        other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+        expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+        active = tool_env.opt_dir / ".active"
+        target = tool_env.external_dir / "unrelated"
+        target.mkdir()
+        sentinel = target / "keep"
+        sentinel.write_text("untouched")
+        if active_kind == "file":
+            active.write_text("unrelated")
+        else:
+            active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        before = active.read_bytes() if active_kind == "file" else active.readlink()
+    
+        result = run_remote_ssh(
+            repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=tool_env.env,
+        )
+    
+>       assert_ok(result)
+
+dev/tests/test_uninstall.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes', 'rg'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Cannot inspect active library links; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes', 'rg'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n').returncode
+
+dev/tests/conftest.py:202: AssertionError
+_ test_binary_uninstall_ignores_unrelated_active_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-binary-only-discovery-file] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+tool_env = ToolStateEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_bin.../private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_binary_uninstall_ignores_9/bin'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', active_kind = 'file'
+explicit = False
+
+    @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+    @pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+    def test_binary_uninstall_ignores_unrelated_active_path(
+        repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str,
+        active_kind: str, explicit: bool,
+    ) -> None:
+        (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+        executable = make_managed_tool(tool_env, "rg", "15.1.0")
+        other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+        expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+        active = tool_env.opt_dir / ".active"
+        target = tool_env.external_dir / "unrelated"
+        target.mkdir()
+        sentinel = target / "keep"
+        sentinel.write_text("untouched")
+        if active_kind == "file":
+            active.write_text("unrelated")
+        else:
+            active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        before = active.read_bytes() if active_kind == "file" else active.readlink()
+    
+        result = run_remote_ssh(
+            repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=tool_env.env,
+        )
+    
+>       assert_ok(result)
+
+dev/tests/test_uninstall.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Cannot inspect active library links; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n').returncode
+
+dev/tests/conftest.py:202: AssertionError
+_ test_binary_uninstall_ignores_unrelated_active_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-binary-only-discovery-directory-link] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+tool_env = ToolStateEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_bin...private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_binary_uninstall_ignores_10/bin'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+active_kind = 'directory-link', explicit = False
+
+    @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+    @pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+    def test_binary_uninstall_ignores_unrelated_active_path(
+        repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str,
+        active_kind: str, explicit: bool,
+    ) -> None:
+        (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+        executable = make_managed_tool(tool_env, "rg", "15.1.0")
+        other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+        expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+        active = tool_env.opt_dir / ".active"
+        target = tool_env.external_dir / "unrelated"
+        target.mkdir()
+        sentinel = target / "keep"
+        sentinel.write_text("untouched")
+        if active_kind == "file":
+            active.write_text("unrelated")
+        else:
+            active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        before = active.read_bytes() if active_kind == "file" else active.readlink()
+    
+        result = run_remote_ssh(
+            repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=tool_env.env,
+        )
+    
+>       assert_ok(result)
+
+dev/tests/test_uninstall.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Cannot inspect active library links; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n').returncode
+
+dev/tests/conftest.py:202: AssertionError
+_ test_binary_uninstall_ignores_unrelated_active_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-binary-only-discovery-broken-link] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+tool_env = ToolStateEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_bin...private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-628/test_binary_uninstall_ignores_11/bin'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+active_kind = 'broken-link', explicit = False
+
+    @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
+    @pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
+    def test_binary_uninstall_ignores_unrelated_active_path(
+        repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str,
+        active_kind: str, explicit: bool,
+    ) -> None:
+        (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+        executable = make_managed_tool(tool_env, "rg", "15.1.0")
+        other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
+        expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+        active = tool_env.opt_dir / ".active"
+        target = tool_env.external_dir / "unrelated"
+        target.mkdir()
+        sentinel = target / "keep"
+        sentinel.write_text("untouched")
+        if active_kind == "file":
+            active.write_text("unrelated")
+        else:
+            active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        before = active.read_bytes() if active_kind == "file" else active.readlink()
+    
+        result = run_remote_ssh(
+            repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=tool_env.env,
+        )
+    
+>       assert_ok(result)
+
+dev/tests/test_uninstall.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Cannot inspect active library links; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['bash', '/Users/fm/Programming/00_Other/remote-ssh/bin/remote-ssh', 'uninstall', '--yes'], returncode=1, stdout='', stderr='Cannot inspect active library links; uninstall aborted.\n').returncode
+
+dev/tests/conftest.py:202: AssertionError
+=========================== short test summary info ============================
+FAILED dev/tests/test_uninstall.py::test_binary_uninstall_ignores_unrelated_active_path[/bin/bash-selected-file]
+FAILED dev/tests/test_uninstall.py::test_binary_uninstall_ignores_unrelated_active_path[/bin/bash-selected-directory-link]
+FAILED dev/tests/test_uninstall.py::test_binary_uninstall_ignores_unrelated_active_path[/bin/bash-selected-broken-link]
+FAILED dev/tests/test_uninstall.py::test_binary_uninstall_ignores_unrelated_active_path[/bin/bash-binary-only-discovery-file]
+FAILED dev/tests/test_uninstall.py::test_binary_uninstall_ignores_unrelated_active_path[/bin/bash-binary-only-discovery-directory-link]
+FAILED dev/tests/test_uninstall.py::test_binary_uninstall_ignores_unrelated_active_path[/bin/bash-binary-only-discovery-broken-link]
+FAILED dev/tests/test_uninstall.py::test_binary_uninstall_ignores_unrelated_active_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-selected-file]
+FAILED dev/tests/test_uninstall.py::test_binary_uninstall_ignores_unrelated_active_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-selected-directory-link]
+FAILED dev/tests/test_uninstall.py::test_binary_uninstall_ignores_unrelated_active_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-selected-broken-link]
+FAILED dev/tests/test_uninstall.py::test_binary_uninstall_ignores_unrelated_active_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-binary-only-discovery-file]
+FAILED dev/tests/test_uninstall.py::test_binary_uninstall_ignores_unrelated_active_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-binary-only-discovery-directory-link]
+FAILED dev/tests/test_uninstall.py::test_binary_uninstall_ignores_unrelated_active_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-binary-only-discovery-broken-link]
+12 failed, 26 passed, 37 deselected in 10.71s

@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-09",
+  "candidate": "1.10.0-pr974.aae68bb4.r4",
+  "repository_head": "34ff644314ab068631ad583949ae24df0cb43d44",
+  "working_tree": "Includes uncommitted integration and pre-existing installer/checksum changes; no working-tree commit made",
+  "qualification": "macOS 27.2 arm64 / Homebrew Bash 5.3.20",
+  "native_vi": 32,
+  "readline_controls": 32,
+  "load_unload": 4,
+  "history_profiles": 3,
+  "completion_toggle_combinations": 4,
+  "terminal_contexts": 3,
+  "upstream_unit_passed": 1087,
+  "upstream_ignored": 1,
+  "smoke_passed": 1463,
+  "smoke_skipped": 30,
+  "post_optimization_focused_passed": 171,
+  "candidate_tests_passed": 5,
+  "performance": "passed; 30 measured rounds + 2 warmups, 6 editor/HOME combinations",
+  "startup": "passed; 20 measured + 2 warmups, 8 editor/history/HOME scenarios",
+  "unverified": [
+    "Linux",
+    "SSH transport",
+    "weak remote host",
+    "Intel macOS",
+    "other Bash builds"
+  ],
+  "release": "Not published; draft manifest outside tools/defs",
+  "live_assets_check": "Not run"
+}

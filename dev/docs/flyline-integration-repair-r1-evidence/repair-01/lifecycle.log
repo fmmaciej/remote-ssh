@@ -1,0 +1,4 @@
+{"case": "probe-load", "exit": 0, "stdout": "AFTER_PROBE", "stderr": "bash: cannot set terminal process group (85465): Inappropriate ioctl for device\nbash: no job control in this shell\n", "passed": true}
+{"case": "probe-unload", "exit": 0, "stdout": "AFTER_PROBE", "stderr": "bash: cannot set terminal process group (85465): Inappropriate ioctl for device\nbash: no job control in this shell\n", "passed": true}
+{"case": "startup-rollback", "actual": "bc", "passed": true, "resources": {"shell_cpu_ms": 13.055, "shell_peak_rss_mib": 10.0625}}
+{"case": "later-unload", "actual": "bc", "passed": true, "resources": {"shell_cpu_ms": 34.318999999999996, "shell_peak_rss_mib": 11.3125}}

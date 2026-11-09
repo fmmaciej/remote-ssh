@@ -1,0 +1,12 @@
+{
+  "command": [
+    "dev/.venv/bin/ruff",
+    "check",
+    "--config",
+    "dev/pyproject.toml",
+    "dev/flyline/settings.py"
+  ],
+  "exit": 0,
+  "elapsed_seconds": 0.03515004203654826,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

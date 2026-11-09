@@ -1,0 +1,258 @@
+{
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "official_sha256": "ff05ed23a0fd39b18dad31fbc458d60ec7ee0ba6d5228b3158fb39d01fc79de3",
+  "patched_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+  "script_sha256": "5d5faaa4c5259cc9676f49199acecf0f41bacf081646e4e9391ade5fa3d6e630",
+  "summaries": {
+    "readline/fresh": {
+      "startup_ms": {
+        "n": 30,
+        "median": 21.53508353512734,
+        "p95": 23.473292007111013
+      },
+      "file_tab_ms": {
+        "n": 30,
+        "median": 4.3221249943599105,
+        "p95": 6.364959059283137
+      },
+      "vi_insert_key_ms": {
+        "n": 30,
+        "median": 0.40181248914450407,
+        "p95": 1.1920420220121741
+      },
+      "idle_rss_mib": {
+        "n": 30,
+        "median": 7.1640625,
+        "p95": 7.265625
+      },
+      "idle_cpu_percent": {
+        "n": 30,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "bracketed_paste_ms": {
+        "n": 2,
+        "median": 11.992062034551054,
+        "p95": 13.67095799650997
+      },
+      "single_key_ms": {
+        "n": 90,
+        "median": 0.10689598275348544,
+        "p95": 0.21066609770059586
+      }
+    },
+    "readline/warm": {
+      "startup_ms": {
+        "n": 30,
+        "median": 22.0872710342519,
+        "p95": 23.831500089727342
+      },
+      "file_tab_ms": {
+        "n": 30,
+        "median": 3.4298329846933484,
+        "p95": 8.595000021159649
+      },
+      "vi_insert_key_ms": {
+        "n": 30,
+        "median": 0.3407704643905163,
+        "p95": 1.0077920742332935
+      },
+      "idle_rss_mib": {
+        "n": 30,
+        "median": 7.1875,
+        "p95": 7.3125
+      },
+      "idle_cpu_percent": {
+        "n": 30,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "bracketed_paste_ms": {
+        "n": 2,
+        "median": 13.973979454021901,
+        "p95": 16.69679197948426
+      },
+      "single_key_ms": {
+        "n": 90,
+        "median": 0.10652100900188088,
+        "p95": 0.21816696971654892
+      }
+    },
+    "official/fresh": {
+      "startup_ms": {
+        "n": 30,
+        "median": 32.74206246715039,
+        "p95": 41.94037499837577
+      },
+      "file_tab_ms": {
+        "n": 30,
+        "median": 5.290437489748001,
+        "p95": 6.387875066138804
+      },
+      "idle_rss_mib": {
+        "n": 30,
+        "median": 11.140625,
+        "p95": 12.203125
+      },
+      "idle_cpu_percent": {
+        "n": 30,
+        "median": 0.0,
+        "p95": 0.9997856709733405
+      },
+      "bracketed_paste_ms": {
+        "n": 2,
+        "median": 2.3528749588876963,
+        "p95": 2.50175001565367
+      },
+      "single_key_ms": {
+        "n": 90,
+        "median": 0.35779201425611973,
+        "p95": 0.42237492743879557
+      }
+    },
+    "official/warm": {
+      "startup_ms": {
+        "n": 30,
+        "median": 33.70418748818338,
+        "p95": 40.21795792505145
+      },
+      "file_tab_ms": {
+        "n": 30,
+        "median": 6.910979573149234,
+        "p95": 9.45174996741116
+      },
+      "idle_rss_mib": {
+        "n": 30,
+        "median": 11.1328125,
+        "p95": 12.265625
+      },
+      "idle_cpu_percent": {
+        "n": 30,
+        "median": 0.9980385912573284,
+        "p95": 0.9997388181653388
+      },
+      "bracketed_paste_ms": {
+        "n": 2,
+        "median": 3.647728997748345,
+        "p95": 3.9385000709444284
+      },
+      "single_key_ms": {
+        "n": 90,
+        "median": 0.4468749975785613,
+        "p95": 0.6206250982359052
+      }
+    },
+    "patched/fresh": {
+      "startup_ms": {
+        "n": 30,
+        "median": 31.563125492539257,
+        "p95": 48.300832975655794
+      },
+      "file_tab_ms": {
+        "n": 30,
+        "median": 5.352395528461784,
+        "p95": 6.8687909515574574
+      },
+      "vi_insert_key_ms": {
+        "n": 30,
+        "median": 1.0661875130608678,
+        "p95": 2.364874933846295
+      },
+      "idle_rss_mib": {
+        "n": 30,
+        "median": 11.2890625,
+        "p95": 12.453125
+      },
+      "idle_cpu_percent": {
+        "n": 30,
+        "median": 0.9976897889472529,
+        "p95": 0.999711624177906
+      },
+      "bracketed_paste_ms": {
+        "n": 2,
+        "median": 6.365124951116741,
+        "p95": 7.203207933343947
+      },
+      "single_key_ms": {
+        "n": 90,
+        "median": 0.36356248892843723,
+        "p95": 0.44249999336898327
+      }
+    },
+    "patched/warm": {
+      "startup_ms": {
+        "n": 30,
+        "median": 34.07468745717779,
+        "p95": 37.648540921509266
+      },
+      "file_tab_ms": {
+        "n": 30,
+        "median": 6.803708558436483,
+        "p95": 8.88633297290653
+      },
+      "vi_insert_key_ms": {
+        "n": 30,
+        "median": 1.1496460647322237,
+        "p95": 3.2342090271413326
+      },
+      "idle_rss_mib": {
+        "n": 30,
+        "median": 11.296875,
+        "p95": 12.421875
+      },
+      "idle_cpu_percent": {
+        "n": 30,
+        "median": 0.998659403896545,
+        "p95": 0.9996519122694651
+      },
+      "bracketed_paste_ms": {
+        "n": 2,
+        "median": 6.257271044887602,
+        "p95": 7.397750043310225
+      },
+      "single_key_ms": {
+        "n": 90,
+        "median": 0.44283352326601744,
+        "p95": 0.5706670926883817
+      }
+    }
+  },
+  "budgets": {
+    "startup_median_over_readline_ms": 30,
+    "startup_p95_over_readline_ms": 60,
+    "single_key_median_ms": 2,
+    "single_key_p95_ms": 8,
+    "extra_idle_rss_mib": 12,
+    "file_tab_median_ms": 50,
+    "file_tab_p95_ms": 150,
+    "bracketed_paste_p95_ms": 500,
+    "idle_cpu_percent_of_one_core": 1
+  },
+  "checks": {
+    "fresh": {
+      "startup_median": true,
+      "startup_p95": true,
+      "key_median": true,
+      "key_p95": true,
+      "vi_insert_key_p95": true,
+      "rss": true,
+      "file_tab_median": true,
+      "file_tab_p95": true,
+      "paste": true,
+      "idle_cpu": true
+    },
+    "warm": {
+      "startup_median": true,
+      "startup_p95": true,
+      "key_median": true,
+      "key_p95": true,
+      "vi_insert_key_p95": true,
+      "rss": true,
+      "file_tab_median": true,
+      "file_tab_p95": true,
+      "paste": true,
+      "idle_cpu": true
+    }
+  },
+  "passed": true
+}

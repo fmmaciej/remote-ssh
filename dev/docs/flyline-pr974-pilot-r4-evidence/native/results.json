@@ -1,0 +1,543 @@
+{
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "bash": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+  "bash_version": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+  "library": "/private/tmp/remote-ssh-flyline-build/artifact-r4/libflyline.dylib",
+  "library_sha256": "e73823eeeb046eb31b9941e1f951ec6aa346c0a3cf4ec0331fe188e55da77cc4",
+  "pilot_sha256": "aa39e381f6f1457715691732499de1d0354e26d8b132e3dd5d53234bc1205140",
+  "managed": true,
+  "results": [
+    {
+      "case": "replace",
+      "expected": "bc",
+      "keys": [
+        "b'\\x1b'",
+        "b'hrbA'"
+      ],
+      "line_before_submit": "BMARK> capture bc",
+      "executed_before_submit": false,
+      "actual": "bc",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 128.42100000000002,
+        "shell_peak_rss_mib": 12.09375
+      }
+    },
+    {
+      "case": "delete",
+      "expected": "abc",
+      "keys": [
+        "b'\\x1b'",
+        "b'xA'"
+      ],
+      "line_before_submit": "BMARK> capture abc",
+      "executed_before_submit": false,
+      "actual": "abc",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 143.85199999999998,
+        "shell_peak_rss_mib": 12.140625
+      }
+    },
+    {
+      "case": "delete-word",
+      "expected": "two three",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wdwA'"
+      ],
+      "line_before_submit": "BMARK> capture two three",
+      "executed_before_submit": false,
+      "actual": "two three",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 143.398,
+        "shell_peak_rss_mib": 12.09375
+      }
+    },
+    {
+      "case": "change-word",
+      "expected": "ONE two",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wcwONE'",
+        "b'\\x1b'",
+        "b'A'"
+      ],
+      "line_before_submit": "BMARK> capture ONE two",
+      "executed_before_submit": false,
+      "actual": "ONE two",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 148.347,
+        "shell_peak_rss_mib": 12.171875
+      }
+    },
+    {
+      "case": "yank-paste",
+      "expected": "abab",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wyw$pA'"
+      ],
+      "line_before_submit": "BMARK> capture abab",
+      "executed_before_submit": false,
+      "actual": "abab",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 121.30499999999999,
+        "shell_peak_rss_mib": 12.0625
+      }
+    },
+    {
+      "case": "undo-redo",
+      "expected": "bc",
+      "keys": [
+        "b'\\x1b'",
+        "b'hrb'",
+        "b'u'",
+        "b'\\x12'",
+        "b'A'"
+      ],
+      "line_before_submit": "BMARK> capture bc",
+      "executed_before_submit": false,
+      "actual": "bc",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 121.916,
+        "shell_peak_rss_mib": 12.109375
+      }
+    },
+    {
+      "case": "undo",
+      "expected": "ac",
+      "keys": [
+        "b'\\x1b'",
+        "b'hrb'",
+        "b'u'",
+        "b'A'"
+      ],
+      "line_before_submit": "BMARK> capture ac",
+      "executed_before_submit": false,
+      "actual": "ac",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 151.214,
+        "shell_peak_rss_mib": 12.140625
+      }
+    },
+    {
+      "case": "dot-delete",
+      "expected": "ad",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wlx.A'"
+      ],
+      "line_before_submit": "BMARK> capture ad",
+      "executed_before_submit": false,
+      "actual": "ad",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 133.902,
+        "shell_peak_rss_mib": 12.09375
+      }
+    },
+    {
+      "case": "dot-replace",
+      "expected": "XXcd",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wrXl.A'"
+      ],
+      "line_before_submit": "BMARK> capture XXcd",
+      "executed_before_submit": false,
+      "actual": "XXcd",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 133.46,
+        "shell_peak_rss_mib": 12.109375
+      }
+    },
+    {
+      "case": "dot-change",
+      "expected": "NEW NEW",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wcwNEW'",
+        "b'\\x1b'",
+        "b'w.A'"
+      ],
+      "line_before_submit": "BMARK> capture NEW NEW",
+      "executed_before_submit": false,
+      "actual": "NEW NEW",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 134.763,
+        "shell_peak_rss_mib": 12.0625
+      }
+    },
+    {
+      "case": "unicode-paste",
+      "expected": "\u017c\u00f3\u0142w",
+      "keys": [],
+      "line_before_submit": "BMARK> capture \u017c\u00f3\u0142w",
+      "executed_before_submit": false,
+      "actual": "\u017c\u00f3\u0142w",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 170.02599999999998,
+        "shell_peak_rss_mib": 12.234375
+      }
+    },
+    {
+      "case": "normal-mode-no-text",
+      "expected": "abc",
+      "keys": [
+        "b'\\x1b'",
+        "b'qA'"
+      ],
+      "line_before_submit": "BMARK> capture abc",
+      "executed_before_submit": false,
+      "actual": "abc",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 149.9,
+        "shell_peak_rss_mib": 12.0625
+      }
+    },
+    {
+      "case": "count-motion",
+      "expected": "aXcd",
+      "keys": [
+        "b'\\x1b'",
+        "b'2hrXA'"
+      ],
+      "line_before_submit": "BMARK> capture aXcd",
+      "executed_before_submit": false,
+      "actual": "aXcd",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 137.30999999999997,
+        "shell_peak_rss_mib": 12.109375
+      }
+    },
+    {
+      "case": "history-k",
+      "expected": "seeded",
+      "keys": [
+        "b'\\x1b'",
+        "b'kA'"
+      ],
+      "line_before_submit": "BMARK> capture seeded",
+      "executed_before_submit": false,
+      "actual": "seeded",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 132.465,
+        "shell_peak_rss_mib": 12.09375
+      }
+    },
+    {
+      "case": "history-up",
+      "expected": "seeded",
+      "keys": [
+        "b'\\x1b[A'"
+      ],
+      "line_before_submit": "BMARK> capture seeded",
+      "executed_before_submit": false,
+      "actual": "seeded",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 128.883,
+        "shell_peak_rss_mib": 12.09375
+      }
+    },
+    {
+      "case": "history-slash",
+      "expected": "seeded",
+      "keys": [
+        "b'\\x1b'",
+        "b'/seeded'",
+        "b'\\r'",
+        "b'A'"
+      ],
+      "line_before_submit": "BMARK> capture seeded",
+      "executed_before_submit": false,
+      "actual": "seeded",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 131.411,
+        "shell_peak_rss_mib": 12.0625
+      }
+    },
+    {
+      "case": "unicode-yank-paste",
+      "expected": "\u017c\u00f3\u0142w\u017c\u00f3\u0142w",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wyw$pA'"
+      ],
+      "line_before_submit": "BMARK> capture \u017c\u00f3\u0142w\u017c\u00f3\u0142w",
+      "executed_before_submit": false,
+      "actual": "\u017c\u00f3\u0142w\u017c\u00f3\u0142w",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 130.56099999999998,
+        "shell_peak_rss_mib": 12.140625
+      }
+    },
+    {
+      "case": "undo-change",
+      "expected": "one two",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wcwNEW'",
+        "b'\\x1b'",
+        "b'uA'"
+      ],
+      "line_before_submit": "BMARK> capture one two",
+      "executed_before_submit": false,
+      "actual": "one two",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 126.15599999999999,
+        "shell_peak_rss_mib": 12.078125
+      }
+    },
+    {
+      "case": "undo-consecutive",
+      "expected": "abcd",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wrXlrYuuA'"
+      ],
+      "line_before_submit": "BMARK> capture abcd",
+      "executed_before_submit": false,
+      "actual": "abcd",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 139.505,
+        "shell_peak_rss_mib": 12.171875
+      }
+    },
+    {
+      "case": "undo-after-motion",
+      "expected": "ac",
+      "keys": [
+        "b'\\x1b'",
+        "b'hrbhluA'"
+      ],
+      "line_before_submit": "BMARK> capture ac",
+      "executed_before_submit": false,
+      "actual": "ac",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 133.26399999999998,
+        "shell_peak_rss_mib": 12.046875
+      }
+    },
+    {
+      "case": "dot-undo",
+      "expected": "acd",
+      "keys": [
+        "b'\\x1b'",
+        "b'0wlx.uA'"
+      ],
+      "line_before_submit": "BMARK> capture acd",
+      "executed_before_submit": false,
+      "actual": "acd",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 126.54099999999998,
+        "shell_peak_rss_mib": 12.109375
+      }
+    },
+    {
+      "case": "count-motion-right",
+      "expected": "abXd",
+      "keys": [
+        "b'\\x1b'",
+        "b'0w2lrXA'"
+      ],
+      "line_before_submit": "BMARK> capture abXd",
+      "executed_before_submit": false,
+      "actual": "abXd",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 124.27499999999999,
+        "shell_peak_rss_mib": 12.0625
+      }
+    },
+    {
+      "case": "count-ten",
+      "expected": "aXcdefghijkl",
+      "keys": [
+        "b'\\x1b'",
+        "b'10hrXA'"
+      ],
+      "line_before_submit": "BMARK> capture aXcdefghijkl",
+      "executed_before_submit": false,
+      "actual": "aXcdefghijkl",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 129.935,
+        "shell_peak_rss_mib": 12.078125
+      }
+    },
+    {
+      "case": "count-delete-words",
+      "expected": "three",
+      "keys": [
+        "b'\\x1b'",
+        "b'0w2dwA'"
+      ],
+      "line_before_submit": "BMARK> capture three",
+      "executed_before_submit": false,
+      "actual": "three",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 123.03999999999998,
+        "shell_peak_rss_mib": 12.125
+      }
+    },
+    {
+      "case": "history-k-draft",
+      "expected": "seeded",
+      "keys": [
+        "b'\\x1b'",
+        "b'kA'"
+      ],
+      "line_before_submit": "BMARK> capture seeded",
+      "executed_before_submit": false,
+      "actual": "seeded",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 123.65099999999998,
+        "shell_peak_rss_mib": 12.109375
+      }
+    },
+    {
+      "case": "history-kj-draft",
+      "expected": "draft",
+      "keys": [
+        "b'\\x1b'",
+        "b'kjA'"
+      ],
+      "line_before_submit": "BMARK> capture draft",
+      "executed_before_submit": false,
+      "actual": "draft",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 130.82399999999998,
+        "shell_peak_rss_mib": 12.078125
+      }
+    },
+    {
+      "case": "history-count",
+      "expected": "older",
+      "keys": [
+        "b'\\x1b'",
+        "b'2kA'"
+      ],
+      "line_before_submit": "BMARK> capture older",
+      "executed_before_submit": false,
+      "actual": "older",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 122.01699999999998,
+        "shell_peak_rss_mib": 12.109375
+      }
+    },
+    {
+      "case": "history-search-cancel",
+      "expected": "draft",
+      "keys": [
+        "b'\\x1b'",
+        "b'/seeded'",
+        "b'\\x07'",
+        "b'A'"
+      ],
+      "line_before_submit": "BMARK> capture draft",
+      "executed_before_submit": false,
+      "actual": "draft",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 126.02199999999999,
+        "shell_peak_rss_mib": 12.125
+      }
+    },
+    {
+      "case": "history-search-miss",
+      "expected": "draft",
+      "keys": [
+        "b'\\x1b'",
+        "b'/not-in-fixture'",
+        "b'\\r'",
+        "b'A'"
+      ],
+      "line_before_submit": "BMARK> capture draft",
+      "executed_before_submit": false,
+      "actual": "draft",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 134.073,
+        "shell_peak_rss_mib": 12.109375
+      }
+    },
+    {
+      "case": "history-search-edit-query",
+      "expected": "seeded",
+      "keys": [
+        "b'\\x1b'",
+        "b'/seedX'",
+        "b'\\x7fed'",
+        "b'\\r'",
+        "b'A'"
+      ],
+      "line_before_submit": "BMARK> capture seeded",
+      "executed_before_submit": false,
+      "actual": "seeded",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 120.588,
+        "shell_peak_rss_mib": 12.015625
+      }
+    },
+    {
+      "case": "history-search-anchor",
+      "expected": "seeded",
+      "keys": [
+        "b'\\x1b'",
+        "b'/^capture seed'",
+        "b'\\r'",
+        "b'A'"
+      ],
+      "line_before_submit": "BMARK> capture seeded",
+      "executed_before_submit": false,
+      "actual": "seeded",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 125.54199999999999,
+        "shell_peak_rss_mib": 12.125
+      }
+    },
+    {
+      "case": "history-search-preserves-undo",
+      "expected": "ac",
+      "keys": [
+        "b'\\x1b'",
+        "b'hrb/seeded'",
+        "b'\\x07'",
+        "b'uA'"
+      ],
+      "line_before_submit": "BMARK> capture ac",
+      "executed_before_submit": false,
+      "actual": "ac",
+      "passed": true,
+      "resources": {
+        "shell_cpu_ms": 136.59199999999998,
+        "shell_peak_rss_mib": 12.125
+      }
+    }
+  ]
+}

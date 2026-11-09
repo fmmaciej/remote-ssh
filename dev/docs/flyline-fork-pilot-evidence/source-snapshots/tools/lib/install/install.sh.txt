@@ -1,0 +1,84 @@
+# shellcheck shell=bash
+
+ensure_this_file_sourced
+
+is_tool_installed() {
+  local tool="$1"
+  local expected_version="${2:-}"
+  local local_bin="${INSTALL_BIN_DIR}/${tool}"
+  local target existing release
+
+  if [[ ${FORCE:-0} == "1" ]]; then
+    log_info "FORCE=1"
+    return 1
+  fi
+
+  if [[ "${INSTALL_LAYOUT:-binary}" == bash-builtin ]]; then
+    local_bin="$(remote_ssh_tool_link "$tool")"
+    if remote_ssh_library_install_valid "$local_bin" "$tool" "$expected_version"; then
+      log_info "'$tool' ${expected_version} library is installed in ${local_bin} - SKIPPING."
+      return 0
+    fi
+    return 1
+  fi
+
+  if [[ -x $local_bin ]]; then
+    if [[ -z $expected_version ]]; then
+      log_info "'$tool' is installed in ${local_bin} - SKIPPING."
+      return 0
+    fi
+
+    if [[ -L $local_bin ]]; then
+      target="$(readlink "$local_bin")"
+      if remote_ssh_link_matches_version "$local_bin" "$tool" "$expected_version"; then
+        if [[ "${INSTALL_LAYOUT:-binary}" == bundle ]]; then
+          release="$(remote_ssh_release_for_link "$local_bin" "$tool")" || return 1
+          remote_ssh_release_validate "$release" "$tool" || return 1
+          [[ "$REMOTE_SSH_RELEASE_LAYOUT" == bundle &&
+            "$REMOTE_SSH_RELEASE_EXECUTABLE" == "$BINARY_PATH" ]] || return 1
+        fi
+        log_info "'$tool' ${expected_version} is installed in ${local_bin} - SKIPPING."
+        return 0
+      fi
+
+      log_info "'$tool' is installed in ${local_bin}, but target is not VERSION=${expected_version}: ${target}"
+      return 1
+    fi
+
+    log_info "'$tool' exists in ${local_bin}, but is not a managed version symlink - installing pinned VERSION=${expected_version}."
+    return 1
+  fi
+
+  if have "$tool"; then
+    existing="$(command -v "$tool")"
+    log_info "'$tool' is present in PATH (${existing}), but remote-ssh pinned VERSION=${expected_version} is not installed."
+  fi
+
+  return 1
+}
+
+install_tool() {
+  local tool="$1"
+  local install_tool_sh="$TOOLS_DIR/install-tool.sh"
+  local def_dir="$TOOLS_DIR/defs"
+
+  load_defs "$def_dir" "$tool"
+
+  is_tool_installed "$TOOL_NAME" "$VERSION" && return 0
+
+  "$install_tool_sh" "$tool" || {
+    log_error "'$tool': installation failed."
+    return 1
+  }
+}
+
+install_tools() {
+  local -a tools=("$@")
+
+  mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR" || return 1
+
+  local t
+  for t in ${tools[@]+"${tools[@]}"}; do
+    install_tool "$t" || return 1
+  done
+}

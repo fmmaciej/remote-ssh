@@ -1,0 +1,27 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "dev/flyline/startup.py",
+    "--repo",
+    "/Users/fm/Programming/00_Other/remote-ssh",
+    "--bash",
+    "/opt/homebrew/bin/bash",
+    "--library",
+    "/Users/fm/Programming/00_Other/remote-ssh/dev/flyline/dist/1.10.0-pr974.aae68bb4.r5/libflyline.dylib",
+    "--atuin",
+    "/Users/fm/.local/opt/atuin-18.14.1/atuin",
+    "--skim",
+    "/private/tmp/flyline-repair-20261109-r1-inputs/sk",
+    "--starship",
+    "/Users/fm/.local/bin/starship",
+    "--iterations",
+    "20",
+    "--warmup",
+    "2",
+    "--output",
+    "dev/docs/flyline-integration-repair-r1-evidence/startup"
+  ],
+  "exit": 1,
+  "elapsed_seconds": 45.28697358292993,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

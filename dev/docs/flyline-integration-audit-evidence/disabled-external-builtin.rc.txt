@@ -1,0 +1,13 @@
+set -o vi
+builtin enable -f '/private/tmp/flyline-integration-audit-j9a5_wdf/disabled-external-builtin/managed prefix/.active/flyline' flyline
+builtin flyline key --vim-mode false
+builtin enable -n flyline
+printf 'AUDIT_BEFORE_TYPE=%s\n' "$(builtin type -t flyline)"
+builtin enable -a | /usr/bin/grep flyline
+. /private/tmp/flyline-integration-audit-j9a5_wdf/disabled-external-builtin/checkout/shell/rc.sh
+printf 'AUDIT_AFTER_STATE=%s:%s\n' "$REMOTE_SSH_FLYLINE_STATE" "$REMOTE_SSH_FLYLINE_REASON"
+printf 'AUDIT_AFTER_HISTORY=%s:%s\n' "$REMOTE_SSH_HISTORY_BACKEND" "${__atuin_initialized:-unset}"
+printf 'AUDIT_AFTER_TYPE=%s\n' "$(builtin type -t flyline)"
+printf 'AUDIT_AFTER_ATTRIBUTES\n'
+declare -p FLYLINE_LOAD_DIR FLYLINE_VERSION
+printf '\036AUDIT_DONE\037\n'

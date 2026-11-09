@@ -1,0 +1,25 @@
+{
+  "command": [
+    "dev/.venv/bin/python",
+    "dev/docs/flyline-integration-repair-r1-evidence/paired-startup-diagnostic.py",
+    "--repo",
+    ".",
+    "--bash",
+    "/opt/homebrew/bin/bash",
+    "--library",
+    "dev/flyline/dist/1.10.0-pr974.aae68bb4.r5/libflyline.dylib",
+    "--atuin",
+    "/Users/fm/.local/opt/atuin-18.14.1/atuin",
+    "--skim",
+    "/private/tmp/flyline-repair-20261109-r1-inputs/sk",
+    "--starship",
+    "/Users/fm/.local/bin/starship",
+    "--before",
+    "dev/docs/flyline-integration-repair-r1-evidence/source-before/files/shell/rc.d/29-flyline.sh",
+    "--output",
+    "dev/docs/flyline-integration-repair-r1-evidence/paired-startup-diagnostic"
+  ],
+  "exit": 0,
+  "elapsed_seconds": 14.217811792041175,
+  "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+}

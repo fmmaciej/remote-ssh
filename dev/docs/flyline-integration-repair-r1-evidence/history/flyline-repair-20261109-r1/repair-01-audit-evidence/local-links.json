@@ -1,0 +1,974 @@
+{
+  "documents": 16,
+  "checks": 161,
+  "passed": true,
+  "errors": [],
+  "links": [
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-integration-audit.md",
+      "target": "dev/docs/flyline-integration-audit.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-integration-repair-r1-record.md",
+      "target": "dev/docs/flyline-integration-repair-r1-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "#post-audit-repair-plan",
+      "target": "dev/docs/flyline-implementation-plan.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-pr974-pilot-record.md",
+      "target": "dev/docs/flyline-pr974-pilot-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-pr974-pilot-record-r1.md",
+      "target": "dev/docs/flyline-pr974-pilot-record-r1.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-fork-integration-record.md",
+      "target": "dev/docs/flyline-fork-integration-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-pilot-record.md",
+      "target": "dev/docs/flyline-pilot-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "carapace-implementation-plan.md",
+      "target": "dev/docs/carapace-implementation-plan.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-pr974-planning-evidence/port-check.json",
+      "target": "dev/docs/flyline-pr974-planning-evidence/port-check.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-pr974-planning-evidence/inputs.json",
+      "target": "dev/docs/flyline-pr974-planning-evidence/inputs.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "../../tools/lib/commands/shell.sh",
+      "target": "tools/lib/commands/shell.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "../../shell/rc.d/11-line-editing.sh",
+      "target": "shell/rc.d/11-line-editing.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "../../shell/rc.d/05-bash-preexec.sh",
+      "target": "shell/rc.d/05-bash-preexec.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "../../shell/rc.d/23-atuin.sh",
+      "target": "shell/rc.d/23-atuin.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "../../shell/rc.d/06-bash-history.sh",
+      "target": "shell/rc.d/06-bash-history.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "../../shell/rc.d/20-skim.sh",
+      "target": "shell/rc.d/20-skim.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "../../tools/lib/install-tool/install.sh",
+      "target": "tools/lib/install-tool/install.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "../../tools/lib/common/release.sh",
+      "target": "tools/lib/common/release.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "../../tools/lib/install-tool/assets.sh",
+      "target": "tools/lib/install-tool/assets.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "../../tools/lib/install/tool_inventory.sh",
+      "target": "tools/lib/install/tool_inventory.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "../../tools/lib/commands/tool_status.sh",
+      "target": "tools/lib/commands/tool_status.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "../../docs/shell/helpers.md#history",
+      "target": "docs/shell/helpers.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "bench-shell.md",
+      "target": "dev/docs/bench-shell.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-integration-audit.md#confirmed-findings",
+      "target": "dev/docs/flyline-integration-audit.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-integration-repair-r1-record.md",
+      "target": "dev/docs/flyline-integration-repair-r1-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-implementation-plan.md#post-audit-repair-plan",
+      "target": "dev/docs/flyline-implementation-plan.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/baseline.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/baseline.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/execution.md",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/execution.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/events.md",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/events.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/F3-red.log",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/F3-red.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/F1-red.log",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/F1-red.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/F2-red.log",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/F2-red.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/F4-red.log",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/F4-red.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/focused-final-green.log",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/focused-final-green.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/related-green.log",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/related-green.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "../flyline/ownership.py",
+      "target": "dev/flyline/ownership.py",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/native-ownership-rerun-1/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/native-ownership-rerun-1/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/native-ownership/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/native-ownership/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/native-lifecycle/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/native-lifecycle/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/native-history/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/native-history/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/native-inputs.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/native-inputs.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/guard-diagnostic/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/guard-diagnostic/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/guard-diagnostic.py",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/guard-diagnostic.py",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/paired-startup-diagnostic/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/paired-startup-diagnostic/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/paired-startup-diagnostic.py",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/paired-startup-diagnostic.py",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/startup-confirmation-declaration.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/startup-confirmation-declaration.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/startup/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/startup/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/startup-confirmation-1/budgets.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/startup-confirmation-1/budgets.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/startup-confirmation-1/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/startup-confirmation-1/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/smoke-rerun-1.log",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/smoke-rerun-1.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/diff-check.log",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/diff-check.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/local-links.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/local-links.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-record.md",
+      "href": "flyline-integration-repair-r1-evidence/smoke.log",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/smoke.log",
+      "passed": true
+    },
+    {
+      "source": "dev/flyline/README.md",
+      "href": "../docs/flyline-fork-integration-record.md",
+      "target": "dev/docs/flyline-fork-integration-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/flyline/README.md",
+      "href": "fork.json",
+      "target": "dev/flyline/fork.json",
+      "passed": true
+    },
+    {
+      "source": "dev/flyline/README.md",
+      "href": "../docs/flyline-pr974-pilot-record.md",
+      "target": "dev/docs/flyline-pr974-pilot-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/flyline/README.md",
+      "href": "inputs.json",
+      "target": "dev/flyline/inputs.json",
+      "passed": true
+    },
+    {
+      "source": "dev/flyline/README.md",
+      "href": "LICENSE-MIT",
+      "target": "dev/flyline/LICENSE-MIT",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/execution.md",
+      "href": "baseline-1/baseline.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/baseline.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/result-r0.md",
+      "href": "baseline-1/baseline.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/baseline.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/result-r0.md",
+      "href": "plan-r0.md",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/plan-r0.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/result-r0.md",
+      "href": "../../../flyline-integration-repair-r1-record.md",
+      "target": "dev/docs/flyline-integration-repair-r1-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/repair-01-result.md",
+      "href": "baseline-1/baseline.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/baseline.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/repair-01-result.md",
+      "href": "repair-01-plan.md",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/repair-01-plan.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/repair-01-result.md",
+      "href": "../../repair-01/result.md",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/repair-01-result.md",
+      "href": "round-1-subject/manifest.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/round-1-subject/manifest.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/repair-01-plan.md",
+      "href": "baseline-1/baseline.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/baseline.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/repair-01-plan.md",
+      "href": "plan-r0.md",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/plan-r0.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/repair-01-plan.md",
+      "href": "audit-0.md",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/audit-0.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "../history/flyline-repair-20261109-r1/baseline-1/baseline.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/baseline.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "../history/flyline-repair-20261109-r1/repair-01-plan.md",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/repair-01-plan.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "../history/flyline-repair-20261109-r1/execution.md",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/execution.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "focused.log",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/focused.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "../../../flyline/settings.py",
+      "target": "dev/flyline/settings.py",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "settings/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/settings/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "settings/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/settings/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "ownership/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/ownership/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "lifecycle/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/lifecycle/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "history/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/history/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "startup-declaration.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/startup-declaration.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "startup/budgets.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/startup/budgets.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "startup/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/startup/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "../startup/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/startup/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "../startup-confirmation-1/results.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/startup-confirmation-1/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "smoke.log",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/smoke.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "diff-check.log",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/diff-check.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/result.md",
+      "href": "local-links.json",
+      "target": "dev/docs/flyline-integration-repair-r1-evidence/repair-01/local-links.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-integration-audit.md",
+      "target": "dev/docs/flyline-integration-audit.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "#post-audit-repair-plan",
+      "target": "dev/docs/flyline-implementation-plan.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-pr974-pilot-record.md",
+      "target": "dev/docs/flyline-pr974-pilot-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-pr974-pilot-record-r1.md",
+      "target": "dev/docs/flyline-pr974-pilot-record-r1.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-fork-integration-record.md",
+      "target": "dev/docs/flyline-fork-integration-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-pilot-record.md",
+      "target": "dev/docs/flyline-pilot-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "carapace-implementation-plan.md",
+      "target": "dev/docs/carapace-implementation-plan.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-pr974-planning-evidence/port-check.json",
+      "target": "dev/docs/flyline-pr974-planning-evidence/port-check.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-pr974-planning-evidence/inputs.json",
+      "target": "dev/docs/flyline-pr974-planning-evidence/inputs.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "../../tools/lib/commands/shell.sh",
+      "target": "tools/lib/commands/shell.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "../../shell/rc.d/11-line-editing.sh",
+      "target": "shell/rc.d/11-line-editing.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "../../shell/rc.d/05-bash-preexec.sh",
+      "target": "shell/rc.d/05-bash-preexec.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "../../shell/rc.d/23-atuin.sh",
+      "target": "shell/rc.d/23-atuin.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "../../shell/rc.d/06-bash-history.sh",
+      "target": "shell/rc.d/06-bash-history.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "../../shell/rc.d/20-skim.sh",
+      "target": "shell/rc.d/20-skim.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "../../tools/lib/install-tool/install.sh",
+      "target": "tools/lib/install-tool/install.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "../../tools/lib/common/release.sh",
+      "target": "tools/lib/common/release.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "../../tools/lib/install-tool/assets.sh",
+      "target": "tools/lib/install-tool/assets.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "../../tools/lib/install/tool_inventory.sh",
+      "target": "tools/lib/install/tool_inventory.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "../../tools/lib/commands/tool_status.sh",
+      "target": "tools/lib/commands/tool_status.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "../../docs/shell/helpers.md#history",
+      "target": "docs/shell/helpers.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "bench-shell.md",
+      "target": "dev/docs/bench-shell.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-implementation-plan.md",
+      "href": "flyline-integration-audit.md#confirmed-findings",
+      "target": "dev/docs/flyline-integration-audit.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "../../shell/rc.d/29-flyline.sh",
+      "target": "shell/rc.d/29-flyline.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "flyline-integration-audit-evidence/late-external-atuin.pty.txt",
+      "target": "dev/docs/flyline-integration-audit-evidence/late-external-atuin.pty.txt",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "flyline-integration-audit-evidence/late-external-atuin.rc.txt",
+      "target": "dev/docs/flyline-integration-audit-evidence/late-external-atuin.rc.txt",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "../../shell/rc.d/29-flyline.sh",
+      "target": "shell/rc.d/29-flyline.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "flyline-integration-audit-evidence/disabled-external-builtin.pty.txt",
+      "target": "dev/docs/flyline-integration-audit-evidence/disabled-external-builtin.pty.txt",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "flyline-integration-audit-evidence/disabled-external-builtin.rc.txt",
+      "target": "dev/docs/flyline-integration-audit-evidence/disabled-external-builtin.rc.txt",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "../../tools/lib/commands/uninstall.sh",
+      "target": "tools/lib/commands/uninstall.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "flyline-integration-audit-evidence/uninstall-current.log",
+      "target": "dev/docs/flyline-integration-audit-evidence/uninstall-current.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "flyline-integration-audit-evidence/uninstall-head-facade-control.log",
+      "target": "dev/docs/flyline-integration-audit-evidence/uninstall-head-facade-control.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "../../shell/rc.d/29-flyline.sh",
+      "target": "shell/rc.d/29-flyline.sh",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "flyline-integration-audit-evidence/rollback-attributes.pty.txt",
+      "target": "dev/docs/flyline-integration-audit-evidence/rollback-attributes.pty.txt",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "flyline-integration-audit-evidence/rollback-attributes.rc.txt",
+      "target": "dev/docs/flyline-integration-audit-evidence/rollback-attributes.rc.txt",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "flyline-integration-audit-evidence/reproduce.py.txt",
+      "target": "dev/docs/flyline-integration-audit-evidence/reproduce.py.txt",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "flyline-integration-audit-evidence/results.json",
+      "target": "dev/docs/flyline-integration-audit-evidence/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "flyline-fork-integration-record.md#checks-and-evidence",
+      "target": "dev/docs/flyline-fork-integration-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-integration-audit.md",
+      "href": "flyline-integration-audit-evidence/fingerprints.json",
+      "target": "dev/docs/flyline-integration-audit-evidence/fingerprints.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "flyline-fork-pilot-evidence/port-commits.json",
+      "target": "dev/docs/flyline-fork-pilot-evidence/port-commits.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "flyline-pr974-pilot-record.md",
+      "target": "dev/docs/flyline-pr974-pilot-record.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "flyline-fork-pilot-evidence/provenance.json",
+      "target": "dev/docs/flyline-fork-pilot-evidence/provenance.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "../flyline/release/README.md",
+      "target": "dev/flyline/release/README.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "flyline-fork-pilot-evidence/native/results.json",
+      "target": "dev/docs/flyline-fork-pilot-evidence/native/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "flyline-fork-pilot-evidence/lifecycle/results.json",
+      "target": "dev/docs/flyline-fork-pilot-evidence/lifecycle/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "flyline-fork-pilot-evidence/history/results.json",
+      "target": "dev/docs/flyline-fork-pilot-evidence/history/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "flyline-fork-pilot-evidence/completion/results.json",
+      "target": "dev/docs/flyline-fork-pilot-evidence/completion/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "flyline-fork-pilot-evidence/terminal/results.json",
+      "target": "dev/docs/flyline-fork-pilot-evidence/terminal/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "flyline-fork-pilot-evidence/performance/report.json",
+      "target": "dev/docs/flyline-fork-pilot-evidence/performance/report.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "flyline-fork-pilot-evidence/startup/results.json",
+      "target": "dev/docs/flyline-fork-pilot-evidence/startup/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "flyline-fork-pilot-evidence/smoke.log",
+      "target": "dev/docs/flyline-fork-pilot-evidence/smoke.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-fork-integration-record.md",
+      "href": "flyline-fork-pilot-evidence/fingerprints.json",
+      "target": "dev/docs/flyline-fork-pilot-evidence/fingerprints.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "../flyline/release/README.md",
+      "target": "dev/flyline/release/README.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-record-r1.md",
+      "target": "dev/docs/flyline-pr974-pilot-record-r1.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/provenance.json",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/provenance.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "../flyline/inputs.json",
+      "target": "dev/flyline/inputs.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/build.log",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/build.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/otool.txt",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/otool.txt",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "../flyline/release/BUILDING.md",
+      "target": "dev/flyline/release/BUILDING.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/native/results.json",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/native/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/readline/results.json",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/readline/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/lifecycle/results.json",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/lifecycle/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/history/results.json",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/history/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/completion/results.json",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/completion/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/terminal/results.json",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/terminal/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/exploratory/native-query-cancel-r3.json",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/exploratory/native-query-cancel-r3.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/history/results.json",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/history/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/performance/report.json",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/performance/report.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/startup/results.json",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/startup/results.json",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "../../docs/shell/flyline.md",
+      "target": "docs/shell/flyline.md",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/smoke.log",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/smoke.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/focused-management.log",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/focused-management.log",
+      "passed": true
+    },
+    {
+      "source": "dev/docs/flyline-integration-repair-r1-evidence/history/flyline-repair-20261109-r1/baseline-1/files/dev/docs/flyline-pr974-pilot-record.md",
+      "href": "flyline-pr974-pilot-r4-evidence/fingerprints.json",
+      "target": "dev/docs/flyline-pr974-pilot-r4-evidence/fingerprints.json",
+      "passed": true
+    }
+  ]
+}

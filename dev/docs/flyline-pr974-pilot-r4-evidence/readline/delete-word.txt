@@ -1,0 +1,1 @@
+"\u001eLOADED\u001f\r\n\u001b[?2004hBMARK> capture one two three\b\r\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[4P\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\r\n\u001b[?2004l\r\u001eARG:two three\u001f\r\n"

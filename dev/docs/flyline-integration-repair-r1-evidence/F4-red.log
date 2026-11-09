@@ -1,0 +1,1108 @@
+ssssssssssssssssssssssss..FFFF..FF....FF..FF..FFss..                     [100%]
+=================================== FAILURES ===================================
+_ test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-load-exported-unset-FLYLINE_LOAD_DIR] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_acti...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto26/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+variable = 'FLYLINE_LOAD_DIR', state = 'exported-unset', failure = 'load'
+
+    @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
+    @pytest.mark.parametrize("state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"])
+    @pytest.mark.parametrize("failure", ["load", "settings"])
+    def test_activation_rollback_restores_variable_attributes(
+        repo_dir, isolated_env, runtime_bash, variable, state, failure,
+    ):
+        if runtime_bash == "/bin/bash":
+            pytest.skip("Bash 3.2 rejects native activation before variable mutation")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "VARIABLE": variable,
+            "VARIABLE_STATE": state, "FAILURE": failure, "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        unset FLYLINE_LOAD_DIR FLYLINE_VERSION
+        case "$VARIABLE_STATE" in
+          exported-unset) export "$VARIABLE" ;;
+          empty|exported-empty) printf -v "$VARIABLE" '%s' '' ;;
+          value|exported-value) printf -v "$VARIABLE" '%s' ' old "quoted" value \ $ * ' ;;
+        esac
+        case "$VARIABLE_STATE" in exported-empty|exported-value) export "$VARIABLE";; esac
+        before="$(declare -p "$VARIABLE" 2>/dev/null)"; before_exists=$?
+        before_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        remote_flyline_library() { printf /fixture/library; }
+        loaded=0
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f)
+              FLYLINE_LOAD_DIR=changed-dir; export FLYLINE_LOAD_DIR
+              FLYLINE_VERSION=changed-version; export FLYLINE_VERSION
+              [[ "$FAILURE" != load ]] || return 1
+              loaded=1 ;;
+            enable:-d) loaded=0; unset FLYLINE_LOAD_DIR FLYLINE_VERSION ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_settings() { return 1; }
+        remote_flyline_finalize
+        after="$(declare -p "$VARIABLE" 2>/dev/null)"; after_exists=$?
+        after_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == failed:$FAILURE:0 ]] || return 41
+        [[ "$before_exists:$before" == "$after_exists:$after" ]] || { printf 'before=<%s> after=<%s>\n' "$before" "$after"; return 42; }
+        [[ "$before_env" == "$after_env" ]] || return 43
+        """
+        script = isolated_env.home / "rollback-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x10b199f90>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto26/home/rollback-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=42, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto26/home/rollback-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status") 
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+E       [?2004l
+remote-ssh: Flyline initialization failed; using Readline.
+E       before=<declare -x FLYLINE_LOAD_DIR> after=<>
+E       1:42
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-load-exported-unset-FLYLINE_VERSION] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_acti...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto27/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+variable = 'FLYLINE_VERSION', state = 'exported-unset', failure = 'load'
+
+    @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
+    @pytest.mark.parametrize("state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"])
+    @pytest.mark.parametrize("failure", ["load", "settings"])
+    def test_activation_rollback_restores_variable_attributes(
+        repo_dir, isolated_env, runtime_bash, variable, state, failure,
+    ):
+        if runtime_bash == "/bin/bash":
+            pytest.skip("Bash 3.2 rejects native activation before variable mutation")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "VARIABLE": variable,
+            "VARIABLE_STATE": state, "FAILURE": failure, "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        unset FLYLINE_LOAD_DIR FLYLINE_VERSION
+        case "$VARIABLE_STATE" in
+          exported-unset) export "$VARIABLE" ;;
+          empty|exported-empty) printf -v "$VARIABLE" '%s' '' ;;
+          value|exported-value) printf -v "$VARIABLE" '%s' ' old "quoted" value \ $ * ' ;;
+        esac
+        case "$VARIABLE_STATE" in exported-empty|exported-value) export "$VARIABLE";; esac
+        before="$(declare -p "$VARIABLE" 2>/dev/null)"; before_exists=$?
+        before_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        remote_flyline_library() { printf /fixture/library; }
+        loaded=0
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f)
+              FLYLINE_LOAD_DIR=changed-dir; export FLYLINE_LOAD_DIR
+              FLYLINE_VERSION=changed-version; export FLYLINE_VERSION
+              [[ "$FAILURE" != load ]] || return 1
+              loaded=1 ;;
+            enable:-d) loaded=0; unset FLYLINE_LOAD_DIR FLYLINE_VERSION ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_settings() { return 1; }
+        remote_flyline_finalize
+        after="$(declare -p "$VARIABLE" 2>/dev/null)"; after_exists=$?
+        after_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == failed:$FAILURE:0 ]] || return 41
+        [[ "$before_exists:$before" == "$after_exists:$after" ]] || { printf 'before=<%s> after=<%s>\n' "$before" "$after"; return 42; }
+        [[ "$before_env" == "$after_env" ]] || return 43
+        """
+        script = isolated_env.home / "rollback-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x10b0f29e0>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto27/home/rollback-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=42, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto27/home/rollback-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status") 
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+E       [?2004l
+remote-ssh: Flyline initialization failed; using Readline.
+E       before=<declare -x FLYLINE_VERSION> after=<>
+E       1:42
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-load-empty-FLYLINE_LOAD_DIR] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_acti...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto28/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+variable = 'FLYLINE_LOAD_DIR', state = 'empty', failure = 'load'
+
+    @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
+    @pytest.mark.parametrize("state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"])
+    @pytest.mark.parametrize("failure", ["load", "settings"])
+    def test_activation_rollback_restores_variable_attributes(
+        repo_dir, isolated_env, runtime_bash, variable, state, failure,
+    ):
+        if runtime_bash == "/bin/bash":
+            pytest.skip("Bash 3.2 rejects native activation before variable mutation")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "VARIABLE": variable,
+            "VARIABLE_STATE": state, "FAILURE": failure, "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        unset FLYLINE_LOAD_DIR FLYLINE_VERSION
+        case "$VARIABLE_STATE" in
+          exported-unset) export "$VARIABLE" ;;
+          empty|exported-empty) printf -v "$VARIABLE" '%s' '' ;;
+          value|exported-value) printf -v "$VARIABLE" '%s' ' old "quoted" value \ $ * ' ;;
+        esac
+        case "$VARIABLE_STATE" in exported-empty|exported-value) export "$VARIABLE";; esac
+        before="$(declare -p "$VARIABLE" 2>/dev/null)"; before_exists=$?
+        before_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        remote_flyline_library() { printf /fixture/library; }
+        loaded=0
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f)
+              FLYLINE_LOAD_DIR=changed-dir; export FLYLINE_LOAD_DIR
+              FLYLINE_VERSION=changed-version; export FLYLINE_VERSION
+              [[ "$FAILURE" != load ]] || return 1
+              loaded=1 ;;
+            enable:-d) loaded=0; unset FLYLINE_LOAD_DIR FLYLINE_VERSION ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_settings() { return 1; }
+        remote_flyline_finalize
+        after="$(declare -p "$VARIABLE" 2>/dev/null)"; after_exists=$?
+        after_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == failed:$FAILURE:0 ]] || return 41
+        [[ "$before_exists:$before" == "$after_exists:$after" ]] || { printf 'before=<%s> after=<%s>\n' "$before" "$after"; return 42; }
+        [[ "$before_env" == "$after_env" ]] || return 43
+        """
+        script = isolated_env.home / "rollback-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x10b0f3100>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto28/home/rollback-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=42, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto28/home/rollback-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status") 
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+E       [?2004l
+remote-ssh: Flyline initialization failed; using Readline.
+E       before=<declare -- FLYLINE_LOAD_DIR=""> after=<declare -x FLYLINE_LOAD_DIR="">
+E       1:42
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-load-empty-FLYLINE_VERSION] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_acti...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto29/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+variable = 'FLYLINE_VERSION', state = 'empty', failure = 'load'
+
+    @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
+    @pytest.mark.parametrize("state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"])
+    @pytest.mark.parametrize("failure", ["load", "settings"])
+    def test_activation_rollback_restores_variable_attributes(
+        repo_dir, isolated_env, runtime_bash, variable, state, failure,
+    ):
+        if runtime_bash == "/bin/bash":
+            pytest.skip("Bash 3.2 rejects native activation before variable mutation")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "VARIABLE": variable,
+            "VARIABLE_STATE": state, "FAILURE": failure, "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        unset FLYLINE_LOAD_DIR FLYLINE_VERSION
+        case "$VARIABLE_STATE" in
+          exported-unset) export "$VARIABLE" ;;
+          empty|exported-empty) printf -v "$VARIABLE" '%s' '' ;;
+          value|exported-value) printf -v "$VARIABLE" '%s' ' old "quoted" value \ $ * ' ;;
+        esac
+        case "$VARIABLE_STATE" in exported-empty|exported-value) export "$VARIABLE";; esac
+        before="$(declare -p "$VARIABLE" 2>/dev/null)"; before_exists=$?
+        before_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        remote_flyline_library() { printf /fixture/library; }
+        loaded=0
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f)
+              FLYLINE_LOAD_DIR=changed-dir; export FLYLINE_LOAD_DIR
+              FLYLINE_VERSION=changed-version; export FLYLINE_VERSION
+              [[ "$FAILURE" != load ]] || return 1
+              loaded=1 ;;
+            enable:-d) loaded=0; unset FLYLINE_LOAD_DIR FLYLINE_VERSION ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_settings() { return 1; }
+        remote_flyline_finalize
+        after="$(declare -p "$VARIABLE" 2>/dev/null)"; after_exists=$?
+        after_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == failed:$FAILURE:0 ]] || return 41
+        [[ "$before_exists:$before" == "$after_exists:$after" ]] || { printf 'before=<%s> after=<%s>\n' "$before" "$after"; return 42; }
+        [[ "$before_env" == "$after_env" ]] || return 43
+        """
+        script = isolated_env.home / "rollback-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x10b24d490>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto29/home/rollback-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=42, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto29/home/rollback-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status") 
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+E       [?2004l
+remote-ssh: Flyline initialization failed; using Readline.
+E       before=<declare -- FLYLINE_VERSION=""> after=<declare -x FLYLINE_VERSION="">
+E       1:42
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-load-value-FLYLINE_LOAD_DIR] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_acti...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto32/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+variable = 'FLYLINE_LOAD_DIR', state = 'value', failure = 'load'
+
+    @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
+    @pytest.mark.parametrize("state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"])
+    @pytest.mark.parametrize("failure", ["load", "settings"])
+    def test_activation_rollback_restores_variable_attributes(
+        repo_dir, isolated_env, runtime_bash, variable, state, failure,
+    ):
+        if runtime_bash == "/bin/bash":
+            pytest.skip("Bash 3.2 rejects native activation before variable mutation")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "VARIABLE": variable,
+            "VARIABLE_STATE": state, "FAILURE": failure, "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        unset FLYLINE_LOAD_DIR FLYLINE_VERSION
+        case "$VARIABLE_STATE" in
+          exported-unset) export "$VARIABLE" ;;
+          empty|exported-empty) printf -v "$VARIABLE" '%s' '' ;;
+          value|exported-value) printf -v "$VARIABLE" '%s' ' old "quoted" value \ $ * ' ;;
+        esac
+        case "$VARIABLE_STATE" in exported-empty|exported-value) export "$VARIABLE";; esac
+        before="$(declare -p "$VARIABLE" 2>/dev/null)"; before_exists=$?
+        before_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        remote_flyline_library() { printf /fixture/library; }
+        loaded=0
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f)
+              FLYLINE_LOAD_DIR=changed-dir; export FLYLINE_LOAD_DIR
+              FLYLINE_VERSION=changed-version; export FLYLINE_VERSION
+              [[ "$FAILURE" != load ]] || return 1
+              loaded=1 ;;
+            enable:-d) loaded=0; unset FLYLINE_LOAD_DIR FLYLINE_VERSION ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_settings() { return 1; }
+        remote_flyline_finalize
+        after="$(declare -p "$VARIABLE" 2>/dev/null)"; after_exists=$?
+        after_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == failed:$FAILURE:0 ]] || return 41
+        [[ "$before_exists:$before" == "$after_exists:$after" ]] || { printf 'before=<%s> after=<%s>\n' "$before" "$after"; return 42; }
+        [[ "$before_env" == "$after_env" ]] || return 43
+        """
+        script = isolated_env.home / "rollback-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x10b1c4050>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto32/home/rollback-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=42, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto32/home/rollback-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status") 
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+E       [?2004l
+remote-ssh: Flyline initialization failed; using Readline.
+E       before=<declare -- FLYLINE_LOAD_DIR=" old \"quoted\" value \\ \$ * "> after=<declare -x FLYLINE_LOAD_DIR=" old \"quoted\" value \\ \$ * ">
+E       1:42
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-load-value-FLYLINE_VERSION] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_acti...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto33/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+variable = 'FLYLINE_VERSION', state = 'value', failure = 'load'
+
+    @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
+    @pytest.mark.parametrize("state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"])
+    @pytest.mark.parametrize("failure", ["load", "settings"])
+    def test_activation_rollback_restores_variable_attributes(
+        repo_dir, isolated_env, runtime_bash, variable, state, failure,
+    ):
+        if runtime_bash == "/bin/bash":
+            pytest.skip("Bash 3.2 rejects native activation before variable mutation")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "VARIABLE": variable,
+            "VARIABLE_STATE": state, "FAILURE": failure, "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        unset FLYLINE_LOAD_DIR FLYLINE_VERSION
+        case "$VARIABLE_STATE" in
+          exported-unset) export "$VARIABLE" ;;
+          empty|exported-empty) printf -v "$VARIABLE" '%s' '' ;;
+          value|exported-value) printf -v "$VARIABLE" '%s' ' old "quoted" value \ $ * ' ;;
+        esac
+        case "$VARIABLE_STATE" in exported-empty|exported-value) export "$VARIABLE";; esac
+        before="$(declare -p "$VARIABLE" 2>/dev/null)"; before_exists=$?
+        before_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        remote_flyline_library() { printf /fixture/library; }
+        loaded=0
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f)
+              FLYLINE_LOAD_DIR=changed-dir; export FLYLINE_LOAD_DIR
+              FLYLINE_VERSION=changed-version; export FLYLINE_VERSION
+              [[ "$FAILURE" != load ]] || return 1
+              loaded=1 ;;
+            enable:-d) loaded=0; unset FLYLINE_LOAD_DIR FLYLINE_VERSION ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_settings() { return 1; }
+        remote_flyline_finalize
+        after="$(declare -p "$VARIABLE" 2>/dev/null)"; after_exists=$?
+        after_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == failed:$FAILURE:0 ]] || return 41
+        [[ "$before_exists:$before" == "$after_exists:$after" ]] || { printf 'before=<%s> after=<%s>\n' "$before" "$after"; return 42; }
+        [[ "$before_env" == "$after_env" ]] || return 43
+        """
+        script = isolated_env.home / "rollback-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x10b1c6250>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto33/home/rollback-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=42, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto33/home/rollback-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status") 
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+E       [?2004l
+remote-ssh: Flyline initialization failed; using Readline.
+E       before=<declare -- FLYLINE_VERSION=" old \"quoted\" value \\ \$ * "> after=<declare -x FLYLINE_VERSION=" old \"quoted\" value \\ \$ * ">
+E       1:42
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-settings-exported-unset-FLYLINE_LOAD_DIR] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_acti...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto38/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+variable = 'FLYLINE_LOAD_DIR', state = 'exported-unset', failure = 'settings'
+
+    @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
+    @pytest.mark.parametrize("state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"])
+    @pytest.mark.parametrize("failure", ["load", "settings"])
+    def test_activation_rollback_restores_variable_attributes(
+        repo_dir, isolated_env, runtime_bash, variable, state, failure,
+    ):
+        if runtime_bash == "/bin/bash":
+            pytest.skip("Bash 3.2 rejects native activation before variable mutation")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "VARIABLE": variable,
+            "VARIABLE_STATE": state, "FAILURE": failure, "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        unset FLYLINE_LOAD_DIR FLYLINE_VERSION
+        case "$VARIABLE_STATE" in
+          exported-unset) export "$VARIABLE" ;;
+          empty|exported-empty) printf -v "$VARIABLE" '%s' '' ;;
+          value|exported-value) printf -v "$VARIABLE" '%s' ' old "quoted" value \ $ * ' ;;
+        esac
+        case "$VARIABLE_STATE" in exported-empty|exported-value) export "$VARIABLE";; esac
+        before="$(declare -p "$VARIABLE" 2>/dev/null)"; before_exists=$?
+        before_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        remote_flyline_library() { printf /fixture/library; }
+        loaded=0
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f)
+              FLYLINE_LOAD_DIR=changed-dir; export FLYLINE_LOAD_DIR
+              FLYLINE_VERSION=changed-version; export FLYLINE_VERSION
+              [[ "$FAILURE" != load ]] || return 1
+              loaded=1 ;;
+            enable:-d) loaded=0; unset FLYLINE_LOAD_DIR FLYLINE_VERSION ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_settings() { return 1; }
+        remote_flyline_finalize
+        after="$(declare -p "$VARIABLE" 2>/dev/null)"; after_exists=$?
+        after_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == failed:$FAILURE:0 ]] || return 41
+        [[ "$before_exists:$before" == "$after_exists:$after" ]] || { printf 'before=<%s> after=<%s>\n' "$before" "$after"; return 42; }
+        [[ "$before_env" == "$after_env" ]] || return 43
+        """
+        script = isolated_env.home / "rollback-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x10b2c2820>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto38/home/rollback-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=42, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto38/home/rollback-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status") 
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+E       [?2004l
+remote-ssh: Flyline initialization failed; using Readline.
+E       before=<declare -x FLYLINE_LOAD_DIR> after=<>
+E       1:42
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-settings-exported-unset-FLYLINE_VERSION] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_acti...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto39/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+variable = 'FLYLINE_VERSION', state = 'exported-unset', failure = 'settings'
+
+    @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
+    @pytest.mark.parametrize("state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"])
+    @pytest.mark.parametrize("failure", ["load", "settings"])
+    def test_activation_rollback_restores_variable_attributes(
+        repo_dir, isolated_env, runtime_bash, variable, state, failure,
+    ):
+        if runtime_bash == "/bin/bash":
+            pytest.skip("Bash 3.2 rejects native activation before variable mutation")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "VARIABLE": variable,
+            "VARIABLE_STATE": state, "FAILURE": failure, "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        unset FLYLINE_LOAD_DIR FLYLINE_VERSION
+        case "$VARIABLE_STATE" in
+          exported-unset) export "$VARIABLE" ;;
+          empty|exported-empty) printf -v "$VARIABLE" '%s' '' ;;
+          value|exported-value) printf -v "$VARIABLE" '%s' ' old "quoted" value \ $ * ' ;;
+        esac
+        case "$VARIABLE_STATE" in exported-empty|exported-value) export "$VARIABLE";; esac
+        before="$(declare -p "$VARIABLE" 2>/dev/null)"; before_exists=$?
+        before_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        remote_flyline_library() { printf /fixture/library; }
+        loaded=0
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f)
+              FLYLINE_LOAD_DIR=changed-dir; export FLYLINE_LOAD_DIR
+              FLYLINE_VERSION=changed-version; export FLYLINE_VERSION
+              [[ "$FAILURE" != load ]] || return 1
+              loaded=1 ;;
+            enable:-d) loaded=0; unset FLYLINE_LOAD_DIR FLYLINE_VERSION ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_settings() { return 1; }
+        remote_flyline_finalize
+        after="$(declare -p "$VARIABLE" 2>/dev/null)"; after_exists=$?
+        after_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == failed:$FAILURE:0 ]] || return 41
+        [[ "$before_exists:$before" == "$after_exists:$after" ]] || { printf 'before=<%s> after=<%s>\n' "$before" "$after"; return 42; }
+        [[ "$before_env" == "$after_env" ]] || return 43
+        """
+        script = isolated_env.home / "rollback-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x10b1b9f10>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto39/home/rollback-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=42, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto39/home/rollback-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status") 
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+E       [?2004l
+remote-ssh: Flyline initialization failed; using Readline.
+E       before=<declare -x FLYLINE_VERSION> after=<>
+E       1:42
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-settings-exported-empty-FLYLINE_LOAD_DIR] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_acti...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto42/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+variable = 'FLYLINE_LOAD_DIR', state = 'exported-empty', failure = 'settings'
+
+    @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
+    @pytest.mark.parametrize("state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"])
+    @pytest.mark.parametrize("failure", ["load", "settings"])
+    def test_activation_rollback_restores_variable_attributes(
+        repo_dir, isolated_env, runtime_bash, variable, state, failure,
+    ):
+        if runtime_bash == "/bin/bash":
+            pytest.skip("Bash 3.2 rejects native activation before variable mutation")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "VARIABLE": variable,
+            "VARIABLE_STATE": state, "FAILURE": failure, "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        unset FLYLINE_LOAD_DIR FLYLINE_VERSION
+        case "$VARIABLE_STATE" in
+          exported-unset) export "$VARIABLE" ;;
+          empty|exported-empty) printf -v "$VARIABLE" '%s' '' ;;
+          value|exported-value) printf -v "$VARIABLE" '%s' ' old "quoted" value \ $ * ' ;;
+        esac
+        case "$VARIABLE_STATE" in exported-empty|exported-value) export "$VARIABLE";; esac
+        before="$(declare -p "$VARIABLE" 2>/dev/null)"; before_exists=$?
+        before_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        remote_flyline_library() { printf /fixture/library; }
+        loaded=0
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f)
+              FLYLINE_LOAD_DIR=changed-dir; export FLYLINE_LOAD_DIR
+              FLYLINE_VERSION=changed-version; export FLYLINE_VERSION
+              [[ "$FAILURE" != load ]] || return 1
+              loaded=1 ;;
+            enable:-d) loaded=0; unset FLYLINE_LOAD_DIR FLYLINE_VERSION ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_settings() { return 1; }
+        remote_flyline_finalize
+        after="$(declare -p "$VARIABLE" 2>/dev/null)"; after_exists=$?
+        after_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == failed:$FAILURE:0 ]] || return 41
+        [[ "$before_exists:$before" == "$after_exists:$after" ]] || { printf 'before=<%s> after=<%s>\n' "$before" "$after"; return 42; }
+        [[ "$before_env" == "$after_env" ]] || return 43
+        """
+        script = isolated_env.home / "rollback-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x10b29f330>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto42/home/rollback-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=42, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto42/home/rollback-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status") 
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+E       [?2004l
+remote-ssh: Flyline initialization failed; using Readline.
+E       before=<declare -x FLYLINE_LOAD_DIR=""> after=<declare -- FLYLINE_LOAD_DIR="">
+E       1:42
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-settings-exported-empty-FLYLINE_VERSION] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_acti...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto43/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+variable = 'FLYLINE_VERSION', state = 'exported-empty', failure = 'settings'
+
+    @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
+    @pytest.mark.parametrize("state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"])
+    @pytest.mark.parametrize("failure", ["load", "settings"])
+    def test_activation_rollback_restores_variable_attributes(
+        repo_dir, isolated_env, runtime_bash, variable, state, failure,
+    ):
+        if runtime_bash == "/bin/bash":
+            pytest.skip("Bash 3.2 rejects native activation before variable mutation")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "VARIABLE": variable,
+            "VARIABLE_STATE": state, "FAILURE": failure, "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        unset FLYLINE_LOAD_DIR FLYLINE_VERSION
+        case "$VARIABLE_STATE" in
+          exported-unset) export "$VARIABLE" ;;
+          empty|exported-empty) printf -v "$VARIABLE" '%s' '' ;;
+          value|exported-value) printf -v "$VARIABLE" '%s' ' old "quoted" value \ $ * ' ;;
+        esac
+        case "$VARIABLE_STATE" in exported-empty|exported-value) export "$VARIABLE";; esac
+        before="$(declare -p "$VARIABLE" 2>/dev/null)"; before_exists=$?
+        before_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        remote_flyline_library() { printf /fixture/library; }
+        loaded=0
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f)
+              FLYLINE_LOAD_DIR=changed-dir; export FLYLINE_LOAD_DIR
+              FLYLINE_VERSION=changed-version; export FLYLINE_VERSION
+              [[ "$FAILURE" != load ]] || return 1
+              loaded=1 ;;
+            enable:-d) loaded=0; unset FLYLINE_LOAD_DIR FLYLINE_VERSION ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_settings() { return 1; }
+        remote_flyline_finalize
+        after="$(declare -p "$VARIABLE" 2>/dev/null)"; after_exists=$?
+        after_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == failed:$FAILURE:0 ]] || return 41
+        [[ "$before_exists:$before" == "$after_exists:$after" ]] || { printf 'before=<%s> after=<%s>\n' "$before" "$after"; return 42; }
+        [[ "$before_env" == "$after_env" ]] || return 43
+        """
+        script = isolated_env.home / "rollback-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x10b2dd3b0>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto43/home/rollback-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=42, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto43/home/rollback-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status") 
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+E       [?2004l
+remote-ssh: Flyline initialization failed; using Readline.
+E       before=<declare -x FLYLINE_VERSION=""> after=<declare -- FLYLINE_VERSION="">
+E       1:42
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-settings-exported-value-FLYLINE_LOAD_DIR] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_acti...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto46/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+variable = 'FLYLINE_LOAD_DIR', state = 'exported-value', failure = 'settings'
+
+    @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
+    @pytest.mark.parametrize("state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"])
+    @pytest.mark.parametrize("failure", ["load", "settings"])
+    def test_activation_rollback_restores_variable_attributes(
+        repo_dir, isolated_env, runtime_bash, variable, state, failure,
+    ):
+        if runtime_bash == "/bin/bash":
+            pytest.skip("Bash 3.2 rejects native activation before variable mutation")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "VARIABLE": variable,
+            "VARIABLE_STATE": state, "FAILURE": failure, "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        unset FLYLINE_LOAD_DIR FLYLINE_VERSION
+        case "$VARIABLE_STATE" in
+          exported-unset) export "$VARIABLE" ;;
+          empty|exported-empty) printf -v "$VARIABLE" '%s' '' ;;
+          value|exported-value) printf -v "$VARIABLE" '%s' ' old "quoted" value \ $ * ' ;;
+        esac
+        case "$VARIABLE_STATE" in exported-empty|exported-value) export "$VARIABLE";; esac
+        before="$(declare -p "$VARIABLE" 2>/dev/null)"; before_exists=$?
+        before_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        remote_flyline_library() { printf /fixture/library; }
+        loaded=0
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f)
+              FLYLINE_LOAD_DIR=changed-dir; export FLYLINE_LOAD_DIR
+              FLYLINE_VERSION=changed-version; export FLYLINE_VERSION
+              [[ "$FAILURE" != load ]] || return 1
+              loaded=1 ;;
+            enable:-d) loaded=0; unset FLYLINE_LOAD_DIR FLYLINE_VERSION ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_settings() { return 1; }
+        remote_flyline_finalize
+        after="$(declare -p "$VARIABLE" 2>/dev/null)"; after_exists=$?
+        after_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == failed:$FAILURE:0 ]] || return 41
+        [[ "$before_exists:$before" == "$after_exists:$after" ]] || { printf 'before=<%s> after=<%s>\n' "$before" "$after"; return 42; }
+        [[ "$before_env" == "$after_env" ]] || return 43
+        """
+        script = isolated_env.home / "rollback-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x10b2827d0>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto46/home/rollback-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=42, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto46/home/rollback-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status") 
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+E       [?2004l
+remote-ssh: Flyline initialization failed; using Readline.
+E       before=<declare -x FLYLINE_LOAD_DIR=" old \"quoted\" value \\ \$ * "> after=<declare -- FLYLINE_LOAD_DIR=" old \"quoted\" value \\ \$ * ">
+E       1:42
+
+dev/tests/pty_shell.py:90: AssertionError
+_ test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-settings-exported-value-FLYLINE_VERSION] _
+
+repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_acti...lders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto47/home/.local/state'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash'
+variable = 'FLYLINE_VERSION', state = 'exported-value', failure = 'settings'
+
+    @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
+    @pytest.mark.parametrize("state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"])
+    @pytest.mark.parametrize("failure", ["load", "settings"])
+    def test_activation_rollback_restores_variable_attributes(
+        repo_dir, isolated_env, runtime_bash, variable, state, failure,
+    ):
+        if runtime_bash == "/bin/bash":
+            pytest.skip("Bash 3.2 rejects native activation before variable mutation")
+        env = isolated_env.env | {
+            "TERM": "xterm-256color", "REPO": str(repo_dir), "VARIABLE": variable,
+            "VARIABLE_STATE": state, "FAILURE": failure, "REMOTE_SSH_ENABLE_FLYLINE": "1",
+        }
+        code = r"""
+        source "$REPO/shell/rc.d/29-flyline.sh"
+        REMOTE_SSH_HISTORY_BACKEND=bash
+        unset FLYLINE_LOAD_DIR FLYLINE_VERSION
+        case "$VARIABLE_STATE" in
+          exported-unset) export "$VARIABLE" ;;
+          empty|exported-empty) printf -v "$VARIABLE" '%s' '' ;;
+          value|exported-value) printf -v "$VARIABLE" '%s' ' old "quoted" value \ $ * ' ;;
+        esac
+        case "$VARIABLE_STATE" in exported-empty|exported-value) export "$VARIABLE";; esac
+        before="$(declare -p "$VARIABLE" 2>/dev/null)"; before_exists=$?
+        before_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        remote_flyline_library() { printf /fixture/library; }
+        loaded=0
+        function builtin() {
+          case "$1:$2" in
+            enable:-a) command builtin enable -a ;;
+            enable:-f)
+              FLYLINE_LOAD_DIR=changed-dir; export FLYLINE_LOAD_DIR
+              FLYLINE_VERSION=changed-version; export FLYLINE_VERSION
+              [[ "$FAILURE" != load ]] || return 1
+              loaded=1 ;;
+            enable:-d) loaded=0; unset FLYLINE_LOAD_DIR FLYLINE_VERSION ;;
+            *) command builtin "$@" ;;
+          esac
+        }
+        remote_flyline_settings() { return 1; }
+        remote_flyline_finalize
+        after="$(declare -p "$VARIABLE" 2>/dev/null)"; after_exists=$?
+        after_env="$(/usr/bin/env | /usr/bin/grep '^FLYLINE_' || :)"
+        [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON:$loaded" == failed:$FAILURE:0 ]] || return 41
+        [[ "$before_exists:$before" == "$after_exists:$after" ]] || { printf 'before=<%s> after=<%s>\n' "$before" "$after"; return 42; }
+        [[ "$before_env" == "$after_env" ]] || return 43
+        """
+        script = isolated_env.home / "rollback-probe.sh"
+        script.write_text("probe() {\n" + code + "\n}\nprobe\n")
+        with PtyShell(runtime_bash, env) as shell:
+>           shell.command(f"source {shlex.quote(str(script))}")
+
+dev/tests/test_flyline_lifecycle.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pty_shell.PtyShell object at 0x10b1d93d0>
+value = 'source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto47/home/rollback-probe.sh'
+
+    def command(self, value: str, *, status: int = 0) -> None:
+        self.counter += 1
+        prefix = f"\x1e{self.counter}:".encode()
+        # Preserve the command's status for real PROMPT_COMMAND callbacks.
+        # The input echo contains escapes; only execution emits control bytes.
+        suffix = rf"""; audit_status=$?; printf '\036{self.counter}:%s\037' "$audit_status"; (exit "$audit_status")"""
+        os.write(self.fd, (value + suffix + "\n").encode())
+        self.until(
+            lambda: prefix in self.output and b"\x1f" in self.output[self.output.index(prefix) :]
+        )
+        start = self.output.index(prefix) + len(prefix)
+        end = self.output.index(b"\x1f", start)
+        actual = int(self.output[start:end])
+        captured = self.output.decode(errors="replace")
+        del self.output[: end + 1]
+        self.prompt()
+>       assert actual == status, f"status={actual}, expected={status}\n{captured}"
+               ^^^^^^^^^^^^^^^^
+E       AssertionError: status=42, expected=0
+E       source /private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-635/test_activation_rollback_resto47/home/rollback-probe.sh; audit_status=$?; printf '\0361:%s\037' "$audit_status"; (exit "$audit_status") 
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+E       [?2004l
+remote-ssh: Flyline initialization failed; using Readline.
+E       before=<declare -x FLYLINE_VERSION=" old \"quoted\" value \\ \$ * "> after=<declare -- FLYLINE_VERSION=" old \"quoted\" value \\ \$ * ">
+E       1:42
+
+dev/tests/pty_shell.py:90: AssertionError
+=========================== short test summary info ============================
+FAILED dev/tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-load-exported-unset-FLYLINE_LOAD_DIR]
+FAILED dev/tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-load-exported-unset-FLYLINE_VERSION]
+FAILED dev/tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-load-empty-FLYLINE_LOAD_DIR]
+FAILED dev/tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-load-empty-FLYLINE_VERSION]
+FAILED dev/tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-load-value-FLYLINE_LOAD_DIR]
+FAILED dev/tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-load-value-FLYLINE_VERSION]
+FAILED dev/tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-settings-exported-unset-FLYLINE_LOAD_DIR]
+FAILED dev/tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-settings-exported-unset-FLYLINE_VERSION]
+FAILED dev/tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-settings-exported-empty-FLYLINE_LOAD_DIR]
+FAILED dev/tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-settings-exported-empty-FLYLINE_VERSION]
+FAILED dev/tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-settings-exported-value-FLYLINE_LOAD_DIR]
+FAILED dev/tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-settings-exported-value-FLYLINE_VERSION]
+12 failed, 14 passed, 26 skipped, 46 deselected in 1.27s

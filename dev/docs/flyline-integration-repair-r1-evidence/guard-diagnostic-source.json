@@ -1,0 +1,5 @@
+{
+  "source": "dev/docs/flyline-integration-repair-r1-evidence/guard-diagnostic.py",
+  "sha256": "af571d8d89fd7352d7c3c119cf847221386afc2042fa2a302b98203820d3bf79",
+  "scope": "Single-task bounded before/current native PTY guard-cost diagnostic; no native library load; not startup acceptance"
+}

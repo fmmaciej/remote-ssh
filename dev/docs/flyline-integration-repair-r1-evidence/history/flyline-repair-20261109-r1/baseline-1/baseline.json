@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "documents": [
+    {
+      "source": "dev/docs/flyline-implementation-plan.md",
+      "snapshot": "files/dev/docs/flyline-implementation-plan.md",
+      "id": "FLYLINE-INTEGRATION-PLAN",
+      "version": "R5",
+      "sha256": "7c9ad5d1759889165251304e128867460fc3603cbb0a4e2904a56661a9da6b86"
+    },
+    {
+      "source": "dev/docs/flyline-integration-audit.md",
+      "snapshot": "files/dev/docs/flyline-integration-audit.md",
+      "id": "FLYLINE-INTEGRATION-AUDIT",
+      "version": "2026-11-09",
+      "sha256": "2bac45691e26c46ccc3fb4669d59e0d8a0eb25c58dab27f07c341bca6ea084f2"
+    },
+    {
+      "source": "dev/docs/flyline-fork-integration-record.md",
+      "snapshot": "files/dev/docs/flyline-fork-integration-record.md",
+      "id": "FLYLINE-FORK-INTEGRATION",
+      "version": "R5",
+      "sha256": "72e6a36b928856184a895e4e6e9531d0223940df19470c5de16da6afbb69ba34"
+    },
+    {
+      "source": "dev/docs/flyline-pr974-pilot-record.md",
+      "snapshot": "files/dev/docs/flyline-pr974-pilot-record.md",
+      "id": "FLYLINE-PR974-PILOT",
+      "version": "R4",
+      "sha256": "da03c4bd9b5d2a233cc1600a0700105fb5b89f1e920e6cf0b18503a67f0c11eb"
+    },
+    {
+      "source": "AGENTS.md",
+      "snapshot": "files/AGENTS.md",
+      "id": "REMOTE-SSH-INSTRUCTIONS",
+      "version": "2026-11-09-worktree",
+      "sha256": "150be7859d3b3db9cafaa12c836eb7ee47db4dc263eed4aceac57197fbf9a398"
+    }
+  ]
+}

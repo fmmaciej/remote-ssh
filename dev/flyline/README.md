@@ -1,0 +1,201 @@
+# Flyline candidate tooling
+
+The current source/build owner is the user's [Flyline fork](https://github.com/fmmaciej/flyline/tree/remote-ssh-vim).
+`master` is unchanged; the downstream branch preserves the original 1.10.0
+history, six patch commits, and a separate build/documentation commit.
+See the [fork record](../docs/flyline-fork-integration-record.md) and
+[fork pins](fork.json). The user deferred Release publication on 2026-11-09;
+the reviewed manifest stays outside `tools/defs` until an asset actually exists.
+
+## Build the pinned fork (R5)
+
+Build logic lives in the fork's `remote-ssh/build.py`. This project's wrapper
+checks the exact fork commit and a clean checkout before executing that helper.
+It also verifies the downstream identity/base/PR pins. It does not install,
+publish, or build anything on runtime hosts.
+
+```bash
+git clone https://github.com/fmmaciej/flyline.git /tmp/flyline-fork
+git -C /tmp/flyline-fork switch --detach d037c075ed30a61080873985ea2621d743ddfc64
+python3 dev/flyline/candidate.py build-fork \
+  --source /tmp/flyline-fork \
+  --cargo /path/to/rust-1.99.1/bin/cargo \
+  --target aarch64-apple-darwin \
+  --output /tmp/flyline-fork-artifact
+```
+
+Add `--offline` once the locked dependencies are cached. Use native macOS arm64,
+Python 3.13+, a C linker/SDK, and the real Cargo binary in the pinned Rust
+1.99.1 toolchain. Choose an unused output directory. The source remains internally
+version 1.10.0; provenance and downstream release identity distinguish the build.
+Only local macOS is qualified; no Linux/SSH coverage is implied.
+
+## Historical archive-based candidate (R4)
+
+The following source-preparation workflow and patch bytes reproduce R4's local
+archive reconstruction. They remain for historical audit, not current release
+publication. [R4's pilot](../docs/flyline-pr974-pilot-record.md) is preserved;
+R5 uses genuine upstream Git ancestry and a new artifact identity/hash.
+
+Inputs are Flyline 1.10.0 at `ca910967af35579a2d455a071aa939778d8f6171`
+and PR #974 at `aae68bb4acb43d7462bbe4abffedd6e2b10bd889`.
+The [input record](inputs.json) pins the patch bytes:
+
+1. `0001-upstream-pr974.patch` ports the PR onto 1.10.0, retaining the new
+   editing helpers introduced on the stable branch. Its two fewer added blank
+   lines account for the difference from the original PR's addition count.
+2. `0002-vi-key-dispatch-and-repeat.patch` normalizes uppercase vi bindings
+   for the newer dispatcher, prevents literal insertion from unbound Normal
+   keys, keeps the Normal cursor on a character, and implements recorded-key
+   `.` replay with unit regressions.
+3. `0003-vi-transactions-motion-and-history.patch` adds undo transaction
+   boundaries, counted movement, unfiltered `k`/`j` history and editable
+   `/`/`?` search with cancellation and `n`/`N` repetition.
+4. `0004-current-toolchain-lints.patch` fixes bounded lints in the port for
+   the pinned compiler.
+5. `0005-restore-bash-input-on-unload.patch` preserves/restores Bash input
+   safely on unload, including rollback during rc startup. The previous
+   unload callback could dereference a null stream name and pop active input.
+
+This is experimental PR support with a bounded regression matrix, not full
+Vim compatibility. R1's failed gate is retained in its historical report.
+
+6. `0006-preserve-native-history-search-buffer.patch` keeps native fuzzy-search
+   queries separate from the command, restoring cursor, selection and undo
+   history on cancellation.
+
+The patch license is [MIT](LICENSE-MIT), as offered by upstream. Preserve that
+license when distributing modified source or libraries.
+
+## Reproduce a developer candidate
+
+Use Python 3.13+, Git, a native C linker, and the pinned Rust **1.99.1** toolchain.
+Pass the real Cargo binary in that toolchain's `bin/`, not a rustup shim. Rust
+and Cargo are developer dependencies; remote hosts must never run these steps.
+The scripts do not download sources or install anything. First obtain the
+exact archive:
+
+```bash
+curl --fail --location \
+  https://codeload.github.com/HalFrgrd/flyline/tar.gz/ca910967af35579a2d455a071aa939778d8f6171 \
+  --output /private/tmp/flyline-1.10.0-source.tar.gz
+python3 dev/flyline/candidate.py prepare \
+  --archive /private/tmp/flyline-1.10.0-source.tar.gz \
+  --output /private/tmp/flyline-candidate-source
+python3 dev/flyline/candidate.py build \
+  --source /private/tmp/flyline-candidate-source \
+  --cargo /path/to/rust-1.99.1/bin/cargo \
+  --target aarch64-apple-darwin \
+  --output /private/tmp/flyline-candidate-artifact
+```
+
+Choose unused output directories. The source archive and patches are verified
+before preparation. Preparation records a deterministic local Git commit/tree;
+its reconstructed parent is explicitly distinguished from the original upstream
+commit. The base `Cargo.lock` must remain unchanged. `build` requires that clean
+tracked tree, records the toolchain and target, and rejects common ambient compiler
+overrides. It cleans the Flyline package and refreshes `build.rs` metadata
+before building, so moving a cached target tree cannot retain another build's
+metadata. Add `--offline` once the locked dependencies are cached. No moving
+dependency update is performed.
+
+The other initial native target is `x86_64-unknown-linux-gnu`. The builder
+rejects cross-compilation for this pilot. Neither target becomes supported
+merely by producing a library. No Linux native result is available yet.
+
+Output contains the library, license, provenance, a deterministically packaged
+`.tar.gz`, and `SHA256SUMS`. Archive members are exactly `libflyline.dylib`
+(or `libflyline.so`), `LICENSE-MIT`, and `provenance.json`. This pins the source
+and records an artifact; it does not promise bit-identical binaries across
+different OS SDKs/linkers. Do not use these files as runtime assets until the
+plan's acceptance and management requirements pass.
+
+On macOS, a rust-objcopy/libLLVM lookup failure in an isolated toolchain must be
+fixed before packaging. Retain the build log; a successful build with cached
+warnings is not a clean release build. Qualification records are tied to the
+actual library SHA, not just the custom version string.
+
+## Native probes
+
+Run only in disposable PTYs; a loaded library executes inside the child Bash.
+The harness uses a fresh HOME, allowlisted environment, fixed terminal, local
+fixture commands, and the existing terminal-probe emulator. It snapshots the
+library bytes so another developer build cannot overwrite a mapped test file.
+It does not source user shell configuration or download binaries.
+
+```bash
+python3 dev/flyline/pilot.py --bash /opt/homebrew/bin/bash \
+  --library /private/tmp/flyline-candidate-artifact/libflyline.dylib \
+  --output /private/tmp/flyline-native-results
+python3 dev/flyline/pilot.py --bash /opt/homebrew/bin/bash --readline \
+  --output /private/tmp/flyline-readline-results
+```
+
+On Linux pass the selected native Bash and `.so`. A failing probe returns 1;
+JSON results and escaped transcripts are retained. `--case NAME` selects a
+regression, and can be repeated. Tests compare executed arguments and also
+reject command execution before the final explicit Enter. A timeout is a
+failed probe, not evidence of a native crash.
+
+Readline's clean Ctrl-R history binding is not assumed to implement Vim redo.
+The `undo-redo` control therefore expects the undo to remain applied with
+Readline, while Flyline's PR-specific redo is tested separately. All other
+editing/history expectations are shared. `undo` is a separate regression so
+an undo/redo pair cannot mask an incorrect undo boundary.
+
+For upstream unit tests, use `cargo test --workspace --lib --locked` in the
+prepared source with the same toolchain. Do not run the unrestricted upstream
+test suite: its integration tests start Docker containers. Run `just smoke`
+for repository verification; native probes require explicit local artifacts
+and are not downloaded or executed by default tests.
+
+## Additional offline native probes
+
+All paths below refer to explicitly supplied local binaries. No upstream
+installer is run. Each script accepts `--output` and retains JSON results and
+escaped transcripts; run `--help` for all required paths.
+
+- `settings.py`: compare complete effective settings and Ctrl-R bindings against
+  an explicitly supplied earlier module via `--before`, across Atuin/skim/NOBIND/
+  no-widget profiles; also test real combined-call rollback and Readline recovery.
+  Supply `--repo`, `--bash`, `--library`, `--atuin`, `--skim`, `--before`, `--output`.
+- `ownership.py`: exact R5 gate for late external Atuin in OS/host hooks,
+  an externally disabled builtin, managed activation and rollback variable/export
+  state. Supply `--repo`, `--bash`, `--library`, `--atuin`, `--output`;
+  it uses disposable managed installs and PTYs, and never downloads binaries.
+- `lifecycle.py`: load-only probe, unload probe, rc rollback and later unload,
+  followed by actual Readline vi editing.
+- `history.py`: Bash, skim and Atuin with real Starship/prompt hooks. Pass
+  `--managed` to install the candidate into a temporary checkout and exercise
+  the actual runtime; `--backends` selects a bounded subset.
+- `pilot.py --managed-repo /path/to/remote-ssh`: all vi cases through the
+  actual installer and optional activation. Without it the source-level
+  editor probe remains independent of runtime integration.
+- `completion.py`: four editor/provider combinations and actual `complete -D`
+  callback/Tab behavior. `carapace-pilot.sh` is a developer fixture, not a
+  shipped provider integration.
+- `terminal.py`: direct PTY, private tmux server and unique Zellij session.
+  It answers terminal capability probes and checks captured arguments plus
+  terminal flag restoration. The harness kills only its own sessions.
+- `performance.py`: Readline, official 1.10.0 and the patched library, with
+  budgets written before samples, randomized order, isolated fresh/warm HOME,
+  latency/RSS/idle CPU and paste metrics. Use `--iterations 30 --warmup 2` for
+  the recorded qualification size. macOS `ps` and multiplexer sockets may
+  require running outside a restrictive sandbox.
+- `startup.py`: all eight explicit startup scenarios through a temporary
+  managed install, with predeclared 30 ms median / 60 ms p95 overhead budgets
+  against the disabled editor, Atuin on/off and fresh/warm HOME.
+
+`managed.py` supports native integration tests by copying runtime files into
+an isolated checkout, validating the supplied artifact/provenance, and
+intercepting a fixture release URL with those exact local archive bytes.
+It never edits the real checkout's definitions, user shell files or install
+prefix. This fixture is not a new runtime local-install interface.
+
+The existing startup benchmark also has an explicit-only `--suite flyline`
+(editor on/off, Atuin/Bash, fresh/warm HOME). Supply a checkout containing the
+reviewed definition, exported `INSTALL_PREFIX`, and PATH-selected qualified
+Bash/Atuin. These scenarios reject a skipped editor/backend instead of timing
+a mislabeled fallback. The historical default suite is unchanged. These
+startup-command timings complement, rather than replace, PTY first-input
+latency and interactive measurements above.

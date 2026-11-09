@@ -1,0 +1,8 @@
+{
+  "executed_source": "dev/docs/flyline-integration-repair-r1-evidence/ownership-executed.py.txt",
+  "executed_sha256": "15429f0f2df544674d6d07f18ca3b347eb9799362f174f337b26b1cf69cb75d2",
+  "current_source": "dev/flyline/ownership.py",
+  "current_sha256": "64662c8972cbacc77ec4ddd099efb9bf74230e16b4f5e82719e6d1b628274db8",
+  "ast_equal_excluding_positions": true,
+  "difference": "Ruff formatting after successful native ownership run only"
+}

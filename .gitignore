@@ -4,3 +4,7 @@
 .ruff_cache/
 dots/git/user.local
 dots/ssh/config.local
+
+# Generated Python bytecode
+__pycache__/
+*.pyc

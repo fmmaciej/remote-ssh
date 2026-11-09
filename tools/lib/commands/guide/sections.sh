@@ -126,6 +126,9 @@ remote_ssh_cmd_guide_print_config() {
     )
     printf '  %s=%s [%s]\n' "$key" "$value" "$source"
   done < <(remote_ssh_config_entries)
+  printf '\nFlyline is opt-in (Release publication deferred). Editor/history\n'
+  printf 'selection is once per shell; rcrc preserves it. Recovery:\n'
+  printf '  REMOTE_SSH_ENABLE_FLYLINE=0 remote-ssh shell\n'
 }
 
 remote_ssh_cmd_guide_print_git() {

@@ -42,6 +42,7 @@ def test_config_literal_parser_and_compatibility_lookups(
             f"REMOTE_SSH_UPDATE_CHECK='{literal}'\n"
             "REMOTE_SSH_UPDATE_CHECK_INTERVAL=one=two\n"
             'REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY="double"\n'
+            'REMOTE_SSH_ENABLE_FLYLINE="1"\n'
             "NO_COLOR=  '  '  "
         ).encode()
     )
@@ -54,6 +55,7 @@ def test_config_literal_parser_and_compatibility_lookups(
         literal,
         "one=two",
         "double",
+        "1",
         "  ",
     ]
     script = r"""

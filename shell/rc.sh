@@ -27,3 +27,6 @@ if [[ -n $REMOTE_HOSTNAME ]]; then
 fi
 
 unset REMOTE_HOSTNAME
+
+# Finalize after all hooks have selected prompt/history ownership.
+if declare -F remote_flyline_finalize >/dev/null; then remote_flyline_finalize; fi

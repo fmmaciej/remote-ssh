@@ -1,0 +1,74 @@
+{
+  "fetch_hook_invoked": true,
+  "direct_gc_hook_invoked": true,
+  "child_commands": [
+    [
+      "git-upload-pack '/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/git-maintenance-probe-t75q1q0h/home/upstream'"
+    ],
+    [
+      "git",
+      "rev-list",
+      "--objects",
+      "--stdin",
+      "--not",
+      "--exclude-hidden=fetch",
+      "--all",
+      "--quiet",
+      "--alternate-refs"
+    ],
+    [
+      "git",
+      "maintenance",
+      "run",
+      "--auto",
+      "--no-quiet",
+      "--detach"
+    ],
+    [
+      "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/git-maintenance-probe-t75q1q0h/home/controlled-hooks/pre-auto-gc"
+    ],
+    [
+      "git",
+      "repack",
+      "-d",
+      "-l",
+      "--geometric=2",
+      "--write-midx"
+    ],
+    [
+      "git",
+      "pack-objects",
+      "--local",
+      "--delta-base-offset",
+      "--honor-pack-keep",
+      ".git/objects/pack/.tmp-802-pack",
+      "--keep-true-parents",
+      "--non-empty",
+      "--stdin-packs",
+      "--unpacked"
+    ],
+    [
+      "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/git-maintenance-probe-t75q1q0h/home/controlled-hooks/pre-auto-gc"
+    ]
+  ],
+  "operation": "native local-upstream git fetch in disposable fixture",
+  "configured_auto_maintenance": true,
+  "gc_auto": 1,
+  "gc_auto_detach": true,
+  "controlled_loose_objects": 300,
+  "pre_auto_gc_hook_invoked": true,
+  "returncode": 0,
+  "note": "Hook only writes a synthetic marker and exits1, preventing background GC work. No real checkout/config/network operations.",
+  "local_primary_docs": [
+    {
+      "path": "/Library/Developer/CommandLineTools/usr/share/man/man1/git-fetch.1",
+      "lines": "234-241",
+      "fact": "fetch triggers automatic maintenance by default"
+    },
+    {
+      "path": "/Library/Developer/CommandLineTools/usr/share/man/man1/git-maintenance.1",
+      "lines": "517-533",
+      "fact": "automatic maintenance may detach by default; maintenance.auto can disable it"
+    }
+  ]
+}

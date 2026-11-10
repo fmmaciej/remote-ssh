@@ -1,0 +1,174 @@
+{
+  "current_operational_links": [
+    {
+      "document": "README.md",
+      "target": "docs/install.md#managed-set-and-migration",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "docs/install.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "docs/shell.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "docs/scripts.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "docs/tools.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "dev/README.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "docs/TODO.md",
+      "exists": true
+    },
+    {
+      "document": "docs/install.md",
+      "target": "shell/flyline.md",
+      "exists": true
+    },
+    {
+      "document": "docs/install.md",
+      "target": "../dev/docs/fzf-retirement-plan.md",
+      "exists": true
+    },
+    {
+      "document": "docs/tools.md",
+      "target": "install.md#managed-set-and-migration",
+      "exists": true
+    },
+    {
+      "document": "docs/tools.md",
+      "target": "tool-checksums.md",
+      "exists": true
+    },
+    {
+      "document": "docs/tools.md",
+      "target": "shell/flyline.md",
+      "exists": true
+    },
+    {
+      "document": "docs/tools.md",
+      "target": "../dev/docs/flyline-release-promotion-plan.md",
+      "exists": true
+    },
+    {
+      "document": "docs/shell/helpers.md",
+      "target": "../shell.md",
+      "exists": true
+    },
+    {
+      "document": "docs/shell/helpers.md",
+      "target": "flyline.md",
+      "exists": true
+    },
+    {
+      "document": "docs/shell/helpers.md",
+      "target": "../../dev/docs/checks.md#navi-and-skim",
+      "exists": true
+    },
+    {
+      "document": "docs/shell/flyline.md",
+      "target": "../shell.md",
+      "exists": true
+    },
+    {
+      "document": "docs/shell/flyline.md",
+      "target": "../../dev/docs/flyline-fork-integration-record.md",
+      "exists": true
+    },
+    {
+      "document": "docs/shell/flyline.md",
+      "target": "../install.md#managed-set-and-migration",
+      "exists": true
+    },
+    {
+      "document": "dev/docs/fzf-retirement-plan.md",
+      "target": "../../docs/install.md#managed-set-and-migration",
+      "exists": true
+    },
+    {
+      "document": "dev/docs/fzf-retirement-plan.md",
+      "target": "fzf-retirement-evidence/README.md",
+      "exists": true
+    }
+  ],
+  "frozen_historical_source_citations": [
+    {
+      "document": "dev/docs/managed-tool-lifecycle-specification.md",
+      "target": "../../tools/lib/install/expected_tools.sh",
+      "current_exists": false,
+      "historical_commit": "15bcb79cee2d1959074d4c70e164d0cae75ee8e2",
+      "historical_path_exists": true
+    },
+    {
+      "document": "dev/docs/managed-tool-lifecycle-specification.md",
+      "target": "../../tools/lib/commands/tool.sh",
+      "current_exists": false,
+      "historical_commit": "15bcb79cee2d1959074d4c70e164d0cae75ee8e2",
+      "historical_path_exists": true
+    },
+    {
+      "document": "dev/docs/managed-tool-lifecycle-specification.md",
+      "target": "../../tools/lib/install/install.sh",
+      "current_exists": false,
+      "historical_commit": "15bcb79cee2d1959074d4c70e164d0cae75ee8e2",
+      "historical_path_exists": true
+    },
+    {
+      "document": "dev/docs/managed-tool-lifecycle-specification.md",
+      "target": "../../tools/lib/commands/doctor.sh",
+      "current_exists": false,
+      "historical_commit": "15bcb79cee2d1959074d4c70e164d0cae75ee8e2",
+      "historical_path_exists": true
+    },
+    {
+      "document": "dev/docs/managed-tool-lifecycle-implementation-plan.md",
+      "target": "../../tools/lib/install/install.sh",
+      "current_exists": false,
+      "historical_commit": "15bcb79cee2d1959074d4c70e164d0cae75ee8e2",
+      "historical_path_exists": true
+    }
+  ],
+  "scope": "Current local file targets and simple GFM heading anchors checked; historical removed source citations verified at declared commit15b. Remote URL reachability was not checked; no network.",
+  "current_heading_targets": [
+    {
+      "document": "README.md",
+      "target": "docs/install.md#managed-set-and-migration",
+      "heading_exists": true
+    },
+    {
+      "document": "docs/tools.md",
+      "target": "install.md#managed-set-and-migration",
+      "heading_exists": true
+    },
+    {
+      "document": "docs/shell/helpers.md",
+      "target": "../../dev/docs/checks.md#navi-and-skim",
+      "heading_exists": true
+    },
+    {
+      "document": "docs/shell/flyline.md",
+      "target": "../install.md#managed-set-and-migration",
+      "heading_exists": true
+    },
+    {
+      "document": "dev/docs/fzf-retirement-plan.md",
+      "target": "../../docs/install.md#managed-set-and-migration",
+      "heading_exists": true
+    }
+  ]
+}

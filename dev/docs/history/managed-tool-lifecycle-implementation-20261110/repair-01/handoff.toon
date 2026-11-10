@@ -1,0 +1,15 @@
+type: result
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root/managed_lifecycle_implementer
+to: /root
+status: ready_for_reaudit
+baseline: SPEC0.3; PLAN0.2; repair-plan0.1; repair_round 1; HEAD9a223dc
+scope: R1–R6 integrated; A0-001/002 corrections frozen after required verification.
+evidence[5]:
+  - Targeted: 272 passed; full: 1891passed/56skipped/0 failed; source fences true.
+  - Original 88 subject union frozen;12 exact before snapshots/delta,28 pin/adapter checks preserved.
+  -28 new public cases on Bash 3.2/5.3;22 REQ/24 AC actual final case outcomes mapped.
+  - Real unresolved/failed proof, liveB/C, all-slot/prune and no-resurrection guards retained.
+  - Only fixed-allowlist safe outputs used; native library ABI unverified; restricted data untouched.
+blockers[0]:
+next_action: Root publishes staged report and activates independent repair-01-audit on exact frozen subject. No source edits during re-audit; no independent Pass claimed.

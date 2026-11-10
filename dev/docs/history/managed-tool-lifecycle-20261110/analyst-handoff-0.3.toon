@@ -1,0 +1,42 @@
+type: handoff
+task_id: managed-tool-lifecycle-20261110
+from: managed_lifecycle_analyst
+to: /root
+status: reviewing
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  commit: 15bcb79cee2d1959074d4c70e164d0cae75ee8e2
+  specification: dev/docs/managed-tool-lifecycle-specification.md
+  id: SPEC-MANAGED-TOOL-LIFECYCLE
+  version: "0.3"
+  sha256: 62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb
+  manifest: null
+scope: Final automatic author revision 2. Only R1-001 fixture correction, version and history changed. No optional additions, product decisions, implementation planning, runtime edits or independent self-audit.
+revision_round: 2
+previous_version:
+  path: /private/tmp/remote-ssh-managed-lifecycle-20261110/managed-tool-lifecycle-specification-0.2.md
+  version: "0.2"
+  sha256: 6eb7ea485057b18b9e139fffa270ce2eacf2c00603c90cc771c347551a03cfd8
+artifacts[2]:
+  - path: /private/tmp/remote-ssh-managed-lifecycle-20261110/managed-tool-lifecycle-specification-0.3.md
+    id: SPEC-MANAGED-TOOL-LIFECYCLE
+    version: "0.3"
+    sha256: 62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb
+    bytes: 54647
+    publication: dev/docs/managed-tool-lifecycle-specification.md
+  - path: /private/tmp/remote-ssh-managed-lifecycle-20261110/analyst-handoff-0.3.toon
+    id: analyst-handoff
+    version: "0.3"
+    sha256: null
+evidence[4]:
+  - Read both review-1 artifacts; original R0-001 and R0-002 remain closed and their content untouched.
+  - AC-023 now explicitly uses nu active only through its declared nushell alias, six tools rg/fd/sk/flyline/nvim/nu, older rg and definition loss for rg. Bundle, bash-builtin and first-update evidence preservation remain covered.
+  - Diff contains exactly version update, replacement AC-023 row and appended version-history row; previous specification and handoffs preserved.
+  - Author structural check confirms 22 sequential unique REQ, 24 AC, 9 UC and 48 valid local links. No runtime tests, network, secrets or host reads.
+coverage[1]:
+  - requirement: R1-001
+    status: addressed
+    evidence: AC-023 uses actual nu/nushell alias with consistent six-name set and retains all requested migration cases.
+blockers[0]:
+open_questions[0]:
+next_action: Coordinator mechanically publishes identical v0.3 bytes and asks separate auditor for independent review 2. Automatic revision limit is exhausted; further required changes need escalation through coordinator. Concrete human document approval is still pending.

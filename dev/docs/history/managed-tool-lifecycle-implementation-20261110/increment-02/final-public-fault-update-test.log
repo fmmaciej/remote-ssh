@@ -1,0 +1,6 @@
+Restricted task evidence — metadata pointer only.
+Original raw diagnostic output retained locally: /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/final-public-fault-update-test.log
+Reason: historical subprocess traceback may contain inherited ambient environment.
+Quarantine used rename only; no original content was opened or hashed for this operation.
+Safe aggregate results remain in result.md and task events; final verification uses an allowlisted environment.
+Any historical raw-output fingerprint identifies the restricted original, not this metadata pointer.

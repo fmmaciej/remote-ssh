@@ -1,0 +1,22 @@
+{
+  "operation": "native local-upstream git fetch in disposable fixture",
+  "configured_auto_maintenance": true,
+  "gc_auto": 1,
+  "gc_auto_detach": true,
+  "controlled_loose_objects": 4,
+  "pre_auto_gc_hook_invoked": false,
+  "returncode": 0,
+  "note": "Hook only writes a synthetic marker and exits1, preventing background GC work. No real checkout/config/network operations.",
+  "local_primary_docs": [
+    {
+      "path": "/Library/Developer/CommandLineTools/usr/share/man/man1/git-fetch.1",
+      "lines": "234-241",
+      "fact": "fetch triggers automatic maintenance by default"
+    },
+    {
+      "path": "/Library/Developer/CommandLineTools/usr/share/man/man1/git-maintenance.1",
+      "lines": "517-533",
+      "fact": "automatic maintenance may detach by default; maintenance.auto can disable it"
+    }
+  ]
+}

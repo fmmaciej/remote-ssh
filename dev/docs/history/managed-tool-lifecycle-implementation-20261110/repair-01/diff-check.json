@@ -1,0 +1,15 @@
+{
+  "command": [
+    "git",
+    "-c",
+    "core.fsmonitor=false",
+    "-C",
+    "/Users/fm/Programming/00_Other/remote-ssh",
+    "diff",
+    "--check"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n",
+  "environment": "fixed public allowlist; no ambient values"
+}

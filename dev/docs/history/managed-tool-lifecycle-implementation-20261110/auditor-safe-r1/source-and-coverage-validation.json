@@ -1,0 +1,31 @@
+{
+  "source_union": 88,
+  "source_mismatches": [],
+  "same_source_keys": true,
+  "delta_exact": true,
+  "changed": 12,
+  "unchanged": 76,
+  "before_snapshots": 12,
+  "before_mismatches": [],
+  "basis": [
+    {
+      "id": "SPEC-MANAGED-TOOL-LIFECYCLE",
+      "version": "0.3",
+      "exact": true
+    },
+    {
+      "id": "PLAN-MANAGED-TOOL-LIFECYCLE",
+      "version": "0.2",
+      "exact": true
+    }
+  ],
+  "repair_plan_hash": "c55a0bbd2720103e6c3346f9c1eaa666984ed24c709b627dc5569475435487f3",
+  "final_junit": {
+    "passed": 1891,
+    "skipped": 56
+  },
+  "REQ": 22,
+  "AC": 24,
+  "coverage_missing_cases": [],
+  "coverage_wrong_results": []
+}

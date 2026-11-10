@@ -1,0 +1,168 @@
+{
+  "raw_content_reads": 0,
+  "raw_content_hashes": 0,
+  "operation": "rename-only quarantine",
+  "files": [
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-01/publishable-overlay-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-01/publishable-overlay-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-01/repository-focused-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-01/repository-focused-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-01/repository-foundation-final.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-01/repository-foundation-final.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-01/repository-regression-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-01/repository-regression-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/actual-final-focused-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/actual-final-focused-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/actual-managed-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/actual-managed-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/actual-payload-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/actual-payload-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/actual-preview-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/actual-preview-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/checkout-overlap-final.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/checkout-overlap-final.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/checkout-overlap-retest.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/checkout-overlap-retest.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/checkout-overlap-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/checkout-overlap-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/existing-payload-regression-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/existing-payload-regression-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/final-public-fault-update-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/final-public-fault-update-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/foundation-cli-regression-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/foundation-cli-regression-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/library-preflight-diagnosis.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/library-preflight-diagnosis.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/prepublish-final-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/prepublish-final-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/public-fault-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/public-fault-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/public-writers-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/public-writers-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/t3-engine-retest.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/t3-engine-retest.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/t3-engine-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/t3-engine-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/t4-install-cli-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/t4-install-cli-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/t4-uninstall-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/t4-uninstall-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    },
+    {
+      "source": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/t5-update-test.log",
+      "restricted_archive": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/restricted-prior-evidence/increment-02/t5-update-test.log",
+      "same_inode_and_size": true,
+      "archive_mode": "0600",
+      "public_file": "metadata pointer only"
+    }
+  ]
+}

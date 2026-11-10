@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "documents": [
+    {
+      "source": "dev/docs/managed-tool-lifecycle-specification.md",
+      "snapshot": "files/dev/docs/managed-tool-lifecycle-specification.md",
+      "id": "SPEC-MANAGED-TOOL-LIFECYCLE",
+      "version": "0.3",
+      "sha256": "62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb"
+    },
+    {
+      "source": "dev/docs/managed-tool-lifecycle-implementation-plan.md",
+      "snapshot": "files/dev/docs/managed-tool-lifecycle-implementation-plan.md",
+      "id": "PLAN-MANAGED-TOOL-LIFECYCLE",
+      "version": "0.2",
+      "sha256": "e7d504fe7c5a69a400c9ccae549c4fcb0225dcb980c105ae5e45f4c89a5e7c23"
+    }
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "head": "9a223dcca76072eb9035316d25abf972902d3289",
+  "pins_and_adapters": [
+    {
+      "path": "tools/defs/atuin.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "9b7ba1ae0b3ff27f53a906c172860805b3784cba55d4e118cae09b8706655402"
+    },
+    {
+      "path": "tools/defs/bat.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "6f6f76a629d669b33c1ea365485dcf1a50e480be30db9378c81a7d36f2cb7cac"
+    },
+    {
+      "path": "tools/defs/bottom.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "127e02e60b80aa2666840d2528b3865eaae2cbd4b316d6c1d38408199a0243a8"
+    },
+    {
+      "path": "tools/defs/bssh.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "c31fc30dd393412e410a50f9ecb5ab3619bab7078795156c42a4fde73ac9f38e"
+    },
+    {
+      "path": "tools/defs/dust.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "8b266f0d66f990a67aa85259243727165ccd135e865953590e4a764976a999d4"
+    },
+    {
+      "path": "tools/defs/eza.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "2ef1a043f94edfd663d8a980bbbbc6052314f5f87e6cbd1ab579ad94c0602506"
+    },
+    {
+      "path": "tools/defs/fd.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "4a9c1749eba6945ff04aff129a8133e58e35df7897989a00cae0c7644816af46"
+    },
+    {
+      "path": "tools/defs/flyline.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "2a6ac2ae579cc616c413a70f0aed1b055fd46416af8dee65c2d67a729f34ad8c"
+    },
+    {
+      "path": "tools/defs/fzf.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "46ad7da3949b4e3deadad48365b435053e91ee7696972c560f08b3cd4e4cbc9c"
+    },
+    {
+      "path": "tools/defs/navi.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "8bd87d7f987890dd5598111f02f17bcf98ffdfe6663cb7454ac9d1e4ba082bfd"
+    },
+    {
+      "path": "tools/defs/nu.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "d73eaeeea3c9eedab1132e38387dc29e3b958d1ca108a70abe3cddc40b5c5726"
+    },
+    {
+      "path": "tools/defs/nvim.sh",
+      "same_as_committed_tool_update": false,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "82ac68767e351a02aca52799cd760a4a3d0db44705ae96c316ee057b63025c30"
+    },
+    {
+      "path": "tools/defs/procs.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "65a4d1b8561ac490f24a2cca637cc0054204e389673d3b65ad7f9bfb992d8398"
+    },
+    {
+      "path": "tools/defs/rg.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "d1a67b4b0c5372c7fb62e6b214c81ecce9091468cc06d8863a7e9a8d9624a962"
+    },
+    {
+      "path": "tools/defs/sd.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "7a6f3cbca16b740f203208d56aad2520e8735b2e2e10a08c1eede594ceba3701"
+    },
+    {
+      "path": "tools/defs/sk.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "f8796dfe95ec4cd0fd7f00eccb37ef64179adf5b980de157a31f468880a62d0c"
+    },
+    {
+      "path": "tools/defs/starship.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "462201ed991ae0bc5e459229118f05b89faf3d884419b2f70c1bf5826e6c2790"
+    },
+    {
+      "path": "tools/defs/tspin.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "576d413a94d213e3cdad55ec3b69f34430b9cfa3189b686f2e1e174741dea3a1"
+    },
+    {
+      "path": "tools/defs/vector.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "b59e529118241138137898fb78b5c27da009f0140eefffba88bad3e3b7010b7e"
+    },
+    {
+      "path": "tools/defs/yazi.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "dd40e41e02a6aa217ecfa8d1c38904b5bdb69122f2c065c4a281fb57b17c420a"
+    },
+    {
+      "path": "tools/defs/zellij.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "18007d89e937b8e5b006d0652401531bd4e7a87b8477c9173fdbc60ae69bf1a2"
+    },
+    {
+      "path": "tools/defs/zoxide.sh",
+      "same_as_committed_tool_update": true,
+      "same_after_only_allowed_nvim_metadata": true,
+      "sha256": "6b109ee88ad3724f47a6841f9da668d944529613b06cc6015b1b2ea265086821"
+    },
+    {
+      "path": "shell/navi-bin/fzf",
+      "same_as_committed_tool_update": true,
+      "sha256": "a1b9cbb87b022d39e73a14b88dbab44071a99e54d7eb681590f53604684c9a7b"
+    },
+    {
+      "path": "shell/navi-bin/navi",
+      "same_as_committed_tool_update": true,
+      "sha256": "977471266ad602fc6c5b5d9b389b1abd01d9af7450199fa4ff8fb48e606611f9"
+    },
+    {
+      "path": "dev/tests/test_tool_assets.py",
+      "same_as_committed_tool_update": true,
+      "sha256": "92259fa4852e6313b47966056886bb2084a90bfaa318e9ce264d57d0445ab7ff"
+    },
+    {
+      "path": "shell/rc.d/07-git-session-identity.sh",
+      "same_as_committed_tool_update": true,
+      "sha256": "57414146be410f70d8c9b9029fe5cf18707f747d649cf51c90d19e3c870386a9"
+    },
+    {
+      "path": "shell/welcome/sw.sh",
+      "same_as_committed_tool_update": true,
+      "sha256": "694a3783def6c640eacf787e54f7972ee3a8ff6e24cd8d0d7fc6e0c4a69e39c6"
+    },
+    {
+      "path": "tools/lib/commands/guide/shell_snapshot.sh",
+      "same_as_committed_tool_update": true,
+      "sha256": "f09ae8e929ed21dc9e03c72ac097135454f6e7baff6019a770ec7510ec84fff6"
+    }
+  ],
+  "unchanged_scopes": {
+    "dev/tests/fixtures": [],
+    "dots": [],
+    "shell/navi-bin": []
+  },
+  "frozen_basis": [
+    {
+      "source": "dev/docs/managed-tool-lifecycle-specification.md",
+      "snapshot": "files/dev/docs/managed-tool-lifecycle-specification.md",
+      "sha256": "62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb",
+      "exact": true
+    },
+    {
+      "source": "dev/docs/managed-tool-lifecycle-implementation-plan.md",
+      "snapshot": "files/dev/docs/managed-tool-lifecycle-implementation-plan.md",
+      "sha256": "e7d504fe7c5a69a400c9ccae549c4fcb0225dcb980c105ae5e45f4c89a5e7c23",
+      "exact": true
+    }
+  ],
+  "test_process_identity_exposure": "Possible in interrupted smoke01; raw capture quarantined without further inspection/hash. General tests now disable identity; dedicated identity tests use synthetic ROOT/DOTS/HOME.",
+  "ambient_environment_exposure": "Earlier copied ambient env could enter failed subprocess repr; raw smoke02 and23prior task logs restricted. Clean final evidence uses explicit allowlists.",
+  "note": "Original private configuration content was not displayed/inspected in model context; copy/subprocess reads are disclosed separately. No source private configuration hash is used as final evidence.",
+  "original_private_configuration_values_displayed_or_inspected_in_model_context": false
+}

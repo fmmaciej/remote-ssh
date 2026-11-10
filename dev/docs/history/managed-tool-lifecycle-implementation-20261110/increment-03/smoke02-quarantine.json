@@ -1,0 +1,26 @@
+{
+  "captures": [
+    {
+      "path": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/full-smoke-02.log",
+      "mode": "0600",
+      "policy": "restricted; no further content inspection/hash/promotion; ambient environment may enter failure repr"
+    },
+    {
+      "path": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/full-smoke-02.xml",
+      "mode": "0600",
+      "policy": "restricted; no further content inspection/hash/promotion; ambient environment may enter failure repr"
+    },
+    {
+      "path": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/smoke02-failures.json",
+      "mode": "0600",
+      "policy": "restricted; no further content inspection/hash/promotion; ambient environment may enter failure repr"
+    }
+  ],
+  "safe_aggregate": {
+    "failed": 36,
+    "passed": 1824,
+    "skipped": 56,
+    "seconds": 2346.62
+  },
+  "source_unchanged": true
+}

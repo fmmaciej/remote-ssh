@@ -1,0 +1,65 @@
+{
+  "final_full_smoke": {
+    "command": [
+      "just",
+      "smoke"
+    ],
+    "cwd": "/Users/fm/Programming/00_Other/remote-ssh/dev",
+    "returncode": 0,
+    "timeout": 7200,
+    "timed_out": false,
+    "elapsed_seconds": 2170.441355332965,
+    "source_unchanged": true,
+    "environment_provenance": "fixed allowlist; no ambient values, dotenv or startup env; synthetic HOME/XDG/Git context",
+    "environment_keys": [
+      "BASH_ENV",
+      "ENV",
+      "GIT_CONFIG_GLOBAL",
+      "GIT_CONFIG_NOSYSTEM",
+      "HOME",
+      "INSTALL_BIN_DIR",
+      "INSTALL_PREFIX",
+      "LANG",
+      "LC_ALL",
+      "PATH",
+      "PYTEST_ADDOPTS",
+      "PYTHONDONTWRITEBYTECODE",
+      "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY",
+      "TZ",
+      "UV_CACHE_DIR",
+      "UV_NO_ENV_FILE",
+      "UV_OFFLINE",
+      "UV_PYTHON_DOWNLOADS",
+      "XDG_CACHE_HOME",
+      "XDG_CONFIG_HOME",
+      "XDG_DATA_HOME",
+      "XDG_STATE_HOME"
+    ],
+    "native_capability": "No optional private native path inherited; explicit unavailable tests remain skipped"
+  },
+  "counts": {
+    "passed": 1863,
+    "skipped": 56
+  },
+  "affected": {
+    "passed": 187,
+    "failed": 4,
+    "scope": "Old exact bin-list test assumption; safe output smoke02-affected; fixed separately, no product failure excluded"
+  },
+  "bootstrap_final": {
+    "passed": 4,
+    "failed": 0,
+    "seconds": 20.73
+  },
+  "failed_full_smoke02_safe_aggregate": {
+    "failed": 36,
+    "passed": 1824,
+    "skipped": 56,
+    "seconds": 2346.62,
+    "raw_output": "restricted; do not inspect/hash/promote; safe taxonomy only"
+  },
+  "smoke01": "interrupted143 after identity-isolation gap; raw restricted, metadata only",
+  "earlier_raw_evidence": "coordinator evidence-quarantine.json;23raw logs retained privately, public paths pointers",
+  "coverage": "22REQ/24AC mapped actual IDs in coverage.json; independent audit pending",
+  "native_library_qualification": "unverifiable in this task; no native library downloads/discovery/sourcebuilds"
+}

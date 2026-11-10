@@ -1,0 +1,48 @@
+type: handoff
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root/managed_lifecycle_planner
+to: /root
+status: planning
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  code_commit: 15bcb79cee2d1959074d4c70e164d0cae75ee8e2
+  manifest: dev/docs/history/managed-tool-lifecycle-20261110/baseline-1/baseline.json
+  specification_id: SPEC-MANAGED-TOOL-LIFECYCLE
+  specification_version: "0.3"
+  specification_sha256: 62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb
+  dependencies[0]:
+  previous_plan_version: "0.1"
+  previous_plan_sha256: f1e8b87976356e345c6c0f11ecc27e4976b1fbb44fbaab9e2a9eb984a053c0ab
+  previous_review: plan-review-0.md
+  previous_verdict: Findings
+  plan_id: PLAN-MANAGED-TOOL-LIFECYCLE
+  plan_version: "0.2"
+  plan_sha256: e7d504fe7c5a69a400c9ccae549c4fcb0225dcb980c105ae5e45f4c89a5e7c23
+  plan_manifest: null
+scope: Bounded technical revision of temporary unapproved plan for P0-001/002/003 only. Specification and product scope unchanged; independent re-review and explicit human plan approval pending. No implementation repair round consumed.
+artifacts[3]:
+  - /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/managed-tool-lifecycle-implementation-plan-0.2.md
+  - /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/planner-handoff-0.2.toon
+  - /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/planner-document-check-0.2.json
+evidence[8]:
+  - Read both independent review0 artifacts; no new source discovery, runtime tests or product decisions needed.
+  - P0-001 separates identification A, exact selector repair B and recursive deletion C. C retains all live marker/member/ancestor/containment premises including existing regular nonsymlink member; missing premise causes conservative refusal and retained membership. Saved receipt is not a substitute. V2/V3 cover recorded then missing or substituted paths and foreign selectors across layouts/retired.
+  - P0-002 assigns command-specific lock roots, prune apply prefix-only and no writable bin/checkout requirement. T7 explicitly owns commands/prune.sh. Prune reads all claims/journals without recovery, protects pending releases after writer death and other-slot claims, and aborts on incomplete claims. V3/V6 include readonly bin0555/custom alias/checkout, concurrency and crash-pending-release-prune-retry with another slot.
+  - P0-003 adds shared under-lock prior-journal normalization before every lifecycle batch including wrapper. Completed operations finalize membership before unrelated batch, unresolved journals remain protected and cannot be overwritten, partial known failure retains member and durable evidence without automatic deletion permission. V3 includes finalized uninstall crash then unrelated install then update plus completed-install analogue.
+  - Plan0.2 has327 lines,28431 bytes;22 unique REQ rows,24 unique AC rows,7 task rows and18 valid source-relative local links. Growth is27 lines confined to required corrections and their tests/history.
+  - Plan0.1 remains byte-identical at frozen hash. Review0 artifacts preserved; document check records their current hashes. Diff0.1-to0.2 confined to version, required technical corrections, corresponding owner/test edits and revision note.
+  - Final tracked git diff empty; worktree only existing untracked dev/docs/history and specification. Future project plan and implementation-cycle history remain absent.
+  - Binding remains effective prefix/bin pair; checkout locking for update does not bind state identity to checkout. No code/config/Git/host mutations, network, secrets, tests or implementation performed.
+ownership:
+  planner: /root/managed_lifecycle_planner
+  planner_writes: Plan0.2, handoff0.2 and document-check0.2 in existing authorized scratch only.
+  future_integration_owner: /root/managed_lifecycle_implementer
+  future_implementer_authorized: false
+  future_auditor: Separate from planner and implementer; coordinator assigns.
+  coordinator: Owns human decisions, independent review and later approved-plan publication.
+risks[3]:
+  - Conservative deletion refuses an owned recorded release whose live member/parent proof is insufficient; it preserves membership until safe repair instead of treating receipt as current deletion authority.
+  - Lock/journal implementation still needs proposed failure injection and concurrency evidence; this plan revision is not execution or verification of the algorithm.
+  - Qualified native library ABI verification remains separate from offline management-flow stubs, unchanged from plan0.1.
+blockers[0]:
+next_action: Coordinator requests targeted independent re-review of exact plan0.2 and P0-001/002/003 closure, then presents concrete plan for human approval. Do not publish initial project plan/history or start implementation before approval.

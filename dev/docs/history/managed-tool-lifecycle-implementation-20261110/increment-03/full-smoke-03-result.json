@@ -1,0 +1,38 @@
+{
+  "command": [
+    "just",
+    "smoke"
+  ],
+  "cwd": "/Users/fm/Programming/00_Other/remote-ssh/dev",
+  "returncode": 0,
+  "timeout": 7200,
+  "timed_out": false,
+  "elapsed_seconds": 2170.441355332965,
+  "source_unchanged": true,
+  "environment_provenance": "fixed allowlist; no ambient values, dotenv or startup env; synthetic HOME/XDG/Git context",
+  "environment_keys": [
+    "BASH_ENV",
+    "ENV",
+    "GIT_CONFIG_GLOBAL",
+    "GIT_CONFIG_NOSYSTEM",
+    "HOME",
+    "INSTALL_BIN_DIR",
+    "INSTALL_PREFIX",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "PYTEST_ADDOPTS",
+    "PYTHONDONTWRITEBYTECODE",
+    "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY",
+    "TZ",
+    "UV_CACHE_DIR",
+    "UV_NO_ENV_FILE",
+    "UV_OFFLINE",
+    "UV_PYTHON_DOWNLOADS",
+    "XDG_CACHE_HOME",
+    "XDG_CONFIG_HOME",
+    "XDG_DATA_HOME",
+    "XDG_STATE_HOME"
+  ],
+  "native_capability": "No optional private native path inherited; explicit unavailable tests remain skipped"
+}

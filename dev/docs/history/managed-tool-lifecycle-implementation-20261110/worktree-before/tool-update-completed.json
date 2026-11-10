@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "event": "Human reported tool-version update complete",
+  "head": "9a223dcca76072eb9035316d25abf972902d3289",
+  "previously_observed_version_work_files": [
+    {
+      "path": "dev/tests/fixtures/atuin/README.md",
+      "state": "present",
+      "sha256": "bef1f5d1abc54d0a1fa5378d49c9a60d74c607c708cff29b0e6c598817624a03",
+      "changed_since_start": false
+    },
+    {
+      "path": "dev/tests/fixtures/atuin/v18.14.1/LICENSE",
+      "state": "deleted",
+      "sha256": null,
+      "changed_since_start": false
+    },
+    {
+      "path": "dev/tests/fixtures/atuin/v18.14.1/atuin.bash",
+      "state": "deleted",
+      "sha256": null,
+      "changed_since_start": false
+    },
+    {
+      "path": "dev/tests/fixtures/zoxide-0.9.9-completion.bash",
+      "state": "deleted",
+      "sha256": null,
+      "changed_since_start": false
+    },
+    {
+      "path": "dev/tests/test_atuin_lifecycle.py",
+      "state": "present",
+      "sha256": "2e382a56c97c71b250148970620ef4c629aacfebe70b35217fd5e628bf7ba0b9",
+      "changed_since_start": false
+    },
+    {
+      "path": "dev/tests/test_atuin_real.py",
+      "state": "present",
+      "sha256": "6409cb37f986ff7d8937b79bc8e58d8697e2d8248ac7d563425c4c8b39d8707d",
+      "changed_since_start": false
+    },
+    {
+      "path": "dev/tests/test_check.py",
+      "state": "present",
+      "sha256": "ffedbfb3c8322ca47226a70005678db876ecf5f518bae4603d021a64175f9a68",
+      "changed_since_start": false
+    },
+    {
+      "path": "dev/tests/test_tool_assets.py",
+      "state": "present",
+      "sha256": "92259fa4852e6313b47966056886bb2084a90bfaa318e9ce264d57d0445ab7ff",
+      "changed_since_start": false
+    },
+    {
+      "path": "dev/tests/test_zoxide_skim.py",
+      "state": "present",
+      "sha256": "ba3c1ff26b9a9e02a4916de27a0454ebf402fe8300e0e2910d57220b824335c9",
+      "changed_since_start": false
+    },
+    {
+      "path": "docs/tool-checksums.md",
+      "state": "present",
+      "sha256": "44a84980a057a15df7580c8b31d8c1f38701254c4a9c3fe0ad7330f752f76374",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/atuin.sh",
+      "state": "present",
+      "sha256": "9b7ba1ae0b3ff27f53a906c172860805b3784cba55d4e118cae09b8706655402",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/bottom.sh",
+      "state": "present",
+      "sha256": "127e02e60b80aa2666840d2528b3865eaae2cbd4b316d6c1d38408199a0243a8",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/bssh.sh",
+      "state": "present",
+      "sha256": "c31fc30dd393412e410a50f9ecb5ab3619bab7078795156c42a4fde73ac9f38e",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/dust.sh",
+      "state": "present",
+      "sha256": "8b266f0d66f990a67aa85259243727165ccd135e865953590e4a764976a999d4",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/eza.sh",
+      "state": "present",
+      "sha256": "2ef1a043f94edfd663d8a980bbbbc6052314f5f87e6cbd1ab579ad94c0602506",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/fd.sh",
+      "state": "present",
+      "sha256": "4a9c1749eba6945ff04aff129a8133e58e35df7897989a00cae0c7644816af46",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/nu.sh",
+      "state": "present",
+      "sha256": "d73eaeeea3c9eedab1132e38387dc29e3b958d1ca108a70abe3cddc40b5c5726",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/nvim.sh",
+      "state": "present",
+      "sha256": "97db2a7bb787e805d0e9711d365e682dce2840866e6dd2e04ba86ca802d90aee",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/procs.sh",
+      "state": "present",
+      "sha256": "65a4d1b8561ac490f24a2cca637cc0054204e389673d3b65ad7f9bfb992d8398",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/rg.sh",
+      "state": "present",
+      "sha256": "d1a67b4b0c5372c7fb62e6b214c81ecce9091468cc06d8863a7e9a8d9624a962",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/starship.sh",
+      "state": "present",
+      "sha256": "462201ed991ae0bc5e459229118f05b89faf3d884419b2f70c1bf5826e6c2790",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/tspin.sh",
+      "state": "present",
+      "sha256": "576d413a94d213e3cdad55ec3b69f34430b9cfa3189b686f2e1e174741dea3a1",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/vector.sh",
+      "state": "present",
+      "sha256": "b59e529118241138137898fb78b5c27da009f0140eefffba88bad3e3b7010b7e",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/yazi.sh",
+      "state": "present",
+      "sha256": "dd40e41e02a6aa217ecfa8d1c38904b5bdb69122f2c065c4a281fb57b17c420a",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/zellij.sh",
+      "state": "present",
+      "sha256": "18007d89e937b8e5b006d0652401531bd4e7a87b8477c9173fdbc60ae69bf1a2",
+      "changed_since_start": false
+    },
+    {
+      "path": "tools/defs/zoxide.sh",
+      "state": "present",
+      "sha256": "6b109ee88ad3724f47a6841f9da668d944529613b06cc6015b1b2ea265086821",
+      "changed_since_start": false
+    }
+  ],
+  "note": "Read-only post-completion inventory; implementation may be publishing nonoverlapping modules concurrently. Preserve final pins and merge lifecycle hunks."
+}

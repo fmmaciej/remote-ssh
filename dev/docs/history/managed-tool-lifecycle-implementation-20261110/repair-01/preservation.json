@@ -1,0 +1,148 @@
+{
+  "repair_round": 1,
+  "public_pin_adapter_identity_files": [
+    {
+      "path": "tools/defs/atuin.sh",
+      "sha256": "9b7ba1ae0b3ff27f53a906c172860805b3784cba55d4e118cae09b8706655402",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/bat.sh",
+      "sha256": "6f6f76a629d669b33c1ea365485dcf1a50e480be30db9378c81a7d36f2cb7cac",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/bottom.sh",
+      "sha256": "127e02e60b80aa2666840d2528b3865eaae2cbd4b316d6c1d38408199a0243a8",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/bssh.sh",
+      "sha256": "c31fc30dd393412e410a50f9ecb5ab3619bab7078795156c42a4fde73ac9f38e",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/dust.sh",
+      "sha256": "8b266f0d66f990a67aa85259243727165ccd135e865953590e4a764976a999d4",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/eza.sh",
+      "sha256": "2ef1a043f94edfd663d8a980bbbbc6052314f5f87e6cbd1ab579ad94c0602506",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/fd.sh",
+      "sha256": "4a9c1749eba6945ff04aff129a8133e58e35df7897989a00cae0c7644816af46",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/flyline.sh",
+      "sha256": "2a6ac2ae579cc616c413a70f0aed1b055fd46416af8dee65c2d67a729f34ad8c",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/fzf.sh",
+      "sha256": "46ad7da3949b4e3deadad48365b435053e91ee7696972c560f08b3cd4e4cbc9c",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/navi.sh",
+      "sha256": "8bd87d7f987890dd5598111f02f17bcf98ffdfe6663cb7454ac9d1e4ba082bfd",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/nu.sh",
+      "sha256": "d73eaeeea3c9eedab1132e38387dc29e3b958d1ca108a70abe3cddc40b5c5726",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/nvim.sh",
+      "sha256": "82ac68767e351a02aca52799cd760a4a3d0db44705ae96c316ee057b63025c30",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/procs.sh",
+      "sha256": "65a4d1b8561ac490f24a2cca637cc0054204e389673d3b65ad7f9bfb992d8398",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/rg.sh",
+      "sha256": "d1a67b4b0c5372c7fb62e6b214c81ecce9091468cc06d8863a7e9a8d9624a962",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/sd.sh",
+      "sha256": "7a6f3cbca16b740f203208d56aad2520e8735b2e2e10a08c1eede594ceba3701",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/sk.sh",
+      "sha256": "f8796dfe95ec4cd0fd7f00eccb37ef64179adf5b980de157a31f468880a62d0c",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/starship.sh",
+      "sha256": "462201ed991ae0bc5e459229118f05b89faf3d884419b2f70c1bf5826e6c2790",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/tspin.sh",
+      "sha256": "576d413a94d213e3cdad55ec3b69f34430b9cfa3189b686f2e1e174741dea3a1",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/vector.sh",
+      "sha256": "b59e529118241138137898fb78b5c27da009f0140eefffba88bad3e3b7010b7e",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/yazi.sh",
+      "sha256": "dd40e41e02a6aa217ecfa8d1c38904b5bdb69122f2c065c4a281fb57b17c420a",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/zellij.sh",
+      "sha256": "18007d89e937b8e5b006d0652401531bd4e7a87b8477c9173fdbc60ae69bf1a2",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/defs/zoxide.sh",
+      "sha256": "6b109ee88ad3724f47a6841f9da668d944529613b06cc6015b1b2ea265086821",
+      "same_as_audit0": true
+    },
+    {
+      "path": "shell/navi-bin/fzf",
+      "sha256": "a1b9cbb87b022d39e73a14b88dbab44071a99e54d7eb681590f53604684c9a7b",
+      "same_as_audit0": true
+    },
+    {
+      "path": "shell/navi-bin/navi",
+      "sha256": "977471266ad602fc6c5b5d9b389b1abd01d9af7450199fa4ff8fb48e606611f9",
+      "same_as_audit0": true
+    },
+    {
+      "path": "dev/tests/test_tool_assets.py",
+      "sha256": "92259fa4852e6313b47966056886bb2084a90bfaa318e9ce264d57d0445ab7ff",
+      "same_as_audit0": true
+    },
+    {
+      "path": "shell/rc.d/07-git-session-identity.sh",
+      "sha256": "57414146be410f70d8c9b9029fe5cf18707f747d649cf51c90d19e3c870386a9",
+      "same_as_audit0": true
+    },
+    {
+      "path": "shell/welcome/sw.sh",
+      "sha256": "694a3783def6c640eacf787e54f7972ee3a8ff6e24cd8d0d7fc6e0c4a69e39c6",
+      "same_as_audit0": true
+    },
+    {
+      "path": "tools/lib/commands/guide/shell_snapshot.sh",
+      "sha256": "f09ae8e929ed21dc9e03c72ac097135454f6e7baff6019a770ec7510ec84fff6",
+      "same_as_audit0": true
+    }
+  ],
+  "unchanged_nonrepair_subject_paths": 76,
+  "basis": "original audit0 source/snapshots untouched",
+  "native_abi": "Not newly qualified; no downloads or private capability discovery"
+}

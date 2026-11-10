@@ -1,0 +1,119 @@
+{
+  "head": "9a223dcca76072eb9035316d25abf972902d3289",
+  "checks": [
+    {
+      "path": "tools/defs/atuin.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/bat.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/bottom.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/bssh.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/dust.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/eza.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/fd.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/flyline.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/fzf.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/navi.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/nu.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/nvim.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/procs.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/rg.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/sd.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/sk.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/starship.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/tspin.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/vector.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/yazi.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/zellij.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/defs/zoxide.sh",
+      "preserved": true
+    },
+    {
+      "path": "shell/navi-bin/fzf",
+      "preserved": true
+    },
+    {
+      "path": "shell/navi-bin/navi",
+      "preserved": true
+    },
+    {
+      "path": "dev/tests/test_tool_assets.py",
+      "preserved": true
+    },
+    {
+      "path": "shell/rc.d/07-git-session-identity.sh",
+      "preserved": true
+    },
+    {
+      "path": "shell/welcome/sw.sh",
+      "preserved": true
+    },
+    {
+      "path": "tools/lib/commands/guide/shell_snapshot.sh",
+      "preserved": true
+    }
+  ],
+  "changed_preserved_scopes": [],
+  "all_preserved": true
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.852" timestamp="2026-11-10T19:07:33.304126+00:00" hostname="MacBook-Pro-Maciej.local"><testcase classname="tests.test_runme" name="test_runme_real_install_then_fresh_ordinary_shell[/bin/bash-False]" time="2.794"><failure message="AssertionError: assert {'.remote-ssh... 'remote-ssh'} == {'demo', 'remote-ssh'}&#10;  &#10;  Extra items in the left set:&#10;  '.remote-ssh-lock'&#10;  Use -v to get more diff">repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/tmp/pytest-of-fm/pytest-13/test_runme_real_install_then_f0/home'), bin_dir=PosixP....local/opt', 'INSTALL_BIN_DIR': '/private/tmp/pytest-of-fm/pytest-13/test_runme_real_install_then_f0/home/.local/bin'})
+runtime_bash = '/bin/bash', path_present = False
+
+    @pytest.mark.parametrize("path_present", [False, True])
+    def test_runme_real_install_then_fresh_ordinary_shell(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool
+    ) -&gt; None:
+        # The older fixtures intentionally test forwarding only. This fixture keeps
+        # the real dispatcher, install facade, tools and rcfile, replacing Git
+        # transport with a local copy and leaving observable fail-fast network stubs.
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env.pop("INSTALL_BIN_DIR")
+        c.bin = c.home / ".local/bin"
+        c.bin.mkdir(parents=True)
+        (c.bin / "demo").symlink_to(c.home / "opt/demo-1/demo")
+        c.env["CANDIDATE_TREE"] = str(c.root)
+        c.env["GIT_LOG"] = str(c.home / "git.log")
+        if path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        write_executable(
+            c.transport / "git",
+            """#!/bin/sh
+    printf '%s\n' "$*" &gt;&gt; "$GIT_LOG"
+    if [ "$1" = clone ]; then
+      /bin/cp -R "$CANDIDATE_TREE" "$5" || exit $?
+      /bin/mkdir "$5/.git"
+      exit $?
+    fi
+    if [ "$1" = -C ]; then shift 2; fi
+    case "$1" in
+    rev-parse) printf 'origin/main\n';;
+    fetch|reset|ls-files) :;;
+    *) exit 98;;
+    esac
+    """,
+        )
+        startup = {p: p.read_bytes() for p in c.home.glob(".*") if p.is_file()}
+        for iteration in range(2):
+            result = c.shell([runtime_bash, repo_dir / "runme.sh", "--yes", "demo"])
+            assert_ok(result)
+            installed_tree = c.home / ".local/share/remote-ssh"
+            assert c.command.readlink() == installed_tree / "bin/remote-ssh"
+            assert not c.expected.exists()
+            managed = c.shell([runtime_bash, c.command, "list", "--installed"])
+            assert_ok(managed)
+            assert any(line.split()[0] == "demo" for line in managed.stdout.splitlines())
+            assert c.command.is_symlink()
+&gt;           assert set(p.name for p in c.bin.iterdir()) == {"demo", "remote-ssh"}
+E           AssertionError: assert {'.remote-ssh... 'remote-ssh'} == {'demo', 'remote-ssh'}
+E             
+E             Extra items in the left set:
+E             '.remote-ssh-lock'
+E             Use -v to get more diff
+
+tests/test_runme.py:229: AssertionError</failure></testcase></testsuite></testsuites>

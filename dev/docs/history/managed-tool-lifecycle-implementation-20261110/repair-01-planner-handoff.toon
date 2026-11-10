@@ -1,0 +1,45 @@
+type: handoff
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root/managed_lifecycle_planner
+to: /root
+status: repair_planning
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  manifest: dev/docs/history/managed-tool-lifecycle-implementation-20261110/baseline-1/baseline.json
+  specification: SPEC-MANAGED-TOOL-LIFECYCLE@0.3
+  specification_sha256: 62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb
+  plan: PLAN-MANAGED-TOOL-LIFECYCLE@0.2
+  plan_sha256: e7d504fe7c5a69a400c9ccae549c4fcb0225dcb980c105ae5e45f4c89a5e7c23
+  source_head: 9a223dcca76072eb9035316d25abf972902d3289
+  source_fence: increment-03/source-hashes.json
+  source_entries: 88
+  previous_audit: audit-0.md
+  previous_verdict: Findings
+  current_repair_round: 0
+  proposed_repair_round: 1
+  repair_plan_version: "0.1"
+  repair_plan_sha256: c55a0bbd2720103e6c3346f9c1eaa666984ed24c709b627dc5569475435487f3
+scope: Minimal repair plan for A0-001 and A0-002 within accepted requirements and plan; no implementation, requirement change, source edit or counter increment.
+artifacts[2]:
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01-plan.md
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01-planner-handoff.toon
+evidence[8]:
+  - Read current root AGENTS, preserved audit0 Markdown/TOON, execution, fixed88source fence and safe synthetic sequence/followup tests. No nested instructions present on inspected source/test paths.
+  - Exact accepted spec0.3 and plan0.2 snapshot hashes verified against baseline manifest. All88current source paths matched increment03 before and after planning.
+  - Cause traced to uninstall preflight treating terminal-uninstall receipts as required new roots and journal archive removing them after new preflight; status root fallback consumes the same historical receipts without membership.
+  - Repair separates terminal per-tool historical evidence from live/pending/failed scope, retires settled journal before definitive locked preflight without writing a no-op, and keeps unresolved journal protection and live B/C guards.
+  - Report repair gates saved health/B fallback without suppressing current physical selector evidence, keeps optional last operation and explicit absent check failure, and performs no archive/recovery/write from reports.
+  - Plan125lines11742bytes includes exact successful-uninstall repetition snapshot, immediate list/default/all/installed, explicit check, unrelated install/update, mixed selection, newly live own proof and pending/failed/unresolved regressions across both Bash versions.
+  - R1 requires exact public before-byte snapshots for every changed existing source/test file verified against audit0 hashes, plus prior-absence markers for additions; original audit/manifest/results remain immutable. No full-checkout/private copy authorized.
+  - Final source fence remains88/88unchanged; execution still repair_planning/round0. No tests, network, host configuration, secrets/restricted outputs, Git mutations or project writes performed; only assigned scratch plan/handoff written.
+ownership:
+  planner: /root/managed_lifecycle_planner
+  implementer_integration: /root/managed_lifecycle_implementer
+  independent_auditor: /root/managed_lifecycle_auditor
+  coordinator: Owns preservation and execution start; increments round only at actual repair execution.
+constraints:
+  runtime: Preserve Bash3.2, no new dependencies, pinned assets and fzf/private Navi gate.
+  privacy: Only published increment03 runner for any tests; restricted smoke01/02, raw/private archives, original dev/.env/user.local and real user configuration excluded from read/hash/promotion.
+  verification: Targeted new and recovery/proof/claims regressions then full isolated smoke, exact changed-source fence before re-audit, real skips and native ABI limitations retained.
+blockers[0]:
+next_action: Coordinator preserves concrete repair plan and assigns original implementer. Start repair1 only with exact before-byte preservation; then targeted/full isolated verification and independent re-audit. No new human product decision needed.

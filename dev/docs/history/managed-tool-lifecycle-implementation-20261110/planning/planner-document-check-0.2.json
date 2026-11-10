@@ -1,0 +1,23 @@
+{
+  "plan_version": "0.2",
+  "plan_sha256": "e7d504fe7c5a69a400c9ccae549c4fcb0225dcb980c105ae5e45f4c89a5e7c23",
+  "plan_lines": 327,
+  "plan_bytes": 28431,
+  "requirements_rows": 22,
+  "acceptance_rows": 24,
+  "task_rows": 7,
+  "local_links": 18,
+  "broken_source_relative_links": [],
+  "previous_plan_sha256": "f1e8b87976356e345c6c0f11ecc27e4976b1fbb44fbaab9e2a9eb984a053c0ab",
+  "review0_sha256": "392386aaccd7fd38cd5b8ab7c718d8b8a0095bbde4c037ce34dd85b797deaef0",
+  "review0_toon_sha256": "7f2861d108a15913d1c95f31f1e37f7820d8abb05e1deca1b1fc2a1972e6bacd",
+  "required_findings_addressed": [
+    "P0-001",
+    "P0-002",
+    "P0-003"
+  ],
+  "tests_run": [],
+  "project_writes": false,
+  "future_plan_absent": true,
+  "future_history_absent": true
+}

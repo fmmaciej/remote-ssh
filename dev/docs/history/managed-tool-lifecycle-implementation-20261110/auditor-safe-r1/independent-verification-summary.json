@@ -1,0 +1,24 @@
+{
+  "original-probes": {
+    "counts": {
+      "passed": 6
+    },
+    "new_repair_cases": 0,
+    "returncode": 0,
+    "source_unchanged": true,
+    "timed_out": false,
+    "elapsed_seconds": 42.090290791
+  },
+  "affected": {
+    "counts": {
+      "passed": 48
+    },
+    "new_repair_cases": 28,
+    "returncode": 0,
+    "source_unchanged": true,
+    "timed_out": false,
+    "elapsed_seconds": 385.706138042
+  },
+  "post_run_source_entries": 88,
+  "post_run_source_mismatches": []
+}

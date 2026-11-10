@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="24.176" timestamp="2026-11-10T20:18:00.764398+00:00" hostname="MacBook-Pro-Maciej.local"><testcase classname="test_audit_sequences" name="test_repeated_successful_uninstall_is_readonly_noop[/bin/bash]" time="5.974"><failure message="AssertionError: ('Selected tools:&#10;    rg&#10;  Owned selectors to remove:&#10;    [none]&#10;  Owned release scope to remove:&#10;    /private/tmp/pytest-o...ccessful_unins0/home/opt/rg-1.0&#10;  Managed membership to remove:&#10;    [none]&#10;  running: rg&#10;  ', 'Uninstall incomplete: rg&#10;  ')&#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-17/test_repeated_successful_unins0/hom...l_unins0/home/opt/rg-1.0\nManaged membership to remove:\n  [none]\nrunning: rg\n', stderr='Uninstall incomplete: rg\n').returncode">audit_engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-17/test_repeated_successful_unins0/home/repo'), opt=PosixPa...po', 'ASSET_DIR': '/private/tmp/pytest-of-fm/pytest-17/test_repeated_successful_unins0/home/assets'}, bash='/bin/bash')
+
+    def test_repeated_successful_uninstall_is_readonly_noop(audit_engine):
+        e = audit_engine
+        e.asset('rg')
+        first = command(e, 'install', 'rg', '--yes')
+        assert first.returncode == 0, (first.stdout, first.stderr)
+        first = command(e, 'uninstall', 'rg', '--yes')
+        assert first.returncode == 0, (first.stdout, first.stderr)
+        before = snapshot(e)
+        again = command(e, 'uninstall', 'rg', '--yes')
+&gt;       assert again.returncode == 0, (again.stdout, again.stderr)
+E       AssertionError: ('Selected tools:
+E           rg
+E         Owned selectors to remove:
+E           [none]
+E         Owned release scope to remove:
+E           /private/tmp/pytest-o...ccessful_unins0/home/opt/rg-1.0
+E         Managed membership to remove:
+E           [none]
+E         running: rg
+E         ', 'Uninstall incomplete: rg
+E         ')
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-17/test_repeated_successful_unins0/hom...l_unins0/home/opt/rg-1.0\nManaged membership to remove:\n  [none]\nrunning: rg\n', stderr='Uninstall incomplete: rg\n').returncode
+
+/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/test_audit_sequences.py:28: AssertionError</failure></testcase><testcase classname="test_audit_sequences" name="test_repeated_successful_uninstall_is_readonly_noop[/opt/homebrew/bin/bash]" time="6.761"><failure message="AssertionError: ('Selected tools:&#10;    rg&#10;  Owned selectors to remove:&#10;    [none]&#10;  Owned release scope to remove:&#10;    /private/tmp/pytest-o...ccessful_unins1/home/opt/rg-1.0&#10;  Managed membership to remove:&#10;    [none]&#10;  running: rg&#10;  ', 'Uninstall incomplete: rg&#10;  ')&#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-17/tes...l_unins1/home/opt/rg-1.0\nManaged membership to remove:\n  [none]\nrunning: rg\n', stderr='Uninstall incomplete: rg\n').returncode">audit_engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-17/test_repeated_successful_unins1/home/repo'), opt=PosixPa...pytest-of-fm/pytest-17/test_repeated_successful_unins1/home/assets'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+
+    def test_repeated_successful_uninstall_is_readonly_noop(audit_engine):
+        e = audit_engine
+        e.asset('rg')
+        first = command(e, 'install', 'rg', '--yes')
+        assert first.returncode == 0, (first.stdout, first.stderr)
+        first = command(e, 'uninstall', 'rg', '--yes')
+        assert first.returncode == 0, (first.stdout, first.stderr)
+        before = snapshot(e)
+        again = command(e, 'uninstall', 'rg', '--yes')
+&gt;       assert again.returncode == 0, (again.stdout, again.stderr)
+E       AssertionError: ('Selected tools:
+E           rg
+E         Owned selectors to remove:
+E           [none]
+E         Owned release scope to remove:
+E           /private/tmp/pytest-o...ccessful_unins1/home/opt/rg-1.0
+E         Managed membership to remove:
+E           [none]
+E         running: rg
+E         ', 'Uninstall incomplete: rg
+E         ')
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-17/tes...l_unins1/home/opt/rg-1.0\nManaged membership to remove:\n  [none]\nrunning: rg\n', stderr='Uninstall incomplete: rg\n').returncode
+
+/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/test_audit_sequences.py:28: AssertionError</failure></testcase><testcase classname="test_audit_sequences" name="test_successfully_uninstalled_tool_is_available_in_catalog[/bin/bash]" time="5.619"><failure message="AssertionError: rg               unmanaged          supported    missing broken last=uninstall:completed&#10;assert ('available' in 'rg               unmanaged          supported    missing broken last=uninstall:completed')">audit_engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-17/test_successfully_uninstalled_0/home/repo'), opt=PosixPa...po', 'ASSET_DIR': '/private/tmp/pytest-of-fm/pytest-17/test_successfully_uninstalled_0/home/assets'}, bash='/bin/bash')
+
+    def test_successfully_uninstalled_tool_is_available_in_catalog(audit_engine):
+        e = audit_engine
+        e.asset('rg')
+        for args in [('install', 'rg', '--yes'), ('uninstall', 'rg', '--yes')]:
+            result = command(e, *args)
+            assert result.returncode == 0, (result.stdout, result.stderr)
+        result = command(e, 'list')
+        assert result.returncode == 0, (result.stdout, result.stderr)
+        row = next(line for line in result.stdout.splitlines() if line.startswith('rg '))
+        assert 'unmanaged' in row
+&gt;       assert 'available' in row and 'missing' not in row and 'broken' not in row, row
+E       AssertionError: rg               unmanaged          supported    missing broken last=uninstall:completed
+E       assert ('available' in 'rg               unmanaged          supported    missing broken last=uninstall:completed')
+
+/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/test_audit_sequences.py:42: AssertionError</failure></testcase><testcase classname="test_audit_sequences" name="test_successfully_uninstalled_tool_is_available_in_catalog[/opt/homebrew/bin/bash]" time="5.768"><failure message="AssertionError: rg               unmanaged          supported    missing broken last=uninstall:completed&#10;assert ('available' in 'rg               unmanaged          supported    missing broken last=uninstall:completed')">audit_engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-17/test_successfully_uninstalled_1/home/repo'), opt=PosixPa...pytest-of-fm/pytest-17/test_successfully_uninstalled_1/home/assets'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+
+    def test_successfully_uninstalled_tool_is_available_in_catalog(audit_engine):
+        e = audit_engine
+        e.asset('rg')
+        for args in [('install', 'rg', '--yes'), ('uninstall', 'rg', '--yes')]:
+            result = command(e, *args)
+            assert result.returncode == 0, (result.stdout, result.stderr)
+        result = command(e, 'list')
+        assert result.returncode == 0, (result.stdout, result.stderr)
+        row = next(line for line in result.stdout.splitlines() if line.startswith('rg '))
+        assert 'unmanaged' in row
+&gt;       assert 'available' in row and 'missing' not in row and 'broken' not in row, row
+E       AssertionError: rg               unmanaged          supported    missing broken last=uninstall:completed
+E       assert ('available' in 'rg               unmanaged          supported    missing broken last=uninstall:completed')
+
+/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/test_audit_sequences.py:42: AssertionError</failure></testcase></testsuite></testsuites>

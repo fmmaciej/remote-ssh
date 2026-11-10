@@ -1,0 +1,552 @@
+[
+  {
+    "id": "manual::bare_install[new;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_install_yes[new;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "--yes"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_uninstall[new;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "uninstall"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_uninstall_yes[new;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "uninstall",
+      "--yes"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_tool_install_rg[new;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "tool",
+      "install",
+      "rg"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_tool_list[new;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "tool",
+      "list"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_doctor[new;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "doctor"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_full[new;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "--full"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_skip_unsupported[new;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "--skip-unsupported"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_strict[new;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "check",
+      "--strict"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_install[new;/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_uninstall[new;/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_list[new;/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_check[new;/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::external_path_install[/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "rg",
+      "--yes"
+    ],
+    "proof": "Own release/member created despite external PATH winner; external bytes and legacy config unchanged; no external payload execution."
+  },
+  {
+    "id": "manual::bare_install[existing;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_install_yes[existing;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "--yes"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_uninstall[existing;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "uninstall"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_uninstall_yes[existing;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "uninstall",
+      "--yes"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_tool_install_rg[existing;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "tool",
+      "install",
+      "rg"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_tool_list[existing;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "tool",
+      "list"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_doctor[existing;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "doctor"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_full[existing;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "--full"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_skip_unsupported[existing;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "--skip-unsupported"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_strict[existing;/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "check",
+      "--strict"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_install[existing;/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_uninstall[existing;/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_list[existing;/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_check[existing;/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_install[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_install_yes[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "--yes"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_uninstall[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "uninstall"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_uninstall_yes[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "uninstall",
+      "--yes"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_tool_install_rg[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "tool",
+      "install",
+      "rg"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_tool_list[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "tool",
+      "list"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_doctor[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "doctor"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_full[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "--full"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_skip_unsupported[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "--skip-unsupported"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_strict[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "check",
+      "--strict"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_install[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_uninstall[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_list[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_check[new;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::external_path_install[/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "rg",
+      "--yes"
+    ],
+    "proof": "Own release/member created despite external PATH winner; external bytes and legacy config unchanged; no external payload execution."
+  },
+  {
+    "id": "manual::bare_install[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_install_yes[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "--yes"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_uninstall[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "uninstall"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::bare_uninstall_yes[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "uninstall",
+      "--yes"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_tool_install_rg[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "tool",
+      "install",
+      "rg"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_tool_list[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "tool",
+      "list"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_doctor[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "doctor"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_full[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "--full"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_skip_unsupported[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "install",
+      "--skip-unsupported"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::removed_strict[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "command": [
+      "remote-ssh",
+      "check",
+      "--strict"
+    ],
+    "returncode": 1,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_install[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_uninstall[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_list[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  },
+  {
+    "id": "manual::help_check[existing;/opt/homebrew/bin/bash]",
+    "result": "passed",
+    "returncode": 0,
+    "whole_fixture_snapshot_unchanged": true
+  }
+]

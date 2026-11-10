@@ -1,0 +1,21 @@
+{
+  "original_correction_preserved_sha256": "57a12c7496e6af792f64def5ad06c792ec08f6031118203c374e690a3663c0d7",
+  "initial_T1_library_copies_possible": true,
+  "known_run_followup": "t1-copy-provenance-followup.json",
+  "model_opened_or_printed_configuration_contents": false,
+  "broad_copy_operation_error_acknowledged": true,
+  "selected_test_helpers_sanitized": [
+    "dev/tests/conftest.py:copy_repo_for_git_setup",
+    "dev/tests/managed_fixture.py:make_engine",
+    "dev/tests/test_install_library.py:library_fixture"
+  ],
+  "synthetic_unreadable_config_exclusion_test": "passed on both Bash runtimes in actual-managed-test.log and actual-final-focused-test.log",
+  "unexecuted_pending_legacy_copy_sites": [
+    "dev/tests/test_install_cli.py:prepare_cli_install",
+    "dev/tests/test_fzf_retirement.py",
+    "dev/tests/test_flyline_lifecycle.py",
+    "dev/tests/test_welcome_bundled.py"
+  ],
+  "unknown_other_sessions_scanned": false,
+  "configuration_contents_in_artifacts": false
+}

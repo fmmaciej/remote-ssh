@@ -1,0 +1,55 @@
+{
+  "aggregate": {
+    "failed": 36,
+    "passed": 1824,
+    "skipped": 56,
+    "elapsed_seconds": 2346.62
+  },
+  "families": [
+    {
+      "count": 2,
+      "ids": [
+        "tests/test_managed_install_engine.py::test_shared_fixture_excludes_synthetic_private_config_without_reading_it"
+      ],
+      "cause": "Secondary synthetic source had no Git index for tracked-only copier.",
+      "correction": "Index public inputs before excluded synthetic sentinel injection; recreate empty defs directory."
+    },
+    {
+      "count": 3,
+      "ids": [
+        "tests/test_managed_public_faults.py::test_git_failure_preserves_exit_code_and_managed_set",
+        "tests/test_managed_update.py::test_update_executes_fresh_engine_and_preserves_untracked_files",
+        "tests/test_managed_update.py::test_uninstalled_tool_is_not_resurrected_by_unrelated_install_then_update"
+      ],
+      "cause": "Fixture local clone raced detached automatic object packing before the SUT operation.",
+      "correction": "Per-command no-auto-maintenance fixture Git context; product fetch/reset also corrected and native regression added."
+    },
+    {
+      "count": 24,
+      "ids": [
+        "tests/test_post_install.py::test_footer_and_guide_commands_execute_without_path",
+        "tests/test_runme.py::test_runme_real_install_then_fresh_ordinary_shell",
+        "tests/test_shell_command.py::test_installed_no_tty_matches_manual_and_bare_path",
+        "tests/test_shell_command.py::test_effective_checkout_override",
+        "tests/test_shell_command.py::test_pty_parent_return_nested_ctrl_c",
+        "tests/test_shell_command.py::test_pty_cleanup_covers_job_control_groups",
+        "tests/test_shell_command.py::test_exec_pid_and_native_signal"
+      ],
+      "cause": "Old tests read removed expected-tools before their shell/transport assertions.",
+      "correction": "Opaque managed-state/lock/optional legacy-hint snapshot and public installed-membership assertion, retaining original shell/PTY/signal/transport assertions."
+    },
+    {
+      "count": 7,
+      "ids": [
+        "tests/test_release_ownership.py::test_uninstall_preserves_same_prefix_foreign_symlink",
+        "tests/test_release_ownership.py::test_removal_protects_malformed_release_suffix (uninstall variants only)"
+      ],
+      "cause": "Old tests expected success for required unproved selectors; approved preflight aborts1.",
+      "correction": "Assert exact nonzero/abort diagnostic and retain foreign path/release/link preservation; prune expectations unchanged."
+    }
+  ],
+  "count_check": 36,
+  "id_scope": "Test function IDs and affected parametrization counts reconstructed from already-known classification; raw captures not reopened.",
+  "quarantine": "smoke02-quarantine.json",
+  "no_acceptance_exclusions": true
+}

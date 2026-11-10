@@ -1,0 +1,14 @@
+{
+  "role": "coordinator receipt, not independent audit",
+  "repair_round": 1,
+  "current_public_source_paths_verified": 88,
+  "changed_vs_round0": 12,
+  "unchanged_vs_round0": 76,
+  "exact_before_snapshots_verified": 12,
+  "frozen_snapshots_verified": 2,
+  "source_frozen": true,
+  "targeted_passed": 272,
+  "full_smoke_passed": 1891,
+  "full_smoke_skipped": 56,
+  "private_or_restricted_raw_sources_read_or_hashed": 0
+}

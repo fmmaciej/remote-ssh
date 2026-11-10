@@ -1,0 +1,46 @@
+type: assignment
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root
+to: /root/managed_lifecycle_auditor
+status: auditing
+baseline:
+  manifest: baseline-1/baseline.json
+  specification: SPEC-MANAGED-TOOL-LIFECYCLE@0.3
+  plan: PLAN-MANAGED-TOOL-LIFECYCLE@0.2
+  repair_plan: repair-01-plan.md@0.1
+  repair_plan_sha256: c55a0bbd2720103e6c3346f9c1eaa666984ed24c709b627dc5569475435487f3
+  repair_round: 1
+scope: Independent re-audit1 activated after final repair handoff; repaired source is frozen and required checks complete.
+requirements[5]:
+  - Assess both A0-001/A0-002, repair-plan R1–R6 and full22REQ/24AC compliance/regressions. Prior met findings remain evidence, not assumptions for changed code.
+  - Independently rerun all6previously failed external probes through safe runner with fresh labels/output; inspect meaningful mixed/per-tool/pending/live-proof and all-layout caller/lock-set effects of prepare/archive ordering. Keep unresolved receipts protected.
+  - Verify no-op0 is immediately readonly, next unrelated install/update work, list available/default/all/installed is correct while explicit absent check1 and real missing/broken remain diagnostic.
+  - Verify final source union/delta against audit0 and12exact public before snapshots; approved basis/pins/adapters/identity code unchanged. Do not reinterpret original1863passed as current repaired result.
+  - Maintain independence and read-only source; no fixes, requirement changes or broad full-suite repeat solely for reassurance.
+ownership: Read-only project; own safe outputs only /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe-r1 and repair-01-audit.md/toon. Shared workspace; preserve all original/user/other-agent changes.
+dependencies[4]:
+  - Repair1 final handoff complete; source is frozen at repair-01/source-hashes.json, union88/delta12. Current acceptance evidence is1891passed/56skipped full smoke, not round0 totals.
+  - Read current Kei/project AGENTS, existing authoritative audit0 assignment/privacy rules, preserved repair plan and audit0 report; same single SDD workflow.
+  - Never open/hash/publish restricted smoke01/02/older scratch raw/private archive or original dev/.env/user.local/actual user configuration. Public old raw paths contain metadata pointers only; historical hashes identify restricted originals.
+  - All targeted tests only through increment-03/run_isolated_verification.py with fixed allowlist/synthetic HOME/Git/startup, no ambient values/dotenv. No actual checkout Git mutation/network/live asset/host install/native library discovery.
+acceptance[4]:
+  - Pass only with acceptance met and no required findings; provide each22REQ met/unmet/unverifiable plus all24AC, exact evidence and explicit limits.
+  - Findings include exact file/impact/requirement/reproduction; optional suggestions separate; no silent weakening of safety or repair criteria.
+  - Preserve original audit0/probes; fresh labels/source-fence results for re-audit. Native Flyline ABI remains unqualified unless new authorized evidence exists (none expected).
+  - Return complete TOON verdict/coverage/findings/suggestions and report. Do not increment/reset repair counter; root routes any further finding through planner under remaining round2 limit.
+artifacts[8]:
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01-result.md
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/source-hashes.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/delta.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/before-inventory.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/coverage.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/full-smoke-result.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/skips.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01-subject-receipt.json
+evidence[4]:
+  - Targeted272passed; full-smoke1891passed/56skipped/0failed, statics passed, both source fences true, no timeouts. All28new parametrized regressions passed on both Bash.
+  - Root independently received current88source hashes,12delta/before snapshots and2frozen basis snapshots; receipt is not independent audit.76source entries unchanged versus audit0;7product and5verification files changed.
+  - Shared terminal-uninstall predicate, settled in-memory prepare before final locked preflight, begin rejects unprepared state, readonly report/root fallback correction. Real unresolved/failed evidence, B/C, claims and native boundary retained per implementer; verify independently.
+  - Earlier failed red cases and8oracle correction are preserved in repair1 report/evidence; old restricted raw remains excluded.31safe artifacts published, root report now canonical.
+blockers[0]:
+next_action: Start independent repair-01-audit now. Return exact verification/source-fence results and full22REQ/24AC verdict. Root will preserve reports, complete only on Pass or route further required findings to planner under remaining round2.

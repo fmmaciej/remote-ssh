@@ -1,0 +1,97 @@
+type: audit
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root/managed_lifecycle_auditor
+to: /root
+status: awaiting_approval
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  code_commit: 15bcb79cee2d1959074d4c70e164d0cae75ee8e2
+  manifest: dev/docs/history/managed-tool-lifecycle-20261110/baseline-1/baseline.json
+  specification: SPEC-MANAGED-TOOL-LIFECYCLE@0.3
+  specification_sha256: 62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb
+  plan: /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/managed-tool-lifecycle-implementation-plan-0.2.md
+  plan_version: "0.2"
+  plan_sha256: e7d504fe7c5a69a400c9ccae549c4fcb0225dcb980c105ae5e45f4c89a5e7c23
+  plan_manifest: null
+scope: Independent targeted preapproval plan re-review1. P0-001/002/003 closure and affected coverage checked; unchanged source/spec evidence reused. No authorship or implementation audit.
+artifacts[2]:
+  - /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/plan-review-1.md
+  - /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/plan-review-1.toon
+evidence[5]:
+  - Exact plan hash/diff verified; 327 lines, 28431 bytes, 22 REQ rows, 24 AC rows and 18 valid local links.
+  - P0-001 closed by separate A/B/C predicates; C retains live regular marker/member/ancestor/containment and receipt never substitutes.
+  - P0-002 closed by prefix-only prune locks, explicit facade owner, all-slot pending/foreign claims protection without recovery and readonly/crash/concurrency tests.
+  - P0-003 closed by common under-lock journal gate for every lifecycle entry, retained partial evidence, protected unresolved journal and both crash/unrelated-install chains.
+  - Previous plan/snapshot unchanged; future project plan/history absent; no runtime tests, network, host/secret/config/Git mutations. Implementation repair rounds remain 0.
+blockers[0]:
+verdict: Pass
+coverage[22]:
+  - requirement: REQ-001
+    status: met
+    evidence: Inherited T4/T6 V1 grammar/nonmutation assessment; unchanged.
+  - requirement: REQ-002
+    status: met
+    evidence: Inherited T3/T4 V1/V5 additive/profile/dedup assessment; unchanged.
+  - requirement: REQ-003
+    status: met
+    evidence: Inherited repair/external-protection coverage with clarified safe selector B versus recursive C.
+  - requirement: REQ-004
+    status: met
+    evidence: Reassessed P0-003 common journal gate preserves prior outcomes before new batch.
+  - requirement: REQ-005
+    status: met
+    evidence: Inherited all-layout/all-active adoption before refresh; unchanged.
+  - requirement: REQ-006
+    status: met
+    evidence: Inherited read-only reports without exec/load/cache; unchanged.
+  - requirement: REQ-007
+    status: met
+    evidence: Inherited diagnostic-only legacy hints without runtime selection or edit; unchanged.
+  - requirement: REQ-008
+    status: met
+    evidence: Reassessed C ownership, retained state and shared prior-journal normalization close P0-001/P0-003.
+  - requirement: REQ-009
+    status: met
+    evidence: Reassessed common recovery closes unrelated-install resurrection route; fresh-code engine retained.
+  - requirement: REQ-010
+    status: met
+    evidence: Inherited retained retired/unsupported metadata with nonweakened C.
+  - requirement: REQ-011
+    status: met
+    evidence: Inherited complete list union/filter/order and broken/retired visibility; unchanged.
+  - requirement: REQ-012
+    status: met
+    evidence: Inherited environment/selected-tool diagnostics and rc without hooks; unchanged.
+  - requirement: REQ-013
+    status: met
+    evidence: Inherited statuses/codes/informational fzf; unchanged.
+  - requirement: REQ-014
+    status: met
+    evidence: Reassessed live C retains marker/member/ancestor/containment; old receipt cannot authorize recursive deletion.
+  - requirement: REQ-015
+    status: met
+    evidence: Reassessed prune lock/storage correction and pending protection preserve staging/immutability and prune contract.
+  - requirement: REQ-016
+    status: met
+    evidence: Reassessed common normalization and pending-release protection close crash recovery gaps.
+  - requirement: REQ-017
+    status: met
+    evidence: Inherited confirmation and revalidation; new post-recovery preflight preserves agreed selection.
+  - requirement: REQ-018
+    status: met
+    evidence: Inherited Bash 3.2, no-new-dependencies, pinned assets/layouts and ABI boundary; unchanged.
+  - requirement: REQ-019
+    status: met
+    evidence: Inherited CLI publication/footer/startup/runme/REF coverage; unchanged.
+  - requirement: REQ-020
+    status: met
+    evidence: Reassessed prune readonly-bin/checkout behavior preserved; other V6 regressions unchanged.
+  - requirement: REQ-021
+    status: met
+    evidence: Inherited fzf definition/adapter and phase2 gate coverage; unchanged.
+  - requirement: REQ-022
+    status: met
+    evidence: Inherited current text/docs and preserved historical evidence scope; unchanged.
+findings[0]:
+suggestions[0]:
+next_action: Coordinator presents exact plan0.2 and Pass for explicit human plan approval and separate implementation instruction. Do not publish initial project plan/history or start implementation before authorization. No implementation repair round consumed.

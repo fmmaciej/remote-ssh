@@ -1,0 +1,11 @@
+{
+  "reason": "Potential actual-checkout session Git identity read through guide rc snapshot; stop before further unsafe test execution. No config contents inspected.",
+  "exact_runner": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/run_smoke.py",
+  "root_pids": [
+    29367,
+    29372
+  ],
+  "terminated_descendant_count": 7,
+  "forced_descendant_count": 0,
+  "scope": "Only descendants of exact task-owned run_smoke.py command; no other job scanned for cleanup or killed."
+}

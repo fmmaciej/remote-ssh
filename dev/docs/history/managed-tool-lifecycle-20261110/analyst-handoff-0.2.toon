@@ -1,0 +1,56 @@
+type: handoff
+task_id: managed-tool-lifecycle-20261110
+from: managed_lifecycle_analyst
+to: /root
+status: reviewing
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  commit: 15bcb79cee2d1959074d4c70e164d0cae75ee8e2
+  specification: dev/docs/managed-tool-lifecycle-specification.md
+  id: SPEC-MANAGED-TOOL-LIFECYCLE
+  version: "0.2"
+  sha256: 6eb7ea485057b18b9e139fffa270ce2eacf2c00603c90cc771c347551a03cfd8
+  manifest: null
+scope: Bounded author revision 1 after independent review 0 Findings. No implementation planning, runtime edits or independent self-audit. Draft awaits independent review 1 and concrete human approval.
+revision_round: 1
+previous_version:
+  path: /private/tmp/remote-ssh-managed-lifecycle-20261110/managed-tool-lifecycle-specification.md
+  version: "0.1"
+  sha256: 7bb447b30f57b8a2cf391262bf0996a80f0eec1df1d0e8caa43091c7abb7e958
+artifacts[2]:
+  - path: /private/tmp/remote-ssh-managed-lifecycle-20261110/managed-tool-lifecycle-specification-0.2.md
+    id: SPEC-MANAGED-TOOL-LIFECYCLE
+    version: "0.2"
+    sha256: 6eb7ea485057b18b9e139fffa270ce2eacf2c00603c90cc771c347551a03cfd8
+    bytes: 54185
+    publication: dev/docs/managed-tool-lifecycle-specification.md
+  - path: /private/tmp/remote-ssh-managed-lifecycle-20261110/analyst-handoff-0.2.toon
+    id: analyst-handoff
+    version: "0.2"
+    sha256: null
+evidence[5]:
+  - Read independent review-0.md and review-0.toon; no broad source rediscovery or external mutations.
+  - R0-001 corrected AC-004 and AC-008 to exact install --profile quick syntax; no positional quick alias added.
+  - R0-002 incorporates explicit human cleanup decision as D-012. REQ-008, REQ-015, CLI uninstall, migration/failure prose, UC-003 and AC-007/AC-010 now distinguish complete own active/inactive scope from protected unproven remnants and unsafe required active ownership. Appended AC-022 exercises both success with protected remnant and abort/retain on foreign active link.
+  - Optional S0-001 sharpened REQ-005 and appended AC-023 for first update adoption before definition loss, all three layouts, older version and alias-only activity. S0-002 appended AC-024 for prefix/bin and XDG isolation without foreign adoption or resurrection.
+  - Author structural check confirms preserved v0.1 hash, 22 unique sequential REQ, 24 AC, 9 UC, 48 valid local links and no invalid install quick example. Runtime tests not run for specification-only work.
+coverage[4]:
+  - requirement: R0-001
+    status: addressed
+    evidence: AC-004 and AC-008 use install --profile quick --yes; grammar unchanged.
+  - requirement: R0-002
+    status: addressed
+    evidence: D-012, REQ-008 and REQ-015, uninstall interface, UC-003, AC-007/AC-010/AC-022; human choice relayed by coordinator from call_4a49074a242147ae98afb352d8a4b8dc.
+  - requirement: S0-001
+    status: included
+    evidence: REQ-005, migration prose, UC-005, AC-023.
+  - requirement: S0-002
+    status: included
+    evidence: UC-005 and AC-024; existing location contract unchanged.
+assumptions[3]:
+  - A-001 preserves profile composition.
+  - A-002 leaves detailed lexical CLI/status/exit proposals for concrete document approval.
+  - A-003 leaves low-level installer responsibility to later planning without a parallel public lifecycle.
+blockers[0]:
+open_questions[0]:
+next_action: Coordinator publishes identical v0.2 bytes and requests separate independent auditor review 1. Preserve revision counter and history; no new cycle, product approval or implementation authorization is claimed.

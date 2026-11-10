@@ -1,0 +1,73 @@
+{
+  "observed_head": "9a223dcca76072eb9035316d25abf972902d3289",
+  "files": [
+    {
+      "path": "dev/tests/test_managed_concurrency.py",
+      "before": null,
+      "after": "a177b246a41e795b8a6ba879dcc39916a093d9d7f85f543d5676fb57df725964"
+    },
+    {
+      "path": "dev/tests/test_managed_recovery.py",
+      "before": null,
+      "after": "55c610fc9508aea7949a7317e5957dab3251c3748cd97a782f6267be70ed5b0b"
+    },
+    {
+      "path": "dev/tests/test_managed_state.py",
+      "before": null,
+      "after": "23c4a1b4d6089d30be4e46c293bc68d8095eb84ef3ae7b439535d2ab47f1511e"
+    },
+    {
+      "path": "tools/defs/nvim.sh",
+      "before": "97db2a7bb787e805d0e9711d365e682dce2840866e6dd2e04ba86ca802d90aee",
+      "after": "82ac68767e351a02aca52799cd760a4a3d0db44705ae96c316ee057b63025c30"
+    },
+    {
+      "path": "tools/lib/common/release.sh",
+      "before": "485c9f16ab88f8807b4de3307ed9e6a56122fbf0709fde654824e870f28d6029",
+      "after": "e88abf14a87955e1863167b771379af491e0e98b5c9f4ecc2556ea550dc3f42b"
+    },
+    {
+      "path": "tools/lib/install-tool/defs.sh",
+      "before": "f8e610bbd676f6b99a9157ec8aa1f2a609fc83a24c65b494d924e0d0ffedb181",
+      "after": "9d9f360882d75e4d84936f2fdeeeec1d2abb1350fd0dbd91fbec928824aa63a4"
+    },
+    {
+      "path": "tools/lib/managed.lib.sh",
+      "before": null,
+      "after": "b4a96be771e9d689254af89bdfbadcf634c3af631367b76453449854f55814b4"
+    },
+    {
+      "path": "tools/lib/managed/inventory.sh",
+      "before": null,
+      "after": "79739052267cd6195a65a7b3872199d10d3901a3a4d1981b390075fbbd9d70ea"
+    },
+    {
+      "path": "tools/lib/managed/journal.sh",
+      "before": null,
+      "after": "d5262b0b8333017e36d5c6306c66cfbb4546d0a7c2343dcbb62426612eaa66b7"
+    },
+    {
+      "path": "tools/lib/managed/lock.sh",
+      "before": null,
+      "after": "9ac1a0d5e9bdc067576cb983bb3776b16cc4f2d26c41678f6592c4fc563d368e"
+    },
+    {
+      "path": "tools/lib/managed/migration.sh",
+      "before": null,
+      "after": "a7a47f78550f3764ed037cbf06c658db430e92c12c50be3be9777f5892c5c9c8"
+    },
+    {
+      "path": "tools/lib/managed/recovery.sh",
+      "before": null,
+      "after": "42034d42d13b2ddc07550fbad6f01a57818b8b3fbefd4224de0e1d0252a66e62"
+    },
+    {
+      "path": "tools/lib/managed/state.sh",
+      "before": null,
+      "after": "ccb5c0d0cee5b34384880d998db59d6c30c3eb62fc583c0dcff9dbc3dd144816"
+    }
+  ],
+  "frozen_basis_unchanged": true,
+  "nvim_change": "BUNDLE_REQUIRED_PATHS only; current pins/assets/checksums preserved",
+  "git_mutations_performed": false
+}

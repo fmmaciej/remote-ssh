@@ -1,0 +1,13 @@
+{
+  "plan_version": "0.1",
+  "plan_sha256": "f1e8b87976356e345c6c0f11ecc27e4976b1fbb44fbaab9e2a9eb984a053c0ab",
+  "plan_lines": 300,
+  "plan_bytes": 25576,
+  "requirements_rows": 22,
+  "acceptance_rows": 24,
+  "broken_source_relative_links": [],
+  "tests_run": [],
+  "project_writes": false,
+  "future_plan_absent": true,
+  "future_history_absent": true
+}

@@ -1,0 +1,27 @@
+type: handoff
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root/managed_lifecycle_implementer
+to: /root
+status: implementing
+baseline:
+  manifest: dev/docs/history/managed-tool-lifecycle-implementation-20261110/baseline-1/baseline.json
+  specification: SPEC-MANAGED-TOOL-LIFECYCLE@0.3
+  plan: PLAN-MANAGED-TOOL-LIFECYCLE@0.2
+  source_head: 9a223dcca76072eb9035316d25abf972902d3289
+  repair_round: 0
+scope: Verified T3–T5 checkpoint with real engines and mutator facades; T6/T7 final integration remains pending.
+artifacts[4]:
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/result.md
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/interfaces.md
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/source-hashes.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-02/provenance-verification.json
+evidence[7]:
+  - Published 29 changed/new source and test files with hash guards; exact accepted basis and prior version work preserved.
+  - Actual managed foundation/engine/public CLI/update/fault suite passed 232 cases.
+  - Actual migrated binary/bundle/library/download-failure suite passed 236 cases.
+  - Final affected actual update/Git-fault/pair/library/provenance suite passed 38 cases; final uninstall preview check passed 4 cases.
+  - Per-file Bash 3.2/5.3 syntax, shellcheck, project-config Ruff without cache, diff and final hashes passed; failed staging/diagnostic logs retained.
+  - Real config copying incident disclosed and exact task copies cleaned; known T1 run IDs 702/713 already absent, no other sessions scanned, no config contents published.
+  - No full smoke, native ABI approval or independent implementation audit claimed; no actual-checkout Git mutations or real network/host installs.
+blockers[0]:
+next_action: Coordinator assigns T6/T7 to the same owner; sanitize four listed legacy copy sites before broader tests, then finish reports/routing/prune/bootstrap/docs and one final smoke before independent audit.

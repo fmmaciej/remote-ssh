@@ -1,0 +1,285 @@
+{
+  "count": 56,
+  "cases": [
+    {
+      "id": "tests/test_atuin_prompt.py::test_live_bare_wrapper_preserves_pipeline[/bin/bash-0-array]",
+      "result": "skipped",
+      "reason": "PROMPT_COMMAND arrays require Bash 5.1"
+    },
+    {
+      "id": "tests/test_atuin_prompt.py::test_live_bare_wrapper_preserves_pipeline[/bin/bash-0-sparse]",
+      "result": "skipped",
+      "reason": "PROMPT_COMMAND arrays require Bash 5.1"
+    },
+    {
+      "id": "tests/test_atuin_prompt.py::test_live_bare_wrapper_preserves_pipeline[/bin/bash-7-array]",
+      "result": "skipped",
+      "reason": "PROMPT_COMMAND arrays require Bash 5.1"
+    },
+    {
+      "id": "tests/test_atuin_prompt.py::test_live_bare_wrapper_preserves_pipeline[/bin/bash-7-sparse]",
+      "result": "skipped",
+      "reason": "PROMPT_COMMAND arrays require Bash 5.1"
+    },
+    {
+      "id": "tests/test_atuin_real.py::test_real_pinned_cli_suppresses_the_generated_ai_suffix",
+      "result": "skipped",
+      "reason": "set REMOTE_SSH_TEST_ATUIN_BIN to the local pinned Atuin executable"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-load-unset-FLYLINE_LOAD_DIR]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-load-unset-FLYLINE_VERSION]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-load-exported-unset-FLYLINE_LOAD_DIR]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-load-exported-unset-FLYLINE_VERSION]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-load-empty-FLYLINE_LOAD_DIR]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-load-empty-FLYLINE_VERSION]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-load-exported-empty-FLYLINE_LOAD_DIR]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-load-exported-empty-FLYLINE_VERSION]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-load-value-FLYLINE_LOAD_DIR]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-load-value-FLYLINE_VERSION]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-load-exported-value-FLYLINE_LOAD_DIR]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-load-exported-value-FLYLINE_VERSION]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-settings-unset-FLYLINE_LOAD_DIR]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-settings-unset-FLYLINE_VERSION]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-settings-exported-unset-FLYLINE_LOAD_DIR]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-settings-exported-unset-FLYLINE_VERSION]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-settings-empty-FLYLINE_LOAD_DIR]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-settings-empty-FLYLINE_VERSION]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-settings-exported-empty-FLYLINE_LOAD_DIR]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-settings-exported-empty-FLYLINE_VERSION]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-settings-value-FLYLINE_LOAD_DIR]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-settings-value-FLYLINE_VERSION]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-settings-exported-value-FLYLINE_LOAD_DIR]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_activation_rollback_restores_variable_attributes[/bin/bash-settings-exported-value-FLYLINE_VERSION]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_managed_variable_values_are_kept_when_builtin_remains_loaded[/bin/bash-active]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_flyline_lifecycle.py::test_managed_variable_values_are_kept_when_builtin_remains_loaded[/bin/bash-unload-failure]",
+      "result": "skipped",
+      "reason": "Bash 3.2 rejects native activation before variable mutation"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/bin/bash-free]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/bin/bash-list]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/bin/bash-tab]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/bin/bash-custom]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/bin/bash-single]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/bin/bash-cancel-main]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/bin/bash-cancel-var]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-free]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-list]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-tab]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-custom]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-single]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-cancel-main]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_print_and_parameter_input[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-cancel-var]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_parameter_input_with_default_select_one[/bin/bash-enter]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_parameter_input_with_default_select_one[/bin/bash-custom]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_parameter_input_with_default_select_one[/bin/bash-tab]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_parameter_input_with_default_select_one[/bin/bash-cancel]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_parameter_input_with_default_select_one[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-enter]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_parameter_input_with_default_select_one[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-custom]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_parameter_input_with_default_select_one[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-tab]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_parameter_input_with_default_select_one[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-cancel]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_nested_execution_keeps_parameter_protocol[/bin/bash]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_navi_skim_real.py::test_real_navi_nested_execution_keeps_parameter_protocol[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]",
+      "result": "skipped",
+      "reason": "real picker tests require --navi-bin and --skim-bin (no downloads)"
+    },
+    {
+      "id": "tests/test_welcome_bundled.py::test_bundled_exported_options_keep_external_launch_scope_and_caller_state[/bin/bash-BASHOPTS]",
+      "result": "skipped",
+      "reason": "Bash 3.2 has no BASHOPTS"
+    }
+  ]
+}

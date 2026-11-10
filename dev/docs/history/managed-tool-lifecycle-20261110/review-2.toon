@@ -1,0 +1,97 @@
+type: audit
+task_id: managed-tool-lifecycle-20261110
+from: /root/managed_lifecycle_auditor
+to: /root
+status: awaiting_decision
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  commit: 15bcb79cee2d1959074d4c70e164d0cae75ee8e2
+  specification: dev/docs/managed-tool-lifecycle-specification.md
+  id: SPEC-MANAGED-TOOL-LIFECYCLE
+  version: "0.3"
+  sha256: 62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb
+  manifest: null
+scope: Independent final automatic specification review2, revision_round2. Minimal R1-001 correction checked; unchanged contract assessments inherited from review1. No authorship, implementation audit or human approval.
+artifacts[2]:
+  - /private/tmp/remote-ssh-managed-lifecycle-20261110/review-2.md
+  - /private/tmp/remote-ssh-managed-lifecycle-20261110/review-2.toon
+evidence[5]:
+  - Exact v0.3 and preserved v0.2 hashes verified; diff changes only version, AC-023 and document history.
+  - AC-023 uses declared nu/nushell alias and consistent six-tool set, retaining older rg, bundle nvim, builtin flyline and first-refresh loss of rg definition.
+  - R0-001 and R0-002 remain closed; active/inactive uninstall scope and abort-retain safety unchanged.
+  - Verified 22 unique sequential REQ, 24 AC, 9 UC and 48 existing in-project links; unchanged HEAD and tracked source.
+  - No runtime tests, network, host migration, secrets or real expected-tools reads; no implementation AC is claimed passed.
+blockers[0]:
+verdict: Pass
+review: 2
+revision_round: 2
+coverage[22]:
+  - requirement: REQ-001
+    status: met
+    evidence: Inherited review1 grammar assessment and closed R0-001; unchanged content.
+  - requirement: REQ-002
+    status: met
+    evidence: Inherited review1 additive profile contract; unchanged content.
+  - requirement: REQ-003
+    status: met
+    evidence: Inherited review1 repair and external PATH protection; unchanged content.
+  - requirement: REQ-004
+    status: met
+    evidence: Inherited retained-state assessment; corrected AC-023 consistent.
+  - requirement: REQ-005
+    status: met
+    evidence: R1-001 closed by declared nu/nushell alias, six members and preserved first-update migration cases in AC-023.
+  - requirement: REQ-006
+    status: met
+    evidence: Inherited read-only report contract; unchanged content.
+  - requirement: REQ-007
+    status: met
+    evidence: Inherited expected-tools non-control contract; unchanged content.
+  - requirement: REQ-008
+    status: met
+    evidence: Inherited complete confirmed uninstall scope and abort-retain safety; unchanged content.
+  - requirement: REQ-009
+    status: met
+    evidence: Inherited refreshed managed-set repair and no resurrection; corrected AC-023 consistent.
+  - requirement: REQ-010
+    status: met
+    evidence: Inherited retained pre-refresh evidence and retired/unsupported contract; corrected AC-023 preserves outcome.
+  - requirement: REQ-011
+    status: met
+    evidence: Inherited list completeness; corrected alias does not create extra member.
+  - requirement: REQ-012
+    status: met
+    evidence: Inherited environment and selected-tool diagnostics; unchanged content.
+  - requirement: REQ-013
+    status: met
+    evidence: Inherited distinct statuses and check exit outcomes; unchanged content.
+  - requirement: REQ-014
+    status: met
+    evidence: Inherited independent ownership proof; AC-023 now grounds alias in real definition.
+  - requirement: REQ-015
+    status: met
+    evidence: Inherited staging/immutability and explicit prune versus full uninstall contract; unchanged content.
+  - requirement: REQ-016
+    status: met
+    evidence: Inherited per-tool recoverable outcomes; corrected AC-023 consistent.
+  - requirement: REQ-017
+    status: met
+    evidence: Inherited preflight/preview/confirmation contract; unchanged content.
+  - requirement: REQ-018
+    status: met
+    evidence: Inherited pinned layout/Bash/dependency constraints; AC-023 retains layout coverage.
+  - requirement: REQ-019
+    status: met
+    evidence: Inherited CLI-only publication and runme/REF/startup protections; unchanged content.
+  - requirement: REQ-020
+    status: met
+    evidence: Inherited unrelated behavior and informational update-check preservation; unchanged content.
+  - requirement: REQ-021
+    status: met
+    evidence: Inherited fzf phase1, adapter and separate phase2 gate; unchanged content.
+  - requirement: REQ-022
+    status: met
+    evidence: Inherited current documentation and historical evidence contract; unchanged content.
+findings[0]:
+suggestions[0]:
+next_action: Coordinator publishes exact report2 and presents concrete v0.3 for explicit human acceptance; only after acceptance freeze baseline/manifest. No automatic plan or implementation. Automatic revision limit2 exhausted.

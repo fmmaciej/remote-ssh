@@ -1,0 +1,210 @@
+type: audit
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root/managed_lifecycle_auditor
+to: /root
+status: auditing
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  manifest: dev/docs/history/managed-tool-lifecycle-implementation-20261110/baseline-1/baseline.json
+  specification: SPEC-MANAGED-TOOL-LIFECYCLE@0.3
+  specification_sha256: 62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb
+  plan: PLAN-MANAGED-TOOL-LIFECYCLE@0.2
+  plan_sha256: e7d504fe7c5a69a400c9ccae549c4fcb0225dcb980c105ae5e45f4c89a5e7c23
+  repair_plan: REPAIR-MANAGED-TOOL-LIFECYCLE-01@0.1
+  repair_plan_sha256: c55a0bbd2720103e6c3346f9c1eaa666984ed24c709b627dc5569475435487f3
+  source_base: 9a223dcca76072eb9035316d25abf972902d3289
+  source_subject: dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/source-hashes.json
+  repair_round: 1
+scope: Independent repair-01-audit of both findings, R1-R6 and all 22 REQ/24 AC. Reused unchanged bounded evidence from audit 0 only after source/delta validation; changed code and previous unmet assessments independently re-evaluated. No authorship or subject/history edits.
+artifacts[7]:
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01-audit.md
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01-audit.toon
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe-r1/original-probes-result.json
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe-r1/affected-result.json
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe-r1/source-and-coverage-validation.json
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe-r1/preservation-and-versions.json
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe-r1/independent-verification-summary.json
+evidence[8]:
+  - All six original unchanged formerly failing probes passed independently on Bash 3.2.57 and 5.3.20; result 0, no timeout, source unchanged.
+  - Selected affected run passed 48 cases, including all 28 new public regressions plus caller/recovery/library/update/claims/fence checks; result 0, no skips/timeout, source unchanged.
+  - Independently verified current union 88, exact delta 12, all 12 exact public before snapshots against audit 0, current modes and 76 unchanged source entries. Post-run check again matched 88/88.
+  - Both accepted snapshots and repair-plan hash match; 28 public pins/adapters/production-identity fingerprints unchanged, HEAD still 9a, preserved scopes unchanged.
+  - Current repaired final JUnit independently confirms 1891 passed and 56 skipped with no failures; all mapped 22 REQ/24 AC case IDs/results exist and match. Final safe log/result confirms successful statics/source fence/no timeout.
+  - A0-001 closed by per-tool terminal history, under-lock in-memory settled preparation before final preflight and unprepared begin refusal, while real unresolved evidence remains protected.
+  - A0-002 closed by readonly historical-root qualification; immediate catalog/filter/check and per-tool real failure diagnostics pass without report writes.
+  - No restricted raw/secret/actual user configuration reads or hashes, native artifact discovery, network/live assets, host install, actual checkout Git mutation or source edits. Native Flyline ABI remains unqualified, not inferred from stubs.
+blockers[0]:
+verdict: Pass
+repair_plan_coverage[6]:
+  - step: R1
+    status: met
+    evidence: Exact union/delta/before bytes and current modes independently verified against audit 0.
+  - step: R2
+    status: met
+    evidence: New regression assertions inspected; all 28 parametrized cases rerun. Original red probes preserved; pre-fix red run not repeated.
+  - step: R3
+    status: met
+    evidence: Current per-tool item precedes archived result, no membership required for terminal success; actual live C and foreign scope still checked.
+  - step: R4
+    status: met
+    evidence: Seven product diffs/callers inspected; locked prepare before definitive preflight, begin rejects prior journal, continuation unchanged; affected recovery/lock tests pass.
+  - step: R5
+    status: met
+    evidence: Immediate available/unmanaged/default/all/installed and explicit missing/external check are readonly; true per-tool failures retained.
+  - step: R6
+    status: met
+    evidence: Current final smoke/static/source evidence verified, own fresh runs fenced, 88 source entries unchanged after audit.
+coverage[22]:
+  - requirement: REQ-001
+    status: met
+    evidence: Unchanged routing/argv/bare/removed semantics and current final mapped cases; facade repair preserves nonmutation.
+  - requirement: REQ-002
+    status: met
+    evidence: Additive/profile/dedup unchanged; prepare does not alter membership; current final and affected no-resurrection cases pass.
+  - requirement: REQ-003
+    status: met
+    evidence: B/C/health/staging unchanged; actual repair/reuse and caller ordering covered by current tests.
+  - requirement: REQ-004
+    status: met
+    evidence: A0-001 closed; settled preparation plus begin refusal avoids orphan journal and preserves unresolved evidence.
+  - requirement: REQ-005
+    status: met
+    evidence: First-update adoption and all layouts/alias-only preservation independently rerun with exact six tools.
+  - requirement: REQ-006
+    status: met
+    evidence: Reports remain no-write/no-exec/no-load/no-cache; fresh full snapshots and generation fence pass.
+  - requirement: REQ-007
+    status: met
+    evidence: Unchanged legacy hint-only and argv/member selection; current final coverage matches.
+  - requirement: REQ-008
+    status: met
+    evidence: A0-001 closed; actual immediate repeat readonly no-op, mixed/live-inactive C/custom-history/foreign protection pass.
+  - requirement: REQ-009
+    status: met
+    evidence: Unrelated install/update after no-op works without rg resurrection; first fresh-code update and gates pass.
+  - requirement: REQ-010
+    status: met
+    evidence: Retired/unsupported and live C unchanged; current final evidence and validated unchanged audit 0 proof apply.
+  - requirement: REQ-011
+    status: met
+    evidence: A0-002 closed; immediate default/all/installed and actual per-tool failures are correctly represented read-only.
+  - requirement: REQ-012
+    status: met
+    evidence: Environment/scope source unchanged; explicit absent/external check stays 1, rc/hook and generation safeguards preserved.
+  - requirement: REQ-013
+    status: met
+    evidence: A0-002 closed; terminal unmanaged availability distinguished from actual managed missing/broken/failed/not-run.
+  - requirement: REQ-014
+    status: met
+    evidence: B/C/claims unchanged; pending member/parent/marker/selector substitutions still refuse without overwriting evidence.
+  - requirement: REQ-015
+    status: met
+    evidence: Staging/immutability/rollback/prune guards unchanged and affected recovery/claims checks pass.
+  - requirement: REQ-016
+    status: met
+    evidence: A0-001 closed; completed outcomes, crash recovery, partial/unresolved retention and next-batch preparation verified.
+  - requirement: REQ-017
+    status: met
+    evidence: Confirmation/locked preflight unchanged; no-op before locks and mixed foreign abort preserve complete snapshots.
+  - requirement: REQ-018
+    status: met
+    evidence: Bash 3.2/5.3 management and pinned assets/libc/checksums/layouts/dependencies preserved; native Flyline ABI explicitly unverifiable/unrun.
+  - requirement: REQ-019
+    status: met
+    evidence: Publication/bootstrap/footer/startup source unchanged and current final cases match.
+  - requirement: REQ-020
+    status: met
+    evidence: Unrelated/informational behavior unchanged; readonly-bin library and all-slot/claims/fence regressions pass.
+  - requirement: REQ-021
+    status: met
+    evidence: Retained fzf/private adapters/gate validated by 28 preservation fingerprints and current final coverage.
+  - requirement: REQ-022
+    status: met
+    evidence: Current docs/help/guide unchanged by repair and final cases match; history preserved.
+acceptance_coverage[24]:
+  - criterion: AC-001
+    status: met
+    evidence: Current final removed-input/nonmutation cases and unchanged routing.
+  - criterion: AC-002
+    status: met
+    evidence: Current final bare/help cases.
+  - criterion: AC-003
+    status: met
+    evidence: Argv/profile/confirmation preserved; fresh mixed foreign full-preflight abort passes.
+  - criterion: AC-004
+    status: met
+    evidence: Current additive/profile/dedup coverage; preparation preserves selection.
+  - criterion: AC-005
+    status: met
+    evidence: Current repair/reuse/protected guards and unchanged B/C.
+  - criterion: AC-006
+    status: met
+    evidence: Fresh external and pending member/parent/marker/selector protection checks pass.
+  - criterion: AC-007
+    status: met
+    evidence: All original repeat probes and new bytes/modes/mtime readonly no-op checks pass.
+  - criterion: AC-008
+    status: met
+    evidence: Fresh no-op to unrelated fd install and local update without rg resurrection passes.
+  - criterion: AC-009
+    status: met
+    evidence: Current missing/broken/empty-update coverage and fresh per-tool diagnostics.
+  - criterion: AC-010
+    status: met
+    evidence: Retired/unsupported/live C unchanged with current final evidence.
+  - criterion: AC-011
+    status: met
+    evidence: Exact incomplete-legacy first update independently rerun.
+  - criterion: AC-012
+    status: met
+    evidence: Fresh full report snapshots/generation fence and no archive/write report path.
+  - criterion: AC-013
+    status: met
+    evidence: Migration expected-only/inactive/unproved rules unchanged; current final coverage.
+  - criterion: AC-014
+    status: met
+    evidence: Strict state/proof/inventory unchanged; fresh unresolved/foreign/other-slot checks.
+  - criterion: AC-015
+    status: met
+    evidence: A0-002 closed; immediate catalog available/unmanaged and installed exclusion remain readonly.
+  - criterion: AC-016
+    status: met
+    evidence: Fresh explicit missing/external-only check 1 and actual per-tool failure statuses.
+  - criterion: AC-017
+    status: met
+    evidence: A0-001 closed; repeat remains no-op, crash/unresolved/unprepared-begin and next-batch recovery pass.
+  - criterion: AC-018
+    status: met
+    evidence: Current offline layout/Bash/libc/checksum/probe-flow evidence; no native ABI claim.
+  - criterion: AC-019
+    status: met
+    evidence: Unchanged publication/runme/REF/footer/startup source and current final coverage.
+  - criterion: AC-020
+    status: met
+    evidence: Current final regression suite and fresh readonly-bin/claims/fence checks.
+  - criterion: AC-021
+    status: met
+    evidence: Fzf/adapter/gate pins unchanged and current mapped cases match.
+  - criterion: AC-022
+    status: met
+    evidence: Fresh mixed terminal/managed scope, live inactive C and foreign required-path abort pass.
+  - criterion: AC-023
+    status: met
+    evidence: Exact first update six-tool case independently passed on both Bash versions.
+  - criterion: AC-024
+    status: met
+    evidence: Pair-only state unchanged; fresh other-slot/corrupt-claim and subsequent lifecycle checks pass.
+closed_findings[2]:
+  - id: A0-001
+    status: closed
+    evidence: Original repeat/follow-up probes and new full no-op/mixed/live-inactive/recovery cases pass; no orphan journal after success.
+  - id: A0-002
+    status: closed
+    evidence: Original catalog probes and new readonly default/all/installed/explicit-check/per-tool cases pass.
+findings[0]:
+suggestions[0]:
+native_limits:
+  flyline_abi: unverifiable/unrun; no authorized native artifact or ABI inference from controlled probe.
+  actual_final_skips: 56 with unchanged explicit reasons; none treated as native qualification.
+  remaining_scope: No mathematical proof of all bakery interleavings or real-host/live-asset qualification; current bounded safety and caller regression evidence recorded.
+next_action: Coordinator preserves Pass and completes required execution records in existing repair round 1. No new repair round, requirement change, stage/commit/push or code publication is performed by this audit.

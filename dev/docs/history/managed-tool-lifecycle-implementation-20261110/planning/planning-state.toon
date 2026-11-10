@@ -1,0 +1,76 @@
+type: status
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root
+to: /root
+status: awaiting_approval
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  manifest: dev/docs/history/managed-tool-lifecycle-20261110/baseline-1/baseline.json
+  specification_id: SPEC-MANAGED-TOOL-LIFECYCLE
+  specification_version: "0.3"
+  specification_sha256: 62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb
+  approved_plan: null
+scope: Prepare concrete implementation plan for human approval; do not implement or save initial plan as a project document yet.
+owners:
+  coordinator: /root
+  planner: /root/managed_lifecycle_planner
+  planner_prior_authorship: none
+  implementer: null
+  proposed_integration_owner: /root/managed_lifecycle_implementer
+  reviewer: /root/managed_lifecycle_auditor
+  reviewer_prior_plan_authorship: none
+repair_round: 0
+specification_revision_round: 2
+artifacts[1]:
+  - /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/planning-state.toon
+evidence[2]:
+  - Human approved exact specification0.3; acceptance recorded as event13 and frozen manifest baseline1.
+  - Human instructed kontynuuj after plan preparation was stated as next step.
+blockers[0]:
+next_action: Human approves exact plan0.2 and explicitly authorizes implementation, or requests corrections. After approval preserve accepted plan bytes with specification baseline, save project plan/execution record, then assign implementer. No project plan or implementation before that decision.
+
+plan_review:
+  kind: independent preapproval feasibility/coverage review, not implementation audit
+  plan_version: "0.1"
+  plan_sha256: f1e8b87976356e345c6c0f11ecc27e4976b1fbb44fbaab9e2a9eb984a053c0ab
+  reviewer: /root/managed_lifecycle_auditor
+  report: /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/plan-review-0.md
+  verdict: Findings
+  required_findings[3]:
+    - P0-001 live destructive proof and exact-selector repair distinction
+    - P0-002 prune readonly support and journal/other-location protections
+    - P0-003 common prior journal recovery before any lifecycle batch
+  implementation_repair_round_consumed: false
+
+plan_revision:
+  target_version: "0.2"
+  author: /root/managed_lifecycle_planner
+  scope: Three bounded technical corrections; no product change or project writes.
+  spec_changed: false
+  approved_plan: null
+
+plan_rereview:
+  plan_version: "0.2"
+  plan_sha256: e7d504fe7c5a69a400c9ccae549c4fcb0225dcb980c105ae5e45f4c89a5e7c23
+  reviewer: /root/managed_lifecycle_auditor
+  prior_plan_authorship: none
+  report: /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/plan-review-1.md
+  implementation_repair_round: 0
+
+reviewed_plan_ready:
+  id: PLAN-MANAGED-TOOL-LIFECYCLE
+  version: "0.2"
+  sha256: e7d504fe7c5a69a400c9ccae549c4fcb0225dcb980c105ae5e45f4c89a5e7c23
+  artifact: /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/managed-tool-lifecycle-implementation-plan-0.2.md
+  reviewer: /root/managed_lifecycle_auditor
+  review: /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/plan-review-1.md
+  verdict: Pass
+  required_findings[0]:
+  assumptions: Proposed technical plan uses fixed NUL records within prefix, bakery locks and per-tool journal; implementation evidence remains required.
+  coverage: All22REQ and24AC mapped and feasible at planning level.
+  human_plan_approval: pending
+  implementation_authorization: pending
+  project_plan_saved: false
+  implementation_repair_round: 0
+  future_project_plan: dev/docs/managed-tool-lifecycle-implementation-plan.md
+  future_cycle_history: dev/docs/history/managed-tool-lifecycle-implementation-20261110/

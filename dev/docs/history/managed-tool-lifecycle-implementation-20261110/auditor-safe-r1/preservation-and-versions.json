@@ -1,0 +1,122 @@
+{
+  "head": "9a223dcca76072eb9035316d25abf972902d3289",
+  "preservation_checks": [
+    {
+      "path": "tools/defs/atuin.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/bat.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/bottom.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/bssh.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/dust.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/eza.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/fd.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/flyline.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/fzf.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/navi.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/nu.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/nvim.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/procs.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/rg.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/sd.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/sk.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/starship.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/tspin.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/vector.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/yazi.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/zellij.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/defs/zoxide.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "shell/navi-bin/fzf",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "shell/navi-bin/navi",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "dev/tests/test_tool_assets.py",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "shell/rc.d/07-git-session-identity.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "shell/welcome/sw.sh",
+      "unchanged_from_audit0": true
+    },
+    {
+      "path": "tools/lib/commands/guide/shell_snapshot.sh",
+      "unchanged_from_audit0": true
+    }
+  ],
+  "changed_preserved_scopes": [],
+  "versions": {
+    "/bin/bash": "3.2.57(1)-release",
+    "/opt/homebrew/bin/bash": "5.3.20(1)-release"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "management_runtimes": [
+    {
+      "requested": "/bin/bash",
+      "physical": "/bin/bash",
+      "version": "3.2.57(1)-release"
+    },
+    {
+      "requested": "/opt/homebrew/bin/bash",
+      "physical": "/opt/homebrew/Cellar/bash/5.3.20/bin/bash",
+      "version": "5.3.20(1)-release"
+    }
+  ],
+  "env_bash_children": "Engine/CLI fixtures symlink helper bash to each selected runtime; test_install_cli.py::test_env_bash_children_use_selected_runtime asserts parent and env-bash child versions.",
+  "native_library_qualification": "No native ABI qualification was performed by this task. Fixture libraries and controlled qualification-probe stubs cover call protocol, failure isolation and no-load reports; they are not native ABI evidence. No authorized native library artifact path was supplied or privately discovered; no assets/source builds/downloads were performed.",
+  "historical_native_support": "Existing Flyline support/pilot records remain historical; this increment does not relabel them as new native verification.",
+  "optional_native_picker_tests": {
+    "actual_skipped_cases": 56,
+    "details": "skips.json contains all exact IDs and reasons; skips are not passing native qualification evidence"
+  }
+}

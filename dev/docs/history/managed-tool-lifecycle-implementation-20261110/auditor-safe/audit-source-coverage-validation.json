@@ -1,0 +1,31 @@
+{
+  "source_entries": 88,
+  "source_mismatches": [],
+  "frozen_snapshots": [
+    {
+      "id": "SPEC-MANAGED-TOOL-LIFECYCLE",
+      "version": "0.3",
+      "exact": true
+    },
+    {
+      "id": "PLAN-MANAGED-TOOL-LIFECYCLE",
+      "version": "0.2",
+      "exact": true
+    }
+  ],
+  "safe_final_junit_counts": {
+    "passed": 1863,
+    "skipped": 56
+  },
+  "coverage_req": 22,
+  "coverage_ac": 24,
+  "coverage_case_ids_absent_from_final_junit": [],
+  "coverage_result_mismatches": [],
+  "skip_reasons": {
+    "PROMPT_COMMAND arrays require Bash 5.1": 4,
+    "set REMOTE_SSH_TEST_ATUIN_BIN to the local pinned Atuin executable": 1,
+    "Bash 3.2 rejects native activation before variable mutation": 26,
+    "real picker tests require --navi-bin and --skim-bin (no downloads)": 24,
+    "Bash 3.2 has no BASHOPTS": 1
+  }
+}

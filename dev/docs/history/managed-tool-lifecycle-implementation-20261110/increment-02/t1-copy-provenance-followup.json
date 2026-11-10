@@ -1,0 +1,51 @@
+{
+  "scope": "Known run IDs from task console/logs only; exact library_fixture layout plus owned public runtime hash and synthetic definition",
+  "known_runs": [
+    {
+      "run_id": 702,
+      "known_from": [
+        "initial baseline console transcript"
+      ],
+      "directory_exists": false,
+      "matched_copies": []
+    },
+    {
+      "run_id": 713,
+      "known_from": [
+        "increment01 repository-focused-test.log",
+        "repository-focused-test.log"
+      ],
+      "directory_exists": false,
+      "matched_copies": []
+    },
+    {
+      "run_id": 724,
+      "known_from": [
+        "increment-02/existing-payload-regression-test.log"
+      ],
+      "directory_exists": false,
+      "matched_copies": []
+    },
+    {
+      "run_id": 726,
+      "known_from": [
+        "increment-02/library-preflight-diagnosis.log"
+      ],
+      "directory_exists": false,
+      "matched_copies": []
+    },
+    {
+      "run_id": 730,
+      "known_from": [
+        "increment-02/checkout-overlap-retest.log"
+      ],
+      "directory_exists": true,
+      "matched_copies": []
+    }
+  ],
+  "removed_exact_task_copies": [],
+  "unknown_run_ids_enumerated": false,
+  "original_config_changed": false,
+  "config_contents_read_or_printed_during_followup": false,
+  "passing_T1_logs_without_run_IDs_not_used_for_deletion": true
+}

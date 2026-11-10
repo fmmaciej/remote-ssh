@@ -1,0 +1,16 @@
+{
+  "role": "coordinator receipt, not independent audit",
+  "tested_source_paths_verified": 88,
+  "frozen_snapshots_verified": 2,
+  "source_frozen": true,
+  "repair_round": 0,
+  "manifest": "baseline-1/baseline.json",
+  "subject": "increment-03/source-hashes.json",
+  "verification": "increment-03/full-smoke-03-result.json",
+  "actual_full_smoke": {
+    "returncode": 0,
+    "passed": 1863,
+    "skipped": 56
+  },
+  "private_or_restricted_raw_sources_opened_or_hashed": 0
+}

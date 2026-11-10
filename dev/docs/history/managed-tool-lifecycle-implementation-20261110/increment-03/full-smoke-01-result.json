@@ -1,0 +1,16 @@
+{
+  "command": [
+    "just",
+    "smoke"
+  ],
+  "cwd": "/Users/fm/Programming/00_Other/remote-ssh/dev",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "UV_OFFLINE": "1",
+    "UV_CACHE_DIR": "/private/tmp/remote-ssh-uv-cache"
+  },
+  "returncode": 143,
+  "elapsed_seconds": 348.0996226669522,
+  "timeout": 7200,
+  "subject_unchanged": true
+}

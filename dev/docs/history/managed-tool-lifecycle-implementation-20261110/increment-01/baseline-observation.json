@@ -1,0 +1,11 @@
+{
+  "command": "UV_CACHE_DIR=/private/tmp/remote-ssh-uv-cache PYTHONDONTWRITEBYTECODE=1 uv run --offline --project dev pytest -q -p no:cacheprovider dev/tests/test_release_ownership.py dev/tests/test_tool_link_state.py dev/tests/test_install_library.py",
+  "before_lifecycle_publication": true,
+  "result": {
+    "passed": 115,
+    "failed": 26,
+    "seconds": 81.93
+  },
+  "cause": "Old literal pinned expectations in test_tool_link_state versus concurrent version changes. External commit 9a223dc subsequently updated these expectations. Implementer did not edit them.",
+  "record": "Observed console result; original full raw baseline output was not retained as a file."
+}

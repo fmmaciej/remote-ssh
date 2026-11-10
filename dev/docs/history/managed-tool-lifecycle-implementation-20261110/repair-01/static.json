@@ -1,0 +1,165 @@
+{
+  "environment": "published runner fixed allowlist; fresh static-home",
+  "checks": [
+    {
+      "command": [
+        "/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/managed/journal.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/managed/install.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/managed/uninstall.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/managed/update.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/commands/install.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/commands/uninstall.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/commands/tool_status.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/managed/journal.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/managed/install.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/managed/uninstall.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/managed/update.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/commands/install.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/commands/uninstall.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/bash",
+        "-n",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/commands/tool_status.sh"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "shellcheck",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/managed/journal.sh",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/managed/install.sh",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/managed/uninstall.sh",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/managed/update.sh",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/commands/install.sh",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/commands/uninstall.sh",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/tools/lib/commands/tool_status.sh"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--offline",
+        "--project",
+        "/Users/fm/Programming/00_Other/remote-ssh/dev",
+        "ruff",
+        "check",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/dev/tests/test_managed_uninstall.py",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/dev/tests/test_managed_reports.py",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/dev/tests/test_managed_public_faults.py",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/dev/tests/test_managed_recovery.py",
+        "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/files/dev/tests/managed_fixture.py"
+      ],
+      "returncode": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+type: audit
+task_id: managed-tool-lifecycle-20261110
+from: /root/managed_lifecycle_auditor
+to: /root
+status: reviewing
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  commit: 15bcb79cee2d1959074d4c70e164d0cae75ee8e2
+  specification: dev/docs/managed-tool-lifecycle-specification.md
+  id: SPEC-MANAGED-TOOL-LIFECYCLE
+  version: "0.2"
+  sha256: 6eb7ea485057b18b9e139fffa270ce2eacf2c00603c90cc771c347551a03cfd8
+  manifest: null
+scope: Independent bounded specification review 1, revision_round 1. Reused unchanged source evidence from review 0 and inspected affected revision only. No authorship or implementation audit.
+artifacts[2]:
+  - /private/tmp/remote-ssh-managed-lifecycle-20261110/review-1.md
+  - /private/tmp/remote-ssh-managed-lifecycle-20261110/review-1.toon
+evidence[5]:
+  - Exact v0.2 hash and preserved v0.1 hash verified; unchanged HEAD and tracked worktree.
+  - Verified 22 unique sequential REQ, 24 AC, 9 UC and 48 existing in-project links; no invalid positional install quick examples.
+  - R0-001 and R0-002 closed; D-012, REQ-008, REQ-015, uninstall interface and AC-022 consistently preserve confirmed full deletion scope and D-011 abort-retain.
+  - AC-024 addresses location and XDG isolation. AC-023 covers first update evidence but assigns rg a nondeclared own alias; nu has actual nushell alias.
+  - No runtime tests, network, host state, secrets or implementation validation; reviewed subject unchanged.
+blockers[0]:
+verdict: Findings
+review: 1
+revision_round: 1
+coverage[22]:
+  - requirement: REQ-001
+    status: met
+    evidence: R0-001 closed; grammar and corrected AC-004/AC-008 agree.
+  - requirement: REQ-002
+    status: met
+    evidence: Corrected profile examples preserve additive non-subscribed selection.
+  - requirement: REQ-003
+    status: met
+    evidence: Unchanged UC-002 and AC-005, AC-006, AC-018 cover repair and external PATH protection.
+  - requirement: REQ-004
+    status: met
+    evidence: Retained state and errors remain covered; AC-022 and AC-024 extend state safety.
+  - requirement: REQ-005
+    status: unmet
+    evidence: R1-001; AC-023 alias-only fixture names rg without any declared alias in baseline.
+  - requirement: REQ-006
+    status: met
+    evidence: Unchanged read-only contract with AC-012 and AC-014.
+  - requirement: REQ-007
+    status: met
+    evidence: AC-011, AC-013, AC-021 and appended scenarios preserve expected-tools non-control.
+  - requirement: REQ-008
+    status: met
+    evidence: D-012 and explicit full confirmed active/inactive release deletion; AC-007, AC-010, AC-022 preserve D-011.
+  - requirement: REQ-009
+    status: met
+    evidence: AC-008, AC-009, AC-017, AC-022, AC-024 retain repair and no resurrection.
+  - requirement: REQ-010
+    status: met
+    evidence: Pre-refresh evidence retention, retired and unsupported remain explicit; AC-010 and strengthened first-update contract.
+  - requirement: REQ-011
+    status: met
+    evidence: AC-015 retains broken/missing/retired and one row per tool.
+  - requirement: REQ-012
+    status: met
+    evidence: Unchanged UC-007 and AC-016, AC-018 cover environment plus selected tools and library distinction.
+  - requirement: REQ-013
+    status: met
+    evidence: Unchanged status table and AC-009, AC-010, AC-015, AC-016, AC-021.
+  - requirement: REQ-014
+    status: met
+    evidence: AC-022 separates irrelevant protected remnants from unsafe required active ownership; AC-024 protects foreign state.
+  - requirement: REQ-015
+    status: met
+    evidence: R0-002 closed; explicit install/update no-prune and independent prune versus complete own uninstall scope.
+  - requirement: REQ-016
+    status: met
+    evidence: Per-tool completion and recovery remain consistent with AC-017 and AC-022.
+  - requirement: REQ-017
+    status: met
+    evidence: Preflight, preview and confirmation remain binding; AC-003, AC-019, AC-022.
+  - requirement: REQ-018
+    status: met
+    evidence: Unchanged pinned assets/layouts/Bash/dependency constraints with AC-018 and AC-020.
+  - requirement: REQ-019
+    status: met
+    evidence: Unchanged AC-019 covers CLI-only publication, runme, REF and startup protection.
+  - requirement: REQ-020
+    status: met
+    evidence: Unchanged AC-020 and informational update-check distinction.
+  - requirement: REQ-021
+    status: met
+    evidence: Unchanged UC-009 and AC-021 preserve phase-1 fzf, adapter and phase-2 gate.
+  - requirement: REQ-022
+    status: met
+    evidence: Unchanged current documentation and preserved historical evidence contract.
+findings[1]:
+  - id: R1-001
+    severity: medium
+    required: true
+    location: dev/docs/managed-tool-lifecycle-specification.md AC-023
+    issue: Alias-only rg scenario is not grounded in preserved baseline because rg declares no alias; criterion does not explicitly define a synthetic prior alias catalog.
+    next_action: Author uses real nu/nushell alias with matching member count, or explicitly defines a safe synthetic catalog fixture, while retaining old rg, bundle, builtin and first-refresh definition-loss coverage.
+suggestions[0]:
+next_action: Coordinator publishes report1 and requests bounded author correction in final available automatic revision; no new human product decision or implementation action required.

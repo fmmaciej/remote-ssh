@@ -1,0 +1,15 @@
+type: result
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root/managed_lifecycle_implementer
+to: /root
+status: ready_for_audit
+baseline: baseline-1; SPEC0.3; PLAN0.2; HEAD9a223dc; repair_round0
+scope: Final T1–T7 integrated subject frozen after passing required full smoke03.
+evidence[5]:
+  - Full smoke031863passed/56skipped/0failed; static passed; source unchanged.
+  - All22REQ/24AC mapped to actual case IDs/outcomes, independent acceptance pending.
+  - Bash3.2.57/5.3.20 plus env-bash children verified; native library ABI qualification remains unverified and disclosed.
+  - Pins/assets/checksums/fixtures/private Navi adapter/fzf definition/approved source snapshots preserved.
+  - Prior raw captures restricted; clean final evidence uses allowlisted process context, synthetic configs and deny-before-read sentinels.
+blockers[0]:
+next_action: Coordinator verifies complete artifacts/source freeze and activates independent audit0. No subject editing during audit; no independent Pass claimed.

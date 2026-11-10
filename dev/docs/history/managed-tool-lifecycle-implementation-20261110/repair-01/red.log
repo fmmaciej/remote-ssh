@@ -1,0 +1,1034 @@
+FFF.F.FFFFFFFFFF.FF.FFFFFFFF                                             [100%]
+=================================== FAILURES ===================================
+_ test_repair01_repeat_completed_uninstall_is_readonly_then_unrelated_update[/bin/bash] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_repeat_completed0/home/repo'), opt=PosixPa...tmp/pytest-of-fm/pytest-19/test_repair01_repeat_completed0/home/assets', 'GIT_TERMINAL_PROMPT': '0'}, bash='/bin/bash')
+
+    def test_repair01_repeat_completed_uninstall_is_readonly_then_unrelated_update(engine: EngineEnv) -> None:
+        from test_managed_update import upstream
+    
+        engine.asset("rg")
+        engine.asset("fd")
+        upstream(engine)
+        (Path(engine.env["HOME"]) / ".bashrc").write_text("# synthetic startup; keep\n")
+        assert_ok(command(engine, "install", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "rg", "--yes"))
+        before = repair_snapshot(engine)
+        again = command(engine, "uninstall", "rg", "--yes")
+>       assert_ok(again)
+
+tests/test_managed_uninstall.py:234: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_repeat_completed0/hom...mpleted0/home/opt/rg-1.0\nManaged membership to remove:\n  [none]\nrunning: rg\n', stderr='Uninstall incomplete: rg\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         Selected tools:
+E           rg
+E         Owned selectors to remove:
+E           [none]
+E         Owned release scope to remove:
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_repeat_completed0/home/opt/rg-1.0
+E         Managed membership to remove:
+E           [none]
+E         running: rg
+E         
+E         stderr:
+E         Uninstall incomplete: rg
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_repeat_completed0/hom...mpleted0/home/opt/rg-1.0\nManaged membership to remove:\n  [none]\nrunning: rg\n', stderr='Uninstall incomplete: rg\n').returncode
+
+tests/conftest.py:297: AssertionError
+_ test_repair01_repeat_completed_uninstall_is_readonly_then_unrelated_update[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_repeat_completed1/home/repo'), opt=PosixPa...repair01_repeat_completed1/home/assets', 'GIT_TERMINAL_PROMPT': '0'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+
+    def test_repair01_repeat_completed_uninstall_is_readonly_then_unrelated_update(engine: EngineEnv) -> None:
+        from test_managed_update import upstream
+    
+        engine.asset("rg")
+        engine.asset("fd")
+        upstream(engine)
+        (Path(engine.env["HOME"]) / ".bashrc").write_text("# synthetic startup; keep\n")
+        assert_ok(command(engine, "install", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "rg", "--yes"))
+        before = repair_snapshot(engine)
+        again = command(engine, "uninstall", "rg", "--yes")
+>       assert_ok(again)
+
+tests/test_managed_uninstall.py:234: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/tes...mpleted1/home/opt/rg-1.0\nManaged membership to remove:\n  [none]\nrunning: rg\n', stderr='Uninstall incomplete: rg\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         Selected tools:
+E           rg
+E         Owned selectors to remove:
+E           [none]
+E         Owned release scope to remove:
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_repeat_completed1/home/opt/rg-1.0
+E         Managed membership to remove:
+E           [none]
+E         running: rg
+E         
+E         stderr:
+E         Uninstall incomplete: rg
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/tes...mpleted1/home/opt/rg-1.0\nManaged membership to remove:\n  [none]\nrunning: rg\n', stderr='Uninstall incomplete: rg\n').returncode
+
+tests/conftest.py:297: AssertionError
+_ test_repair01_mixed_terminal_and_managed_uninstall_keeps_full_preflight[/bin/bash-False] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_mixed_terminal_a0/home/repo'), opt=PosixPa...po', 'ASSET_DIR': '/private/tmp/pytest-of-fm/pytest-19/test_repair01_mixed_terminal_a0/home/assets'}, bash='/bin/bash')
+foreign = False
+
+    @pytest.mark.parametrize("foreign", [False, True])
+    def test_repair01_mixed_terminal_and_managed_uninstall_keeps_full_preflight(engine: EngineEnv, foreign: bool) -> None:
+        engine.asset("nu", aliases=("nushell",))
+        engine.asset("rg")
+        assert_ok(command(engine, "install", "nu", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        if foreign:
+            (engine.bin / "rg").unlink()
+            (engine.bin / "rg").write_text("foreign required selector")
+        before = repair_snapshot(engine)
+        result = command(engine, "uninstall", "nu", "rg", "--yes")
+        if foreign:
+            assert result.returncode == 1
+            assert repair_snapshot(engine) == before
+            assert_ok(engine.private('ms_state_load\nms_member_has rg\n'))
+        else:
+>           assert_ok(result)
+
+tests/test_managed_uninstall.py:260: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_mixed_terminal_a0/hom.../home/opt/rg-1.0\nManaged membership to remove:\n  rg\nrunning: nu\nqueued: rg\n', stderr='Uninstall incomplete: nu\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         Selected tools:
+E           nu
+E           rg
+E         Owned selectors to remove:
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_mixed_terminal_a0/home/install-bin/rg
+E         Owned release scope to remove:
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_mixed_terminal_a0/home/opt/nu-1.0
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_mixed_terminal_a0/home/opt/rg-1.0
+E         Managed membership to remove:
+E           rg
+E         running: nu
+E         queued: rg
+E         
+E         stderr:
+E         Uninstall incomplete: nu
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_mixed_terminal_a0/hom.../home/opt/rg-1.0\nManaged membership to remove:\n  rg\nrunning: nu\nqueued: rg\n', stderr='Uninstall incomplete: nu\n').returncode
+
+tests/conftest.py:297: AssertionError
+_ test_repair01_mixed_terminal_and_managed_uninstall_keeps_full_preflight[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_mixed_terminal_a2/home/repo'), opt=PosixPa...pytest-of-fm/pytest-19/test_repair01_mixed_terminal_a2/home/assets'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+foreign = False
+
+    @pytest.mark.parametrize("foreign", [False, True])
+    def test_repair01_mixed_terminal_and_managed_uninstall_keeps_full_preflight(engine: EngineEnv, foreign: bool) -> None:
+        engine.asset("nu", aliases=("nushell",))
+        engine.asset("rg")
+        assert_ok(command(engine, "install", "nu", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        if foreign:
+            (engine.bin / "rg").unlink()
+            (engine.bin / "rg").write_text("foreign required selector")
+        before = repair_snapshot(engine)
+        result = command(engine, "uninstall", "nu", "rg", "--yes")
+        if foreign:
+            assert result.returncode == 1
+            assert repair_snapshot(engine) == before
+            assert_ok(engine.private('ms_state_load\nms_member_has rg\n'))
+        else:
+>           assert_ok(result)
+
+tests/test_managed_uninstall.py:260: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/tes.../home/opt/rg-1.0\nManaged membership to remove:\n  rg\nrunning: nu\nqueued: rg\n', stderr='Uninstall incomplete: nu\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         Selected tools:
+E           nu
+E           rg
+E         Owned selectors to remove:
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_mixed_terminal_a2/home/install-bin/rg
+E         Owned release scope to remove:
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_mixed_terminal_a2/home/opt/nu-1.0
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_mixed_terminal_a2/home/opt/rg-1.0
+E         Managed membership to remove:
+E           rg
+E         running: nu
+E         queued: rg
+E         
+E         stderr:
+E         Uninstall incomplete: nu
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/tes.../home/opt/rg-1.0\nManaged membership to remove:\n  rg\nrunning: nu\nqueued: rg\n', stderr='Uninstall incomplete: nu\n').returncode
+
+tests/conftest.py:297: AssertionError
+_ test_repair01_live_inactive_release_after_terminal_uninstall_is_removed[/bin/bash] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_live_inactive_re0/home/repo'), opt=PosixPa...po', 'ASSET_DIR': '/private/tmp/pytest-of-fm/pytest-19/test_repair01_live_inactive_re0/home/assets'}, bash='/bin/bash')
+
+    def test_repair01_live_inactive_release_after_terminal_uninstall_is_removed(engine: EngineEnv) -> None:
+        engine.asset("rg")
+        assert_ok(command(engine, "install", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "rg", "--yes"))
+        root = engine.opt / "rg-0.1"
+        write_executable(root / "rg", "#!/bin/sh\nexit 0\n")
+        (root / ".remote-ssh-release").write_text("format=1\ntool=rg\nversion=0.1\nlayout=binary\nexecutable=rg\n")
+        protected = engine.opt / "rg-personal"
+        protected.mkdir()
+        (protected / "notes").write_text("foreign remainder")
+        result = command(engine, "uninstall", "rg", "--yes")
+>       assert_ok(result)
+
+tests/test_managed_uninstall.py:276: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_live_inactive_re0/hom...fm/pytest-19/test_repair01_live_inactive_re0/home/opt/rg-personal\nrunning: rg\n', stderr='Uninstall incomplete: rg\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         Selected tools:
+E           rg
+E         Owned selectors to remove:
+E           [none]
+E         Owned release scope to remove:
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_live_inactive_re0/home/opt/rg-1.0
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_live_inactive_re0/home/opt/rg-0.1
+E         Managed membership to remove:
+E           [none]
+E         Protected remains:
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_live_inactive_re0/home/opt/rg-personal
+E         running: rg
+E         
+E         stderr:
+E         Uninstall incomplete: rg
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_live_inactive_re0/hom...fm/pytest-19/test_repair01_live_inactive_re0/home/opt/rg-personal\nrunning: rg\n', stderr='Uninstall incomplete: rg\n').returncode
+
+tests/conftest.py:297: AssertionError
+_ test_repair01_live_inactive_release_after_terminal_uninstall_is_removed[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_live_inactive_re1/home/repo'), opt=PosixPa...pytest-of-fm/pytest-19/test_repair01_live_inactive_re1/home/assets'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+
+    def test_repair01_live_inactive_release_after_terminal_uninstall_is_removed(engine: EngineEnv) -> None:
+        engine.asset("rg")
+        assert_ok(command(engine, "install", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "rg", "--yes"))
+        root = engine.opt / "rg-0.1"
+        write_executable(root / "rg", "#!/bin/sh\nexit 0\n")
+        (root / ".remote-ssh-release").write_text("format=1\ntool=rg\nversion=0.1\nlayout=binary\nexecutable=rg\n")
+        protected = engine.opt / "rg-personal"
+        protected.mkdir()
+        (protected / "notes").write_text("foreign remainder")
+        result = command(engine, "uninstall", "rg", "--yes")
+>       assert_ok(result)
+
+tests/test_managed_uninstall.py:276: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/tes...fm/pytest-19/test_repair01_live_inactive_re1/home/opt/rg-personal\nrunning: rg\n', stderr='Uninstall incomplete: rg\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         Selected tools:
+E           rg
+E         Owned selectors to remove:
+E           [none]
+E         Owned release scope to remove:
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_live_inactive_re1/home/opt/rg-1.0
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_live_inactive_re1/home/opt/rg-0.1
+E         Managed membership to remove:
+E           [none]
+E         Protected remains:
+E           /private/tmp/pytest-of-fm/pytest-19/test_repair01_live_inactive_re1/home/opt/rg-personal
+E         running: rg
+E         
+E         stderr:
+E         Uninstall incomplete: rg
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/tes...fm/pytest-19/test_repair01_live_inactive_re1/home/opt/rg-personal\nrunning: rg\n', stderr='Uninstall incomplete: rg\n').returncode
+
+tests/conftest.py:297: AssertionError
+_ test_repair01_terminal_custom_selector_history_does_not_block_explicit_install[/bin/bash] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_custom_0/home/repo'), opt=PosixPa...po', 'ASSET_DIR': '/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_custom_0/home/assets'}, bash='/bin/bash')
+
+    def test_repair01_terminal_custom_selector_history_does_not_block_explicit_install(engine: EngineEnv) -> None:
+        engine.asset("rg")
+        assert_ok(command(engine, "install", "rg", "--yes"))
+        custom = engine.bin / "old custom alias"
+        custom.symlink_to(engine.opt / "rg-1.0/rg")
+        assert_ok(command(engine, "uninstall", "rg", "--yes"))
+        custom.write_text("foreign custom file")
+        before = repair_snapshot(engine)
+>       assert_ok(command(engine, "uninstall", "rg", "--yes"))
+
+tests/test_managed_uninstall.py:291: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_custom_0/hom...rminal_custom_0/home/install-bin/old custom alias\nCannot inspect protected or unreadable paths; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Managed state: protected selector: /private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_custom_0/home/install-bin/old custom alias
+E         Cannot inspect protected or unreadable paths; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_custom_0/hom...rminal_custom_0/home/install-bin/old custom alias\nCannot inspect protected or unreadable paths; uninstall aborted.\n').returncode
+
+tests/conftest.py:297: AssertionError
+_ test_repair01_terminal_custom_selector_history_does_not_block_explicit_install[/opt/homebrew/Cellar/bash/5.3.20/bin/bash] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_custom_1/home/repo'), opt=PosixPa...pytest-of-fm/pytest-19/test_repair01_terminal_custom_1/home/assets'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+
+    def test_repair01_terminal_custom_selector_history_does_not_block_explicit_install(engine: EngineEnv) -> None:
+        engine.asset("rg")
+        assert_ok(command(engine, "install", "rg", "--yes"))
+        custom = engine.bin / "old custom alias"
+        custom.symlink_to(engine.opt / "rg-1.0/rg")
+        assert_ok(command(engine, "uninstall", "rg", "--yes"))
+        custom.write_text("foreign custom file")
+        before = repair_snapshot(engine)
+>       assert_ok(command(engine, "uninstall", "rg", "--yes"))
+
+tests/test_managed_uninstall.py:291: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/tes...rminal_custom_1/home/install-bin/old custom alias\nCannot inspect protected or unreadable paths; uninstall aborted.\n')
+
+    def assert_ok(result: subprocess.CompletedProcess[str]) -> None:
+>       assert result.returncode == 0, (
+            f"exit={result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: exit=1
+E         stdout:
+E         
+E         stderr:
+E         Managed state: protected selector: /private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_custom_1/home/install-bin/old custom alias
+E         Cannot inspect protected or unreadable paths; uninstall aborted.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-19/tes...rminal_custom_1/home/install-bin/old custom alias\nCannot inspect protected or unreadable paths; uninstall aborted.\n').returncode
+
+tests/conftest.py:297: AssertionError
+_ test_repair01_terminal_uninstall_reports_available_and_explicit_missing_readonly[/bin/bash-False] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_uninsta0/home/repo'), opt=PosixPa...po', 'ASSET_DIR': '/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_uninsta0/home/assets'}, bash='/bin/bash')
+external = False
+
+    @pytest.mark.parametrize("external", [False, True])
+    def test_repair01_terminal_uninstall_reports_available_and_explicit_missing_readonly(engine: EngineEnv, external: bool) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("rg")
+        report_repo(engine)
+        assert_ok(command(engine, "install", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "rg", "--yes"))
+        if external:
+            outside = Path(engine.env["HOME"]) / "external-bin"
+            write_executable(outside / "rg", '#!/bin/sh\nprintf executed >"$HOME/executed-external"\n')
+            engine.env["PATH"] = str(outside) + ":" + engine.env["PATH"]
+        for args in [("list",), ("list", "--all"), ("list", "--installed")]:
+            before = repair_snapshot(engine)
+            result = command(engine, *args)
+            assert_ok(result)
+            rows = [line for line in result.stdout.splitlines() if line.startswith("rg ")]
+            if "--installed" in args:
+                assert not rows
+            else:
+>               assert len(rows) == 1 and "unmanaged" in rows[0] and "available" in rows[0]
+E               AssertionError: assert (1 == 1 and 'unmanaged' in 'rg               unmanaged          supported    missing broken last=uninstall:completed' and 'available' in 'rg               unmanaged          supported    missing broken last=uninstall:completed')
+E                +  where 1 = len(['rg               unmanaged          supported    missing broken last=uninstall:completed'])
+
+tests/test_managed_reports.py:357: AssertionError
+_ test_repair01_terminal_uninstall_reports_available_and_explicit_missing_readonly[/bin/bash-True] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_uninsta1/home/repo'), opt=PosixPa...po', 'ASSET_DIR': '/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_uninsta1/home/assets'}, bash='/bin/bash')
+external = True
+
+    @pytest.mark.parametrize("external", [False, True])
+    def test_repair01_terminal_uninstall_reports_available_and_explicit_missing_readonly(engine: EngineEnv, external: bool) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("rg")
+        report_repo(engine)
+        assert_ok(command(engine, "install", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "rg", "--yes"))
+        if external:
+            outside = Path(engine.env["HOME"]) / "external-bin"
+            write_executable(outside / "rg", '#!/bin/sh\nprintf executed >"$HOME/executed-external"\n')
+            engine.env["PATH"] = str(outside) + ":" + engine.env["PATH"]
+        for args in [("list",), ("list", "--all"), ("list", "--installed")]:
+            before = repair_snapshot(engine)
+            result = command(engine, *args)
+            assert_ok(result)
+            rows = [line for line in result.stdout.splitlines() if line.startswith("rg ")]
+            if "--installed" in args:
+                assert not rows
+            else:
+>               assert len(rows) == 1 and "unmanaged" in rows[0] and "available" in rows[0]
+E               AssertionError: assert (1 == 1 and 'unmanaged' in 'rg               unmanaged          supported    missing broken last=uninstall:completed' and 'available' in 'rg               unmanaged          supported    missing broken last=uninstall:completed')
+E                +  where 1 = len(['rg               unmanaged          supported    missing broken last=uninstall:completed'])
+
+tests/test_managed_reports.py:357: AssertionError
+_ test_repair01_terminal_uninstall_reports_available_and_explicit_missing_readonly[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_uninsta2/home/repo'), opt=PosixPa...pytest-of-fm/pytest-19/test_repair01_terminal_uninsta2/home/assets'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+external = False
+
+    @pytest.mark.parametrize("external", [False, True])
+    def test_repair01_terminal_uninstall_reports_available_and_explicit_missing_readonly(engine: EngineEnv, external: bool) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("rg")
+        report_repo(engine)
+        assert_ok(command(engine, "install", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "rg", "--yes"))
+        if external:
+            outside = Path(engine.env["HOME"]) / "external-bin"
+            write_executable(outside / "rg", '#!/bin/sh\nprintf executed >"$HOME/executed-external"\n')
+            engine.env["PATH"] = str(outside) + ":" + engine.env["PATH"]
+        for args in [("list",), ("list", "--all"), ("list", "--installed")]:
+            before = repair_snapshot(engine)
+            result = command(engine, *args)
+            assert_ok(result)
+            rows = [line for line in result.stdout.splitlines() if line.startswith("rg ")]
+            if "--installed" in args:
+                assert not rows
+            else:
+>               assert len(rows) == 1 and "unmanaged" in rows[0] and "available" in rows[0]
+E               AssertionError: assert (1 == 1 and 'unmanaged' in 'rg               unmanaged          supported    missing broken last=uninstall:completed' and 'available' in 'rg               unmanaged          supported    missing broken last=uninstall:completed')
+E                +  where 1 = len(['rg               unmanaged          supported    missing broken last=uninstall:completed'])
+
+tests/test_managed_reports.py:357: AssertionError
+_ test_repair01_terminal_uninstall_reports_available_and_explicit_missing_readonly[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_uninsta3/home/repo'), opt=PosixPa...pytest-of-fm/pytest-19/test_repair01_terminal_uninsta3/home/assets'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+external = True
+
+    @pytest.mark.parametrize("external", [False, True])
+    def test_repair01_terminal_uninstall_reports_available_and_explicit_missing_readonly(engine: EngineEnv, external: bool) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("rg")
+        report_repo(engine)
+        assert_ok(command(engine, "install", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "rg", "--yes"))
+        if external:
+            outside = Path(engine.env["HOME"]) / "external-bin"
+            write_executable(outside / "rg", '#!/bin/sh\nprintf executed >"$HOME/executed-external"\n')
+            engine.env["PATH"] = str(outside) + ":" + engine.env["PATH"]
+        for args in [("list",), ("list", "--all"), ("list", "--installed")]:
+            before = repair_snapshot(engine)
+            result = command(engine, *args)
+            assert_ok(result)
+            rows = [line for line in result.stdout.splitlines() if line.startswith("rg ")]
+            if "--installed" in args:
+                assert not rows
+            else:
+>               assert len(rows) == 1 and "unmanaged" in rows[0] and "available" in rows[0]
+E               AssertionError: assert (1 == 1 and 'unmanaged' in 'rg               unmanaged          supported    missing broken last=uninstall:completed' and 'available' in 'rg               unmanaged          supported    missing broken last=uninstall:completed')
+E                +  where 1 = len(['rg               unmanaged          supported    missing broken last=uninstall:completed'])
+
+tests/test_managed_reports.py:357: AssertionError
+_____ test_repair01_terminal_classification_is_per_tool[/bin/bash-missing] _____
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_classif0/home/repo'), opt=PosixPa...po', 'ASSET_DIR': '/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_classif0/home/assets'}, bash='/bin/bash')
+condition = 'missing'
+
+    @pytest.mark.parametrize("condition", ["missing", "broken", "failed-not-run"])
+    def test_repair01_terminal_classification_is_per_tool(engine: EngineEnv, condition: str) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("nu", aliases=("nushell",))
+        engine.asset("rg", aliases=("rga",))
+        engine.asset("fd")
+        engine.asset("sk")
+        assert_ok(command(engine, "install", "nu", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        if condition == "missing":
+            (engine.opt / "rg-1.0/rg").unlink()
+        elif condition == "broken":
+            (engine.bin / "rga").unlink()
+        else:
+            with (engine.assets / "fd.tar.gz").open("ab") as stream:
+                stream.write(b"corrupt")
+            assert command(engine, "install", "fd", "sk", "--yes").returncode == 1
+        before = repair_snapshot(engine)
+        result = command(engine, "list", "--all")
+        assert_ok(result)
+        rows = {line.split()[0]: line for line in result.stdout.splitlines() if line.split()}
+>       assert "unmanaged" in rows["nu"] and "available" in rows["nu"]
+E       AssertionError: assert ('unmanaged' in 'nu               unmanaged          supported    missing broken last=uninstall:completed' and 'available' in 'nu               unmanaged          supported    missing broken last=uninstall:completed')
+
+tests/test_managed_reports.py:392: AssertionError
+_____ test_repair01_terminal_classification_is_per_tool[/bin/bash-broken] ______
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_classif1/home/repo'), opt=PosixPa...po', 'ASSET_DIR': '/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_classif1/home/assets'}, bash='/bin/bash')
+condition = 'broken'
+
+    @pytest.mark.parametrize("condition", ["missing", "broken", "failed-not-run"])
+    def test_repair01_terminal_classification_is_per_tool(engine: EngineEnv, condition: str) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("nu", aliases=("nushell",))
+        engine.asset("rg", aliases=("rga",))
+        engine.asset("fd")
+        engine.asset("sk")
+        assert_ok(command(engine, "install", "nu", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        if condition == "missing":
+            (engine.opt / "rg-1.0/rg").unlink()
+        elif condition == "broken":
+            (engine.bin / "rga").unlink()
+        else:
+            with (engine.assets / "fd.tar.gz").open("ab") as stream:
+                stream.write(b"corrupt")
+            assert command(engine, "install", "fd", "sk", "--yes").returncode == 1
+        before = repair_snapshot(engine)
+        result = command(engine, "list", "--all")
+        assert_ok(result)
+        rows = {line.split()[0]: line for line in result.stdout.splitlines() if line.split()}
+>       assert "unmanaged" in rows["nu"] and "available" in rows["nu"]
+E       AssertionError: assert ('unmanaged' in 'nu               unmanaged          supported    missing broken last=uninstall:completed' and 'available' in 'nu               unmanaged          supported    missing broken last=uninstall:completed')
+
+tests/test_managed_reports.py:392: AssertionError
+_ test_repair01_terminal_classification_is_per_tool[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-missing] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_classif3/home/repo'), opt=PosixPa...pytest-of-fm/pytest-19/test_repair01_terminal_classif3/home/assets'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+condition = 'missing'
+
+    @pytest.mark.parametrize("condition", ["missing", "broken", "failed-not-run"])
+    def test_repair01_terminal_classification_is_per_tool(engine: EngineEnv, condition: str) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("nu", aliases=("nushell",))
+        engine.asset("rg", aliases=("rga",))
+        engine.asset("fd")
+        engine.asset("sk")
+        assert_ok(command(engine, "install", "nu", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        if condition == "missing":
+            (engine.opt / "rg-1.0/rg").unlink()
+        elif condition == "broken":
+            (engine.bin / "rga").unlink()
+        else:
+            with (engine.assets / "fd.tar.gz").open("ab") as stream:
+                stream.write(b"corrupt")
+            assert command(engine, "install", "fd", "sk", "--yes").returncode == 1
+        before = repair_snapshot(engine)
+        result = command(engine, "list", "--all")
+        assert_ok(result)
+        rows = {line.split()[0]: line for line in result.stdout.splitlines() if line.split()}
+>       assert "unmanaged" in rows["nu"] and "available" in rows["nu"]
+E       AssertionError: assert ('unmanaged' in 'nu               unmanaged          supported    missing broken last=uninstall:completed' and 'available' in 'nu               unmanaged          supported    missing broken last=uninstall:completed')
+
+tests/test_managed_reports.py:392: AssertionError
+_ test_repair01_terminal_classification_is_per_tool[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-broken] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_terminal_classif4/home/repo'), opt=PosixPa...pytest-of-fm/pytest-19/test_repair01_terminal_classif4/home/assets'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+condition = 'broken'
+
+    @pytest.mark.parametrize("condition", ["missing", "broken", "failed-not-run"])
+    def test_repair01_terminal_classification_is_per_tool(engine: EngineEnv, condition: str) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("nu", aliases=("nushell",))
+        engine.asset("rg", aliases=("rga",))
+        engine.asset("fd")
+        engine.asset("sk")
+        assert_ok(command(engine, "install", "nu", "rg", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        if condition == "missing":
+            (engine.opt / "rg-1.0/rg").unlink()
+        elif condition == "broken":
+            (engine.bin / "rga").unlink()
+        else:
+            with (engine.assets / "fd.tar.gz").open("ab") as stream:
+                stream.write(b"corrupt")
+            assert command(engine, "install", "fd", "sk", "--yes").returncode == 1
+        before = repair_snapshot(engine)
+        result = command(engine, "list", "--all")
+        assert_ok(result)
+        rows = {line.split()[0]: line for line in result.stdout.splitlines() if line.split()}
+>       assert "unmanaged" in rows["nu"] and "available" in rows["nu"]
+E       AssertionError: assert ('unmanaged' in 'nu               unmanaged          supported    missing broken last=uninstall:completed' and 'available' in 'nu               unmanaged          supported    missing broken last=uninstall:completed')
+
+tests/test_managed_reports.py:392: AssertionError
+_ test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/bin/bash-member] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_0/home/repo'), opt=PosixPa...tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_0/home/assets', 'GIT_TERMINAL_PROMPT': '0'}, bash='/bin/bash')
+substitution = 'member'
+
+    @pytest.mark.parametrize("substitution", ["member", "parent", "marker", "selector"])
+    def test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope(engine: EngineEnv, substitution: str) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("nu", layout="bundle", aliases=("nushell",))
+        engine.asset("fd")
+        upstream(engine)
+        assert_ok(command(engine, "install", "nu", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        stub = utility_stub(engine, "ln", 'if [[ "$target" == "$INSTALL_BIN_DIR/nu" && ! -e "$HOME/crashed" ]]; then\n "$actual" "$@" || exit $?\n printf once >"$HOME/crashed"\n kill -KILL "$PPID"\n exit 0\nfi\n')
+        assert command(engine, "install", "nu", "--yes").returncode != 0
+        stub.unlink()
+        assert_ok(engine.private('ms_state_load\nms_journal_active\n[[ "$MS_BATCH_COMMAND" == install && "$MS_BATCH_PHASE" == tools ]]\nms_row_find item "$MS_BATCH" nu\n[[ "${MS_ROWS[MS_INDEX+3]}" == running ]]\nif ms_member_has nu; then exit 91; fi\n'))
+        root = (engine.bin / "nu").readlink().parent.parent
+        outside = Path(engine.env["HOME"]) / "foreign"
+        outside.mkdir()
+        (outside / "nu").write_text("foreign payload")
+        if substitution == "member":
+            (root / "bin/nu").unlink()
+            (root / "bin/nu").symlink_to(outside / "nu")
+        elif substitution == "parent":
+            (root / "bin/nu").unlink()
+            (root / "bin").rmdir()
+            (root / "bin").symlink_to(outside, target_is_directory=True)
+        elif substitution == "marker":
+            marker = root / ".remote-ssh-release"
+            marker.rename(outside / "marker")
+            marker.symlink_to(outside / "marker")
+        else:
+            (engine.bin / "nu").unlink()
+            (engine.bin / "nu").symlink_to(outside / "nu")
+        before = repair_snapshot(engine)
+        for args in [("install", "fd", "--yes"), ("update",)]:
+            result = command(engine, *args)
+            assert result.returncode == 1
+>           assert repair_snapshot(engine) == before
+E           AssertionError: assert {'/private/tm...42, b''), ...} == {'/private/tm...42, b''), ...}
+E             
+E             Omitting 1174 identical items, use -vv to show
+E             Differing items:
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_0/home/opt/.remote-ssh-lock': (16832, 1794343416646240589, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_0/home/opt/.remote-ssh-lock': (16832, 1794343414215376688, b'')}
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_0/home/install-bin/.remote-ssh-lock': (16832, 1794343416654877492, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_0/home/install-bin/.remote-ssh-lock': (16832, 1794343414153421614, b'')}
+E             Use -v to get more diff
+
+tests/test_managed_public_faults.py:317: AssertionError
+_ test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/bin/bash-parent] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_1/home/repo'), opt=PosixPa...tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_1/home/assets', 'GIT_TERMINAL_PROMPT': '0'}, bash='/bin/bash')
+substitution = 'parent'
+
+    @pytest.mark.parametrize("substitution", ["member", "parent", "marker", "selector"])
+    def test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope(engine: EngineEnv, substitution: str) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("nu", layout="bundle", aliases=("nushell",))
+        engine.asset("fd")
+        upstream(engine)
+        assert_ok(command(engine, "install", "nu", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        stub = utility_stub(engine, "ln", 'if [[ "$target" == "$INSTALL_BIN_DIR/nu" && ! -e "$HOME/crashed" ]]; then\n "$actual" "$@" || exit $?\n printf once >"$HOME/crashed"\n kill -KILL "$PPID"\n exit 0\nfi\n')
+        assert command(engine, "install", "nu", "--yes").returncode != 0
+        stub.unlink()
+        assert_ok(engine.private('ms_state_load\nms_journal_active\n[[ "$MS_BATCH_COMMAND" == install && "$MS_BATCH_PHASE" == tools ]]\nms_row_find item "$MS_BATCH" nu\n[[ "${MS_ROWS[MS_INDEX+3]}" == running ]]\nif ms_member_has nu; then exit 91; fi\n'))
+        root = (engine.bin / "nu").readlink().parent.parent
+        outside = Path(engine.env["HOME"]) / "foreign"
+        outside.mkdir()
+        (outside / "nu").write_text("foreign payload")
+        if substitution == "member":
+            (root / "bin/nu").unlink()
+            (root / "bin/nu").symlink_to(outside / "nu")
+        elif substitution == "parent":
+            (root / "bin/nu").unlink()
+            (root / "bin").rmdir()
+            (root / "bin").symlink_to(outside, target_is_directory=True)
+        elif substitution == "marker":
+            marker = root / ".remote-ssh-release"
+            marker.rename(outside / "marker")
+            marker.symlink_to(outside / "marker")
+        else:
+            (engine.bin / "nu").unlink()
+            (engine.bin / "nu").symlink_to(outside / "nu")
+        before = repair_snapshot(engine)
+        for args in [("install", "fd", "--yes"), ("update",)]:
+            result = command(engine, *args)
+            assert result.returncode == 1
+>           assert repair_snapshot(engine) == before
+E           AssertionError: assert {'/private/tm...65, b''), ...} == {'/private/tm...65, b''), ...}
+E             
+E             Omitting 1179 identical items, use -vv to show
+E             Differing items:
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_1/home/opt/.remote-ssh-lock': (16832, 1794343426974486006, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_1/home/opt/.remote-ssh-lock': (16832, 1794343424517738396, b'')}
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_1/home/install-bin/.remote-ssh-lock': (16832, 1794343426982754407, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_1/home/install-bin/.remote-ssh-lock': (16832, 1794343424462902679, b'')}
+E             Use -v to get more diff
+
+tests/test_managed_public_faults.py:317: AssertionError
+_ test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/bin/bash-marker] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_2/home/repo'), opt=PosixPa...tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_2/home/assets', 'GIT_TERMINAL_PROMPT': '0'}, bash='/bin/bash')
+substitution = 'marker'
+
+    @pytest.mark.parametrize("substitution", ["member", "parent", "marker", "selector"])
+    def test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope(engine: EngineEnv, substitution: str) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("nu", layout="bundle", aliases=("nushell",))
+        engine.asset("fd")
+        upstream(engine)
+        assert_ok(command(engine, "install", "nu", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        stub = utility_stub(engine, "ln", 'if [[ "$target" == "$INSTALL_BIN_DIR/nu" && ! -e "$HOME/crashed" ]]; then\n "$actual" "$@" || exit $?\n printf once >"$HOME/crashed"\n kill -KILL "$PPID"\n exit 0\nfi\n')
+        assert command(engine, "install", "nu", "--yes").returncode != 0
+        stub.unlink()
+        assert_ok(engine.private('ms_state_load\nms_journal_active\n[[ "$MS_BATCH_COMMAND" == install && "$MS_BATCH_PHASE" == tools ]]\nms_row_find item "$MS_BATCH" nu\n[[ "${MS_ROWS[MS_INDEX+3]}" == running ]]\nif ms_member_has nu; then exit 91; fi\n'))
+        root = (engine.bin / "nu").readlink().parent.parent
+        outside = Path(engine.env["HOME"]) / "foreign"
+        outside.mkdir()
+        (outside / "nu").write_text("foreign payload")
+        if substitution == "member":
+            (root / "bin/nu").unlink()
+            (root / "bin/nu").symlink_to(outside / "nu")
+        elif substitution == "parent":
+            (root / "bin/nu").unlink()
+            (root / "bin").rmdir()
+            (root / "bin").symlink_to(outside, target_is_directory=True)
+        elif substitution == "marker":
+            marker = root / ".remote-ssh-release"
+            marker.rename(outside / "marker")
+            marker.symlink_to(outside / "marker")
+        else:
+            (engine.bin / "nu").unlink()
+            (engine.bin / "nu").symlink_to(outside / "nu")
+        before = repair_snapshot(engine)
+        for args in [("install", "fd", "--yes"), ("update",)]:
+            result = command(engine, *args)
+            assert result.returncode == 1
+>           assert repair_snapshot(engine) == before
+E           AssertionError: assert {'/private/tm...82, b''), ...} == {'/private/tm...82, b''), ...}
+E             
+E             Omitting 1177 identical items, use -vv to show
+E             Differing items:
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_2/home/install-bin/.remote-ssh-lock': (16832, 1794343437652391832, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_2/home/install-bin/.remote-ssh-lock': (16832, 1794343434810684575, b'')}
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_2/home/opt/.remote-ssh-lock': (16832, 1794343437642896219, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_2/home/opt/.remote-ssh-lock': (16832, 1794343434888280740, b'')}
+E             Use -v to get more diff
+
+tests/test_managed_public_faults.py:317: AssertionError
+_ test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/bin/bash-selector] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_3/home/repo'), opt=PosixPa...tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_3/home/assets', 'GIT_TERMINAL_PROMPT': '0'}, bash='/bin/bash')
+substitution = 'selector'
+
+    @pytest.mark.parametrize("substitution", ["member", "parent", "marker", "selector"])
+    def test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope(engine: EngineEnv, substitution: str) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("nu", layout="bundle", aliases=("nushell",))
+        engine.asset("fd")
+        upstream(engine)
+        assert_ok(command(engine, "install", "nu", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        stub = utility_stub(engine, "ln", 'if [[ "$target" == "$INSTALL_BIN_DIR/nu" && ! -e "$HOME/crashed" ]]; then\n "$actual" "$@" || exit $?\n printf once >"$HOME/crashed"\n kill -KILL "$PPID"\n exit 0\nfi\n')
+        assert command(engine, "install", "nu", "--yes").returncode != 0
+        stub.unlink()
+        assert_ok(engine.private('ms_state_load\nms_journal_active\n[[ "$MS_BATCH_COMMAND" == install && "$MS_BATCH_PHASE" == tools ]]\nms_row_find item "$MS_BATCH" nu\n[[ "${MS_ROWS[MS_INDEX+3]}" == running ]]\nif ms_member_has nu; then exit 91; fi\n'))
+        root = (engine.bin / "nu").readlink().parent.parent
+        outside = Path(engine.env["HOME"]) / "foreign"
+        outside.mkdir()
+        (outside / "nu").write_text("foreign payload")
+        if substitution == "member":
+            (root / "bin/nu").unlink()
+            (root / "bin/nu").symlink_to(outside / "nu")
+        elif substitution == "parent":
+            (root / "bin/nu").unlink()
+            (root / "bin").rmdir()
+            (root / "bin").symlink_to(outside, target_is_directory=True)
+        elif substitution == "marker":
+            marker = root / ".remote-ssh-release"
+            marker.rename(outside / "marker")
+            marker.symlink_to(outside / "marker")
+        else:
+            (engine.bin / "nu").unlink()
+            (engine.bin / "nu").symlink_to(outside / "nu")
+        before = repair_snapshot(engine)
+        for args in [("install", "fd", "--yes"), ("update",)]:
+            result = command(engine, *args)
+            assert result.returncode == 1
+>           assert repair_snapshot(engine) == before
+E           AssertionError: assert {'/private/tm...63, b''), ...} == {'/private/tm...63, b''), ...}
+E             
+E             Omitting 1178 identical items, use -vv to show
+E             Differing items:
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_3/home/install-bin/.remote-ssh-lock': (16832, 1794343447858092815, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_3/home/install-bin/.remote-ssh-lock': (16832, 1794343445368115349, b'')}
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_3/home/opt/.remote-ssh-lock': (16832, 1794343447850347999, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_3/home/opt/.remote-ssh-lock': (16832, 1794343445424571905, b'')}
+E             Use -v to get more diff
+
+tests/test_managed_public_faults.py:317: AssertionError
+_ test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-member] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_4/home/repo'), opt=PosixPa...repair01_pending_install_4/home/assets', 'GIT_TERMINAL_PROMPT': '0'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+substitution = 'member'
+
+    @pytest.mark.parametrize("substitution", ["member", "parent", "marker", "selector"])
+    def test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope(engine: EngineEnv, substitution: str) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("nu", layout="bundle", aliases=("nushell",))
+        engine.asset("fd")
+        upstream(engine)
+        assert_ok(command(engine, "install", "nu", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        stub = utility_stub(engine, "ln", 'if [[ "$target" == "$INSTALL_BIN_DIR/nu" && ! -e "$HOME/crashed" ]]; then\n "$actual" "$@" || exit $?\n printf once >"$HOME/crashed"\n kill -KILL "$PPID"\n exit 0\nfi\n')
+        assert command(engine, "install", "nu", "--yes").returncode != 0
+        stub.unlink()
+        assert_ok(engine.private('ms_state_load\nms_journal_active\n[[ "$MS_BATCH_COMMAND" == install && "$MS_BATCH_PHASE" == tools ]]\nms_row_find item "$MS_BATCH" nu\n[[ "${MS_ROWS[MS_INDEX+3]}" == running ]]\nif ms_member_has nu; then exit 91; fi\n'))
+        root = (engine.bin / "nu").readlink().parent.parent
+        outside = Path(engine.env["HOME"]) / "foreign"
+        outside.mkdir()
+        (outside / "nu").write_text("foreign payload")
+        if substitution == "member":
+            (root / "bin/nu").unlink()
+            (root / "bin/nu").symlink_to(outside / "nu")
+        elif substitution == "parent":
+            (root / "bin/nu").unlink()
+            (root / "bin").rmdir()
+            (root / "bin").symlink_to(outside, target_is_directory=True)
+        elif substitution == "marker":
+            marker = root / ".remote-ssh-release"
+            marker.rename(outside / "marker")
+            marker.symlink_to(outside / "marker")
+        else:
+            (engine.bin / "nu").unlink()
+            (engine.bin / "nu").symlink_to(outside / "nu")
+        before = repair_snapshot(engine)
+        for args in [("install", "fd", "--yes"), ("update",)]:
+            result = command(engine, *args)
+            assert result.returncode == 1
+>           assert repair_snapshot(engine) == before
+E           AssertionError: assert {'/private/tm...92, b''), ...} == {'/private/tm...92, b''), ...}
+E             
+E             Omitting 1176 identical items, use -vv to show
+E             Differing items:
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_4/home/install-bin/.remote-ssh-lock': (16832, 1794343457683951749, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_4/home/install-bin/.remote-ssh-lock': (16832, 1794343455190648315, b'')}
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_4/home/opt/.remote-ssh-lock': (16832, 1794343457674228635, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_4/home/opt/.remote-ssh-lock': (16832, 1794343455252492012, b'')}
+E             Use -v to get more diff
+
+tests/test_managed_public_faults.py:317: AssertionError
+_ test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-parent] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_5/home/repo'), opt=PosixPa...repair01_pending_install_5/home/assets', 'GIT_TERMINAL_PROMPT': '0'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+substitution = 'parent'
+
+    @pytest.mark.parametrize("substitution", ["member", "parent", "marker", "selector"])
+    def test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope(engine: EngineEnv, substitution: str) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("nu", layout="bundle", aliases=("nushell",))
+        engine.asset("fd")
+        upstream(engine)
+        assert_ok(command(engine, "install", "nu", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        stub = utility_stub(engine, "ln", 'if [[ "$target" == "$INSTALL_BIN_DIR/nu" && ! -e "$HOME/crashed" ]]; then\n "$actual" "$@" || exit $?\n printf once >"$HOME/crashed"\n kill -KILL "$PPID"\n exit 0\nfi\n')
+        assert command(engine, "install", "nu", "--yes").returncode != 0
+        stub.unlink()
+        assert_ok(engine.private('ms_state_load\nms_journal_active\n[[ "$MS_BATCH_COMMAND" == install && "$MS_BATCH_PHASE" == tools ]]\nms_row_find item "$MS_BATCH" nu\n[[ "${MS_ROWS[MS_INDEX+3]}" == running ]]\nif ms_member_has nu; then exit 91; fi\n'))
+        root = (engine.bin / "nu").readlink().parent.parent
+        outside = Path(engine.env["HOME"]) / "foreign"
+        outside.mkdir()
+        (outside / "nu").write_text("foreign payload")
+        if substitution == "member":
+            (root / "bin/nu").unlink()
+            (root / "bin/nu").symlink_to(outside / "nu")
+        elif substitution == "parent":
+            (root / "bin/nu").unlink()
+            (root / "bin").rmdir()
+            (root / "bin").symlink_to(outside, target_is_directory=True)
+        elif substitution == "marker":
+            marker = root / ".remote-ssh-release"
+            marker.rename(outside / "marker")
+            marker.symlink_to(outside / "marker")
+        else:
+            (engine.bin / "nu").unlink()
+            (engine.bin / "nu").symlink_to(outside / "nu")
+        before = repair_snapshot(engine)
+        for args in [("install", "fd", "--yes"), ("update",)]:
+            result = command(engine, *args)
+            assert result.returncode == 1
+>           assert repair_snapshot(engine) == before
+E           AssertionError: assert {'/private/tm...71, b''), ...} == {'/private/tm...71, b''), ...}
+E             
+E             Omitting 1177 identical items, use -vv to show
+E             Differing items:
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_5/home/install-bin/.remote-ssh-lock': (16832, 1794343467521005928, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_5/home/install-bin/.remote-ssh-lock': (16832, 1794343465068116789, b'')}
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_5/home/opt/.remote-ssh-lock': (16832, 1794343467510429102, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_5/home/opt/.remote-ssh-lock': (16832, 1794343465132797329, b'')}
+E             Use -v to get more diff
+
+tests/test_managed_public_faults.py:317: AssertionError
+_ test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-marker] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_6/home/repo'), opt=PosixPa...repair01_pending_install_6/home/assets', 'GIT_TERMINAL_PROMPT': '0'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+substitution = 'marker'
+
+    @pytest.mark.parametrize("substitution", ["member", "parent", "marker", "selector"])
+    def test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope(engine: EngineEnv, substitution: str) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("nu", layout="bundle", aliases=("nushell",))
+        engine.asset("fd")
+        upstream(engine)
+        assert_ok(command(engine, "install", "nu", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        stub = utility_stub(engine, "ln", 'if [[ "$target" == "$INSTALL_BIN_DIR/nu" && ! -e "$HOME/crashed" ]]; then\n "$actual" "$@" || exit $?\n printf once >"$HOME/crashed"\n kill -KILL "$PPID"\n exit 0\nfi\n')
+        assert command(engine, "install", "nu", "--yes").returncode != 0
+        stub.unlink()
+        assert_ok(engine.private('ms_state_load\nms_journal_active\n[[ "$MS_BATCH_COMMAND" == install && "$MS_BATCH_PHASE" == tools ]]\nms_row_find item "$MS_BATCH" nu\n[[ "${MS_ROWS[MS_INDEX+3]}" == running ]]\nif ms_member_has nu; then exit 91; fi\n'))
+        root = (engine.bin / "nu").readlink().parent.parent
+        outside = Path(engine.env["HOME"]) / "foreign"
+        outside.mkdir()
+        (outside / "nu").write_text("foreign payload")
+        if substitution == "member":
+            (root / "bin/nu").unlink()
+            (root / "bin/nu").symlink_to(outside / "nu")
+        elif substitution == "parent":
+            (root / "bin/nu").unlink()
+            (root / "bin").rmdir()
+            (root / "bin").symlink_to(outside, target_is_directory=True)
+        elif substitution == "marker":
+            marker = root / ".remote-ssh-release"
+            marker.rename(outside / "marker")
+            marker.symlink_to(outside / "marker")
+        else:
+            (engine.bin / "nu").unlink()
+            (engine.bin / "nu").symlink_to(outside / "nu")
+        before = repair_snapshot(engine)
+        for args in [("install", "fd", "--yes"), ("update",)]:
+            result = command(engine, *args)
+            assert result.returncode == 1
+>           assert repair_snapshot(engine) == before
+E           AssertionError: assert {'/private/tm...61, b''), ...} == {'/private/tm...61, b''), ...}
+E             
+E             Omitting 1175 identical items, use -vv to show
+E             Differing items:
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_6/home/opt/.remote-ssh-lock': (16832, 1794343477223706385, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_6/home/opt/.remote-ssh-lock': (16832, 1794343474907784809, b'')}
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_6/home/install-bin/.remote-ssh-lock': (16832, 1794343477233135790, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_6/home/install-bin/.remote-ssh-lock': (16832, 1794343474850777501, b'')}
+E             Use -v to get more diff
+
+tests/test_managed_public_faults.py:317: AssertionError
+_ test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-selector] _
+
+engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_7/home/repo'), opt=PosixPa...repair01_pending_install_7/home/assets', 'GIT_TERMINAL_PROMPT': '0'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+substitution = 'selector'
+
+    @pytest.mark.parametrize("substitution", ["member", "parent", "marker", "selector"])
+    def test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope(engine: EngineEnv, substitution: str) -> None:
+        from test_managed_uninstall import repair_snapshot
+    
+        engine.asset("nu", layout="bundle", aliases=("nushell",))
+        engine.asset("fd")
+        upstream(engine)
+        assert_ok(command(engine, "install", "nu", "--yes"))
+        assert_ok(command(engine, "uninstall", "nu", "--yes"))
+        stub = utility_stub(engine, "ln", 'if [[ "$target" == "$INSTALL_BIN_DIR/nu" && ! -e "$HOME/crashed" ]]; then\n "$actual" "$@" || exit $?\n printf once >"$HOME/crashed"\n kill -KILL "$PPID"\n exit 0\nfi\n')
+        assert command(engine, "install", "nu", "--yes").returncode != 0
+        stub.unlink()
+        assert_ok(engine.private('ms_state_load\nms_journal_active\n[[ "$MS_BATCH_COMMAND" == install && "$MS_BATCH_PHASE" == tools ]]\nms_row_find item "$MS_BATCH" nu\n[[ "${MS_ROWS[MS_INDEX+3]}" == running ]]\nif ms_member_has nu; then exit 91; fi\n'))
+        root = (engine.bin / "nu").readlink().parent.parent
+        outside = Path(engine.env["HOME"]) / "foreign"
+        outside.mkdir()
+        (outside / "nu").write_text("foreign payload")
+        if substitution == "member":
+            (root / "bin/nu").unlink()
+            (root / "bin/nu").symlink_to(outside / "nu")
+        elif substitution == "parent":
+            (root / "bin/nu").unlink()
+            (root / "bin").rmdir()
+            (root / "bin").symlink_to(outside, target_is_directory=True)
+        elif substitution == "marker":
+            marker = root / ".remote-ssh-release"
+            marker.rename(outside / "marker")
+            marker.symlink_to(outside / "marker")
+        else:
+            (engine.bin / "nu").unlink()
+            (engine.bin / "nu").symlink_to(outside / "nu")
+        before = repair_snapshot(engine)
+        for args in [("install", "fd", "--yes"), ("update",)]:
+            result = command(engine, *args)
+            assert result.returncode == 1
+>           assert repair_snapshot(engine) == before
+E           AssertionError: assert {'/private/tm...52, b''), ...} == {'/private/tm...52, b''), ...}
+E             
+E             Omitting 1174 identical items, use -vv to show
+E             Differing items:
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_7/home/install-bin/.remote-ssh-lock': (16832, 1794343486952242258, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_7/home/install-bin/.remote-ssh-lock': (16832, 1794343484547651648, b'')}
+E             {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_7/home/opt/.remote-ssh-lock': (16832, 1794343486943377562, b'')} != {'/private/tmp/pytest-of-fm/pytest-19/test_repair01_pending_install_7/home/opt/.remote-ssh-lock': (16832, 1794343484602833241, b'')}
+E             Use -v to get more diff
+
+tests/test_managed_public_faults.py:317: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_managed_uninstall.py::test_repair01_repeat_completed_uninstall_is_readonly_then_unrelated_update[/bin/bash]
+FAILED tests/test_managed_uninstall.py::test_repair01_repeat_completed_uninstall_is_readonly_then_unrelated_update[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]
+FAILED tests/test_managed_uninstall.py::test_repair01_mixed_terminal_and_managed_uninstall_keeps_full_preflight[/bin/bash-False]
+FAILED tests/test_managed_uninstall.py::test_repair01_mixed_terminal_and_managed_uninstall_keeps_full_preflight[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False]
+FAILED tests/test_managed_uninstall.py::test_repair01_live_inactive_release_after_terminal_uninstall_is_removed[/bin/bash]
+FAILED tests/test_managed_uninstall.py::test_repair01_live_inactive_release_after_terminal_uninstall_is_removed[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]
+FAILED tests/test_managed_uninstall.py::test_repair01_terminal_custom_selector_history_does_not_block_explicit_install[/bin/bash]
+FAILED tests/test_managed_uninstall.py::test_repair01_terminal_custom_selector_history_does_not_block_explicit_install[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]
+FAILED tests/test_managed_reports.py::test_repair01_terminal_uninstall_reports_available_and_explicit_missing_readonly[/bin/bash-False]
+FAILED tests/test_managed_reports.py::test_repair01_terminal_uninstall_reports_available_and_explicit_missing_readonly[/bin/bash-True]
+FAILED tests/test_managed_reports.py::test_repair01_terminal_uninstall_reports_available_and_explicit_missing_readonly[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False]
+FAILED tests/test_managed_reports.py::test_repair01_terminal_uninstall_reports_available_and_explicit_missing_readonly[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True]
+FAILED tests/test_managed_reports.py::test_repair01_terminal_classification_is_per_tool[/bin/bash-missing]
+FAILED tests/test_managed_reports.py::test_repair01_terminal_classification_is_per_tool[/bin/bash-broken]
+FAILED tests/test_managed_reports.py::test_repair01_terminal_classification_is_per_tool[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-missing]
+FAILED tests/test_managed_reports.py::test_repair01_terminal_classification_is_per_tool[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-broken]
+FAILED tests/test_managed_public_faults.py::test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/bin/bash-member]
+FAILED tests/test_managed_public_faults.py::test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/bin/bash-parent]
+FAILED tests/test_managed_public_faults.py::test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/bin/bash-marker]
+FAILED tests/test_managed_public_faults.py::test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/bin/bash-selector]
+FAILED tests/test_managed_public_faults.py::test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-member]
+FAILED tests/test_managed_public_faults.py::test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-parent]
+FAILED tests/test_managed_public_faults.py::test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-marker]
+FAILED tests/test_managed_public_faults.py::test_repair01_pending_install_overrides_terminal_history_and_protects_foreign_scope[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-selector]
+24 failed, 4 passed, 86 deselected in 237.94s (0:03:57)

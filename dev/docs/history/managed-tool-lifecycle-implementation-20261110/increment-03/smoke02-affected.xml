@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="191" time="709.562" timestamp="2026-11-10T19:03:56.844170+00:00" hostname="MacBook-Pro-Maciej.local"><testcase classname="tests.test_post_install" name="test_post_install_prints_short_guide_hint" time="0.031" /><testcase classname="tests.test_post_install" name="test_post_install_renderer_renders_split_templates_in_order" time="0.053" /><testcase classname="tests.test_post_install" name="test_footer_and_guide_commands_execute_without_path[/bin/bash-False]" time="3.604" /><testcase classname="tests.test_post_install" name="test_footer_and_guide_commands_execute_without_path[/bin/bash-True]" time="3.480" /><testcase classname="tests.test_post_install" name="test_footer_and_guide_commands_execute_without_path[/bin/bash-alias]" time="3.609" /><testcase classname="tests.test_post_install" name="test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False]" time="3.504" /><testcase classname="tests.test_post_install" name="test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True]" time="3.454" /><testcase classname="tests.test_post_install" name="test_footer_and_guide_commands_execute_without_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-alias]" time="3.509" /><testcase classname="tests.test_runme" name="test_runme_uses_default_tool_selection" time="0.093" /><testcase classname="tests.test_runme" name="test_runme_uses_argument_tool_selection" time="0.034" /><testcase classname="tests.test_runme" name="test_runme_forwards_yes_verbatim" time="0.040" /><testcase classname="tests.test_runme" name="test_runme_forwards_yes_to_argument_tool_selection" time="0.046" /><testcase classname="tests.test_runme" name="test_runme_forwards_full_install" time="0.033" /><testcase classname="tests.test_runme" name="test_runme_forwards_profile_install" time="0.034" /><testcase classname="tests.test_runme" name="test_runme_updates_existing_checkout_by_default" time="0.035" /><testcase classname="tests.test_runme" name="test_runme_checks_out_requested_ref" time="0.023" /><testcase classname="tests.test_runme" name="test_runme_stops_before_install_after_git_failure[FETCH]" time="0.017" /><testcase classname="tests.test_runme" name="test_runme_stops_before_install_after_git_failure[RESET]" time="0.022" /><testcase classname="tests.test_runme" name="test_runme_real_install_then_fresh_ordinary_shell[/bin/bash-False]" time="2.596"><failure message="AssertionError: assert {'.remote-ssh... 'remote-ssh'} == {'demo', 'remote-ssh'}&#10;  &#10;  Extra items in the left set:&#10;  '.remote-ssh-lock'&#10;  Use -v to get more diff">repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/tmp/pytest-of-fm/pytest-12/test_runme_real_install_then_f0/home'), bin_dir=PosixP....local/opt', 'INSTALL_BIN_DIR': '/private/tmp/pytest-of-fm/pytest-12/test_runme_real_install_then_f0/home/.local/bin'})
+runtime_bash = '/bin/bash', path_present = False
+
+    @pytest.mark.parametrize("path_present", [False, True])
+    def test_runme_real_install_then_fresh_ordinary_shell(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool
+    ) -&gt; None:
+        # The older fixtures intentionally test forwarding only. This fixture keeps
+        # the real dispatcher, install facade, tools and rcfile, replacing Git
+        # transport with a local copy and leaving observable fail-fast network stubs.
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env.pop("INSTALL_BIN_DIR")
+        c.bin = c.home / ".local/bin"
+        c.bin.mkdir(parents=True)
+        (c.bin / "demo").symlink_to(c.home / "opt/demo-1/demo")
+        c.env["CANDIDATE_TREE"] = str(c.root)
+        c.env["GIT_LOG"] = str(c.home / "git.log")
+        if path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        write_executable(
+            c.transport / "git",
+            """#!/bin/sh
+    printf '%s\n' "$*" &gt;&gt; "$GIT_LOG"
+    if [ "$1" = clone ]; then
+      /bin/cp -R "$CANDIDATE_TREE" "$5" || exit $?
+      /bin/mkdir "$5/.git"
+      exit $?
+    fi
+    if [ "$1" = -C ]; then shift 2; fi
+    case "$1" in
+    rev-parse) printf 'origin/main\n';;
+    fetch|reset|ls-files) :;;
+    *) exit 98;;
+    esac
+    """,
+        )
+        startup = {p: p.read_bytes() for p in c.home.glob(".*") if p.is_file()}
+        for iteration in range(2):
+            result = c.shell([runtime_bash, repo_dir / "runme.sh", "--yes", "demo"])
+            assert_ok(result)
+            installed_tree = c.home / ".local/share/remote-ssh"
+            assert c.command.readlink() == installed_tree / "bin/remote-ssh"
+            assert not c.expected.exists()
+            managed = c.shell([runtime_bash, c.command, "list", "--installed"])
+            assert_ok(managed)
+            assert any(line.split()[0] == "demo" for line in managed.stdout.splitlines())
+            assert c.command.is_symlink()
+&gt;           assert set(p.name for p in c.bin.iterdir()) == {"demo", "remote-ssh"}
+E           AssertionError: assert {'.remote-ssh... 'remote-ssh'} == {'demo', 'remote-ssh'}
+E             
+E             Extra items in the left set:
+E             '.remote-ssh-lock'
+E             Use -v to get more diff
+
+tests/test_runme.py:229: AssertionError</failure></testcase><testcase classname="tests.test_runme" name="test_runme_real_install_then_fresh_ordinary_shell[/bin/bash-True]" time="2.668"><failure message="AssertionError: assert {'.remote-ssh... 'remote-ssh'} == {'demo', 'remote-ssh'}&#10;  &#10;  Extra items in the left set:&#10;  '.remote-ssh-lock'&#10;  Use -v to get more diff">repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/tmp/pytest-of-fm/pytest-12/test_runme_real_install_then_f1/home'), bin_dir=PosixP....local/opt', 'INSTALL_BIN_DIR': '/private/tmp/pytest-of-fm/pytest-12/test_runme_real_install_then_f1/home/.local/bin'})
+runtime_bash = '/bin/bash', path_present = True
+
+    @pytest.mark.parametrize("path_present", [False, True])
+    def test_runme_real_install_then_fresh_ordinary_shell(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool
+    ) -&gt; None:
+        # The older fixtures intentionally test forwarding only. This fixture keeps
+        # the real dispatcher, install facade, tools and rcfile, replacing Git
+        # transport with a local copy and leaving observable fail-fast network stubs.
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env.pop("INSTALL_BIN_DIR")
+        c.bin = c.home / ".local/bin"
+        c.bin.mkdir(parents=True)
+        (c.bin / "demo").symlink_to(c.home / "opt/demo-1/demo")
+        c.env["CANDIDATE_TREE"] = str(c.root)
+        c.env["GIT_LOG"] = str(c.home / "git.log")
+        if path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        write_executable(
+            c.transport / "git",
+            """#!/bin/sh
+    printf '%s\n' "$*" &gt;&gt; "$GIT_LOG"
+    if [ "$1" = clone ]; then
+      /bin/cp -R "$CANDIDATE_TREE" "$5" || exit $?
+      /bin/mkdir "$5/.git"
+      exit $?
+    fi
+    if [ "$1" = -C ]; then shift 2; fi
+    case "$1" in
+    rev-parse) printf 'origin/main\n';;
+    fetch|reset|ls-files) :;;
+    *) exit 98;;
+    esac
+    """,
+        )
+        startup = {p: p.read_bytes() for p in c.home.glob(".*") if p.is_file()}
+        for iteration in range(2):
+            result = c.shell([runtime_bash, repo_dir / "runme.sh", "--yes", "demo"])
+            assert_ok(result)
+            installed_tree = c.home / ".local/share/remote-ssh"
+            assert c.command.readlink() == installed_tree / "bin/remote-ssh"
+            assert not c.expected.exists()
+            managed = c.shell([runtime_bash, c.command, "list", "--installed"])
+            assert_ok(managed)
+            assert any(line.split()[0] == "demo" for line in managed.stdout.splitlines())
+            assert c.command.is_symlink()
+&gt;           assert set(p.name for p in c.bin.iterdir()) == {"demo", "remote-ssh"}
+E           AssertionError: assert {'.remote-ssh... 'remote-ssh'} == {'demo', 'remote-ssh'}
+E             
+E             Extra items in the left set:
+E             '.remote-ssh-lock'
+E             Use -v to get more diff
+
+tests/test_runme.py:229: AssertionError</failure></testcase><testcase classname="tests.test_runme" name="test_runme_real_install_then_fresh_ordinary_shell[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False]" time="3.011"><failure message="AssertionError: assert {'.remote-ssh... 'remote-ssh'} == {'demo', 'remote-ssh'}&#10;  &#10;  Extra items in the left set:&#10;  '.remote-ssh-lock'&#10;  Use -v to get more diff">repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/tmp/pytest-of-fm/pytest-12/test_runme_real_install_then_f2/home'), bin_dir=PosixP....local/opt', 'INSTALL_BIN_DIR': '/private/tmp/pytest-of-fm/pytest-12/test_runme_real_install_then_f2/home/.local/bin'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', path_present = False
+
+    @pytest.mark.parametrize("path_present", [False, True])
+    def test_runme_real_install_then_fresh_ordinary_shell(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool
+    ) -&gt; None:
+        # The older fixtures intentionally test forwarding only. This fixture keeps
+        # the real dispatcher, install facade, tools and rcfile, replacing Git
+        # transport with a local copy and leaving observable fail-fast network stubs.
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env.pop("INSTALL_BIN_DIR")
+        c.bin = c.home / ".local/bin"
+        c.bin.mkdir(parents=True)
+        (c.bin / "demo").symlink_to(c.home / "opt/demo-1/demo")
+        c.env["CANDIDATE_TREE"] = str(c.root)
+        c.env["GIT_LOG"] = str(c.home / "git.log")
+        if path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        write_executable(
+            c.transport / "git",
+            """#!/bin/sh
+    printf '%s\n' "$*" &gt;&gt; "$GIT_LOG"
+    if [ "$1" = clone ]; then
+      /bin/cp -R "$CANDIDATE_TREE" "$5" || exit $?
+      /bin/mkdir "$5/.git"
+      exit $?
+    fi
+    if [ "$1" = -C ]; then shift 2; fi
+    case "$1" in
+    rev-parse) printf 'origin/main\n';;
+    fetch|reset|ls-files) :;;
+    *) exit 98;;
+    esac
+    """,
+        )
+        startup = {p: p.read_bytes() for p in c.home.glob(".*") if p.is_file()}
+        for iteration in range(2):
+            result = c.shell([runtime_bash, repo_dir / "runme.sh", "--yes", "demo"])
+            assert_ok(result)
+            installed_tree = c.home / ".local/share/remote-ssh"
+            assert c.command.readlink() == installed_tree / "bin/remote-ssh"
+            assert not c.expected.exists()
+            managed = c.shell([runtime_bash, c.command, "list", "--installed"])
+            assert_ok(managed)
+            assert any(line.split()[0] == "demo" for line in managed.stdout.splitlines())
+            assert c.command.is_symlink()
+&gt;           assert set(p.name for p in c.bin.iterdir()) == {"demo", "remote-ssh"}
+E           AssertionError: assert {'.remote-ssh... 'remote-ssh'} == {'demo', 'remote-ssh'}
+E             
+E             Extra items in the left set:
+E             '.remote-ssh-lock'
+E             Use -v to get more diff
+
+tests/test_runme.py:229: AssertionError</failure></testcase><testcase classname="tests.test_runme" name="test_runme_real_install_then_fresh_ordinary_shell[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True]" time="2.921"><failure message="AssertionError: assert {'.remote-ssh... 'remote-ssh'} == {'demo', 'remote-ssh'}&#10;  &#10;  Extra items in the left set:&#10;  '.remote-ssh-lock'&#10;  Use -v to get more diff">repo_dir = PosixPath('/Users/fm/Programming/00_Other/remote-ssh')
+isolated_env = IsolatedEnv(home=PosixPath('/private/tmp/pytest-of-fm/pytest-12/test_runme_real_install_then_f3/home'), bin_dir=PosixP....local/opt', 'INSTALL_BIN_DIR': '/private/tmp/pytest-of-fm/pytest-12/test_runme_real_install_then_f3/home/.local/bin'})
+runtime_bash = '/opt/homebrew/Cellar/bash/5.3.20/bin/bash', path_present = True
+
+    @pytest.mark.parametrize("path_present", [False, True])
+    def test_runme_real_install_then_fresh_ordinary_shell(
+        repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, path_present: bool
+    ) -&gt; None:
+        # The older fixtures intentionally test forwarding only. This fixture keeps
+        # the real dispatcher, install facade, tools and rcfile, replacing Git
+        # transport with a local copy and leaving observable fail-fast network stubs.
+        c = prepare_cli_install(repo_dir, isolated_env, runtime_bash)
+        c.env.pop("INSTALL_BIN_DIR")
+        c.bin = c.home / ".local/bin"
+        c.bin.mkdir(parents=True)
+        (c.bin / "demo").symlink_to(c.home / "opt/demo-1/demo")
+        c.env["CANDIDATE_TREE"] = str(c.root)
+        c.env["GIT_LOG"] = str(c.home / "git.log")
+        if path_present:
+            c.env["PATH"] = f"{c.bin}:{c.env['PATH']}"
+        write_executable(
+            c.transport / "git",
+            """#!/bin/sh
+    printf '%s\n' "$*" &gt;&gt; "$GIT_LOG"
+    if [ "$1" = clone ]; then
+      /bin/cp -R "$CANDIDATE_TREE" "$5" || exit $?
+      /bin/mkdir "$5/.git"
+      exit $?
+    fi
+    if [ "$1" = -C ]; then shift 2; fi
+    case "$1" in
+    rev-parse) printf 'origin/main\n';;
+    fetch|reset|ls-files) :;;
+    *) exit 98;;
+    esac
+    """,
+        )
+        startup = {p: p.read_bytes() for p in c.home.glob(".*") if p.is_file()}
+        for iteration in range(2):
+            result = c.shell([runtime_bash, repo_dir / "runme.sh", "--yes", "demo"])
+            assert_ok(result)
+            installed_tree = c.home / ".local/share/remote-ssh"
+            assert c.command.readlink() == installed_tree / "bin/remote-ssh"
+            assert not c.expected.exists()
+            managed = c.shell([runtime_bash, c.command, "list", "--installed"])
+            assert_ok(managed)
+            assert any(line.split()[0] == "demo" for line in managed.stdout.splitlines())
+            assert c.command.is_symlink()
+&gt;           assert set(p.name for p in c.bin.iterdir()) == {"demo", "remote-ssh"}
+E           AssertionError: assert {'.remote-ssh... 'remote-ssh'} == {'demo', 'remote-ssh'}
+E             
+E             Extra items in the left set:
+E             '.remote-ssh-lock'
+E             Use -v to get more diff
+
+tests/test_runme.py:229: AssertionError</failure></testcase><testcase classname="tests.test_shell_command" name="test_dispatch_exact_argv_cwd_and_status[/bin/bash]" time="0.273" /><testcase classname="tests.test_shell_command" name="test_dispatch_exact_argv_cwd_and_status[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="0.252" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args0]" time="0.376" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args1]" time="0.358" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args2]" time="0.330" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args3]" time="0.304" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args4]" time="0.309" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args5]" time="0.299" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args6]" time="0.327" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args7]" time="0.303" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args8]" time="0.293" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args9]" time="0.307" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args10]" time="0.320" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args11]" time="0.349" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args12]" time="0.350" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args13]" time="0.364" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/bin/bash-args14]" time="0.316" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args0]" time="0.337" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args1]" time="0.319" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args2]" time="0.278" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args3]" time="0.291" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args4]" time="0.291" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args5]" time="0.287" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args6]" time="0.272" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args7]" time="0.278" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args8]" time="0.285" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args9]" time="0.272" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args10]" time="0.280" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args11]" time="0.269" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args12]" time="0.291" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args13]" time="0.275" /><testcase classname="tests.test_shell_command" name="test_help_and_argument_boundary[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args14]" time="0.306" /><testcase classname="tests.test_shell_command" name="test_installed_no_tty_matches_manual_and_bare_path[/bin/bash-0]" time="2.659" /><testcase classname="tests.test_shell_command" name="test_installed_no_tty_matches_manual_and_bare_path[/bin/bash-23]" time="2.684" /><testcase classname="tests.test_shell_command" name="test_installed_no_tty_matches_manual_and_bare_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-0]" time="2.711" /><testcase classname="tests.test_shell_command" name="test_installed_no_tty_matches_manual_and_bare_path[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-23]" time="2.622" /><testcase classname="tests.test_shell_command" name="test_effective_checkout_override[/bin/bash]" time="2.674" /><testcase classname="tests.test_shell_command" name="test_effective_checkout_override[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="2.625" /><testcase classname="tests.test_shell_command" name="test_preflight_failures[/bin/bash-missing]" time="0.245" /><testcase classname="tests.test_shell_command" name="test_preflight_failures[/bin/bash-directory]" time="0.232" /><testcase classname="tests.test_shell_command" name="test_preflight_failures[/bin/bash-unreadable]" time="0.233" /><testcase classname="tests.test_shell_command" name="test_preflight_failures[/bin/bash-bash]" time="0.191" /><testcase classname="tests.test_shell_command" name="test_preflight_failures[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-missing]" time="0.211" /><testcase classname="tests.test_shell_command" name="test_preflight_failures[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-directory]" time="0.225" /><testcase classname="tests.test_shell_command" name="test_preflight_failures[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-unreadable]" time="0.215" /><testcase classname="tests.test_shell_command" name="test_preflight_failures[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-bash]" time="0.182" /><testcase classname="tests.test_shell_command" name="test_pty_parent_return_nested_ctrl_c[/bin/bash-bash]" time="2.753" /><testcase classname="tests.test_shell_command" name="test_pty_parent_return_nested_ctrl_c[/bin/bash-zsh]" time="2.641" /><testcase classname="tests.test_shell_command" name="test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-bash]" time="2.649" /><testcase classname="tests.test_shell_command" name="test_pty_parent_return_nested_ctrl_c[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-zsh]" time="2.640" /><testcase classname="tests.test_shell_command" name="test_pty_cleanup_covers_job_control_groups[/bin/bash]" time="3.730" /><testcase classname="tests.test_shell_command" name="test_pty_cleanup_covers_job_control_groups[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="3.693" /><testcase classname="tests.test_shell_command" name="test_exec_pid_and_native_signal[/bin/bash]" time="2.438" /><testcase classname="tests.test_shell_command" name="test_exec_pid_and_native_signal[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="2.367" /><testcase classname="tests.test_shell_command" name="test_preinstall_guide_is_copyable_in_bash_and_zsh[/bin/bash]" time="0.973" /><testcase classname="tests.test_shell_command" name="test_preinstall_guide_is_copyable_in_bash_and_zsh[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="0.869" /><testcase classname="tests.test_release_ownership" name="test_removal_preserves_unowned_or_invalid_releases[command0]" time="0.326" /><testcase classname="tests.test_release_ownership" name="test_removal_preserves_unowned_or_invalid_releases[command1]" time="0.249" /><testcase classname="tests.test_release_ownership" name="test_prune_protects_entire_nested_release_via_alias" time="0.455" /><testcase classname="tests.test_release_ownership" name="test_uninstall_preserves_same_prefix_foreign_symlink" time="0.229" /><testcase classname="tests.test_release_ownership" name="test_ownership_record_cannot_adopt_external_paths_or_execute_code[marker-link]" time="0.312" /><testcase classname="tests.test_release_ownership" name="test_ownership_record_cannot_adopt_external_paths_or_execute_code[parent-link]" time="0.332" /><testcase classname="tests.test_release_ownership" name="test_ownership_record_cannot_adopt_external_paths_or_execute_code[literal-code]" time="0.296" /><testcase classname="tests.test_release_ownership" name="test_removal_protects_malformed_release_suffix[/bin/bash-123x-456-command0]" time="0.337" /><testcase classname="tests.test_release_ownership" name="test_removal_protects_malformed_release_suffix[/bin/bash-123x-456-command1]" time="0.282" /><testcase classname="tests.test_release_ownership" name="test_removal_protects_malformed_release_suffix[/bin/bash-123-456x-command0]" time="0.314" /><testcase classname="tests.test_release_ownership" name="test_removal_protects_malformed_release_suffix[/bin/bash-123-456x-command1]" time="0.272" /><testcase classname="tests.test_release_ownership" name="test_removal_protects_malformed_release_suffix[/bin/bash-123-456-7-command0]" time="0.334" /><testcase classname="tests.test_release_ownership" name="test_removal_protects_malformed_release_suffix[/bin/bash-123-456-7-command1]" time="0.276" /><testcase classname="tests.test_release_ownership" name="test_removal_protects_malformed_release_suffix[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-123x-456-command0]" time="0.302" /><testcase classname="tests.test_release_ownership" name="test_removal_protects_malformed_release_suffix[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-123x-456-command1]" time="0.240" /><testcase classname="tests.test_release_ownership" name="test_removal_protects_malformed_release_suffix[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-123-456x-command0]" time="0.305" /><testcase classname="tests.test_release_ownership" name="test_removal_protects_malformed_release_suffix[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-123-456x-command1]" time="0.227" /><testcase classname="tests.test_release_ownership" name="test_removal_protects_malformed_release_suffix[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-123-456-7-command0]" time="0.296" /><testcase classname="tests.test_release_ownership" name="test_removal_protects_malformed_release_suffix[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-123-456-7-command1]" time="0.229" /><testcase classname="tests.test_managed_install_engine" name="test_private_engine_real_staging_additive_reuse_and_alias_health[/bin/bash]" time="10.577" /><testcase classname="tests.test_managed_install_engine" name="test_private_engine_real_staging_additive_reuse_and_alias_health[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="9.709" /><testcase classname="tests.test_managed_install_engine" name="test_private_bundle_manifest_and_required_data_repaired[/bin/bash]" time="5.323" /><testcase classname="tests.test_managed_install_engine" name="test_private_bundle_manifest_and_required_data_repaired[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="4.927" /><testcase classname="tests.test_managed_install_engine" name="test_private_engine_checksum_failure_keeps_previous_member_and_not_run_tail[/bin/bash]" time="4.359" /><testcase classname="tests.test_managed_install_engine" name="test_private_engine_checksum_failure_keeps_previous_member_and_not_run_tail[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="3.969" /><testcase classname="tests.test_managed_install_engine" name="test_private_library_install_uses_qualified_probe_and_absolute_active_link[/bin/bash]" time="2.722" /><testcase classname="tests.test_managed_install_engine" name="test_private_library_install_uses_qualified_probe_and_absolute_active_link[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="2.471" /><testcase classname="tests.test_managed_install_engine" name="test_shared_fixture_excludes_synthetic_private_config_without_reading_it[/bin/bash]" time="0.627" /><testcase classname="tests.test_managed_install_engine" name="test_shared_fixture_excludes_synthetic_private_config_without_reading_it[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="0.387" /><testcase classname="tests.test_managed_update" name="test_update_executes_fresh_engine_and_preserves_untracked_files[/bin/bash]" time="8.598" /><testcase classname="tests.test_managed_update" name="test_update_executes_fresh_engine_and_preserves_untracked_files[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="8.826" /><testcase classname="tests.test_managed_update" name="test_empty_managed_set_updates_only_project_without_profile_install[/bin/bash]" time="3.833" /><testcase classname="tests.test_managed_update" name="test_empty_managed_set_updates_only_project_without_profile_install[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="3.808" /><testcase classname="tests.test_managed_update" name="test_uninstalled_tool_is_not_resurrected_by_unrelated_install_then_update[/bin/bash]" time="16.210" /><testcase classname="tests.test_managed_update" name="test_uninstalled_tool_is_not_resurrected_by_unrelated_install_then_update[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="15.758" /><testcase classname="tests.test_managed_update" name="test_first_update_adopts_six_layouts_before_retiring_rg_in_fresh_checkout[/bin/bash]" time="11.626" /><testcase classname="tests.test_managed_update" name="test_first_update_adopts_six_layouts_before_retiring_rg_in_fresh_checkout[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="11.455" /><testcase classname="tests.test_managed_update" name="test_update_preserves_untracked_obstruction_before_reset[/bin/bash]" time="9.731" /><testcase classname="tests.test_managed_update" name="test_update_preserves_untracked_obstruction_before_reset[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="9.169" /><testcase classname="tests.test_managed_update" name="test_checkout_reset_never_overwrites_managed_data_inside_checkout[/bin/bash-metadata]" time="5.423" /><testcase classname="tests.test_managed_update" name="test_checkout_reset_never_overwrites_managed_data_inside_checkout[/bin/bash-payload]" time="5.219" /><testcase classname="tests.test_managed_update" name="test_checkout_reset_never_overwrites_managed_data_inside_checkout[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-metadata]" time="5.276" /><testcase classname="tests.test_managed_update" name="test_checkout_reset_never_overwrites_managed_data_inside_checkout[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-payload]" time="5.233" /><testcase classname="tests.test_managed_update" name="test_update_rejects_extra_arguments_before_state_or_git[/bin/bash-args0]" time="0.240" /><testcase classname="tests.test_managed_update" name="test_update_rejects_extra_arguments_before_state_or_git[/bin/bash-args1]" time="0.240" /><testcase classname="tests.test_managed_update" name="test_update_rejects_extra_arguments_before_state_or_git[/bin/bash-args2]" time="0.220" /><testcase classname="tests.test_managed_update" name="test_update_rejects_extra_arguments_before_state_or_git[/bin/bash-args3]" time="0.222" /><testcase classname="tests.test_managed_update" name="test_update_rejects_extra_arguments_before_state_or_git[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args0]" time="0.236" /><testcase classname="tests.test_managed_update" name="test_update_rejects_extra_arguments_before_state_or_git[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args1]" time="0.211" /><testcase classname="tests.test_managed_update" name="test_update_rejects_extra_arguments_before_state_or_git[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args2]" time="0.232" /><testcase classname="tests.test_managed_update" name="test_update_rejects_extra_arguments_before_state_or_git[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args3]" time="0.216" /><testcase classname="tests.test_managed_update" name="test_update_keeps_native_git_maintenance_and_fsmonitor_inside_operation[/bin/bash]" time="3.814" /><testcase classname="tests.test_managed_update" name="test_update_keeps_native_git_maintenance_and_fsmonitor_inside_operation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="3.909" /><testcase classname="tests.test_managed_public_faults" name="test_public_alias_crash_records_only_actual_completed_members[/bin/bash-KILL-False]" time="14.147" /><testcase classname="tests.test_managed_public_faults" name="test_public_alias_crash_records_only_actual_completed_members[/bin/bash-KILL-True]" time="19.004" /><testcase classname="tests.test_managed_public_faults" name="test_public_alias_crash_records_only_actual_completed_members[/bin/bash-TERM-False]" time="15.607" /><testcase classname="tests.test_managed_public_faults" name="test_public_alias_crash_records_only_actual_completed_members[/bin/bash-TERM-True]" time="19.527" /><testcase classname="tests.test_managed_public_faults" name="test_public_alias_crash_records_only_actual_completed_members[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-KILL-False]" time="14.063" /><testcase classname="tests.test_managed_public_faults" name="test_public_alias_crash_records_only_actual_completed_members[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-KILL-True]" time="18.967" /><testcase classname="tests.test_managed_public_faults" name="test_public_alias_crash_records_only_actual_completed_members[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-TERM-False]" time="13.819" /><testcase classname="tests.test_managed_public_faults" name="test_public_alias_crash_records_only_actual_completed_members[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-TERM-True]" time="18.522" /><testcase classname="tests.test_managed_public_faults" name="test_public_sigkill_recursive_remove_then_unrelated_install_and_update[/bin/bash-False]" time="16.392" /><testcase classname="tests.test_managed_public_faults" name="test_public_sigkill_recursive_remove_then_unrelated_install_and_update[/bin/bash-True]" time="19.797" /><testcase classname="tests.test_managed_public_faults" name="test_public_sigkill_recursive_remove_then_unrelated_install_and_update[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-False]" time="15.975" /><testcase classname="tests.test_managed_public_faults" name="test_public_sigkill_recursive_remove_then_unrelated_install_and_update[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-True]" time="19.019" /><testcase classname="tests.test_managed_public_faults" name="test_unlink_failure_retains_member_and_update_repairs_it[/bin/bash]" time="11.545" /><testcase classname="tests.test_managed_public_faults" name="test_unlink_failure_retains_member_and_update_repairs_it[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="11.496" /><testcase classname="tests.test_managed_public_faults" name="test_final_state_rename_failure_recovers_completed_install[/bin/bash]" time="7.737" /><testcase classname="tests.test_managed_public_faults" name="test_final_state_rename_failure_recovers_completed_install[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="8.017" /><testcase classname="tests.test_managed_public_faults" name="test_git_failure_preserves_exit_code_and_managed_set[/bin/bash-fetch]" time="9.185" /><testcase classname="tests.test_managed_public_faults" name="test_git_failure_preserves_exit_code_and_managed_set[/bin/bash-reset]" time="10.233" /><testcase classname="tests.test_managed_public_faults" name="test_git_failure_preserves_exit_code_and_managed_set[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-fetch]" time="9.306" /><testcase classname="tests.test_managed_public_faults" name="test_git_failure_preserves_exit_code_and_managed_set[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-reset]" time="10.403" /><testcase classname="tests.test_managed_public_faults" name="test_sigkill_after_real_reset_is_recovered_before_unrelated_install[/bin/bash]" time="15.072" /><testcase classname="tests.test_managed_public_faults" name="test_sigkill_after_real_reset_is_recovered_before_unrelated_install[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="15.063" /><testcase classname="tests.test_managed_public_faults" name="test_pair_and_xdg_isolation_across_update_and_uninstall[/bin/bash]" time="16.546" /><testcase classname="tests.test_managed_public_faults" name="test_pair_and_xdg_isolation_across_update_and_uninstall[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="16.584" /><testcase classname="tests.test_managed_public_faults" name="test_sigkill_after_reuse_goal_preserves_actual_new_member[/bin/bash]" time="7.464" /><testcase classname="tests.test_managed_public_faults" name="test_sigkill_after_reuse_goal_preserves_actual_new_member[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="7.479" /><testcase classname="tests.test_managed_public_faults" name="test_two_public_installers_keep_both_members_without_shared_publication[/bin/bash]" time="5.856" /><testcase classname="tests.test_managed_public_faults" name="test_two_public_installers_keep_both_members_without_shared_publication[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="5.778" /><testcase classname="tests.test_managed_reports" name="test_list_empty_filters_alphabetic_alias_and_readonly[/bin/bash]" time="5.075" /><testcase classname="tests.test_managed_reports" name="test_list_empty_filters_alphabetic_alias_and_readonly[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="4.965" /><testcase classname="tests.test_managed_reports" name="test_check_empty_ignores_expected_only_and_fzf_hint_is_informational[/bin/bash]" time="0.685" /><testcase classname="tests.test_managed_reports" name="test_check_empty_ignores_expected_only_and_fzf_hint_is_informational[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="0.515" /><testcase classname="tests.test_managed_reports" name="test_check_healthy_alias_stale_missing_shadow_and_external[/bin/bash]" time="11.952" /><testcase classname="tests.test_managed_reports" name="test_check_healthy_alias_stale_missing_shadow_and_external[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="11.772" /><testcase classname="tests.test_managed_reports" name="test_retired_and_unsupported_members_remain_in_both_reports[/bin/bash]" time="5.841" /><testcase classname="tests.test_managed_reports" name="test_retired_and_unsupported_members_remain_in_both_reports[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="5.918" /><testcase classname="tests.test_managed_reports" name="test_removed_and_invalid_report_inputs_do_not_initialize[/bin/bash-args0]" time="0.225" /><testcase classname="tests.test_managed_reports" name="test_removed_and_invalid_report_inputs_do_not_initialize[/bin/bash-args1]" time="0.218" /><testcase classname="tests.test_managed_reports" name="test_removed_and_invalid_report_inputs_do_not_initialize[/bin/bash-args2]" time="0.234" /><testcase classname="tests.test_managed_reports" name="test_removed_and_invalid_report_inputs_do_not_initialize[/bin/bash-args3]" time="0.239" /><testcase classname="tests.test_managed_reports" name="test_removed_and_invalid_report_inputs_do_not_initialize[/bin/bash-args4]" time="0.246" /><testcase classname="tests.test_managed_reports" name="test_removed_and_invalid_report_inputs_do_not_initialize[/bin/bash-args5]" time="0.348" /><testcase classname="tests.test_managed_reports" name="test_removed_and_invalid_report_inputs_do_not_initialize[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args0]" time="0.232" /><testcase classname="tests.test_managed_reports" name="test_removed_and_invalid_report_inputs_do_not_initialize[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args1]" time="0.228" /><testcase classname="tests.test_managed_reports" name="test_removed_and_invalid_report_inputs_do_not_initialize[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args2]" time="0.217" /><testcase classname="tests.test_managed_reports" name="test_removed_and_invalid_report_inputs_do_not_initialize[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args3]" time="0.210" /><testcase classname="tests.test_managed_reports" name="test_removed_and_invalid_report_inputs_do_not_initialize[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args4]" time="0.218" /><testcase classname="tests.test_managed_reports" name="test_removed_and_invalid_report_inputs_do_not_initialize[/opt/homebrew/Cellar/bash/5.3.20/bin/bash-args5]" time="0.350" /><testcase classname="tests.test_managed_reports" name="test_report_suppresses_rc_bash_env_and_git_fsmonitor_side_effects[/bin/bash]" time="0.705" /><testcase classname="tests.test_managed_reports" name="test_report_suppresses_rc_bash_env_and_git_fsmonitor_side_effects[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="0.651" /><testcase classname="tests.test_managed_reports" name="test_check_library_has_no_executable_path_requirement[/bin/bash]" time="0.688" /><testcase classname="tests.test_managed_reports" name="test_check_library_has_no_executable_path_requirement[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="0.644" /><testcase classname="tests.test_managed_reports" name="test_report_discards_buffer_when_writer_changes_generation[/bin/bash]" time="3.644" /><testcase classname="tests.test_managed_reports" name="test_report_discards_buffer_when_writer_changes_generation[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="3.521" /><testcase classname="tests.test_managed_reports" name="test_list_exposes_failed_and_not_run_without_forging_membership[/bin/bash]" time="5.534" /><testcase classname="tests.test_managed_reports" name="test_list_exposes_failed_and_not_run_without_forging_membership[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="5.388" /><testcase classname="tests.test_managed_reports" name="test_public_fixture_copy_uses_tracked_whitelist_and_exact_owned_additions" time="0.046" /><testcase classname="tests.test_managed_reports" name="test_isolated_fixture_excludes_ambient_credentials_and_rebinds_git_home" time="0.007" /><testcase classname="tests.test_guide" name="test_actual_root_guide_snapshot_never_requests_private_git_identity[/bin/bash]" time="0.355" /><testcase classname="tests.test_guide" name="test_actual_root_guide_snapshot_never_requests_private_git_identity[/opt/homebrew/Cellar/bash/5.3.20/bin/bash]" time="0.307" /></testsuite></testsuites>

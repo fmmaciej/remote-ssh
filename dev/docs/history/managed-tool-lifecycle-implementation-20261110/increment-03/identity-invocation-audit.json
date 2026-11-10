@@ -1,0 +1,88 @@
+{
+  "explicit_enabled_tests": [
+    {
+      "path": "test_git_session_identity.py",
+      "function": "test_git_session_identity_overrides_repo_local_config",
+      "line": 55
+    },
+    {
+      "path": "test_welcome.py",
+      "function": "test_sw_welcome_module_reports_agent_and_git_config",
+      "line": 1224
+    },
+    {
+      "path": "test_welcome.py",
+      "function": "test_git_session_identity_hook_exports_status_for_welcome",
+      "line": 1300
+    },
+    {
+      "path": "test_welcome.py",
+      "function": "test_sw_welcome_module_treats_agent_empty_as_information",
+      "line": 1325
+    },
+    {
+      "path": "test_welcome.py",
+      "function": "test_sw_welcome_module_reports_inactive_valid_git_config",
+      "line": 1377
+    },
+    {
+      "path": "test_welcome.py",
+      "function": "test_sw_welcome_module_reports_invalid_and_disabled_git_config",
+      "line": 1419
+    },
+    {
+      "path": "test_welcome.py",
+      "function": "test_sw_welcome_module_reports_unavailable_git",
+      "line": 1464
+    },
+    {
+      "path": "test_welcome.py",
+      "function": "test_sw_welcome_module_flags_empty_agent_and_missing_git_config",
+      "line": 1502
+    }
+  ],
+  "rc_functions_with_no_env_call": [
+    {
+      "path": "test_welcome.py",
+      "function": "test_welcome_runner_skips_noninteractive_shells",
+      "line": 134
+    },
+    {
+      "path": "test_rc_flow.py",
+      "function": "test_rc_loads_os_and_host_overrides",
+      "line": 68
+    },
+    {
+      "path": "test_rc_flow.py",
+      "function": "test_update_check_rc_skips_noninteractive_shells",
+      "line": 103
+    },
+    {
+      "path": "test_rc_flow.py",
+      "function": "test_update_check_rc_refreshes_cache_silently",
+      "line": 175
+    },
+    {
+      "path": "test_rc_flow.py",
+      "function": "test_rc_fails_clearly_when_sourced_from_zsh",
+      "line": 202
+    }
+  ],
+  "inspection_scope": "Public Python and shell source only; no actual user configuration contents or quarantined raw captures.",
+  "general_controls": "isolated_env disables session identity; smoke02 outer environment disables identity for subprocesses without a fixture environment; dedicated enabled sites use synthetic ROOT/DOTS/HOME.",
+  "cleared_toggle_helpers": [
+    {
+      "path": "test_config.py::config_environment",
+      "scope": "Configuration-parser-only calls; never source rc/07 initializer."
+    },
+    {
+      "path": "test_guide.py configuration-only environment comprehensions",
+      "scope": "guide config calls only; full/aliases/functions inherit explicit identity disable."
+    },
+    {
+      "path": "test_welcome_bundled.py::_fixture",
+      "scope": "Strict tracked-public-source synthetic tree; actual ignored config excluded."
+    }
+  ],
+  "no_env_calls_classification": "All5listed sites construct prepare_minimal_remote_tree, which copies only guards/helpers/env/aliases/rc and controlled test rc.d files; it does not copy07identity/config.lib or private configuration. Smoke02 also isolates outer HOME/XDG/startup environment."
+}

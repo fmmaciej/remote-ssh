@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "head": "15bcb79cee2d1959074d4c70e164d0cae75ee8e2",
+  "tracked_preexisting": [
+    {
+      "path": "dev/tests/fixtures/atuin/README.md",
+      "state": "modified",
+      "sha256": "bef1f5d1abc54d0a1fa5378d49c9a60d74c607c708cff29b0e6c598817624a03"
+    },
+    {
+      "path": "dev/tests/fixtures/atuin/v18.14.1/LICENSE",
+      "state": "deleted",
+      "sha256": null
+    },
+    {
+      "path": "dev/tests/fixtures/atuin/v18.14.1/atuin.bash",
+      "state": "deleted",
+      "sha256": null
+    },
+    {
+      "path": "dev/tests/fixtures/zoxide-0.9.9-completion.bash",
+      "state": "deleted",
+      "sha256": null
+    },
+    {
+      "path": "dev/tests/test_atuin_lifecycle.py",
+      "state": "modified",
+      "sha256": "2e382a56c97c71b250148970620ef4c629aacfebe70b35217fd5e628bf7ba0b9"
+    },
+    {
+      "path": "dev/tests/test_atuin_real.py",
+      "state": "modified",
+      "sha256": "6409cb37f986ff7d8937b79bc8e58d8697e2d8248ac7d563425c4c8b39d8707d"
+    },
+    {
+      "path": "dev/tests/test_check.py",
+      "state": "modified",
+      "sha256": "ffedbfb3c8322ca47226a70005678db876ecf5f518bae4603d021a64175f9a68"
+    },
+    {
+      "path": "dev/tests/test_tool_assets.py",
+      "state": "modified",
+      "sha256": "92259fa4852e6313b47966056886bb2084a90bfaa318e9ce264d57d0445ab7ff"
+    },
+    {
+      "path": "dev/tests/test_zoxide_skim.py",
+      "state": "modified",
+      "sha256": "ba3c1ff26b9a9e02a4916de27a0454ebf402fe8300e0e2910d57220b824335c9"
+    },
+    {
+      "path": "docs/tool-checksums.md",
+      "state": "modified",
+      "sha256": "44a84980a057a15df7580c8b31d8c1f38701254c4a9c3fe0ad7330f752f76374"
+    },
+    {
+      "path": "tools/defs/atuin.sh",
+      "state": "modified",
+      "sha256": "9b7ba1ae0b3ff27f53a906c172860805b3784cba55d4e118cae09b8706655402"
+    },
+    {
+      "path": "tools/defs/bottom.sh",
+      "state": "modified",
+      "sha256": "127e02e60b80aa2666840d2528b3865eaae2cbd4b316d6c1d38408199a0243a8"
+    },
+    {
+      "path": "tools/defs/bssh.sh",
+      "state": "modified",
+      "sha256": "c31fc30dd393412e410a50f9ecb5ab3619bab7078795156c42a4fde73ac9f38e"
+    },
+    {
+      "path": "tools/defs/dust.sh",
+      "state": "modified",
+      "sha256": "8b266f0d66f990a67aa85259243727165ccd135e865953590e4a764976a999d4"
+    },
+    {
+      "path": "tools/defs/eza.sh",
+      "state": "modified",
+      "sha256": "2ef1a043f94edfd663d8a980bbbbc6052314f5f87e6cbd1ab579ad94c0602506"
+    },
+    {
+      "path": "tools/defs/fd.sh",
+      "state": "modified",
+      "sha256": "4a9c1749eba6945ff04aff129a8133e58e35df7897989a00cae0c7644816af46"
+    },
+    {
+      "path": "tools/defs/nu.sh",
+      "state": "modified",
+      "sha256": "d73eaeeea3c9eedab1132e38387dc29e3b958d1ca108a70abe3cddc40b5c5726"
+    },
+    {
+      "path": "tools/defs/nvim.sh",
+      "state": "modified",
+      "sha256": "97db2a7bb787e805d0e9711d365e682dce2840866e6dd2e04ba86ca802d90aee"
+    },
+    {
+      "path": "tools/defs/procs.sh",
+      "state": "modified",
+      "sha256": "65a4d1b8561ac490f24a2cca637cc0054204e389673d3b65ad7f9bfb992d8398"
+    },
+    {
+      "path": "tools/defs/rg.sh",
+      "state": "modified",
+      "sha256": "d1a67b4b0c5372c7fb62e6b214c81ecce9091468cc06d8863a7e9a8d9624a962"
+    },
+    {
+      "path": "tools/defs/starship.sh",
+      "state": "modified",
+      "sha256": "462201ed991ae0bc5e459229118f05b89faf3d884419b2f70c1bf5826e6c2790"
+    },
+    {
+      "path": "tools/defs/tspin.sh",
+      "state": "modified",
+      "sha256": "576d413a94d213e3cdad55ec3b69f34430b9cfa3189b686f2e1e174741dea3a1"
+    },
+    {
+      "path": "tools/defs/vector.sh",
+      "state": "modified",
+      "sha256": "b59e529118241138137898fb78b5c27da009f0140eefffba88bad3e3b7010b7e"
+    },
+    {
+      "path": "tools/defs/yazi.sh",
+      "state": "modified",
+      "sha256": "dd40e41e02a6aa217ecfa8d1c38904b5bdb69122f2c065c4a281fb57b17c420a"
+    },
+    {
+      "path": "tools/defs/zellij.sh",
+      "state": "modified",
+      "sha256": "18007d89e937b8e5b006d0652401531bd4e7a87b8477c9173fdbc60ae69bf1a2"
+    },
+    {
+      "path": "tools/defs/zoxide.sh",
+      "state": "modified",
+      "sha256": "6b109ee88ad3724f47a6841f9da668d944529613b06cc6015b1b2ea265086821"
+    }
+  ],
+  "untracked_paths": [
+    "dev/docs/history/managed-tool-lifecycle-20261110/analyst-handoff-0.1.toon",
+    "dev/docs/history/managed-tool-lifecycle-20261110/analyst-handoff-0.2.toon",
+    "dev/docs/history/managed-tool-lifecycle-20261110/analyst-handoff-0.3.toon",
+    "dev/docs/history/managed-tool-lifecycle-20261110/baseline-1/baseline.json",
+    "dev/docs/history/managed-tool-lifecycle-20261110/baseline-1/files/dev/docs/managed-tool-lifecycle-specification.md",
+    "dev/docs/history/managed-tool-lifecycle-20261110/document-validation-0.1.json",
+    "dev/docs/history/managed-tool-lifecycle-20261110/document-validation-0.2.json",
+    "dev/docs/history/managed-tool-lifecycle-20261110/document-validation-0.3.json",
+    "dev/docs/history/managed-tool-lifecycle-20261110/draft-0.1.md",
+    "dev/docs/history/managed-tool-lifecycle-20261110/draft-0.2.md",
+    "dev/docs/history/managed-tool-lifecycle-20261110/draft-0.3.md",
+    "dev/docs/history/managed-tool-lifecycle-20261110/events.md",
+    "dev/docs/history/managed-tool-lifecycle-20261110/review-0.md",
+    "dev/docs/history/managed-tool-lifecycle-20261110/review-0.toon",
+    "dev/docs/history/managed-tool-lifecycle-20261110/review-1.md",
+    "dev/docs/history/managed-tool-lifecycle-20261110/review-1.toon",
+    "dev/docs/history/managed-tool-lifecycle-20261110/review-2.md",
+    "dev/docs/history/managed-tool-lifecycle-20261110/review-2.toon",
+    "dev/docs/managed-tool-lifecycle-specification.md",
+    "dev/tests/fixtures/atuin/v18.24.6/LICENSE",
+    "dev/tests/fixtures/atuin/v18.24.6/atuin.bash",
+    "dev/tests/fixtures/zoxide-0.10.0-completion.bash"
+  ],
+  "known_overlap": [
+    "tools/defs/nvim.sh",
+    "dev/tests/test_check.py",
+    "dev/tests/test_tool_assets.py"
+  ],
+  "rule": "Preserve existing changes; add lifecycle hunks to overlapping files without reverting versions/fixtures/checksum work. Recheck current bytes before editing."
+}

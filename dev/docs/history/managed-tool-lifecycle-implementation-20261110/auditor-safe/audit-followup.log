@@ -1,0 +1,58 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___ test_repeat_uninstall_does_not_block_later_unrelated_install[/bin/bash] ____
+
+audit_engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-18/test_repeat_uninstall_does_not0/home/repo'), opt=PosixPa...po', 'ASSET_DIR': '/private/tmp/pytest-of-fm/pytest-18/test_repeat_uninstall_does_not0/home/assets'}, bash='/bin/bash')
+
+    def test_repeat_uninstall_does_not_block_later_unrelated_install(audit_engine):
+        e = audit_engine
+        e.asset('rg')
+        e.asset('fd')
+        for args in [('install', 'rg', '--yes'), ('uninstall', 'rg', '--yes')]:
+            result = command(e, *args)
+            assert result.returncode == 0, (result.stdout, result.stderr)
+        repeat = command(e, 'uninstall', 'rg', '--yes')
+        later = command(e, 'install', 'fd', '--yes')
+        journal = e.private('ms_state_load\nms_journal_active\nprintf "phase=%s\\n" "$MS_BATCH_PHASE"\n')
+>       assert later.returncode == 0, (repeat.returncode, later.stdout, later.stderr, journal.stdout)
+E       AssertionError: (1, 'Selected tools:
+E           fd
+E         Install paths
+E           prefix: /private/tmp/pytest-of-fm/pytest-18/test_repeat_uninstall_does_no...repeat_uninstall_does_not0/home/install-bin
+E         ', 'Preflight changed or is protected; retry install.
+E         ', 'phase=tools
+E         ')
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-18/test_repeat_uninstall_does_not0/hom...t-18/test_repeat_uninstall_does_not0/home/install-bin\n', stderr='Preflight changed or is protected; retry install.\n').returncode
+
+/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/test_audit_followup.py:15: AssertionError
+_ test_repeat_uninstall_does_not_block_later_unrelated_install[/opt/homebrew/bin/bash] _
+
+audit_engine = EngineEnv(repo=PosixPath('/private/tmp/pytest-of-fm/pytest-18/test_repeat_uninstall_does_not1/home/repo'), opt=PosixPa...pytest-of-fm/pytest-18/test_repeat_uninstall_does_not1/home/assets'}, bash='/opt/homebrew/Cellar/bash/5.3.20/bin/bash')
+
+    def test_repeat_uninstall_does_not_block_later_unrelated_install(audit_engine):
+        e = audit_engine
+        e.asset('rg')
+        e.asset('fd')
+        for args in [('install', 'rg', '--yes'), ('uninstall', 'rg', '--yes')]:
+            result = command(e, *args)
+            assert result.returncode == 0, (result.stdout, result.stderr)
+        repeat = command(e, 'uninstall', 'rg', '--yes')
+        later = command(e, 'install', 'fd', '--yes')
+        journal = e.private('ms_state_load\nms_journal_active\nprintf "phase=%s\\n" "$MS_BATCH_PHASE"\n')
+>       assert later.returncode == 0, (repeat.returncode, later.stdout, later.stderr, journal.stdout)
+E       AssertionError: (1, 'Selected tools:
+E           fd
+E         Install paths
+E           prefix: /private/tmp/pytest-of-fm/pytest-18/test_repeat_uninstall_does_no...repeat_uninstall_does_not1/home/install-bin
+E         ', 'Preflight changed or is protected; retry install.
+E         ', 'phase=tools
+E         ')
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/opt/homebrew/Cellar/bash/5.3.20/bin/bash', PosixPath('/private/tmp/pytest-of-fm/pytest-18/tes...t-18/test_repeat_uninstall_does_not1/home/install-bin\n', stderr='Preflight changed or is protected; retry install.\n').returncode
+
+/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/test_audit_followup.py:15: AssertionError
+=========================== short test summary info ============================
+FAILED ../../../../../../private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/test_audit_followup.py::test_repeat_uninstall_does_not_block_later_unrelated_install[/bin/bash]
+FAILED ../../../../../../private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/test_audit_followup.py::test_repeat_uninstall_does_not_block_later_unrelated_install[/opt/homebrew/bin/bash]
+2 failed in 12.99s

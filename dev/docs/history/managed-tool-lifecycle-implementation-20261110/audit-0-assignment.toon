@@ -1,0 +1,53 @@
+type: assignment
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root
+to: /root/managed_lifecycle_auditor
+status: auditing
+baseline:
+  manifest: dev/docs/history/managed-tool-lifecycle-implementation-20261110/baseline-1/baseline.json
+  specification: SPEC-MANAGED-TOOL-LIFECYCLE@0.3
+  plan: PLAN-MANAGED-TOOL-LIFECYCLE@0.2
+  repair_round: 0
+  source_base: 9a223dcca76072eb9035316d25abf972902d3289
+scope: Independent implementation audit0 after final integrated handoff and required checks. No subject editing or self-audit by author.
+requirements[6]:
+  - Independently assess specification, approved plan and technical correctness/regressions; map all22REQ and24AC with met/unmet/unverifiable and evidence.
+  - Verify significant claims through bounded safe inspection and targeted tests; do not equate passing suite with omitted requirements.
+  - Preserve immutable baseline bytes; state binding is canonical prefix/bin only, not checkout. Pending update binds its separate checkout context.
+  - Review automatic adoption before refresh, additive membership, whole-owned uninstall, recovery without resurrection, liveC deletion proof, registered-child liveness, all-slot claims, reports read-only and removed CLI.
+  - Preserve all source-base pins, assets and checksums; only nvim required-path metadata changed. fzf phase2 is excluded; definition/private adapter retained.
+  - Report actual Bash/version/probe/native ABI boundaries, unrun checks and limitations honestly.
+ownership:
+  audit_subject: read-only external repository /Users/fm/Programming/00_Other/remote-ssh
+  audit_outputs: /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/audit-0.md and audit-0.toon
+  exclusions: no source/plan/spec/history edits; no actual checkout Git mutation, stage, commit, push, network, live assets, host install, shell startup or global config changes
+  shared_workspace: Other agents share files. Do not revert earlier/user changes. Coordinator owns records; implementer owns technical integration.
+dependencies[4]:
+  - Read applicable Kei rules and role/workflow contracts through existing authorized path, plus project root/nested AGENTS in scoped paths.
+  - Final integrated handoff and all required full checks are complete; actual source is frozen at increment-03/source-hashes.json (88 changed/new/deleted paths).
+  - Use manifest snapshots and source-relative resolution. Historical F citations are explicitly scoped to commit15b; current operational documentation uses current tree.
+  - Privacy: do not open/hash original dev/.env, dots/git/user.local, actual user config, private keys or credentials. Do not read/hash/publish smoke01/02 raw logs/XML/full-failure JSON or older scratch raw diagnostics.23previous public raw logs now contain metadata-only pointers; original raw bytes are restricted and outside audit reads. Historical raw fingerprints identify restricted originals, not their public pointers. Use only safe structural summaries and fresh allowlisted-run evidence.
+acceptance[4]:
+  - Pass requires satisfied acceptance and no required corrections; Findings lists exact path, issue, impact, requirement and reproducible evidence; Blocked names missing condition.
+  - Use corrected isolated test fixtures and synthetic ROOT/DOTS/HOME only for identity/rc testing. Dedicated identity tests explicitly opt in only on synthetic data. Run targeted pytest only through the supplied run_isolated_verification.py (fixed allowlist, no ambient env or dotenv), never direct inherited-env pytest. Read the public runner before using it.
+  - Keep optional suggestions separate. No requirement changes to match implementation, and no automatic repair round consumed by this first audit.
+  - Return report plus TOON handoff with verdict, coverage, findings and suggestions. Preserve independence: you authored neither plan nor implementation.
+artifacts[10]:
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/integration-result.md
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/source-hashes.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/coverage.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/verification.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/skips.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/preservation.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/interfaces.md
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/run_isolated_verification.py
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/evidence-quarantine.json
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/audit-subject-receipt.json
+evidence[5]:
+  - Complete just smoke03 passed1863/skipped56/failed0; all static stages passed, returncode0, no timeout, source unchanged. Fresh final logs/XML came from fixed allowlist.
+  - Root receipt verified exact88source entries and2frozen snapshots; this is not independent audit. Implementer now idle and instructed no subject edits.
+  - Safe affected187cases plus4final bootstrap cases passed. Native Git maintenance/fsmonitor tested locally; no native Flyline ABI qualification or real host install/live assets.
+  - Earlier36failure taxonomy and confidentiality corrections are recorded in integration result/events; unsafe raw captures are excluded, not erased. Do not infer task-wide absence of subprocess config reads.
+  - Tool update source base9a preserved; frozen source facts cite15b. State location binds prefix/bin only; no checkout state binding, no fzf phase2.
+blockers[0]:
+next_action: Start independent audit0 now. Choose meaningful independent targeted verification through published safe runner; do not repeat full smoke solely for reassurance. Keep subject read-only; write audit-0.md/toon in authorized task scratch, return verdict and22REQ/24AC coverage. Root will preserve report and route any required findings through planner before code repairs.

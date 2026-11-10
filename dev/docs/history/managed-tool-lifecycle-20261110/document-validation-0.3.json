@@ -1,0 +1,15 @@
+{
+  "version": "0.3",
+  "sha256": "62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb",
+  "snapshot_identical": true,
+  "previous_versions_preserved": true,
+  "changed_areas_from_0.2": 3,
+  "identifiers": {
+    "REQ": 22,
+    "AC": 24,
+    "UC": 9
+  },
+  "valid_local_links": 48,
+  "tracked_files_unchanged": true,
+  "runtime_tests": "not run: documentation-only specification preparation"
+}

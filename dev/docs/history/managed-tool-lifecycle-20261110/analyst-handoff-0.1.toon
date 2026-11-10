@@ -1,0 +1,64 @@
+type: handoff
+task_id: managed-tool-lifecycle-20261110
+from: managed_lifecycle_analyst
+to: /root
+status: reviewing
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  commit: 15bcb79cee2d1959074d4c70e164d0cae75ee8e2
+  specification: dev/docs/managed-tool-lifecycle-specification.md
+  id: SPEC-MANAGED-TOOL-LIFECYCLE
+  version: "0.1"
+  manifest: null
+scope: Authored Polish change specification only. No implementation plan or runtime/config/Git/host/network mutations. Draft awaits independent review 0 and concrete human approval.
+artifacts[2]:
+  - path: /private/tmp/remote-ssh-managed-lifecycle-20261110/managed-tool-lifecycle-specification.md
+    id: SPEC-MANAGED-TOOL-LIFECYCLE
+    version: "0.1"
+    sha256: 7bb447b30f57b8a2cf391262bf0996a80f0eec1df1d0e8caa43091c7abb7e958
+    publication: dev/docs/managed-tool-lifecycle-specification.md
+  - path: /private/tmp/remote-ssh-managed-lifecycle-20261110/analyst-handoff.toon
+    id: analyst-handoff
+    version: "0.1"
+    sha256: null
+evidence[6]:
+  - Loaded current Kei index/requirements analyst role, specification convention/workflow and selected rules; external project resolved to assigned root and project AGENTS loaded.
+  - Source discovery stayed at baseline files for lifecycle commands, inventory, ownership, installers, bootstrap, relevant offline tests and dependent current docs. No dev/.env or secret reads.
+  - Draft distinguishes F-001 through F-011 source facts, D-* human decisions, C-* inherited constraints and A-* approval-stage assumptions/proposals.
+  - Structural check found 22 unique sequential REQ IDs, 21 AC IDs, 9 UC IDs and 48 valid local links; absent dev/AGENTS.md and dev/docs/AGENTS.md confirmed.
+  - Final unsafe/incomplete uninstall choice incorporated as D-011 and closed Q-001. Record is retained until repair rather than silently detached.
+  - Runtime tests were not run because authored changes are documentation only. No implementation or host migration acceptance is claimed.
+findings[4]:
+  - Current install replaces expected-tools, so install flyline creates a source-derived overwrite risk; actual host file content was not inspected or reported as observed.
+  - Current healthy inventory omits broken links/payloads and cannot alone initialize the required maintenance record.
+  - Existing ownership validator requires current definition and payload. Specification requires conservative retired/missing behavior without choosing replacement state schema or weakening deletion proof.
+  - Current fzf instructions in docs/install.md and dev/docs/fzf-retirement-plan.md require later migration to the new CLI and automatic state while preserving phase-1 evidence and phase-2 host gate.
+assumptions[3]:
+  - A-001 keeps current profile composition rather than redesigning package selection.
+  - A-002 identifies proposed lexical CLI, status and exit details for approval with the concrete draft.
+  - A-003 leaves internal low-level installer responsibility to later planning without a parallel user lifecycle.
+coverage[7]:
+  - requirement: assignment-1
+    status: met
+    evidence: Current instructions and registered project context loaded; external root AGENTS read; no secret access.
+  - requirement: assignment-2
+    status: met
+    evidence: D-001 through D-003 and D-006 through D-008; REQ-001 through REQ-003 and REQ-008 through REQ-012; CLI and UC sections.
+  - requirement: assignment-3
+    status: met
+    evidence: REQ-001 and REQ-004 through REQ-007; legacy entries ignored for selection; no old CLI aliases.
+  - requirement: assignment-4
+    status: met
+    evidence: C-001; REQ-014 through REQ-020; AC-006 and AC-018 through AC-020.
+  - requirement: assignment-5
+    status: met
+    evidence: F-002 through F-004; REQ-004 through REQ-007 and REQ-010 through REQ-016; migration and reports sections; no state schema imposed.
+  - requirement: assignment-6
+    status: met
+    evidence: C-002; REQ-021 through REQ-022; AC-021; dependent documentation section.
+  - requirement: assignment-7
+    status: met
+    evidence: Source/decision/proposal distinction; stable REQ/AC/UC; CLI inputs, validation, output and exits; recovery/partial failure/read-only contracts.
+blockers[0]:
+open_questions[0]:
+next_action: Coordinator mechanically publishes identical specification bytes into authorized external repository, records hash and hands v0.1 to a separate independent auditor for review 0. Human approval remains pending after review.

@@ -1,0 +1,187 @@
+{
+  "scope": "safe repair01 evidence only; no root report/process/plan/audit/source writes",
+  "entries": [
+    {
+      "source": "result.md",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/result.md",
+      "before": null,
+      "after": "6b9080a53289aa58b420a9a388ccfebd4a0377579da91f86a61efb4f2adec383"
+    },
+    {
+      "source": "handoff.toon",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/handoff.toon",
+      "before": null,
+      "after": "f25c178071fa1e1a9c7040b8afc5163e3b0a6edf57a7a273cca3689e6bbe5189"
+    },
+    {
+      "source": "source-hashes.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/source-hashes.json",
+      "before": null,
+      "after": "3416f77ee4065415a82e768648a919239e00ce4607d00d0e80bfe184dcd3c859"
+    },
+    {
+      "source": "delta.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/delta.json",
+      "before": null,
+      "after": "b14047b42720d65a404431ee1eefea97947ae3bade39706a2743977bde35aeef"
+    },
+    {
+      "source": "coverage.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/coverage.json",
+      "before": null,
+      "after": "a800f393a3692e5d4e6dc27acaad92c94c941b03e50c7126aa0990aed2febea6"
+    },
+    {
+      "source": "verification.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/verification.json",
+      "before": null,
+      "after": "cfc5b5a236835fe59373f2bdb5c6afb66110a132d96e02d05c57ac3b2ddfdf3c"
+    },
+    {
+      "source": "cases.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/cases.json",
+      "before": null,
+      "after": "5c844826aa8148800b8cfd483e32bbc27ff59f7150fd2212e51b637cdf302517"
+    },
+    {
+      "source": "skips.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/skips.json",
+      "before": null,
+      "after": "ec7b462702f0578869f39eea8f7882b401ac09d94ec302bf759787ef2d10904e"
+    },
+    {
+      "source": "preservation.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/preservation.json",
+      "before": null,
+      "after": "472211ce28dbc2cf0d475bb30eaa5f6e696a512e96ef2b3232d85a619167177c"
+    },
+    {
+      "source": "static.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/static.json",
+      "before": null,
+      "after": "dacf9efc7b46a0626ef0c406ac770ae7ba17b548a57d0541dd84b77efabbf7aa"
+    },
+    {
+      "source": "diff-check.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/diff-check.json",
+      "before": null,
+      "after": "7a89e45889f966adb848522b13e6e3cd839ca15f40e0ff3d2fc0e5ffe180cd79"
+    },
+    {
+      "source": "red-publication.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/red-publication.json",
+      "before": null,
+      "after": "c5f1dc802a78a3fd6a4f6fee59efcfd893c75e0d479078068f27385b82db9470"
+    },
+    {
+      "source": "red-oracle-publication.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/red-oracle-publication.json",
+      "before": null,
+      "after": "33c814fe8f3c450acd2e96ff756246efeb1ecad51b4e165de6e27fc3e1be17fb"
+    },
+    {
+      "source": "correction-publication.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/correction-publication.json",
+      "before": null,
+      "after": "25a92713fed277509cc29216fe11981f913286ef893c92c4a1f36c9db31f1b4a"
+    },
+    {
+      "source": "red.log",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/red.log",
+      "before": null,
+      "after": "fa06ab834d5928d959f30cc18bf50b1d5a01243441cdd9ea229f4ffb4a867127"
+    },
+    {
+      "source": "red.xml",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/red.xml",
+      "before": null,
+      "after": "96da8f233a955070d6eb4b5a2ce23bd40fa2d49ec40197f664e67c30a53df301"
+    },
+    {
+      "source": "red-result.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/red-result.json",
+      "before": null,
+      "after": "0ec4d0c7aaeb2a2b06045b1560a74668e79b7c4590e4e241e6354ef372dd8c78"
+    },
+    {
+      "source": "red-source-hashes.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/red-source-hashes.json",
+      "before": null,
+      "after": "b49cb5e452a3c82c78a052bc3136588bdeda860028437cd8341ba57244cf09dd"
+    },
+    {
+      "source": "red-guards.log",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/red-guards.log",
+      "before": null,
+      "after": "73797c503f7e056febdcf8d11fb9a1f88cfd64c113e0a410396632311b2cc443"
+    },
+    {
+      "source": "red-guards.xml",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/red-guards.xml",
+      "before": null,
+      "after": "6f8cc6f300dac011f8cb9d1a6f83ac18c500cd71e679924e200898e33d15b215"
+    },
+    {
+      "source": "red-guards-result.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/red-guards-result.json",
+      "before": null,
+      "after": "279b890f8d53819a7f3c13bdd14d4cecc54196f7333a3c04163994cedc1fde9c"
+    },
+    {
+      "source": "red-guards-source-hashes.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/red-guards-source-hashes.json",
+      "before": null,
+      "after": "ec32a5bba2eb4ccea7d9f473281b7560ea47eacc5a1c4319209441343553b68a"
+    },
+    {
+      "source": "targeted.log",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/targeted.log",
+      "before": null,
+      "after": "1288a04174532b78fff7bd5ebdcd4e3996b723635e51b99d05807693840d8900"
+    },
+    {
+      "source": "targeted.xml",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/targeted.xml",
+      "before": null,
+      "after": "6da0a5f9ad56ad376159eb7eb64a2956633456cba9424e393da59701808a0c6e"
+    },
+    {
+      "source": "targeted-result.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/targeted-result.json",
+      "before": null,
+      "after": "2bc29a9fc06592dd6a24b920986adb5d8bc330ed0eb9de1eee188475af95f01d"
+    },
+    {
+      "source": "targeted-source-hashes.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/targeted-source-hashes.json",
+      "before": null,
+      "after": "c255239bfd2ecd10b5d5a665bc72e0db6257821facbc06aa265f383b437706ef"
+    },
+    {
+      "source": "full-smoke.log",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/full-smoke.log",
+      "before": null,
+      "after": "9a815f0b9e3e58dedea05edac62bc55893db048327a84cef994396ebd8d3b77c"
+    },
+    {
+      "source": "full-smoke.xml",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/full-smoke.xml",
+      "before": null,
+      "after": "b15adf05a4b772ed2a8712f6553f55cdb2724e01d8af11856193ac48192affbd"
+    },
+    {
+      "source": "full-smoke-result.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/full-smoke-result.json",
+      "before": null,
+      "after": "e6f7f992e48742a8924b5db01e6ce61b1ba0d9946c020026908ae19aa3bafb4c"
+    },
+    {
+      "source": "full-smoke-source-hashes.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01/full-smoke-source-hashes.json",
+      "before": null,
+      "after": "c255239bfd2ecd10b5d5a665bc72e0db6257821facbc06aa265f383b437706ef"
+    }
+  ],
+  "subject": "source-hashes.json",
+  "before_snapshots": "before-inventory.json;12already published immutable snapshots"
+}

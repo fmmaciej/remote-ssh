@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "documents": [
+    {
+      "source": "dev/docs/managed-tool-lifecycle-specification.md",
+      "snapshot": "files/dev/docs/managed-tool-lifecycle-specification.md",
+      "id": "SPEC-MANAGED-TOOL-LIFECYCLE",
+      "version": "0.3",
+      "sha256": "62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb"
+    }
+  ]
+}

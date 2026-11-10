@@ -1,0 +1,8 @@
+{
+  "scope": "Engineering clarification within approved concurrency and recovery requirements; accepted basis unchanged",
+  "positive_control": "git-maintenance-probe02.json",
+  "positive_control_note_correction": "The controlled pre-auto-gc hook writes only a synthetic marker and exits1. Trace nevertheless observed detached maintenance and incremental repack/pack-objects; the original note saying all background GC work was prevented was too broad. All work occurred only in disposable synthetic fixture repositories.",
+  "fix": "Per-command maintenance.auto=false and gc.auto=0 on registered Git fetch/reset, with fsmonitor/untrackedCache disabled. Read-side guards disable optional writes/fsmonitor/untrackedCache/automatic diff refresh. No persistent config changes.",
+  "regression": "tests/test_managed_update.py::test_update_keeps_native_git_maintenance_and_fsmonitor_inside_operation",
+  "native_boundary": "Native Git subprocess behavior is exercised; no native Flyline library ABI qualification is claimed."
+}

@@ -1,0 +1,116 @@
+type: audit
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root/managed_lifecycle_auditor
+to: /root
+status: planning
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  code_commit: 15bcb79cee2d1959074d4c70e164d0cae75ee8e2
+  manifest: dev/docs/history/managed-tool-lifecycle-20261110/baseline-1/baseline.json
+  specification: SPEC-MANAGED-TOOL-LIFECYCLE@0.3
+  specification_sha256: 62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb
+  plan: /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/managed-tool-lifecycle-implementation-plan-0.1.md
+  plan_version: "0.1"
+  plan_sha256: f1e8b87976356e345c6c0f11ecc27e4976b1fbb44fbaab9e2a9eb984a053c0ab
+  plan_manifest: null
+scope: Independent preapproval plan review0 only. No authorship, renewed specification review or implementation audit. Planning review does not consume implementation repair rounds.
+artifacts[2]:
+  - /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/plan-review-0.md
+  - /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/plan-review-0.toon
+evidence[6]:
+  - Full 300-line exact plan read; plan hash and accepted snapshot manifest/hash verified with approval event 13.
+  - All 22 REQ and all 24 AC have exact unique mapping rows; 18 source-relative local links resolve.
+  - Source HEAD unchanged; bounded source/test checks confirm current payload-required ownership proof and prune readonly-bin support.
+  - State pair isolation, all-layout adoption before refresh, per-tool journal, read-only reports and exec continuation are planned with named integration owner.
+  - No physical-checkout state binding is required by accepted snapshot lines 133-137; pair-only binding concern withdrawn, no extra requirement added.
+  - No runtime tests, network, secrets, host data, Git mutations or initial project-plan/history writes. Only permitted scratch reports produced.
+blockers[0]:
+verdict: Findings
+coverage[22]:
+  - requirement: REQ-001
+    status: met
+    evidence: T4/T6 and V1 cover full grammar and nonmutating invalid/bare/removed entries.
+  - requirement: REQ-002
+    status: met
+    evidence: T3/T4 and V1/V5 cover additive profile and dedup without subscription.
+  - requirement: REQ-003
+    status: met
+    evidence: T1/T3 and V2/V4 cover reuse, repair, aliases and external protection; destructive proof needs P0-001 separately.
+  - requirement: REQ-004
+    status: unmet
+    evidence: P0-003 requires existing journal recovery before any new lifecycle batch overwrites evidence.
+  - requirement: REQ-005
+    status: met
+    evidence: T1/T2/T5 and V2/V3/V5 adopt all proven active layouts and aliases before refresh.
+  - requirement: REQ-006
+    status: met
+    evidence: T1/T6 and V1/V4 plan no-write/no-exec reports with generation/writer checks.
+  - requirement: REQ-007
+    status: met
+    evidence: T2/T4/T5/T7 keep legacy hints diagnostic without runtime selection or edit.
+  - requirement: REQ-008
+    status: unmet
+    evidence: Complete uninstall scope covered but P0-001/P0-003 required for live proof and completed deletion preservation.
+  - requirement: REQ-009
+    status: unmet
+    evidence: Fresh-code exec and repair-set covered; P0-003 leaves unrelated-command journal loss and resurrection route.
+  - requirement: REQ-010
+    status: met
+    evidence: T1/T2/T4-T6 retain metadata and retired/unsupported outcomes; destructive operations still depend on P0-001.
+  - requirement: REQ-011
+    status: met
+    evidence: T1/T6 and V4/V5 cover union/filter/order and broken/retired visibility.
+  - requirement: REQ-012
+    status: met
+    evidence: T1/T6 V4 cover environment and tool diagnostics; rc syntax check avoids hooks.
+  - requirement: REQ-013
+    status: met
+    evidence: T1/T6 and V4/V6 cover distinct statuses, codes and informational fzf.
+  - requirement: REQ-014
+    status: unmet
+    evidence: P0-001 needs nonweakened current structural deletion proof independent of old receipt and health.
+  - requirement: REQ-015
+    status: unmet
+    evidence: Staging/immutability planned but P0-002 changes preserved prune readonly-bin behavior.
+  - requirement: REQ-016
+    status: unmet
+    evidence: P0-003 requires common recovery gate before every new lifecycle journal; P0-002 must protect pending release receipts from prune.
+  - requirement: REQ-017
+    status: met
+    evidence: T2/T4/T7 V1/V3 cover read-only preflight, confirmation and locked revalidation.
+  - requirement: REQ-018
+    status: met
+    evidence: T1/T3/T6/T7 V2/V4/V6 preserve assets/layouts, Bash 3.2 and dependencies; ABI skips explicit.
+  - requirement: REQ-019
+    status: met
+    evidence: T3/T4/T7 V1/V6 cover CLI-only publication, footer, startup protection and runme/REF.
+  - requirement: REQ-020
+    status: unmet
+    evidence: P0-002 regresses prune apply with readonly bin despite preservation requirement.
+  - requirement: REQ-021
+    status: met
+    evidence: T6/T7 V6 preserve fzf definition/adapter and phase2 gate.
+  - requirement: REQ-022
+    status: met
+    evidence: T6/T7 V1/V6 give dependent current docs/texts an owner while preserving history.
+findings[3]:
+  - id: P0-001
+    severity: high
+    required: true
+    location: Plan lines 71-82 ownership proof, T1/T3/T4, V2/V3.
+    issue: Recorded missing-payload receipt plus marker does not specify full equivalent live destructive predicate; prior metadata must not replace current containment/member/parent checks.
+    next_action: Separate safe link repair from recursive release deletion; define conservative live proof matrix and negative tests for recorded release then missing member plus substituted ancestor/marker/leaf.
+  - id: P0-002
+    severity: high
+    required: true
+    location: Plan lines 93-106 locks, line 81 prune wrapper and T2/T7 task ownership.
+    issue: Prune apply lock writes break readonly-bin support, while active-link guards alone leave pending-journal releases and other location claims unprotected after writer crash; prune facade ownership missing.
+    next_action: Define compatible command-specific locks, assign prune changes and read-only protection for pending receipt/other-slot claims without executing their recovery; test readonly bin, concurrent publication and crash-pending-release-prune-retry.
+  - id: P0-003
+    severity: high
+    required: true
+    location: Plan lines 110-128 global sequence and 151-167 uninstall recovery/update.
+    issue: Existing journal recovery is explicit only for update; unrelated install/uninstall may overwrite crash-completed operation evidence before membership finalization.
+    next_action: Gate every lifecycle mutator on locked previous-journal normalization before new batch creation; fail protected if unresolved; test completed uninstall crash then unrelated install then update without resurrection.
+suggestions[0]:
+next_action: Coordinator requests bounded technical plan revision and independent re-review before concrete human plan approval. No product-spec change, implementation authorization or implementation repair-round consumption.

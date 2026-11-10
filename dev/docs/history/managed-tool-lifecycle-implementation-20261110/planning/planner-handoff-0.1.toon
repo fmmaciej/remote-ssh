@@ -1,0 +1,47 @@
+type: handoff
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root/managed_lifecycle_planner
+to: /root
+status: awaiting_approval
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  code_commit: 15bcb79cee2d1959074d4c70e164d0cae75ee8e2
+  manifest: dev/docs/history/managed-tool-lifecycle-20261110/baseline-1/baseline.json
+  specification_id: SPEC-MANAGED-TOOL-LIFECYCLE
+  specification_version: "0.3"
+  specification_sha256: 62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb
+  dependencies[0]:
+  plan_id: PLAN-MANAGED-TOOL-LIFECYCLE
+  plan_version: "0.1"
+  plan_sha256: f1e8b87976356e345c6c0f11ecc27e4976b1fbb44fbaab9e2a9eb984a053c0ab
+  plan_manifest: null
+scope: Polish implementation plan only; exact frozen accepted specification; no implementation or initial project-plan publication. Independent review and explicit human plan approval still pending.
+artifacts[3]:
+  - /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/managed-tool-lifecycle-implementation-plan-0.1.md
+  - /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/planner-handoff-0.1.toon
+  - /private/tmp/remote-ssh-managed-lifecycle-planning-20261110/planner-document-check-0.1.json
+evidence[10]:
+  - Read current Kei rule index, selected scope/authorization/artifacts/adapters rules, agents index/planner, specification convention and specification-implement workflow. Project context ready inherited from coordinator.
+  - Read root remote-ssh AGENTS and checked nested instructions on actual read/module paths; none present. Never read dev/.env, credentials or host configuration.
+  - Manifest schema1 and exact frozen snapshot SHA256 validated; snapshot54647 bytes; dependencies empty; links interpreted from manifest source path.
+  - Events13 documents explicit human approval and review2 Pass; no claim these approve the new plan or implementation.
+  - Bounded read-only source discovery covered dispatcher/loaders, selection/expected-tools, ownership/inventory, installers/staging/probe/publication, uninstall/prune, update/check/doctor, relevant tests, runme and current fzf gate.
+  - Found current health-dependent ownership, definition-dependent identity, permissive foreign-symlink replacement, batch-final state save and refresh-before-bare-install integration changes; plan addresses each.
+  - Temporary plan has300 lines,25576 bytes,22 unique REQ mapping rows,24 unique AC mapping rows and zero broken local links resolved against future dev/docs source directory.
+  - Plan defines prefix-local pair-bound state, NUL parser, saved receipts versus live deletion proof, all-layout adoption before refresh, per-tool journal/checkpoints, incomplete uninstall retention and bakery tickets without new runtime dependencies.
+  - Final git diff --stat empty; git status only preexisting untracked dev/docs/history and specification document; future project plan and implementation-cycle history absent.
+  - No smoke, pytest, native probe, installation, network, host migration or Git mutation executed; verification groups V1-V6 are proposed future acceptance only.
+ownership:
+  planner: /root/managed_lifecycle_planner
+  planner_writes: Authorized scratch artifacts only.
+  future_integration_owner: /root/managed_lifecycle_implementer
+  future_implementer_authorized: false
+  future_auditor: Must differ from planner and implementer; coordinator assigns.
+  coordinator: Maintains human decisions, review and later approved-plan/history publication.
+risks[4]:
+  - Journal and bakery ticket complexity must receive failure-injection and concurrency tests before integration with destructive engine; PID reuse conservatively returns busy.
+  - Saved membership never replaces live ownership evidence; missing or broken markers must protect foreign paths. Legacy adoption still requires complete live payload proof.
+  - State resides within writable prefix rather than requiring writable parent or depending on XDG. Shared physical footprint must respect other location claims and active-link collisions.
+  - Offline library probe stubs verify management flow, not native ABI; real qualification requires separately available matching Bash>=4.4 and library, with explicit skipped/unverifiable outcome otherwise.
+blockers[0]:
+next_action: Coordinator assigns separate read-only review of exact plan0.1, then presents concrete plan to human. Do not create project plan/history or start implementation before explicit plan approval.

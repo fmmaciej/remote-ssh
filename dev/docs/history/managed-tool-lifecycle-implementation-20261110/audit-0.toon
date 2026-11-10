@@ -1,0 +1,198 @@
+type: audit
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root/managed_lifecycle_auditor
+to: /root
+status: auditing
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  manifest: dev/docs/history/managed-tool-lifecycle-implementation-20261110/baseline-1/baseline.json
+  specification: SPEC-MANAGED-TOOL-LIFECYCLE@0.3
+  specification_sha256: 62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb
+  plan: PLAN-MANAGED-TOOL-LIFECYCLE@0.2
+  plan_sha256: e7d504fe7c5a69a400c9ccae549c4fcb0225dcb980c105ae5e45f4c89a5e7c23
+  source_base: 9a223dcca76072eb9035316d25abf972902d3289
+  source_subject: dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/source-hashes.json
+  repair_round: 0
+scope: Independent implementation audit 0 against accepted specification, plan and frozen integrated subject. No authorship, source/history edits or requirement changes.
+artifacts[9]:
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/audit-0.md
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/audit-0.toon
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/audit-core-result.json
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/audit-sequences-result.json
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/audit-followup-result.json
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/test_audit_sequences.py
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/test_audit_followup.py
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/audit-source-coverage-validation.json
+  - /private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/auditor-safe/audit-preservation.json
+evidence[8]:
+  - Independently verified all 88 subject entries and both accepted snapshot hashes; all unchanged after checks. Exact source base HEAD retained.
+  - Safe final JUnit independently confirms 1863 passed, 56 skipped, no failures; every mapped case in all 22 REQ and 24 AC exists with matching result.
+  - Through published fixed-allowlist runner, 66 selected existing cases passed independently in 84.53 seconds. Source unchanged, no skips or timeout.
+  - Four synthetic sequence probes failed on Bash 3.2.57 and 5.3.20; immediate repeated successful uninstall returns 1 and list reports phantom missing/broken.
+  - Two follow-up probes failed on both interpreters; repeated uninstall leaves phase=tools/running journal and blocks later unrelated install fd. Source unchanged in all runs.
+  - Independently compared 28 public pin/adapter/production checks to HEAD; all preserved after only allowed nvim metadata normalization. Dots, private Navi adapters and tracked fixture scopes unchanged.
+  - No restricted smoke01/02 raw logs/XML/full-trace JSON, older raw captures/private archive, original dev/.env/user.local or actual user config opened or hashed. Earlier subprocess privacy uncertainty remains disclosed and is not negated by this audit.
+  - No native Flyline ABI qualification, real picker/Atuin qualification, network/live assets, real host install, startup/global config or actual checkout Git mutations. Safe runner and fixtures read before use.
+blockers[0]:
+verdict: Findings
+coverage[22]:
+  - requirement: REQ-001
+    status: met
+    evidence: Dispatcher/facade source and final mapped CLI nonmutation cases cover grammar, bare and removed entries.
+  - requirement: REQ-002
+    status: met
+    evidence: Source per-tool member completion and final lifecycle/profile additive/dedup cases.
+  - requirement: REQ-003
+    status: met
+    evidence: Staging/reuse/alias health and exact B selector repair inspected; mapped repair cases pass, separate post-uninstall sequence defect reported.
+  - requirement: REQ-004
+    status: unmet
+    evidence: A0-001; valid completed uninstall becomes orphan running journal after repeated no-op and blocks ordinary management.
+  - requirement: REQ-005
+    status: met
+    evidence: Independent six-tool first update, old rg/nu alias-only/layout adoption and source preservation before refresh.
+  - requirement: REQ-006
+    status: met
+    evidence: Buffered source, independent read-only/environment side-effect and generation/registered-child fence checks.
+  - requirement: REQ-007
+    status: met
+    evidence: Legacy hint-only parser and argv/member selection source; final expected-only/config-preservation cases.
+  - requirement: REQ-008
+    status: unmet
+    evidence: A0-001; second uninstall after actual successful removal is 1 rather than readonly no-op 0 and poisons journal.
+  - requirement: REQ-009
+    status: unmet
+    evidence: Normal update cases pass, but A0-001 leaves unresolved common-gate journal after legal sequence, blocking subsequent managed maintenance.
+  - requirement: REQ-010
+    status: met
+    evidence: Independent retired/missing live C and fresh definition-loss checks; mapped unsupported/retired source/tests.
+  - requirement: REQ-011
+    status: unmet
+    evidence: A0-002; list catalog shows completed-uninstalled unmanaged tool as missing/broken before another mutation.
+  - requirement: REQ-012
+    status: met
+    evidence: Environment/selected scope and syntax-only rc inspected; independent fsmonitor/BASH_ENV/rc sentinels pass.
+  - requirement: REQ-013
+    status: unmet
+    evidence: A0-002 conflates absent membership after success with broken saved/current installation.
+  - requirement: REQ-014
+    status: met
+    evidence: Live C marker/member/ancestor proof and limited B inspected; independent proof/missing/retired/child tests pass.
+  - requirement: REQ-015
+    status: met
+    evidence: Staging/rollback/guarded publication inspected; independent pending-prune tests and final payload/checksum/library flow cases.
+  - requirement: REQ-016
+    status: unmet
+    evidence: A0-001 reclassifies completed receipts into unresolvable later running operation; other targeted crash recovery cases pass.
+  - requirement: REQ-017
+    status: met
+    evidence: Read-only preflight, confirmation and locked revalidation source; final TTY/EOF/refusal/nonmutation cases.
+  - requirement: REQ-018
+    status: met
+    evidence: Bash 3.2.57/5.3.20 management and preserved assets/libc/layout/checksums verified; native Flyline ABI remains explicitly unverifiable/unrun.
+  - requirement: REQ-019
+    status: met
+    evidence: CLI publication source and 33 mapped final CLI/runme cases cover footer, forward/REF and startup preservation.
+  - requirement: REQ-020
+    status: met
+    evidence: Final regression suite plus independent prune/native local Git maintenance/fsmonitor checks; no real-host claim.
+  - requirement: REQ-021
+    status: met
+    evidence: Independent 28-entry preservation includes retained fzf/private adapters; mapped offline fzf/Navi checks, native pickers unqualified.
+  - requirement: REQ-022
+    status: met
+    evidence: Current dispatcher/help/facades/docs use new CLI; final mapped guide/docs cases and historical-source distinction preserved.
+acceptance_coverage[24]:
+  - criterion: AC-001
+    status: met
+    evidence: Removed-input source and final snapshot nonmutation cases.
+  - criterion: AC-002
+    status: met
+    evidence: Final new/existing bare/help cases and facade source.
+  - criterion: AC-003
+    status: met
+    evidence: Complete argv/profile/TTY/EOF/refusal validation source and final cases.
+  - criterion: AC-004
+    status: met
+    evidence: Additive/profile/dedup engine and final cases.
+  - criterion: AC-005
+    status: met
+    evidence: Reuse/repair/protected collision source and mapped engine/report cases.
+  - criterion: AC-006
+    status: met
+    evidence: External PATH and foreign file/link guards; independent B/C plus final cases.
+  - criterion: AC-007
+    status: unmet
+    evidence: A0-001; immediate second actual uninstall returns 1 and corrupts pending operation.
+  - criterion: AC-008
+    status: met
+    evidence: Final profile-change/update-no-resurrection cases; ordinary update source.
+  - criterion: AC-009
+    status: met
+    evidence: Final missing/broken/empty-update cases and member selection source.
+  - criterion: AC-010
+    status: met
+    evidence: Independent retired live proof and final unsupported/retired cases.
+  - criterion: AC-011
+    status: met
+    evidence: Complete adoption source and independent six-tool first-update scenario.
+  - criterion: AC-012
+    status: met
+    evidence: Independent report no-side-effect and generation/registered-child fences.
+  - criterion: AC-013
+    status: met
+    evidence: Migration source rejects expected-only/inactive/unproved membership; final mapped cases.
+  - criterion: AC-014
+    status: met
+    evidence: Strict state and complete inventory/live proof inspected; independent proof plus final corruption cases.
+  - criterion: AC-015
+    status: unmet
+    evidence: A0-002; catalog displays false missing/broken after successful uninstall.
+  - criterion: AC-016
+    status: met
+    evidence: Mapped final health/PATH/scope/alias/environment cases plus independent side-effect check.
+  - criterion: AC-017
+    status: unmet
+    evidence: A0-001 produces unrecoverable later journal; other targeted fault/recovery cases pass.
+  - criterion: AC-018
+    status: met
+    evidence: Offline layout/Bash/libc/checksum/probe-flow coverage; no real ABI or downloaded-asset installation claim.
+  - criterion: AC-019
+    status: met
+    evidence: Final CLI/runme/REF/footer/startup snapshots.
+  - criterion: AC-020
+    status: met
+    evidence: Final unrelated regression suite plus independent prune and native local Git cases.
+  - criterion: AC-021
+    status: met
+    evidence: Independent fzf/adapter pin preservation and final hint/gate/offline Navi cases.
+  - criterion: AC-022
+    status: met
+    evidence: Whole-own removal and foreign-active abort source and mapped public cases.
+  - criterion: AC-023
+    status: met
+    evidence: Exact six-tool first update independently passed on both Bash versions.
+  - criterion: AC-024
+    status: met
+    evidence: Pair-only state/source and final A/B/XDG claims cases; independent physical/newline roundtrip.
+findings[2]:
+  - id: A0-001
+    severity: high
+    required: true
+    location: "tools/lib/managed/uninstall.sh:22-31, tools/lib/managed/journal.sh:55-83 and common recovery interaction."
+    issue: Completed uninstall tombstone receipts become new scope before journal archive removes them; second uninstall creates running item without valid remove receipts and blocks future lifecycle operations.
+    evidence: Safe audit-sequences has 2 repeated-uninstall failures; audit-followup has 2 blocked unrelated-install failures on Bash 3.2.57/5.3.20.
+    required_result: Treat completed receipts as history for new selection; repeat actual uninstall is readonly no-op 0, later install/update works, unresolved genuine crash evidence remains protected. Add exact consecutive-success/no-op regression.
+  - id: A0-002
+    severity: medium
+    required: true
+    location: "tools/lib/commands/tool_status.sh:107-145 and final root health classification."
+    issue: Historical root fallback after completed uninstall reports unmanaged available catalog entry as missing broken until another mutation archives receipts.
+    evidence: "Safe audit-sequences has 2 failures with row unmanaged supported missing broken last=uninstall:completed."
+    required_result: Report available/unmanaged immediately after success without writes, retain optional last-operation history and true managed missing/broken diagnostics.
+suggestions[0]:
+native_limits:
+  flyline_abi: unverifiable/unrun; no authorized native artifact supplied or discovered, controlled probe is not ABI evidence.
+  final_skips: 56 actual skips, enumerated in safe skips.json and report; none represented as passed.
+  real_picker_atuin_assets: unqualified; no downloads or real-host installs.
+next_action: Coordinator preserves report and routes both in-scope implementation findings to original planner for repair plan, then implementer and independent re-audit. Increment repair round only at repair execution start; do not change approved requirements or frozen subject before audit handoff.

@@ -1,0 +1,43 @@
+type: assignment
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root
+to: /root/managed_lifecycle_implementer
+status: repairing
+baseline:
+  manifest: baseline-1/baseline.json
+  specification: SPEC-MANAGED-TOOL-LIFECYCLE@0.3
+  plan: PLAN-MANAGED-TOOL-LIFECYCLE@0.2
+  repair_plan: repair-01-plan.md@0.1
+  repair_plan_sha256: c55a0bbd2720103e6c3346f9c1eaa666984ed24c709b627dc5569475435487f3
+  repair_round: 1
+scope: Execute R1–R6 for A0-001 and A0-002 only, preserving accepted requirements and all prior/user work. You remain sole technical integrator and are not alone in the workspace.
+requirements[5]:
+  - Read exact preserved repair plan and audit0; follow cause/ordering/acceptance without changing product requirements. Separate terminal per-tool history from live scope/health, archive settled journal in memory before definitive locked preflight, preserve pending/failed/unresolved proof and liveB/C/all-slot guards.
+  - Before editing every existing owned public repair file, preserve exact before bytes verified against immutable audit0 source hashes; record absence for additions. Never copy a whole checkout/private config/raw scratch.
+  - Add real CLI regression sequences on both Bash runtimes, record targeted red before correction, then green with full no-op/read-only snapshots and subsequent install/update. Keep explicit absent check1 and actual missing/broken diagnostics.
+  - Use only fixed-allowlist published runner for all tests. Run plan-required affected checks and one complete final smoke after green; repeat only on changes or concrete unresolved failures. No optional broad reruns or polishing.
+  - Keep original audit0/results/88-source manifest and approved documents immutable. Final union subject, before/after delta, actual JUnit/skips/limits and safe handoff are required before independent audit1; no edits during re-audit.
+ownership:
+  source: Plan-listed journal/install/uninstall/update/facades/tool_status and necessary existing managed tests only.
+  integration: Same original implementer; preserve HEAD9a pins, fixtures, adapters, production identity defaults, fzf phase1 gate and all root/auditor records.
+  repair_evidence: repair-01/ own public snapshots and safe selected verification outputs; root owns repair-01-plan/assignment, execution/events and report publication.
+  prohibited: actual checkout Git mutations, commit/push, network/live assets, host install, startup/global config, private original files or restricted raw captures.
+dependencies[4]:
+  - Audited round0 subject increment-03/source-hashes.json has88entries; original accepted baseline remains unchanged.
+  - audit-0.md/toon and auditor-safe probes/results are preserved;66critical existing cases passed,6new independent sequences failed on both Bash versions.
+  - Restricted smoke01/02, older scratch raw/23private archived logs and original dev/.env/user.local are outside open/hash/promotion. Only safe structural summaries and fresh allowlisted outputs may be published.
+  - Execution state repairing/repair_round1 is recorded by root at this assignment start; this is automatic repair1 of at most2, not a reset/new cycle.
+acceptance[4]:
+  - All plan acceptance rows green, both Bash3.2.57/5.3.20, meaningful pending/partial/mixed proof regressions preserved.
+  - Full smoke returncode0, actual counts/skips and source_unchangedtrue; exact final source union/delta and frozen before bytes available.
+  - Report any real requirement gap immediately and hold dependent work; routine code/test defects stay inside this repair round.
+  - Return complete TOON handoff and repair-01-result.md for coordinator/independent auditor; no self-certified Pass or Git operation.
+artifacts[3]:
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/repair-01-plan.md
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/audit-0.md
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/run_isolated_verification.py
+evidence[2]:
+  - Root reviewed repair plan0.1; no scope/product change or new user decision required under workflow step10.
+  - Original full smoke1863passed/56skipped remains round0 evidence, not a result for repaired code.
+blockers[0]:
+next_action: Begin R1 snapshots and R2 targeted red, then minimal correction/integration and required verification; keep concise progress at natural boundaries.

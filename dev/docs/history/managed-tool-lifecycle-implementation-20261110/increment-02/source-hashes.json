@@ -1,0 +1,302 @@
+{
+  "head": "9a223dcca76072eb9035316d25abf972902d3289",
+  "frozen_basis": [
+    {
+      "source": "dev/docs/managed-tool-lifecycle-specification.md",
+      "snapshot": "files/dev/docs/managed-tool-lifecycle-specification.md",
+      "id": "SPEC-MANAGED-TOOL-LIFECYCLE",
+      "version": "0.3",
+      "sha256": "62a53a9ae528dba9ca1d0943c014c557490bec897d638b998902ca16fe56ffbb"
+    },
+    {
+      "source": "dev/docs/managed-tool-lifecycle-implementation-plan.md",
+      "snapshot": "files/dev/docs/managed-tool-lifecycle-implementation-plan.md",
+      "id": "PLAN-MANAGED-TOOL-LIFECYCLE",
+      "version": "0.2",
+      "sha256": "e7d504fe7c5a69a400c9ccae549c4fcb0225dcb980c105ae5e45f4c89a5e7c23"
+    }
+  ],
+  "runtime_bashes": {
+    "/bin/bash": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+    "/opt/homebrew/bin/bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)"
+  },
+  "files": [
+    {
+      "path": "dev/tests/conftest.py",
+      "sha256": "d55f39e237305006baac3a31f5f46caf02fefe141427a83bff96592b29a45d83",
+      "bytes": 13963
+    },
+    {
+      "path": "dev/tests/managed_fixture.py",
+      "sha256": "b578699610bc005dc9518e8c30089680f09bbd1d0e736f459cec041244e4ad85",
+      "bytes": 4942
+    },
+    {
+      "path": "dev/tests/test_install_binary.py",
+      "sha256": "b535d6f7f8b72fd143ca6ec4d2525ecb9ac1a084be5bb8faa1fe5fe460cf4cdf",
+      "bytes": 20095
+    },
+    {
+      "path": "dev/tests/test_install_bundle.py",
+      "sha256": "feae43ff5bbbb0d5aa04142c0ec83564a673418da4b8f41ec3901273a5ece239",
+      "bytes": 6533
+    },
+    {
+      "path": "dev/tests/test_install_failures.py",
+      "sha256": "62b46e9294f05327bf4441d10a6676e819b523f4efddadfeb840c14af1141f28",
+      "bytes": 6625
+    },
+    {
+      "path": "dev/tests/test_install_library.py",
+      "sha256": "156685a635df40b0555c75d9a4ddefea53f5255bb8f406b07e3bae11a6b93d88",
+      "bytes": 10827
+    },
+    {
+      "path": "dev/tests/test_managed_install_engine.py",
+      "sha256": "cd85943c0cbdce56d2fddb73171a53cd1232ffbf2b98ab451d8f7196b21a7722",
+      "bytes": 4324
+    },
+    {
+      "path": "dev/tests/test_managed_lifecycle.py",
+      "sha256": "004fea9f5dc642a31362d9cd55e91e0fc3b5a33ab0b0a3bb3386d14386627b58",
+      "bytes": 6068
+    },
+    {
+      "path": "dev/tests/test_managed_public_faults.py",
+      "sha256": "ef7cf5d6dcf429f292d7342ee0284f663522815170bc7054452bb4db30f46d23",
+      "bytes": 10744
+    },
+    {
+      "path": "dev/tests/test_managed_uninstall.py",
+      "sha256": "86c1c64da1db883ec512dbfbb31b3713ceb3856c9faf07c53b6a3282360d4a8f",
+      "bytes": 7922
+    },
+    {
+      "path": "dev/tests/test_managed_update.py",
+      "sha256": "f16a38cc9c4929eddecd42be289046387444a5d30a878de7e7fb37db6445ed24",
+      "bytes": 9996
+    },
+    {
+      "path": "tools/install-tool.sh",
+      "sha256": "590dd1a0d5c4731f2d45f32cff0eb31deadb3e873b6c05c5de34def96007204e",
+      "bytes": 1002
+    },
+    {
+      "path": "tools/lib/commands/install.sh",
+      "sha256": "5c6a84e68fbb48c9a8b81f4bae4bd9eebea3d9539fbec72470f5d931092016f1",
+      "bytes": 3870
+    },
+    {
+      "path": "tools/lib/commands/uninstall.sh",
+      "sha256": "1902331db568acaa38d2c26d7e2f9980f34a60d3520bf3ccfd673a01cd9df354",
+      "bytes": 3200
+    },
+    {
+      "path": "tools/lib/commands/update.sh",
+      "sha256": "8c5c7cdf1f50a49e7e0672ced0d02fadb231822a96abbc94916a69d893314e20",
+      "bytes": 1164
+    },
+    {
+      "path": "tools/lib/commands.lib.sh",
+      "sha256": "f5a2342b99d5156df72f0468213ae1d2c85014bdecfef79f592f7c44606ff0c8",
+      "bytes": 1195
+    },
+    {
+      "path": "tools/lib/install/tool_sets.sh",
+      "sha256": "7153c26668f49c99774e62fcb3d2208647e694a3b35b8359b62b3ded2c17b37a",
+      "bytes": 4148
+    },
+    {
+      "path": "tools/lib/install-tool/download.sh",
+      "sha256": "faebc5704ed7f776b9a8ccd1d7baa32a9dca2a428c72d2985fa09fe15c577753",
+      "bytes": 3113
+    },
+    {
+      "path": "tools/lib/managed/continue-update.sh",
+      "sha256": "4304ffa096a93856bab2482ced6cc5af6fcd655ee0214427b5911c273eb8e077",
+      "bytes": 471
+    },
+    {
+      "path": "tools/lib/managed/install.sh",
+      "sha256": "4e5999d3c3b8fafb0b85a4d063902c191b0b6726752999b0cceddd196aab742b",
+      "bytes": 19752
+    },
+    {
+      "path": "tools/lib/managed/inventory.sh",
+      "sha256": "0322bb4fc1059617da9b0edfe9591c1aae30e4e24478dcc96a4ddf6e53ff2abb",
+      "bytes": 5648
+    },
+    {
+      "path": "tools/lib/managed/journal.sh",
+      "sha256": "bcc550122b48d7ae503b2ba66eb5173a09304cc118c00dd9af716882f51c3d44",
+      "bytes": 4279
+    },
+    {
+      "path": "tools/lib/managed/lock.sh",
+      "sha256": "795335f2e2dcd4f3d3772727065e378f019350c759f3c26cd1064f2c9de384be",
+      "bytes": 12398
+    },
+    {
+      "path": "tools/lib/managed/migration.sh",
+      "sha256": "8ce897fd38fc07de3f8f916e404746cc65e7533e1d39ba427c7ddbbab4a332a9",
+      "bytes": 3604
+    },
+    {
+      "path": "tools/lib/managed/recovery.sh",
+      "sha256": "9a58f7258477b37bcddb1116df3e2a77d5d5d07d58186b21d4d0978920319038",
+      "bytes": 11597
+    },
+    {
+      "path": "tools/lib/managed/state.sh",
+      "sha256": "7a64130203532421ad4c12c86dedbd40111b63b4304420e34e22c789e1962b1f",
+      "bytes": 15574
+    },
+    {
+      "path": "tools/lib/managed/uninstall.sh",
+      "sha256": "ffde63dd586f1ffc7c6f0e8d8c5d97557d737fdb6a5a0255a9d809a44c1bd931",
+      "bytes": 9970
+    },
+    {
+      "path": "tools/lib/managed/update.sh",
+      "sha256": "5bec47027007f983fdb59bc285421360ae8b3930a0e555748551d25c029d3d6f",
+      "bytes": 14058
+    },
+    {
+      "path": "tools/lib/managed.lib.sh",
+      "sha256": "dce3c0fd6e4c0a834a2b258fee22910f9da7eb7d832b709ec6baca43f893fe5e",
+      "bytes": 576
+    }
+  ],
+  "preexisting_work_preserved": [
+    {
+      "path": "dev/tests/fixtures/atuin/README.md",
+      "preserved": true,
+      "sha256": "bef1f5d1abc54d0a1fa5378d49c9a60d74c607c708cff29b0e6c598817624a03"
+    },
+    {
+      "path": "dev/tests/fixtures/atuin/v18.14.1/LICENSE",
+      "preserved": true,
+      "sha256": null
+    },
+    {
+      "path": "dev/tests/fixtures/atuin/v18.14.1/atuin.bash",
+      "preserved": true,
+      "sha256": null
+    },
+    {
+      "path": "dev/tests/fixtures/zoxide-0.9.9-completion.bash",
+      "preserved": true,
+      "sha256": null
+    },
+    {
+      "path": "dev/tests/test_atuin_lifecycle.py",
+      "preserved": true,
+      "sha256": "2e382a56c97c71b250148970620ef4c629aacfebe70b35217fd5e628bf7ba0b9"
+    },
+    {
+      "path": "dev/tests/test_atuin_real.py",
+      "preserved": true,
+      "sha256": "6409cb37f986ff7d8937b79bc8e58d8697e2d8248ac7d563425c4c8b39d8707d"
+    },
+    {
+      "path": "dev/tests/test_check.py",
+      "preserved": true,
+      "sha256": "ffedbfb3c8322ca47226a70005678db876ecf5f518bae4603d021a64175f9a68"
+    },
+    {
+      "path": "dev/tests/test_tool_assets.py",
+      "preserved": true,
+      "sha256": "92259fa4852e6313b47966056886bb2084a90bfaa318e9ce264d57d0445ab7ff"
+    },
+    {
+      "path": "dev/tests/test_zoxide_skim.py",
+      "preserved": true,
+      "sha256": "ba3c1ff26b9a9e02a4916de27a0454ebf402fe8300e0e2910d57220b824335c9"
+    },
+    {
+      "path": "docs/tool-checksums.md",
+      "preserved": true,
+      "sha256": "44a84980a057a15df7580c8b31d8c1f38701254c4a9c3fe0ad7330f752f76374"
+    },
+    {
+      "path": "tools/defs/atuin.sh",
+      "preserved": true,
+      "sha256": "9b7ba1ae0b3ff27f53a906c172860805b3784cba55d4e118cae09b8706655402"
+    },
+    {
+      "path": "tools/defs/bottom.sh",
+      "preserved": true,
+      "sha256": "127e02e60b80aa2666840d2528b3865eaae2cbd4b316d6c1d38408199a0243a8"
+    },
+    {
+      "path": "tools/defs/bssh.sh",
+      "preserved": true,
+      "sha256": "c31fc30dd393412e410a50f9ecb5ab3619bab7078795156c42a4fde73ac9f38e"
+    },
+    {
+      "path": "tools/defs/dust.sh",
+      "preserved": true,
+      "sha256": "8b266f0d66f990a67aa85259243727165ccd135e865953590e4a764976a999d4"
+    },
+    {
+      "path": "tools/defs/eza.sh",
+      "preserved": true,
+      "sha256": "2ef1a043f94edfd663d8a980bbbbc6052314f5f87e6cbd1ab579ad94c0602506"
+    },
+    {
+      "path": "tools/defs/fd.sh",
+      "preserved": true,
+      "sha256": "4a9c1749eba6945ff04aff129a8133e58e35df7897989a00cae0c7644816af46"
+    },
+    {
+      "path": "tools/defs/nu.sh",
+      "preserved": true,
+      "sha256": "d73eaeeea3c9eedab1132e38387dc29e3b958d1ca108a70abe3cddc40b5c5726"
+    },
+    {
+      "path": "tools/defs/nvim.sh",
+      "preserved": true,
+      "sha256": "82ac68767e351a02aca52799cd760a4a3d0db44705ae96c316ee057b63025c30"
+    },
+    {
+      "path": "tools/defs/procs.sh",
+      "preserved": true,
+      "sha256": "65a4d1b8561ac490f24a2cca637cc0054204e389673d3b65ad7f9bfb992d8398"
+    },
+    {
+      "path": "tools/defs/rg.sh",
+      "preserved": true,
+      "sha256": "d1a67b4b0c5372c7fb62e6b214c81ecce9091468cc06d8863a7e9a8d9624a962"
+    },
+    {
+      "path": "tools/defs/starship.sh",
+      "preserved": true,
+      "sha256": "462201ed991ae0bc5e459229118f05b89faf3d884419b2f70c1bf5826e6c2790"
+    },
+    {
+      "path": "tools/defs/tspin.sh",
+      "preserved": true,
+      "sha256": "576d413a94d213e3cdad55ec3b69f34430b9cfa3189b686f2e1e174741dea3a1"
+    },
+    {
+      "path": "tools/defs/vector.sh",
+      "preserved": true,
+      "sha256": "b59e529118241138137898fb78b5c27da009f0140eefffba88bad3e3b7010b7e"
+    },
+    {
+      "path": "tools/defs/yazi.sh",
+      "preserved": true,
+      "sha256": "dd40e41e02a6aa217ecfa8d1c38904b5bdb69122f2c065c4a281fb57b17c420a"
+    },
+    {
+      "path": "tools/defs/zellij.sh",
+      "preserved": true,
+      "sha256": "18007d89e937b8e5b006d0652401531bd4e7a87b8477c9173fdbc60ae69bf1a2"
+    },
+    {
+      "path": "tools/defs/zoxide.sh",
+      "preserved": true,
+      "sha256": "6b109ee88ad3724f47a6841f9da668d944529613b06cc6015b1b2ea265086821"
+    }
+  ]
+}

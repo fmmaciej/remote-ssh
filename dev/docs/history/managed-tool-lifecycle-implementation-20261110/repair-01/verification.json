@@ -1,0 +1,123 @@
+{
+  "repair_round": 1,
+  "red": {
+    "failed": 24,
+    "passed": 4,
+    "genuine_product_regressions": 16,
+    "test_oracle_overconstraint": 8,
+    "source_unchanged": true
+  },
+  "red_guard_correction": {
+    "passed": 8,
+    "source_unchanged": true,
+    "note": "Protected journal/payload paths and bytes retained; lock-directory bookkeeping mtime is legitimate for rejected mutators. Read-only no-op/report full mtime snapshots retained."
+  },
+  "targeted": {
+    "command": [
+      "uv",
+      "run",
+      "--offline",
+      "--project",
+      "/Users/fm/Programming/00_Other/remote-ssh/dev",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/repair-01/targeted.xml",
+      "tests/test_managed_uninstall.py",
+      "tests/test_managed_reports.py",
+      "tests/test_managed_recovery.py",
+      "tests/test_managed_public_faults.py",
+      "tests/test_managed_update.py",
+      "tests/test_managed_prune.py",
+      "tests/test_managed_lifecycle.py",
+      "tests/test_managed_install_engine.py",
+      "tests/test_managed_state.py::test_separate_identity_repair_and_deletion_proofs"
+    ],
+    "cwd": "/Users/fm/Programming/00_Other/remote-ssh/dev",
+    "returncode": 0,
+    "timeout": 3600,
+    "timed_out": false,
+    "elapsed_seconds": 1260.5062353749527,
+    "source_unchanged": true,
+    "environment_provenance": "fixed allowlist; no ambient values, dotenv or startup env; synthetic HOME/XDG/Git context",
+    "environment_keys": [
+      "BASH_ENV",
+      "ENV",
+      "GIT_CONFIG_GLOBAL",
+      "GIT_CONFIG_NOSYSTEM",
+      "HOME",
+      "INSTALL_BIN_DIR",
+      "INSTALL_PREFIX",
+      "LANG",
+      "LC_ALL",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY",
+      "TZ",
+      "UV_CACHE_DIR",
+      "UV_NO_ENV_FILE",
+      "UV_OFFLINE",
+      "UV_PYTHON_DOWNLOADS",
+      "XDG_CACHE_HOME",
+      "XDG_CONFIG_HOME",
+      "XDG_DATA_HOME",
+      "XDG_STATE_HOME"
+    ],
+    "native_capability": "No optional private native path inherited; explicit unavailable tests remain skipped"
+  },
+  "full_smoke": {
+    "command": [
+      "just",
+      "smoke"
+    ],
+    "cwd": "/Users/fm/Programming/00_Other/remote-ssh/dev",
+    "returncode": 0,
+    "timeout": 7200,
+    "timed_out": false,
+    "elapsed_seconds": 2833.174389874912,
+    "source_unchanged": true,
+    "environment_provenance": "fixed allowlist; no ambient values, dotenv or startup env; synthetic HOME/XDG/Git context",
+    "environment_keys": [
+      "BASH_ENV",
+      "ENV",
+      "GIT_CONFIG_GLOBAL",
+      "GIT_CONFIG_NOSYSTEM",
+      "HOME",
+      "INSTALL_BIN_DIR",
+      "INSTALL_PREFIX",
+      "LANG",
+      "LC_ALL",
+      "PATH",
+      "PYTEST_ADDOPTS",
+      "PYTHONDONTWRITEBYTECODE",
+      "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY",
+      "TZ",
+      "UV_CACHE_DIR",
+      "UV_NO_ENV_FILE",
+      "UV_OFFLINE",
+      "UV_PYTHON_DOWNLOADS",
+      "XDG_CACHE_HOME",
+      "XDG_CONFIG_HOME",
+      "XDG_DATA_HOME",
+      "XDG_STATE_HOME"
+    ],
+    "native_capability": "No optional private native path inherited; explicit unavailable tests remain skipped"
+  },
+  "full_counts": {
+    "passed": 1891,
+    "skipped": 56
+  },
+  "new_regressions": 28,
+  "coverage": "22REQ/24AC and both findings actual case outcomes in coverage.json; audit remains separate",
+  "skip_reasons": {
+    "PROMPT_COMMAND arrays require Bash 5.1": 4,
+    "set REMOTE_SSH_TEST_ATUIN_BIN to the local pinned Atuin executable": 1,
+    "Bash 3.2 rejects native activation before variable mutation": 26,
+    "real picker tests require --navi-bin and --skim-bin (no downloads)": 24,
+    "Bash 3.2 has no BASHOPTS": 1
+  },
+  "source_paths": 88,
+  "changed_source_paths": 12,
+  "native_boundary": "No native library ABI qualification or new host/asset operations; inherited original limits remain."
+}

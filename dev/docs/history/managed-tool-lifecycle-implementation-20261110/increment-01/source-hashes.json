@@ -1,0 +1,75 @@
+{
+  "head": "9a223dcca76072eb9035316d25abf972902d3289",
+  "frozen_basis_verified": true,
+  "runtime_bashes": {
+    "/bin/bash": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+    "/opt/homebrew/bin/bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)"
+  },
+  "files": [
+    {
+      "path": "dev/tests/test_managed_concurrency.py",
+      "sha256": "a177b246a41e795b8a6ba879dcc39916a093d9d7f85f543d5676fb57df725964",
+      "bytes": 7928
+    },
+    {
+      "path": "dev/tests/test_managed_recovery.py",
+      "sha256": "55c610fc9508aea7949a7317e5957dab3251c3748cd97a782f6267be70ed5b0b",
+      "bytes": 10095
+    },
+    {
+      "path": "dev/tests/test_managed_state.py",
+      "sha256": "ce7444d7a209ff032e612c0ddb3e672f6581137a4f038f5d8d2b3909fdddc182",
+      "bytes": 14377
+    },
+    {
+      "path": "tools/defs/nvim.sh",
+      "sha256": "82ac68767e351a02aca52799cd760a4a3d0db44705ae96c316ee057b63025c30",
+      "bytes": 1033
+    },
+    {
+      "path": "tools/lib/common/release.sh",
+      "sha256": "3c36bd8b18f20b73f9fdbb4a5092bcc69c9e372b4e4fd4fc08c84885f1802690",
+      "bytes": 11744
+    },
+    {
+      "path": "tools/lib/install-tool/defs.sh",
+      "sha256": "9d9f360882d75e4d84936f2fdeeeec1d2abb1350fd0dbd91fbec928824aa63a4",
+      "bytes": 3316
+    },
+    {
+      "path": "tools/lib/managed.lib.sh",
+      "sha256": "b4a96be771e9d689254af89bdfbadcf634c3af631367b76453449854f55814b4",
+      "bytes": 458
+    },
+    {
+      "path": "tools/lib/managed/inventory.sh",
+      "sha256": "8ac18920e25f4cf71b6a6b5dc7edeffefb37e94fe90bd18fa191dfcf2524939c",
+      "bytes": 5322
+    },
+    {
+      "path": "tools/lib/managed/journal.sh",
+      "sha256": "d5262b0b8333017e36d5c6306c66cfbb4546d0a7c2343dcbb62426612eaa66b7",
+      "bytes": 4240
+    },
+    {
+      "path": "tools/lib/managed/lock.sh",
+      "sha256": "9ac1a0d5e9bdc067576cb983bb3776b16cc4f2d26c41678f6592c4fc563d368e",
+      "bytes": 11791
+    },
+    {
+      "path": "tools/lib/managed/migration.sh",
+      "sha256": "a7a47f78550f3764ed037cbf06c658db430e92c12c50be3be9777f5892c5c9c8",
+      "bytes": 3073
+    },
+    {
+      "path": "tools/lib/managed/recovery.sh",
+      "sha256": "42034d42d13b2ddc07550fbad6f01a57818b8b3fbefd4224de0e1d0252a66e62",
+      "bytes": 10736
+    },
+    {
+      "path": "tools/lib/managed/state.sh",
+      "sha256": "ccb5c0d0cee5b34384880d998db59d6c30c3eb62fc583c0dcff9dbc3dd144816",
+      "bytes": 14582
+    }
+  ]
+}

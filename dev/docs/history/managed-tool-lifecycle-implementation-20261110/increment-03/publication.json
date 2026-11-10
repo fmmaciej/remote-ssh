@@ -1,0 +1,253 @@
+{
+  "scope": "safe final technical evidence only; no source/approved basis/process record writes",
+  "tested_source": "source-hashes.json",
+  "raw_exclusions": [
+    "full-smoke-01.log",
+    "full-smoke-02.log",
+    "full-smoke-02.xml",
+    "smoke02-failures.json",
+    "all earlier scratch raw captures/restricted archives"
+  ],
+  "entries": [
+    {
+      "source": "result.md",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/result.md",
+      "before": null,
+      "after": "e5aed4ba818d3da0c07bb5f5fe5c427e344c3c916184b10f4fd68b989ca34f0b"
+    },
+    {
+      "source": "interfaces.md",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/interfaces.md",
+      "before": null,
+      "after": "add2d0d1d6d4d0baf993a681f8c67a4a735d3660ac11da654864a0bc42f403bc"
+    },
+    {
+      "source": "handoff.toon",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/handoff.toon",
+      "before": null,
+      "after": "13078f978abfda611721daf05dd5bc8c2f7b0d14cf29076ce804766c498d2a23"
+    },
+    {
+      "source": "verification.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/verification.json",
+      "before": null,
+      "after": "3bbf0f4665e4f870f71df1272f7ac0feea085016fcb99b1299b8198e567c5841"
+    },
+    {
+      "source": "coverage.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/coverage.json",
+      "before": null,
+      "after": "a38e163e68df8940e8b1031ba3c35792074c5e6087db8c8a82e6980db3efebb9"
+    },
+    {
+      "source": "coverage.md",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/coverage.md",
+      "before": null,
+      "after": "0a76e794de86fbd963d70333d2f9062b6bd91e7c75364cb1c3500ad24d2a6289"
+    },
+    {
+      "source": "final-test-cases.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/final-test-cases.json",
+      "before": null,
+      "after": "a2d54c63eabe4a066392ac5959d77f45e82ba7d3c2e626032033be46cd6f9ec8"
+    },
+    {
+      "source": "skips.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/skips.json",
+      "before": null,
+      "after": "ec7b462702f0578869f39eea8f7882b401ac09d94ec302bf759787ef2d10904e"
+    },
+    {
+      "source": "source-hashes.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/source-hashes.json",
+      "before": null,
+      "after": "e38eec45d49e19f41ee40f8dddea610e74a9c1375950c5f80933f90d7ab5951d"
+    },
+    {
+      "source": "full-smoke-03-source-hashes.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/full-smoke-03-source-hashes.json",
+      "before": null,
+      "after": "063dfd4b0a3a5b18a902e52e4196a9a8a77efb065d27fff27356881a348678e6"
+    },
+    {
+      "source": "full-smoke-03.log",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/full-smoke-03.log",
+      "before": null,
+      "after": "8099658def4351a6fb6b3348ce2fe22b0370bfb11b8ef9e8d7779bcac6068f02"
+    },
+    {
+      "source": "full-smoke-03.xml",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/full-smoke-03.xml",
+      "before": null,
+      "after": "558cad8037e45ba675fb4e949d9e557d8c1e26fa3773b204c05dcc3075b9e6ed"
+    },
+    {
+      "source": "full-smoke-03-result.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/full-smoke-03-result.json",
+      "before": null,
+      "after": "90a3ad4f6df60b73a98d2e7bed98fc9fa7eadfdc37e9d20f93b3a7401b2f3861"
+    },
+    {
+      "source": "smoke02-affected.log",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/smoke02-affected.log",
+      "before": null,
+      "after": "7d34fdabc2144196d5274bb78457b54f1a0d143cb0acca2155d73972848a2f07"
+    },
+    {
+      "source": "smoke02-affected.xml",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/smoke02-affected.xml",
+      "before": null,
+      "after": "8e3ce92bcc41459cbbf6b8632872bd6771dd69112ee589ec29f7040398766b06"
+    },
+    {
+      "source": "smoke02-affected-result.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/smoke02-affected-result.json",
+      "before": null,
+      "after": "0244d2db5f536242a87d95c24a6c79c40fb50ec01202bc245a61f28949ce3888"
+    },
+    {
+      "source": "bootstrap-final.log",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/bootstrap-final.log",
+      "before": null,
+      "after": "e72ede30988ead0a508b0e74fcd8161318a79fb3b32e4aa34bbcbbec27c552da"
+    },
+    {
+      "source": "bootstrap-final.xml",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/bootstrap-final.xml",
+      "before": null,
+      "after": "23032a54fb1c5f9fdfca17c102247d913d43f07191adcbbfe7662e9bed77a8f8"
+    },
+    {
+      "source": "bootstrap-final-result.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/bootstrap-final-result.json",
+      "before": null,
+      "after": "8fd860364bcd6e02b0aefc7df1559bf541ebb355cc116b232874d231db4e7315"
+    },
+    {
+      "source": "runme-diagnostic.log",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/runme-diagnostic.log",
+      "before": null,
+      "after": "22c4ed7f8f4bb345d65e95ca7fa2f77d938ffc95958fdd35343fc62e2f959002"
+    },
+    {
+      "source": "runme-diagnostic.xml",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/runme-diagnostic.xml",
+      "before": null,
+      "after": "9752d8846265d0d2e562b91a3eb1dd906bde29253595bc1a08d98279c5049921"
+    },
+    {
+      "source": "runme-diagnostic-result.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/runme-diagnostic-result.json",
+      "before": null,
+      "after": "b19146e3c8ebbd8c08a5f907bea8a49249ca4d7d558af9d1b157177c44ba4d00"
+    },
+    {
+      "source": "smoke02-safe-taxonomy.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/smoke02-safe-taxonomy.json",
+      "before": null,
+      "after": "30e2958a2431f6be01e6873db5fee460bb66a56ab8d084d88e4539bce81fdae3"
+    },
+    {
+      "source": "smoke02-quarantine.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/smoke02-quarantine.json",
+      "before": null,
+      "after": "02e1602f0728d134ef838389287bcf9ebb5f1d371942c2580e01c5c71118f921"
+    },
+    {
+      "source": "smoke01-interruption.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/smoke01-interruption.json",
+      "before": null,
+      "after": "62e412d7833403ce762e6c3338dfef769bcf4ea011e922e5913137d82d2d1433"
+    },
+    {
+      "source": "full-smoke-01-result.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/full-smoke-01-result.json",
+      "before": null,
+      "after": "955ba9a71dbe33b1dc674c09f1a135ea64bef2207121a0217078296f77cc7490"
+    },
+    {
+      "source": "identity-isolation-correction.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/identity-isolation-correction.json",
+      "before": null,
+      "after": "db86c74a40b985b456c260846ae48a24c2512d8ac5ea3de149191f68b48bf250"
+    },
+    {
+      "source": "identity-invocation-audit.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/identity-invocation-audit.json",
+      "before": null,
+      "after": "833bd6918bfb545c12be398f6ecdce854957b0fcd0c8396811b156ba3bc461ab"
+    },
+    {
+      "source": "preservation.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/preservation.json",
+      "before": null,
+      "after": "8f27d0fae3cda7e5543ead0229fda71d470339f5e4d2e46b5cb871a56e8721f3"
+    },
+    {
+      "source": "documentation-links.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/documentation-links.json",
+      "before": null,
+      "after": "bcca67e4a54ea5cd2c7feb26a1e2c4e08f03b329ea59e1cc9410dd28b9f50b0d"
+    },
+    {
+      "source": "runtime-and-native-boundary.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/runtime-and-native-boundary.json",
+      "before": null,
+      "after": "e5764158c9d89efa91860e508e3a447792d2a8a2d8ac32ed4491fa5e90e02e96"
+    },
+    {
+      "source": "run_isolated_verification.py",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/run_isolated_verification.py",
+      "before": null,
+      "after": "7c7e7ccf3b119e2c31915e405132fe7a05861762551d0ee632e9d2ae354a9229"
+    },
+    {
+      "source": "git-maintenance-probe01.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/git-maintenance-probe01.json",
+      "before": null,
+      "after": "77dcd05af54a042a51e99e02422f96da8116658ee32713c8e818e4e83f62baa5"
+    },
+    {
+      "source": "git-maintenance-probe02.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/git-maintenance-probe02.json",
+      "before": null,
+      "after": "3979b6f86cad99205e5682be6bb255fa2109a31cf7286f2fc35b35392ee6490e"
+    },
+    {
+      "source": "git-lifetime-clarification.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/git-lifetime-clarification.json",
+      "before": null,
+      "after": "ea473755b1060e0a823e723001d47aa5faca2199f30b5858b5c217ac19bf4abb"
+    },
+    {
+      "source": "smoke02-correction-publication.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/smoke02-correction-publication.json",
+      "before": null,
+      "after": "fbd9ff1eca14b490587088ed360284dd13b691e5c0ef78d52a3489c05df81da9"
+    },
+    {
+      "source": "runme-lock-publication.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/runme-lock-publication.json",
+      "before": null,
+      "after": "bf3892c743d74853d877224172c72d3f88f49b0962d45e9eb765fa6e2a30476f"
+    },
+    {
+      "source": "manual-cli-cases.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/manual-cli-cases.json",
+      "before": null,
+      "after": "996c443a3c1ee33cf028cc093ca1c67b4fd94ee5ea63a0b7a46df517a1c7af0f"
+    },
+    {
+      "source": "coverage-definition-check.json",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-03/coverage-definition-check.json",
+      "before": null,
+      "after": "243c10aba04269636c2a4559c245f60ece085a87a85c1da7127a30d20129e9cd"
+    },
+    {
+      "source": "integration-result.md",
+      "path": "dev/docs/history/managed-tool-lifecycle-implementation-20261110/integration-result.md",
+      "before": null,
+      "after": "e5aed4ba818d3da0c07bb5f5fe5c427e344c3c916184b10f4fd68b989ca34f0b"
+    }
+  ]
+}

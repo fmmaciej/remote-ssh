@@ -1,0 +1,56 @@
+[
+  {
+    "source": "files/tools/lib/managed/journal.sh",
+    "path": "tools/lib/managed/journal.sh",
+    "before": "bcc550122b48d7ae503b2ba66eb5173a09304cc118c00dd9af716882f51c3d44",
+    "after": "5c392f16636f3ce783c2a173778398bf9810695ea8a24640d333e31e06f241a9"
+  },
+  {
+    "source": "files/tools/lib/managed/install.sh",
+    "path": "tools/lib/managed/install.sh",
+    "before": "cdfb974a34b59ad46e26758a32ad254d5c535ac9b60b5f7d2ba51dcb741ba0d0",
+    "after": "974e5b3d45d3b99648076b635ab50cfdc49f275f06610d2dc092a306386cf9b5"
+  },
+  {
+    "source": "files/tools/lib/managed/uninstall.sh",
+    "path": "tools/lib/managed/uninstall.sh",
+    "before": "ffde63dd586f1ffc7c6f0e8d8c5d97557d737fdb6a5a0255a9d809a44c1bd931",
+    "after": "3c6c5eedbb67a06240a5f6419621e6ba9f4a26893f2177f0aed334440a83522b"
+  },
+  {
+    "source": "files/tools/lib/managed/update.sh",
+    "path": "tools/lib/managed/update.sh",
+    "before": "c1836e3093f024aea02a0d6d93088c06e1f2a6eb4ed1083d91dfb91affbcaed3",
+    "after": "8bbc9403de36c1e70ab3e04fffe6ebd98f039250ff31adaeb74472a5b25606cd"
+  },
+  {
+    "source": "files/tools/lib/commands/install.sh",
+    "path": "tools/lib/commands/install.sh",
+    "before": "5c6a84e68fbb48c9a8b81f4bae4bd9eebea3d9539fbec72470f5d931092016f1",
+    "after": "7fe5911e0f220db569617e679bcf3f0c698fec9cc423499a3efffe1dd135143f"
+  },
+  {
+    "source": "files/tools/lib/commands/uninstall.sh",
+    "path": "tools/lib/commands/uninstall.sh",
+    "before": "1902331db568acaa38d2c26d7e2f9980f34a60d3520bf3ccfd673a01cd9df354",
+    "after": "d4f84acf16138f6cd202b97fde151347308b9616a56f7d9a6ad8acbcf53552b3"
+  },
+  {
+    "source": "files/tools/lib/commands/tool_status.sh",
+    "path": "tools/lib/commands/tool_status.sh",
+    "before": "2502ba40f040e61e7bbbdcc0eaeb37dddb572c6d3eef35ea4058e0d947fbd2d2",
+    "after": "cf4dc680bcf020e823362704394187fafc1b856ab9ea77da21c04946e00c05b4"
+  },
+  {
+    "source": "files/dev/tests/managed_fixture.py",
+    "path": "dev/tests/managed_fixture.py",
+    "before": "6569991754abbcba1ab1aa2d21c2c93d4652a080bc226b60f991f909d41a2b40",
+    "after": "40894f47f581dd8ddcec46c9ee70705223f6b153b0f9a57a3322767ed27ca4e1"
+  },
+  {
+    "source": "files/dev/tests/test_managed_recovery.py",
+    "path": "dev/tests/test_managed_recovery.py",
+    "before": "55c610fc9508aea7949a7317e5957dab3251c3748cd97a782f6267be70ed5b0b",
+    "after": "11efc017b0ef2e1c45fea13c367f6303a2304462e6c68e002a19bd8fb40761f0"
+  }
+]

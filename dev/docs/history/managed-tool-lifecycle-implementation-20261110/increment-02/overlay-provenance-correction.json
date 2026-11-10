@@ -1,0 +1,32 @@
+{
+  "source_path_metadata": {
+    "path": "dots/git/user.local",
+    "tracked": false,
+    "exists": true
+  },
+  "model_content_read_or_printed": false,
+  "publisher_included_path": false,
+  "removed_overlay_copies": [
+    "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/test-repo/dots/git/user.local",
+    "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-02/test-repo/dots/git/user.local"
+  ],
+  "correction": "Only tracked sources and explicitly staged lifecycle files; exclude *.local and .env* when building test copies.",
+  "removed_task_fixture_config_copies": [
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-current/test_private_engine_checksum_fcurrent/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-current/test_private_bundle_manifest_a0/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-current/test_private_bundle_manifest_acurrent/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-current/test_private_engine_real_stagi0/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-current/test_private_library_install_ucurrent/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-current/test_private_engine_real_stagi1/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-current/test_private_library_install_u0/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-current/test_private_engine_checksum_f0/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-716/test_private_engine_checksum_fcurrent/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-716/test_private_bundle_manifest_a0/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-716/test_private_bundle_manifest_acurrent/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-716/test_private_engine_real_stagi0/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-716/test_private_library_install_ucurrent/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-716/test_private_engine_real_stagi1/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-716/test_private_library_install_u0/home/repo/dots/git/user.local",
+    "/private/var/folders/kb/jknm5gs15vg1z17hwfsv9n5c0000gn/T/pytest-of-fm/pytest-716/test_private_engine_checksum_f0/home/repo/dots/git/user.local"
+  ]
+}

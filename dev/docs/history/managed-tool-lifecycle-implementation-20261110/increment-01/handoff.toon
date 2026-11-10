@@ -1,0 +1,25 @@
+type: handoff
+task_id: managed-tool-lifecycle-implementation-20261110
+from: /root/managed_lifecycle_implementer
+to: /root
+status: implementing
+baseline:
+  manifest: dev/docs/history/managed-tool-lifecycle-implementation-20261110/baseline-1/baseline.json
+  specification: SPEC-MANAGED-TOOL-LIFECYCLE@0.3
+  plan: PLAN-MANAGED-TOOL-LIFECYCLE@0.2
+  current_source_head: 9a223dcca76072eb9035316d25abf972902d3289
+  repair_round: 0
+scope: Verified T1 and private T2 foundation checkpoint; T3–T7 public lifecycle integration remains pending.
+artifacts[3]:
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-01/result.md
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-01/interfaces.md
+  - dev/docs/history/managed-tool-lifecycle-implementation-20261110/increment-01/source-hashes.json
+evidence[6]:
+  - Published 13 source/test files with before/after hash guards; frozen basis and all prior tool-version work preserved.
+  - Final actual-source foundation tests 118 passed on Bash 3.2 and 5.3.
+  - Corrected actual-source check/ownership/link regression tests 117 passed; original 320 passed / 2 failed run retained with root cause and correction.
+  - Per-file syntax on both Bash runtimes, shellcheck, no-cache Ruff and diff check passed.
+  - Registered blocked utility PID remains busy after owner SIGKILL; delayed mv test covers both roots and report fencing.
+  - No public facade integration, full smoke, native ABI qualification or independent implementation audit claimed.
+blockers[0]:
+next_action: Coordinator assigns T3–T7 to this same sole integration owner; all later disk publication/deletion and mutating Git commands must use the guarded registered-child runner.

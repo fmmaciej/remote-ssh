@@ -1,0 +1,20 @@
+[
+  {
+    "source": "files/dev/tests/test_managed_uninstall.py",
+    "path": "dev/tests/test_managed_uninstall.py",
+    "before": "86c1c64da1db883ec512dbfbb31b3713ceb3856c9faf07c53b6a3282360d4a8f",
+    "after": "6e598568a3ccdd3041ddf1852418b79b215042d2ca3eed2bf8d1533f1e3cc468"
+  },
+  {
+    "source": "files/dev/tests/test_managed_reports.py",
+    "path": "dev/tests/test_managed_reports.py",
+    "before": "f64e2e36d59afcdd34394f0416b9034140e2aeb5374e67812dcb855eb2e3033d",
+    "after": "0d6bc7f57adb1b69875d6a92bf9646353cdafc1bf79d9db14e0a2f24ab06cf9a"
+  },
+  {
+    "source": "files/dev/tests/test_managed_public_faults.py",
+    "path": "dev/tests/test_managed_public_faults.py",
+    "before": "b010299717ad0b2dfd9a29b2ab40369e29f19631819c02bfb902af1b9afd5f62",
+    "after": "68f7df4874ed6c54a307bceed00534535bc5d2e40181ad8bc8e07742fc656bbf"
+  }
+]

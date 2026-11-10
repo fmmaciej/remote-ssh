@@ -1,0 +1,419 @@
+[
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/install-tool.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/install-tool.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/commands/install.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/commands/install.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/commands/uninstall.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/commands/uninstall.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/commands/update.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/commands/update.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/commands.lib.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/commands.lib.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/install/tool_sets.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/install/tool_sets.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/install-tool/download.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/install-tool/download.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/continue-update.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/continue-update.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/install.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/install.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/inventory.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/inventory.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/journal.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/journal.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/lock.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/lock.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/migration.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/migration.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/recovery.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/recovery.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/state.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/state.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/uninstall.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/uninstall.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/update.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/update.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed.lib.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed.lib.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "shellcheck",
+      "tools/install-tool.sh",
+      "tools/lib/commands/install.sh",
+      "tools/lib/commands/uninstall.sh",
+      "tools/lib/commands/update.sh",
+      "tools/lib/commands.lib.sh",
+      "tools/lib/install/tool_sets.sh",
+      "tools/lib/install-tool/download.sh",
+      "tools/lib/managed/continue-update.sh",
+      "tools/lib/managed/install.sh",
+      "tools/lib/managed/inventory.sh",
+      "tools/lib/managed/journal.sh",
+      "tools/lib/managed/lock.sh",
+      "tools/lib/managed/migration.sh",
+      "tools/lib/managed/recovery.sh",
+      "tools/lib/managed/state.sh",
+      "tools/lib/managed/uninstall.sh",
+      "tools/lib/managed/update.sh",
+      "tools/lib/managed.lib.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "dev/.venv/bin/ruff",
+      "check",
+      "--no-cache",
+      "dev/tests/conftest.py",
+      "dev/tests/managed_fixture.py",
+      "dev/tests/test_install_binary.py",
+      "dev/tests/test_install_bundle.py",
+      "dev/tests/test_install_failures.py",
+      "dev/tests/test_install_library.py",
+      "dev/tests/test_managed_install_engine.py",
+      "dev/tests/test_managed_lifecycle.py",
+      "dev/tests/test_managed_public_faults.py",
+      "dev/tests/test_managed_uninstall.py",
+      "dev/tests/test_managed_update.py"
+    ],
+    "exit_code": 0,
+    "stdout": "All checks passed!\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

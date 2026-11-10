@@ -1,0 +1,115 @@
+type: audit
+task_id: managed-tool-lifecycle-20261110
+from: /root/managed_lifecycle_auditor
+to: /root
+status: reviewing
+baseline:
+  repository: /Users/fm/Programming/00_Other/remote-ssh
+  commit: 15bcb79cee2d1959074d4c70e164d0cae75ee8e2
+  specification: dev/docs/managed-tool-lifecycle-specification.md
+  id: SPEC-MANAGED-TOOL-LIFECYCLE
+  version: "0.1"
+  sha256: 7bb447b30f57b8a2cf391262bf0996a80f0eec1df1d0e8caa43091c7abb7e958
+  manifest: null
+scope: Independent read-only specification review 0, revision_round 0. No authorship, implementation audit or human product approval.
+artifacts[2]:
+  - /private/tmp/remote-ssh-managed-lifecycle-20261110/review-0.md
+  - /private/tmp/remote-ssh-managed-lifecycle-20261110/review-0.toon
+evidence[5]:
+  - Exact specification hash verified; HEAD equals assigned baseline and tracked worktree remains unchanged.
+  - Verified 22 unique sequential REQ IDs, 21 AC IDs, 9 UC IDs and 48 existing in-project local links.
+  - Loaded current Kei rule and role contracts, auditor, specification convention and specification-prepare workflow; read project AGENTS and task history/handoff.
+  - Bounded source and selected test assertion inspection confirms expected-tools overwrite risk, healthy-only inventory, ownership limits, fresh-process update and retained phase-1 fzf gate.
+  - No runtime tests, network, host migration, secrets or real expected-tools inspection; no changes to reviewed subject.
+blockers[0]:
+verdict: Findings
+review: 0
+revision_round: 0
+coverage[22]:
+  - requirement: REQ-001
+    status: unmet
+    evidence: R0-001; CLI grammar conflicts with profile examples in AC-004 and AC-008.
+  - requirement: REQ-002
+    status: unmet
+    evidence: R0-001; additive contract clear but profile acceptance examples use invalid positional quick.
+  - requirement: REQ-003
+    status: met
+    evidence: UC-002 and AC-005 through AC-006 plus AC-018 cover repeat repair and external PATH protection.
+  - requirement: REQ-004
+    status: met
+    evidence: AC-004, AC-009, AC-014 and AC-017 cover automatic retained state and invalid-state errors.
+  - requirement: REQ-005
+    status: met
+    evidence: UC-005 and AC-011, AC-013, AC-014, AC-017; all proven active installs required, with S0-001 optional acceptance strengthening.
+  - requirement: REQ-006
+    status: met
+    evidence: UC-005 through UC-007 and AC-012, AC-014 specify no writes, network, payload execution or library load.
+  - requirement: REQ-007
+    status: met
+    evidence: AC-011, AC-013 and AC-021; expected-tools does not select tools, grant ownership or get rewritten.
+  - requirement: REQ-008
+    status: unmet
+    evidence: R0-002; active versus inactive owned release deletion scope and complete uninstall boundary unspecified.
+  - requirement: REQ-009
+    status: met
+    evidence: UC-004 and AC-008, AC-009, AC-017 cover refreshed code, repairs, empty set and no resurrection.
+  - requirement: REQ-010
+    status: met
+    evidence: AC-010 and AC-015 cover retained retired/unsupported entries and evidence; S0-001 suggests stronger first-update case.
+  - requirement: REQ-011
+    status: met
+    evidence: UC-006 and AC-015 define stable list scope including missing/broken/retired.
+  - requirement: REQ-012
+    status: met
+    evidence: UC-007 and AC-016, AC-018 cover environment plus selected tools and library distinction.
+  - requirement: REQ-013
+    status: met
+    evidence: Status table and AC-009, AC-010, AC-015, AC-016, AC-021 define distinct diagnostics and exit outcomes.
+  - requirement: REQ-014
+    status: met
+    evidence: AC-006, AC-010, AC-013, AC-014 define independent deletion proof and protected foreign paths.
+  - requirement: REQ-015
+    status: unmet
+    evidence: Staging protection covered by AC-005, AC-017, AC-018; R0-002 leaves inactive release responsibility ambiguous.
+  - requirement: REQ-016
+    status: met
+    evidence: UC-008 and AC-017 cover per-tool outcomes, recoverability and completed uninstall preservation.
+  - requirement: REQ-017
+    status: met
+    evidence: AC-003 and AC-019 cover preflight, preview, TTY refusal/EOF and yes bypass limits.
+  - requirement: REQ-018
+    status: met
+    evidence: AC-018 and AC-020 cover pinned assets/layout/libc, Bash 3.2, separate load qualification and dependencies.
+  - requirement: REQ-019
+    status: met
+    evidence: UC-001 and AC-019 cover canonical CLI only, startup protection and runme/REF forwarding.
+  - requirement: REQ-020
+    status: met
+    evidence: AC-020 and explicit distinction between informational update-check and diagnostic check.
+  - requirement: REQ-021
+    status: met
+    evidence: UC-009 and AC-021 preserve definition, adapter, phase-2 gate and manual finder migration.
+  - requirement: REQ-022
+    status: met
+    evidence: Dependent documentation section plus AC-001, AC-020 and AC-021 define one current interface and preserved history.
+findings[2]:
+  - id: R0-001
+    severity: medium
+    required: true
+    location: dev/docs/managed-tool-lifecycle-specification.md AC-004 and AC-008
+    issue: Profile acceptance examples use install quick instead of install --profile quick, conflicting with exact tool-name grammar.
+    next_action: Author corrects examples without adding aliases or changing approved grammar.
+  - id: R0-002
+    severity: medium
+    required: true
+    location: dev/docs/managed-tool-lifecycle-specification.md REQ-008, REQ-015, uninstall table, AC-007 and AC-010
+    issue: Uninstall deletion scope for proven inactive releases is unspecified relative to prune and incomplete-uninstall retention.
+    next_action: Author states exact release deletion scope and completion condition, with active/inactive/unproven-remnant AC; human accepts proposed contract with concrete draft.
+suggestions[2]:
+  - id: S0-001
+    location: REQ-005, REQ-009, REQ-010, AC-011 and AC-017
+    suggestion: Add first-update migration scenario with a removed definition plus bundle, old version and alias-only active installation coverage.
+  - id: S0-002
+    location: Installation location model and REQ-004, REQ-014
+    suggestion: Add explicit acceptance for prefix/bin pair isolation and XDG changes without foreign adoption or resurrection.
+next_action: Coordinator publishes exact review artifacts, records Findings and requests bounded author revision under existing workflow limit; no implementation or approval is implied.

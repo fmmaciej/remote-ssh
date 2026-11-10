@@ -1,0 +1,243 @@
+[
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/defs/nvim.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/common/release.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/install-tool/defs.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed.lib.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/inventory.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/journal.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/lock.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/migration.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/recovery.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/bin/bash",
+      "-n",
+      "tools/lib/managed/state.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/defs/nvim.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/common/release.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/install-tool/defs.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed.lib.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/inventory.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/journal.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/lock.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/migration.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/recovery.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/homebrew/bin/bash",
+      "-n",
+      "tools/lib/managed/state.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "shellcheck",
+      "tools/defs/nvim.sh",
+      "tools/lib/common/release.sh",
+      "tools/lib/install-tool/defs.sh",
+      "tools/lib/managed.lib.sh",
+      "tools/lib/managed/inventory.sh",
+      "tools/lib/managed/journal.sh",
+      "tools/lib/managed/lock.sh",
+      "tools/lib/managed/migration.sh",
+      "tools/lib/managed/recovery.sh",
+      "tools/lib/managed/state.sh"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "dev/.venv/bin/ruff",
+      "check",
+      "--no-cache",
+      "dev/tests/test_managed_state.py",
+      "dev/tests/test_managed_recovery.py",
+      "dev/tests/test_managed_concurrency.py"
+    ],
+    "exit_code": 0,
+    "stdout": "All checks passed!\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

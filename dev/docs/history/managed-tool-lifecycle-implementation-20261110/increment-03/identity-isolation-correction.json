@@ -1,0 +1,10 @@
+{
+  "exposure": "General guide/rc test subprocesses could read actual-checkout dots/git/user.local through public07-git-session-identity.sh and welcome/sw.sh. No private content was opened by the agent, printed intentionally, or hashed to investigate. Actual read count/content intentionally not inspected.",
+  "interruption": "Own smoke descendants terminated; exit143; public source subject remained unchanged.",
+  "restricted_raw_capture": "/private/tmp/remote-ssh-managed-lifecycle-implementation-20261110/increment-03/full-smoke-01.log",
+  "raw_capture_mode": "0600",
+  "publish_raw_capture": false,
+  "correction": "Disable session-identity initialization in general isolated subprocess environment; remove inherited session identity/Git config entries/SSH agent context; bind effective install paths to isolated HOME. Dedicated identity cases reenable only with synthetic ROOT/DOTS. Production identity code unchanged.",
+  "current_investigation_scope": "Public source and test invocation metadata only. No actual ignored config contents inspected to investigate exposure.",
+  "raw_capture_handling": "Progress/termination tails had been observed before quarantine; no config-derived values were observed. After quarantine no raw capture opened, hashed or promoted. Kept0600."
+}

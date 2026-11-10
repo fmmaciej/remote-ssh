@@ -1,0 +1,39 @@
+{
+  "completed_actual_runs": [
+    {
+      "log": "actual-managed-test.log",
+      "passed": 232,
+      "failed": 0,
+      "seconds": 810.93
+    },
+    {
+      "log": "actual-payload-test.log",
+      "passed": 236,
+      "failed": 0,
+      "seconds": 446.18
+    },
+    {
+      "log": "actual-final-focused-test.log",
+      "passed": 38,
+      "failed": 0,
+      "seconds": 271.69
+    },
+    {
+      "log": "actual-preview-test.log",
+      "passed": 4,
+      "failed": 0,
+      "seconds": 31.21
+    }
+  ],
+  "full_smoke": "deferred until T7",
+  "independent_audit": "not performed",
+  "git_mutations_in_actual_checkout": false,
+  "network_or_downloads": "none; local transports only",
+  "native_abi_qualification": "not established; qualification protocol stubs only",
+  "unexecuted_legacy_copy_sites_before_T7": [
+    "dev/tests/test_install_cli.py:prepare_cli_install",
+    "dev/tests/test_fzf_retirement.py",
+    "dev/tests/test_flyline_lifecycle.py",
+    "dev/tests/test_welcome_bundled.py"
+  ]
+}

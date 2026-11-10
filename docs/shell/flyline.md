@@ -6,16 +6,15 @@ The optional integration uses Flyline **1.10.0 + PR #974**, with recorded vi
 and unload fixes. Readline remains the default. The implementation and native
 macOS arm64 pilot are ready for review. Source and developer builds now live in
 the user's [Flyline fork](https://github.com/fmmaciej/flyline/tree/remote-ssh-vim),
-preserving upstream history. The user deferred Release publication; the patched
-release and production tool definition have **not been published**. `tool install flyline` becomes
-available after that publication and manifest promotion. See the
+preserving upstream history. The pinned [R5 prerelease](https://github.com/fmmaciej/flyline/releases/tag/remote-ssh-v1.10.0-pr974.aae68bb4.r5)
+and its production tool definition are available for explicit installation. See the
 [fork validation and support record](../../dev/docs/flyline-fork-integration-record.md).
 
 The qualified combination is macOS arm64 with Homebrew Bash 5.3.20. System
 macOS Bash 3.2 keeps Readline. Installation does not install or upgrade Bash.
 Linux, weak remote hosts, Intel macOS and SSH transport are unverified.
 
-After the release is published, explicitly install and enable it in a new shell:
+Explicitly install and enable it in a new shell:
 
 ```bash
 remote-ssh tool install flyline

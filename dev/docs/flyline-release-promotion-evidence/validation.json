@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-10",
+  "status": "PASS",
+  "generator_regression_before": {
+    "failed": 6,
+    "reason": "artifact-version option absent"
+  },
+  "generator_after": {
+    "passed": 36
+  },
+  "generator_commit": "b2b6ff3",
+  "generator_full_smoke": {
+    "passed": 1585,
+    "skipped": 56,
+    "seconds": 356.06
+  },
+  "promotion_initial_full_smoke": {
+    "passed": 1581,
+    "failed": 6,
+    "skipped": 56,
+    "seconds": 351.82,
+    "reason": "binary-only uninstall test implicitly used the production catalog, which now includes a library"
+  },
+  "catalog_and_library_tests": {
+    "passed": 85
+  },
+  "uninstall_selection_matrix_after_fixture_adaptation": {
+    "passed": 18
+  },
+  "final_full_smoke": {
+    "passed": 1593,
+    "skipped": 56,
+    "duration": "347.94s (0:05:47)"
+  },
+  "native_public_release": {
+    "passed": 22,
+    "platform": "macOS arm64",
+    "bash": "5.3.20"
+  },
+  "runtime_editor_and_uninstall_sources_unchanged": true,
+  "sha256": {
+    "tools/generate-def.sh": "96b0d292cde16d89c3692d519832f106e50db50629cf7d6398c44ff7f9cbf092",
+    "tools/defs/flyline.sh": "2a6ac2ae579cc616c413a70f0aed1b055fd46416af8dee65c2d67a729f34ad8c",
+    "dev/tests/test_generate_def.py": "a7abb30d51b0065e28d86eb05a7c9f4690c307a931ccc488b31f0da0c6b2bec9",
+    "dev/tests/test_tool_assets.py": "52a341f4a5d74733dc75726eb02cb658d77f0b0d60dc428079fb576ace4c598a",
+    "dev/tests/test_uninstall.py": "9f08c633ed1166fa9a19c26e4e98acb3ac6ae34079e8269f0482955bb2f3215b",
+    "dev/docs/flyline-release-promotion-evidence/probe.py": "a698d473d279ab3e3dbea059428a93c7101b9853549949db1089c8fa46a7d074"
+  }
+}

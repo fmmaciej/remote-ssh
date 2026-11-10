@@ -1,0 +1,13 @@
+{
+  "semantic_match": true,
+  "fields": [
+    "TOOL_NAME",
+    "GH_REPO",
+    "RELEASE_TAG",
+    "VERSION",
+    "INSTALL_LAYOUT",
+    "ASSETS",
+    "LIBRARY_MEMBERS",
+    "CHECKSUMS"
+  ]
+}

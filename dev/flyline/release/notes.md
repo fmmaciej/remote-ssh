@@ -34,9 +34,9 @@ The unchanged Cargo.lock and patch digests/applied commit IDs are in provenance.
 Rust/Cargo 1.99.1 and locked native builds are required; see BUILDING.md.
 GitHub's source archive will correspond to the actual downstream source tag.
 
-Publication is deferred by user. This text describes a prepared local payload,
-not an existing Release or tag. The R5 measurements are recorded in the fork
-qualification record; do not substitute historical R4 figures for this binary.
+The [R5 prerelease](https://github.com/fmmaciej/flyline/releases/tag/remote-ssh-v1.10.0-pr974.aae68bb4.r5) is now published with the verified payload.
+The R5 measurements are recorded in the fork qualification record; historical
+R4 figures must not be substituted for this binary.
 
 Flyline remains optional and off by default. Atuin keeps history storage;
 Flyline provides editing/Tab UI and registered Bash completers supply candidates.

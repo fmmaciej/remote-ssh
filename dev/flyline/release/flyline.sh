@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 # shellcheck disable=SC2034
-# Publication deferred by user. REVIEW CANDIDATE ONLY. Promote to tools/defs after publishing and verifying
-# the exact release asset below. No production URL exists yet.
+# Historical prepared candidate; retained for comparison with the generated R5 definition.
+# The authoritative install manifest is tools/defs/flyline.sh.
 
 TOOL_NAME="flyline"
 GH_REPO="fmmaciej/flyline"

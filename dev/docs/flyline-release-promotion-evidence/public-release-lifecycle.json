@@ -1,0 +1,134 @@
+{
+  "status": "PASS",
+  "platform": "macOS arm64",
+  "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+  "archive_sha256": "38a7c65eb6e3c8c7458cdebea36607ae2e5577279b96ce2f6e2907b5ff9afaf3",
+  "library_sha256": "ac989a041026f49df1d3b544290ee3e67b497a0d3f82fe4785cd3c106e431d57",
+  "definition_sha256": "2a6ac2ae579cc616c413a70f0aed1b055fd46416af8dee65c2d67a729f34ad8c",
+  "public_downloads": [
+    "38a7c65eb6e3c8c7458cdebea36607ae2e5577279b96ce2f6e2907b5ff9afaf3  flyline-1.10.0-pr974.aae68bb4.r5-aarch64-apple-darwin.tar.gz",
+    "38a7c65eb6e3c8c7458cdebea36607ae2e5577279b96ce2f6e2907b5ff9afaf3  flyline-1.10.0-pr974.aae68bb4.r5-aarch64-apple-darwin.tar.gz"
+  ],
+  "results": [
+    {
+      "case": "install",
+      "exit": 0,
+      "passed": true
+    },
+    {
+      "case": "check",
+      "exit": 0,
+      "passed": true
+    },
+    {
+      "case": "list",
+      "exit": 0,
+      "passed": true
+    },
+    {
+      "case": "active",
+      "state": "active",
+      "reason": "managed",
+      "passed": true
+    },
+    {
+      "case": "active/history",
+      "expected": "seeded",
+      "actual": "seeded",
+      "passed": true
+    },
+    {
+      "case": "active/replace",
+      "expected": "bc",
+      "actual": "bc",
+      "passed": true
+    },
+    {
+      "case": "active/undo",
+      "expected": "ac",
+      "actual": "ac",
+      "passed": true
+    },
+    {
+      "case": "active/redo",
+      "expected": "bc",
+      "actual": "bc",
+      "passed": true
+    },
+    {
+      "case": "active/dot-repeat",
+      "expected": "ad",
+      "actual": "ad",
+      "passed": true
+    },
+    {
+      "case": "active/tab",
+      "expected": "alpha",
+      "actual": "alpha",
+      "passed": true
+    },
+    {
+      "case": "disabled",
+      "state": "disabled",
+      "reason": "toggle",
+      "passed": true
+    },
+    {
+      "case": "disabled/readline",
+      "expected": "bc",
+      "actual": "bc",
+      "passed": true
+    },
+    {
+      "case": "reinstall",
+      "exit": 0,
+      "passed": true
+    },
+    {
+      "case": "idempotent-cli-reinstall",
+      "passed": true
+    },
+    {
+      "case": "forced-reinstall",
+      "exit": 0,
+      "passed": true
+    },
+    {
+      "case": "immutable-reinstall",
+      "passed": true
+    },
+    {
+      "case": "after-reinstall",
+      "state": "active",
+      "reason": "managed",
+      "passed": true
+    },
+    {
+      "case": "after-reinstall/replace",
+      "expected": "bc",
+      "actual": "bc",
+      "passed": true
+    },
+    {
+      "case": "checksum-rollback",
+      "passed": true
+    },
+    {
+      "case": "uninstall",
+      "exit": 0,
+      "passed": true
+    },
+    {
+      "case": "after-uninstall",
+      "state": "skipped",
+      "reason": "unavailable",
+      "passed": true
+    },
+    {
+      "case": "after-uninstall/readline",
+      "expected": "bc",
+      "actual": "bc",
+      "passed": true
+    }
+  ]
+}

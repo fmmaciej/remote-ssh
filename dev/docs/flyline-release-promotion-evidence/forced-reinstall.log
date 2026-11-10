@@ -1,0 +1,5 @@
+[INFO] Installing: fmmaciej/flyline, version=1.10.0-pr974.aae68bb4.r5, raw=darwin/aarch64, libc=any
+[INFO] Downloading: https://github.com/fmmaciej/flyline/releases/download/remote-ssh-v1.10.0-pr974.aae68bb4.r5/flyline-1.10.0-pr974.aae68bb4.r5-aarch64-apple-darwin.tar.gz
+[INFO] Checksum OK: flyline-1.10.0-pr974.aae68bb4.r5-aarch64-apple-darwin.tar.gz
+[INFO] Installed library: $RUNTIME/attempt-02/native/custom prefix/flyline-1.10.0-pr974.aae68bb4.r5.84706-27541/libflyline.dylib
+[INFO] Active library: $RUNTIME/attempt-02/native/custom prefix/.active/flyline (new shells only)

@@ -4,9 +4,9 @@ Remote-ssh installs into the current user's home directory and avoids package
 managers, source builds, `.deb`, `.rpm`, and `.apk` packages.
 
 The experimental [Flyline integration](shell/flyline.md) is optional and excluded
-from all install profiles. Its source lives in the user's Flyline fork; Release
-publication is deferred and the production manifest is not enabled. Its library
-layout stores immutable releases in `INSTALL_PREFIX`
+from all install profiles. Its pinned [R5 prerelease](https://github.com/fmmaciej/flyline/releases/tag/remote-ssh-v1.10.0-pr974.aae68bb4.r5)
+is available through `remote-ssh tool install flyline`. Its source lives in the
+user's Flyline fork. The library layout stores immutable releases in `INSTALL_PREFIX`
 and an absolute active-file link in `INSTALL_PREFIX/.active/flyline`, with no
 executable in `INSTALL_BIN_DIR`. A selected PATH Bash >= 4.4 must successfully
 load the staged library in a disposable child before the active link changes.

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import shutil
 from pathlib import Path
 
 import pytest
@@ -235,18 +236,31 @@ def test_uninstall_scans_symlinked_prefix_and_preserves_foreign_paths(
 
 
 @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
-@pytest.mark.parametrize("explicit", [True, False], ids=["selected", "binary-only-discovery"])
-def test_binary_uninstall_ignores_unrelated_active_path(
+@pytest.mark.parametrize(
+    "selection", ["selected", "binary-only-discovery", "library-aware-discovery"]
+)
+def test_binary_uninstall_scopes_active_path_checks(
     repo_dir: Path,
     tool_env: ToolStateEnv,
     runtime_bash: str,
     active_kind: str,
-    explicit: bool,
+    selection: str,
 ) -> None:
+    explicit = selection == "selected"
+    test_repo = repo_dir
+    if selection == "binary-only-discovery":
+        # Keep this catalog explicitly binary-only as production gains libraries.
+        test_repo = tool_env.home / "binary-checkout"
+        for directory in ("lib", "tools", "shell", "bin", "dots"):
+            shutil.copytree(repo_dir / directory, test_repo / directory)
+        for definition in (test_repo / "tools/defs").glob("*.sh"):
+            if definition.stem not in {"rg", "fd"}:
+                definition.unlink()
     (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
     executable = make_managed_tool(tool_env, "rg", "15.1.0")
     other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
     expected = write_expected_tools(tool_env, ["rg", "fd"] if explicit else ["rg"])
+    expected_before = expected.read_bytes()
     active = tool_env.opt_dir / ".active"
     target = tool_env.external_dir / "unrelated"
     target.mkdir()
@@ -259,17 +273,23 @@ def test_binary_uninstall_ignores_unrelated_active_path(
     before = active.read_bytes() if active_kind == "file" else active.readlink()
 
     result = run_remote_ssh(
-        repo_dir,
+        test_repo,
         ["uninstall", "--yes", *(["rg"] if explicit else [])],
         env=tool_env.env,
     )
 
-    assert_ok(result)
-    assert not executable.parent.exists() and not (tool_env.bin_dir / "rg").is_symlink()
+    if selection == "library-aware-discovery":
+        assert_failed(result)
+        assert "Cannot inspect active library links" in result.stderr
+        assert executable.exists() and (tool_env.bin_dir / "rg").is_symlink()
+        assert expected.read_bytes() == expected_before
+    else:
+        assert_ok(result)
+        assert not executable.parent.exists() and not (tool_env.bin_dir / "rg").is_symlink()
     assert (active.read_bytes() if active_kind == "file" else active.readlink()) == before
     assert sentinel.read_text() == "untouched"
     if explicit:
         assert other is not None and other.exists()
         assert expected.read_text().splitlines()[-1] == "fd"
-    else:
+    elif selection == "binary-only-discovery":
         assert not expected.exists()

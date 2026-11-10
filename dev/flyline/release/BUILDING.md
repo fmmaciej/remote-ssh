@@ -26,5 +26,5 @@ six real patch commits/digests and unchanged lockfile. MIT notices are retained.
 
 Build paths, caches, SDKs and linkers can change native bytes. A rebuilt hash
 must pass the explicit native/integration matrix before distribution. The
-published source branch is not a published binary Release: the user deferred
-Release/tag creation. Do not substitute a moving branch or compile remotely.
+matching prebuilt release asset should be used on runtime hosts after
+checking SHA256SUMS. Do not substitute a moving branch or compile remotely.

@@ -52,7 +52,8 @@ just fmt
   records the historical R4 vi/history/completion/terminal gates and measurements.
   The [fork migration](docs/flyline-fork-integration-record.md) moves source/builds
   to `fmmaciej/flyline`, keeping its master unchanged. Library management and
-  opt-in activation are implemented; Release publication is deferred by user.
+  opt-in activation are implemented; the R5 prerelease is published and its
+  generated production definition enables explicit installation.
   Linux/SSH remain unverified.
   The [integration audit and commit proposal](docs/flyline-integration-audit.md)
   preserves the original four findings and proposed commit boundaries.
@@ -61,8 +62,8 @@ just fmt
   The [post-audit repair plan](docs/flyline-implementation-plan.md#post-audit-repair-plan)
   preserves the accepted scope and completion gates.
 - [Flyline R5 release promotion](docs/flyline-release-promotion-plan.md):
-  accepted generator artifact-version override and production definition plan;
-  implementation in progress.
+  generator artifact-version override, generated production definition and
+  isolated public-release lifecycle verification.
 - [Interactive Tool Performance](docs/interactive-tools-performance.md): local
   ble.sh/Flyline/zsh editor measurements, vi controls, and separate
   Carapace/flycomp completion timings.

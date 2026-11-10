@@ -4,8 +4,10 @@ The current source/build owner is the user's [Flyline fork](https://github.com/f
 `master` is unchanged; the downstream branch preserves the original 1.10.0
 history, six patch commits, and a separate build/documentation commit.
 See the [fork record](../docs/flyline-fork-integration-record.md) and
-[fork pins](fork.json). The user deferred Release publication on 2026-11-09;
-the reviewed manifest stays outside `tools/defs` until an asset actually exists.
+[fork pins](fork.json). The [R5 prerelease](https://github.com/fmmaciej/flyline/releases/tag/remote-ssh-v1.10.0-pr974.aae68bb4.r5) is published;
+its generated production manifest is `tools/defs/flyline.sh`. The
+[release promotion record](../docs/flyline-release-promotion-plan.md) records
+how the public payload was verified and enabled.
 
 ## Build the pinned fork (R5)
 

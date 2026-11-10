@@ -1,0 +1,26 @@
+remote-ssh uninstall
+
+Install paths
+  prefix:    $RUNTIME/attempt-02/native/custom prefix
+  bin:       $RUNTIME/attempt-02/native/bin
+
+Selected tools:
+  flyline
+
+Symlinks to remove:
+  $RUNTIME/attempt-02/native/custom prefix/.active/flyline
+
+Release dirs to remove:
+  $RUNTIME/attempt-02/native/custom prefix/flyline-1.10.0-pr974.aae68bb4.r5
+  $RUNTIME/attempt-02/native/custom prefix/flyline-1.10.0-pr974.aae68bb4.r5.84706-27541
+
+Protected/skipped paths:
+  [none]
+
+Expected tools action:
+  [none]
+
+Applying uninstall
+removed symlink: $RUNTIME/attempt-02/native/custom prefix/.active/flyline
+removed release dir: $RUNTIME/attempt-02/native/custom prefix/flyline-1.10.0-pr974.aae68bb4.r5
+removed release dir: $RUNTIME/attempt-02/native/custom prefix/flyline-1.10.0-pr974.aae68bb4.r5.84706-27541

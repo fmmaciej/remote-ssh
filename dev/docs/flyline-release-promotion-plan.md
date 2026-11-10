@@ -1,7 +1,7 @@
 # Flyline R5 release promotion plan
 
 Created: 2026-11-10
-Status: accepted for implementation; in progress
+Status: completed; implementation and validation passed
 Repository baseline: `06d0fee`
 Scope: developer generator and promotion of the already published Flyline R5.
 
@@ -85,7 +85,7 @@ Proposed title: `feat(flyline): enable installation from published R5 release`.
 
 ## Execution
 
-Implementation started on 2026-11-10. Results will be appended here.
+Implementation and validation completed on 2026-11-10. Results follow below.
 
 ### Generator completion
 
@@ -96,3 +96,62 @@ Implementation started on 2026-11-10. Results will be appended here.
   ShellCheck, Ruff and mypy passed.
 - The generator fetched the public R5 tag and emitted an exact semantic match
   to the prepared candidate across all eight manifest fields.
+
+### Public release promotion
+
+- Generator delivery commit: `b2b6ff3`.
+- Generated `tools/defs/flyline.sh` directly from the public release API using
+  the accepted artifact-version override; all candidate values match.
+- Catalog and library tests: **85 passed** on system/PATH Bash.
+- The [public input](flyline-release-promotion-evidence/release-input.json)
+  confirms the tag still points at the pinned source and all six assets are uploaded.
+- The [native lifecycle report](flyline-release-promotion-evidence/public-release-lifecycle.json)
+  passes **22/22 checks** using the production definition, real public downloads,
+  qualified Bash and isolated prefix/configuration.
+- Checks include fresh active/disabled shells, Vim replacement/undo/redo/dot-repeat,
+  Bash history, Tab completion, idempotent CLI install, forced immutable reinstall,
+  checksum rejection preserving the active library, uninstall and Readline recovery.
+- Reinstall semantics follow the existing contract: the public CLI skips a valid
+  pinned installation; `tools/install-tool.sh flyline` forces reinstall.
+- No native rebuild or runtime editor/installer behavior change was needed.
+  Existing native performance and startup evidence remains historical and unchanged.
+- The final full-project result is recorded under Completion below.
+
+### Catalog-dependent uninstall test adaptation
+
+The first full post-promotion smoke run reported **1581 passed, 6 failed,
+56 skipped** (351.82 s). All failures were the old binary-only discovery fixture:
+it used the real tool catalog, which now correctly contains the Flyline library.
+The accepted F3 contract requires automatic discovery to reject an invalid
+`.active` when library definitions exist.
+
+The fixture now deliberately supplies only executable definitions for binary-only
+discovery, while explicit selection continues against the real production catalog.
+Six additional library-aware discovery controls verify nonzero exit and preservation
+of the binary, active path, sentinel and expected-tools configuration.
+The complete selection/path matrix is **18 passed** on both Bash builds.
+No uninstall runtime logic was changed or relaxed. The final full smoke result follows below.
+
+### Completion
+
+- Final `just smoke`: **1593 passed, 56 skipped** in 347.94s (0:05:47).
+  Bash syntax, ShellCheck, Ruff and mypy passed.
+- Changed test files pass Ruff lint and formatting checks.
+- Native public-release lifecycle: **22/22 passed**. The tested definition's
+  fingerprint matches the generated, checked-in production manifest.
+- [Validation summary](flyline-release-promotion-evidence/validation.json) and
+  [full smoke log](flyline-release-promotion-evidence/full-smoke.log) retain the
+  final result and source fingerprints. Current Markdown links resolve.
+- The generator is delivered in `b2b6ff3`; the production definition, catalog
+  adaptation, documentation and this close-out form the second planned commit,
+  `feat(flyline): enable installation from published R5 release`.
+- Flyline remains opt-in, outside all install profiles. Local macOS arm64 with
+  Homebrew Bash 5.3.20 is the native support boundary of this verification.
+  The existing R5 binary, runtime editor/uninstall code and prior evidence are unchanged.
+- Repository push remains a separate external action.
+
+Temporary public downloads, isolated installations and diagnostic attempts remain
+in the ignored Kei runtime `00-system/var/cache/kei-tools/flyline-release-promotion/20261110-6qyf9vbs/`.
+The durable plan, source and selected evidence were saved in this project under
+the user's explicit instruction. Runtime contents are public code/artifacts and
+synthetic test data; cleanup can remove this exact run after review.

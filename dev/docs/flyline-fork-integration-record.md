@@ -1,8 +1,10 @@
 # Flyline fork integration record
 
 Date: 2026-11-09. Candidate: **1.10.0-pr974.aae68bb4.r5**.
-Status: source branch published; local artifact validated; **Release publication
-and release-tag creation deferred by the user**. No production manifest is enabled.
+Status updated 2026-11-10: source and [R5 prerelease](https://github.com/fmmaciej/flyline/releases/tag/remote-ssh-v1.10.0-pr974.aae68bb4.r5)
+published; public payload verified and generated production manifest enabled.
+The [promotion plan and results](flyline-release-promotion-plan.md) record
+this follow-up. Native measurements below remain the original R5 evidence.
 
 ## Source ownership and history
 
@@ -53,19 +55,19 @@ nonfatal macOS linker diagnostic falling back to /tmp when the sandbox denied
 DARWIN_USER_TEMP_DIR lookup; it is retained in the build log. No stripping failure
 occurred.
 
-The prepared future tag is `remote-ssh-v1.10.0-pr974.aae68bb4.r5`, at the exact
+The published tag is `remote-ssh-v1.10.0-pr974.aae68bb4.r5`, at the exact
 source commit above. Its prefix avoids the upstream `v*.*.*` release workflow,
 which assumes an unmodified Cargo.toml version and a different asset matrix.
-A future release belongs in **fmmaciej/flyline**, whose source archive will then
-match its real tagged source. The former asset-only tag proposal in remote-ssh
-is superseded. No tag or Release was created. The user's decision was to leave
-publication deferred; CLI authentication is not requested again.
+The release belongs to **fmmaciej/flyline**, whose source archive matches its
+real tagged source. The former asset-only tag proposal in remote-ssh is
+superseded. Publication was initially deferred during this qualification record;
+the user later published the tag and prerelease through GitHub's web interface.
 
 The ignored local payload is `dev/flyline/dist/1.10.0-pr974.aae68bb4.r5/`.
-The [review packet](../flyline/release/README.md) and candidate manifest are
-prepared locally. `tools/defs/flyline.sh` remains absent until a published asset
-exists and is verified. Consequently normal `remote-ssh tool install flyline`
-is unavailable. Existing default profiles and expected-tools config are unchanged.
+The [release packet](../flyline/release/README.md) documents the public payload.
+`tools/defs/flyline.sh` is now generated from that verified release; normal
+`remote-ssh tool install flyline` is available. Existing default profiles and
+expected-tools config remain unchanged.
 
 ## Native local validation
 
@@ -155,5 +157,7 @@ Both historical R1 and R4 evidence inventories still verify.
 The [evidence inventory](flyline-fork-pilot-evidence/fingerprints.json) binds the
 checks to snapshots of the fork build helper, integration entrypoint, manifest,
 runtime and test sources. No `just test-assets-live` or unrestricted Docker
-suite was run. Future publication requires a new explicit user request; the
-source branch and local validated payload are the completed scope of this turn.
+suite was run. At the original qualification close-out, the source branch and
+local validated payload were the completed scope. The later user-published
+release and production promotion are recorded separately in the
+[promotion plan and results](flyline-release-promotion-plan.md).

@@ -265,7 +265,8 @@ The developer generator accepts repeated
 review the mappings, platform keys, checksums and ABI qualification manually.
 The live checker verifies asset metadata equally for libraries; it is not a
 native load test. [Flyline](shell/flyline.md) is the initial experimental user
-of this layout, with release publication still pending.
+of this layout, using the published, pinned R5 prerelease. See the
+[release promotion plan and results](../dev/docs/flyline-release-promotion-plan.md).
 
 ## Development Checks
 

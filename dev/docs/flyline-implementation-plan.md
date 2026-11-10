@@ -1,9 +1,11 @@
 # Flyline Integration Plan
 
 Created: 2026-10-30
-Revision: R7; repair 01 supported initialization batching, local qualification 2026-11-09
-Status: four audit fixes and repair 01 implemented; local functional/native/startup/full checks pass;
-final SDD acceptance is tracked in the repair record and execution history; Release publication deferred by user
+Revision: R8; published R5 release promotion, 2026-11-10
+Status: four audit fixes and repair 01 accepted; R5 prerelease published and
+production manifest enabled. The separate [release promotion plan and results](flyline-release-promotion-plan.md)
+cover the generator change and public-payload installation. Original repair
+acceptance remains tracked in its record and execution history.
 
 The [2026-11-09 integration audit](flyline-integration-audit.md) recorded three
 P2 issues (late external Atuin ownership, disabled external Flyline ownership,
@@ -12,15 +14,17 @@ The four fixes and their regression-first evidence are recorded in the
 [repair R1 record](flyline-integration-repair-r1-record.md), including both
 historical startup failures and the changed-source repair-01 qualification result. The accepted
 [repair contract below](#post-audit-repair-plan) and frozen R5 basis remain
-available; Release preparation and commit splitting remain separate work.
+available; the separate [release promotion record](flyline-release-promotion-plan.md)
+tracks the generator, production manifest and coherent delivery commits.
 
 The [R4 native pilot](flyline-pr974-pilot-record.md) records the
 six-patch candidate `1.10.0-pr974.aae68bb4.r4`, including undo transactions,
 counted movement, vi history and safe unloading. It passes 32 vi probes locally,
 with native terminal/history/completion checks and declared performance budgets.
 Library installation, management and optional session activation are implemented
-and tested in isolated local checkouts. The release and production definition
-are not published. The [R1 report](flyline-pr974-pilot-record-r1.md) preserves
+and tested in isolated local checkouts. The R5 release is now published and its
+production definition enables explicit installation. The
+[R1 report](flyline-pr974-pilot-record-r1.md) preserves
 the original 13/17 failure unchanged.
 
 The [fork integration record](flyline-fork-integration-record.md) supersedes
@@ -28,9 +32,9 @@ the earlier asset-only release proposal. The user's `fmmaciej/flyline` fork now
 has `remote-ssh-vim` at `d037c075ed30a61080873985ea2621d743ddfc64`: the real
 1.10.0 history, six patch commits, and separate downstream build/documentation.
 `master` is unchanged. Candidate R5 is rebuilt from this genuine Git history;
-R4 artifacts and evidence remain historical. The user chose **no Release
-publication** on 2026-11-09. Keep the release/manifest prepared locally and do
-not promote an unavailable URL into `tools/defs`.
+R4 artifacts and evidence remain historical. Publication was initially deferred
+on 2026-11-09. The user subsequently published R5, and its public payload was
+verified before generating and promoting the production definition.
 
 Future releases belong to `fmmaciej/flyline`, with a downstream-prefixed tag
 pointing at the actual source commit. Do not publish Flyline assets in

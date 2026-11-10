@@ -192,6 +192,7 @@ def test_asset_name_mappings(repo_dir: Path) -> None:
 
         for def in "$repo"/tools/defs/*.sh; do
           unset TOOL_NAME GH_REPO RELEASE_TAG VERSION BINARY_NAME BINARY_ALIASES ASSETS CHECKSUMS
+          unset INSTALL_LAYOUT BINARY_PATH BUNDLE_ROOTS LIBRARY_MEMBERS REMOTE_SSH_BINARY_PATH_EXPLICIT
           . "$def"
           for rec in "${ASSETS[@]}"; do
             printf '%s|%s|%s\n' "$TOOL_NAME" "${rec%%|*}" "${rec#*|}"
@@ -236,6 +237,7 @@ fd|linux:aarch64:musl|fd-v10.3.0-aarch64-unknown-linux-musl.tar.gz
 fd|linux:x86_64:musl|fd-v10.3.0-x86_64-unknown-linux-musl.tar.gz
 fd|linux:aarch64:gnu|fd-v10.3.0-aarch64-unknown-linux-gnu.tar.gz
 fd|linux:x86_64:gnu|fd-v10.3.0-x86_64-unknown-linux-gnu.tar.gz
+flyline|darwin:aarch64:any|flyline-1.10.0-pr974.aae68bb4.r5-aarch64-apple-darwin.tar.gz
 fzf|darwin:x86_64:any|fzf-0.67.0-darwin_amd64.tar.gz
 fzf|darwin:aarch64:any|fzf-0.67.0-darwin_arm64.tar.gz
 fzf|linux:x86_64:any|fzf-0.67.0-linux_amd64.tar.gz
@@ -314,10 +316,14 @@ def test_linux_gnu_asset_selection(repo_dir: Path) -> None:
 
         for def in "$repo"/tools/defs/*.sh; do
           unset TOOL_NAME GH_REPO RELEASE_TAG VERSION BINARY_NAME BINARY_ALIASES ASSETS CHECKSUMS
+          unset INSTALL_LAYOUT BINARY_PATH BUNDLE_ROOTS LIBRARY_MEMBERS REMOTE_SSH_BINARY_PATH_EXPLICIT
           . "$def"
           for platform in linux:x86_64:gnu linux:aarch64:gnu; do
             IFS=: read -r raw_os raw_arch libc <<<"$platform"
-            asset="$(select_asset "$raw_os" "$raw_arch" "$libc" "${ASSETS[@]}")"
+            if ! asset="$(select_asset "$raw_os" "$raw_arch" "$libc" "${ASSETS[@]}")"; then
+              [[ "$TOOL_NAME" == flyline ]] || exit 1
+              asset=unsupported
+            fi
             printf '%s|%s|%s\n' "$TOOL_NAME" "$platform" "$asset"
           done
         done
@@ -338,6 +344,8 @@ eza|linux:x86_64:gnu|eza_x86_64-unknown-linux-musl.tar.gz
 eza|linux:aarch64:gnu|eza_aarch64-unknown-linux-gnu.tar.gz
 fd|linux:x86_64:gnu|fd-v10.3.0-x86_64-unknown-linux-musl.tar.gz
 fd|linux:aarch64:gnu|fd-v10.3.0-aarch64-unknown-linux-musl.tar.gz
+flyline|linux:x86_64:gnu|unsupported
+flyline|linux:aarch64:gnu|unsupported
 fzf|linux:x86_64:gnu|fzf-0.67.0-linux_amd64.tar.gz
 fzf|linux:aarch64:gnu|fzf-0.67.0-linux_arm64.tar.gz
 navi|linux:x86_64:gnu|navi-v2.23.0-x86_64-unknown-linux-musl.tar.gz
@@ -442,6 +450,7 @@ def test_checksum_manifest_contract(repo_dir: Path) -> None:
 
         for def in "$repo"/tools/defs/*.sh; do
           unset TOOL_NAME GH_REPO RELEASE_TAG VERSION BINARY_NAME BINARY_ALIASES ASSETS CHECKSUMS
+          unset INSTALL_LAYOUT BINARY_PATH BUNDLE_ROOTS LIBRARY_MEMBERS REMOTE_SSH_BINARY_PATH_EXPLICIT
           . "$def"
 
           for rec in "${ASSETS[@]}"; do
@@ -473,3 +482,45 @@ def test_checksum_manifest_contract(repo_dir: Path) -> None:
     assert not CHECKSUM_EXCEPTIONS - missing, (
         f"Remove obsolete checksum exceptions: {CHECKSUM_EXCEPTIONS - missing}"
     )
+
+
+def test_flyline_pins_published_library_and_resets_layout(repo_dir, runtime_bash):
+    result = run_cmd(
+        [
+            runtime_bash,
+            "-c",
+            r"""
+            set -euo pipefail
+            . "$1/tools/lib/env.sh"
+            . "$TOOLS_LIB_DIR/install-tool.lib.sh"
+            load_defs "$TOOLS_DIR/defs" flyline
+            [[ "$GH_REPO" == fmmaciej/flyline ]]
+            [[ "$RELEASE_TAG" == remote-ssh-v1.10.0-pr974.aae68bb4.r5 ]]
+            [[ "$VERSION" == 1.10.0-pr974.aae68bb4.r5 ]]
+            [[ "$INSTALL_LAYOUT" == bash-builtin ]]
+            [[ ${#ASSETS[@]} == 1 && ${#LIBRARY_MEMBERS[@]} == 1 && ${#CHECKSUMS[@]} == 1 ]]
+            asset=flyline-1.10.0-pr974.aae68bb4.r5-aarch64-apple-darwin.tar.gz
+            [[ "$(select_asset darwin aarch64 any "${ASSETS[@]}")" == "$asset" ]]
+            [[ "$(library_member_for_asset "$asset")" == libflyline.dylib ]]
+            [[ "${CHECKSUMS[0]}" == "$asset|38a7c65eb6e3c8c7458cdebea36607ae2e5577279b96ce2f6e2907b5ff9afaf3" ]]
+            for platform in linux:x86_64:gnu linux:aarch64:musl darwin:x86_64:any; do
+                IFS=: read -r os arch libc <<< "$platform"
+                if select_asset "$os" "$arch" "$libc" "${ASSETS[@]}" >/dev/null; then
+                    exit 20
+                fi
+            done
+            . "$TOOLS_LIB_DIR/install/tool_sets.sh"
+            for profile in mini quick full; do
+                while IFS= read -r tool; do
+                    [[ "$tool" != flyline ]]
+                done < <(install_profile_tools "$profile")
+            done
+            load_defs "$TOOLS_DIR/defs" rg
+            [[ "$INSTALL_LAYOUT" == binary && ${#LIBRARY_MEMBERS[@]} == 0 ]]
+            [[ "$(select_asset linux x86_64 gnu "${ASSETS[@]}")" == ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz ]]
+            """,
+            "_",
+            repo_dir,
+        ]
+    )
+    assert_ok(result)

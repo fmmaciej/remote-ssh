@@ -3,8 +3,8 @@
 
 TOOL_NAME="bottom"
 GH_REPO="ClementTsang/bottom"
-RELEASE_TAG="0.12.3"
-VERSION="0.12.3"
+RELEASE_TAG="0.15.0"
+VERSION="0.15.0"
 
 BINARY_NAME="btm"
 BINARY_ALIASES=("btm")
@@ -19,10 +19,10 @@ ASSETS=(
 )
 
 CHECKSUMS=(
-  "bottom_aarch64-apple-darwin.tar.gz|106e9493d20192d18dbe46d4c99f680d817c796724103ee258567070fcd16429"
-  "bottom_x86_64-apple-darwin.tar.gz|5744b5c78db14b85e025c31ded93ba038041e6ff2e8c16ea1d2f9bdb6487316f"
-  "bottom_aarch64-unknown-linux-gnu.tar.gz|5138f2fab99e267073ad542de0e3da85af842761e8083127161073d4a8ef25b2"
-  "bottom_aarch64-unknown-linux-musl.tar.gz|944f372beeaac326cbe3eb4424d7bae600173cec2b0bba363557cd72cc98a3e2"
-  "bottom_x86_64-unknown-linux-gnu-2-17.tar.gz|3a53ecaf07d1a2e2c50081a5e752e44c9d01fd5d8dc53cfe647959f77a2b4b4e"
-  "bottom_x86_64-unknown-linux-musl.tar.gz|0d6352079422fda8f4ee242eb849f45a6008db96d6c1cd35e8436babc51bc33f"
+  "bottom_aarch64-apple-darwin.tar.gz|6d83c9eba811dd139392fa5b04baa75225c6aa120dad36a070e636660db023fd"
+  "bottom_x86_64-apple-darwin.tar.gz|6a7f5e32fc2c272256ad5c77aa8aaede02e1e86cf3ba4715acb894d3d6d5b361"
+  "bottom_aarch64-unknown-linux-gnu.tar.gz|93221c07d549750e5cfac2a76f70e5d792c744958ecc466bbeb9d3bef34288b6"
+  "bottom_aarch64-unknown-linux-musl.tar.gz|78e03e96d02e946be1f94066cd78f1adc3bb8c0db5f53fdf24d70a3ab351e05c"
+  "bottom_x86_64-unknown-linux-gnu-2-17.tar.gz|8f13d0edf167d1772cd1252c1f5d87c8c7203e48f29af60a84d21c9d7243a796"
+  "bottom_x86_64-unknown-linux-musl.tar.gz|c66d6a0148102f107800919cd0ff6cce8767ae998f3c954b72e37a7f769e3ae2"
 )

@@ -1,17 +1,22 @@
 # Atuin Bash integration fixture
 
-`v18.14.1/atuin.bash` is the unmodified Bash integration from the Atuin version
-pinned by `tools/defs/atuin.sh`.
+v18.24.6/atuin.bash assembles the exact upstream include guard and Bash
+integration pinned by tools/defs/atuin.sh, using the initializer's
+<include guard> && { <main script> } wrapper. The two source contents are
+unchanged; their trailing whitespace is trimmed as in the upstream generator.
 
-- Source: https://github.com/atuinsh/atuin/blob/v18.14.1/crates/atuin/src/shell/atuin.bash
-- Tag: `v18.14.1`
-- SHA-256: `60dde7dd731f9963b19f313c9b44870b1b0a6836c38bf22e96134251cc834d5a`
-- License: MIT; the upstream notice is retained in `v18.14.1/LICENSE`.
+- Main source: https://github.com/atuinsh/atuin/blob/v18.24.6/crates/atuin/src/shell/atuin.bash
+- Guard: https://github.com/atuinsh/atuin/blob/v18.24.6/crates/atuin/src/shell/atuin.bash.d/include-guard.bash
+- Tag: v18.24.6
+- Assembled SHA-256: 218292a6b25b40a2b63ca1696105abf123e5d12b38dc98136f5b895041afd2a2
+- License: MIT; the upstream notice is retained in v18.24.6/LICENSE.
 
-The fake CLI in the integration tests supplies the same binding flags as
-`atuin init bash` and deterministic UUID/history responses. Tests use this
-source offline, including its initialization guard, hook arrays, and Readline
-bindings. It is developer-only data, never a remote runtime dependency.
+The fake CLI supplies binding flags and deterministic UUID/history responses,
+including the new history start/end --hook arguments. Tests use this source
+offline to exercise initialization, history ownership, hook arrays and Readline
+bindings. The real CLI test additionally checks generated initialization and AI
+suppression when REMOTE_SSH_TEST_ATUIN_BIN is provided.
 
-When changing the pinned Atuin version, refresh the source and license here,
-then update the source hash and version assertion in `test_atuin_lifecycle.py`.
+When changing the pinned version, refresh the source, guard and license, then
+update the hash and version assertions in test_atuin_lifecycle.py and
+test_atuin_real.py. This fixture is developer-only data.

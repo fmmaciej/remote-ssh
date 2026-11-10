@@ -8,8 +8,9 @@ elif ((BASH_VERSINFO[0] < 3 || BASH_VERSINFO[0] == 3 && BASH_VERSINFO[1] < 1)); 
     # Require bash >= 3.1
     [[ -t 2 ]] && printf 'atuin: requires bash >= 3.1 for the integration.\n' >&2
     false
-else # (include guard) beginning of main content
-#------------------------------------------------------------------------------
+else
+    true
+fi && {
 __atuin_initialized=true
 
 if [[ -z "${ATUIN_SESSION:-}" || "${ATUIN_SHLVL:-}" != "$SHLVL" ]]; then
@@ -19,6 +20,52 @@ if [[ -z "${ATUIN_SESSION:-}" || "${ATUIN_SHLVL:-}" != "$SHLVL" ]]; then
 fi
 ATUIN_STTY=$(stty -g)
 ATUIN_HISTORY_ID=""
+
+if [[ -z ${__atuin_pty_proxy_owns_tty-} ]] && [[ -n ${ATUIN_PTY_PROXY_ACTIVE-} ]]; then
+    # The pty-proxy preamble also sets this variable, but make sure it's set here,
+    # so a manually started proxy still functions when `pty_proxy.enabled` is false.
+    if __atuin_pty_proxy_answer=$(atuin __internal pty-proxy-active 2>/dev/null) &&
+      [[ $__atuin_pty_proxy_answer = [01] ]]
+    then
+      __atuin_pty_proxy_owns_tty=$__atuin_pty_proxy_answer
+    else
+      __atuin_pty_proxy_owns_tty=-1
+    fi
+    unset -v __atuin_pty_proxy_answer
+fi
+
+__atuin_mark_output_start() {
+    [[ ${__atuin_pty_proxy_owns_tty-} = 1 ]] || return 0
+
+    if [[ -n ${__atuin_needs_osc133_reset-} ]]; then
+        unset -v __atuin_needs_osc133_reset
+        # Old pty-proxy will reset an in-progress capture on a `B` marker.
+        # Always reset, even if there's no history ID, to avoid capturing a
+        # filtered command.
+        printf '\033]133;B\a'
+    fi
+
+    [[ -n "${ATUIN_HISTORY_ID:-}" ]] || return 0
+
+    if [[ ${ATUIN_PTY_PROXY_ACTIVE-} = 1 ]]; then
+        # Current pty-proxy is an older version that expects OSC 133; new
+        # pty-proxy sets ATUIN_PTY_PROXY_ACTIVE to 2.
+        printf '\033]133;C\a'
+    else
+        printf '\033]18188735;C;%s\a' "$ATUIN_HISTORY_ID"
+    fi
+}
+
+__atuin_mark_output_end() {
+    [[ ${__atuin_pty_proxy_owns_tty-} = 1 ]] || return 0
+    [[ -n "${ATUIN_HISTORY_ID:-}" ]] || return 0
+
+    if [[ ${ATUIN_PTY_PROXY_ACTIVE-} = 1 ]]; then
+        printf '\033]133;D;%s;history_id=%s\a' "$1" "$ATUIN_HISTORY_ID"
+    else
+        printf '\033]18188735;D;%s\a' "$ATUIN_HISTORY_ID"
+    fi
+}
 
 export ATUIN_PREEXEC_BACKEND=$SHLVL:none
 __atuin_update_preexec_backend() {
@@ -57,17 +104,19 @@ __atuin_preexec() {
     __atuin_update_preexec_backend
 
     local id
-    id=$(atuin history start -- "$1" 2>/dev/null)
+    id=$(ATUIN_SHELL=bash atuin history start --hook -- "$1" 2>/dev/null)
     export ATUIN_HISTORY_ID=$id
+    [[ -n ${__atuin_skip_output_markers:-} ]] || __atuin_mark_output_start
     __atuin_preexec_time=${EPOCHREALTIME-}
 }
 
 __atuin_precmd() {
     local EXIT=$? __atuin_precmd_time=${EPOCHREALTIME-}
 
-    [[ ! $ATUIN_HISTORY_ID ]] && return
+    [[ ! $ATUIN_HISTORY_ID ]] && return 0
 
     # If the previous preexec hook failed, we manually call __atuin_preexec
+    local __atuin_skip_output_markers=""
     if [[ $ATUIN_HISTORY_ID == __bash_preexec_failure__ ]]; then
         # This is the command extraction code taken from bash-preexec
         local previous_command
@@ -75,6 +124,7 @@ __atuin_precmd() {
             export LC_ALL=C HISTTIMEFORMAT=''
             builtin history 1 | sed '1 s/^ *[0-9][0-9]*[* ] //'
         )
+        __atuin_skip_output_markers=1
         __atuin_preexec "$previous_command"
     fi
 
@@ -102,11 +152,12 @@ __atuin_precmd() {
         if ((duration >= 0)); then
             duration=${duration}000
         else
-            duration="" # clear the result on overflow
+            duration=0
         fi
     fi
 
-    (ATUIN_LOG=error atuin history end --exit "$EXIT" ${duration:+"--duration=$duration"} -- "$ATUIN_HISTORY_ID" &) >/dev/null 2>&1
+    [[ -n ${__atuin_skip_output_markers:-} ]] || __atuin_mark_output_end "$EXIT"
+    (atuin history end --hook --exit "$EXIT" ${duration:+"--duration=$duration"} -- "$ATUIN_HISTORY_ID" >/dev/null 2>&1 &)
     export ATUIN_HISTORY_ID=""
 }
 
@@ -128,7 +179,7 @@ if ((BASH_VERSINFO[0] >= 5 || BASH_VERSINFO[0] == 4 && BASH_VERSINFO[1] >= 4)); 
     __atuin_evaluate_prompt() {
         __atuin_set_ret_value "${__bp_last_ret_value-}" "${__bp_last_argument_prev_command-}"
         __atuin_prompt=${PS1@P}
-    
+
         # Note: Strip the control characters ^A (\001) and ^B (\002), which
         # Bash internally uses to enclose the escape sequences.  They are
         # produced by '\[' and '\]', respectively, in $PS1 and used to tell
@@ -170,8 +221,50 @@ __atuin_clear_prompt() {
     printf '%s' "${__atuin_clear_prompt_cache[offset]}"
 }
 
+# Insert $1 into the line buffer of the line editor.  Special handling is
+# needed in Bash <= 3.2 because the old Bash does not support READLINE_LINE and
+# READLINE_POINT.  When this function is called from inside a keybinding set up
+# by `atuin-bind`, the contents is inserted into the command line by macro
+# chaining.
+__atuin_insert_line() {
+    local __atuin_command=$1
+
+    # READLINE_LINE and READLINE_POINT are only supported by bash >= 4.0 or
+    # ble.sh.  When it is not supported, we localize them to avoid confusing
+    # bash-preexec.
+    [[ ${BLE_ATTACHED-} ]] || ((BASH_VERSINFO[0] >= 4)) ||
+        local READLINE_LINE="" READLINE_POINT=0
+
+    READLINE_LINE=$__atuin_command
+    READLINE_POINT=${#READLINE_LINE}
+    if [[ ! ${BLE_ATTACHED-} ]] && ((BASH_VERSINFO[0] < 4)) && [[ ${__atuin_macro_chain_keymap-} ]]; then
+        __atuin_expand_line=$__atuin_command
+        bind -m "$__atuin_macro_chain_keymap" '"'"$__atuin_macro_chain"'": '"$__atuin_macro_insert_line"
+    fi
+}
+
 __atuin_accept_line() {
     local __atuin_command=$1
+
+    # READLINE_LINE and READLINE_POINT are only supported by bash >= 4.0 or
+    # ble.sh.  When it is not supported, we localize them to avoid confusing
+    # bash-preexec.
+    [[ ${BLE_ATTACHED-} ]] || ((BASH_VERSINFO[0] >= 4)) ||
+        local READLINE_LINE="" READLINE_POINT=0
+
+    if [[ ${BLE_ATTACHED-} ]]; then
+        ble-edit/content/reset-and-check-dirty "$__atuin_command"
+        ble/widget/accept-line
+        READLINE_LINE=""
+        READLINE_POINT=0
+        return 0
+    elif [[ ${__atuin_macro_chain_keymap-} ]]; then
+        READLINE_LINE=$__atuin_command
+        READLINE_POINT=${#READLINE_LINE}
+        __atuin_expand_line=$__atuin_command
+        bind -m "$__atuin_macro_chain_keymap" '"'"$__atuin_macro_chain"'": '"$__atuin_macro_accept_line"
+        return 0
+    fi
 
     # Reprint the prompt, accounting for multiple lines
     local __atuin_prompt __atuin_prompt_offset
@@ -236,6 +329,9 @@ __atuin_accept_line() {
     __atuin_evaluate_prompt
     printf '%s' "$__atuin_prompt"
     __atuin_clear_prompt 0
+
+    READLINE_LINE=""
+    READLINE_POINT=0
 }
 
 #------------------------------------------------------------------------------
@@ -288,7 +384,7 @@ __atuin_search_cmd() {
         popup_width="${ATUIN_TMUX_POPUP_WIDTH:-80%}" # Keep default value anyways
         popup_height="${ATUIN_TMUX_POPUP_HEIGHT:-60%}"
         tmux display-popup -d "$cdir" -w "$popup_width" -h "$popup_height" -E -E -- \
-            sh -c "PATH='$PATH' ATUIN_SESSION='$ATUIN_SESSION' ATUIN_SHELL=bash ATUIN_LOG=error ATUIN_QUERY='$escaped_query' atuin search $escaped_args -i 2>'$result_file'"
+            sh -c "PATH='$PATH' ATUIN_SESSION='$ATUIN_SESSION' ATUIN_SHELL=bash ATUIN_QUERY='$escaped_query' atuin search $escaped_args -i 2>'$result_file'"
 
         if [[ -f "$result_file" ]]; then
             cat "$result_file"
@@ -297,7 +393,7 @@ __atuin_search_cmd() {
         __atuin_tmux_popup_cleanup
         trap - EXIT HUP INT TERM
     else
-        ATUIN_SHELL=bash ATUIN_LOG=error ATUIN_QUERY=$READLINE_LINE atuin search "${search_args[@]}" -i 3>&1 1>&2 2>&3
+        ATUIN_SHELL=bash ATUIN_QUERY=$READLINE_LINE atuin search "${search_args[@]}" -i 3>&1 1>&2 2>&3 3>&-
     fi
 }
 
@@ -326,36 +422,48 @@ __atuin_history() {
     # ble.sh.  When it is not supported, we clear them to suppress strange
     # behaviors.
     [[ ${BLE_ATTACHED-} ]] || ((BASH_VERSINFO[0] >= 4)) ||
-        READLINE_LINE="" READLINE_POINT=0
+        local READLINE_LINE="" READLINE_POINT=0
 
     local __atuin_output
-    __atuin_output=$(__atuin_search_cmd "$@")
+    if ! __atuin_output=$(__atuin_search_cmd "$@"); then
+        [[ $__atuin_output ]] && printf '%s\n' "$__atuin_output" >&2
+        return 1
+    fi
 
     # We do nothing when the search is canceled.
     [[ $__atuin_output ]] || return 0
 
     if [[ $__atuin_output == __atuin_accept__:* ]]; then
         __atuin_output=${__atuin_output#__atuin_accept__:}
-
-        if [[ ${BLE_ATTACHED-} ]]; then
-            ble-edit/content/reset-and-check-dirty "$__atuin_output"
-            ble/widget/accept-line
-            READLINE_LINE=""
-        elif [[ ${__atuin_macro_chain_keymap-} ]]; then
-            READLINE_LINE=$__atuin_output
-            bind -m "$__atuin_macro_chain_keymap" '"'"$__atuin_macro_chain"'": '"$__atuin_macro_accept_line"
-        else
-            __atuin_accept_line "$__atuin_output"
-            READLINE_LINE=""
-        fi
-
-        READLINE_POINT=${#READLINE_LINE}
+        __atuin_accept_line "$__atuin_output"
     else
-        READLINE_LINE=$__atuin_output
-        READLINE_POINT=${#READLINE_LINE}
-        if [[ ! ${BLE_ATTACHED-} ]] && ((BASH_VERSINFO[0] < 4)) && [[ ${__atuin_macro_chain_keymap-} ]]; then
-            bind -m "$__atuin_macro_chain_keymap" '"'"$__atuin_macro_chain"'": '"$__atuin_macro_insert_line"
-        fi
+        __atuin_insert_line "$__atuin_output"
+    fi
+}
+
+# `atuin threads resume`: pick a captured AI coding-agent session. The result uses
+# the same protocol as the history search: `__atuin_accept__:` runs it.
+__atuin_ai_resume() {
+    # READLINE_LINE and READLINE_POINT are only supported by bash >= 4.0 or
+    # ble.sh.  When it is not supported, we clear them to suppress strange
+    # behaviors.
+    [[ ${BLE_ATTACHED-} ]] || ((BASH_VERSINFO[0] >= 4)) ||
+        local READLINE_LINE="" READLINE_POINT=0
+
+    local __atuin_output
+    if ! __atuin_output=$(ATUIN_SHELL=bash ATUIN_QUERY=$READLINE_LINE atuin threads resume --shell-widget "$@" 3>&1 1>&2 2>&3 3>&-); then
+        [[ $__atuin_output ]] && printf '%s\n' "$__atuin_output" >&2
+        return 1
+    fi
+
+    # We do nothing when the picker is canceled.
+    [[ $__atuin_output ]] || return 0
+
+    if [[ $__atuin_output == __atuin_accept__:* ]]; then
+        __atuin_output=${__atuin_output#__atuin_accept__:}
+        __atuin_accept_line "$__atuin_output"
+    else
+        __atuin_insert_line "$__atuin_output"
     fi
 }
 
@@ -573,7 +681,7 @@ else
             bind -m "$__atuin_keymap" '"\C-x\C-_A1\a": beginning-of-line'
             bind -m "$__atuin_keymap" '"\C-x\C-_A2\a": kill-line'
             # shellcheck disable=SC2016
-            bind -m "$__atuin_keymap" '"\C-x\C-_A3\a": "$READLINE_LINE"'
+            bind -m "$__atuin_keymap" '"\C-x\C-_A3\a": "$__atuin_expand_line"'
             bind -m "$__atuin_keymap" '"\C-x\C-_A4\a": shell-expand-line'
             bind -m "$__atuin_keymap" '"\C-x\C-_A5\a": accept-line'
             bind -m "$__atuin_keymap" '"\C-x\C-_A6\a": end-of-line'
@@ -583,9 +691,9 @@ else
         bind -m vi-command '"\C-x\C-_A7\a": vi-insertion-mode'
         bind -m vi-insert  '"\C-x\C-_A7\a": vi-movement-mode'
 
-        # "\C-x\C-_A10\a": Replace the command line with READLINE_LINE.  When we are
-        #   in the vi-command keymap, we go to vi-insert, input
-        #   "$READLINE_LINE", and come back to vi-command.
+        # "\C-x\C-_A10\a": Replace the command line with $__atuin_expand_line.
+        # When we are in the vi-command keymap, we go to vi-insert, input
+        # "$__atuin_expand_line", and come back to vi-command.
         bind -m emacs      '"\C-x\C-_A10\a": "\C-x\C-_A1\a\C-x\C-_A2\a\C-x\C-_A3\a\C-x\C-_A4\a"'
         bind -m vi-insert  '"\C-x\C-_A10\a": "\C-x\C-_A1\a\C-x\C-_A2\a\C-x\C-_A3\a\C-x\C-_A4\a"'
         bind -m vi-command '"\C-x\C-_A10\a": "\C-x\C-_A1\a\C-x\C-_A2\a\C-x\C-_A7\a\C-x\C-_A3\a\C-x\C-_A7\a\C-x\C-_A4\a"'
@@ -597,6 +705,12 @@ else
     __atuin_bash42_dispatch_selector=
 
     __atuin_bash42_dispatch() {
+        # READLINE_LINE and READLINE_POINT are only supported by bash >= 4.0 or
+        # ble.sh.  When it is not supported, we clear them to suppress strange
+        # behaviors.
+        [[ ${BLE_ATTACHED-} ]] || ((BASH_VERSINFO[0] >= 4)) ||
+            local READLINE_LINE="" READLINE_POINT=0
+
         local s=$__atuin_bash42_dispatch_selector
         __atuin_bash42_dispatch_selector=
         __atuin_widget_run "$((2#0$s))"
@@ -655,6 +769,10 @@ atuin-bind() {
         atuin-up-search-emacs) command=${2/#"$widget"/__atuin_history --shell-up-key-binding --keymap-mode=emacs} ;;
         atuin-up-search-viins) command=${2/#"$widget"/__atuin_history --shell-up-key-binding --keymap-mode=vim-insert} ;;
         atuin-up-search-vicmd) command=${2/#"$widget"/__atuin_history --shell-up-key-binding --keymap-mode=vim-normal} ;;
+        atuin-ai-resume)       command=${2/#"$widget"/__atuin_ai_resume} ;;
+        atuin-ai-resume-emacs) command=${2/#"$widget"/__atuin_ai_resume --keymap-mode=emacs} ;;
+        atuin-ai-resume-viins) command=${2/#"$widget"/__atuin_ai_resume --keymap-mode=vim-insert} ;;
+        atuin-ai-resume-vicmd) command=${2/#"$widget"/__atuin_ai_resume --keymap-mode=vim-normal} ;;
     esac
 
     __atuin_bind_impl "$keymap" "$keyseq" "$command"
@@ -683,5 +801,42 @@ if [[ $__atuin_bind_up_arrow == true ]]; then
     atuin-bind -m vi-command 'k'    atuin-up-search-vicmd
 fi
 
-#------------------------------------------------------------------------------
-fi # (include guard) end of main content
+# shellcheck disable=SC2154
+if [[ ${__atuin_bind_ai_resume-} == true ]]; then
+    atuin-bind -m emacs      '\C-]' atuin-ai-resume-emacs
+    atuin-bind -m vi-insert  '\C-]' atuin-ai-resume-viins
+    atuin-bind -m vi-command '\C-]' atuin-ai-resume-vicmd
+fi
+
+if command -v __atuin_load_builtin_preexec > /dev/null; then
+    if [[ -z ${ATUIN_NO_BUILTIN_PREEXEC-} ]]; then
+        # We can simply load bash-preexec.sh without caring existing
+        # preexec-backend because duplicate detection is already properly
+        # implemented in bash-preexec itself:
+        #
+        # 1. When another instance of bash-preexec.sh has already been loaded,
+        #    the initialization is canceled at the beginning by bash-preexec's
+        #    own detection using the variable "bash_preexec_imported" or
+        #    "__bp_imported".
+        # 2. When ble.sh has already been loaded, we have already requested
+        #    ble.sh's emulation of bash-preexec by "ble-import" in the function
+        #    "__atuin_initialize_blesh", which also sets
+        #    "bash_preexec_imported" and "__bp_imported", so later loading of
+        #    bash-preexec.sh is canceled.
+        __atuin_load_builtin_preexec
+    fi
+    # Free the function from memory
+    unset -f __atuin_load_builtin_preexec
+fi
+
+(ATUIN_SHELL=bash atuin __internal prepare-search-index >/dev/null 2>&1 &)
+
+if [[ ${__atuin_pty_proxy_owns_tty-} = 1 ]] && [[ ${ATUIN_PTY_PROXY_ACTIVE-} = 1 ]]; then
+    # We're running in an old pty-proxy that expects OSC 133 markers. The outer
+    # shell may have already sent a `C` marker, causing the proxy to start
+    # capturing output. We need to clear this state before the first command's
+    # output starts, or else the prompt and command itself will be erroneously
+    # included in the output.
+    __atuin_needs_osc133_reset=1
+fi
+}

@@ -46,7 +46,7 @@ def assert_listed(repo: Path, env: ToolStateEnv, tool: str, installed: bool) -> 
 
 
 @pytest.mark.parametrize("relative", [False, True], ids=["absolute", "relative"])
-@pytest.mark.parametrize("tool,version", [("rg", "15.1.0"), ("nu", "0.112.2"), ("nvim", "0.11.5")])
+@pytest.mark.parametrize("tool,version", [("rg", "15.2.0"), ("nu", "0.117.0"), ("nvim", "0.12.6")])
 def test_pinned_links_agree_across_list_check_and_install(
     repo_dir: Path, link_env: ToolStateEnv, relative: bool, tool: str, version: str
 ) -> None:
@@ -97,7 +97,7 @@ def test_old_links_remain_listed_but_require_pinned_install(
 def test_legacy_binary_links_keep_existing_policy(
     repo_dir: Path, link_env: ToolStateEnv, relative: bool
 ) -> None:
-    executable = make_managed_tool(link_env, "rg", "15.1.0")
+    executable = make_managed_tool(link_env, "rg", "15.2.0")
     marker = executable.parent / ".remote-ssh-release"
     marker.unlink()
     point_link(link_env, "rg", executable, relative)
@@ -118,18 +118,18 @@ def test_legacy_binary_links_keep_existing_policy(
 def test_invalid_links_are_not_treated_as_pinned_installations(
     repo_dir: Path, link_env: ToolStateEnv, relative: bool, state: str
 ) -> None:
-    executable = make_managed_tool(link_env, "rg", "15.1.0")
+    executable = make_managed_tool(link_env, "rg", "15.2.0")
     if state == "broken":
         executable.unlink()
     else:
-        outside = link_env.external_dir / "rg-15.1.0/rg"
+        outside = link_env.external_dir / "rg-15.2.0/rg"
         write_executable(outside, "#!/bin/sh\nexit 0\n")
         if state == "terminal-symlink":
             executable.unlink()
             executable.symlink_to(outside)
         elif state == "traversal":
             # Looks like a pinned release path before resolving the parent.
-            executable = executable.parent / "../../external/rg-15.1.0/rg"
+            executable = executable.parent / "../../external/rg-15.2.0/rg"
         else:
             executable = outside
     link = point_link(link_env, "rg", executable, relative)
@@ -147,8 +147,8 @@ def test_invalid_links_are_not_treated_as_pinned_installations(
 def test_relative_link_under_symlinked_prefix_and_suffixed_release(
     repo_dir: Path, link_env: ToolStateEnv
 ) -> None:
-    executable = make_managed_tool(link_env, "rg", "15.1.0")
-    release = executable.parent.with_name("rg-15.1.0.123-456")
+    executable = make_managed_tool(link_env, "rg", "15.2.0")
+    release = executable.parent.with_name("rg-15.2.0.123-456")
     executable.parent.rename(release)
     prefix_alias = link_env.home / "opt alias"
     prefix_alias.symlink_to(link_env.opt_dir, target_is_directory=True)
@@ -166,7 +166,7 @@ def test_relative_link_under_symlinked_prefix_and_suffixed_release(
 def test_relative_link_via_symlinked_bin_uses_physical_parent(
     repo_dir: Path, link_env: ToolStateEnv
 ) -> None:
-    executable = make_managed_tool(link_env, "rg", "15.1.0")
+    executable = make_managed_tool(link_env, "rg", "15.2.0")
     link = point_link(link_env, "rg", executable, relative=True)
     alias = link_env.home / ".local/bin"
     alias.parent.mkdir(exist_ok=True)
@@ -203,13 +203,13 @@ def test_relative_link_via_symlinked_bin_uses_physical_parent(
 def test_prefix_with_symlink_then_parent_uses_physical_directory(
     repo_dir: Path, link_env: ToolStateEnv
 ) -> None:
-    executable = make_managed_tool(link_env, "rg", "15.1.0")
+    executable = make_managed_tool(link_env, "rg", "15.2.0")
     logical = link_env.home / "logical"
     logical.mkdir()
     child = link_env.home / "physical-child"
     child.mkdir()
     (logical / "jump").symlink_to(child, target_is_directory=True)
-    shadow = logical / "opt/rg-15.1.0"
+    shadow = logical / "opt/rg-15.2.0"
     shadow.mkdir(parents=True)
     prefix = logical / "jump/../opt"
     link_env.env["INSTALL_PREFIX"] = str(prefix)
@@ -235,7 +235,7 @@ def test_prefix_with_symlink_then_parent_uses_physical_directory(
 def test_symlink_then_parent_cannot_adopt_external_executable(
     repo_dir: Path, link_env: ToolStateEnv, removal: list[str]
 ) -> None:
-    executable = make_managed_tool(link_env, "rg", "15.1.0")
+    executable = make_managed_tool(link_env, "rg", "15.2.0")
     outside = link_env.external_dir / "rg"
     write_executable(outside, "#!/bin/sh\nprintf outside\n")
     child = link_env.external_dir / "child"
@@ -259,7 +259,7 @@ def test_symlink_then_parent_cannot_adopt_external_executable(
 
 
 @pytest.mark.parametrize(
-    "version,marked", [("15.1.0.1", True), ("15.1.0.1", False), ("15.1.0.123-456", True)]
+    "version,marked", [("15.2.0.1", True), ("15.2.0.1", False), ("15.2.0.123-456", True)]
 )
 def test_version_prefix_does_not_count_as_exact_version(
     repo_dir: Path, link_env: ToolStateEnv, version: str, marked: bool
@@ -286,8 +286,8 @@ def test_version_prefix_does_not_count_as_exact_version(
 def test_only_numeric_install_suffix_is_accepted(
     repo_dir: Path, link_env: ToolStateEnv, marked: bool, suffix: str, valid: bool
 ) -> None:
-    executable = make_managed_tool(link_env, "rg", "15.1.0")
-    release = executable.parent.with_name(f"rg-15.1.0.{suffix}")
+    executable = make_managed_tool(link_env, "rg", "15.2.0")
+    release = executable.parent.with_name(f"rg-15.2.0.{suffix}")
     executable.parent.rename(release)
     if not marked:
         (release / ".remote-ssh-release").unlink()
@@ -310,7 +310,7 @@ def test_only_numeric_install_suffix_is_accepted(
 def test_invalid_record_cannot_fall_back_to_legacy_matching(
     repo_dir: Path, link_env: ToolStateEnv, record: str
 ) -> None:
-    executable = make_managed_tool(link_env, "rg", "15.1.0")
+    executable = make_managed_tool(link_env, "rg", "15.2.0")
     marker = executable.parent / ".remote-ssh-release"
     if record == "truncated":
         marker.write_text("format=1\n")

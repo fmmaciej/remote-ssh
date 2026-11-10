@@ -18,15 +18,15 @@ from conftest import (
 
 
 def test_remote_ssh_check_reports_local_tool(repo_dir: Path, tool_env: ToolStateEnv) -> None:
-    make_managed_tool(tool_env, "rg", "15.1.0")
+    make_managed_tool(tool_env, "rg", "15.2.0")
 
     result = run_remote_ssh(repo_dir, ["check", "rg"], env=tool_env.env)
 
     assert_ok(result)
     assert "remote-ssh check" in result.stdout
-    assert "VERSION=15.1.0 BurntSushi/ripgrep@15.1.0" in result.stdout
+    assert "VERSION=15.2.0 BurntSushi/ripgrep@15.2.0" in result.stdout
     assert f"local:     {tool_env.bin_dir / 'rg'}" in result.stdout
-    assert f"target:    {tool_env.opt_dir / 'rg-15.1.0' / 'rg'}" in result.stdout
+    assert f"target:    {tool_env.opt_dir / 'rg-15.2.0' / 'rg'}" in result.stdout
     assert f"path:      {tool_env.bin_dir / 'rg'}" in result.stdout
     assert "status:    ok" in result.stdout
 
@@ -36,7 +36,7 @@ def test_remote_ssh_check_uses_expected_tools_by_default(
     tool_env: ToolStateEnv,
 ) -> None:
     write_expected_tools(tool_env, ["# comment", "", "rg"])
-    make_managed_tool(tool_env, "rg", "15.1.0")
+    make_managed_tool(tool_env, "rg", "15.2.0")
 
     result = run_remote_ssh(repo_dir, ["check"], env=tool_env.env)
 
@@ -61,7 +61,7 @@ def test_remote_ssh_check_warns_about_unknown_expected_tool(
     tool_env: ToolStateEnv,
 ) -> None:
     write_expected_tools(tool_env, ["rg", "oldtool"])
-    make_managed_tool(tool_env, "rg", "15.1.0")
+    make_managed_tool(tool_env, "rg", "15.2.0")
 
     result = run_remote_ssh(repo_dir, ["check"], env=tool_env.env)
 
@@ -101,7 +101,7 @@ def test_remote_ssh_check_strict_accepts_binary_alias(
     repo_dir: Path,
     tool_env: ToolStateEnv,
 ) -> None:
-    target = make_managed_tool(tool_env, "nu", "0.112.2")
+    target = make_managed_tool(tool_env, "nu", "0.117.0")
     (tool_env.bin_dir / "nushell").symlink_to(target)
 
     result = run_remote_ssh(repo_dir, ["check", "--strict", "nu"], env=tool_env.env)
@@ -109,7 +109,7 @@ def test_remote_ssh_check_strict_accepts_binary_alias(
     assert_ok(result)
     assert (
         f"alias:     nushell -> {tool_env.bin_dir / 'nushell'} "
-        f"status=ok target={tool_env.opt_dir / 'nu-0.112.2' / 'nu'}"
+        f"status=ok target={tool_env.opt_dir / 'nu-0.117.0' / 'nu'}"
     ) in result.stdout
 
 
@@ -117,7 +117,7 @@ def test_remote_ssh_check_strict_rejects_missing_binary_alias(
     repo_dir: Path,
     tool_env: ToolStateEnv,
 ) -> None:
-    make_managed_tool(tool_env, "nu", "0.112.2")
+    make_managed_tool(tool_env, "nu", "0.117.0")
 
     result = run_remote_ssh(repo_dir, ["check", "--strict", "nu"], env=tool_env.env)
 
@@ -129,7 +129,7 @@ def test_remote_ssh_check_strict_rejects_stale_binary_alias(
     repo_dir: Path,
     tool_env: ToolStateEnv,
 ) -> None:
-    make_managed_tool(tool_env, "nu", "0.112.2")
+    make_managed_tool(tool_env, "nu", "0.117.0")
     stale = make_managed_tool(tool_env, "nu", "0.111.0", link_name="nushell", content=None)
 
     result = run_remote_ssh(repo_dir, ["check", "--strict", "nu"], env=tool_env.env)
@@ -144,7 +144,7 @@ def test_remote_ssh_check_strict_rejects_external_binary_alias(
     repo_dir: Path,
     tool_env: ToolStateEnv,
 ) -> None:
-    make_managed_tool(tool_env, "nu", "0.112.2")
+    make_managed_tool(tool_env, "nu", "0.117.0")
     make_external_tool(tool_env, "nushell", content="#!/usr/bin/env bash\nprintf external\n")
     env = tool_env.env | {"PATH": f"{tool_env.bin_dir}:{tool_env.external_dir}:/usr/bin:/bin"}
 
@@ -164,11 +164,11 @@ def test_check_with_equivalent_bin_directory_preserves_health_checks(
     repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str, state: str
 ) -> None:
     (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
-    tool, version = ("nu", "0.112.2") if state == "alias" else ("rg", "15.1.0")
+    tool, version = ("nu", "0.117.0") if state == "alias" else ("rg", "15.2.0")
     if state == "old":
         version = "14.1.0"
     if state == "incomplete":
-        tool, version = "nvim", "0.11.5"
+        tool, version = "nvim", "0.12.6"
     executable = make_managed_tool(tool_env, tool, version)
     if state == "incomplete":
         mark_managed_release(executable.parent, tool, version, layout="binary")
@@ -211,7 +211,7 @@ def test_check_with_equivalent_bin_directory_preserves_health_checks(
 def test_check_does_not_mistake_shadowing_function_for_same_named_file(
     repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str
 ) -> None:
-    make_managed_tool(tool_env, "rg", "15.1.0")
+    make_managed_tool(tool_env, "rg", "15.2.0")
     result = run_cmd(
         [
             runtime_bash,

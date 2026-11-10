@@ -64,7 +64,9 @@ def test_welcome_user_module_template_is_documentation_only(repo_dir: Path) -> N
     assert "REMOTE_SSH_WELCOME_ISSUES_FILE" not in text
 
 
-def test_welcome_runner_is_standalone_without_remote_shell_dir(repo_dir: Path, tmp_path: Path) -> None:
+def test_welcome_runner_is_standalone_without_remote_shell_dir(
+    repo_dir: Path, tmp_path: Path
+) -> None:
     temp_dir = tmp_path / "tmp"
     temp_dir.mkdir()
     inherited_issue_file = tmp_path / "inherited-issues"
@@ -948,8 +950,8 @@ def test_remote_ssh_welcome_module_reports_statuses(
         encoding="utf-8",
     )
     write_expected_tools(tool_env, ["rg", "fd"])
-    make_managed_tool(tool_env, "rg", "15.1.0")
-    make_managed_tool(tool_env, "fd", "10.3.0")
+    make_managed_tool(tool_env, "rg", "15.2.0")
+    make_managed_tool(tool_env, "fd", "10.5.2")
     for command in ("bssh", "python3", "ssh", "sk"):
         write_executable(tool_env.bin_dir / command, "#!/usr/bin/env bash\nexit 0\n")
 
@@ -1133,8 +1135,7 @@ def test_welcome_ip_skips_ip_route_on_darwin(
             "_",
             repo_dir,
         ],
-        env=isolated_env.env
-        | {"PATH": f"{isolated_env.bin_dir}:/usr/bin:/bin"},
+        env=isolated_env.env | {"PATH": f"{isolated_env.bin_dir}:/usr/bin:/bin"},
     )
 
     assert_ok(result)
@@ -1185,8 +1186,7 @@ def test_welcome_ip_uses_ip_route_on_linux(
             "_",
             repo_dir,
         ],
-        env=isolated_env.env
-        | {"PATH": f"{isolated_env.bin_dir}:/usr/bin:/bin"},
+        env=isolated_env.env | {"PATH": f"{isolated_env.bin_dir}:/usr/bin:/bin"},
     )
 
     assert_ok(result)
@@ -1252,9 +1252,7 @@ def test_git_session_identity_hook_exports_status_for_welcome(
 ) -> None:
     remote = prepare_minimal_remote_tree(repo_dir, tmp_path)
     (remote / "shell" / "rc.d" / "07-git-session-identity.sh").write_text(
-        (repo_dir / "shell" / "rc.d" / "07-git-session-identity.sh").read_text(
-            encoding="utf-8"
-        ),
+        (repo_dir / "shell" / "rc.d" / "07-git-session-identity.sh").read_text(encoding="utf-8"),
         encoding="utf-8",
     )
     write_git_user_local(remote / "dots")

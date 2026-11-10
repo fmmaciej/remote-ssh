@@ -41,12 +41,6 @@ CHECKSUM_EXCEPTIONS = {
     ("denisidoro/navi", "v2.23.0", "navi-v2.23.0-x86_64-apple-darwin.tar.gz"),
     ("denisidoro/navi", "v2.23.0", "navi-v2.23.0-aarch64-unknown-linux-gnu.tar.gz"),
     ("denisidoro/navi", "v2.23.0", "navi-v2.23.0-x86_64-unknown-linux-musl.tar.gz"),
-    ("sxyazi/yazi", "v25.5.31", "yazi-aarch64-apple-darwin.zip"),
-    ("sxyazi/yazi", "v25.5.31", "yazi-x86_64-apple-darwin.zip"),
-    ("sxyazi/yazi", "v25.5.31", "yazi-aarch64-unknown-linux-musl.zip"),
-    ("sxyazi/yazi", "v25.5.31", "yazi-x86_64-unknown-linux-musl.zip"),
-    ("sxyazi/yazi", "v25.5.31", "yazi-aarch64-unknown-linux-gnu.zip"),
-    ("sxyazi/yazi", "v25.5.31", "yazi-x86_64-unknown-linux-gnu.zip"),
 }
 
 
@@ -223,20 +217,20 @@ bssh|linux:aarch64:gnu|bssh-linux-aarch64.tar.gz
 bssh|linux:x86_64:musl|bssh-linux-x86_64-musl.tar.gz
 bssh|linux:x86_64:gnu|bssh-linux-x86_64.tar.gz
 bssh|darwin:aarch64:any|bssh-macos-aarch64.zip
-dust|linux:aarch64:gnu|dust-v1.2.4-aarch64-unknown-linux-gnu.tar.gz
-dust|linux:aarch64:musl|dust-v1.2.4-aarch64-unknown-linux-musl.tar.gz
-dust|darwin:x86_64:any|dust-v1.2.4-x86_64-apple-darwin.tar.gz
-dust|linux:x86_64:gnu|dust-v1.2.4-x86_64-unknown-linux-gnu.tar.gz
-dust|linux:x86_64:musl|dust-v1.2.4-x86_64-unknown-linux-musl.tar.gz
+dust|linux:aarch64:gnu|dust-v1.2.7-aarch64-unknown-linux-gnu.tar.gz
+dust|linux:aarch64:musl|dust-v1.2.7-aarch64-unknown-linux-musl.tar.gz
+dust|darwin:x86_64:any|dust-v1.2.7-x86_64-apple-darwin.tar.gz
+dust|linux:x86_64:gnu|dust-v1.2.7-x86_64-unknown-linux-gnu.tar.gz
+dust|linux:x86_64:musl|dust-v1.2.7-x86_64-unknown-linux-musl.tar.gz
 eza|linux:aarch64:gnu|eza_aarch64-unknown-linux-gnu.tar.gz
 eza|linux:x86_64:musl|eza_x86_64-unknown-linux-musl.tar.gz
 eza|linux:x86_64:gnu|eza_x86_64-unknown-linux-gnu.tar.gz
-fd|darwin:aarch64:any|fd-v10.3.0-aarch64-apple-darwin.tar.gz
-fd|darwin:x86_64:any|fd-v10.3.0-x86_64-apple-darwin.tar.gz
-fd|linux:aarch64:musl|fd-v10.3.0-aarch64-unknown-linux-musl.tar.gz
-fd|linux:x86_64:musl|fd-v10.3.0-x86_64-unknown-linux-musl.tar.gz
-fd|linux:aarch64:gnu|fd-v10.3.0-aarch64-unknown-linux-gnu.tar.gz
-fd|linux:x86_64:gnu|fd-v10.3.0-x86_64-unknown-linux-gnu.tar.gz
+fd|darwin:aarch64:any|fd-v10.5.2-aarch64-apple-darwin.tar.gz
+fd|darwin:x86_64:any|fd-v10.5.2-x86_64-apple-darwin.tar.gz
+fd|linux:aarch64:musl|fd-v10.5.2-aarch64-unknown-linux-musl.tar.gz
+fd|linux:x86_64:musl|fd-v10.5.2-x86_64-unknown-linux-musl.tar.gz
+fd|linux:aarch64:gnu|fd-v10.5.2-aarch64-unknown-linux-gnu.tar.gz
+fd|linux:x86_64:gnu|fd-v10.5.2-x86_64-unknown-linux-gnu.tar.gz
 flyline|darwin:aarch64:any|flyline-1.10.0-pr974.aae68bb4.r5-aarch64-apple-darwin.tar.gz
 fzf|darwin:x86_64:any|fzf-0.67.0-darwin_amd64.tar.gz
 fzf|darwin:aarch64:any|fzf-0.67.0-darwin_arm64.tar.gz
@@ -246,22 +240,22 @@ navi|darwin:aarch64:any|navi-v2.23.0-aarch64-apple-darwin.tar.gz
 navi|darwin:x86_64:any|navi-v2.23.0-x86_64-apple-darwin.tar.gz
 navi|linux:aarch64:gnu|navi-v2.23.0-aarch64-unknown-linux-gnu.tar.gz
 navi|linux:x86_64:musl|navi-v2.23.0-x86_64-unknown-linux-musl.tar.gz
-nu|darwin:aarch64:any|nu-0.112.2-aarch64-apple-darwin.tar.gz
-nu|darwin:x86_64:any|nu-0.112.2-x86_64-apple-darwin.tar.gz
-nu|linux:aarch64:musl|nu-0.112.2-aarch64-unknown-linux-musl.tar.gz
-nu|linux:x86_64:musl|nu-0.112.2-x86_64-unknown-linux-musl.tar.gz
-nu|linux:aarch64:gnu|nu-0.112.2-aarch64-unknown-linux-gnu.tar.gz
-nu|linux:x86_64:gnu|nu-0.112.2-x86_64-unknown-linux-gnu.tar.gz
+nu|darwin:aarch64:any|nu-0.117.0-aarch64-apple-darwin.tar.gz
+nu|darwin:x86_64:any|nu-0.117.0-x86_64-apple-darwin.tar.gz
+nu|linux:aarch64:musl|nu-0.117.0-aarch64-unknown-linux-musl.tar.gz
+nu|linux:x86_64:musl|nu-0.117.0-x86_64-unknown-linux-musl.tar.gz
+nu|linux:aarch64:gnu|nu-0.117.0-aarch64-unknown-linux-gnu.tar.gz
+nu|linux:x86_64:gnu|nu-0.117.0-x86_64-unknown-linux-gnu.tar.gz
 nvim|linux:aarch64:gnu|nvim-linux-arm64.tar.gz
 nvim|linux:x86_64:gnu|nvim-linux-x86_64.tar.gz
 nvim|darwin:aarch64:any|nvim-macos-arm64.tar.gz
 nvim|darwin:x86_64:any|nvim-macos-x86_64.tar.gz
-procs|linux:aarch64:gnu|procs-v0.14.11-aarch64-linux.zip
-procs|linux:x86_64:gnu|procs-v0.14.11-x86_64-linux.zip
-rg|darwin:aarch64:any|ripgrep-15.1.0-aarch64-apple-darwin.tar.gz
-rg|darwin:x86_64:any|ripgrep-15.1.0-x86_64-apple-darwin.tar.gz
-rg|linux:x86_64:musl|ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz
-rg|linux:aarch64:gnu|ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz
+procs|linux:aarch64:gnu|procs-v0.14.12-aarch64-linux.zip
+procs|linux:x86_64:gnu|procs-v0.14.12-x86_64-linux.zip
+rg|darwin:aarch64:any|ripgrep-15.2.0-aarch64-apple-darwin.tar.gz
+rg|darwin:x86_64:any|ripgrep-15.2.0-x86_64-apple-darwin.tar.gz
+rg|linux:x86_64:musl|ripgrep-15.2.0-x86_64-unknown-linux-musl.tar.gz
+rg|linux:aarch64:gnu|ripgrep-15.2.0-aarch64-unknown-linux-gnu.tar.gz
 sd|darwin:aarch64:any|sd-v1.1.0-aarch64-apple-darwin.tar.gz
 sd|darwin:x86_64:any|sd-v1.1.0-x86_64-apple-darwin.tar.gz
 sd|linux:aarch64:musl|sd-v1.1.0-aarch64-unknown-linux-musl.tar.gz
@@ -282,11 +276,11 @@ tspin|darwin:aarch64:any|tailspin-aarch64-apple-darwin.tar.gz
 tspin|darwin:x86_64:any|tailspin-x86_64-apple-darwin.tar.gz
 tspin|linux:aarch64:musl|tailspin-aarch64-unknown-linux-musl.tar.gz
 tspin|linux:x86_64:musl|tailspin-x86_64-unknown-linux-musl.tar.gz
-vector|darwin:aarch64:any|vector-0.55.0-arm64-apple-darwin.tar.gz
-vector|linux:aarch64:gnu|vector-0.55.0-aarch64-unknown-linux-gnu.tar.gz
-vector|linux:aarch64:musl|vector-0.55.0-aarch64-unknown-linux-musl.tar.gz
-vector|linux:x86_64:gnu|vector-0.55.0-x86_64-unknown-linux-gnu.tar.gz
-vector|linux:x86_64:musl|vector-0.55.0-x86_64-unknown-linux-musl.tar.gz
+vector|darwin:aarch64:any|vector-0.61.0-arm64-apple-darwin.tar.gz
+vector|linux:aarch64:gnu|vector-0.61.0-aarch64-unknown-linux-gnu.tar.gz
+vector|linux:aarch64:musl|vector-0.61.0-aarch64-unknown-linux-musl.tar.gz
+vector|linux:x86_64:gnu|vector-0.61.0-x86_64-unknown-linux-gnu.tar.gz
+vector|linux:x86_64:musl|vector-0.61.0-x86_64-unknown-linux-musl.tar.gz
 yazi|darwin:aarch64:any|yazi-aarch64-apple-darwin.zip
 yazi|darwin:x86_64:any|yazi-x86_64-apple-darwin.zip
 yazi|linux:aarch64:musl|yazi-aarch64-unknown-linux-musl.zip
@@ -297,10 +291,10 @@ zellij|darwin:aarch64:any|zellij-aarch64-apple-darwin.tar.gz
 zellij|linux:aarch64:musl|zellij-aarch64-unknown-linux-musl.tar.gz
 zellij|darwin:x86_64:any|zellij-x86_64-apple-darwin.tar.gz
 zellij|linux:x86_64:musl|zellij-x86_64-unknown-linux-musl.tar.gz
-zoxide|darwin:aarch64:any|zoxide-0.9.9-aarch64-apple-darwin.tar.gz
-zoxide|darwin:x86_64:any|zoxide-0.9.9-x86_64-apple-darwin.tar.gz
-zoxide|linux:aarch64:musl|zoxide-0.9.9-aarch64-unknown-linux-musl.tar.gz
-zoxide|linux:x86_64:musl|zoxide-0.9.9-x86_64-unknown-linux-musl.tar.gz"""
+zoxide|darwin:aarch64:any|zoxide-0.10.0-aarch64-apple-darwin.tar.gz
+zoxide|darwin:x86_64:any|zoxide-0.10.0-x86_64-apple-darwin.tar.gz
+zoxide|linux:aarch64:musl|zoxide-0.10.0-aarch64-unknown-linux-musl.tar.gz
+zoxide|linux:x86_64:musl|zoxide-0.10.0-x86_64-unknown-linux-musl.tar.gz"""
     assert got == expected
 
 
@@ -338,26 +332,26 @@ bottom|linux:x86_64:gnu|bottom_x86_64-unknown-linux-musl.tar.gz
 bottom|linux:aarch64:gnu|bottom_aarch64-unknown-linux-musl.tar.gz
 bssh|linux:x86_64:gnu|bssh-linux-x86_64-musl.tar.gz
 bssh|linux:aarch64:gnu|bssh-linux-aarch64-musl.tar.gz
-dust|linux:x86_64:gnu|dust-v1.2.4-x86_64-unknown-linux-musl.tar.gz
-dust|linux:aarch64:gnu|dust-v1.2.4-aarch64-unknown-linux-musl.tar.gz
+dust|linux:x86_64:gnu|dust-v1.2.7-x86_64-unknown-linux-musl.tar.gz
+dust|linux:aarch64:gnu|dust-v1.2.7-aarch64-unknown-linux-musl.tar.gz
 eza|linux:x86_64:gnu|eza_x86_64-unknown-linux-musl.tar.gz
 eza|linux:aarch64:gnu|eza_aarch64-unknown-linux-gnu.tar.gz
-fd|linux:x86_64:gnu|fd-v10.3.0-x86_64-unknown-linux-musl.tar.gz
-fd|linux:aarch64:gnu|fd-v10.3.0-aarch64-unknown-linux-musl.tar.gz
+fd|linux:x86_64:gnu|fd-v10.5.2-x86_64-unknown-linux-musl.tar.gz
+fd|linux:aarch64:gnu|fd-v10.5.2-aarch64-unknown-linux-musl.tar.gz
 flyline|linux:x86_64:gnu|unsupported
 flyline|linux:aarch64:gnu|unsupported
 fzf|linux:x86_64:gnu|fzf-0.67.0-linux_amd64.tar.gz
 fzf|linux:aarch64:gnu|fzf-0.67.0-linux_arm64.tar.gz
 navi|linux:x86_64:gnu|navi-v2.23.0-x86_64-unknown-linux-musl.tar.gz
 navi|linux:aarch64:gnu|navi-v2.23.0-aarch64-unknown-linux-gnu.tar.gz
-nu|linux:x86_64:gnu|nu-0.112.2-x86_64-unknown-linux-musl.tar.gz
-nu|linux:aarch64:gnu|nu-0.112.2-aarch64-unknown-linux-musl.tar.gz
+nu|linux:x86_64:gnu|nu-0.117.0-x86_64-unknown-linux-musl.tar.gz
+nu|linux:aarch64:gnu|nu-0.117.0-aarch64-unknown-linux-musl.tar.gz
 nvim|linux:x86_64:gnu|nvim-linux-x86_64.tar.gz
 nvim|linux:aarch64:gnu|nvim-linux-arm64.tar.gz
-procs|linux:x86_64:gnu|procs-v0.14.11-x86_64-linux.zip
-procs|linux:aarch64:gnu|procs-v0.14.11-aarch64-linux.zip
-rg|linux:x86_64:gnu|ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz
-rg|linux:aarch64:gnu|ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz
+procs|linux:x86_64:gnu|procs-v0.14.12-x86_64-linux.zip
+procs|linux:aarch64:gnu|procs-v0.14.12-aarch64-linux.zip
+rg|linux:x86_64:gnu|ripgrep-15.2.0-x86_64-unknown-linux-musl.tar.gz
+rg|linux:aarch64:gnu|ripgrep-15.2.0-aarch64-unknown-linux-gnu.tar.gz
 sd|linux:x86_64:gnu|sd-v1.1.0-x86_64-unknown-linux-musl.tar.gz
 sd|linux:aarch64:gnu|sd-v1.1.0-aarch64-unknown-linux-musl.tar.gz
 sk|linux:x86_64:gnu|skim-x86_64-unknown-linux-musl.tar.xz
@@ -366,14 +360,14 @@ starship|linux:x86_64:gnu|starship-x86_64-unknown-linux-musl.tar.gz
 starship|linux:aarch64:gnu|starship-aarch64-unknown-linux-musl.tar.gz
 tspin|linux:x86_64:gnu|tailspin-x86_64-unknown-linux-musl.tar.gz
 tspin|linux:aarch64:gnu|tailspin-aarch64-unknown-linux-musl.tar.gz
-vector|linux:x86_64:gnu|vector-0.55.0-x86_64-unknown-linux-musl.tar.gz
-vector|linux:aarch64:gnu|vector-0.55.0-aarch64-unknown-linux-musl.tar.gz
+vector|linux:x86_64:gnu|vector-0.61.0-x86_64-unknown-linux-musl.tar.gz
+vector|linux:aarch64:gnu|vector-0.61.0-aarch64-unknown-linux-musl.tar.gz
 yazi|linux:x86_64:gnu|yazi-x86_64-unknown-linux-musl.zip
 yazi|linux:aarch64:gnu|yazi-aarch64-unknown-linux-musl.zip
 zellij|linux:x86_64:gnu|zellij-x86_64-unknown-linux-musl.tar.gz
 zellij|linux:aarch64:gnu|zellij-aarch64-unknown-linux-musl.tar.gz
-zoxide|linux:x86_64:gnu|zoxide-0.9.9-x86_64-unknown-linux-musl.tar.gz
-zoxide|linux:aarch64:gnu|zoxide-0.9.9-aarch64-unknown-linux-musl.tar.gz"""
+zoxide|linux:x86_64:gnu|zoxide-0.10.0-x86_64-unknown-linux-musl.tar.gz
+zoxide|linux:aarch64:gnu|zoxide-0.10.0-aarch64-unknown-linux-musl.tar.gz"""
     assert got == expected
 
 
@@ -517,7 +511,7 @@ def test_flyline_pins_published_library_and_resets_layout(repo_dir, runtime_bash
             done
             load_defs "$TOOLS_DIR/defs" rg
             [[ "$INSTALL_LAYOUT" == binary && ${#LIBRARY_MEMBERS[@]} == 0 ]]
-            [[ "$(select_asset linux x86_64 gnu "${ASSETS[@]}")" == ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz ]]
+            [[ "$(select_asset linux x86_64 gnu "${ASSETS[@]}")" == ripgrep-15.2.0-x86_64-unknown-linux-musl.tar.gz ]]
             """,
             "_",
             repo_dir,

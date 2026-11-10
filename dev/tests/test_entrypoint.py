@@ -110,7 +110,7 @@ def test_remote_ssh_check_delegates_to_check_command(
     repo_dir: Path,
     tool_env: ToolStateEnv,
 ) -> None:
-    make_managed_tool(tool_env, "rg", "15.1.0")
+    make_managed_tool(tool_env, "rg", "15.2.0")
 
     result = run_remote_ssh(repo_dir, ["check", "rg"], env=tool_env.env)
 

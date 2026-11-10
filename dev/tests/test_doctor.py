@@ -62,7 +62,7 @@ def test_remote_ssh_doctor_reports_path_shadow_hint(
     tool_env: ToolStateEnv,
 ) -> None:
     write_expected_tools(tool_env, ["rg"])
-    make_managed_tool(tool_env, "rg", "15.1.0", content="#!/usr/bin/env bash\nprintf managed-rg\n")
+    make_managed_tool(tool_env, "rg", "15.2.0", content="#!/usr/bin/env bash\nprintf managed-rg\n")
     make_external_tool(tool_env, "rg", content="#!/usr/bin/env bash\nprintf external-rg\n")
     env = tool_env.env | {"PATH": f"{tool_env.external_dir}:{tool_env.bin_dir}:/usr/bin:/bin"}
 
@@ -108,7 +108,7 @@ def test_remote_ssh_doctor_reports_missing_binary_alias(
     tool_env: ToolStateEnv,
 ) -> None:
     write_expected_tools(tool_env, ["nu"])
-    make_managed_tool(tool_env, "nu", "0.112.2")
+    make_managed_tool(tool_env, "nu", "0.117.0")
 
     result = run_remote_ssh(repo_dir, ["doctor"], env=tool_env.env)
 
@@ -122,7 +122,7 @@ def test_doctor_accepts_equivalent_bin_directory(
     repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str
 ) -> None:
     (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
-    make_managed_tool(tool_env, "rg", "15.1.0")
+    make_managed_tool(tool_env, "rg", "15.2.0")
     write_expected_tools(tool_env, ["rg"])
     alias = tool_env.home / "bin alias"
     alias.symlink_to(tool_env.bin_dir, target_is_directory=True)
@@ -216,7 +216,7 @@ def test_doctor_fzf_retirement_is_read_only(
     repo_dir, tool_env, runtime_bash, expected, owned, skim, warn
 ):
     (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
-    make_managed_tool(tool_env, "rg", "15.1.0")
+    make_managed_tool(tool_env, "rg", "15.2.0")
     if owned:
         make_managed_tool(tool_env, "fzf", "0.67.0")
     external = make_external_tool(tool_env, "fzf")

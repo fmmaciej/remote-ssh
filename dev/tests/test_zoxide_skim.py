@@ -126,7 +126,7 @@ def test_z_completion_uses_skim_and_retains_upstream_readline_protocol(
             "REPLY": str(reply),
             "CANCEL": str(int(cancel)),
             "ZOXIDE_INIT_FIXTURE": str(
-                repo_dir / "dev/tests/fixtures/zoxide-0.9.9-completion.bash"
+                repo_dir / "dev/tests/fixtures/zoxide-0.10.0-completion.bash"
             ),
         },
     )

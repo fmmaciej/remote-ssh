@@ -3,8 +3,8 @@
 
 TOOL_NAME="eza"
 GH_REPO="eza-community/eza"
-RELEASE_TAG="v0.23.4"
-VERSION="0.23.4"
+RELEASE_TAG="v0.23.5"
+VERSION="0.23.5"
 
 BINARY_NAME="eza"
 
@@ -15,7 +15,7 @@ ASSETS=(
 )
 
 CHECKSUMS=(
-  "eza_aarch64-unknown-linux-gnu.tar.gz|366e8430225f9955c3dc659b452150c169894833ccfef455e01765e265a3edda"
-  "eza_x86_64-unknown-linux-musl.tar.gz|d231bb3ee33b08c76279b5888845dceb7034d055c42bb9be46dbe0dae39394df"
-  "eza_x86_64-unknown-linux-gnu.tar.gz|0c38665440226cd8bef5d1d4f3bc6ff77c927fb0d68b752739105db7ab5b358d"
+  "eza_aarch64-unknown-linux-gnu.tar.gz|40b87ae8628aa2ff0f0d2dc24ab52f689631366385c3da630bae745671fd71ec"
+  "eza_x86_64-unknown-linux-musl.tar.gz|e06eebab74b73d6b7d51a796a353824b001bea82df077706382e100815d28904"
+  "eza_x86_64-unknown-linux-gnu.tar.gz|35c70c5c43c29108075e58b893234c67ef585f0b53a7eaf8e9e7d4eec9f339b4"
 )

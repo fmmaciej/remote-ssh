@@ -14,7 +14,7 @@ def test_real_pinned_cli_suppresses_the_generated_ai_suffix(isolated_env: Isolat
         pytest.skip("set REMOTE_SSH_TEST_ATUIN_BIN to the local pinned Atuin executable")
     version = run_cmd([binary, "--version"], env=isolated_env.env)
     assert_ok(version)
-    assert version.stdout.startswith("atuin 18.14.1 ")
+    assert version.stdout.startswith("atuin 18.24.6 ")
     default = run_cmd([binary, "init", "bash"], env=isolated_env.env)
     assert_ok(default)
     assert "_atuin_ai_question_mark" in default.stdout

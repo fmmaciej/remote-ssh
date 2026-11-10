@@ -7,13 +7,13 @@ import pytest
 from conftest import IsolatedEnv, assert_ok, run_cmd, write_executable
 from pty_shell import PtyShell
 
-SOURCE_HASH = "60dde7dd731f9963b19f313c9b44870b1b0a6836c38bf22e96134251cc834d5a"
+SOURCE_HASH = "218292a6b25b40a2b63ca1696105abf123e5d12b38dc98136f5b895041afd2a2"
 
 
 @pytest.fixture
 def upstream_env(repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str) -> dict[str, str]:
-    source = repo_dir / "dev/tests/fixtures/atuin/v18.14.1/atuin.bash"
-    assert 'VERSION="18.14.1"' in (repo_dir / "tools/defs/atuin.sh").read_text()
+    source = repo_dir / "dev/tests/fixtures/atuin/v18.24.6/atuin.bash"
+    assert 'VERSION="18.24.6"' in (repo_dir / "tools/defs/atuin.sh").read_text()
     assert hashlib.sha256(source.read_bytes()).hexdigest() == SOURCE_HASH
     (isolated_env.bin_dir / "bash").symlink_to(runtime_bash)
     write_executable(
@@ -43,8 +43,12 @@ def upstream_env(repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str) -
               printf '%s\n' "$id"
               [ -z "$ATUIN_EVENTS" ] || printf 'start\t%s\t%s\n' "$id" "$*" >> "$ATUIN_EVENTS"
             elif [ "$2" = end ]; then
-              for arg in "$@"; do id=$arg; done
-              [ -z "$ATUIN_EVENTS" ] || printf 'end\t%s\t%s\n' "$id" "$4" >> "$ATUIN_EVENTS"
+              exit_status=0; previous=""
+              for arg in "$@"; do
+                [ "$previous" != --exit ] || exit_status=$arg
+                previous=$arg; id=$arg
+              done
+              [ -z "$ATUIN_EVENTS" ] || printf 'end\t%s\t%s\n' "$id" "$exit_status" >> "$ATUIN_EVENTS"
               [ "${FAIL_HISTORY_END:-0}" != 1 ] || exit 1
             fi
             ;;

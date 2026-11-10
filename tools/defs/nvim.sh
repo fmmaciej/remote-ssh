@@ -3,8 +3,8 @@
 
 TOOL_NAME="nvim"
 GH_REPO="neovim/neovim"
-RELEASE_TAG="v0.11.5"
-VERSION="0.11.5"
+RELEASE_TAG="v0.12.6"
+VERSION="0.12.6"
 
 BINARY_NAME="nvim"
 INSTALL_LAYOUT="bundle"
@@ -24,8 +24,8 @@ ASSETS=(
 )
 
 CHECKSUMS=(
-  "nvim-linux-arm64.tar.gz|ea4f9a31b11cc1477ff014aebb7b207684e7280f94ffa97abdab6cacd9b98519"
-  "nvim-linux-x86_64.tar.gz|b2f91117be5b5ea39edd7297156dc2a4a8df4add6c95a90809a8df19e7ab6f52"
-  "nvim-macos-arm64.tar.gz|79143d3b408f7034f90b7cf59af2276de09ef8a4c2f1a28e4c99581b249d3107"
-  "nvim-macos-x86_64.tar.gz|6612760a7037ca2518e456908baf5e43101fa79819d18979fc4d4e8441d9dfa5"
+  "nvim-linux-arm64.tar.gz|8f1f64a0bdb97247034038c3823c6cbad5bdf9ecd5751b85494b71c3ee04c815"
+  "nvim-linux-x86_64.tar.gz|474430d53e6264f6d6dd18db42d6dc9df3a1b56ca9e88a325bbf860e1a811d87"
+  "nvim-macos-arm64.tar.gz|1dbd148222b051ba6c307c4d17a318ed083df018a4f6a5a0ce46955ffc9ab87b"
+  "nvim-macos-x86_64.tar.gz|481424f1dbc85f637d57e47d27d042aa9c883e5a4fe9ee64fc4ee9573b221998"
 )

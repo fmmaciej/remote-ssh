@@ -20,7 +20,7 @@ fi
 usage() {
   cat <<EOF >&2
 Usage:
-  $0 <owner>/<repo> [--tool <name>] [--tag <tag>] [--library-member <asset|relative-path> ...]
+  $0 <owner>/<repo> [--tool <name>] [--tag <tag>] [--artifact-version <version>] [--library-member <asset|relative-path> ...]
   $0 <owner>/<repo> [--tool <name>] [--version <tag>]
   $0 <owner>/<repo> --list
 
@@ -36,6 +36,7 @@ parse_args() {
   repo=""
   tool=""
   tag=""
+  artifact_version=""
   list=0
   GENERATE_LIBRARY_MEMBERS=()
 
@@ -67,6 +68,14 @@ parse_args() {
           usage
         }
         tag="$2"
+        shift 2
+        ;;
+      --artifact-version)
+        [[ $# -ge 2 && "$2" =~ ^[a-zA-Z0-9][a-zA-Z0-9_.:+-]*$ ]] || {
+          echo "ERROR: --artifact-version requires a version starting with a letter or digit and containing only ASCII letters, digits or _.:+-" >&2
+          usage
+        }
+        artifact_version="$2"
         shift 2
         ;;
       --list)
@@ -109,7 +118,7 @@ parse_args() {
 }
 
 main() {
-  local repo tool tag list asset_tool
+  local repo tool tag list asset_tool artifact_version
   local -a GENERATE_LIBRARY_MEMBERS
 
   parse_args "$@"
@@ -129,6 +138,9 @@ main() {
   # printf '  - [%s]\n' "${GITHUB_ASSETS[@]}" >&2
 
   tag_prefix_and_version "$GITHUB_TAG"
+  if [[ -n $artifact_version ]]; then
+    VERSION="$artifact_version"
+  fi
 
   asset_tool="$tool"
   # skim publishes skim-* archives containing the sk executable.

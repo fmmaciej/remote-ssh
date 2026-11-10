@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import json
+import shutil
 import textwrap
 from pathlib import Path
 
-from conftest import IsolatedEnv, assert_ok, run_cmd, write_executable
+import pytest
+from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd, write_executable
 
 
 def test_render_builtin_definition_has_explicit_library_members(repo_dir: Path):
@@ -211,3 +213,111 @@ def test_github_parse_release_tags(repo_dir: Path) -> None:
     )
 
     assert got == "v1.2.0\nv1.1.0"
+
+
+def _generate_release_fixture(repo_dir, isolated_env, runtime_bash, tag, assets, arguments):
+    checkout = isolated_env.home / "generator"
+    for directory in ("lib", "tools"):
+        shutil.copytree(repo_dir / directory, checkout / directory)
+    fixture = isolated_env.home / "release.json"
+    fixture.write_text(json.dumps({"tag_name": tag, "assets": assets}, indent=2))
+    requests = isolated_env.home / "requests"
+    write_executable(
+        isolated_env.bin_dir / "curl",
+        "#!/bin/sh\nfor argument do url=$argument; done\n"
+        'printf "%s\\n" "$url" >> "$RELEASE_REQUESTS"\ncat "$RELEASE_FIXTURE"\n',
+    )
+    result = run_cmd(
+        [runtime_bash, checkout / "tools/generate-def.sh", "fmmaciej/flyline", *arguments],
+        env=isolated_env.env | {"RELEASE_FIXTURE": str(fixture), "RELEASE_REQUESTS": str(requests)},
+    )
+    return result, requests
+
+
+@pytest.mark.parametrize("selector", ["--tag", "--version", None])
+def test_generate_downstream_library_with_artifact_version(
+    repo_dir, isolated_env, runtime_bash, selector
+):
+    tag = "remote-ssh-v1.10.0-pr974.aae68bb4.r5"
+    version = "1.10.0-pr974.aae68bb4.r5"
+    asset = f"flyline-{version}-aarch64-apple-darwin.tar.gz"
+    checksum = "38a7c65eb6e3c8c7458cdebea36607ae2e5577279b96ce2f6e2907b5ff9afaf3"
+    arguments = [
+        "--artifact-version",
+        version,
+        "--library-member",
+        f"{asset}|libflyline.dylib",
+    ]
+    if selector:
+        arguments.extend([selector, tag])
+    result, requests = _generate_release_fixture(
+        repo_dir,
+        isolated_env,
+        runtime_bash,
+        tag,
+        [
+            {"name": asset, "digest": f"sha256:{checksum}"},
+            {"name": "SHA256SUMS", "digest": "sha256:" + "b" * 64},
+            {"name": "provenance.json"},
+        ],
+        arguments,
+    )
+    assert_ok(result)
+    assert f'RELEASE_TAG="{tag}"' in result.stdout
+    assert f'VERSION="{version}"' in result.stdout
+    assert 'INSTALL_LAYOUT="bash-builtin"' in result.stdout
+    assert "LIBRARY_MEMBERS=(" in result.stdout and "libflyline.dylib" in result.stdout
+    assert f'"darwin:aarch64:any|{asset}"' in result.stdout
+    assert f'"{asset}|{checksum}"' in result.stdout
+    assert "BINARY_NAME=" not in result.stdout
+    assert "TODO" not in result.stdout and "example" not in result.stdout
+    assert "provenance.json" not in result.stdout
+    endpoint = f"tags/{tag}" if selector else "latest"
+    assert requests.read_text().strip() == (
+        f"https://api.github.com/repos/fmmaciej/flyline/releases/{endpoint}"
+    )
+
+
+@pytest.mark.parametrize("tag", ["v1.2.3", "1.2.3"])
+def test_generate_without_artifact_version_preserves_tag_behavior(
+    repo_dir, isolated_env, runtime_bash, tag
+):
+    asset = "flyline-1.2.3-aarch64-apple-darwin.tar.gz"
+    result, requests = _generate_release_fixture(
+        repo_dir,
+        isolated_env,
+        runtime_bash,
+        tag,
+        [{"name": asset, "digest": "sha256:" + "a" * 64}],
+        ["--version", tag],
+    )
+    assert_ok(result)
+    assert f'RELEASE_TAG="{tag}"' in result.stdout
+    assert 'VERSION="1.2.3"' in result.stdout
+    assert f'"darwin:aarch64:any|{asset}"' in result.stdout
+    assert 'BINARY_NAME="flyline"' in result.stdout
+    assert requests.read_text().strip().endswith(f"/releases/tags/{tag}")
+
+
+@pytest.mark.parametrize(
+    "value",
+    [None, "", "../other", "1/2", ".", "..", "1 2", "1\n2", '1";echo bad', "--tag"],
+)
+def test_generate_rejects_invalid_artifact_version_before_request(
+    repo_dir, isolated_env, runtime_bash, value
+):
+    arguments = ["--artifact-version"]
+    if value is not None:
+        arguments.append(value)
+    result, requests = _generate_release_fixture(
+        repo_dir,
+        isolated_env,
+        runtime_bash,
+        "v1",
+        [],
+        arguments,
+    )
+    assert_failed(result)
+    assert "--artifact-version" in result.stderr
+    assert result.stdout == ""
+    assert not requests.exists()

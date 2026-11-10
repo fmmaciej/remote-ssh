@@ -203,6 +203,23 @@ Use `--tool` when the repository name differs from the installed binary name.
 `--tag` and `--version` both select an exact GitHub release tag; without either
 option the generator uses the latest release.
 
+When a release tag includes a downstream prefix that is absent from the package
+version, pass `--artifact-version <version>`. This sets the emitted `VERSION`
+and the version used to match asset names; `RELEASE_TAG` and the GitHub request
+still use the selected release tag. Without this flag, version inference is
+unchanged. `--version` remains an alias for `--tag`, not a package-version
+override. An explicit artifact version must start with an ASCII letter or digit
+and contain only ASCII letters, digits or `_.:+-`.
+
+For example, a library release with a downstream tag can be generated with:
+
+```bash
+tools/generate-def.sh owner/example \
+  --tag downstream-v1.2.3 \
+  --artifact-version 1.2.3 \
+  --library-member 'example-1.2.3-aarch64-apple-darwin.tar.gz|libexample.dylib'
+```
+
 Preferred workflow:
 
 1. Run `tools/generate-def.sh owner/repo [--tool name] [--tag tag]`.

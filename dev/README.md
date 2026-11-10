@@ -60,6 +60,9 @@ just fmt
   records their implementation, local qualification and independent SDD Pass.
   The [post-audit repair plan](docs/flyline-implementation-plan.md#post-audit-repair-plan)
   preserves the accepted scope and completion gates.
+- [Flyline R5 release promotion](docs/flyline-release-promotion-plan.md):
+  accepted generator artifact-version override and production definition plan;
+  implementation in progress.
 - [Interactive Tool Performance](docs/interactive-tools-performance.md): local
   ble.sh/Flyline/zsh editor measurements, vi controls, and separate
   Carapace/flycomp completion timings.

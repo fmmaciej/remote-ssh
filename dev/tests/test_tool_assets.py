@@ -524,3 +524,24 @@ def test_flyline_pins_published_library_and_resets_layout(repo_dir, runtime_bash
         ]
     )
     assert_ok(result)
+
+
+def test_fzf_definition_remains_available_during_migration(repo_dir, runtime_bash):
+    result = run_cmd(
+        [
+            runtime_bash,
+            "-c",
+            r"""
+        set -euo pipefail
+        . "$1/tools/lib/env.sh"
+        . "$TOOLS_LIB_DIR/install-tool.lib.sh"
+        load_defs "$TOOLS_DIR/defs" fzf
+        [[ "$GH_REPO" == junegunn/fzf && "$INSTALL_LAYOUT" == binary ]]
+        [[ "$VERSION" == 0.67.0 && "$RELEASE_TAG" == v0.67.0 && "$BINARY_NAME" == fzf ]]
+        [[ ${#ASSETS[@]} == 4 && ${#CHECKSUMS[@]} == 4 ]]
+        """,
+            "_",
+            repo_dir,
+        ]
+    )
+    assert_ok(result)

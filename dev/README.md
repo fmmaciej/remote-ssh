@@ -29,6 +29,8 @@ just fmt
 - [Commands](docs/commands.md): root and `dev/` `just` recipes.
 - [Checks](docs/checks.md): smoke, lint, type checks, pytest, and test guidance.
   Includes the [navi/skim contract and offline acceptance tests](docs/checks.md#navi-and-skim).
+- [fzf retirement](docs/fzf-retirement-plan.md): transitional diagnostics and
+  host migration before removal of the managed package; Navi's skim adapter stays.
 - [Live Assets](docs/live-assets.md): optional GitHub Releases validation.
 - [Shell Startup Benchmark](docs/bench-shell.md): local PTY benchmark for
   remote-ssh shell startup cost.

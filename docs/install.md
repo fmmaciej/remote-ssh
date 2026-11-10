@@ -202,26 +202,87 @@ to inspect helper requirements.
 
 ## Migrating From fzf To skim
 
-The default full and quick profiles now use skim (`sk`). SSH host selection,
-the Bash Ctrl-R fallback, and navi in remote-ssh sessions use it too. The fzf
-definition remains available for explicit installation.
+The managed fzf package is being retired in two stages. The quick/full profiles,
+SSH selection, Bash history fallback, zoxide and managed Navi integration already
+use skim (`sk`). During the migration window, the frozen fzf definition remains
+available so existing installations can still be inspected and uninstalled.
+`remote-ssh doctor` prints a read-only migration hint for an fzf expected-tools
+entry or a recognized managed installation, including when skim is already present.
 
-For an existing installation, install skim first without changing the saved
-tool set:
+Use the same `INSTALL_PREFIX`, `INSTALL_BIN_DIR` and XDG configuration as the
+installation being migrated. Start by installing and checking skim:
 
 ```bash
 remote-ssh tool install sk
+remote-ssh check --strict sk
 ```
 
-Then edit `${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/expected-tools`: replace
-the `fzf` entry with `sk`, or add `sk` if neither is listed, keeping all other
-entries. Keep `fzf` too if you still use it separately. Run `remote-ssh install`
-to check/reinstall the saved set, then open a new `remote-ssh shell`.
+Edit `${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/expected-tools`: replace an
+existing `fzf` entry with `sk`, keeping other entries and avoiding duplicate
+`sk` entries. If no expected-tools file exists, deliberately choose the tool
+set you want to maintain; the migration does not create or reset it for you.
 
-Updates do not rewrite the saved tool set or uninstall fzf. If you want to
-remove the old managed installation after migrating, use
-`remote-ssh uninstall fzf`. `remote-ssh doctor` reports a missing `sk` and
-prints installation and configuration hints.
+Review an explicit `NAVI_FINDER=fzf` in your environment/configuration or custom
+commands. Use `NAVI_FINDER=skim` for the managed integration. Navi's
+`NAVI_FZF_OVERRIDES` and `NAVI_FZF_OVERRIDES_VAR` names remain valid: they are
+part of Navi's protocol. General `FZF_DEFAULT_OPTS` settings are not automatically
+translated to skim flags. Keep an external fzf installation if you use it separately.
+
+Open a new `remote-ssh shell` and verify the pickers you use: Navi snippet and
+parameter selection/free input, Enter/Tab/cancel, `zi`/`z`, SSH selection, and
+Ctrl-R when the Bash history backend is selected. Once those work, remove the
+old managed fzf installation and check your saved set:
+
+```bash
+remote-ssh uninstall fzf
+remote-ssh check --strict
+```
+
+Uninstall removes only recognized files under the selected remote-ssh installation.
+Updates and doctor do not edit expected-tools, uninstall fzf or change your finder
+preference. The [retirement plan](../dev/docs/fzf-retirement-plan.md) requires
+confirmation of host migration before the active fzf definition is removed.
+
+Keep `shell/navi-bin/fzf`: it is the private adapter that runs skim for Navi.
+Its name and fzf-named options are required protocol details, independently of
+whether the real fzf package is managed by remote-ssh.
+
+### Recovery After Skipping The Migration Window
+
+After a future update removes the fzf definition, the current CLI cannot
+recognize `uninstall fzf`. A remaining expected-tools entry is reported as
+unknown; a mixed set can still install known tools, while a set containing only
+fzf has no supported selection. Existing files are protected rather than deleted.
+
+First complete the skim installation and configuration steps above. For cleanup,
+use a separate checkout pinned to the last verified recovery revision. These
+commands leave the current checkout unchanged:
+
+```bash
+recovery_checkout="$(mktemp -d "${TMPDIR:-/tmp}/remote-ssh-fzf-recovery.XXXXXX")"
+git clone https://github.com/fmmaciej/remote-ssh.git "$recovery_checkout"
+git -C "$recovery_checkout" checkout --detach c5fa54c70fba2ca931af5b241f166fb6bec98a06
+git -C "$recovery_checkout" rev-parse HEAD
+```
+
+Confirm that HEAD is exactly the full commit above. Then invoke that checkout
+with the original installation paths and an explicit `REMOTE_ENV_DIR`. The
+latter prevents an inherited session variable from redirecting recovery to the
+new checkout without the definition:
+
+```bash
+REMOTE_ENV_DIR="$recovery_checkout" \
+  INSTALL_PREFIX="${INSTALL_PREFIX:-$HOME/.local/opt}" \
+  INSTALL_BIN_DIR="${INSTALL_BIN_DIR:-$HOME/.local/bin}" \
+  "$recovery_checkout/bin/remote-ssh" uninstall fzf
+```
+
+For a custom installation, export its actual prefix/bin paths before running
+the command; the defaults above apply to ordinary installations. Retain the
+same `XDG_CONFIG_HOME` used for the saved tool set. Review the tool's normal
+confirmation prompt. The pinned cleanup preserves skim and independently
+installed fzf. This is a one-time recovery procedure, not a second maintained
+installer catalog.
 
 Skim's `.tar.xz` release archives require tar with xz support. GNU tar also
 needs `xz` in PATH; macOS tar has built-in support. A failed extraction leaves

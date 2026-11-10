@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "revision": "c5fa54c70fba2ca931af5b241f166fb6bec98a06",
+  "source": "local Git clone of documented revision; no network",
+  "results": [
+    {
+      "bash": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin26)",
+      "passed": true,
+      "checks": [
+        {
+          "case": "latest",
+          "exit": 1,
+          "preserved": true
+        },
+        {
+          "case": "inherited-env",
+          "exit": 1,
+          "preserved": true
+        },
+        {
+          "case": "pinned-recovery",
+          "exit": 0,
+          "removed": "managed fzf only",
+          "preserved": [
+            "skim",
+            "external fzf",
+            "unrelated .active"
+          ],
+          "expected_tools": [
+            "sk"
+          ]
+        }
+      ]
+    },
+    {
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin27.0.0)",
+      "passed": true,
+      "checks": [
+        {
+          "case": "latest",
+          "exit": 1,
+          "preserved": true
+        },
+        {
+          "case": "inherited-env",
+          "exit": 1,
+          "preserved": true
+        },
+        {
+          "case": "pinned-recovery",
+          "exit": 0,
+          "removed": "managed fzf only",
+          "preserved": [
+            "skim",
+            "external fzf",
+            "unrelated .active"
+          ],
+          "expected_tools": [
+            "sk"
+          ]
+        }
+      ]
+    }
+  ]
+}

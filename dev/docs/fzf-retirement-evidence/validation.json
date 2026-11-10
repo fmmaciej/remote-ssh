@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-10",
+  "phase": 1,
+  "status": "PASS",
+  "phase_2": "pending human confirmation of host migration",
+  "baseline_and_recovery_revision": "c5fa54c70fba2ca931af5b241f166fb6bec98a06",
+  "doctor_regression_before": {
+    "failed": 8,
+    "passed": 6,
+    "reason": "migration hint absent"
+  },
+  "targeted_after": {
+    "passed": 87
+  },
+  "full_smoke": {
+    "passed": 1615,
+    "skipped": 56,
+    "duration": "383.70s (0:06:23)"
+  },
+  "pinned_recovery": {
+    "passed": 2,
+    "bash": [
+      "3.2.57",
+      "5.3.20"
+    ]
+  },
+  "navi_dispatcher_and_adapter_unchanged": true,
+  "fzf_manifest_values_unchanged": true,
+  "sha256": {
+    "tools/lib/commands/doctor.sh": "3d2dea3de52db557f8f10a3ac33793158a924976822498838b64a50e817aa196",
+    "tools/defs/fzf.sh": "46ad7da3949b4e3deadad48365b435053e91ee7696972c560f08b3cd4e4cbc9c",
+    "dev/tests/test_doctor.py": "a9589fdc371b435eed8f244f0ceca482464a8c74be8f59e20a73b9c575df9569",
+    "dev/tests/test_tool_assets.py": "bf421bb39a2ab42a41baf397532ae6107b570256891d50848e4817c3b6e92684",
+    "dev/tests/test_fzf_retirement.py": "d07e50a3c260a96f20c5a6d10f9fe3dfa0464a968483e4d166b1ca3a3523b7fc",
+    "shell/navi-bin/navi": "977471266ad602fc6c5b5d9b389b1abd01d9af7450199fa4ff8fb48e606611f9",
+    "shell/navi-bin/fzf": "a1b9cbb87b022d39e73a14b88dbab44071a99e54d7eb681590f53604684c9a7b",
+    "dev/docs/fzf-retirement-evidence/probe.py": "7b3a93ed0a5f8abeb514e6e910b412a8239055182758484e85be17021f3a0af6"
+  }
+}

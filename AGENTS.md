@@ -192,6 +192,11 @@ loading requires a separately qualified Bash >= 4.4 build.
 If no asset matches, errors should include the detected platform and the
 available `ASSETS` entries.
 
+Managed fzf is in transitional retirement. Keep `tools/defs/fzf.sh` until the
+host migration gate in `dev/docs/fzf-retirement-plan.md` is explicitly confirmed.
+The private `shell/navi-bin/fzf` is a skim protocol adapter and must remain.
+Preserve explicit external finder pass-through and never create a global fzf alias.
+
 ## Version Policy
 
 Exact manifests are pinned. Runtime installs only the definition's `VERSION`.

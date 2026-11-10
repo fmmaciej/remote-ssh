@@ -1,0 +1,27 @@
+remote-ssh uninstall
+
+Install paths
+  prefix:    $RUNTIME/pinned-recovery/case-1/opt with space
+  bin:       $RUNTIME/pinned-recovery/case-1/bin
+
+Selected tools:
+  fzf
+
+Symlinks to remove:
+  $RUNTIME/pinned-recovery/case-1/bin/fzf
+
+Release dirs to remove:
+  $RUNTIME/pinned-recovery/case-1/opt with space/fzf-0.67.0
+
+Protected/skipped paths:
+  [none]
+
+Expected tools action:
+  rewrite $RUNTIME/pinned-recovery/case-1/config/remote-ssh/expected-tools
+  remaining expected tools:
+  sk
+
+Applying uninstall
+removed symlink: $RUNTIME/pinned-recovery/case-1/bin/fzf
+removed release dir: $RUNTIME/pinned-recovery/case-1/opt with space/fzf-0.67.0
+updated expected tools config: $RUNTIME/pinned-recovery/case-1/config/remote-ssh/expected-tools

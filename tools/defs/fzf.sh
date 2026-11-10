@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 # shellcheck disable=SC2034
+# Transitional retirement: retain for migration and managed uninstall until the
+# host migration gate in dev/docs/fzf-retirement-plan.md is confirmed.
 
 TOOL_NAME="fzf"
 GH_REPO="junegunn/fzf"

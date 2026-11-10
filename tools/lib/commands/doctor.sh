@@ -66,6 +66,38 @@ remote_ssh_cmd_doctor_has_install_hint_status() {
     remote_ssh_cmd_doctor_has_tool_status unmanaged-local
 }
 
+remote_ssh_cmd_doctor_fzf_retirement_hint() {
+  local repo_dir="$1" tool expected_fzf=0 managed_fzf=0 known_fzf=0
+
+  if expected_tools_exists; then
+    while IFS= read -r tool; do
+      [[ "$tool" != fzf ]] || expected_fzf=1
+    done < <(read_expected_tools)
+  fi
+  if known_tool fzf; then
+    known_fzf=1
+    # load_defs changes globals; keep this read-only ownership probe isolated.
+    if (managed_tool_installed fzf); then managed_fzf=1; fi
+  fi
+  ((expected_fzf || managed_fzf)) || return 0
+
+  printf '\nfzf retirement\n'
+  printf '  status: migration-needed\n'
+  if ((expected_fzf)); then printf '  reason: expected-tools contains fzf\n'; fi
+  if ((managed_fzf)); then printf '  reason: managed fzf is installed\n'; fi
+  printf '  replacement: skim (sk)\n'
+  printf '  verify: remote-ssh check --strict sk\n'
+  if ((expected_fzf)); then
+    printf '  maintain expected tools: replace fzf with sk in %s (keep other entries)\n' "$(expected_tools_file)"
+  fi
+  if ((known_fzf)); then
+    printf '  after verifying skim: remote-ssh uninstall fzf\n'
+  else
+    printf '  cleanup: use the pinned recovery checkout in the migration guide\n'
+  fi
+  printf '  guide: %s/docs/install.md#migrating-from-fzf-to-skim\n' "$repo_dir"
+}
+
 remote_ssh_cmd_doctor_main() {
   remote_ssh_cmd_require_install_libs
 
@@ -154,6 +186,8 @@ remote_ssh_cmd_doctor_main() {
       printf '  maintain expected tools: add sk to %s (replace fzf if migrating)\n' "$(expected_tools_file)"
     fi
   fi
+
+  remote_ssh_cmd_doctor_fzf_retirement_hint "$repo_dir"
 
   printf '\nTool check\n'
   if [[ "$requested_status" == "mismatch" ]]; then

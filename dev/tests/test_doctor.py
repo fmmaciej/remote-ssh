@@ -198,3 +198,62 @@ def test_doctor_path_check_compares_directory_identity(
 
     assert_ok(result)
     assert result.stdout.strip() == ("present" if expected else "absent")
+
+
+@pytest.mark.parametrize(
+    "expected,owned,skim,warn",
+    [
+        (["fzf"], False, False, True),
+        (["fzf", "sk"], True, True, True),
+        (["rg"], True, True, True),
+        (["rg"], False, True, False),
+        (None, True, False, True),
+        (None, False, True, False),
+        (["sk"], False, True, False),
+    ],
+)
+def test_doctor_fzf_retirement_is_read_only(
+    repo_dir, tool_env, runtime_bash, expected, owned, skim, warn
+):
+    (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
+    make_managed_tool(tool_env, "rg", "15.1.0")
+    if owned:
+        make_managed_tool(tool_env, "fzf", "0.67.0")
+    external = make_external_tool(tool_env, "fzf")
+    if skim:
+        make_managed_tool(tool_env, "sk", "5.9.0")
+    if expected is not None:
+        write_expected_tools(tool_env, expected)
+    env = tool_env.env | {"PATH": f"{tool_env.bin_dir}:{tool_env.external_dir}:/usr/bin:/bin"}
+
+    def snapshot():
+        files = {}
+        for root in (
+            tool_env.config_dir,
+            tool_env.opt_dir,
+            tool_env.bin_dir,
+            tool_env.external_dir,
+        ):
+            for path in root.rglob("*"):
+                if path.is_symlink():
+                    files[str(path)] = ("link", str(path.readlink()))
+                elif path.is_file():
+                    files[str(path)] = ("file", path.read_bytes())
+        return files
+
+    before = snapshot()
+    result = run_remote_ssh(repo_dir, ["doctor"], env=env)
+    assert ("\nfzf retirement\n" in result.stdout) == warn
+    if warn:
+        assert "status: migration-needed" in result.stdout
+        assert "remote-ssh check --strict sk" in result.stdout
+        assert "remote-ssh uninstall fzf" in result.stdout
+        assert "docs/install.md#migrating-from-fzf-to-skim" in result.stdout
+        if expected and "fzf" in expected:
+            assert "expected-tools contains fzf" in result.stdout
+        if owned:
+            assert "managed fzf is installed" in result.stdout
+    if expected is not None and (owned or "fzf" not in expected):
+        assert_ok(result)
+    assert snapshot() == before
+    assert external.exists()

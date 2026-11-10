@@ -90,13 +90,13 @@ def run(
         return subprocess.CompletedProcess(args, process.returncode, stdout, stderr)
 
 
-def install(c: CliInstall) -> tuple[int, Path, bytes]:
+def install(c: CliInstall) -> tuple[int, Path, tuple[tuple[str, str, int, bytes | str], ...]]:
     assert_ok(c.run("install", "--yes", "demo"))
-    return c.command.lstat().st_ino, c.command.readlink(), c.expected.read_bytes()
+    return c.command.lstat().st_ino, c.command.readlink(), c.lifecycle_snapshot()
 
 
-def unchanged(c: CliInstall, snapshot: tuple[int, Path, bytes]) -> None:
-    assert (c.command.lstat().st_ino, c.command.readlink(), c.expected.read_bytes()) == snapshot
+def unchanged(c: CliInstall, snapshot: tuple[int, Path, tuple[tuple[str, str, int, bytes | str], ...]]) -> None:
+    assert (c.command.lstat().st_ino, c.command.readlink(), c.lifecycle_snapshot()) == snapshot
 
 
 def activation(c: CliInstall, root: Path, cwd: Path) -> str:

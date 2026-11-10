@@ -9,6 +9,7 @@ from conftest import (
     IsolatedEnv,
     assert_failed,
     assert_ok,
+    mark_managed_release,
     run_cmd,
     write_executable,
 )
@@ -131,7 +132,9 @@ def test_stage_zip_asset(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
     (src / "bin").mkdir(parents=True)
     work.mkdir()
     _make_fake_binary(src / "bin" / "demo")
-    result = run_cmd(["zip", "-qr", work / "demo.zip", "."], cwd=src, env=isolated_env.env)
+    result = run_cmd(
+        ["zip", "-qr", work / "demo.zip", "."], cwd=src, env=isolated_env.env
+    )
     assert_ok(result)
 
     _run_repo_bash(
@@ -314,18 +317,20 @@ def test_install_bin_idempotency(repo_dir: Path, isolated_env: IsolatedEnv) -> N
     env = _install_env(isolated_env)
     opt = Path(env["INSTALL_PREFIX"])
     bin_dir = Path(env["INSTALL_BIN_DIR"])
-    (opt / "rg-15.1.0").mkdir(parents=True)
+    (opt / "rg-15.2.0").mkdir(parents=True)
     bin_dir.mkdir(parents=True)
-    _make_fake_binary(opt / "rg-15.1.0" / "rg")
-    (bin_dir / "rg").symlink_to(opt / "rg-15.1.0" / "rg")
+    _make_fake_binary(opt / "rg-15.2.0" / "rg")
+    (bin_dir / "rg").symlink_to(opt / "rg-15.2.0" / "rg")
 
+    mark_managed_release(opt / "rg-15.2.0", "rg", "15.2.0")
     _run_repo_bash(
         repo_dir,
         """
         repo="$1"
         . "$repo/tools/lib/env.sh"
         . "$TOOLS_LIB_DIR/install.lib.sh"
-        is_tool_installed rg 15.1.0
+        remote_ssh_release_for_link "$INSTALL_BIN_DIR/rg" rg >/dev/null
+        [[ "$REMOTE_SSH_RELEASE_VERSION" == 15.2.0 ]]
         """,
         env=env,
     )
@@ -351,7 +356,7 @@ def test_install_bin_ignores_external_path_tool(
         repo="$1"
         . "$repo/tools/lib/env.sh"
         . "$TOOLS_LIB_DIR/install.lib.sh"
-        ! is_tool_installed rg 15.1.0
+        ! remote_ssh_link_matches_version "$INSTALL_BIN_DIR/rg" rg 15.2.0
         """,
         env=env,
     )
@@ -375,7 +380,7 @@ def test_install_bin_reinstalls_stale_local_version(
         repo="$1"
         . "$repo/tools/lib/env.sh"
         . "$TOOLS_LIB_DIR/install.lib.sh"
-        ! is_tool_installed rg 15.1.0
+        ! remote_ssh_link_matches_version "$INSTALL_BIN_DIR/rg" rg 15.2.0
         """,
         env=env,
     )

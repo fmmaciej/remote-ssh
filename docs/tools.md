@@ -6,51 +6,27 @@ does not generate asset names dynamically and does not use GitHub API discovery.
 ## Listing Tools
 
 ```bash
-remote-ssh tool list
-remote-ssh tool list --installed
-remote-ssh tool list --all
+remote-ssh list
+remote-ssh list --installed
+remote-ssh list --all
 ```
 
-The list is an alphabetical `TOOL` / `STATUS` table built from all definitions
-in `tools/defs/`, including tools outside the default installation profiles.
-Without options, it shows tools supported on the current platform and all
-managed installations. `--installed` limits it to managed installations;
-`--all` includes unsupported tools. These options cannot be combined.
-All arguments are validated before showing `--help`; help does not suppress
-conflicting filters, unknown options, or unexpected tool arguments.
+The alphabetical table combines current definitions with recorded members and
+proven active installs awaiting adoption. It shows membership, support and local
+health. Default list filters unsupported catalog-only entries; `--all` includes
+them. `--installed` means membership/adoption-pending, including missing, broken,
+stale, unsupported and retired records. Aliases remain one tool. List returns 0
+for a complete report even with unhealthy rows, 1 for unreliable state or I/O.
 
-- `installed`: an executable tool symlink points to a release with a valid
-  remote-ssh ownership record. Relative symlinks and older managed releases count.
-- `available`: the pinned manifest has a matching asset for this platform, but
-  no managed installation was detected.
-- `unsupported`: no matching asset exists and no managed installation was
-  detected; shown only with `--all`.
-
-Installed tools remain visible even if the current manifest no longer supports
-the platform. System binaries, unmanaged files, broken links, and legacy
-releases without a valid ownership record do not count as managed installations.
-Binary aliases do not create additional rows. An empty result prints
-`No tools found.` and exits successfully.
-
-For single-binary legacy installations, `remote-ssh check` may still report `ok`
-and the installer may skip the pinned version even though the list shows
-`available`. These commands accept the legacy versioned symlink without requiring
-an ownership record. Absolute and relative targets are matched equivalently.
-Directory symlinks and `..` are resolved physically. For pinned-version checks,
-marked installations need a valid ownership record whose version exactly matches
-the pinned version; for example, `15.1.0.1` does not match `15.1.0`.
-Legacy matching accepts only
-`<tool>-<version>` or `<tool>-<version>.<PID>-<RANDOM>`, with decimal digits in
-both suffix fields. An existing invalid record, including a broken record
-symlink, blocks legacy matching; `check --strict` fails and installation is not
-skipped. A target outside the installation prefix is never a pinned installation.
-To migrate a legacy installation to a marked release, use, for example,
-`FORCE=1 remote-ssh tool install rg`; see [installed paths](install.md#installed-paths).
-
-The list does not depend on or modify `expected-tools`. Use
-`remote-ssh guide tools` for installation profiles and `remote-ssh check` for
-pinned-version, installation-health, alias, and PATH diagnostics. Listing tools
-does not run their binaries or access the network.
+Check adds expected/observed version/layout, selectors, aliases and PATH winners.
+It returns 1 for unhealthy selected scope by default. External-only tools and
+foreign local files are diagnosed without adoption. Libraries use their active
+link and data health, with no executable PATH requirement. Neither report runs
+managed binaries, loads libraries, initializes state/cache or downloads assets.
+Full argv is validated even alongside help. Use `remote-ssh guide tools` for
+profiles and [managed migration](install.md#managed-set-and-migration) for state
+and recovery. Unmarked legacy data remains protected; install requires enough
+ownership proof to replace an existing selector.
 
 ## Definition Contract
 
@@ -173,9 +149,9 @@ Exact manifests are pinned. `tools/install-tool.sh <tool>` installs the pinned
 `VERSION`; `latest` and arbitrary version arguments are rejected for manifest
 based definitions.
 
-For manual debugging through the public CLI, `remote-ssh tool install <tool>`
-installs selected pinned tools without changing the user's saved
-`expected-tools` set. Regular users should prefer `remote-ssh install`.
+`remote-ssh install <tool>` uses the same managed engine as profiles and update.
+The low-level pinned installer wrapper shares confirmation, ownership and prior
+journal recovery; it is not a separate public lifecycle or version-selection API.
 
 When a selected asset has a matching `CHECKSUMS` entry, the installer verifies
 its SHA-256 before extraction or installation. See
@@ -256,7 +232,7 @@ without user startup files, before publishing an absolute active-file link at
 `$INSTALL_PREFIX/.active/<tool>`. Releases remain immutable direct children of
 the prefix. Format-2 records use `layout=bash-builtin` and `library=...`;
 format-1 binary/bundle records remain supported. Installation, expected sets,
-update, inventory, check, doctor, uninstall and conservative prune use these
+update, inventory, check, uninstall and conservative prune use these
 links without requiring an executable in PATH. Open sessions keep their loaded
 code after updates. No source build or API discovery occurs on remote hosts.
 

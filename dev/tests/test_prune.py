@@ -51,11 +51,15 @@ def prune_env(env: IsolatedEnv, bin_dir: Path, opt_dir: Path) -> dict[str, str]:
     }
 
 
-def test_prune_dry_run_keeps_candidates(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+def test_prune_dry_run_keeps_candidates(
+    repo_dir: Path, isolated_env: IsolatedEnv
+) -> None:
     bin_dir, opt_dir = prepare_prune_dirs(isolated_env)
     prepare_rg_install(bin_dir, opt_dir)
 
-    result = run_remote_ssh(repo_dir, ["prune"], env=prune_env(isolated_env, bin_dir, opt_dir))
+    result = run_remote_ssh(
+        repo_dir, ["prune"], env=prune_env(isolated_env, bin_dir, opt_dir)
+    )
 
     assert_ok(result)
     assert "remote-ssh prune (dry-run)" in result.stdout
@@ -139,7 +143,9 @@ def test_prune_scans_symlinked_prefix_without_following_child_links(
     prefix.symlink_to(tool_env.opt_dir, target_is_directory=True)
     env = tool_env.env | {"INSTALL_PREFIX": str(prefix)}
 
-    result = run_remote_ssh(repo_dir, ["prune", *(["--apply"] if apply else [])], env=env)
+    result = run_remote_ssh(
+        repo_dir, ["prune", *(["--apply"] if apply else [])], env=env
+    )
 
     assert_ok(result)
     assert f"{'removed' if apply else 'candidate'}: {stale}" in result.stdout
@@ -161,7 +167,9 @@ def test_prune_aborts_when_bin_cannot_be_inspected(
     mode: int,
 ) -> None:
     (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
-    executable = make_managed_tool(tool_env, "rg", "15.1.0", content="#!/bin/sh\nexit 0\n")
+    executable = make_managed_tool(
+        tool_env, "rg", "15.1.0", content="#!/bin/sh\nexit 0\n"
+    )
     stale = tool_env.opt_dir / "rg-14.1.0"
     stale.mkdir()
     mark_managed_release(stale, "rg", "14.1.0")
@@ -179,7 +187,12 @@ def test_prune_aborts_when_bin_cannot_be_inspected(
         if mode == 0o111:
             assert_ok(run_cmd([tool_env.bin_dir / "rg"], env=env))
         result = run_cmd(
-            [runtime_bash, repo_dir / "bin/remote-ssh", "prune", *(["--apply"] if apply else [])],
+            [
+                runtime_bash,
+                repo_dir / "bin/remote-ssh",
+                "prune",
+                *(["--apply"] if apply else []),
+            ],
             env=env,
         )
     finally:
@@ -197,7 +210,11 @@ def test_prune_aborts_when_bin_cannot_be_inspected(
 @pytest.mark.parametrize("apply", [False, True], ids=["dry-run", "apply"])
 @pytest.mark.parametrize("operation", ["find", "readlink"])
 def test_prune_aborts_on_failed_active_link_inventory(
-    repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str, apply: bool, operation: str
+    repo_dir: Path,
+    tool_env: ToolStateEnv,
+    runtime_bash: str,
+    apply: bool,
+    operation: str,
 ) -> None:
     (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
     active = make_managed_tool(tool_env, "rg", "15.1.0")
@@ -235,7 +252,9 @@ exec {shlex.quote(actual_command)} "$@"
         "PRUNE_TEST_PARTIAL_LINK": str(tool_env.bin_dir / "rg"),
     }
 
-    result = run_remote_ssh(repo_dir, ["prune", *(["--apply"] if apply else [])], env=env)
+    result = run_remote_ssh(
+        repo_dir, ["prune", *(["--apply"] if apply else [])], env=env
+    )
 
     assert_failed(result)
     assert "prune aborted" in result.stderr
@@ -271,7 +290,8 @@ def test_prune_accepts_readonly_bin_and_unusual_custom_alias(
         result = run_remote_ssh(
             repo_dir,
             ["prune", *(["--apply"] if apply else [])],
-            env=tool_env.env | {"INSTALL_PREFIX": str(prefix), "TMPDIR": str(temporary)},
+            env=tool_env.env
+            | {"INSTALL_PREFIX": str(prefix), "TMPDIR": str(temporary)},
         )
     finally:
         tool_env.bin_dir.chmod(original_mode)
@@ -346,7 +366,7 @@ def test_prune_inventory_failure_aborts_without_errexit_or_pipefail(
         set -eu
         . "$1/tools/lib/env.sh"
         . "$TOOLS_LIB_DIR/commands.lib.sh"
-        remote_ssh_cmd_prune_protected_release_dirs() { return 9; }
+        ms_prune_collect() { return 9; }
         set +e
         set +o pipefail
         remote_ssh_cmd_prune_main --apply
@@ -372,7 +392,9 @@ def test_prune_protects_bundle_referenced_only_through_additional_payload(
     (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
     active = tool_env.opt_dir / "nvim-0.11.5"
     active.mkdir()
-    mark_managed_release(active, "nvim", "0.11.5", executable="bin/nvim", layout="bundle")
+    mark_managed_release(
+        active, "nvim", "0.11.5", executable="bin/nvim", layout="bundle"
+    )
     helper = active / "libexec/editor-helper"
     write_executable(helper, "#!/bin/sh\nprintf helper\n")
     data = active / "share/runtime-data"
@@ -383,7 +405,9 @@ def test_prune_protects_bundle_referenced_only_through_additional_payload(
     alias.symlink_to(referenced)
     stale = tool_env.opt_dir / "nvim-0.11.4"
     stale.mkdir()
-    mark_managed_release(stale, "nvim", "0.11.4", executable="bin/nvim", layout="bundle")
+    mark_managed_release(
+        stale, "nvim", "0.11.4", executable="bin/nvim", layout="bundle"
+    )
     legacy = tool_env.opt_dir / "nvim-0.11.3"
     legacy.mkdir()
     (legacy / "notes").write_text("keep\n")
@@ -394,7 +418,9 @@ def test_prune_protects_bundle_referenced_only_through_additional_payload(
     (tool_env.bin_dir / "invalid-payload").symlink_to(invalid / "notes")
     assert not (tool_env.bin_dir / "nvim").exists()
 
-    result = run_remote_ssh(repo_dir, ["prune", *(["--apply"] if apply else [])], env=tool_env.env)
+    result = run_remote_ssh(
+        repo_dir, ["prune", *(["--apply"] if apply else [])], env=tool_env.env
+    )
 
     assert_ok(result)
     assert f"candidate: {active}\n" not in result.stdout
@@ -417,12 +443,17 @@ def test_prune_does_not_protect_release_from_reference_outside_prefix(
     inactive = tool_env.opt_dir / "rg-15.1.0"
     inactive.mkdir()
     mark_managed_release(inactive, "rg", "15.1.0")
-    outside = tool_env.opt_dir.with_name(tool_env.opt_dir.name + "-outside") / "rg-15.1.0/helper"
+    outside = (
+        tool_env.opt_dir.with_name(tool_env.opt_dir.name + "-outside")
+        / "rg-15.1.0/helper"
+    )
     write_executable(outside, "#!/bin/sh\nprintf outside\n")
     alias = tool_env.bin_dir / "outside-helper"
     alias.symlink_to(outside)
 
-    result = run_remote_ssh(repo_dir, ["prune", *(["--apply"] if apply else [])], env=tool_env.env)
+    result = run_remote_ssh(
+        repo_dir, ["prune", *(["--apply"] if apply else [])], env=tool_env.env
+    )
 
     assert_ok(result)
     assert f"{'removed' if apply else 'candidate'}: {inactive}\n" in result.stdout
@@ -432,9 +463,15 @@ def test_prune_does_not_protect_release_from_reference_outside_prefix(
 
 
 @pytest.mark.parametrize("apply", [False, True], ids=["dry-run", "apply"])
-@pytest.mark.parametrize("protect_suffix", [False, True], ids=["base-active", "suffix-active"])
+@pytest.mark.parametrize(
+    "protect_suffix", [False, True], ids=["base-active", "suffix-active"]
+)
 def test_prune_matches_literal_complete_paths_without_grep(
-    repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str, apply: bool, protect_suffix: bool
+    repo_dir: Path,
+    tool_env: ToolStateEnv,
+    runtime_bash: str,
+    apply: bool,
+    protect_suffix: bool,
 ) -> None:
     (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
     prefix = tool_env.home / "opt [x]*?+ space"
@@ -455,7 +492,9 @@ def test_prune_matches_literal_complete_paths_without_grep(
         "PATH": f"{tool_env.external_dir}:{tool_env.env['PATH']}",
     }
 
-    result = run_remote_ssh(repo_dir, ["prune", *(["--apply"] if apply else [])], env=env)
+    result = run_remote_ssh(
+        repo_dir, ["prune", *(["--apply"] if apply else [])], env=env
+    )
 
     assert_ok(result)
     assert active.is_dir()

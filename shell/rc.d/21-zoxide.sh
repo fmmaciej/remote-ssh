@@ -35,7 +35,7 @@ fi
 # path may call zoxide query --interactive, which launches fzf internally.
 remote_zoxide_pick() {
   have sk || {
-    printf 'zoxide selection requires skim (sk): remote-ssh tool install sk\n' >&2
+    printf 'zoxide selection requires skim (sk): remote-ssh install sk\n' >&2
     return 127
   }
   local candidates result

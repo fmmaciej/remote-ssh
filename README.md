@@ -43,7 +43,7 @@ the final tool list and asks for confirmation before installing.
 If you already know the desired set, pass tools directly:
 
 ```bash
-./runme.sh --full --yes
+./runme.sh --profile full --yes
 ./runme.sh --yes fd rg sk zoxide
 ./runme.sh fd rg sk zoxide
 ```
@@ -53,7 +53,6 @@ If you already know the desired set, pass tools directly:
 From a checked-out repository:
 
 ```bash
-./bin/remote-ssh install --full --yes
 ./bin/remote-ssh install --profile full --yes
 ./bin/remote-ssh install --profile quick --yes
 ./bin/remote-ssh install --profile mini --yes
@@ -61,11 +60,11 @@ From a checked-out repository:
 ./bin/remote-ssh install --yes fd rg sk
 ```
 
-The selected tool set is saved in:
-
-```text
-~/.config/remote-ssh/expected-tools
-```
+Successful installations are remembered automatically under the effective install
+prefix, bound to the physical prefix/bin pair. Installations are additive;
+profiles select tools for one invocation. `install` and `uninstall` require
+explicit choices. `update` refreshes the project and repairs only the managed
+set. See [migration and recovery](docs/install.md#managed-set-and-migration).
 
 Installed tool versions are placed under `~/.local/opt/<tool>-<version>`, with
 symlinks in `~/.local/bin`.
@@ -73,20 +72,18 @@ symlinks in `~/.local/bin`.
 ## Main Commands
 
 ```bash
-remote-ssh install [tool ...]
+remote-ssh install [--yes] tool [tool ...]
 remote-ssh install --profile <name> [--yes]
-remote-ssh install --full [--yes]
 remote-ssh setup
-remote-ssh uninstall [--yes] [tool ...]
-remote-ssh tool list
-remote-ssh check [--strict] [tool ...]
+remote-ssh uninstall [--yes] tool [tool ...]
+remote-ssh list
+remote-ssh check [tool ...]
 remote-ssh ssh setup
 remote-ssh ssh status [host]
 remote-ssh git setup
 remote-ssh git status [ssh-host]
 remote-ssh update
 remote-ssh update check
-remote-ssh doctor
 remote-ssh prune [--apply]
 remote-ssh scripts --list
 remote-ssh guide [section]

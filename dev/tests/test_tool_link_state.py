@@ -39,20 +39,25 @@ def point_link(env: ToolStateEnv, name: str, target: Path, relative: bool) -> Pa
 
 
 def assert_listed(repo: Path, env: ToolStateEnv, tool: str, installed: bool) -> None:
-    result = run_remote_ssh(repo, ["tool", "list", "--installed"], env=env.env)
+    result = run_remote_ssh(repo, ["list", "--installed"], env=env.env)
     assert_ok(result)
     rows = [line.split() for line in result.stdout.splitlines()]
-    assert ([tool, "installed"] in rows) == installed
+    assert (any(row and row[0] == tool for row in rows)) == installed
 
 
 @pytest.mark.parametrize("relative", [False, True], ids=["absolute", "relative"])
-@pytest.mark.parametrize("tool,version", [("rg", "15.2.0"), ("nu", "0.117.0"), ("nvim", "0.12.6")])
+@pytest.mark.parametrize(
+    "tool,version", [("rg", "15.2.0"), ("nu", "0.117.0"), ("nvim", "0.12.6")]
+)
 def test_pinned_links_agree_across_list_check_and_install(
     repo_dir: Path, link_env: ToolStateEnv, relative: bool, tool: str, version: str
 ) -> None:
     binary = "bin/nvim" if tool == "nvim" else tool
-    executable = make_managed_tool(link_env, tool, version, binary=binary, link_name=tool)
+    executable = make_managed_tool(
+        link_env, tool, version, binary=binary, link_name=tool
+    )
     if tool == "nvim":
+        (executable.parent.parent / "share/nvim/runtime").mkdir(parents=True)
         mark_managed_release(
             executable.parent.parent, tool, version, executable=binary, layout="bundle"
         )
@@ -62,15 +67,15 @@ def test_pinned_links_agree_across_list_check_and_install(
     target = link.readlink()
 
     assert_listed(repo_dir, link_env, tool, installed=True)
-    check = run_remote_ssh(repo_dir, ["check", "--strict", tool], env=link_env.env)
+    check = run_remote_ssh(repo_dir, ["check", tool], env=link_env.env)
     assert_ok(check)
-    assert "status:    ok" in check.stdout
-    assert f"target:    {target}" in check.stdout
+    assert "installed ok" in check.stdout
+    assert f"target: {target}" in check.stdout
     if tool == "nu":
         assert f"status=ok target={target}" in check.stdout
-    install = run_remote_ssh(repo_dir, ["tool", "install", tool], env=link_env.env)
+    install = run_remote_ssh(repo_dir, ["install", tool, "--yes"], env=link_env.env)
     assert_ok(install)
-    assert "SKIPPING" in install.stderr
+    assert "reused pinned release" in install.stdout
     assert not (link_env.home / "network-called").exists()
     assert link.readlink() == target
 
@@ -84,10 +89,10 @@ def test_old_links_remain_listed_but_require_pinned_install(
     target = link.readlink()
 
     assert_listed(repo_dir, link_env, "rg", installed=True)
-    check = run_remote_ssh(repo_dir, ["check", "--strict", "rg"], env=link_env.env)
+    check = run_remote_ssh(repo_dir, ["check", "rg"], env=link_env.env)
     assert_failed(check)
-    assert "status:    stale-local" in check.stdout
-    install = run_remote_ssh(repo_dir, ["tool", "install", "rg"], env=link_env.env)
+    assert "stale" in check.stdout
+    install = run_remote_ssh(repo_dir, ["install", "rg", "--yes"], env=link_env.env)
     assert_failed(install)  # Transport is blocked; the reinstall must be attempted.
     assert (link_env.home / "network-called").exists()
     assert link.readlink() == target
@@ -103,18 +108,18 @@ def test_legacy_binary_links_keep_existing_policy(
     point_link(link_env, "rg", executable, relative)
 
     assert_listed(repo_dir, link_env, "rg", installed=False)
-    check = run_remote_ssh(repo_dir, ["check", "--strict", "rg"], env=link_env.env)
-    assert_ok(check)
-    assert "status:    ok" in check.stdout
-    install = run_remote_ssh(repo_dir, ["tool", "install", "rg"], env=link_env.env)
-    assert_ok(install)
-    assert "SKIPPING" in install.stderr
+    check = run_remote_ssh(repo_dir, ["check", "rg"], env=link_env.env)
+    assert_failed(check)
+    install = run_remote_ssh(repo_dir, ["install", "rg", "--yes"], env=link_env.env)
+    assert_failed(install)
     assert not (link_env.home / "network-called").exists()
     assert not marker.exists()
 
 
 @pytest.mark.parametrize("relative", [False, True], ids=["absolute", "relative"])
-@pytest.mark.parametrize("state", ["broken", "outside", "traversal", "terminal-symlink"])
+@pytest.mark.parametrize(
+    "state", ["broken", "outside", "traversal", "terminal-symlink"]
+)
 def test_invalid_links_are_not_treated_as_pinned_installations(
     repo_dir: Path, link_env: ToolStateEnv, relative: bool, state: str
 ) -> None:
@@ -136,11 +141,11 @@ def test_invalid_links_are_not_treated_as_pinned_installations(
     target = link.readlink()
 
     assert_listed(repo_dir, link_env, "rg", installed=False)
-    check = run_remote_ssh(repo_dir, ["check", "--strict", "rg"], env=link_env.env)
+    check = run_remote_ssh(repo_dir, ["check", "rg"], env=link_env.env)
     assert_failed(check)
-    install = run_remote_ssh(repo_dir, ["tool", "install", "rg"], env=link_env.env)
+    install = run_remote_ssh(repo_dir, ["install", "rg", "--yes"], env=link_env.env)
     assert_failed(install)
-    assert (link_env.home / "network-called").exists()
+    assert not (link_env.home / "network-called").exists()
     assert link.readlink() == target
 
 
@@ -156,9 +161,9 @@ def test_relative_link_under_symlinked_prefix_and_suffixed_release(
     point_link(link_env, "rg", release / "rg", relative=True)
 
     assert_listed(repo_dir, link_env, "rg", installed=True)
-    check = run_remote_ssh(repo_dir, ["check", "--strict", "rg"], env=link_env.env)
+    check = run_remote_ssh(repo_dir, ["check", "rg"], env=link_env.env)
     assert_ok(check)
-    install = run_remote_ssh(repo_dir, ["tool", "install", "rg"], env=link_env.env)
+    install = run_remote_ssh(repo_dir, ["install", "rg", "--yes"], env=link_env.env)
     assert_ok(install)
     assert not (link_env.home / "network-called").exists()
 
@@ -180,9 +185,9 @@ def test_relative_link_via_symlinked_bin_uses_physical_parent(
     assert (alias / "rg").resolve() == executable
 
     assert_listed(repo_dir, link_env, "rg", installed=True)
-    check = run_remote_ssh(repo_dir, ["check", "--strict", "rg"], env=link_env.env)
+    check = run_remote_ssh(repo_dir, ["check", "rg"], env=link_env.env)
     assert_ok(check)
-    install = run_remote_ssh(repo_dir, ["tool", "install", "rg"], env=link_env.env)
+    install = run_remote_ssh(repo_dir, ["install", "rg", "--yes"], env=link_env.env)
     assert_ok(install)
     assert not (link_env.home / "network-called").exists()
 
@@ -216,8 +221,8 @@ def test_prefix_with_symlink_then_parent_uses_physical_directory(
     assert prefix.resolve() == link_env.opt_dir
 
     assert_listed(repo_dir, link_env, "rg", installed=True)
-    assert_ok(run_remote_ssh(repo_dir, ["check", "--strict", "rg"], env=link_env.env))
-    assert_ok(run_remote_ssh(repo_dir, ["tool", "install", "rg"], env=link_env.env))
+    assert_ok(run_remote_ssh(repo_dir, ["check", "rg"], env=link_env.env))
+    assert_ok(run_remote_ssh(repo_dir, ["install", "rg", "--yes"], env=link_env.env))
     assert not (link_env.home / "network-called").exists()
     stale = link_env.opt_dir / "rg-14.1.0"
     stale.mkdir()
@@ -231,7 +236,9 @@ def test_prefix_with_symlink_then_parent_uses_physical_directory(
     assert shadow.is_dir()
 
 
-@pytest.mark.parametrize("removal", [["prune", "--apply"], ["uninstall", "--yes", "rg"]])
+@pytest.mark.parametrize(
+    "removal", [["prune", "--apply"], ["uninstall", "--yes", "rg"]]
+)
 def test_symlink_then_parent_cannot_adopt_external_executable(
     repo_dir: Path, link_env: ToolStateEnv, removal: list[str]
 ) -> None:
@@ -246,20 +253,21 @@ def test_symlink_then_parent_cannot_adopt_external_executable(
     assert link.resolve() == outside
 
     assert_listed(repo_dir, link_env, "rg", installed=False)
-    check = run_remote_ssh(repo_dir, ["check", "--strict", "rg"], env=link_env.env)
+    check = run_remote_ssh(repo_dir, ["check", "rg"], env=link_env.env)
     assert_failed(check)
-    install = run_remote_ssh(repo_dir, ["tool", "install", "rg"], env=link_env.env)
+    install = run_remote_ssh(repo_dir, ["install", "rg", "--yes"], env=link_env.env)
     assert_failed(install)
-    assert (link_env.home / "network-called").exists()
+    assert not (link_env.home / "network-called").exists()
     result = run_remote_ssh(repo_dir, removal, env=link_env.env)
-    assert_ok(result)
+    (assert_ok if removal[0] == "prune" else assert_failed)(result)
     assert outside.read_text() == "#!/bin/sh\nprintf outside\n"
     assert link.is_symlink() and link.readlink() == target
-    assert not executable.parent.exists()  # The owned release is actually inactive.
+    assert executable.parent.exists() == (removal[0] != "prune")
 
 
 @pytest.mark.parametrize(
-    "version,marked", [("15.2.0.1", True), ("15.2.0.1", False), ("15.2.0.123-456", True)]
+    "version,marked",
+    [("15.2.0.1", True), ("15.2.0.1", False), ("15.2.0.123-456", True)],
 )
 def test_version_prefix_does_not_count_as_exact_version(
     repo_dir: Path, link_env: ToolStateEnv, version: str, marked: bool
@@ -269,12 +277,12 @@ def test_version_prefix_does_not_count_as_exact_version(
         (executable.parent / ".remote-ssh-release").unlink()
 
     assert_listed(repo_dir, link_env, "rg", installed=marked)
-    check = run_remote_ssh(repo_dir, ["check", "--strict", "rg"], env=link_env.env)
+    check = run_remote_ssh(repo_dir, ["check", "rg"], env=link_env.env)
     assert_failed(check)
-    assert "status:    stale-local" in check.stdout
-    install = run_remote_ssh(repo_dir, ["tool", "install", "rg"], env=link_env.env)
+    assert ("stale" if marked else "protected") in check.stdout
+    install = run_remote_ssh(repo_dir, ["install", "rg", "--yes"], env=link_env.env)
     assert_failed(install)
-    assert (link_env.home / "network-called").exists()
+    assert (link_env.home / "network-called").exists() == marked
     assert executable.exists()
 
 
@@ -294,16 +302,16 @@ def test_only_numeric_install_suffix_is_accepted(
     point_link(link_env, "rg", release / "rg", relative=True)
 
     assert_listed(repo_dir, link_env, "rg", installed=marked and valid)
-    check = run_remote_ssh(repo_dir, ["check", "--strict", "rg"], env=link_env.env)
-    install = run_remote_ssh(repo_dir, ["tool", "install", "rg"], env=link_env.env)
-    if valid:
+    check = run_remote_ssh(repo_dir, ["check", "rg"], env=link_env.env)
+    install = run_remote_ssh(repo_dir, ["install", "rg", "--yes"], env=link_env.env)
+    if valid and marked:
         assert_ok(check)
         assert_ok(install)
         assert not (link_env.home / "network-called").exists()
     else:
         assert_failed(check)
         assert_failed(install)
-        assert (link_env.home / "network-called").exists()
+        assert not (link_env.home / "network-called").exists()
 
 
 @pytest.mark.parametrize("record", ["truncated", "dangling-link", "directory"])
@@ -322,8 +330,8 @@ def test_invalid_record_cannot_fall_back_to_legacy_matching(
             marker.mkdir()
 
     assert_listed(repo_dir, link_env, "rg", installed=False)
-    check = run_remote_ssh(repo_dir, ["check", "--strict", "rg"], env=link_env.env)
+    check = run_remote_ssh(repo_dir, ["check", "rg"], env=link_env.env)
     assert_failed(check)
-    install = run_remote_ssh(repo_dir, ["tool", "install", "rg"], env=link_env.env)
+    install = run_remote_ssh(repo_dir, ["install", "rg", "--yes"], env=link_env.env)
     assert_failed(install)
-    assert (link_env.home / "network-called").exists()
+    assert not (link_env.home / "network-called").exists()

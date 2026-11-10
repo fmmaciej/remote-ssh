@@ -129,10 +129,12 @@ def test_ssh_find_requires_skim(repo_dir: Path, isolated_env: IsolatedEnv) -> No
     result = run_cmd([repo_dir / "bin/ssh-find"], env=isolated_env.env)
     assert result.returncode == 127
     assert "requires skim (sk)" in result.stderr
-    assert "remote-ssh tool install sk" in result.stderr
+    assert "remote-ssh install sk" in result.stderr
 
 
-def test_ssh_find_opens_sk_without_query(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+def test_ssh_find_opens_sk_without_query(
+    repo_dir: Path, isolated_env: IsolatedEnv
+) -> None:
     write_executable(
         isolated_env.bin_dir / "ssh_find_backend",
         """\
@@ -198,7 +200,9 @@ def test_ssh_find_passes_query_to_sk(repo_dir: Path, isolated_env: IsolatedEnv) 
     )
 
 
-def test_ssh_find_cancel_returns_sk_status(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+def test_ssh_find_cancel_returns_sk_status(
+    repo_dir: Path, isolated_env: IsolatedEnv
+) -> None:
     write_executable(
         isolated_env.bin_dir / "ssh_find_backend",
         """\
@@ -313,7 +317,9 @@ def test_ssh_pick_connects_to_bssh_direct_target(
     )
 
     assert_ok(result)
-    assert out.read_text(encoding="utf-8").rstrip("\n") == "-p 2200 deploy@gpu-host uptime"
+    assert (
+        out.read_text(encoding="utf-8").rstrip("\n") == "-p 2200 deploy@gpu-host uptime"
+    )
 
 
 def test_bssh_wrapper_uses_default_shared_config(
@@ -416,7 +422,9 @@ def test_bssh_ip_resolves_host_with_shared_config(
 
     assert_ok(result)
     default_config = isolated_env.home / ".ssh" / "config.d" / "00-all.conf"
-    assert out.read_text(encoding="utf-8").rstrip("\n") == f"-G -F {default_config} lab-a"
+    assert (
+        out.read_text(encoding="utf-8").rstrip("\n") == f"-G -F {default_config} lab-a"
+    )
     assert result.stdout.rstrip("\n") == "10.1.2.3  # user=alice port=2222"
 
 

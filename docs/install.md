@@ -5,7 +5,7 @@ managers, source builds, `.deb`, `.rpm`, and `.apk` packages.
 
 The experimental [Flyline integration](shell/flyline.md) is optional and excluded
 from all install profiles. Its pinned [R5 prerelease](https://github.com/fmmaciej/flyline/releases/tag/remote-ssh-v1.10.0-pr974.aae68bb4.r5)
-is available through `remote-ssh tool install flyline`. Its source lives in the
+is available through `remote-ssh install flyline`. Its source lives in the
 user's Flyline fork. The library layout stores immutable releases in `INSTALL_PREFIX`
 and an absolute active-file link in `INSTALL_PREFIX/.active/flyline`, with no
 executable in `INSTALL_BIN_DIR`. A selected PATH Bash >= 4.4 must successfully
@@ -39,7 +39,7 @@ With arguments, it forwards them directly to `remote-ssh install`:
 ./runme.sh fd rg sk zoxide
 ./runme.sh --yes fd rg sk zoxide
 ./runme.sh --profile quick --yes
-./runme.sh --full --yes
+./runme.sh --profile full --yes
 ```
 
 For a non-interactive quick install without editing the bootstrap list:
@@ -133,12 +133,11 @@ quick  rg fd sd bat starship eza zoxide sk navi atuin
 full   fd rg sd dust sk bat bottom procs yazi nvim zellij nu starship eza zoxide atuin navi bssh
 ```
 
-`--full` is a compatibility alias for `--profile full`:
+Profiles are a one-time explicit selection:
 
 ```bash
 ./bin/remote-ssh install --profile mini --yes
 ./bin/remote-ssh install --profile full --yes
-./bin/remote-ssh install --full --yes
 ```
 
 Tools without a matching asset for the current OS/architecture are skipped with
@@ -161,44 +160,65 @@ To uninstall managed tools:
 ```bash
 remote-ssh uninstall rg
 remote-ssh uninstall --yes rg
-remote-ssh uninstall --yes
 ```
 
-Without explicit tool names, `remote-ssh uninstall` removes all managed tools
-detected from symlinks in `~/.local/bin` and valid ownership records. It removes managed release
-directories under `~/.local/opt` and updates `expected-tools`; it does not
-remove the remote-ssh checkout or SSH/Git configuration.
+Install and uninstall without a choice show usage and return 1 without writes.
+Uninstall requires names and confirmation (or `--yes`), removes all proven own
+active and inactive releases of those names, and ends their membership only
+when removal finishes. Foreign substitutions abort before deletion; incomplete
+removal retains management and protected evidence for repair. The CLI, checkout,
+SSH/Git settings, shell startup files and external tools remain outside removal.
 
-## Expected Tools
+## Managed Set And Migration
 
-The selected tool set is saved in:
+Successful install adds to an automatic managed set. Profiles are one-time
+shortcuts, not subscriptions. `update` refreshes the checkout, then fresh code
+repairs only this set, including missing/broken installs. A completed uninstall
+is not resurrected. Empty membership allows project-only update. Retired or
+unsupported members remain visible/protected and make update/check fail.
 
-```text
-~/.config/remote-ssh/expected-tools
-```
+State lives under `INSTALL_PREFIX/.remote-ssh-managed`, bound to physical
+prefix/bin paths. Changing paths or XDG does not take ownership of another
+installation. Do not edit this state. Corrupt/unreadable state is an error;
+it is never silently interpreted as an empty set.
 
-The file contains one tool per line. Blank lines and `#` comments are ignored.
-
-After the first install, these commands use the saved expected tools when no
-explicit tool list is provided:
+Before the first successful mutation, the installer adopts all proven active
+installs, including older versions, libraries and alias-only installs. It does
+not adopt inactive releases, external PATH tools, unmarked directories or names
+from the old expected-tools file. That file is left unchanged; its fzf entry
+can provide an informational hint only. No manual expected-tools edits are needed.
+`list`/`check` can show adoption-pending results without writing migration state.
 
 ```bash
-remote-ssh install
-remote-ssh update
+remote-ssh list
+remote-ssh list --installed
 remote-ssh check
-remote-ssh doctor
+remote-ssh check rg fd
+remote-ssh update
 ```
 
-If no expected tools config exists, `remote-ssh install` asks you to choose
-tools explicitly or run:
+Reports never execute managed payloads or load libraries. Check includes runtime,
+Git/checkout, rc syntax, PATH and optional helper diagnostics. It returns 1 for
+required environmental or selected-tool problems; an empty managed set or
+optional helper warning is not itself an error. Use `install TOOL` or `update`
+for repair; inspect protected foreign collisions deliberately before retrying.
+Interrupted batches retain per-tool outcomes. Later lifecycle commands run the
+same recovery gate before beginning another batch; unrelated operations cannot
+overwrite unresolved ownership evidence. Releases remain immutable; no lifecycle
+command prunes automatically. `prune` is read-only by default and `prune --apply`
+removes only proven inactive releases with no active or pending claims.
 
-```bash
-remote-ssh install --profile quick --yes
-```
+### First Update From An Older Checkout
 
-Helper scripts such as `ssh-find` and `ssh-pick` are part of the remote-ssh
-checkout. There is no `--scripts` install flag; use `remote-ssh guide scripts`
-to inspect helper requirements.
+An already-running old updater may refresh this checkout and then invoke the new
+bare install. It stops with usage/1 because bare install now always requires a
+choice. Run `remote-ssh update` once more: the new updater adopts the proven
+existing set before refresh and repairs it. Do not select a profile or edit
+expected-tools to work around this one-time transition. Removed commands and
+flags have no compatibility aliases.
+
+Helper scripts remain in the checkout; use `remote-ssh guide scripts` to inspect
+requirements and `remote-ssh shell` to activate the environment.
 
 ## Migrating From fzf To skim
 
@@ -206,21 +226,18 @@ The managed fzf package is being retired in two stages. The quick/full profiles,
 SSH selection, Bash history fallback, zoxide and managed Navi integration already
 use skim (`sk`). During the migration window, the frozen fzf definition remains
 available so existing installations can still be inspected and uninstalled.
-`remote-ssh doctor` prints a read-only migration hint for an fzf expected-tools
-entry or a recognized managed installation, including when skim is already present.
+`remote-ssh check` prints an informational migration hint for managed fzf or a
+legacy fzf migration hint, including when skim is already present.
 
 Use the same `INSTALL_PREFIX`, `INSTALL_BIN_DIR` and XDG configuration as the
 installation being migrated. Start by installing and checking skim:
 
 ```bash
-remote-ssh tool install sk
-remote-ssh check --strict sk
+remote-ssh install sk
+remote-ssh check sk
 ```
 
-Edit `${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/expected-tools`: replace an
-existing `fzf` entry with `sk`, keeping other entries and avoiding duplicate
-`sk` entries. If no expected-tools file exists, deliberately choose the tool
-set you want to maintain; the migration does not create or reset it for you.
+Installation adds sk to the automatic managed set. No expected-tools edit is needed.
 
 Review an explicit `NAVI_FINDER=fzf` in your environment/configuration or custom
 commands. Use `NAVI_FINDER=skim` for the managed integration. Navi's
@@ -235,11 +252,11 @@ old managed fzf installation and check your saved set:
 
 ```bash
 remote-ssh uninstall fzf
-remote-ssh check --strict
+remote-ssh check
 ```
 
 Uninstall removes only recognized files under the selected remote-ssh installation.
-Updates and doctor do not edit expected-tools, uninstall fzf or change your finder
+Updates and check do not edit expected-tools, uninstall fzf or change your finder
 preference. The [retirement plan](../dev/docs/fzf-retirement-plan.md) requires
 confirmation of host migration before the active fzf definition is removed.
 
@@ -249,10 +266,11 @@ whether the real fzf package is managed by remote-ssh.
 
 ### Recovery After Skipping The Migration Window
 
-After a future update removes the fzf definition, the current CLI cannot
-recognize `uninstall fzf`. A remaining expected-tools entry is reported as
-unknown; a mixed set can still install known tools, while a set containing only
-fzf has no supported selection. Existing files are protected rather than deleted.
+A recorded fzf member remains recognized as retired after a future definition
+removal. Its data stays protected; `uninstall fzf` still requires sufficient live
+ownership proof. A host that skipped adoption and lost the definition cannot
+infer ownership from a name or old expected-tools entry. Use the pinned recovery
+checkout below for that older-host case; never weaken deletion proof.
 
 First complete the skim installation and configuration steps above. For cleanup,
 use a separate checkout pinned to the last verified recovery revision. These
@@ -314,7 +332,7 @@ prefix does not satisfy the pinned install check.
 
 Installation locations may be directory symlinks. `prune` and `uninstall`
 scan the physical prefix's direct children and keep child directory symlinks
-protected. `check` and `doctor` recognize equivalent bin paths by filesystem
+protected. `check` recognize equivalent bin paths by filesystem
 identity, including directory symlinks and relative PATH entries. An empty
 PATH entry denotes the current directory. Diagnostic headers retain configured
 paths; release listings use physical paths.
@@ -329,10 +347,10 @@ does not grant ownership: deletion still requires the valid ownership record
 described above. Protected paths are compared literally using Bash built-ins.
 
 Older unmarked releases remain usable and are left for manual review. Reinstall
-a tool to create a new marked release without changing `expected-tools`:
+a tool to create a new marked release while retaining automatic membership:
 
 ```bash
-FORCE=1 remote-ssh tool install rg
+remote-ssh install rg
 ```
 
 The old unmarked directory remains protected; reinstalling does not adopt or

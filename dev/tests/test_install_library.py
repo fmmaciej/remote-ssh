@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from conftest import copy_public_tree
+
 import hashlib
 import io
 import os
@@ -15,7 +17,7 @@ from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd, write_execu
 def library_fixture(repo: Path, env: IsolatedEnv, bash: str, invalid: str = ""):
     root = env.home / "checkout"
     for name in ("lib", "tools", "shell", "bin", "dots"):
-        shutil.copytree(repo / name, root / name)
+        copy_public_tree(repo, name, root / name)
     archive = env.home / "library.tar.gz"
     with tarfile.open(archive, "w:gz") as tar:
         info = tarfile.TarInfo("libflyline.dylib")
@@ -54,9 +56,12 @@ def library_fixture(repo: Path, env: IsolatedEnv, bash: str, invalid: str = ""):
         exec {shlex.quote(bash)} "$@"
         """,
     )
-    write_executable(env.bin_dir / "curl", f'#!/bin/sh\ncp {shlex.quote(str(archive))} "$2"\n')
     write_executable(
-        env.bin_dir / "uname", "#!/bin/sh\ncase $1 in -s) echo Darwin;; *) echo arm64;; esac\n"
+        env.bin_dir / "curl", f'#!/bin/sh\ncp {shlex.quote(str(archive))} "$2"\n'
+    )
+    write_executable(
+        env.bin_dir / "uname",
+        "#!/bin/sh\ncase $1 in -s) echo Darwin;; *) echo arm64;; esac\n",
     )
     opt = env.home / "custom prefix"
     opt.mkdir()
@@ -76,12 +81,12 @@ def library_fixture(repo: Path, env: IsolatedEnv, bash: str, invalid: str = ""):
         redirected.mkdir()
         active.symlink_to(redirected)
     if invalid == "link-switch":
-        real_mv = shutil.which("mv")
+        real_ln = shutil.which("ln")
         write_executable(
-            env.bin_dir / "mv",
+            env.bin_dir / "ln",
             f"""#!/bin/sh
         case "$*" in *'.active/flyline'*) exit 1;; esac
-        exec {shlex.quote(str(real_mv))} "$@"
+        exec {shlex.quote(str(real_ln))} "$@"
         """,
         )
     return (
@@ -91,6 +96,7 @@ def library_fixture(repo: Path, env: IsolatedEnv, bash: str, invalid: str = ""):
         env.env
         | {
             "INSTALL_PREFIX": str(opt),
+            "REMOTE_ENV_DIR": str(root),
             "INSTALL_BIN_DIR": str(env.bin_dir),
             "REMOTE_SSH_UPDATE_CHECK": "0",
             "REMOTE_SSH_WELCOME": "0",
@@ -112,10 +118,16 @@ def library_fixture(repo: Path, env: IsolatedEnv, bash: str, invalid: str = ""):
         "link-switch",
     ],
 )
-def test_library_install_is_transactional(repo_dir, isolated_env, runtime_bash, invalid):
-    root, opt, probes, env = library_fixture(repo_dir, isolated_env, runtime_bash, invalid)
+def test_library_install_is_transactional(
+    repo_dir, isolated_env, runtime_bash, invalid
+):
+    root, opt, probes, env = library_fixture(
+        repo_dir, isolated_env, runtime_bash, invalid
+    )
     old = (opt / "flyline-0/libflyline.dylib").read_bytes()
-    result = run_cmd([runtime_bash, root / "tools/install-tool.sh", "flyline"], env=env)
+    result = run_cmd(
+        [runtime_bash, root / "bin/remote-ssh", "install", "flyline", "--yes"], env=env
+    )
     link = opt / ".active/flyline"
     if invalid:
         assert_failed(result)
@@ -127,34 +139,49 @@ def test_library_install_is_transactional(repo_dir, isolated_env, runtime_bash, 
         assert link.resolve() == opt / "flyline-1/libflyline.dylib"
         assert not link.resolve().stat().st_mode & 0o111
         assert probes.read_text() == "probe\n"
-        # A forced same-version reinstall allocates a new directory rather than
-        # overwriting a library which an existing shell could still have mapped.
+        # A healthy pinned library is reused without download or another probe;
+        # the immutable payload mapped by an existing shell remains unchanged.
         first = link.resolve()
-        assert_ok(run_cmd([runtime_bash, root / "tools/install-tool.sh", "flyline"], env=env))
-        assert link.resolve() != first and first.read_bytes() == link.read_bytes()
+        assert_ok(
+            run_cmd(
+                [runtime_bash, root / "bin/remote-ssh", "install", "flyline", "--yes"],
+                env=env,
+            )
+        )
+        assert link.resolve() == first and probes.read_text() == "probe\n"
     assert (opt / "flyline-0/libflyline.dylib").read_bytes() == old
     assert not (isolated_env.bin_dir / "flyline").exists()
-    assert not list(opt.glob(".*.tmp.*"))
+    # Failed private staging is retained as protected journal evidence.
 
 
 def test_library_management_lifecycle(repo_dir, isolated_env, runtime_bash):
     root, opt, probes, env = library_fixture(repo_dir, isolated_env, runtime_bash)
+    # The merged check includes repository diagnostics. This is a disposable
+    # local fixture checkout; no real project Git mutation is involved.
+    for args in [
+        ("init", "-q"),
+        ("config", "user.name", "Fixture"),
+        ("config", "user.email", "fixture@example.invalid"),
+        ("config", "commit.gpgsign", "false"),
+        ("config", "core.hooksPath", "/dev/null"),
+        ("add", "shell/rc.sh"),
+        ("commit", "-qm", "synthetic library fixture"),
+    ]:
+        assert_ok(run_cmd(["git", "-C", root, *args], env=env))
     cli = [runtime_bash, root / "bin/remote-ssh"]
     assert_ok(run_cmd([*cli, "install", "--yes", "flyline"], env=env))
     expected = Path(env["XDG_CONFIG_HOME"]) / "remote-ssh/expected-tools"
-    assert [
-        line for line in expected.read_text().splitlines() if line and not line.startswith("#")
-    ] == ["flyline"]
-    assert_ok(run_cmd([*cli, "install"], env=env))
-    assert probes.read_text() == "probe\n"  # Pinned library is skipped.
-    listing = run_cmd([*cli, "tool", "list"], env=env)
+    assert not expected.exists()
+    assert_failed(run_cmd([*cli, "install"], env=env))
+    assert_ok(run_cmd([*cli, "install", "flyline", "--yes"], env=env))
+    assert probes.read_text() == "probe\n"
+    listing = run_cmd([*cli, "list"], env=env)
     assert_ok(listing)
     assert "flyline" in listing.stdout and "installed" in listing.stdout
-    check = run_cmd([*cli, "check", "--strict"], env=env)
+    check = run_cmd([*cli, "check", "flyline"], env=env)
     assert_ok(check)
     assert "library" in check.stdout and "ok" in check.stdout
-    doctor = run_cmd([*cli, "doctor"], env=env)
-    assert "flyline" in doctor.stdout and "ok" in doctor.stdout
+    assert probes.read_text() == "probe\n"
     # Both a library and an old format-1 executable release are protected by
     # their active links; only the inactive library is a prune candidate.
     before = run_cmd([*cli, "prune"], env=env)
@@ -163,12 +190,14 @@ def test_library_management_lifecycle(repo_dir, isolated_env, runtime_bash):
     assert f"candidate: {opt / 'flyline-1'}" not in before.stdout
     assert_ok(run_cmd([*cli, "prune", "--apply"], env=env))
     assert not (opt / "flyline-0").exists() and (opt / "flyline-1").exists()
-    assert_ok(run_cmd([*cli, "uninstall", "--yes"], env=env))
+    assert_ok(run_cmd([*cli, "uninstall", "flyline", "--yes"], env=env))
     assert not (opt / ".active/flyline").is_symlink()
     assert not (opt / "flyline-1").exists() and not expected.exists()
 
 
-def test_prune_aborts_if_library_links_cannot_be_enumerated(repo_dir, isolated_env, runtime_bash):
+def test_prune_aborts_if_library_links_cannot_be_enumerated(
+    repo_dir, isolated_env, runtime_bash
+):
     root, opt, _, env = library_fixture(repo_dir, isolated_env, runtime_bash)
     real_find = shutil.which("find")
     write_executable(
@@ -178,16 +207,22 @@ def test_prune_aborts_if_library_links_cannot_be_enumerated(repo_dir, isolated_e
     exec {shlex.quote(str(real_find))} "$@"
     """,
     )
-    result = run_cmd([runtime_bash, root / "bin/remote-ssh", "prune", "--apply"], env=env)
+    result = run_cmd(
+        [runtime_bash, root / "bin/remote-ssh", "prune", "--apply"], env=env
+    )
     assert_failed(result)
     assert "aborted" in result.stderr
     assert (opt / "flyline-0/libflyline.dylib").is_file()
 
 
 @pytest.mark.parametrize(
-    "selection", [["flyline"], ["rg", "flyline"], []], ids=["library", "mixed", "automatic"]
+    "selection",
+    [["flyline"], ["rg", "flyline"], []],
+    ids=["library", "mixed", "no-selection"],
 )
-@pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link", "unreadable"])
+@pytest.mark.parametrize(
+    "active_kind", ["file", "directory-link", "broken-link", "unreadable"]
+)
 def test_library_uninstall_preflight_aborts_before_any_mutation(
     repo_dir,
     isolated_env,
@@ -212,7 +247,9 @@ def test_library_uninstall_preflight_aborts_before_any_mutation(
             active.chmod(0o700)
             pytest.skip("Current user can access mode-000 directories")
     else:
-        active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        active.symlink_to(
+            target if active_kind == "directory-link" else target / "absent"
+        )
     binary = opt / "rg-15.1.0"
     binary.mkdir()
     (binary / "rg").write_text("#!/bin/sh\nexit 0\n")
@@ -227,10 +264,14 @@ def test_library_uninstall_preflight_aborts_before_any_mutation(
     before = expected.read_bytes()
     try:
         result = run_cmd(
-            [runtime_bash, root / "bin/remote-ssh", "uninstall", "--yes", *selection], env=env
+            [runtime_bash, root / "bin/remote-ssh", "uninstall", "--yes", *selection],
+            env=env,
         )
         assert_failed(result)
-        assert "uninstall aborted" in result.stderr
+        if selection:
+            assert "uninstall aborted" in result.stderr
+        else:
+            assert "Usage: remote-ssh uninstall" in result.stderr
         assert old.is_dir() and binary.is_dir()
         assert (isolated_env.bin_dir / "rg").is_symlink()
         assert expected.read_bytes() == before
@@ -255,7 +296,8 @@ def test_valid_mixed_library_uninstall(repo_dir, isolated_env, runtime_bash):
     )
     (isolated_env.bin_dir / "rg").symlink_to(binary / "rg")
     result = run_cmd(
-        [runtime_bash, root / "bin/remote-ssh", "uninstall", "--yes", "rg", "flyline"], env=env
+        [runtime_bash, root / "bin/remote-ssh", "uninstall", "--yes", "rg", "flyline"],
+        env=env,
     )
     assert_ok(result)
     assert not binary.exists() and not (opt / "flyline-0").exists()

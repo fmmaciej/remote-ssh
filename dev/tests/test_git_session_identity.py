@@ -52,7 +52,10 @@ def test_git_session_identity_overrides_repo_local_config(
     write_git_user_local(dots_dir)
     repo = init_git_repo(isolated_env.home / "repo", env=isolated_env.env)
     _configure_repo_identity(repo, isolated_env.env)
-    env = isolated_env.env | {"REMOTE_DOTS_DIR": str(dots_dir)}
+    env = isolated_env.env | {
+        "REMOTE_DOTS_DIR": str(dots_dir),
+        "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY": "1",
+    }
     env.pop("GIT_CONFIG_COUNT", None)
     env.pop("REMOTE_SSH_GIT_SESSION_IDENTITY", None)
 

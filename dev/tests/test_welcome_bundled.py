@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from conftest import copy_public_tree
+
 import shutil
 import subprocess
 from pathlib import Path
@@ -27,10 +29,12 @@ def _fixture(
 ) -> tuple[Path, dict[str, str], Path]:
     tree = tmp_path / "runtime"
     for directory in ("shell", "lib", "tools", "bin", "dots", "scripts"):
-        shutil.copytree(repo_dir / directory, tree / directory)
+        copy_public_tree(repo_dir, directory, tree / directory)
     log = tmp_path / "exec.log"
     library = tree / "shell" / "welcome.lib.sh"
-    library.write_text('printf "%s\\n" "${0##*/}" >>"$WELCOME_EXEC_LOG"\n' + library.read_text())
+    library.write_text(
+        'printf "%s\\n" "${0##*/}" >>"$WELCOME_EXEC_LOG"\n' + library.read_text()
+    )
     if simple:
         bundled = tree / "shell" / "welcome" / "bundled.sh"
         bundled.write_text(bundled.read_text() + SIMPLE_RENDERERS)
@@ -100,9 +104,15 @@ def _log(path: Path) -> list[str]:
     return path.read_text().splitlines()
 
 
-@pytest.mark.parametrize("setup", ["", "set -e", "export BASH_ENV=", "shopt -s nocasematch"])
+@pytest.mark.parametrize(
+    "setup", ["", "set -e", "export BASH_ENV=", "shopt -s nocasematch"]
+)
 def test_bundled_canonical_wrappers_use_one_fresh_worker(
-    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, tmp_path: Path, setup: str
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    runtime_bash: str,
+    tmp_path: Path,
+    setup: str,
 ) -> None:
     tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
     result = _run(tree, env, runtime_bash, setup=setup)
@@ -112,9 +122,15 @@ def test_bundled_canonical_wrappers_use_one_fresh_worker(
     assert _log(log) == ["_", "bundled-runner.sh"]
 
 
-@pytest.mark.parametrize("variant", ["missing", "disabled", "nonexecutable-foreign", "empty"])
+@pytest.mark.parametrize(
+    "variant", ["missing", "disabled", "nonexecutable-foreign", "empty"]
+)
 def test_bundled_eligibility_and_empty_arrays(
-    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, tmp_path: Path, variant: str
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    runtime_bash: str,
+    tmp_path: Path,
+    variant: str,
 ) -> None:
     tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
     directory = tree / "shell" / "welcome.d"
@@ -167,7 +183,11 @@ def test_bundled_eligibility_and_empty_arrays(
     ],
 )
 def test_bundled_mismatches_fall_back_for_the_entire_group(
-    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, tmp_path: Path, variant: str
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    runtime_bash: str,
+    tmp_path: Path,
+    variant: str,
 ) -> None:
     tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
     directory = tree / "shell" / "welcome.d"
@@ -182,7 +202,9 @@ def test_bundled_mismatches_fall_back_for_the_entire_group(
     elif variant == "huge":
         module.write_bytes(original + b"#" + b"x" * 1024 * 1024)
     elif variant.startswith("nul"):
-        module.write_bytes(original[:-1] + b"\0\n" if variant == "nul-middle" else original + b"\0")
+        module.write_bytes(
+            original[:-1] + b"\0\n" if variant == "nul-middle" else original + b"\0"
+        )
     elif variant == "case-content":
         module.write_bytes(original.replace(b"render_hw", b"render_HW"))
     elif variant == "case-path":
@@ -200,7 +222,9 @@ def test_bundled_mismatches_fall_back_for_the_entire_group(
         module.unlink()
         module.symlink_to(target)
     elif variant == "unknown":
-        write_executable(directory / "05-foreign", "#!/bin/sh\nprintf 'foreign-between\\n'\n")
+        write_executable(
+            directory / "05-foreign", "#!/bin/sh\nprintf 'foreign-between\\n'\n"
+        )
     elif variant == "modified":
         module.write_bytes(original + b"printf 'modified-body\\n'\n")
     else:
@@ -213,7 +237,10 @@ def test_bundled_mismatches_fall_back_for_the_entire_group(
     assert "bundled-runner.sh" not in _log(log)
     assert "00-remote-ssh.sh" in _log(log) and "20-sw.sh" in _log(log)
     if variant == "unknown":
-        assert result.stdout == "remote\nforeign-between\nhardware\nsoftware\nCALLER-NEXT\n"
+        assert (
+            result.stdout
+            == "remote\nforeign-between\nhardware\nsoftware\nCALLER-NEXT\n"
+        )
     if variant == "foreign-symlink":
         assert "foreign-interpreter\n" in result.stdout
     if variant == "modified":
@@ -259,7 +286,9 @@ def test_bundled_canonical_content_mapping_and_renamed_standalone_symlinks(
         "remote_ssh_welcome_render_sw",
         "CALLER-NEXT",
     ]
-    for name, expected in zip(WRAPPERS, ("remote\n", "hardware\n", "software\n"), strict=True):
+    for name, expected in zip(
+        WRAPPERS, ("remote\n", "hardware\n", "software\n"), strict=True
+    ):
         alias = tree / "shell" / "welcome.d" / "renamed"
         alias.symlink_to(name)
         standalone = subprocess.run(
@@ -277,7 +306,11 @@ def test_bundled_canonical_content_mapping_and_renamed_standalone_symlinks(
 
 @pytest.mark.parametrize("option", ["SHELLOPTS", "BASHOPTS"])
 def test_bundled_exported_options_keep_external_launch_scope_and_caller_state(
-    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, tmp_path: Path, option: str
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    runtime_bash: str,
+    tmp_path: Path,
+    option: str,
 ) -> None:
     tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
     if (
@@ -313,7 +346,9 @@ def test_bundled_nonempty_bash_env_retains_once_per_module_hooks(
     tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
     hook = tmp_path / "hook"
     hook.write_text('printf "hook:%s\\n" "${0##*/}"\n')
-    result = _run(tree, env | {"HOOK": str(hook)}, runtime_bash, setup='export BASH_ENV="$HOOK"')
+    result = _run(
+        tree, env | {"HOOK": str(hook)}, runtime_bash, setup='export BASH_ENV="$HOOK"'
+    )
     assert_ok(result)
     # Bash 3.2 sets $0 to bash while reading BASH_ENV, before the script name.
     old_bash = (
@@ -332,14 +367,20 @@ def test_bundled_nonempty_bash_env_retains_once_per_module_hooks(
 
 @pytest.mark.parametrize("selected", ["other-tree", "unset", "same-tree-alias"])
 def test_bundled_worker_is_bound_to_the_loaded_physical_tree(
-    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, tmp_path: Path, selected: str
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    runtime_bash: str,
+    tmp_path: Path,
+    selected: str,
 ) -> None:
     tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
     if selected == "other-tree":
         other = tmp_path / "other"
         shutil.copytree(tree, other)
         bundled = other / "shell" / "welcome" / "bundled.sh"
-        bundled.write_text(bundled.read_text().replace("'hardware\\n'", "'other-tree-hardware\\n'"))
+        bundled.write_text(
+            bundled.read_text().replace("'hardware\\n'", "'other-tree-hardware\\n'")
+        )
         env["SELECTED_SHELL"] = str(other / "shell")
         setup = 'export REMOTE_SHELL_DIR="$SELECTED_SHELL"'
     elif selected == "same-tree-alias":
@@ -378,7 +419,9 @@ def test_bundled_renderer_exit_replays_once_and_continues(
         bundled.read_text()
         + f'\nremote_ssh_welcome_render_remote_ssh() {{ printf "before-exit\\n"; printf "renderer-stderr\\n" >&2; exit {exit_status}; }}\n'
     )
-    result = _run(tree, env | {"REMOTE_SSH_WELCOME_DEBUG": "1" if debug else "0"}, runtime_bash)
+    result = _run(
+        tree, env | {"REMOTE_SSH_WELCOME_DEBUG": "1" if debug else "0"}, runtime_bash
+    )
     assert_ok(result)
     assert result.stdout == "before-exit\nhardware\nsoftware\nCALLER-NEXT\n"
     assert ("renderer-stderr" in result.stderr) == debug
@@ -389,20 +432,29 @@ def test_bundled_renderer_exit_replays_once_and_continues(
 
 @pytest.mark.parametrize("failure", ["preflight", "library", "after-start"])
 def test_bundled_worker_only_falls_back_before_display(
-    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, tmp_path: Path, failure: str
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    runtime_bash: str,
+    tmp_path: Path,
+    failure: str,
 ) -> None:
     tree, env, log = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
     worker = tree / "shell" / "welcome" / "bundled-runner.sh"
     if failure == "library":
         library = tree / "shell" / "welcome.lib.sh"
         library.write_text(
-            'if [[ "${0##*/}" == bundled-runner.sh ]]; then return 1; fi\n' + library.read_text()
+            'if [[ "${0##*/}" == bundled-runner.sh ]]; then return 1; fi\n'
+            + library.read_text()
         )
     else:
         write_executable(
             worker,
             "#!/usr/bin/env bash\n"
-            + ("exit 125\n" if failure == "preflight" else "printf 'started-once\\n'\nexit 7\n"),
+            + (
+                "exit 125\n"
+                if failure == "preflight"
+                else "printf 'started-once\\n'\nexit 7\n"
+            ),
         )
     result = _run(tree, env | {"REMOTE_SSH_WELCOME_DEBUG": "1"}, runtime_bash)
     assert_ok(result)
@@ -428,7 +480,9 @@ def test_worker_incomplete_required_library_stops_before_any_display(
     if omission == "hardware-file":
         hardware.unlink()
     else:
-        hardware.write_text(hardware.read_text() + "\nunset -f remote_ssh_welcome_cpu_count\n")
+        hardware.write_text(
+            hardware.read_text() + "\nunset -f remote_ssh_welcome_cpu_count\n"
+        )
     worker = tree / "shell" / "welcome" / "bundled-runner.sh"
     # An inherited renderer must not conceal a missing provider source file.
     result = subprocess.run(
@@ -473,17 +527,28 @@ def test_worker_only_missing_helper_falls_back_once_then_runs_user_and_caller(
     )
     user = Path(env["XDG_CONFIG_HOME"]) / "remote-ssh" / "welcome.d"
     write_executable(user / "50-user", "#!/bin/sh\nprintf 'user-after-fallback\\n'\n")
-    result = _run(tree, env | {"REMOTE_SSH_WELCOME_DEBUG": "1" if debug else "0"}, runtime_bash)
+    result = _run(
+        tree, env | {"REMOTE_SSH_WELCOME_DEBUG": "1" if debug else "0"}, runtime_bash
+    )
     assert_ok(result)
-    assert result.stdout == "remote\nhardware\nsoftware\nuser-after-fallback\nCALLER-NEXT\n"
+    assert (
+        result.stdout
+        == "remote\nhardware\nsoftware\nuser-after-fallback\nCALLER-NEXT\n"
+    )
     assert _log(log) == ["_", "bundled-runner.sh", *WRAPPERS]
-    assert ("required function unavailable: remote_ssh_welcome_cpu_count" in result.stderr) == debug
+    assert (
+        "required function unavailable: remote_ssh_welcome_cpu_count" in result.stderr
+    ) == debug
     assert list(Path(env["TMPDIR"]).iterdir()) == []
 
 
 @pytest.mark.parametrize("kind", ["issues", "module"])
 def test_bundled_temp_allocation_failure_keeps_existing_policy(
-    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, tmp_path: Path, kind: str
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    runtime_bash: str,
+    tmp_path: Path,
+    kind: str,
 ) -> None:
     tree, env, _ = _fixture(repo_dir, isolated_env, runtime_bash, tmp_path)
     write_executable(
@@ -499,7 +564,8 @@ def test_bundled_temp_allocation_failure_keeps_existing_policy(
     assert_ok(result)
     assert (
         result.stdout
-        == ("remote\nhardware\nsoftware\n" if kind == "issues" else "") + "CALLER-NEXT\n"
+        == ("remote\nhardware\nsoftware\n" if kind == "issues" else "")
+        + "CALLER-NEXT\n"
     )
     assert list(Path(env["TMPDIR"]).iterdir()) == []
 
@@ -522,12 +588,16 @@ def test_bundled_and_user_issues_are_collected_once_on_repeated_runs(
     inherited.write_text("untouched\n")
     result = _run(
         tree,
-        env | {"REMOTE_SSH_WELCOME_DEBUG": "1", "REMOTE_SSH_WELCOME_ISSUES_FILE": str(inherited)},
+        env
+        | {
+            "REMOTE_SSH_WELCOME_DEBUG": "1",
+            "REMOTE_SSH_WELCOME_ISSUES_FILE": str(inherited),
+        },
         runtime_bash,
         command='remote_ssh_welcome_run\n. "$1/shell/welcome.lib.sh"\nremote_ssh_welcome_run\n[[ -z "${REMOTE_SSH_WELCOME_ISSUES_FILE+x}" ]]; ! declare -p REMOTE_SSH_WELCOME_ISSUES >/dev/null 2>&1',
     )
     assert_ok(result)
-    assert result.stdout.count("next:    remote-ssh doctor") == 2
+    assert result.stdout.count("next:    remote-ssh check") == 2
     assert result.stdout.count("__REMOTE_SSH_WELCOME_ISSUE__:sw") == 2
     assert result.stderr.count("ignoring unknown issue: unknown") == 2
     assert inherited.read_text() == "untouched\n"
@@ -620,11 +690,13 @@ def test_worker_status_library_state_remains_in_first_capture(
     bundled = tree / "shell" / "welcome" / "bundled.sh"
     bundled.write_text(
         bundled.read_text()
-        + '\nremote_ssh_welcome_render_remote_ssh() { remote_ssh_welcome_load_commands; printf "status-first:%s\\n" "$REMOTE_SSH_STATUS_LIB_LOADED"; }\nremote_ssh_welcome_render_hw() { printf "status-sibling:%s\\n" "${REMOTE_SSH_STATUS_LIB_LOADED-unset}"; if declare -F remote_ssh_tool_status_load >/dev/null; then printf "FUNCTION-LEAK\\n"; fi; }\n'
+        + '\nremote_ssh_welcome_render_remote_ssh() { remote_ssh_welcome_load_commands; printf "status-first:%s\\n" "$REMOTE_SSH_STATUS_LIB_LOADED"; }\nremote_ssh_welcome_render_hw() { printf "status-sibling:%s\\n" "${REMOTE_SSH_STATUS_LIB_LOADED-unset}"; if declare -F ms_report_begin >/dev/null; then printf "FUNCTION-LEAK\\n"; fi; }\n'
     )
     result = _run(tree, env, runtime_bash, setup="REMOTE_SSH_STATUS_LIB_LOADED=1")
     assert_ok(result)
-    assert result.stdout == "status-first:1\nstatus-sibling:unset\nsoftware\nCALLER-NEXT\n"
+    assert (
+        result.stdout == "status-first:1\nstatus-sibling:unset\nsoftware\nCALLER-NEXT\n"
+    )
 
 
 @pytest.mark.parametrize("controlling_terminal", [False, True])
@@ -648,13 +720,17 @@ remote_ssh_welcome_render_sw() { printf 'last\n'; }
     expected = "\n  spaces \\ slash\nCR\rtext\nno-final-LF\nlast\n"
     redirected = tmp_path / "redirected"
     env["OUTPUT_FILE"] = str(redirected)
-    command = 'remote_ssh_welcome_run_bundled "$REMOTE_SHELL_DIR/welcome.d" >"$OUTPUT_FILE"'
+    command = (
+        'remote_ssh_welcome_run_bundled "$REMOTE_SHELL_DIR/welcome.d" >"$OUTPUT_FILE"'
+    )
     if controlling_terminal:
         sample = run_pty_sample(
             [
                 runtime_bash,
                 "-c",
-                '. "$1/shell/welcome.lib.sh"; ' + command + '; printf "READY-TRANSPORT\\n"',
+                '. "$1/shell/welcome.lib.sh"; '
+                + command
+                + '; printf "READY-TRANSPORT\\n"',
                 "_",
                 str(tree),
             ],
@@ -664,7 +740,9 @@ remote_ssh_welcome_render_sw() { printf 'last\n'; }
             10,
         )
         assert sample.returncode == 0 and not sample.timed_out
-        assert sample.output_tail == expected.replace("\n", "\r\n") + "READY-TRANSPORT\r\n"
+        assert (
+            sample.output_tail == expected.replace("\n", "\r\n") + "READY-TRANSPORT\r\n"
+        )
         assert redirected.read_bytes() == b""
     else:
         result = _run(tree, env, runtime_bash, command=command)

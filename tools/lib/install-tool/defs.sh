@@ -22,7 +22,7 @@ load_defs() {
   }
 
   unset TOOL_NAME GH_REPO RELEASE_TAG VERSION BINARY_NAME ASSETS CHECKSUMS BINARY_ALIASES
-  unset INSTALL_LAYOUT BINARY_PATH BUNDLE_ROOTS LIBRARY_MEMBERS REMOTE_SSH_BINARY_PATH_EXPLICIT
+  unset INSTALL_LAYOUT BINARY_PATH BUNDLE_ROOTS BUNDLE_REQUIRED_PATHS LIBRARY_MEMBERS REMOTE_SSH_BINARY_PATH_EXPLICIT
 
   # shellcheck source=/dev/null
   . "$def_file"
@@ -66,6 +66,11 @@ load_defs() {
   if ! declare -p BUNDLE_ROOTS >/dev/null 2>&1; then
     BUNDLE_ROOTS=()
   fi
+  if ! declare -p BUNDLE_REQUIRED_PATHS >/dev/null 2>&1; then BUNDLE_REQUIRED_PATHS=(); fi
+  local required
+  for required in ${BUNDLE_REQUIRED_PATHS[@]+"${BUNDLE_REQUIRED_PATHS[@]}"}; do
+    install_tool_binary_path_valid "$required" || return 1
+  done
   if ! declare -p LIBRARY_MEMBERS >/dev/null 2>&1; then LIBRARY_MEMBERS=(); fi
   if [[ "$INSTALL_LAYOUT" == bash-builtin ]]; then
     [[ ${#BINARY_ALIASES[@]} == 0 && ${#LIBRARY_MEMBERS[@]} -gt 0 ]] || {

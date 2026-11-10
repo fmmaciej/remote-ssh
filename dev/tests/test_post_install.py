@@ -123,7 +123,7 @@ def test_footer_and_guide_commands_execute_without_path(
     interpreters = [[runtime_bash, "--noprofile", "--norc", "-c"]]
     if shutil.which("zsh"):
         interpreters.append([shutil.which("zsh") or "/bin/zsh", "-f", "-c"])
-    expected = c.expected.read_bytes()
+    managed = c.lifecycle_snapshot()
     link = (c.command.lstat().st_ino, c.command.readlink())
     startup = {p: p.read_bytes() for p in c.home.glob(".*") if p.is_file()}
     for shell in interpreters:
@@ -161,7 +161,7 @@ def test_footer_and_guide_commands_execute_without_path(
             lookup = c.shell([*shell, export + "\ncommand -v remote-ssh"])
             assert_ok(lookup)
             assert lookup.stdout.strip() == str(c.command)
-    assert c.expected.read_bytes() == expected
+    assert c.lifecycle_snapshot() == managed
     assert (c.command.lstat().st_ino, c.command.readlink()) == link
     assert all(p.read_bytes() == before for p, before in startup.items())
     assert not c.network.exists()

@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from conftest import ToolStateEnv, assert_ok, mark_managed_release, run_remote_ssh
+from conftest import ToolStateEnv, assert_failed, assert_ok, mark_managed_release, run_remote_ssh
 
 
 @pytest.mark.parametrize("command", [["prune", "--apply"], ["uninstall", "--yes", "rg"]])
@@ -50,7 +50,9 @@ def test_uninstall_preserves_same_prefix_foreign_symlink(
     link = tool_env.bin_dir / "rg"
     link.symlink_to(executable)
     result = run_remote_ssh(repo_dir, ["uninstall", "--yes", "rg"], env=tool_env.env)
-    assert_ok(result)
+    assert_failed(result)
+    assert result.returncode == 1
+    assert "unproved selector" in result.stderr and "uninstall aborted" in result.stderr
     assert link.is_symlink()
     assert executable.read_text() == "keep\n"
 
@@ -97,6 +99,11 @@ def test_removal_protects_malformed_release_suffix(
 
     result = run_remote_ssh(repo_dir, command, env=tool_env.env)
 
-    assert_ok(result)
+    if command[0] == "uninstall":
+        assert_failed(result)
+        assert result.returncode == 1
+        assert "unproved selector" in result.stderr and "uninstall aborted" in result.stderr
+    else:
+        assert_ok(result)
     assert release.is_dir()
     assert (tool_env.bin_dir / "rg").is_symlink()

@@ -9,6 +9,9 @@ the user's [Flyline fork](https://github.com/fmmaciej/flyline/tree/remote-ssh-vi
 preserving upstream history. The pinned [R5 prerelease](https://github.com/fmmaciej/flyline/releases/tag/remote-ssh-v1.10.0-pr974.aae68bb4.r5)
 and its production tool definition are available for explicit installation. See the
 [fork validation and support record](../../dev/docs/flyline-fork-integration-record.md).
+That record preserves earlier integration evidence; its older CLI and expected-tools
+wording is historical. Use the current [managed lifecycle](../install.md#managed-set-and-migration)
+for installation, membership and recovery.
 
 The qualified combination is macOS arm64 with Homebrew Bash 5.3.20. System
 macOS Bash 3.2 keeps Readline. Installation does not install or upgrade Bash.
@@ -17,7 +20,7 @@ Linux, weak remote hosts, Intel macOS and SSH transport are unverified.
 Explicitly install and enable it in a new shell:
 
 ```bash
-remote-ssh tool install flyline
+remote-ssh install flyline
 REMOTE_SSH_ENABLE_FLYLINE=1 remote-ssh shell
 ```
 
@@ -31,8 +34,7 @@ printf '%s: %s\n' "$REMOTE_SSH_FLYLINE_STATE" "$REMOTE_SSH_FLYLINE_REASON"
 ```
 
 Use the same exported `INSTALL_PREFIX` for installation and shell startup when
-using a custom prefix. No `flyline` executable is put in PATH. `check` and
-`doctor` report library installation; they do not establish that another
+using a custom prefix. No `flyline` executable is put in PATH. `check` reports library installation; they do not establish that another
 process has activated it or that its Bash is ABI compatible.
 
 Flyline explicitly enables its Vim keymap. Escape enters Normal mode; `i`/`a`

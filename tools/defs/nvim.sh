@@ -9,6 +9,7 @@ VERSION="0.12.6"
 BINARY_NAME="nvim"
 INSTALL_LAYOUT="bundle"
 BINARY_PATH="bin/nvim"
+BUNDLE_REQUIRED_PATHS=("share/nvim/runtime")
 BUNDLE_ROOTS=(
   "nvim-linux-arm64.tar.gz|nvim-linux-arm64"
   "nvim-linux-x86_64.tar.gz|nvim-linux-x86_64"

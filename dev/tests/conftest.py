@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import os
+import fnmatch
 import shlex
 import shutil
 import stat
@@ -27,7 +27,9 @@ RUNTIME_BASHES = tuple(
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
-    group = parser.getgroup("navi-skim", "offline tests with pinned navi and skim binaries")
+    group = parser.getgroup(
+        "navi-skim", "offline tests with pinned navi and skim binaries"
+    )
     group.addoption("--navi-bin", help="Absolute path to the pinned navi executable")
     group.addoption("--skim-bin", help="Absolute path to the pinned sk executable")
 
@@ -60,6 +62,11 @@ def repo_dir() -> Path:
     return Path(__file__).resolve().parents[2]
 
 
+def public_test_env() -> dict[str, str]:
+    """Minimal public process context; callers supply synthetic HOME and paths."""
+    return {"PATH": "/usr/bin:/bin", "LANG": "C", "LC_ALL": "C", "TZ": "UTC"}
+
+
 @pytest.fixture
 def isolated_env(tmp_path: Path) -> IsolatedEnv:
     home = tmp_path / "home"
@@ -72,12 +79,21 @@ def isolated_env(tmp_path: Path) -> IsolatedEnv:
     xdg_config_home.mkdir(parents=True)
     xdg_state_home.mkdir(parents=True)
 
-    env = os.environ.copy()
+    # Tests accept public runtime context explicitly. Ambient application and
+    # credential variables must never enter a child or its failure traceback.
+    env = public_test_env()
     env.update(
         {
             "HOME": str(home),
             "XDG_CONFIG_HOME": str(xdg_config_home),
             "XDG_STATE_HOME": str(xdg_state_home),
+            "GIT_CONFIG_GLOBAL": str(home / ".gitconfig"),
+            "GIT_CONFIG_NOSYSTEM": "1",
+            # General rc/guide tests may reference the real public checkout;
+            # identity reads are opt-in only in synthetic ROOT/DOTS fixtures.
+            "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY": "0",
+            "INSTALL_PREFIX": str(home / ".local/opt"),
+            "INSTALL_BIN_DIR": str(home / ".local/bin"),
             "PATH": f"{bin_dir}:/usr/bin:/bin",
         }
     )
@@ -146,33 +162,112 @@ def require_zsh() -> None:
         pytest.skip("zsh is required")
 
 
+# Exact implementation-owned public additions while the feature is untracked.
+# Unknown untracked and ignored files are never fixture inputs.
+PUBLIC_RUNTIME_ADDITIONS = (
+    "tools/lib/managed.lib.sh",
+    "tools/lib/commands/list.sh",
+    "tools/lib/commands/check/environment.sh",
+    "tools/lib/commands/check/render.sh",
+    *(
+        f"tools/lib/managed/{name}.sh"
+        for name in (
+            "state",
+            "lock",
+            "inventory",
+            "migration",
+            "journal",
+            "recovery",
+            "install",
+            "uninstall",
+            "update",
+            "continue-update",
+        )
+    ),
+)
+
+
+def copy_public_tree(repo: Path, relative: str, destination: Path) -> None:
+    """Copy tracked public inputs and exact owned additions, never local config."""
+    tracked = subprocess.run(
+        [
+            shutil.which("git") or "/usr/bin/git",
+            "-c", "core.fsmonitor=false", "-c", "core.untrackedCache=false",
+            "-C",
+            str(repo),
+            "ls-files",
+            "-z",
+            "--",
+            relative,
+        ],
+        text=True,
+        capture_output=True,
+        check=True,
+        env=public_test_env()
+        | {
+            "GIT_CONFIG_GLOBAL": "/dev/null",
+            "GIT_CONFIG_NOSYSTEM": "1",
+            "GIT_OPTIONAL_LOCKS": "0",
+        },
+    ).stdout.split("\0")
+    base = Path(relative)
+    destination.mkdir(parents=True, exist_ok=True)
+    for name in sorted(set(tracked) | set(PUBLIC_RUNTIME_ADDITIONS)):
+        if not name or any(
+            fnmatch.fnmatch(part, pattern)
+            for part in Path(name).parts
+            for pattern in (
+                "*.local",
+                ".env*",
+                "*.env",
+                ".aws",
+                ".ssh",
+                "credentials*",
+                "secrets*",
+                "__pycache__",
+                ".venv",
+                ".git",
+                ".pytest_cache",
+                ".mypy_cache",
+                ".ruff_cache",
+            )
+        ):
+            continue
+        path = Path(name)
+        if base != Path(".") and base not in path.parents:
+            continue
+        source = repo / path
+        if not source.exists() and not source.is_symlink():
+            continue
+        target = destination / path.relative_to(base)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if source.is_symlink():
+            target.symlink_to(source.readlink())
+        else:
+            shutil.copy2(source, target)
+
+
 def copy_repo_for_git_setup(repo_dir: Path, tmp_path: Path) -> Path:
     repo_copy = tmp_path / "repo"
-    shutil.copytree(
-        repo_dir,
-        repo_copy,
-        ignore=shutil.ignore_patterns(
-            ".git",
-            ".mypy_cache",
-            ".pytest_cache",
-            ".ruff_cache",
-            ".venv",
-            "__pycache__",
-            "uv.lock",
-        ),
-    )
+    copy_public_tree(repo_dir, ".", repo_copy)
     return repo_copy
 
 
-def run_git_setup(repo_dir: Path, *, env: Mapping[str, str]) -> subprocess.CompletedProcess[str]:
+def run_git_setup(
+    repo_dir: Path, *, env: Mapping[str, str]
+) -> subprocess.CompletedProcess[str]:
     return run_remote_ssh(repo_dir, ["git", "setup"], env=env)
 
 
-def run_ssh_setup(repo_dir: Path, *, env: Mapping[str, str]) -> subprocess.CompletedProcess[str]:
+def run_ssh_setup(
+    repo_dir: Path, *, env: Mapping[str, str]
+) -> subprocess.CompletedProcess[str]:
     return run_remote_ssh(repo_dir, ["ssh", "setup"], env=env)
 
 
-def run_setup(repo_dir: Path, *, env: Mapping[str, str]) -> subprocess.CompletedProcess[str]:
+def run_setup(
+    repo_dir: Path, *, env: Mapping[str, str]
+) -> subprocess.CompletedProcess[str]:
     return run_remote_ssh(repo_dir, ["setup"], env=env)
 
 
@@ -469,3 +564,11 @@ def prepare_runme_checkout(install_dir: Path, output_file: Path) -> None:
         printf '%s\\n' "$@" >{quoted_output}
         """,
     )
+
+
+@pytest.fixture
+def engine(repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str):
+    # Lazy import keeps this optional focused fixture out of unrelated tests.
+    from managed_fixture import make_engine
+
+    return make_engine(repo_dir, isolated_env, runtime_bash)

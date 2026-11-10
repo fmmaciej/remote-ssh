@@ -41,19 +41,18 @@ remote_ssh_cmd_guide_print_tools() {
 
   cat <<'EOF'
 Tools
-  install      remote-ssh install
+  install      remote-ssh install TOOL ...
   install mini remote-ssh install --profile mini
   install quick remote-ssh install --profile quick
-  install all  remote-ssh install --full
-  list         remote-ssh tool list
-  installed    remote-ssh tool list --installed
-  catalogue    remote-ssh tool list --all
-  check        remote-ssh check --strict
-  doctor       remote-ssh doctor
+  install all  remote-ssh install --profile full
+  list         remote-ssh list
+  installed    remote-ssh list --installed
+  catalogue    remote-ssh list --all
+  check        remote-ssh check
   prune        remote-ssh prune
   prune apply  remote-ssh prune --apply
 
-Tool list shows supported tools and managed installations. Use --all to include
+List shows supported tools and managed installations. Use --all to include
 unsupported tools. Installed does not imply the pinned version or correct PATH;
 use remote-ssh check for diagnostics.
 

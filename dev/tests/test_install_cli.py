@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from conftest import copy_public_tree
+
 import os
 import shlex
 import shutil
@@ -8,7 +10,13 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import pytest
-from conftest import IsolatedEnv, assert_failed, assert_ok, mark_managed_release, write_executable
+from conftest import (
+    IsolatedEnv,
+    assert_failed,
+    assert_ok,
+    mark_managed_release,
+    write_executable,
+)
 
 
 @dataclass
@@ -32,7 +40,32 @@ class CliInstall:
     def network(self) -> Path:
         return self.home / "network.log"
 
-    def run(self, *args: str, cwd: Path | None = None) -> subprocess.CompletedProcess[str]:
+    def lifecycle_snapshot(self) -> tuple[tuple[str, str, int, bytes | str], ...]:
+        """Opaque bytes/modes of this fixture's managed metadata and legacy hint."""
+        paths = [
+            self.expected,
+            Path(self.env["INSTALL_PREFIX"]) / ".remote-ssh-managed",
+            Path(self.env["INSTALL_PREFIX"]) / ".remote-ssh-lock",
+            self.bin / ".remote-ssh-lock",
+        ]
+        rows: list[tuple[str, str, int, bytes | str]] = []
+        for root in paths:
+            if not root.exists() and not root.is_symlink():
+                rows.append((str(root), "absent", 0, b""))
+                continue
+            for path in [root, *sorted(root.rglob("*"))] if root.is_dir() else [root]:
+                mode = path.lstat().st_mode
+                if path.is_symlink():
+                    rows.append((str(path), "link", mode, str(path.readlink())))
+                elif path.is_file():
+                    rows.append((str(path), "file", mode, path.read_bytes()))
+                else:
+                    rows.append((str(path), "directory", mode, b""))
+        return tuple(rows)
+
+    def run(
+        self, *args: str, cwd: Path | None = None
+    ) -> subprocess.CompletedProcess[str]:
         return self.shell([self.bash, self.root / "bin/remote-ssh", *args], cwd=cwd)
 
     def shell(
@@ -49,12 +82,14 @@ class CliInstall:
         )
 
 
-def prepare_cli_install(repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str) -> CliInstall:
+def prepare_cli_install(
+    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str
+) -> CliInstall:
     """Real runtime tree; only network/transport boundaries are replaced."""
     root = isolated_env.home / "repo space ' $ ; &"
     root.mkdir()
     for name in ("bin", "lib", "shell", "dots", "tools", "docs"):
-        shutil.copytree(repo_dir / name, root / name)
+        copy_public_tree(repo_dir, name, root / name)
     shutil.copy2(repo_dir / "runme.sh", root / "runme.sh")
     shutil.rmtree(root / "tools/defs")
     (root / "tools/defs").mkdir()
@@ -103,19 +138,27 @@ def prepare_cli_install(repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash:
     # Disable optional shell integrations, including the network-capable update hook.
     env["REMOTE_SSH_UPDATE_CHECK"] = "0"
     env["REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY"] = "0"
-    return CliInstall(root, env, isolated_env.home, install_bin, isolated_env.bin_dir, runtime_bash)
+    return CliInstall(
+        root, env, isolated_env.home, install_bin, isolated_env.bin_dir, runtime_bash
+    )
 
 
 @pytest.fixture
-def cli_install(repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str) -> CliInstall:
+def cli_install(
+    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str
+) -> CliInstall:
     return prepare_cli_install(repo_dir, isolated_env, runtime_bash)
 
 
 def footer_commands(output: str) -> tuple[str, str, str | None]:
     lines = output.splitlines()
-    guide = next(line.strip().removeprefix("run: ") for line in lines if "  run: " in line)
+    guide = next(
+        line.strip().removeprefix("run: ") for line in lines if "  run: " in line
+    )
     start = next(
-        line.strip() for line in lines if line.startswith("  ") and line.rstrip().endswith(" shell")
+        line.strip()
+        for line in lines
+        if line.startswith("  ") and line.rstrip().endswith(" shell")
     )
     export = next((line.strip() for line in lines if "  export PATH=" in line), None)
     return guide, start, export
@@ -137,11 +180,13 @@ def test_install_ownership_reinstall_and_destination(
         result = c.run("install", "--yes", "demo")
         assert_ok(result)
         assert c.command.readlink() == c.root / "bin/remote-ssh"
-        assert set(p.name for p in c.bin.iterdir()) == {"demo", "remote-ssh"}
-        assert c.expected.read_text().splitlines()[-1] == "demo"
+        assert set(
+            p.name for p in c.bin.iterdir() if not p.name.startswith(".remote-ssh-")
+        ) == {"demo", "remote-ssh"}
+        assert not c.expected.exists()
         assert not c.network.exists()
     before = c.command.lstat()
-    assert_ok(c.run("install"))  # Saved set needs no new confirmation.
+    assert_failed(c.run("install"))  # Explicit choice is always required.
     assert c.command.lstat().st_ino == before.st_ino
     other = c.home / "new bin"
     other.mkdir()
@@ -238,7 +283,9 @@ def test_absent_bin_and_failure_after_publication(cli_install: CliInstall) -> No
 
 
 @pytest.mark.parametrize("occupied", ["file", "directory", "symlink"])
-def test_publication_rechecks_and_never_nests(cli_install: CliInstall, occupied: str) -> None:
+def test_publication_rechecks_and_never_nests(
+    cli_install: CliInstall, occupied: str
+) -> None:
     c = cli_install
     # A controlled ln boundary occupies the final entry after the last ownership
     # check, proving the real ln directory operand never descends into it.
@@ -294,13 +341,16 @@ def test_bootstrap_links_override_and_doctor(cli_install: CliInstall) -> None:
         for args in (("--help",), ("guide", "post-install")):
             result = c.shell([command, *args], cwd=c.home.parent)
             assert_ok(result)
-            assert "Usage: remote-ssh" in result.stdout or "Interactive usage" in result.stdout
+            assert (
+                "Usage: remote-ssh" in result.stdout
+                or "Interactive usage" in result.stdout
+            )
     override = c.home / "override"
     shutil.copytree(c.root, override)
     c.env["REMOTE_ENV_DIR"] = str(override)
     assert str(override) in c.shell([c.command, "guide", "paths"]).stdout
     c.env["REMOTE_ENV_DIR"] = str(c.home / "missing checkout")
-    doctor = c.shell([c.command, "doctor"])
+    doctor = c.shell([c.command, "check"])
     assert "missing checkout" in doctor.stdout
     assert "No such file" not in doctor.stderr
     c.env.pop("REMOTE_ENV_DIR")
@@ -316,7 +366,11 @@ def test_bootstrap_links_override_and_doctor(cli_install: CliInstall) -> None:
     bootstrap = (
         (c.root / "bin/remote-ssh")
         .read_text()
-        .replace('script_path="${BASH_SOURCE[0]}"', f"script_path={shlex.quote(str(previous))}", 1)
+        .replace(
+            'script_path="${BASH_SOURCE[0]}"',
+            f"script_path={shlex.quote(str(previous))}",
+            1,
+        )
     )
     wrapper = c.home / "bootstrap-depth"
     wrapper.write_text(bootstrap)
@@ -354,21 +408,21 @@ def test_lifecycle_preserves_cli_and_user_paths(cli_install: CliInstall) -> None
 
 
 @pytest.mark.parametrize("failure", ["demo", "second", "prefix"])
-def test_tool_batch_failure_stops_without_completion(cli_install: CliInstall, failure: str) -> None:
+def test_tool_batch_failure_stops_without_completion(
+    cli_install: CliInstall, failure: str
+) -> None:
     c = cli_install
     (c.bin / "demo").unlink()
     c.expected.parent.mkdir(parents=True)
     c.expected.write_text("# user sentinel\ndemo\n")
     c.env["FAIL_TOOL"] = failure
     write_executable(
-        c.root / "tools/install-tool.sh",
-        """#!/usr/bin/env bash
-printf '%s\n' "$1" >> "$HOME/attempts"
-[[ "$1" != "$FAIL_TOOL" ]] || exit 23
-mkdir -p "$INSTALL_PREFIX/$1-1" || exit 1
-printf '#!/bin/sh\nexit 0\n' > "$INSTALL_PREFIX/$1-1/$1"
-chmod +x "$INSTALL_PREFIX/$1-1/$1"
-ln -s "$INSTALL_PREFIX/$1-1/$1" "$INSTALL_BIN_DIR/$1"
+        c.transport / "curl",
+        """#!/bin/sh
+name="${3##*/}"
+printf '%s\n' "$name" >> "$HOME/attempts"
+[ "$name" != "$FAIL_TOOL" ] || exit 23
+printf '#!/bin/sh\nexit 0\n' > "$2"
 """,
     )
     rcfile = c.root / "shell/rc.sh"
@@ -403,12 +457,15 @@ if remote_ssh_cmd_install_main "$1" --yes demo second third; then exit 0; else e
     assert rcfile.stat().st_mode & 0o111 == 0
     assert helper.stat().st_mode & 0o111 == 0
     assert "Done." not in result.stdout and "Installed CLI:" not in result.stdout
-    assert c.command.is_symlink()
-    assert_ok(c.shell([c.command, "--help"]))
+    if failure != "prefix":
+        assert c.command.is_symlink()
+        assert_ok(c.shell([c.command, "--help"]))
     assert not c.network.exists()
 
 
-def test_absent_destination_success_uses_real_tool_installer(cli_install: CliInstall) -> None:
+def test_absent_destination_success_uses_real_tool_installer(
+    cli_install: CliInstall,
+) -> None:
     c = cli_install
     c.bin = c.home / "new/deep/bin"
     c.env["INSTALL_BIN_DIR"] = str(c.bin)
@@ -429,7 +486,9 @@ printf '#!/bin/sh\nprintf fixture-tool\n' > "$2"
     assert (c.home / "opt/second-1/.remote-ssh-release").is_file()
     assert (c.home / "fixture-downloads").read_text().count("https://") == 1
     assert not c.network.exists()
-    assert set(p.name for p in c.bin.iterdir()) == {"remote-ssh", "second"}
+    assert set(
+        p.name for p in c.bin.iterdir() if not p.name.startswith(".remote-ssh-")
+    ) == {"remote-ssh", "second"}
 
 
 def test_install_respects_effective_checkout_override(cli_install: CliInstall) -> None:

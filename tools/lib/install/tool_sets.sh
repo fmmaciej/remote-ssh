@@ -22,7 +22,7 @@ default_tool_supported_on_platform() {
   local tool="$1" raw_os="$2" raw_arch="$3" libc="$4"
   local def_dir="$TOOLS_DIR/defs"
 
-  load_defs "$def_dir" "$tool"
+  load_defs "$def_dir" "$tool" || return 2
   select_asset "$raw_os" "$raw_arch" "$libc" ${ASSETS[@]+"${ASSETS[@]}"} >/dev/null
 }
 
@@ -109,7 +109,7 @@ current_unsupported_install_profile_tools() {
 }
 
 filter_tools_for_current_platform() {
-  local platform raw_os raw_arch libc tool
+  local platform raw_os raw_arch libc tool status
 
   REMOTE_SSH_SUPPORTED_TOOLS=()
   REMOTE_SSH_UNSUPPORTED_TOOLS=()
@@ -124,26 +124,9 @@ filter_tools_for_current_platform() {
     elif default_tool_supported_on_platform "$tool" "$raw_os" "$raw_arch" "$libc"; then
       REMOTE_SSH_SUPPORTED_TOOLS+=("$tool")
     else
+      status=$?
+      ((status == 1)) || return 1
       REMOTE_SSH_UNSUPPORTED_TOOLS+=("$tool")
     fi
   done
-}
-
-read_expected_tools_for_current_platform() {
-  local tool
-  local -a configured=()
-
-  REMOTE_SSH_EXPECTED_TOOLS=()
-  REMOTE_SSH_UNSUPPORTED_TOOLS=()
-  REMOTE_SSH_UNKNOWN_TOOLS=()
-
-  expected_tools_exists || return 1
-
-  while IFS= read -r tool; do
-    [[ -n "$tool" ]] && configured+=("$tool")
-  done < <(read_expected_tools)
-
-  filter_tools_for_current_platform ${configured[@]+"${configured[@]}"}
-  REMOTE_SSH_EXPECTED_TOOLS=(${REMOTE_SSH_SUPPORTED_TOOLS[@]+"${REMOTE_SSH_SUPPORTED_TOOLS[@]}"})
-  return 0
 }

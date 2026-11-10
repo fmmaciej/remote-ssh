@@ -26,10 +26,7 @@ script_repo_dir="$(cd "$SCRIPT_DIR/.." && pwd -P)" || exit 1
 requested_repo_dir="${REMOTE_ENV_DIR:-}"
 repo_dir="${requested_repo_dir:-$script_repo_dir}"
 lib_repo_dir="$repo_dir"
-
-if [[ ! -f "$lib_repo_dir/tools/lib/env.sh" && "${1:-}" == "doctor" ]]; then
-  lib_repo_dir="$script_repo_dir"
-fi
+if [[ ! -f "$lib_repo_dir/tools/lib/env.sh" && "${1:-}" == check ]]; then lib_repo_dir="$script_repo_dir"; fi
 
 # shellcheck source=/dev/null
 . "$lib_repo_dir/tools/lib/env.sh"
@@ -43,19 +40,16 @@ Usage: remote-ssh <command> [args]
 Commands:
   shell                     Start an interactive remote-ssh Bash
   setup                     Configure bundled SSH and Git defaults
-  install [tool ...]        Install expected or selected remote-ssh tools
+  install [--yes] TOOL ...        Install selected pinned tools
   install --profile <name>  Install mini, quick, or full profile
-  install --full [--yes]    Install all supported default tools
-  uninstall [--yes] [tool ...]
+  uninstall [--yes] TOOL ...
                             Uninstall managed remote-ssh tools
-  tool install <tool ...>   Install selected pinned tools
-  tool list [--installed | --all]
+  list [--installed | --all]
                             List available tools and managed installations
-  check [--strict] [tool]   Report pinned tools vs local bin and PATH
+  check [tool ...]          Check environment and managed or selected tools
   update [check]            Refresh checkout, or check whether upstream changed
   ssh <command>             Configure and inspect SSH integration
   git <command>             Configure and inspect Git integration
-  doctor                    Check runtime requirements and installed tools
   prune [--apply]           Report or remove unused installed tool releases
   scripts --list            List bundled helper scripts
   guide [section]           Show shell configuration guide
@@ -77,12 +71,11 @@ main() {
     setup) shift; remote_ssh_cmd_setup_main "$@" ;;
     install) shift; remote_ssh_cmd_install_main "$repo_dir" "$@" ;;
     uninstall) shift; remote_ssh_cmd_uninstall_main "$@" ;;
-    tool) shift; remote_ssh_cmd_tool_main "$@" ;;
-    check) shift; remote_ssh_cmd_check_main "$@" ;;
+    list) shift; remote_ssh_cmd_list_main "$@" ;;
+    check) shift; remote_ssh_cmd_check_main "$repo_dir" "$script_repo_dir" "$requested_repo_dir" "$@" ;;
     ssh) shift; remote_ssh_cmd_ssh_main "$@" ;;
     git) shift; remote_ssh_cmd_git_main "$@" ;;
     update) shift; remote_ssh_cmd_update_main "$repo_dir" "$@" ;;
-    doctor) shift; (($# == 0)) || die_usage; remote_ssh_cmd_doctor_main "$repo_dir" "$script_repo_dir" "$requested_repo_dir" ;;
     prune) shift; remote_ssh_cmd_prune_main "$@" ;;
     scripts) shift; remote_ssh_cmd_scripts_main "$@" ;;
     guide) shift; remote_ssh_cmd_guide_main "$@" ;;

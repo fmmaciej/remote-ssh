@@ -6,32 +6,66 @@ from pathlib import Path
 from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd, run_remote_ssh
 
 
-def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+def test_remote_ssh_guide_lists_core_entries(
+    repo_dir: Path, isolated_env: IsolatedEnv
+) -> None:
     result = run_remote_ssh(repo_dir, ["guide"], env=isolated_env.env)
 
     assert_ok(result)
     assert "remote-ssh guide" in result.stdout
     assert "Commands" in result.stdout
-    assert "remote-ssh shell            Start an interactive remote-ssh Bash" in result.stdout
-    assert "  remote-ssh guide [section]  Show this configuration guide" in result.stdout
-    assert "  remote-ssh uninstall [tool ...]" in result.stdout
-    assert "  remote-ssh setup            Configure bundled SSH and Git defaults" in result.stdout
     assert (
-        "  remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
+        "remote-ssh shell            Start an interactive remote-ssh Bash"
+        in result.stdout
+    )
+    assert (
+        "  remote-ssh guide [section]  Show this configuration guide" in result.stdout
+    )
+    assert "  remote-ssh uninstall TOOL ..." in result.stdout
+    assert (
+        "  remote-ssh setup            Configure bundled SSH and Git defaults"
+        in result.stdout
+    )
+    assert (
+        "  remote-ssh git setup        Add remote-ssh Git config via include.path"
+        in result.stdout
     )
     assert (
         "  remote-ssh git status       Check Git identity, session override, and origin"
         in result.stdout
     )
-    assert "  remote-ssh ssh setup        Add remote-ssh SSH config include" in result.stdout
-    assert "  remote-ssh ssh status       Check SSH config, host, agent, and auth" in result.stdout
+    assert (
+        "  remote-ssh ssh setup        Add remote-ssh SSH config include"
+        in result.stdout
+    )
+    assert (
+        "  remote-ssh ssh status       Check SSH config, host, agent, and auth"
+        in result.stdout
+    )
     assert "  remote-ssh scripts --list   List bundled helper scripts" in result.stdout
-    assert "  remote-ssh guide config     Show runtime config sources and values" in result.stdout
-    assert "  bssh                        Run bssh with the shared SSH config" in result.stdout
-    assert "  bssh-ip                     Print resolved SSH host address" in result.stdout
-    assert "  ssh-find                    Find an SSH host by name/IP with sk" in result.stdout
-    assert "  ssh-pick                    Pick an SSH host by name/IP and connect" in result.stdout
-    assert "  remote-ssh guide starship   Explain prompt and Git status symbols" in result.stdout
+    assert (
+        "  remote-ssh guide config     Show runtime config sources and values"
+        in result.stdout
+    )
+    assert (
+        "  bssh                        Run bssh with the shared SSH config"
+        in result.stdout
+    )
+    assert (
+        "  bssh-ip                     Print resolved SSH host address" in result.stdout
+    )
+    assert (
+        "  ssh-find                    Find an SSH host by name/IP with sk"
+        in result.stdout
+    )
+    assert (
+        "  ssh-pick                    Pick an SSH host by name/IP and connect"
+        in result.stdout
+    )
+    assert (
+        "  remote-ssh guide starship   Explain prompt and Git status symbols"
+        in result.stdout
+    )
     assert "  remote-ssh guide post-install" in result.stdout
     assert "  alias rhelp='remote-ssh guide'" in result.stdout
     assert "  log" in result.stdout
@@ -42,7 +76,10 @@ def test_remote_ssh_guide_lists_core_entries(repo_dir: Path, isolated_env: Isola
     assert "Scripts" in result.stdout
     assert "remote-ssh Starship prompt" in result.stdout
     assert f"    {repo_dir}/dots/git/user.local" in result.stdout
-    assert "    git remote set-url origin git@github.com-myuser:OWNER/REPO.git" in result.stdout
+    assert (
+        "    git remote set-url origin git@github.com-myuser:OWNER/REPO.git"
+        in result.stdout
+    )
 
 
 def test_remote_ssh_guide_supports_aliases_section(
@@ -75,7 +112,9 @@ def test_remote_ssh_guide_supports_functions_section(
     assert "Commands" not in result.stdout
 
 
-def test_remote_ssh_guide_supports_git_section(repo_dir: Path, isolated_env: IsolatedEnv) -> None:
+def test_remote_ssh_guide_supports_git_section(
+    repo_dir: Path, isolated_env: IsolatedEnv
+) -> None:
     result = run_remote_ssh(repo_dir, ["guide", "git"], env=isolated_env.env)
 
     assert_ok(result)
@@ -194,7 +233,8 @@ def test_remote_ssh_guide_config_ignores_legacy_and_stale_source_markers(
             "-c",
             'export REMOTE_SSH_WELCOME_USER=1; . "$REMOTE_SHELL_DIR/rc.sh"; remote-ssh guide config',
         ],
-        env=isolated_env.env | {"REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0"},
+        env=isolated_env.env
+        | {"REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0"},
     )
 
     assert_ok(post_load_override)
@@ -209,7 +249,8 @@ def test_remote_ssh_guide_config_ignores_legacy_and_stale_source_markers(
             "-c",
             'export REMOTE_SSH_CONFIG=0; . "$REMOTE_SHELL_DIR/rc.sh"; remote-ssh guide config',
         ],
-        env=isolated_env.env | {"REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0"},
+        env=isolated_env.env
+        | {"REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0"},
     )
 
     assert_ok(disabled_after_load)
@@ -238,7 +279,8 @@ def test_remote_ssh_guide_config_preserves_rc_config_provenance(
             "-c",
             "remote-ssh guide config",
         ],
-        env=isolated_env.env | {"REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0"},
+        env=isolated_env.env
+        | {"REMOTE_SSH_WELCOME": "0", "REMOTE_SSH_UPDATE_CHECK": "0"},
     )
 
     assert_ok(result)
@@ -288,7 +330,9 @@ def test_remote_ssh_guide_config_uses_shared_config_entries(
     )
     assert_ok(entries)
 
-    result = run_remote_ssh(repo_dir, ["guide", "config"], env=env | {"REMOTE_SSH_CONFIG": "0"})
+    result = run_remote_ssh(
+        repo_dir, ["guide", "config"], env=env | {"REMOTE_SSH_CONFIG": "0"}
+    )
     assert_ok(result)
 
     for line in entries.stdout.splitlines():
@@ -381,7 +425,9 @@ def test_remote_ssh_guide_scripts_supports_single_helper(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
 ) -> None:
-    result = run_remote_ssh(repo_dir, ["guide", "scripts", "ssh-pick"], env=isolated_env.env)
+    result = run_remote_ssh(
+        repo_dir, ["guide", "scripts", "ssh-pick"], env=isolated_env.env
+    )
 
     assert_ok(result)
     output = result.stdout
@@ -397,7 +443,9 @@ def test_remote_ssh_guide_scripts_supports_ssh_find_helper(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
 ) -> None:
-    result = run_remote_ssh(repo_dir, ["guide", "scripts", "ssh-find"], env=isolated_env.env)
+    result = run_remote_ssh(
+        repo_dir, ["guide", "scripts", "ssh-find"], env=isolated_env.env
+    )
 
     assert_ok(result)
     output = result.stdout
@@ -415,7 +463,9 @@ def test_remote_ssh_guide_scripts_supports_bssh_ip_helper(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
 ) -> None:
-    result = run_remote_ssh(repo_dir, ["guide", "scripts", "bssh-ip"], env=isolated_env.env)
+    result = run_remote_ssh(
+        repo_dir, ["guide", "scripts", "bssh-ip"], env=isolated_env.env
+    )
 
     assert_ok(result)
     output = result.stdout
@@ -432,7 +482,9 @@ def test_remote_ssh_guide_scripts_rejects_unknown_helper(
     repo_dir: Path,
     isolated_env: IsolatedEnv,
 ) -> None:
-    result = run_remote_ssh(repo_dir, ["guide", "scripts", "sshf"], env=isolated_env.env)
+    result = run_remote_ssh(
+        repo_dir, ["guide", "scripts", "sshf"], env=isolated_env.env
+    )
 
     assert_failed(result)
     assert "Unknown remote-ssh script helper: sshf" in result.stderr
@@ -481,11 +533,15 @@ def test_remote_ssh_guide_supports_post_install_section(
     assert "VS Code Remote-SSH terminal profile" in output
     assert "Optional Git and SSH setup" in output
     commands = [
-        line.strip() for line in output.splitlines() if line.strip().startswith("bash --rcfile ")
+        line.strip()
+        for line in output.splitlines()
+        if line.strip().startswith("bash --rcfile ")
     ]
     assert len(commands) == 1
     capture_env = {
-        key: value for key, value in isolated_env.env.items() if key not in ("BASH_ENV", "ENV")
+        key: value
+        for key, value in isolated_env.env.items()
+        if key not in ("BASH_ENV", "ENV")
     }
     captured = run_cmd(
         [
@@ -506,7 +562,9 @@ def test_remote_ssh_guide_supports_post_install_section(
     assert "@INSTALL_DIR@" not in output
     assert "@INTERACTIVE_COMMAND@" not in output
     assert "@SHELL_COMMAND@" not in output
-    primary = next(line.strip() for line in output.splitlines() if line.endswith(" shell"))
+    primary = next(
+        line.strip() for line in output.splitlines() if line.endswith(" shell")
+    )
     # Capture the rendered command as shell syntax, including its executable token.
     captured_primary = subprocess.run(
         [
@@ -524,3 +582,36 @@ def test_remote_ssh_guide_supports_post_install_section(
     )
     assert_ok(captured_primary)
     assert captured_primary.stdout == str(repo_dir / "bin/remote-ssh") + "\0shell\0"
+
+
+def test_actual_root_guide_snapshot_never_requests_private_git_identity(
+    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str
+) -> None:
+    import shlex
+    import shutil
+    from conftest import write_executable
+
+    assert isolated_env.env["REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY"] == "0"
+    (isolated_env.bin_dir / "bash").symlink_to(runtime_bash)
+    denied = isolated_env.home / "identity-read-request"
+    real_git = shutil.which("git")
+    assert real_git
+    # Deny before any --file read. The real configuration is neither opened nor
+    # hashed, even if a future test/environment regression requests it.
+    write_executable(
+        isolated_env.bin_dir / "git",
+        f"""#!/bin/sh
+config=0
+for argument do
+  [ "$argument" != config ] || config=1
+  case "$argument" in
+    --file|-f) if [ "$config" = 1 ]; then printf denied >{shlex.quote(str(denied))}; exit 91; fi ;;
+  esac
+done
+exec {shlex.quote(real_git)} "$@"
+""",
+    )
+    for mode in ("aliases", "functions"):
+        result = run_remote_ssh(repo_dir, ["guide", mode], env=isolated_env.env)
+        assert_ok(result)
+        assert not denied.exists()

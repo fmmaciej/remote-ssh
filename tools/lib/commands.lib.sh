@@ -20,16 +20,23 @@ remote_ssh_cmd_require_install_libs() {
 
 . "$TOOLS_COMMANDS_DIR/install.sh"
 . "$TOOLS_COMMANDS_DIR/uninstall.sh"
-. "$TOOLS_COMMANDS_DIR/tool.sh"
+. "$TOOLS_COMMANDS_DIR/list.sh"
 . "$TOOLS_COMMANDS_DIR/tool_status.sh"
 . "$TOOLS_COMMANDS_DIR/check.sh"
 . "$TOOLS_COMMANDS_DIR/ssh.sh"
 . "$TOOLS_COMMANDS_DIR/update.sh"
 . "$TOOLS_COMMANDS_DIR/git.sh"
 . "$TOOLS_COMMANDS_DIR/setup.sh"
-. "$TOOLS_COMMANDS_DIR/doctor.sh"
 . "$TOOLS_COMMANDS_DIR/prune.sh"
 . "$TOOLS_COMMANDS_DIR/scripts.sh"
 . "$TOOLS_COMMANDS_DIR/guide.sh"
 . "$TOOLS_COMMANDS_DIR/help.sh"
 . "$TOOLS_COMMANDS_DIR/shell.sh"
+
+
+remote_ssh_cmd_require_managed_libs() {
+  remote_ssh_cmd_require_install_libs
+  [[ "${REMOTE_SSH_MANAGED_LIBS_LOADED:-0}" != 1 ]] || return 0
+  . "$TOOLS_LIB_DIR/managed.lib.sh"
+  REMOTE_SSH_MANAGED_LIBS_LOADED=1
+}

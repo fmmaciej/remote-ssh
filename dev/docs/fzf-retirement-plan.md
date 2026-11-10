@@ -20,7 +20,7 @@ The expected-tools file and independently installed fzf belong to the user.
 No update automatically edits configuration, removes software or changes finder
 preferences. No SSH connection or fleet-wide inspection is part of phase 1.
 
-## Phase 1: prepare migration
+## Phase 1: prepare migration (historical delivery record)
 
 Commit: `chore(fzf): prepare retirement and document migration`.
 
@@ -48,10 +48,9 @@ Commit: `chore(fzf): prepare retirement and document migration`.
 After phase 1 is available, each used installation must:
 
 1. Use its existing INSTALL_PREFIX, INSTALL_BIN_DIR and XDG configuration.
-2. Run `remote-ssh tool install sk` and `remote-ssh check --strict sk`.
-3. Change an existing fzf entry in expected-tools to sk, avoiding duplicates and
-   preserving unrelated entries. If configuration is absent, choose the desired
-   tool set deliberately rather than creating/replacing it automatically.
+2. Run `remote-ssh install sk` and `remote-ssh check sk`.
+3. Keep the automatic managed set; no expected-tools edit is required. Current
+   install/check/migration rules are in [the installation guide](../../docs/install.md#managed-set-and-migration).
 4. Review an explicit NAVI_FINDER=fzf and custom picker flags. Navi's
    NAVI_FZF_OVERRIDES names remain valid; arbitrary FZF_DEFAULT_OPTS are not
    automatically translated into skim options.
@@ -66,6 +65,11 @@ The two delivery commits are separate deployment stages, not one combined push.
 Phase 1 does not claim that host migration has already happened.
 
 ## Phase 2: retire the active definition
+
+The all-host gate above still applies. Lifecycle follow-up supersedes old
+expected-tools/unknown-name cleanup assumptions below: recorded names remain
+retired/protected, and unrecorded old hosts use the pinned recovery guide. This
+release does not implement phase 2.
 
 Commit: `chore(tools): retire managed fzf package`.
 

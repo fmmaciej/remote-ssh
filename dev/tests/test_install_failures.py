@@ -24,16 +24,25 @@ from conftest import IsolatedEnv, assert_failed, assert_ok, run_cmd, write_execu
             "none",
         )
         for kind in ("raw", "tar", "tar.xz")
-        if (failure != "archive" or kind != "raw") and (failure != "xz-support" or kind == "tar.xz")
+        if (failure != "archive" or kind != "raw")
+        and (failure != "xz-support" or kind == "tar.xz")
     ],
 )
 def test_public_installer_preserves_previous_release_on_download_failure(
-    repo_dir: Path, isolated_env: IsolatedEnv, runtime_bash: str, kind: str, failure: str
+    repo_dir: Path,
+    isolated_env: IsolatedEnv,
+    runtime_bash: str,
+    kind: str,
+    failure: str,
 ) -> None:
     root = isolated_env.home / "installer"
     shutil.copytree(repo_dir / "lib", root / "lib")
     shutil.copytree(repo_dir / "tools" / "lib", root / "tools" / "lib")
-    shutil.copy2(repo_dir / "tools" / "install-tool.sh", root / "tools" / "install-tool.sh")
+    shutil.copy2(
+        repo_dir / "tools" / "install-tool.sh", root / "tools" / "install-tool.sh"
+    )
+    for code_dir in ("bin", "shell"):
+        shutil.copytree(repo_dir / code_dir, root / code_dir)
     defs = root / "tools" / "defs"
     defs.mkdir()
     payload = isolated_env.home / "payload"
@@ -82,6 +91,9 @@ def test_public_installer_preserves_previous_release_on_download_failure(
     opt = isolated_env.home / "opt"
     old = opt / "demo-0" / "demo"
     write_executable(old, "#!/bin/sh\nprintf old\n")
+    (old.parent / ".remote-ssh-release").write_text(
+        "format=1\ntool=demo\nversion=0\nlayout=binary\nexecutable=demo\n"
+    )
     link = isolated_env.bin_dir / "demo"
     link.symlink_to(old)
     alias = isolated_env.bin_dir / "demo-alias"
@@ -90,6 +102,7 @@ def test_public_installer_preserves_previous_release_on_download_failure(
     temp.mkdir()
     env = isolated_env.env | {
         "INSTALL_PREFIX": str(opt),
+        "REMOTE_ENV_DIR": str(root),
         "INSTALL_BIN_DIR": str(isolated_env.bin_dir),
         "TMPDIR": str(temp),
     }
@@ -112,12 +125,18 @@ def test_public_installer_preserves_previous_release_on_download_failure(
             "ln",
             "readlink",
             "gzip",
+            "ls",
+            "sleep",
+            "rmdir",
+            "cat",
         ):
             executable = shutil.which(command)
             assert executable
             (isolated_env.bin_dir / command).symlink_to(executable)
         env["PATH"] = str(isolated_env.bin_dir)
-    result = run_cmd([runtime_bash, root / "tools" / "install-tool.sh", "demo"], env=env)
+    result = run_cmd(
+        [runtime_bash, root / "bin/remote-ssh", "install", "demo", "--yes"], env=env
+    )
     if failure == "none":
         assert_ok(result)
         assert run_cmd([link], env=env).stdout == "new"
@@ -130,14 +149,18 @@ def test_public_installer_preserves_previous_release_on_download_failure(
         assert_failed(result)
         if failure == "checksum":
             assert "Checksum mismatch" in result.stderr
-            assert not extractor_calls.exists(), "Bad-checksum asset reached the extractor"
+            assert not extractor_calls.exists(), (
+                "Bad-checksum asset reached the extractor"
+            )
         if kind == "tar.xz" and failure in ("archive", "xz-support"):
             assert ".tar.xz needs tar with xz support" in result.stderr
         assert link.readlink() == old
         assert alias.readlink() == old
         assert run_cmd([link], env=env).stdout == "old"
         assert run_cmd([alias], env=env).stdout == "old"
-        assert list(opt.iterdir()) == [old.parent]
+        assert all(
+            path == old.parent or path.name.startswith(".") for path in opt.iterdir()
+        )
     assert list(temp.iterdir()) == []
 
 
@@ -167,4 +190,6 @@ def test_install_without_optional_arrays_under_nounset(
         },
     )
     assert_ok(result)
-    assert run_cmd([isolated_env.bin_dir / "demo"], env=isolated_env.env).stdout == "demo"
+    assert (
+        run_cmd([isolated_env.bin_dir / "demo"], env=isolated_env.env).stdout == "demo"
+    )

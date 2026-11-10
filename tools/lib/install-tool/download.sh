@@ -87,8 +87,6 @@ download_and_extract() {
   local url checksum
   url="https://github.com/${repo}/releases/download/${release_tag}/${asset_name}"
 
-  mkdir -p "$INSTALL_PREFIX" "$INSTALL_BIN_DIR" || return 1
-
   REMOTE_SSH_DOWNLOAD_DIR="$(mktemp -d "${TMPDIR:-/tmp}/remote-ssh-download.XXXXXX")" || return 1
   trap '[[ -z "${REMOTE_SSH_DOWNLOAD_DIR:-}" ]] || rm -rf -- "$REMOTE_SSH_DOWNLOAD_DIR"' EXIT
 

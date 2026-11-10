@@ -23,25 +23,33 @@ from conftest import (
         (["help"], 0),
         (["shell", "-h"], 0),
         (["shell", "--help"], 0),
-        (["tool", "list"], 0),
-        (["tool", "list", "--installed"], 0),
-        (["tool", "list", "--all"], 0),
-        (["check", "rg"], 0),
+        (["list"], 0),
+        (["list", "--installed"], 0),
+        (["list", "--all"], 0),
+        (["check", "rg"], 1),
         (["check", "--strict", "rg"], 1),
-        (["uninstall", "--yes"], 0),
+        (["uninstall", "--yes"], 1),
         (["prune"], 0),
     ],
 )
 def test_public_commands_with_empty_state_on_supported_bash(
-    repo_dir: Path, tool_env: ToolStateEnv, runtime_bash: str, args: list[str], code: int
+    repo_dir: Path,
+    tool_env: ToolStateEnv,
+    runtime_bash: str,
+    args: list[str],
+    code: int,
 ) -> None:
     (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
-    result = run_cmd([runtime_bash, repo_dir / "bin/remote-ssh", *args], env=tool_env.env)
+    result = run_cmd(
+        [runtime_bash, repo_dir / "bin/remote-ssh", *args], env=tool_env.env
+    )
     assert result.returncode == code, result.stdout + result.stderr
     assert "unbound variable" not in result.stderr
 
 
-def test_remote_ssh_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStateEnv) -> None:
+def test_remote_ssh_usage_and_unknown_command(
+    repo_dir: Path, tool_env: ToolStateEnv
+) -> None:
     result = run_remote_ssh(repo_dir, ["--help"], env=tool_env.env)
     assert_ok(result)
     assert "Usage: remote-ssh <command> [args]" in result.stdout
@@ -52,11 +60,14 @@ def test_remote_ssh_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStat
     assert "git <command>" in result.stdout
     assert "update [check]" in result.stdout
     assert "install --profile <name>" in result.stdout
-    assert "install --full [--yes]" in result.stdout
-    assert "uninstall [--yes] [tool ...]" in result.stdout
-    assert "tool list" in result.stdout
+    assert "install --full" not in result.stdout
+    assert "uninstall [--yes] TOOL ..." in result.stdout
+    assert "list [--installed | --all]" in result.stdout
     assert "scripts --list" in result.stdout
-    assert "shell                     Start an interactive remote-ssh Bash" in result.stdout
+    assert (
+        "shell                     Start an interactive remote-ssh Bash"
+        in result.stdout
+    )
 
     result = run_remote_ssh(repo_dir, ["help"], env=tool_env.env)
     assert_ok(result)
@@ -73,32 +84,56 @@ def test_remote_ssh_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStat
     assert "Unknown remote-ssh command: wat" in result.stderr
 
 
-def test_remote_ssh_guide_renders_commands_section(repo_dir: Path, tool_env: ToolStateEnv) -> None:
+def test_remote_ssh_guide_renders_commands_section(
+    repo_dir: Path, tool_env: ToolStateEnv
+) -> None:
     result = run_remote_ssh(repo_dir, ["guide", "commands"], env=tool_env.env)
 
     assert_ok(result)
     assert "Commands" in result.stdout
     assert "remote-ssh guide [section]  Show this configuration guide" in result.stdout
     assert "remote-ssh install --profile <name>" in result.stdout
-    assert "remote-ssh check --strict   Report pinned tools vs local bin and PATH" in result.stdout
-    assert "remote-ssh tool list [--installed | --all]" in result.stdout
+    assert "remote-ssh check" in result.stdout
+    assert "remote-ssh list [--installed | --all]" in result.stdout
     assert "List available tools and managed installations" in result.stdout
-    assert "remote-ssh uninstall [tool ...]" in result.stdout
-    assert "remote-ssh setup            Configure bundled SSH and Git defaults" in result.stdout
-    assert "remote-ssh git setup        Add remote-ssh Git config via include.path" in result.stdout
-    assert "remote-ssh ssh setup        Add remote-ssh SSH config include" in result.stdout
-    assert "remote-ssh ssh status       Check SSH config, host, agent, and auth" in result.stdout
-    assert "remote-ssh update check     Check whether upstream has changed" in result.stdout
+    assert "remote-ssh uninstall TOOL ..." in result.stdout
+    assert (
+        "remote-ssh setup            Configure bundled SSH and Git defaults"
+        in result.stdout
+    )
+    assert (
+        "remote-ssh git setup        Add remote-ssh Git config via include.path"
+        in result.stdout
+    )
+    assert (
+        "remote-ssh ssh setup        Add remote-ssh SSH config include" in result.stdout
+    )
+    assert (
+        "remote-ssh ssh status       Check SSH config, host, agent, and auth"
+        in result.stdout
+    )
+    assert (
+        "remote-ssh update check     Check whether upstream has changed"
+        in result.stdout
+    )
     assert "remote-ssh scripts --list   List bundled helper scripts" in result.stdout
-    assert "remote-ssh shell            Start an interactive remote-ssh Bash" in result.stdout
+    assert (
+        "remote-ssh shell            Start an interactive remote-ssh Bash"
+        in result.stdout
+    )
 
 
-def test_remote_ssh_git_usage_and_unknown_command(repo_dir: Path, tool_env: ToolStateEnv) -> None:
+def test_remote_ssh_git_usage_and_unknown_command(
+    repo_dir: Path, tool_env: ToolStateEnv
+) -> None:
     result = run_remote_ssh(repo_dir, ["git", "--help"], env=tool_env.env)
     assert_ok(result)
     assert "Usage: remote-ssh git <command> [args]" in result.stdout
     assert "setup" in result.stdout
-    assert "status             Report Git identity, session override, and origin" in result.stdout
+    assert (
+        "status             Report Git identity, session override, and origin"
+        in result.stdout
+    )
     assert "status [ssh-host]" not in result.stdout
 
     result = run_remote_ssh(repo_dir, ["git", "wat"], env=tool_env.env)
@@ -116,14 +151,24 @@ def test_remote_ssh_check_delegates_to_check_command(
 
     assert_ok(result)
     assert "remote-ssh check" in result.stdout
-    assert "status:    ok" in result.stdout
+    assert "installed ok" in result.stdout
 
 
-def test_remote_ssh_tool_list_reports_install_state(repo_dir: Path, tool_env: ToolStateEnv) -> None:
+def test_remote_ssh_tool_list_reports_install_state(
+    repo_dir: Path, tool_env: ToolStateEnv
+) -> None:
     make_managed_tool(tool_env, "rg", "15.1.0")
 
-    result = run_remote_ssh(repo_dir, ["tool", "list"], env=tool_env.env)
+    result = run_remote_ssh(repo_dir, ["list"], env=tool_env.env)
 
     assert_ok(result)
-    assert result.stdout.splitlines()[0].split() == ["TOOL", "STATUS"]
-    assert ["rg", "installed"] in [line.split() for line in result.stdout.splitlines()[1:]]
+    assert result.stdout.splitlines()[0].split() == [
+        "TOOL",
+        "MEMBERSHIP",
+        "SUPPORT",
+        "STATUS",
+    ]
+    assert any(
+        row and row[0] == "rg" and "installed" in row
+        for row in (line.split() for line in result.stdout.splitlines()[1:])
+    )

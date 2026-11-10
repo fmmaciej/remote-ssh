@@ -11,23 +11,20 @@ Commands
   remote-ssh --help           Show concise CLI usage
   remote-ssh shell            Start an interactive remote-ssh Bash
   remote-ssh setup            Configure bundled SSH and Git defaults
-  remote-ssh install [tool]   Install expected or selected remote-ssh tools
+  remote-ssh install TOOL ... Install selected pinned tools
   remote-ssh install --profile <name>
                               Install mini, quick, or full profile
-  remote-ssh install --full   Install all supported default tools
-  remote-ssh uninstall [tool ...]
+  remote-ssh uninstall TOOL ...
                               Uninstall managed remote-ssh tools
-  remote-ssh tool install     Install selected pinned tools
-  remote-ssh tool list [--installed | --all]
+  remote-ssh list [--installed | --all]
                               List available tools and managed installations
-  remote-ssh check --strict   Report pinned tools vs local bin and PATH
+  remote-ssh check [TOOL ...]  Check environment and managed or selected tools
   remote-ssh git setup        Add remote-ssh Git config via include.path
   remote-ssh git status       Check Git identity, session override, and origin
   remote-ssh ssh setup        Add remote-ssh SSH config include
   remote-ssh ssh status       Check SSH config, host, agent, and auth
-  remote-ssh update           Refresh checkout from upstream, then run install
+  remote-ssh update           Refresh project, then repair managed set
   remote-ssh update check     Check whether upstream has changed
-  remote-ssh doctor           Check runtime requirements and installed tools
   remote-ssh prune [--apply]  Report or remove unused installed releases
   remote-ssh scripts --list   List bundled helper scripts
   remote-ssh guide [section]  Show this configuration guide

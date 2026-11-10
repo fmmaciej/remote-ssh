@@ -1,120 +1,40 @@
 # shellcheck shell=bash
+# shellcheck disable=SC2015
+# shellcheck source=/dev/null
 
 ensure_this_file_sourced
+. "$TOOLS_COMMANDS_DIR/check/environment.sh"
+. "$TOOLS_COMMANDS_DIR/check/render.sh"
 
-remote_ssh_cmd_check_usage() {
-  cat <<'EOF' >&2
-Usage: remote-ssh check [--strict] [tool ...]
-
-Reports pinned remote-ssh tools, local installation symlinks, and the binary
-that currently wins in PATH.
-
-Without tool arguments, checks the saved expected tool set from:
-  ${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/expected-tools
-
-With --strict, exits non-zero when a tool is missing, stale, external-only,
-shadowed, or otherwise not managed by remote-ssh.
-EOF
-}
-
-remote_ssh_cmd_check_report_tool() {
-  local tool="$1" def_dir="$2"
-  local alias_record alias_name alias_rest alias_path alias_target alias_status
-
-  remote_ssh_tool_status_load "$tool" "$def_dir"
-
-  printf '%s\n' "$REMOTE_SSH_TOOL_STATUS_TOOL_NAME"
-  printf '  %-10s %s\n' 'expected:' "$REMOTE_SSH_TOOL_STATUS_EXPECTED"
-  printf '  %-10s %s\n' 'local:' "$(remote_ssh_tool_status_print_path_value "$REMOTE_SSH_TOOL_STATUS_LOCAL_BIN")"
-  printf '  %-10s %s\n' 'target:' "$REMOTE_SSH_TOOL_STATUS_TARGET"
-  printf '  %-10s %s\n' 'path:' "$(remote_ssh_tool_status_print_path_value "$REMOTE_SSH_TOOL_STATUS_PATH_BIN")"
-  printf '  %-10s %s\n' 'status:' "$REMOTE_SSH_TOOL_STATUS_STATUS"
-
-  if ((${#REMOTE_SSH_TOOL_STATUS_ALIAS_RECORDS[@]} > 0)); then
-    for alias_record in ${REMOTE_SSH_TOOL_STATUS_ALIAS_RECORDS[@]+"${REMOTE_SSH_TOOL_STATUS_ALIAS_RECORDS[@]}"}; do
-      alias_name="${alias_record%%|*}"
-      alias_rest="${alias_record#*|}"
-      alias_path="${alias_rest%%|*}"
-      alias_rest="${alias_rest#*|}"
-      alias_target="${alias_rest%%|*}"
-      alias_status="${alias_rest#*|}"
-      printf '  %-10s %s -> %s status=%s target=%s\n' \
-        'alias:' \
-        "$alias_name" \
-        "$(remote_ssh_tool_status_print_path_value "$alias_path")" \
-        "$alias_status" \
-        "$alias_target"
-    done
-  fi
-
-  return "$REMOTE_SSH_TOOL_STATUS_PROBLEM"
-}
-
+remote_ssh_cmd_check_usage() { printf 'Usage: remote-ssh check [TOOL ...]\n'; }
 remote_ssh_cmd_check_main() {
-  remote_ssh_cmd_require_install_libs
-
-  local strict=0 arg tool def_dir problems=0
+  local BASH_ENV='' ENV=''
+  export BASH_ENV ENV
+  local repo="$1" script="$2" requested="$3" arg help=0 tool output code
+  shift 3
   local -a tools=()
-
-  REMOTE_SSH_UNKNOWN_TOOLS=()
-  REMOTE_SSH_UNSUPPORTED_TOOLS=()
-
   for arg in "$@"; do
     case "$arg" in
-      --strict) strict=1 ;;
-      -h|--help)
-        remote_ssh_cmd_check_usage
-        return 0
-        ;;
-      -*)
-        remote_ssh_cmd_check_usage
-        return 1
-        ;;
+      -h|--help) help=1 ;;
+      -*) printf 'Unexpected check option: %s\n' "$arg" >&2; return 1 ;;
       *) tools+=("$arg") ;;
     esac
   done
-
-  if ((${#tools[@]} == 0)); then
-    if ! read_expected_tools_for_current_platform; then
-      printf 'No expected tools config found: %s\n' "$(expected_tools_file)" >&2
-      printf 'Run: remote-ssh install --profile quick --yes\n' >&2
-      printf 'Or install a selected set, for example: remote-ssh install fd rg sk\n' >&2
-      return 1
-    fi
-    tools=(${REMOTE_SSH_EXPECTED_TOOLS[@]+"${REMOTE_SSH_EXPECTED_TOOLS[@]}"})
-  fi
-
-  ((${#tools[@]} > 0)) || {
-    printf 'No supported expected tools configured for this platform.\n' >&2
-    return 1
-  }
-
-  def_dir="$TOOLS_DIR/defs"
-
-  printf 'remote-ssh check\n\n'
-  printf 'Install paths\n'
-  printf '  %-10s %s\n' 'prefix:' "$INSTALL_PREFIX"
-  printf '  %-10s %s\n' 'bin:' "$INSTALL_BIN_DIR"
-
-  if ((${#REMOTE_SSH_UNKNOWN_TOOLS[@]} > 0)); then
-    printf '\nWarnings\n'
-    printf '  unknown expected tool: %s\n' ${REMOTE_SSH_UNKNOWN_TOOLS[@]+"${REMOTE_SSH_UNKNOWN_TOOLS[@]}"}
-  fi
-
-  if ((${#REMOTE_SSH_UNSUPPORTED_TOOLS[@]} > 0)); then
-    printf '\nSkipped unsupported expected tools\n'
-    printf '  %s\n' ${REMOTE_SSH_UNSUPPORTED_TOOLS[@]+"${REMOTE_SSH_UNSUPPORTED_TOOLS[@]}"}
-  fi
-
-  printf '\nTools\n'
-
+  if ((help && ${#tools[@]} == 0)); then remote_ssh_cmd_check_usage; return 0; fi
+  remote_ssh_cmd_require_managed_libs
+  ms_report_begin && ms_report_model || { ms_error 'cannot build complete check; retry after resolving state/inventory'; return 1; }
+  MS_VALUES=()
   for tool in ${tools[@]+"${tools[@]}"}; do
-    if ! remote_ssh_cmd_check_report_tool "$tool" "$def_dir"; then
-      problems=1
-    fi
+    ms_name "$tool" && ms_status_known "$tool" || { printf 'Unknown tool: %s\n' "$tool" >&2; return 1; }
+    ms_append_unique "$tool"
   done
-
-  if ((strict == 1 && problems == 1)); then
-    return 1
+  tools=("${MS_VALUES[@]+"${MS_VALUES[@]}"}")
+  if ((help)); then ms_report_end || return 1; remote_ssh_cmd_check_usage; return 0; fi
+  if ((${#tools[@]} == 0)); then
+    for tool in ${MS_NAMES[@]+"${MS_NAMES[@]}"}; do ms_member_has "$tool" && tools+=("$tool"); done
   fi
+  if output="$(ms_check_render "$repo" "$script" "$requested" ${tools[@]+"${tools[@]}"})"; then code=0; else code=$?; fi
+  ((code != 2)) && ms_report_end || { ms_error 'cannot render reliable check'; return 1; }
+  printf '%s\n' "$output"
+  return "$code"
 }

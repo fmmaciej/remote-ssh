@@ -240,6 +240,8 @@ def test_public_installer_selects_binary_or_preserves_previous_release(
     shutil.copytree(repo_dir / "lib", root / "lib")
     shutil.copytree(repo_dir / "tools/lib", root / "tools/lib")
     shutil.copy2(repo_dir / "tools/install-tool.sh", root / "tools/install-tool.sh")
+    for code_dir in ("bin", "shell"):
+        shutil.copytree(repo_dir / code_dir, root / code_dir)
     definitions = root / "tools/defs"
     definitions.mkdir()
     binary_name = "demo"
@@ -293,7 +295,11 @@ def test_public_installer_selects_binary_or_preserves_previous_release(
         if scenario == "explicit-literal-target":
             binary_name = "de mo's[1]*?"
         binary_path = "chosen/renamed"
-        members = [("first/demo", "other"), ("second/demo", "other"), (binary_path, "new")]
+        members = [
+            ("first/demo", "other"),
+            ("second/demo", "other"),
+            (binary_path, "new"),
+        ]
     elif scenario == "explicit-missing":
         binary_path = "missing/demo"
         expected_error = "not a regular file"
@@ -343,11 +349,17 @@ def test_public_installer_selects_binary_or_preserves_previous_release(
         else:
             expected_error = "No valid binary"
     elif scenario == "scanner-failure":
-        expected_error = "Cannot scan binaries"
+        expected_error = "synthetic scan failure"
     elif scenario == "raw-literal":
         binary_name = "demo*"
     raw = scenario.startswith("raw")
-    asset = "demo" if scenario == "raw-same-name" else "demo-release" if raw else "demo.tar.gz"
+    asset = (
+        "demo"
+        if scenario == "raw-same-name"
+        else "demo-release"
+        if raw
+        else "demo.tar.gz"
+    )
     archive = isolated_env.home / "asset"
     if raw:
         archive.write_bytes(b"#!/bin/sh\nprintf new\n")
@@ -373,7 +385,11 @@ def test_public_installer_selects_binary_or_preserves_previous_release(
         "TOOL_NAME=demo\nGH_REPO=owner/demo\nRELEASE_TAG=v1\nVERSION=1\n"
         f"BINARY_NAME={shlex.quote(binary_name)}\n"
         f'ASSETS=("linux:x86_64:musl|{asset}")\nBINARY_ALIASES=(demo-alias)\n'
-        + (f"BINARY_PATH={shlex.quote(binary_path)}\n" if binary_path is not None else "")
+        + (
+            f"BINARY_PATH={shlex.quote(binary_path)}\n"
+            if binary_path is not None
+            else ""
+        )
     )
     (isolated_env.bin_dir / "bash").symlink_to(runtime_bash)
     write_executable(
@@ -393,6 +409,9 @@ def test_public_installer_selects_binary_or_preserves_previous_release(
     opt = isolated_env.home / "opt"
     old = opt / "demo-0" / "demo"
     write_executable(old, "#!/bin/sh\nprintf old\n")
+    (old.parent / ".remote-ssh-release").write_text(
+        "format=1\ntool=demo\nversion=0\nlayout=binary\nexecutable=demo\n"
+    )
     link = isolated_env.bin_dir / "demo"
     alias = isolated_env.bin_dir / "demo-alias"
     link.symlink_to(old)
@@ -401,23 +420,37 @@ def test_public_installer_selects_binary_or_preserves_previous_release(
     downloads.mkdir()
     env = isolated_env.env | {
         "INSTALL_PREFIX": str(opt),
+        "REMOTE_ENV_DIR": str(root),
         "INSTALL_BIN_DIR": str(isolated_env.bin_dir),
         "TMPDIR": str(downloads),
     }
-    result = run_cmd([runtime_bash, root / "tools/install-tool.sh", "demo"], env=env)
-    assert result.stdout == "", "Selection diagnostics leaked onto stdout"
-    assert list(downloads.iterdir()) == [], "Selection or download temporary files remain"
+    result = run_cmd(
+        [runtime_bash, root / "bin/remote-ssh", "install", "demo", "--yes"], env=env
+    )
+    if expected_error:
+        assert expected_error not in result.stdout, (
+            "Selection diagnostic leaked onto stdout"
+        )
+    assert list(downloads.iterdir()) == [], (
+        "Selection or download temporary files remain"
+    )
     if expected_error:
         assert_failed(result)
         assert expected_error in result.stderr
         assert link.readlink() == old and alias.readlink() == old
         assert run_cmd([link], env=env).stdout == "old"
         assert run_cmd([alias], env=env).stdout == "old"
-        assert list(opt.iterdir()) == [old.parent]
+        assert all(
+            path == old.parent or path.name.startswith(".") for path in opt.iterdir()
+        )
         if scenario == "ambiguous":
             assert "first/demo" in result.stderr and "second/demo" in result.stderr
         if scenario == "rejected":
-            for reason in ("not executable", "not a regular file", "symbolic link in path"):
+            for reason in (
+                "not executable",
+                "not a regular file",
+                "symbolic link in path",
+            ):
                 assert reason in result.stderr
         if scenario == "control-newline":
             assert "bad\nfolder" not in result.stderr
@@ -465,6 +498,8 @@ def test_invalid_binary_name_is_rejected_before_file_operations(
     shutil.copytree(repo_dir / "lib", root / "lib")
     shutil.copytree(repo_dir / "tools/lib", root / "tools/lib")
     shutil.copy2(repo_dir / "tools/install-tool.sh", root / "tools/install-tool.sh")
+    for code_dir in ("bin", "shell"):
+        shutil.copytree(repo_dir / code_dir, root / code_dir)
     definitions = root / "tools/defs"
     definitions.mkdir()
     (definitions / "demo.sh").write_text(
@@ -479,7 +514,9 @@ def test_invalid_binary_name_is_rejected_before_file_operations(
     old = opt / "demo-0/demo"
     write_executable(old, "#!/bin/sh\nprintf old\n")
     metadata = old.parent / ".remote-ssh-release"
-    metadata.write_text("format=1\ntool=demo\nversion=0\nlayout=binary\nexecutable=demo\n")
+    metadata.write_text(
+        "format=1\ntool=demo\nversion=0\nlayout=binary\nexecutable=demo\n"
+    )
     sentinel = opt / "sentinel"
     sentinel.write_bytes(b"unchanged test data\n")
     sentinel.chmod(0o600)
@@ -505,11 +542,12 @@ def test_invalid_binary_name_is_rejected_before_file_operations(
     (isolated_env.bin_dir / "bash").symlink_to(runtime_bash)
     env = isolated_env.env | {
         "INSTALL_PREFIX": str(opt),
+        "REMOTE_ENV_DIR": str(root),
         "INSTALL_BIN_DIR": str(isolated_env.bin_dir),
         "TMPDIR": str(downloads),
     }
     if entrypoint == "public":
-        args = [runtime_bash, root / "tools/install-tool.sh", "demo"]
+        args = [runtime_bash, root / "bin/remote-ssh", "install", "demo", "--yes"]
     else:
         args = [
             runtime_bash,
@@ -534,7 +572,9 @@ def test_invalid_binary_name_is_rejected_before_file_operations(
     assert_failed(result)
     assert "Invalid BINARY_NAME" in result.stderr
     assert result.stdout == ""
-    assert not operations.exists(), "Invalid name reached download, scan, staging, or copy"
+    assert not operations.exists(), (
+        "Invalid name reached download, scan, staging, or copy"
+    )
     assert list(downloads.iterdir()) == []
     assert set(opt.iterdir()) == {old.parent, sentinel}
     assert link.readlink() == old and alias.readlink() == old

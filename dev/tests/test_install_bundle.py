@@ -32,7 +32,11 @@ def test_bundle_installer_preserves_runtime_and_rejects_invalid_package(
     root = isolated_env.home / "installer"
     shutil.copytree(repo_dir / "lib", root / "lib")
     shutil.copytree(repo_dir / "tools" / "lib", root / "tools" / "lib")
-    shutil.copy2(repo_dir / "tools" / "install-tool.sh", root / "tools" / "install-tool.sh")
+    shutil.copy2(
+        repo_dir / "tools" / "install-tool.sh", root / "tools" / "install-tool.sh"
+    )
+    for code_dir in ("bin", "shell"):
+        shutil.copytree(repo_dir / code_dir, root / code_dir)
     defs = root / "tools" / "defs"
     defs.mkdir()
     shutil.copy2(repo_dir / "tools" / "defs" / "nvim.sh", defs / "nvim.sh")
@@ -83,7 +87,8 @@ def test_bundle_installer_preserves_runtime_and_rejects_invalid_package(
         "#!/bin/sh\ncase $1 in -s) echo Darwin;; *) echo arm64;; esac\n",
     )
     write_executable(
-        isolated_env.bin_dir / "curl", f'#!/bin/sh\ncp {shlex.quote(str(archive))} "$2"\n'
+        isolated_env.bin_dir / "curl",
+        f'#!/bin/sh\ncp {shlex.quote(str(archive))} "$2"\n',
     )
     if unsafe == "staged-directory":
         real_cp = shutil.which("cp")
@@ -102,6 +107,9 @@ def test_bundle_installer_preserves_runtime_and_rejects_invalid_package(
     opt = isolated_env.home / "opt"
     old = opt / "nvim-0.11.5" / "nvim"
     write_executable(old, "#!/bin/sh\nprintf old\n")
+    (old.parent / ".remote-ssh-release").write_text(
+        "format=1\ntool=nvim\nversion=0.11.5\nlayout=binary\nexecutable=nvim\n"
+    )
     link = isolated_env.bin_dir / "nvim"
     link.symlink_to(old)
     alias = isolated_env.bin_dir / "nvim-alias"
@@ -110,10 +118,13 @@ def test_bundle_installer_preserves_runtime_and_rejects_invalid_package(
     downloads.mkdir()
     env = isolated_env.env | {
         "INSTALL_PREFIX": str(opt),
+        "REMOTE_ENV_DIR": str(root),
         "INSTALL_BIN_DIR": str(isolated_env.bin_dir),
         "TMPDIR": str(downloads),
     }
-    result = run_cmd([runtime_bash, root / "tools" / "install-tool.sh", "nvim"], env=env)
+    result = run_cmd(
+        [runtime_bash, root / "bin/remote-ssh", "install", "nvim", "--yes"], env=env
+    )
     assert f"Checksum OK: {package}.tar.gz" in result.stdout + result.stderr
     assert not outside.exists()
     assert list(downloads.iterdir()) == []
@@ -133,7 +144,9 @@ def test_bundle_installer_preserves_runtime_and_rejects_invalid_package(
         assert run_cmd([link], env=env).stdout == "old"
         assert run_cmd([alias], env=env).stdout == "old"
         assert old.read_text() == "#!/bin/sh\nprintf old\n"
-        assert list(opt.iterdir()) == [old.parent]
+        assert all(
+            path == old.parent or path.name.startswith(".") for path in opt.iterdir()
+        )
 
 
 def test_old_single_file_neovim_is_not_skipped(
@@ -152,7 +165,7 @@ def test_old_single_file_neovim_is_not_skipped(
         . "$1/tools/lib/env.sh"
         . "$TOOLS_LIB_DIR/install.lib.sh"
         load_defs "$TOOLS_DIR/defs" nvim
-        if is_tool_installed nvim 0.11.5; then exit 9; fi
+        if remote_ssh_release_for_link "$INSTALL_BIN_DIR/nvim" nvim >/dev/null; then exit 9; fi
         """,
             "_",
             repo_dir,

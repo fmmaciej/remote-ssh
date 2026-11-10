@@ -1,6 +1,8 @@
 # shellcheck shell=bash
 
 remote_ssh_welcome_load_commands() {
+  local BASH_ENV='' ENV=''
+  export BASH_ENV ENV
   local repo_dir
 
   repo_dir="${REMOTE_ENV_DIR:-$(remote_ssh_welcome_repo_dir)}"
@@ -12,33 +14,29 @@ remote_ssh_welcome_load_commands() {
 }
 
 remote_ssh_welcome_print_tools() {
-  local tool checked=0 ok=0
+  local BASH_ENV='' ENV=''
+  export BASH_ENV ENV
+  local checked=0
 
-  if ! declare -F read_expected_tools_for_current_platform >/dev/null ||
-    ! declare -F remote_ssh_tool_status_load >/dev/null; then
-    printf 'tools:   0 checked / 0 ok\n'
+  if ! declare -F ms_report_begin >/dev/null || ! ms_report_begin; then
+    printf 'tools:   unavailable (run remote-ssh check)\n'
     remote_ssh_welcome_issue tools
     return 0
   fi
-
-  if ! read_expected_tools_for_current_platform; then
-    printf 'tools:   0 checked / 0 ok\n'
-    remote_ssh_welcome_issue tools
+  if [[ "$MS_ADOPTED" == 0 ]]; then
+    printf 'tools:   uninitialized (run remote-ssh check)\n'
     return 0
   fi
-
-  checked="${#REMOTE_SSH_EXPECTED_TOOLS[@]}"
-  for tool in "${REMOTE_SSH_EXPECTED_TOOLS[@]}"; do
-    if remote_ssh_tool_status_load "$tool" "$TOOLS_DIR/defs" >/dev/null 2>&1 &&
-      [[ "$REMOTE_SSH_TOOL_STATUS_PROBLEM" -eq 0 ]]; then
-      ok=$((ok + 1))
-    fi
+  local i=0
+  while ((i < ${#MS_ROWS[@]})); do
+    [[ "${MS_ROWS[i]}" != member ]] || checked=$((checked + 1))
+    i=$((i + 2 + MS_ROWS[i+1]))
   done
-
-  printf 'tools:   %s checked / %s ok\n' "$checked" "$ok"
-  if ((checked == 0 || ok < checked || ${#REMOTE_SSH_UNKNOWN_TOOLS[@]} > 0)); then
-    remote_ssh_welcome_issue tools
+  if ! ms_report_end; then
+    printf 'tools:   unavailable (run remote-ssh check)\n'; remote_ssh_welcome_issue tools; return 0
   fi
+  printf 'tools:   %s managed (remote-ssh check for health)\n' "$checked"
+  return 0
 }
 
 remote_ssh_welcome_requirement_ok() {

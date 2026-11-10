@@ -9,7 +9,7 @@ ssh_find_backend="${SSH_FIND_BACKEND:-$repo_dir/scripts/ssh_find.py}"
 query="$*"
 
 command -v sk >/dev/null 2>&1 || {
-  printf '[WARN] ssh-find requires skim (sk). Install it with: remote-ssh tool install sk\n' >&2
+  printf '[WARN] ssh-find requires skim (sk). Install it with: remote-ssh install sk\n' >&2
   exit 127
 }
 

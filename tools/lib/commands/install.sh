@@ -1,194 +1,82 @@
 # shellcheck shell=bash
+# shellcheck disable=SC2034,SC2015
 
 ensure_this_file_sourced
 
 remote_ssh_cmd_install_usage() {
-  cat <<'EOF'
+  cat <<'USAGE'
 Usage:
-  remote-ssh install [tool ...]
-  remote-ssh install --profile <mini|quick|full> [--yes]
-  remote-ssh install --full [--yes]
+  remote-ssh install [--yes] TOOL [TOOL ...]
+  remote-ssh install --profile mini|quick|full [--yes]
 
-Installs selected pinned tools and saves the selected set in:
-  ${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/expected-tools
-
-Without tool arguments, installs the saved expected tool set. Use --profile to
-install a named profile. --full is an alias for --profile full.
-EOF
-}
-
-remote_ssh_cmd_install_print_list() {
-  local title="$1"
-  shift
-
-  printf '%s\n' "$title"
-  if (($# == 0)); then
-    printf '  [none]\n'
-    return 0
-  fi
-
-  printf '  %s\n' "$@"
-}
-
-remote_ssh_cmd_install_confirm() {
-  local source_label="$1"
-  local answer
-
-  if ! [[ -t 0 ]]; then
-    printf 'remote-ssh install requires confirmation for %s. Use --yes for non-interactive installs.\n' "$source_label" >&2
-    return 1
-  fi
-
-  printf '\nInstall %s? [y/N] ' "$source_label"
-  read -r answer
-  case "$answer" in
-    y|Y|yes|YES) return 0 ;;
-    *) printf 'Aborted.\n' >&2; return 1 ;;
-  esac
+Adds selected pinned tools to this installation's managed set.
+Without --yes, confirmation requires a terminal. A profile is a one-time selection.
+USAGE
 }
 
 remote_ssh_cmd_install_main() {
-  remote_ssh_cmd_require_install_libs
-
-  local repo_dir="$1"
+  local repo_dir="$1" yes=0 help=0 profile="" profiles=0 arg tool exe
   shift
-
-  local arg full=0 yes=0 profile="" source_label="selected"
   local -a requested=() tools=() skipped=()
-  local tool
-
-  while (($# > 0)); do
-    arg="$1"
+  while (($#)); do
+    arg="$1"; shift
     case "$arg" in
-      --full)
-        full=1
-        shift
-        ;;
+      --yes) yes=1 ;;
+      -h|--help) help=1 ;;
       --profile)
-        if (($# < 2)) || [[ "$2" == -* ]]; then
-          printf 'remote-ssh install --profile requires one of: mini, quick, full\n' >&2
-          return 1
-        fi
-        profile="$2"
-        shift 2
-        ;;
-      --profile=*)
-        profile="${arg#--profile=}"
-        if [[ -z "$profile" ]]; then
-          printf 'remote-ssh install --profile requires one of: mini, quick, full\n' >&2
-          return 1
-        fi
-        shift
-        ;;
-      --yes)
-        yes=1
-        shift
-        ;;
-      --skip-unsupported)
-        # Unsupported tools are skipped by default. The flag stays explicit for
-        # bootstrap scripts and documentation.
-        shift
-        ;;
-      -h|--help)
-        remote_ssh_cmd_install_usage
-        return 0
-        ;;
-      -*)
-        printf 'Unknown remote-ssh install option: %s\n' "$arg" >&2
-        remote_ssh_cmd_install_usage >&2
-        return 1
-        ;;
-      *)
-        requested+=("$arg")
-        shift
-        ;;
+        (($#)) && [[ "$1" != -* ]] || { remote_ssh_cmd_install_usage >&2; return 1; }
+        profile="$1"; shift; profiles=$((profiles + 1)) ;;
+      --profile=*) profile="${arg#--profile=}"; profiles=$((profiles + 1)) ;;
+      -*) printf 'Unknown install option: %s\n' "$arg" >&2; return 1 ;;
+      *) requested+=("$arg") ;;
     esac
   done
-
-  if ((full == 1)); then
-    if [[ -n "$profile" ]]; then
-      printf 'remote-ssh install does not accept both --full and --profile.\n' >&2
-      return 1
-    fi
-    profile="full"
+  ((profiles <= 1)) || { printf 'Select --profile only once.\n' >&2; return 1; }
+  if ((profiles)); then
+    case "$profile" in mini|quick|full) ;; *) printf 'Unknown install profile: %s\n' "$profile" >&2; return 1 ;; esac
+    ((${#requested[@]} == 0)) || { printf 'A profile cannot be combined with tool names.\n' >&2; return 1; }
   fi
-
-  if [[ -n "$profile" ]]; then
-    if ! install_profile_known "$profile"; then
-      printf 'Unknown remote-ssh install profile: %s\n' "$profile" >&2
-      printf 'Known profiles: mini quick full\n' >&2
-      return 1
-    fi
-    if ((${#requested[@]} > 0)); then
-      printf 'remote-ssh install --profile does not accept explicit tool arguments.\n' >&2
-      return 1
-    fi
+  for tool in ${requested[@]+"${requested[@]}"}; do
+    [[ "$tool" =~ ^[a-zA-Z0-9_][a-zA-Z0-9_.+-]*$ && -f "$TOOLS_DIR/defs/$tool.sh" ]] || { printf 'Unknown tool: %s\n' "$tool" >&2; return 1; }
+  done
+  if ((help)); then remote_ssh_cmd_install_usage; return 0; fi
+  if ((profiles == 0 && ${#requested[@]} == 0)); then remote_ssh_cmd_install_usage >&2; return 1; fi
+  remote_ssh_cmd_require_managed_libs
+  check_req_tools || return 1
+  if ((profiles)); then
+    case "$profile" in mini) requested=("${MINI_TOOLS[@]}") ;; quick) requested=("${QUICK_TOOLS[@]}") ;; full) requested=("${DEFAULT_TOOLS[@]}") ;; esac
   fi
-
-  log_info "Begin."
-  install_check_requirements
-
-  if [[ -n "$profile" ]]; then
-    source_label="${profile} profile platform-supported set"
-    while IFS= read -r tool; do
-      [[ -n "$tool" ]] && requested+=("$tool")
-    done < <(current_install_profile_tools "$profile")
-    while IFS= read -r tool; do
-      [[ -n "$tool" ]] && skipped+=("$tool")
-    done < <(current_unsupported_install_profile_tools "$profile")
-    tools=(${requested[@]+"${requested[@]}"})
-
-  elif ((${#requested[@]} == 0)); then
-    source_label="saved expected tools"
-    if ! read_expected_tools_for_current_platform; then
-      printf 'No expected tools config found: %s\n' "$(expected_tools_file)" >&2
-      printf 'Run: remote-ssh install --profile quick --yes\n' >&2
-      printf 'Or install a selected set, for example: remote-ssh install fd rg sk\n' >&2
-      return 1
-    fi
-    tools=(${REMOTE_SSH_EXPECTED_TOOLS[@]+"${REMOTE_SSH_EXPECTED_TOOLS[@]}"})
-    skipped=(${REMOTE_SSH_UNSUPPORTED_TOOLS[@]+"${REMOTE_SSH_UNSUPPORTED_TOOLS[@]}"})
-    if ((${#REMOTE_SSH_UNKNOWN_TOOLS[@]} > 0)); then
-      remote_ssh_cmd_install_print_list "Unknown expected tools:" ${REMOTE_SSH_UNKNOWN_TOOLS[@]+"${REMOTE_SSH_UNKNOWN_TOOLS[@]}"} >&2
-    fi
-  else
-    filter_tools_for_current_platform ${requested[@]+"${requested[@]}"}
-    tools=(${REMOTE_SSH_SUPPORTED_TOOLS[@]+"${REMOTE_SSH_SUPPORTED_TOOLS[@]}"})
-    skipped=(${REMOTE_SSH_UNSUPPORTED_TOOLS[@]+"${REMOTE_SSH_UNSUPPORTED_TOOLS[@]}"})
-    if ((${#REMOTE_SSH_UNKNOWN_TOOLS[@]} > 0)); then
-      remote_ssh_cmd_install_print_list "Unknown tools:" ${REMOTE_SSH_UNKNOWN_TOOLS[@]+"${REMOTE_SSH_UNKNOWN_TOOLS[@]}"} >&2
-      return 1
-    fi
-  fi
-
-  ((${#tools[@]} > 0)) || {
-    printf 'No supported tools selected for this platform.\n' >&2
-    return 1
+  MS_VALUES=()
+  for tool in "${requested[@]}"; do ms_append_unique "$tool"; done
+  requested=("${MS_VALUES[@]}")
+  filter_tools_for_current_platform "${requested[@]}" || return 1
+  ((${#REMOTE_SSH_UNKNOWN_TOOLS[@]} == 0)) || { ms_print_selection 'Unknown tools:' "${REMOTE_SSH_UNKNOWN_TOOLS[@]}" >&2; return 1; }
+  tools=("${REMOTE_SSH_SUPPORTED_TOOLS[@]+"${REMOTE_SSH_SUPPORTED_TOOLS[@]}"}")
+  skipped=("${REMOTE_SSH_UNSUPPORTED_TOOLS[@]+"${REMOTE_SSH_UNSUPPORTED_TOOLS[@]}"}")
+  ((${#tools[@]})) || { printf 'No supported tools selected.\n' >&2; return 1; }
+  install_cli_preflight && ms_state_load && ms_install_preflight "${tools[@]}" || return 1
+  local -a MS_APPROVED=("${MS_PREFLIGHT[@]}")
+  exe="$MS_EXECUTABLES"
+  [[ -L "$MS_BIN/remote-ssh" && -x "$INSTALL_CLI_SOURCE" ]] || exe=1
+  ms_lock_plan install "$exe"
+  ms_print_selection 'Selected tools:' "${tools[@]}"
+  ((${#skipped[@]} == 0)) || ms_print_selection 'Skipped unsupported tools:' "${skipped[@]}"
+  printf 'Install paths\n  prefix: %s\n  bin: %s\n' "$MS_PREFIX" "$MS_BIN"
+  ((yes)) || ms_confirm install || return 1
+  ms_create_roots "$exe" && ms_lock_acquire "${MS_REQUIRED_LOCKS[@]}" && ms_state_load || return 1
+  exe="$MS_EXECUTABLES"
+  [[ -L "$MS_BIN/remote-ssh" && -x "$INSTALL_CLI_SOURCE" ]] || exe=1
+  ms_lock_plan install "$exe"
+  MS_RECOVERY_COMMAND=install
+  ms_lock_set_matches && ms_recovery_gate && ms_journal_prepare && install_cli_check_destination && ms_install_preflight "${tools[@]}" && ms_snapshot_equal || {
+    printf 'Preflight changed or is protected; retry install.\n' >&2; return 1;
   }
-
-  install_cli_preflight || return 1
-
-  remote_ssh_cmd_install_print_list "Selected tools (${source_label}):" ${tools[@]+"${tools[@]}"}
-  if ((${#skipped[@]} > 0)); then
-    printf '\n'
-    remote_ssh_cmd_install_print_list "Skipped unsupported tools:" ${skipped[@]+"${skipped[@]}"}
+  if [[ "$MS_ADOPTED" == 0 ]]; then
+    ms_legacy_hints "${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/expected-tools" && ms_migration_commit || return 1
   fi
-
-  if ((yes == 0 && ${#requested[@]} > 0)); then
-    remote_ssh_cmd_install_confirm "$source_label" || return 1
-  fi
-
-  install_cli_publish || return 1
-  install_tools ${tools[@]+"${tools[@]}"} || return 1
-
-  log_info "Configuring environment..."
-  install_shell_dir || return 1
-  install_bin_dir || return 1
-  install_dots_dir
-  write_expected_tools ${tools[@]+"${tools[@]}"} || return 1
-
-  log_info "Done."
-  printf 'Expected tools saved: %s\n' "$(expected_tools_file)"
-  repo_dir="${INSTALL_CLI_SOURCE%/bin/remote-ssh}"
+  ms_recovery_gate || return 1
+  MS_OPERATION=install MS_PUBLISH_CLI=1
+  ms_install_batch "${tools[@]}" || return 1
+  printf 'Done.\n'
   install_print_post_install "$repo_dir"
 }

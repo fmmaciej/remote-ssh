@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import shutil
 from pathlib import Path
 
 import pytest
@@ -20,19 +19,16 @@ def test_uninstall_help(repo_dir: Path, tool_env: ToolStateEnv) -> None:
 
     assert_ok(result)
     assert "Usage:" in result.stdout
-    assert "remote-ssh uninstall [--yes] [tool ...]" in result.stdout
+    assert "remote-ssh uninstall [--yes] TOOL [TOOL ...]" in result.stdout
 
 
-def test_uninstall_without_managed_tools_is_noop(
-    repo_dir: Path,
-    tool_env: ToolStateEnv,
+def test_uninstall_without_names_is_nonmutating(
+    repo_dir: Path, tool_env: ToolStateEnv
 ) -> None:
     result = run_remote_ssh(repo_dir, ["uninstall"], env=tool_env.env)
-
-    assert_ok(result)
-    assert "remote-ssh uninstall" in result.stdout
-    assert "No managed tools selected for uninstall." in result.stdout
-    assert "requires confirmation" not in result.stderr
+    assert_failed(result)
+    assert "Usage:" in result.stderr
+    assert not (tool_env.opt_dir / ".remote-ssh-managed").exists()
 
 
 def test_uninstall_requires_confirmation_before_changes(
@@ -45,7 +41,7 @@ def test_uninstall_requires_confirmation_before_changes(
     result = run_remote_ssh(repo_dir, ["uninstall", "rg"], env=tool_env.env)
 
     assert_failed(result)
-    assert "Use --yes for non-interactive uninstall." in result.stderr
+    assert "use --yes for non-interactive operation." in result.stderr
     assert (tool_env.bin_dir / "rg").is_symlink()
     assert executable.exists()
     assert expected_file.exists()
@@ -66,17 +62,12 @@ def test_uninstall_yes_without_args_removes_all_managed_tools(
 
     result = run_remote_ssh(repo_dir, ["uninstall", "--yes"], env=tool_env.env)
 
-    assert_ok(result)
-    assert "Selected tools:" in result.stdout
-    assert "  rg" in result.stdout
-    assert "  fd" in result.stdout
-    assert not (tool_env.bin_dir / "rg").exists()
-    assert not (tool_env.bin_dir / "fd").exists()
-    assert not rg.parent.exists()
-    assert not rg_stale.exists()
-    assert not fd.parent.exists()
-    assert unknown.is_dir()
-    assert expected_file.read_text(encoding="utf-8").splitlines()[-1] == "fzf"
+    assert_failed(result)
+    assert rg.exists() and rg_stale.exists() and fd.exists() and unknown.exists()
+    assert (tool_env.bin_dir / "rg").is_symlink() and (
+        tool_env.bin_dir / "fd"
+    ).is_symlink()
+    assert expected_file.read_text().splitlines()[-3:] == ["rg", "fd", "fzf"]
 
 
 def test_uninstall_explicit_tool_removes_only_that_tool(
@@ -94,7 +85,7 @@ def test_uninstall_explicit_tool_removes_only_that_tool(
     assert not rg.parent.exists()
     assert (tool_env.bin_dir / "fd").is_symlink()
     assert fd.exists()
-    assert expected_file.read_text(encoding="utf-8").splitlines()[-1] == "fd"
+    assert expected_file.read_text(encoding="utf-8").splitlines()[-2:] == ["rg", "fd"]
 
 
 def test_uninstall_removes_managed_aliases(
@@ -124,9 +115,7 @@ def test_uninstall_protects_unmanaged_paths(
 
     result = run_remote_ssh(repo_dir, ["uninstall", "--yes", "rg"], env=tool_env.env)
 
-    assert_ok(result)
-    assert "Protected/skipped paths:" in result.stdout
-    assert f"{unmanaged} (not a symlink)" in result.stdout
+    assert_failed(result)
     assert unmanaged.exists()
     assert release_dir.exists()
 
@@ -142,9 +131,7 @@ def test_uninstall_protects_symlink_outside_install_prefix(
 
     result = run_remote_ssh(repo_dir, ["uninstall", "--yes", "rg"], env=tool_env.env)
 
-    assert_ok(result)
-    assert "Protected/skipped paths:" in result.stdout
-    assert f"{tool_env.bin_dir / 'rg'} -> {external}" in result.stdout
+    assert_failed(result)
     assert (tool_env.bin_dir / "rg").is_symlink()
     assert external.exists()
 
@@ -173,7 +160,7 @@ def test_uninstall_removes_expected_tools_file_when_empty(
     result = run_remote_ssh(repo_dir, ["uninstall", "--yes", "rg"], env=tool_env.env)
 
     assert_ok(result)
-    assert not expected_file.exists()
+    assert expected_file.read_text().splitlines()[-1] == "rg"
 
 
 def test_uninstall_without_args_detects_relative_managed_symlink(
@@ -188,7 +175,7 @@ def test_uninstall_without_args_detects_relative_managed_symlink(
     mark_managed_release(release_dir, "rg", "15.1.0")
     (tool_env.bin_dir / "rg").symlink_to(Path("../home/opt/rg-15.1.0/rg"))
 
-    result = run_remote_ssh(repo_dir, ["uninstall", "--yes"], env=tool_env.env)
+    result = run_remote_ssh(repo_dir, ["uninstall", "--yes", "rg"], env=tool_env.env)
 
     assert_ok(result)
     assert not (tool_env.bin_dir / "rg").exists()
@@ -220,7 +207,9 @@ def test_uninstall_scans_symlinked_prefix_and_preserves_foreign_paths(
     env = tool_env.env | {"INSTALL_PREFIX": str(prefix)}
 
     result = run_remote_ssh(
-        repo_dir, ["uninstall", "--yes", *(["rg"] if explicit else [])], env=env
+        repo_dir,
+        ["uninstall", "--yes", *(["rg"] if explicit else ["rg", "fd"])],
+        env=env,
     )
 
     assert_ok(result)
@@ -230,9 +219,7 @@ def test_uninstall_scans_symlinked_prefix_and_preserves_foreign_paths(
     assert (tool_env.bin_dir / "fd").is_symlink() == explicit
     assert legacy.is_dir() and unknown.is_dir() and outside.is_dir()
     assert child_link.is_symlink()
-    assert expected.read_text().splitlines()[-(2 if explicit else 1) :] == (
-        ["fd", "fzf"] if explicit else ["fzf"]
-    )
+    assert expected.read_text().splitlines()[-3:] == ["rg", "fd", "fzf"]
 
 
 @pytest.mark.parametrize("active_kind", ["file", "directory-link", "broken-link"])
@@ -248,14 +235,6 @@ def test_binary_uninstall_scopes_active_path_checks(
 ) -> None:
     explicit = selection == "selected"
     test_repo = repo_dir
-    if selection == "binary-only-discovery":
-        # Keep this catalog explicitly binary-only as production gains libraries.
-        test_repo = tool_env.home / "binary-checkout"
-        for directory in ("lib", "tools", "shell", "bin", "dots"):
-            shutil.copytree(repo_dir / directory, test_repo / directory)
-        for definition in (test_repo / "tools/defs").glob("*.sh"):
-            if definition.stem not in {"rg", "fd"}:
-                definition.unlink()
     (tool_env.bin_dir / "bash").symlink_to(runtime_bash)
     executable = make_managed_tool(tool_env, "rg", "15.1.0")
     other = make_managed_tool(tool_env, "fd", "10.3.0") if explicit else None
@@ -269,7 +248,9 @@ def test_binary_uninstall_scopes_active_path_checks(
     if active_kind == "file":
         active.write_text("unrelated")
     else:
-        active.symlink_to(target if active_kind == "directory-link" else target / "absent")
+        active.symlink_to(
+            target if active_kind == "directory-link" else target / "absent"
+        )
     before = active.read_bytes() if active_kind == "file" else active.readlink()
 
     result = run_remote_ssh(
@@ -278,18 +259,12 @@ def test_binary_uninstall_scopes_active_path_checks(
         env=tool_env.env,
     )
 
-    if selection == "library-aware-discovery":
-        assert_failed(result)
-        assert "Cannot inspect active library links" in result.stderr
-        assert executable.exists() and (tool_env.bin_dir / "rg").is_symlink()
-        assert expected.read_bytes() == expected_before
-    else:
-        assert_ok(result)
-        assert not executable.parent.exists() and not (tool_env.bin_dir / "rg").is_symlink()
-    assert (active.read_bytes() if active_kind == "file" else active.readlink()) == before
+    assert_failed(result)
+    assert executable.exists() and (tool_env.bin_dir / "rg").is_symlink()
+    assert expected.read_bytes() == expected_before
+    assert (
+        active.read_bytes() if active_kind == "file" else active.readlink()
+    ) == before
     assert sentinel.read_text() == "untouched"
     if explicit:
         assert other is not None and other.exists()
-        assert expected.read_text().splitlines()[-1] == "fd"
-    elif selection == "binary-only-discovery":
-        assert not expected.exists()

@@ -194,17 +194,17 @@ remote_ssh_welcome_next_command() {
   count="${#REMOTE_SSH_WELCOME_ISSUES[@]}"
   ((count > 0)) || return 1
   ((count == 1)) || {
-    printf 'remote-ssh doctor\n'
+    printf 'remote-ssh check\n'
     return 0
   }
 
   issue="${REMOTE_SSH_WELCOME_ISSUES[0]}"
   case "$issue" in
     update) printf 'remote-ssh update\n' ;;
-    tools) printf 'remote-ssh install\n' ;;
+    tools) printf 'remote-ssh check\n' ;;
     scripts) printf 'remote-ssh guide scripts\n' ;;
     sw) printf 'remote-ssh git status\n' ;;
-    *) printf 'remote-ssh doctor\n' ;;
+    *) printf 'remote-ssh check\n' ;;
   esac
 }
 

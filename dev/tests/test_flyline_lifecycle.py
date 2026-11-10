@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from conftest import copy_public_tree
+
 import shlex
-import shutil
 
 import pytest
 from conftest import assert_ok, run_cmd, write_executable
@@ -27,8 +28,14 @@ from pty_shell import PtyShell
         "skim",
     ],
 )
-def test_editor_selection_is_once_per_process(repo_dir, isolated_env, runtime_bash, case):
-    env = isolated_env.env | {"TERM": "xterm-256color", "REPO": str(repo_dir), "CASE": case}
+def test_editor_selection_is_once_per_process(
+    repo_dir, isolated_env, runtime_bash, case
+):
+    env = isolated_env.env | {
+        "TERM": "xterm-256color",
+        "REPO": str(repo_dir),
+        "CASE": case,
+    }
     code = r"""
     source "$REPO/shell/rc.d/29-flyline.sh"
     REMOTE_SSH_ENABLE_FLYLINE=1
@@ -105,7 +112,9 @@ def test_editor_selection_is_once_per_process(repo_dir, isolated_env, runtime_ba
         shell.command(f"source {shlex.quote(str(script))}")
 
 
-def test_enabled_without_tty_does_not_resolve_or_load(repo_dir, isolated_env, runtime_bash):
+def test_enabled_without_tty_does_not_resolve_or_load(
+    repo_dir, isolated_env, runtime_bash
+):
     result = run_cmd(
         [
             runtime_bash,
@@ -119,7 +128,8 @@ def test_enabled_without_tty_does_not_resolve_or_load(repo_dir, isolated_env, ru
       [[ "$REMOTE_SSH_FLYLINE_STATE:$REMOTE_SSH_FLYLINE_REASON" == skipped:terminal ]]
     """,
         ],
-        env=isolated_env.env | {"REPO": str(repo_dir), "REMOTE_SSH_ENABLE_FLYLINE": "1"},
+        env=isolated_env.env
+        | {"REPO": str(repo_dir), "REMOTE_SSH_ENABLE_FLYLINE": "1"},
     )
     assert_ok(result)
 
@@ -135,7 +145,7 @@ def test_late_external_atuin_ownership_through_full_rc(
 ):
     root = isolated_env.home / "checkout"
     for name in ("shell", "lib", "bin", "dots"):
-        shutil.copytree(repo_dir / name, root / name)
+        copy_public_tree(repo_dir, name, root / name)
     hook_dir = root / "shell/rc.d" / f"{hook}.d"
     hook_dir.mkdir(exist_ok=True)
     (hook_dir / ("linux.sh" if hook == "os" else "ownership-test.sh")).write_text(
@@ -150,7 +160,9 @@ def test_late_external_atuin_ownership_through_full_rc(
         """
     )
     write_executable(isolated_env.bin_dir / "uname", "#!/bin/sh\necho Linux\n")
-    write_executable(isolated_env.bin_dir / "hostname", "#!/bin/sh\necho ownership-test\n")
+    write_executable(
+        isolated_env.bin_dir / "hostname", "#!/bin/sh\necho ownership-test\n"
+    )
     env = isolated_env.env | {
         "TERM": "xterm-256color",
         "REPO": str(root),
@@ -193,7 +205,9 @@ def test_late_external_atuin_ownership_through_full_rc(
     """
     script = isolated_env.home / "late-probe.sh"
     script.write_text(
-        "run_late_probe() {\n" + code.replace("exit ", "return ") + "\n}\nrun_late_probe\n"
+        "run_late_probe() {\n"
+        + code.replace("exit ", "return ")
+        + "\n}\nrun_late_probe\n"
     )
     with PtyShell(runtime_bash, env) as shell:
         shell.command(f"source {shlex.quote(str(script))}")
@@ -202,7 +216,9 @@ def test_late_external_atuin_ownership_through_full_rc(
 @pytest.mark.parametrize(
     "entry", ["enabled", "disabled", "function", "alias", "unrelated", "absent"]
 )
-def test_external_editor_detection_is_read_only(repo_dir, isolated_env, runtime_bash, entry):
+def test_external_editor_detection_is_read_only(
+    repo_dir, isolated_env, runtime_bash, entry
+):
     env = isolated_env.env | {
         "TERM": "xterm-256color",
         "REPO": str(repo_dir),
@@ -255,7 +271,8 @@ def test_external_editor_detection_is_read_only(repo_dir, isolated_env, runtime_
 
 @pytest.mark.parametrize("variable", ["FLYLINE_LOAD_DIR", "FLYLINE_VERSION"])
 @pytest.mark.parametrize(
-    "state", ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"]
+    "state",
+    ["unset", "exported-unset", "empty", "exported-empty", "value", "exported-value"],
 )
 @pytest.mark.parametrize("failure", ["load", "settings"])
 def test_activation_rollback_restores_variable_attributes(
@@ -316,7 +333,9 @@ def test_activation_rollback_restores_variable_attributes(
         shell.command(f"source {shlex.quote(str(script))}")
 
 
-@pytest.mark.parametrize("unload_fails", [False, True], ids=["active", "unload-failure"])
+@pytest.mark.parametrize(
+    "unload_fails", [False, True], ids=["active", "unload-failure"]
+)
 def test_managed_variable_values_are_kept_when_builtin_remains_loaded(
     repo_dir,
     isolated_env,

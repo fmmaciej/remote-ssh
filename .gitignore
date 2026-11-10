@@ -9,3 +9,8 @@ dev/flyline/dist/
 # Generated Python bytecode
 __pycache__/
 *.pyc
+
+# Private lifecycle metadata when an effective root is the checkout.
+.remote-ssh-lock/
+.remote-ssh-lock-init-*
+.remote-ssh-managed/

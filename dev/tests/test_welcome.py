@@ -60,7 +60,9 @@ def test_welcome_user_module_template_is_documentation_only(repo_dir: Path) -> N
     assert template.exists()
     assert template.stat().st_mode & 0o111 == 0
     text = template.read_text(encoding="utf-8")
-    assert "${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/welcome.d/10-example.sh" in text
+    assert (
+        "${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/welcome.d/10-example.sh" in text
+    )
     assert "REMOTE_SSH_WELCOME_ISSUES_FILE" not in text
 
 
@@ -115,7 +117,9 @@ def test_welcome_runner_is_standalone_without_remote_shell_dir(
     assert inherited_issue_file.read_text(encoding="utf-8") == "original\n"
 
 
-def test_welcome_runner_skips_noninteractive_shells(repo_dir: Path, tmp_path: Path) -> None:
+def test_welcome_runner_skips_noninteractive_shells(
+    repo_dir: Path, tmp_path: Path
+) -> None:
     remote = prepare_minimal_remote_tree(repo_dir, tmp_path)
     _copy_welcome_runner(repo_dir, remote)
     called = tmp_path / "called"
@@ -667,7 +671,8 @@ def test_welcome_runner_does_not_use_inherited_issue_file(
             "_",
             remote,
         ],
-        env=isolated_env.env | {"REMOTE_SSH_WELCOME_ISSUES_FILE": str(inherited_issue_file)},
+        env=isolated_env.env
+        | {"REMOTE_SSH_WELCOME_ISSUES_FILE": str(inherited_issue_file)},
     )
 
     assert_ok(result)
@@ -903,7 +908,10 @@ def test_remote_ssh_welcome_update_error_reports_doctor_issue(
     )
 
     assert_ok(result)
-    assert result.stdout.rstrip("\n") == "update:  unavailable (checked: 2026-05-27 12:02:00 UTC)"
+    assert (
+        result.stdout.rstrip("\n")
+        == "update:  unavailable (checked: 2026-05-27 12:02:00 UTC)"
+    )
     assert issues_file.read_text(encoding="utf-8").splitlines() == ["doctor"]
 
 
@@ -935,7 +943,10 @@ def test_remote_ssh_welcome_update_malformed_cache_reports_doctor_issue(
     )
 
     assert_ok(result)
-    assert result.stdout.rstrip("\n") == "update:  unavailable (checked: 2026-05-27 12:03:00 UTC)"
+    assert (
+        result.stdout.rstrip("\n")
+        == "update:  unavailable (checked: 2026-05-27 12:03:00 UTC)"
+    )
     assert issues_file.read_text(encoding="utf-8").splitlines() == ["doctor"]
 
 
@@ -968,7 +979,7 @@ def test_remote_ssh_welcome_module_reports_statuses(
     assert_ok(result)
     output = result.stdout
     assert "update:  current (checked: 2026-05-27 12:00:00 UTC)" in output
-    assert "tools:   2 checked / 2 ok" in output
+    assert "tools:   uninitialized (run remote-ssh check)" in output
     assert "scripts: 4 checked / 4 ok" in output
 
 
@@ -1029,9 +1040,9 @@ def test_remote_ssh_welcome_module_reports_update_and_tool_problems(
     assert_ok(result)
     output = result.stdout
     assert "update:  available (checked: 2026-05-27 12:01:00 UTC)" in output
-    assert "tools:   1 checked / 0 ok" in output
+    assert "tools:   uninitialized (run remote-ssh check)" in output
     assert "update" in issues_file.read_text(encoding="utf-8").splitlines()
-    assert "tools" in issues_file.read_text(encoding="utf-8").splitlines()
+    assert "tools" not in issues_file.read_text(encoding="utf-8").splitlines()
 
 
 def test_welcome_banner_is_responsive_and_can_be_hidden(
@@ -1211,7 +1222,8 @@ def test_sw_welcome_module_reports_agent_and_git_config(
         [repo_dir / "shell" / "welcome.d" / "20-sw.sh"],
         env=isolated_env.env
         | {
-            "REMOTE_ENV_DIR": str(repo_dir),
+            "REMOTE_ENV_DIR": str(isolated_env.home / "synthetic-identity-root"),
+            "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY": "1",
             "SSH_AUTH_SOCK": str(isolated_env.home / "agent.sock"),
             "REMOTE_SSH_GIT_SESSION_IDENTITY": "1",
         },
@@ -1252,7 +1264,9 @@ def test_git_session_identity_hook_exports_status_for_welcome(
 ) -> None:
     remote = prepare_minimal_remote_tree(repo_dir, tmp_path)
     (remote / "shell" / "rc.d" / "07-git-session-identity.sh").write_text(
-        (repo_dir / "shell" / "rc.d" / "07-git-session-identity.sh").read_text(encoding="utf-8"),
+        (repo_dir / "shell" / "rc.d" / "07-git-session-identity.sh").read_text(
+            encoding="utf-8"
+        ),
         encoding="utf-8",
     )
     write_git_user_local(remote / "dots")
@@ -1283,7 +1297,7 @@ def test_git_session_identity_hook_exports_status_for_welcome(
             "_",
             remote,
         ],
-        env=isolated_env.env,
+        env=isolated_env.env | {"REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY": "1"},
     )
 
     assert_ok(result)
@@ -1309,7 +1323,8 @@ def test_sw_welcome_module_treats_agent_empty_as_information(
         [repo_dir / "shell" / "welcome.d" / "20-sw.sh"],
         env=isolated_env.env
         | {
-            "REMOTE_ENV_DIR": str(repo_dir),
+            "REMOTE_ENV_DIR": str(isolated_env.home / "synthetic-identity-root"),
+            "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY": "1",
             "SSH_AUTH_SOCK": str(isolated_env.home / "agent.sock"),
             "REMOTE_SSH_GIT_SESSION_IDENTITY": "1",
             "REMOTE_SSH_WELCOME_ISSUES_FILE": str(issues_file),
@@ -1361,6 +1376,7 @@ def test_sw_welcome_module_reports_inactive_valid_git_config(
         env=isolated_env.env
         | {
             "REMOTE_ENV_DIR": str(remote),
+            "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY": "1",
             "SSH_AUTH_SOCK": str(isolated_env.home / "agent.sock"),
             "REMOTE_SSH_WELCOME_ISSUES_FILE": str(issues_file),
         },
@@ -1402,6 +1418,7 @@ def test_sw_welcome_module_reports_invalid_and_disabled_git_config(
         env=isolated_env.env
         | {
             "REMOTE_ENV_DIR": str(remote),
+            "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY": "1",
             "SSH_AUTH_SOCK": str(isolated_env.home / "agent.sock"),
         },
     )
@@ -1443,7 +1460,12 @@ def test_sw_welcome_module_reports_unavailable_git(
             "_",
             repo_dir,
         ],
-        env=isolated_env.env | {"REMOTE_SSH_WELCOME_ISSUES_FILE": str(issues_file)},
+        env=isolated_env.env
+        | {
+            "REMOTE_SSH_WELCOME_ISSUES_FILE": str(issues_file),
+            "REMOTE_ENV_DIR": str(isolated_env.home / "synthetic-identity-root"),
+            "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY": "1",
+        },
     )
 
     assert_ok(result)
@@ -1479,6 +1501,7 @@ def test_sw_welcome_module_flags_empty_agent_and_missing_git_config(
         env=isolated_env.env
         | {
             "REMOTE_ENV_DIR": str(remote),
+            "REMOTE_SSH_ENABLE_GIT_SESSION_IDENTITY": "1",
             "SSH_AUTH_SOCK": str(isolated_env.home / "agent.sock"),
             "REMOTE_SSH_WELCOME_ISSUES_FILE": str(issues_file),
         },

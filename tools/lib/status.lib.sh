@@ -18,14 +18,10 @@ fi
 : "${TOOLS_INSTALL_TOOL_DIR:?TOOLS_INSTALL_TOOL_DIR is not set (source tools/lib/env.sh first)}"
 : "${TOOLS_COMMANDS_DIR:?TOOLS_COMMANDS_DIR is not set (source tools/lib/env.sh first)}"
 
-. "$TOOLS_COMMON_DIR/platform.sh"
 . "$TOOLS_COMMON_DIR/release.sh"
-. "$TOOLS_INSTALL_TOOL_DIR/defs.sh"
-. "$TOOLS_INSTALL_TOOL_DIR/assets.sh"
-. "$TOOLS_INSTALL_DIR/expected_tools.sh"
-. "$TOOLS_INSTALL_DIR/tool_inventory.sh"
-. "$TOOLS_INSTALL_DIR/tool_sets.sh"
-. "$TOOLS_COMMANDS_DIR/tool_status.sh"
+. "$TOOLS_LIB_DIR/managed/state.sh"
+. "$TOOLS_LIB_DIR/managed/inventory.sh"
+. "$TOOLS_LIB_DIR/managed/lock.sh"
 . "$TOOLS_COMMANDS_DIR/scripts.sh"
 
 REMOTE_SSH_STATUS_LIB_LOADED=1

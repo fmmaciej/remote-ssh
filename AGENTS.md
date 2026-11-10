@@ -52,16 +52,15 @@ be required on remote hosts.
 
   ```bash
   remote-ssh shell
-  remote-ssh install [tool ...]
-  remote-ssh install --full [--yes]
-  remote-ssh tool install <tool ...>
-  remote-ssh tool list
-  remote-ssh check [--strict] [tool ...]
+  remote-ssh install [--yes] TOOL [TOOL ...]
+  remote-ssh uninstall [--yes] TOOL [TOOL ...]
+  remote-ssh install --profile full [--yes]
+  remote-ssh list
+  remote-ssh check [tool ...]
   remote-ssh git setup
   remote-ssh git status [ssh-host]
   remote-ssh update
   remote-ssh update check
-  remote-ssh doctor
   remote-ssh prune [--apply]
   remote-ssh guide [section]
   remote-ssh help
@@ -109,22 +108,29 @@ be required on remote hosts.
   requires `python3`.
 
 Tool installs are platform-aware. `DEFAULT_TOOLS` is the full candidate list
-used by `remote-ssh install --full`; unsupported entries are skipped with a
+used by `remote-ssh install --profile full`; unsupported entries are skipped with a
 clear report. `runme.sh` keeps an editable `RUNME_TOOLS` bootstrap list for the
 first install. Without arguments it calls `bin/remote-ssh install` with that
 list; with arguments it forwards them to `remote-ssh install` verbatim. Keep
 install option semantics in `remote-ssh install`, not in `runme.sh`.
 `REMOTE_SSH_REF` is the only runme-level selector; it may pin the cloned or
 updated checkout to a branch, tag, or fetchable Git ref before install.
-Installs that choose or reset the expected tool set prompt for confirmation
-unless `--yes` is passed; saved expected-tool reinstalls do not prompt.
+Install/uninstall require explicit names (or an install profile), complete
+validation, preview and TTY confirmation unless `--yes` is given. Bare install
+or uninstall is usage/1 with no state initialization or migration. There are no
+`tool`/`doctor` namespaces or `--full`, `--skip-unsupported`, `--strict` aliases.
 
-The user's maintained tool set is stored as one tool per line in
-`${XDG_CONFIG_HOME:-$HOME/.config}/remote-ssh/expected-tools`. Blank lines and
-`#` comments are ignored. `remote-ssh install`, `remote-ssh update`,
-`remote-ssh check`, and `remote-ssh doctor` use that expected set when no tools
-are provided explicitly. Do not treat this file as cache or generated repo
-state; it is user configuration.
+The prefix-internal automatic state is bound to the physical prefix/bin pair.
+Membership survives missing/broken payloads and definitions. First mutation
+adopts every proven active binary, bundle or library, including alias-only
+installs; inactive releases and expected-only names never become members.
+The old expected-tools file is only a read-only migration hint, never runtime
+selection or desired configuration. Install is additive; update repairs only
+members; completed uninstall removes all proven releases and ends membership.
+All lifecycle entries settle the prior journal before admitting a new batch.
+Reports are read-only, buffered and generation/child-ticket fenced. Prune apply
+locks only the prefix, proves live ownership and honors all-slot/pending claims.
+Never lower recursive deletion proof because a saved payload is missing.
 
 ## Tool Asset Contract
 

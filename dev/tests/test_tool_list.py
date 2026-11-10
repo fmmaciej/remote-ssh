@@ -39,17 +39,22 @@ def list_env(tool_env: ToolStateEnv, runtime_bash: str) -> ToolStateEnv:
 
 
 def list_tools(repo_dir: Path, env: ToolStateEnv, *options: str) -> dict[str, str]:
-    result = run_remote_ssh(repo_dir, ["tool", "list", *options], env=env.env)
+    result = run_remote_ssh(repo_dir, ["list", *options], env=env.env)
     assert_ok(result)
     assert result.stderr == ""
-    if result.stdout == "No tools found.\n":
-        return {}
     lines = [line.split() for line in result.stdout.splitlines()]
-    assert lines[0] == ["TOOL", "STATUS"]
-    assert all(len(row) == 2 for row in lines[1:])
-    names = [row[0] for row in lines[1:]]
+    header = next(i for i, row in enumerate(lines) if row and row[0] == "TOOL")
+    rows = [row for row in lines[header + 1 :] if row and row[0] != "No"]
+    names = [row[0] for row in rows]
     assert names == sorted(set(names))
-    return dict(lines[1:])
+    return {
+        row[0]: "installed"
+        if "installed" in row[3:]
+        else "unsupported"
+        if row[2] == "unsupported"
+        else "available"
+        for row in rows
+    }
 
 
 def test_list_uses_full_catalogue_without_configuration(
@@ -82,7 +87,12 @@ def test_all_lists_every_definition(repo_dir: Path, list_env: ToolStateEnv) -> N
     ],
 )
 def test_list_filters_for_detected_platform(
-    repo_dir: Path, list_env: ToolStateEnv, system: str, arch: str, libc: str, vector: str
+    repo_dir: Path,
+    list_env: ToolStateEnv,
+    system: str,
+    arch: str,
+    libc: str,
+    vector: str,
 ) -> None:
     set_platform(list_env, system, arch, libc)
 
@@ -110,7 +120,9 @@ def test_list_installed_includes_older_managed_versions(
 def test_relative_bundle_link_is_installed_without_alias_rows(
     repo_dir: Path, list_env: ToolStateEnv
 ) -> None:
-    executable = make_managed_tool(list_env, "nu", "0.112.2", binary="bin/nu", link_name="nu")
+    executable = make_managed_tool(
+        list_env, "nu", "0.112.2", binary="bin/nu", link_name="nu"
+    )
     mark_managed_release(
         executable.parent.parent, "nu", "0.112.2", executable="bin/nu", layout="bundle"
     )
@@ -157,14 +169,18 @@ def test_invalid_or_unmanaged_installation_is_not_installed(
         write_executable(link, "#!/bin/sh\nexit 0\n")
 
     assert list_tools(repo_dir, list_env)["rg"] == "available"
-    assert list_tools(repo_dir, list_env, "--installed") == {}
+    assert list_tools(repo_dir, list_env, "--installed") == (
+        {"rg": "available"} if state == "not-executable" else {}
+    )
 
 
 def test_expected_selection_does_not_affect_list_or_change(
     repo_dir: Path, list_env: ToolStateEnv
 ) -> None:
     before = list_tools(repo_dir, list_env)
-    config = write_expected_tools(list_env, ["# custom selection", "rg", "unknown-tool"])
+    config = write_expected_tools(
+        list_env, ["# custom selection", "rg", "unknown-tool"]
+    )
     original = config.read_bytes()
     config.chmod(0o444)
 
@@ -175,9 +191,13 @@ def test_expected_selection_does_not_affect_list_or_change(
     assert config.stat().st_mode & 0o777 == 0o444
 
 
-def test_listing_does_not_execute_installed_binary(repo_dir: Path, list_env: ToolStateEnv) -> None:
+def test_listing_does_not_execute_installed_binary(
+    repo_dir: Path, list_env: ToolStateEnv
+) -> None:
     sentinel = list_env.home / "executed"
-    make_managed_tool(list_env, "rg", "15.1.0", content=f'#!/bin/sh\ntouch "{sentinel}"\n')
+    make_managed_tool(
+        list_env, "rg", "15.1.0", content=f'#!/bin/sh\ntouch "{sentinel}"\n'
+    )
 
     assert list_tools(repo_dir, list_env)["rg"] == "installed"
     assert not sentinel.exists()
@@ -202,13 +222,14 @@ def test_empty_results_do_not_create_install_directories(
 )
 def test_list_help(repo_dir: Path, list_env: ToolStateEnv, options: list[str]) -> None:
     sentinel = list_env.home / "platform-detected"
-    write_executable(list_env.bin_dir / "uname", f'#!/bin/sh\ntouch "{sentinel}"\nexit 1\n')
-    result = run_remote_ssh(repo_dir, ["tool", "list", *options], env=list_env.env)
+    write_executable(
+        list_env.bin_dir / "uname", f'#!/bin/sh\ntouch "{sentinel}"\nexit 1\n'
+    )
+    result = run_remote_ssh(repo_dir, ["list", *options], env=list_env.env)
 
     assert_ok(result)
     assert result.stderr == ""
-    assert "Usage: remote-ssh tool list [--installed | --all]" in result.stdout
-    assert "remote-ssh check" in result.stdout
+    assert "Usage: remote-ssh list [--installed | --all]" in result.stdout
     assert not sentinel.exists()
 
 
@@ -234,8 +255,8 @@ def test_list_help(repo_dir: Path, list_env: ToolStateEnv, options: list[str]) -
 def test_list_rejects_invalid_arguments(
     repo_dir: Path, list_env: ToolStateEnv, options: list[str]
 ) -> None:
-    result = run_remote_ssh(repo_dir, ["tool", "list", *options], env=list_env.env)
+    result = run_remote_ssh(repo_dir, ["list", *options], env=list_env.env)
 
     assert_failed(result)
     assert result.stdout == ""
-    assert "remote-ssh tool list:" in result.stderr
+    assert result.stderr

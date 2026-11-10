@@ -9,8 +9,8 @@ helpers remain shell commands/functions. It adds no executable wrapper.
 `rcrc` preserves the selected editor/history backend; start a new disabled
 shell with `REMOTE_SSH_ENABLE_FLYLINE=0 remote-ssh shell` to return to Readline.
 
-- `remote-ssh`: main entrypoint for setup, install, uninstall, check, ssh, git,
-  update, doctor, prune, and scripts.
+- `remote-ssh`: main entrypoint for setup, install, uninstall, list, check, ssh, git,
+  update, prune, and scripts.
 - `remote-ssh guide`: show loaded aliases, functions, paths, tools, and Git/SSH
   notes.
 - `remote-ssh guide starship`: explain the bundled Starship prompt symbols.
